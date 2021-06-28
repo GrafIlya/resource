@@ -1,0 +1,7 @@
+//Serial	NPC Name	NPC Type	Chrindex ID	Show Mini-map	Coordinates starting point	Coordination Goal	NPC placement	Region	Region ID	NPC Script	info manage	Test Status
+
+58	Снеговик  	1	1052	7	3600,3500	3600,3500	180	Argent City	103	0	rubka7	0
+21	Ёлочка	1	782	6	4000,3500	4000,3500	180	Argent City	1	0	rubka1	0
+87	Дедушка Мороз	1	929	6	4400,3500	4400,3500	180	Argent City	1	0	rubka2	0
+57	Инсайд кольца на Лут	1	1053	6	4600,3500	4600,3500	180	Argent City	1	0	rubka4	0
+110	Обменник New Year	1	1193	6	4800,3500	4800,3500	180	Argent City	1	0	rubka5	0
