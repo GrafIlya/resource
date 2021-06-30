@@ -1,108 +1,108 @@
 --------------------------------------------------------------------------
 --									--
 --									--
---		MissionSdk.lua Created by knight 2004.12.10.		--
+--				MissionSdk.lua				--
 --									--
 --任务系统函数接口定义							--
 --------------------------------------------------------------------------
 print( "Loading MissionSdk.lua" )
 
 
---脚本系统返回值定义
+--竲セ╰参﹚竡
 LUA_TRUE 			= 1
 LUA_FALSE			= 0
 LUA_ERROR			= -1
 LUA_NULL			= 0
 
---任务系统脚本
-TE_MAPINIT			= 0			--出生
-TE_NPC				= 1			--npc携带
-TE_KILL				= 2			--摧毁物件
-TE_GAMETIME			= 3			--游戏时间
-TE_CHAT				= 4			--聊天关键字
-TE_GETITEM			= 5			--拾取物品
-TE_EQUIPITEM			= 6			--装备物品
-TE_GOTO_MAP   			= 7			--到达目标点	（角色触发器存储）参数1，地图ID， 参数2，地图到达随机率，参数3，地图坐标x，参数4, 地图坐标y
-TE_LEVELUP      		= 8			--升级			（角色触发器存储）参数1，是否主动关闭（触发器动作后关闭），参数2，是否每个等级都触发，参数3，指定等级触发
+--ヴ叭╰参竲セ
+TE_MAPINIT		= 0			--ネ
+TE_NPC				= 1			--npc拟盿
+TE_KILL				= 2			--篟反ン
+TE_GAMETIME		= 3			--笴栏丁
+TE_CHAT			= 4			--册ぱ闽龄
+TE_GETITEM		= 5			--珺珇
+TE_EQUIPITEM	= 6			--杆称珇
+TE_GOTO_MAP    = 7			--笷ヘ夹翴	à︹牟祇竟纗把计1瓜ID 把计2瓜笷radom 瞯把计3瓜Г夹x把计4, 瓜Г夹y
+TE_LEVELUP      	= 8			--ど			à︹牟祇竟纗把计1琌笆闽超牟祇竟笆闽超把计2琌–单常牟祇把计3﹚单牟祇
 
---触发器时间类型
-TT_CYCLETIME			= 0			--时间循环
-TT_MULTITIME			= 1			--循环运行n次
+--牟祇竟丁摸
+TT_CYCLETIME	= 0			--丁碻吏
+TT_MULTITIME	= 1			--碻吏笲︽nΩ
 		
---触发器最大携带条件数量
+--牟祇竟程拟盿兵ン计秖
 TR_MAXNUM_CONDITIONS		= 12
-TR_MAXNUM_ACTIONS		= 12
+TR_MAXNUM_ACTIONS			= 12
 
---npc任务状态信息定义
-MIS_ACCEPT      		= 1			--有符合条件可以接的任务
-MIS_DELIVERY    		= 2			--已完成可交付的任务
-MIS_PENDING			= 4			--已完成可交付的任务
-MIS_IGNORE			= 8			--不符合条件可以接的任务
+--npcヴ叭篈獺﹚竡
+MIS_ACCEPT       = 1			--Τ才兵ン钡ヴ叭
+MIS_DELIVERY     = 2			--ЧΘユヴ叭
+MIS_PENDING		= 4			--ЧΘユヴ叭
+MIS_IGNORE		= 8			--ぃ才兵ン钡ヴ叭
 
---任务列表页操作命令
-MIS_PREV			= 0			--请求发送任务列表的上一页信息
-MIS_NEXT			= 1			--请求发送任务列表的下一页信息
-MIS_PREV_END			= 2			--任务列表没有上一页信息
-MIS_NEXT_END			= 3			--任务列表没有下一页信息
-MIS_SEL				= 4			--请求选择任务列表项目
-MIS_TALK			= 5			--请求任务对话信息
-MIS_BTNACCEPT			= 6			--请求接受任务
-MIS_BTNDELIVERY			= 7			--请求交付任务
-MIS_BTNPENDING			= 8			--未决任务请求（客户端禁止按钮）
-MIS_LOG				= 9			--请求任务日志信息
+--ヴ叭巨㏑
+MIS_PREV			= 0			--叫―祇癳ヴ叭獺
+MIS_NEXT			= 1			--叫―祇癳ヴ叭獺
+MIS_PREV_END	= 2			--ヴ叭⊿Τ獺
+MIS_NEXT_END	= 3			--ヴ叭⊿Τ獺
+MIS_SEL				= 4			--叫―匡拒ヴ叭兜ヘ
+MIS_TALK			= 5			--叫―ヴ叭癸杠獺
+MIS_BTNACCEPT	= 6			--叫―钡ヴ叭
+MIS_BTNDELIVERY= 7			--叫―ユヴ叭
+MIS_BTNPENDING	= 8			--ゼ∕ヴ叭叫―め狠窽ゎ秙
+MIS_LOG			= 9			--叫―ヴ叭ら粁獺
 
---任务信息定义
---完成 任务需求类型定义
-MIS_NEED_ITEM			= 0		--需要获取物品
-MIS_NEED_KILL			= 1		--需要摧毁物件
-MIS_NEED_SEND			= 2      	--需要送给某人
-MIS_NEED_CONVOY			= 3 		--需要护送到某的
-MIS_NEED_EXPLORE		= 4		--需要探索某的
-MIS_NEED_DESP			= 5		--文字表述的任务目标
+--ヴ叭獺﹚竡
+--ЧΘ ヴ叭惠―摸﹚竡
+MIS_NEED_ITEM		= 0		--惠璶莉珇
+MIS_NEED_KILL		= 1		--惠璶篟反ン
+MIS_NEED_SEND		= 2        --惠璶癳倒琘
+MIS_NEED_CONVOY	= 3 		--惠璶臔癳琘
+MIS_NEED_EXPLORE = 4		--惠璶贝琘
+MIS_NEED_DESP		= 5		--ゅ瓃ヴ叭ヘ夹
 
---完成任务奖励类型定义
-MIS_PRIZE_ITEM			= 0		--奖励物品
-MIS_PRIZE_MONEY			= 1		--奖励金钱
-MIS_PRIZE_FAME			= 2		--奖励声望
-MIS_PRIZE_CESS			= 3		--奖励贸易税率
-MIS_PRIZE_PETEXP 		= 4		--奖励宠物经验值
+--ЧΘヴ叭贱纘摸﹚竡
+MIS_PRIZE_ITEM		= 0		--贱纘珇
+MIS_PRIZE_MONEY	= 1		--贱纘窥
+MIS_PRIZE_FAME		= 2		--贱纘羘辨
+MIS_PRIZE_CESS		= 3		--贱纘禩祙瞯
+MIS_PRIZE_PETEXP  = 4		--贱纘胐竒喷
 
---角色职业类型
-MIS_NOVICE			= 0		--Newbie
-MIS_FENCER			= 1		--Swordsman
-MIS_HUNTER			= 2		--Hunter
-MIS_EXPERIENCED			= 2		--Sailor
-MIS_RISKER			= 4		--Explorer
-MIS_DOCTOR			= 5		--Herbalist
-MIS_TECHNICIAN			= 6		--Artisan
-MIS_TRADER			= 7		--Merchant
-MIS_LARGE_FENCER  		= 8		--Champion
-MIS_TWO_FENCER    		= 9		--Crusader
-MIS_SHIELD_FENCER 		= 10		--White Knight
-MIS_WILD_ANIMAL_TRAINER		= 11 		--Animal Tamer
-MIS_GUNMAN			= 12     	--Sharpshooter
-MIS_CLERGY			= 13		--Cleric
-MIS_SEALER			= 14		--Seal Master
-MIS_SHIPMASTER			= 15		--Captain
-MIS_VOYAGE			= 16		--Voyager
-MIS_ARRIVISTE			= 17		--Upstart
-MIS_ENGINEER			= 18		--Engineer
+--à︹戮穨摸
+MIS_NOVICE			= 0		--穝も
+MIS_FENCER			= 1		--糃
+MIS_HUNTER			= 2		--聐
+MIS_EXPERIENCED	= 2		--も
+MIS_RISKER			= 4		--玙繧
+MIS_DOCTOR			= 5		--洛ネ(腀ㄏ)
+MIS_TECHNICIAN		= 6		--м畍
+MIS_TRADER			= 7		--坝
+MIS_LARGE_FENCER  = 8		--エ糃
+MIS_TWO_FENCER    = 9		--蛮糃
+MIS_SHIELD_FENCER = 10		--糃
+MIS_WILD_ANIMAL_TRAINER = 11 --攻脋畍
+MIS_GUNMAN			= 12      --阑も
+MIS_CLERGY			= 13		--竧戮
+MIS_SEALER			= 14		--畍
+MIS_SHIPMASTER	= 15		--差
+MIS_VOYAGE			= 16		--
+MIS_ARRIVISTE		= 17		--忌祇め
+MIS_ENGINEER			= 18		--祘畍
 
---公会类型
-MIS_GUILD_NAVY			= 0		--海军公会
-MIS_GUILD_PIRATE  		= 1		--海盗公会
+--そ穦摸
+MIS_GUILD_NAVY		= 0		--瓁そ穦
+MIS_GUILD_PIRATE   = 1		--祍そ穦
 
---永远为假
+--ッ环安
 function AlwaysFailure()
 	return LUA_FALSE
 end
 
---永久为真
+--ッ痷
 function AlwaysTrue()
 	return LUA_TRUE
 end
 
---没有历史标签
+--⊿Τ菌夹乓
 function NoRecord( character, record )
 	if record == nil then
 		SystemNotice( character, "NoRecord:Function parameter error!" )
@@ -110,7 +110,7 @@ function NoRecord( character, record )
 	end
 	local ret = IsValidRecord( character, record )
 	if ret == LUA_FALSE then
-		SystemNotice( character, "NoRecord: Invalid story record index error or character index error!" )
+		SystemNotice( character, "NoRecord:Invalid story record index error or character index error!" )
 		return LUA_ERROR
 	end
 	
@@ -121,10 +121,10 @@ function NoRecord( character, record )
 	return LUA_FALSE
 end
 
---检测技能状态
+--浪代м篈
 function HasState( character, state_id )
 	if state_id == nil then
-		SystemNotice( character, "HasState:函数参数错误！" )
+		SystemNotice( character, "HasState:Function parameter error!" )
 		return LUA_ERROR
 	end
 	
@@ -137,10 +137,10 @@ function HasState( character, state_id )
 	return LUA_FALSE
 end
 
---检测角色体型
+--浪代à︹砰
 function IsChaType( character, type_id )
 	if type_id == nil then
-		SystemNotice( character, "IsChaType:函数参数错误！" )
+		SystemNotice( character, "IsChaType:Function parameter error!" )
 		return LUA_ERROR
 	end
 	
@@ -151,10 +151,10 @@ function IsChaType( character, type_id )
 	return LUA_FALSE
 end
 
---检测不是角色体型
+--浪代ぃ琌à︹砰
 function NoChaType( character, type_id )
 	if type_id == nil then
-		SystemNotice( character, "NoChaType:函数参数错误！" )
+		SystemNotice( character, "NoChaType:Function parameter error!" )
 		return LUA_ERROR
 	end
 	
@@ -164,12 +164,12 @@ function NoChaType( character, type_id )
 	end
 	return LUA_FALSE
 end
---播放特效
+--冀疭
 function Starteffect( character, npc, tp )
 		
 	if tp == nil then
-		PRINT( "Starteffect:函数参数错误！" )
-		SystemNotice( character, "Starteffect:函数参数错误！" )
+		PRINT( "Starteffect:Function parameter error!" )
+		SystemNotice( character, "Starteffect:Function parameter error!" )
 		return LUA_ERROR	
 	end
 	
@@ -177,21 +177,21 @@ function Starteffect( character, npc, tp )
 	PlayEffect( npc, tp )
 	return LUA_TRUE
 end
---是否有历史标签
+--琌Τ菌夹乓
 function HasRecord( character, record )
 	if record == nil then
-		SystemNotice( character, "HasRecord: Function parameter error!" )
+		SystemNotice( character, "HasRecord:Function parameter error!" )
 		return LUA_ERROR
 	end
 	local ret = IsValidRecord( character, record )
 	if ret == LUA_FALSE then
-		SystemNotice( character, "HasRecord: invalid history quest record index error or character index error!" )
+		SystemNotice( character, "HasRecord:Invalid story record index error or character index error!" )
 		return LUA_ERROR
 	end
 	return IsRecord( character, record )
 end
 
---没有任务记录标签
+--⊿Τヴ叭癘魁夹乓
 function NoFlag( character, id, flag )
 	if id == nil or flag == nil then
 		SystemNotice( character, "NoFlag:Function parameter error!" )
@@ -199,7 +199,7 @@ function NoFlag( character, id, flag )
 	end	
 	local ret = IsValidFlag( character, flag )
 	if ret == LUA_FALSE then
-		SystemNotice( character, "NoFlag: Invalid quest record index error or character index error!" )
+		SystemNotice( character, "NoFlag:Invalid quest record index error or character index error!" )
 		return LUA_ERROR
 	end
 	ret = IsFlag( character, id, flag )
@@ -209,7 +209,7 @@ function NoFlag( character, id, flag )
 	return LUA_TRUE
 end
 
---不能有该任务护送NPC
+--ぃΤ赣ヴ叭臔癳NPC
 function NoConvoyNpc( character, misid )
 	if misid == nil then
 		SystemNotice( character, "NoConvoyNpc:Function parameter error!" )
@@ -224,7 +224,7 @@ function NoConvoyNpc( character, misid )
 	return LUA_TRUE
 end
 
---随机任务送物件给npc时，判断是否npc已经接受过该物品
+--radom ヴ叭癳ン倒npc耞琌npc竒钡筁赣珇
 --function NoRandNpcItemFlag( character, misid, npcid )
 --	if misid == nil or npcid == nil then
 --		SystemNotice( character, "NoRandNpcItemFlag:Function parameter error!" )
@@ -238,7 +238,7 @@ end
 --	return LUA_TRUE
 --end
 
---没有任务标签
+--⊿Τヴ叭夹乓
 function NoMission( character, id )
 	if id == nil then
 		SystemNotice( character, "NoMission:Function parameter error!" )
@@ -251,7 +251,7 @@ function NoMission( character, id )
 	return LUA_TRUE
 end
 
---没有指定得随机任务
+--⊿Τ﹚眔radom ヴ叭
 function NoRandMission( character, id )
 	if id == nil then
 		SystemNotice( character, "NoRandMission:function parameter error" )
@@ -265,10 +265,10 @@ function NoRandMission( character, id )
 	return LUA_TRUE
 end
 
---任务没有失败
+--ヴ叭⊿Τア毖
 function NoMisssionFailure( character, id )
 	if id == nil then
-		SystemNotice( character, "NoMisssionFailure:functionparameter error " )
+		SystemNotice( character, "NoMisssionFailure:function parameter error" )
 		return LUA_ERROR
 	end
 	
@@ -303,7 +303,7 @@ function NoPfEqual( character, pf )
 	return LUA_TRUE
 end
 
---添加指定的下一个任务记录标签
+--睰﹚ヴ叭癘魁夹乓
 function AddNextFlag( character, id, startflag, count )
 	if id == nil or startflag == nil or count == nil then
 		SystemNotice( character, "AddNextFlag:Function parameter error!" )
@@ -315,7 +315,7 @@ function AddNextFlag( character, id, startflag, count )
 			PRINT( "AddNextFlag: flag = ", startflag + num )
 			ret = SetFlag( character, id, startflag + num )
 			if ret ~= LUA_TRUE then
-				SystemNotice( character, "AddNextFlag: Unable to set quest record label notice error!" )
+				SystemNotice( character, "AddNextFlag:Unable to set quest record label notice error!" )
 				return LUA_ERROR
 			end
 			return LUA_TRUE
@@ -325,7 +325,7 @@ function AddNextFlag( character, id, startflag, count )
 	return LUA_TRUE
 end
 
---设置下一个随机任务记录标签
+--砞竚radom ヴ叭癘魁夹乓
 function AddRMNextFlag( character, id, startflag, count )
 	if id == nil or startflag == nil or count == nil then
 		SystemNotice( character, "AddRMNextFlag:Function parameter error!" )
@@ -337,7 +337,7 @@ function AddRMNextFlag( character, id, startflag, count )
 			PRINT( "AddRMNextFlag: flag = ", startflag + num )
 			ret = SetFlag( character, id, startflag + num )
 			if ret ~= LUA_TRUE then
-				SystemNotice( character, "AddRMNextFlag: Unable to set quest record label notice error!" )
+				SystemNotice( character, "AddRMNextFlag:Unable to set quest record label notice error!" )
 				return LUA_ERROR
 			end
 			return LUA_TRUE
@@ -346,7 +346,7 @@ function AddRMNextFlag( character, id, startflag, count )
 	end
 	return LUA_TRUE
 end
------------船或者在这个港口或者在那个港口
+-----------差┪硂翠┪ê翠
 -- function HasAllBoatInBerth_eitheror( character, p1, p2 )
 -- 	local ret1 = HasAllBoatInBerth( character, p1 )
 --	local ret2 = HasAllBoatInBerth( character, p2 )
@@ -361,7 +361,7 @@ end
 --		return LUA_TRUE
 --	end
 -- end
---检测任务记录标签信息
+--浪代ヴ叭癘魁夹乓獺
 function HasFlag( character, id, flag )
 	if id == nil or flag == nil then
 		SystemNotice( character, "HasFlag:Function parameter error!" )
@@ -369,17 +369,17 @@ function HasFlag( character, id, flag )
 	end
 	local ret = IsValidFlag( character, flag )
 	if ret ~= LUA_TRUE then
-		SystemNotice( character, "HasFlag:Invalid quest record label error!" )
+		SystemNotice( character, "HasFlag:Function parameter error!" )
 		return LUA_ERROR
 	end
 	ret = IsFlag( character, id, flag )
 	return ret
 end
 
---检测一个序列的任务记录标签信息
+--浪代ヴ叭癘魁夹乓獺
 function HasAllFlag( character, id, startflag, count )
 	if id == nil or startflag == nil or count then
-		SystemNotice( character, "HasAllFlag: Function parameter error!" )
+		SystemNotice( character, "HasAllFlag:Function parameter error!" )
 		return LUA_ERROR
 	end
 	local num = 0
@@ -393,7 +393,7 @@ function HasAllFlag( character, id, startflag, count )
 	return LUA_TRUE
 end
 
---获取一个序列的任务标签记录数量信息
+--莉ヴ叭夹乓癘魁计秖獺
 function GetNumFlag( character, id, startflag, count )
 	if id == nil or startflag == nil or count == nil then
 		SystemNotice( character, "GetNumFlag:Function parameter error!" )
@@ -410,11 +410,10 @@ function GetNumFlag( character, id, startflag, count )
 	return num
 end
 
---检验值
+--浪喷
 function IsValue( id1, id2 )
 	if id1 == nil or id2 == nil then
-		PRINT( "IsValue: Function parameter error!" )
-		LG( "mission_error", "IsValue: Function parameter error!" )
+		PRINT( "IsValue:Function parameter error!" )
 		return LUA_ERROR
 	end
 	if id1 == id2 then
@@ -423,19 +422,19 @@ function IsValue( id1, id2 )
 	return LUA_FALSE
 end
 
---检测是否是指定的怪物类型
+--浪代琌琌﹚┣摸
 function IsMonster( id1, id2 )
 	return IsValue( id1, id2 )
 end
 
---检测是否指定的物品类型
+--浪代琌﹚珇摸
 function IsItem( id1, id2 )
 	return IsValue( id1, id2 )
 end
 
 function NoItem( character, itemid, count )
 	if itemid == nil or count == nil then
-		PRINT( "NoItem: parameter error!" )
+		PRINT( "NoItem:parameter error!" )
 		return LUA_ERROR
 	end
 	
@@ -449,7 +448,7 @@ end
 
 function BankNoItem( character, itemid, count )
 	if itemid == nil or count == nil then
-		PRINT( "BankNoItem:参数错误！" )
+		PRINT( "BankNoItem:parameter error!" )
 		return LUA_ERROR
 	end
 	
@@ -463,7 +462,7 @@ end
 
 function EquipNoItem( character, itemid, count )
 	if itemid == nil or count == nil then
-		PRINT( "EquipNoItem:参数错误！" )
+		PRINT( "EquipNoItem:parameter error!" )
 		return LUA_ERROR
 	end
 	
@@ -475,7 +474,7 @@ function EquipNoItem( character, itemid, count )
 	return LUA_TRUE
 end
 
-----Leo的声望函数判断，判断角色声上是否有固定枝的声望
+----Leo羘辨ㄧ计耞耞à︹羘琌Τ㏕﹚狵羘辨
 function HasCredit(character,value)
 	local Role_Credit = GetCredit(character)
 	if value > Role_Credit then
@@ -488,7 +487,7 @@ end
 
 --Leo end
 
-----Leo的声望扣除，扣除角色声上的声望
+----Leo羘辨Ι埃Ι埃à︹羘羘辨
 function DelRoleCredit(character,npc,value)
 	DelCredit(character,value)
 	return LUA_TRUE
@@ -496,85 +495,72 @@ end
 --Leo end
 
 
--------------------死亡证明----------missdk
+-------------------靡----------missdk
 function CheckPoint (character,value)
 		--SystemNotice( character , "value=="..value)
 	local i= CheckBagItem( character, value )
-	if i~=1 and value == 2954 then
-		SystemNotice( character , "请确保您身上有1张死亡证明")
-	return LUA_FALSE
-	end
-	if i~=1 and value == 5803 then
-		SystemNotice( character , "请确保您身上有1本无谓之证")
+	if i~=1 then
+		SystemNotice( character , "Please ensure you have at least 1 Proof of Death on you")
 	return LUA_FALSE
 	end
 	local Point_dead = GetChaItem2 ( character , 2 , value )
 	local Point = GetItemAttr(Point_dead, ITEMATTR_VAL_STR)
-	local Point_Kill = GetItemAttr(Point_dead , ITEMATTR_VAL_AGI)
-		--SystemNotice( character , "您死了"..Point.."次")
-	if Point < 41 and value == 2954 then
-		SystemNotice( character , "请确保您死了足够多次")
-		return LUA_FALSE		
-	end
-	if Point_Kill < 10 and value == 5803 then
-		SystemNotice( character , "请确保您已经杀足够多的人了")
-		return LUA_FALSE		
+		--SystemNotice( character , "眤"..Point.."Ω")
+	if Point<41 then
+		SystemNotice( character , "Please ensure that you have died enough times")
+		return LUA_FALSE
+		
 	end
 	return LUA_TRUE
 end
 		
---------------------判断背包内无某种道具
+--------------------耞璉ず礚琘贺笵ㄣ
 function HaveNoItem (character,value)
 		--SystemNotice( character , "value=="..value)
 	local i= CheckBagItem( character, value )
 	--SystemNotice( character , "i=="..i)
-	if i~=0 and value == 2954 then
-		SystemNotice( character , "请确保您身上没有死亡证明")
-		return LUA_FALSE
-	end
-	if i~=0 and value == 5803 then
-		SystemNotice( character , "请确保您身上没有无谓之证")
+	if i~=0 then
+		SystemNotice( character , "Please ensure that you do not have any Proof of Death")
 		return LUA_FALSE
 	end
 	return LUA_TRUE
 end
-
-----给角色背包固定位置添加道具
+----倒à︹璉㏕﹚竚睰笵ㄣ
 function AddChaItem1(character,npc,value)
 	--SystemNotice( character ,"value=="..value)		
 	local item_number = CheckBagItem( character, value )			
 	if item_number >=1 then
-		SystemNotice( character ,"您已经有挑战书了")
+		SystemNotice( character ,"You already possess a Challenge Letter")
 		return LUA_FALSE 
 	end
-	------------判断背包第一栏是否为空
+	------------耞璉材逆琌
 	--local item1=GetItemP(character,0)
 	--local itemid1=GetItemID( item1 )
 	--if itemid1==0 or itemid1==nil then
-	--	SystemNotice( character, "请把背包第一栏的物品移开" )
+	--	SystemNotice( character, "叫р璉材逆珇簿秨" )
 	--	return LUA_FALSE
 	--end
 
-	------------取挑战书的指针
+	------------珼驹皐
 	local r1=0
 	local r2=0
 		--SystemNotice( character ,"r1=="..r1)
 	r1,r2 =MakeItem ( character , value  , 1 , 4 )
 	local Item_new = GetChaItem ( character , 2 , r2 )
 
-	----------记录时间
-	local now_yes = os.date("%y")		-------------年
-	local now_month= os.date("%m")		-------------月
-	local now_day= os.date("%d")		-------------日
-	local now_hour= os.date("%H")		-------------时
-	local now_miniute= os.date("%M")	-------------分
-	local now_scend=  os.date("%S")		-------------秒
-	now_yes = tonumber(now_yes)			-------------年     
-	now_month= tonumber(now_month)		-------------月     
-	now_day= tonumber(now_day)			-------------日     
-	now_hour= tonumber(now_hour)			-------------时     
-	now_miniute= tonumber(now_miniute)	 	-------------分     
-	now_scend= tonumber(now_scend)		-------------秒     
+	----------癘魁丁
+	local now_yes = os.date("%y")		-------------
+	local now_month= os.date("%m")		-------------る
+	local now_day= os.date("%d")		-------------ら
+	local now_hour= os.date("%H")		-------------
+	local now_miniute= os.date("%M")	-------------だ
+	local now_scend=  os.date("%S")		-------------
+	now_yes = tonumber(now_yes)			-------------     
+	now_month= tonumber(now_month)		-------------る     
+	now_day= tonumber(now_day)			-------------ら     
+	now_hour= tonumber(now_hour)			-------------     
+	now_miniute= tonumber(now_miniute)	 	-------------だ     
+	now_scend= tonumber(now_scend)		-------------     
 	--local CheckDateNum = NowMonthNum * 10000 + NowDayNum * 100 + NowTimeNum
 	--SystemNotice ( character , "now_yes=="..now_yes )
 	--SystemNotice ( character , "now_month=="..now_month )
@@ -582,40 +568,40 @@ function AddChaItem1(character,npc,value)
 	--SystemNotice ( character , "now_hour=="..now_hour )
 	--SystemNotice ( character , "now_miniute=="..now_miniute )
 	--SystemNotice ( character , "now_scend=="..now_scend )
-	SetItemAttr(Item_new, ITEMATTR_VAL_STA, now_month )		-------------月 	
-	SetItemAttr(Item_new, ITEMATTR_VAL_STR, now_day )		-------------日  
-	SetItemAttr(Item_new, ITEMATTR_VAL_CON, now_hour )		-------------时   
-	SetItemAttr(Item_new, ITEMATTR_VAL_DEX, now_miniute )		-------------分   
-	SetItemAttr(Item_new, ITEMATTR_VAL_AGI, now_scend )		-------------秒 
+	SetItemAttr(Item_new, ITEMATTR_VAL_STA, now_month )		-------------る 	
+	SetItemAttr(Item_new, ITEMATTR_VAL_STR, now_day )		-------------ら  
+	SetItemAttr(Item_new, ITEMATTR_VAL_CON, now_hour )		-------------   
+	SetItemAttr(Item_new, ITEMATTR_VAL_DEX, now_miniute )		-------------だ   
+	SetItemAttr(Item_new, ITEMATTR_VAL_AGI, now_scend )		------------- 
 	SynChaKitbag(character,13)
 	return LUA_TRUE
 end
 function AddChaItem2(character,npc,value)
 	local cha = ChaIsBoat ( character ) 
 	if cha ==1 then
-		SystemNotice( character ,"您需要上岸才能还吉尼斯任务")
+		SystemNotice( character ,"You need to land to complete Genesis quest")
 		return LUA_FALSE 
 	end	
-	------------取挑战书的指针
+	------------珼驹皐
 	local item1=GetItemP(character,0)
 	local itemid1=GetItemID( item1 )
 	if itemid1~=2911 then
-		SystemNotice( character, "请把挑战书放在背包第一栏" )
+		SystemNotice( character, "Please place the Challenge Letter in the 1st slot of your inventory." )
 		return LUA_FALSE
 	end
-	----------记录时间
-	local now_yes = os.date("%y")			-------------年
-	local now_month= os.date("%m")			-------------月
-	local now_day= os.date("%d")			-------------日
-	local now_hour= os.date("%H")			-------------时
-	local now_miniute= os.date("%M")		-------------分
-	local now_scend=  os.date("%S")			-------------秒
-	now_yes = tonumber(now_yes)			-------------年     
-	now_month= tonumber(now_month)		-------------月     
-	now_day= tonumber(now_day)			-------------日     
-	now_hour= tonumber(now_hour)			-------------时     
-	now_miniute= tonumber(now_miniute)	 	-------------分     
-	now_scend= tonumber(now_scend)		-------------秒     
+	----------癘魁丁
+	local now_yes = os.date("%y")			-------------
+	local now_month= os.date("%m")			-------------る
+	local now_day= os.date("%d")			-------------ら
+	local now_hour= os.date("%H")			-------------
+	local now_miniute= os.date("%M")		-------------だ
+	local now_scend=  os.date("%S")			-------------
+	now_yes = tonumber(now_yes)			-------------     
+	now_month= tonumber(now_month)		-------------る     
+	now_day= tonumber(now_day)			-------------ら     
+	now_hour= tonumber(now_hour)			-------------     
+	now_miniute= tonumber(now_miniute)	 	-------------だ     
+	now_scend= tonumber(now_scend)		-------------     
 	--SystemNotice ( character , "now_yes=="..now_yes )
 	--SystemNotice ( character , "now_month=="..now_month )
 	--SystemNotice ( character , "now_day=="..now_day )
@@ -624,22 +610,22 @@ function AddChaItem2(character,npc,value)
 	--SystemNotice ( character , "now_scend=="..now_scend )
 
 	local item_old=GetItemP(character,0)
-	---------去好汉书的时间	
-	local old_month = GetItemAttr(item_old, ITEMATTR_VAL_STA)		-------------月 	
-	local old_day = GetItemAttr(item_old, ITEMATTR_VAL_STR)			-------------日  
-	local old_hour = GetItemAttr(item_old, ITEMATTR_VAL_CON)			-------------时   
-	local old_miniute = GetItemAttr(item_old, ITEMATTR_VAL_DEX)		-------------分   
-	local old_scend = GetItemAttr(item_old, ITEMATTR_VAL_AGI)			-------------秒 
+	---------簙丁	
+	local old_month = GetItemAttr(item_old, ITEMATTR_VAL_STA)		-------------る 	
+	local old_day = GetItemAttr(item_old, ITEMATTR_VAL_STR)			-------------ら  
+	local old_hour = GetItemAttr(item_old, ITEMATTR_VAL_CON)			-------------   
+	local old_miniute = GetItemAttr(item_old, ITEMATTR_VAL_DEX)		-------------だ   
+	local old_scend = GetItemAttr(item_old, ITEMATTR_VAL_AGI)			------------- 
 	--SystemNotice ( character , "old_month=="..old_month )
 	--SystemNotice ( character , "old_day=="..old_day )       
 	--SystemNotice ( character , "old_hour=="..old_hour )    
 	--SystemNotice ( character , "old_miniute=="..old_miniute)
 	--SystemNotice ( character , "old_scend=="..old_scend ) 
 
-	---------删除挑战书
+	---------埃珼驹
 	local del_item =TakeItem( character, 0,2911, 1 )			                   
 	if del_item==0  then
-		SystemNotice ( character ,"删除挑战书失败")
+		SystemNotice ( character ,"Deletion of Challenge Letter failed")
 		return LUA_FALSE
 	end
 
@@ -648,33 +634,32 @@ function AddChaItem2(character,npc,value)
 	local cha_name = GetChaDefaultName ( character )
 
 	if used_time>28800 or used_time<0 then
-		SystemNotice ( character ,"由于您完成吉尼斯任务的时间过长,不能获得任何奖励，希望英雄从头再来！")
+		SystemNotice ( character ,"You took too long to complete Genesis's quest and will not receive any reward. Please try again!")
 		return LUA_TRUE
 	elseif used_time < 2400 and used_time>0 then
-		Notice("恭喜"..cha_name.."玩家完成了挑战吉尼斯的全部航程,全程用时"..used_time.."秒，大家努力啊！")
+		Notice("Congratulations to "..cha_name.." for completing Genesis Challenge in "..used_time.." sec(s)!")
 	end
 	if used_time < JINISI_TIME then
 		JINISI_TIME=used_time
-		LG( "JiNiSiJiLu_XinXi" , "玩家"..cha_name.."打破了世界纪录,全程用时"..used_time.."秒" )
 	end
-	------------取好汉书的指针
+	------------簙皐
 	local r1=0
 	local r2=0
 	r1,r2 =MakeItem ( character , value  , 1 , 4 )
 	local Item_new = GetChaItem ( character , 2 , r2 )
 	GiveItem ( character , 0 , 3094  , 1 , 4 )	
-	SetItemAttr(Item_new, ITEMATTR_VAL_AGI, used_time )		-------------秒  
+	SetItemAttr(Item_new, ITEMATTR_VAL_AGI, used_time )		-------------  
 	SynChaKitbag(character,13)
 	return LUA_TRUE
 end
 
 
-----给角色背包添加道具
+----倒à︹璉睰笵ㄣ
 function AddChaItem3(character,npc,value)
 
 	local item_number = CheckBagItem( character, value )			
 	if item_number >=1 then
-		SystemNotice( character ,"您已经有特别行动卡了")
+		SystemNotice( character ,"You already possess a Special Operation Card")
 		return LUA_FALSE 
 	end
 	
@@ -686,19 +671,19 @@ function AddChaItem3(character,npc,value)
 	
 
 
-	----------记录时间
-	local now_yes = os.date("%y")		-------------年
-	local now_month= os.date("%m")		-------------月
-	local now_day= os.date("%d")		-------------日
-	local now_hour= os.date("%H")		-------------时
-	local now_miniute= os.date("%M")	-------------分
-	local now_scend=  os.date("%S")		-------------秒
-	now_yes = tonumber(now_yes)			-------------年     
-	now_month= tonumber(now_month)		-------------月     
-	now_day= tonumber(now_day)			-------------日     
-	now_hour= tonumber(now_hour)			-------------时     
-	now_miniute= tonumber(now_miniute)	 	-------------分     
-	now_scend= tonumber(now_scend)		-------------秒     
+	----------癘魁丁
+	local now_yes = os.date("%y")		-------------
+	local now_month= os.date("%m")		-------------る
+	local now_day= os.date("%d")		-------------ら
+	local now_hour= os.date("%H")		-------------
+	local now_miniute= os.date("%M")	-------------だ
+	local now_scend=  os.date("%S")		-------------
+	now_yes = tonumber(now_yes)			-------------     
+	now_month= tonumber(now_month)		-------------る     
+	now_day= tonumber(now_day)			-------------ら     
+	now_hour= tonumber(now_hour)			-------------     
+	now_miniute= tonumber(now_miniute)	 	-------------だ     
+	now_scend= tonumber(now_scend)		-------------     
 	--local CheckDateNum = NowMonthNum * 10000 + NowDayNum * 100 + NowTimeNum
 	--SystemNotice ( character , "now_yes=="..now_yes )
 	--SystemNotice ( character , "now_month=="..now_month )
@@ -706,11 +691,11 @@ function AddChaItem3(character,npc,value)
 	--SystemNotice ( character , "now_hour=="..now_hour )
 	--SystemNotice ( character , "now_miniute=="..now_miniute )
 	--SystemNotice ( character , "now_scend=="..now_scend )
-	SetItemAttr(Item_new, ITEMATTR_VAL_STA, now_month )		-------------月 	
-	SetItemAttr(Item_new, ITEMATTR_VAL_STR, now_day )		-------------日  
-	SetItemAttr(Item_new, ITEMATTR_VAL_CON, now_hour )		-------------时   
-	SetItemAttr(Item_new, ITEMATTR_VAL_DEX, now_miniute )		-------------分   
-	SetItemAttr(Item_new, ITEMATTR_VAL_AGI, now_scend )		-------------秒 
+	SetItemAttr(Item_new, ITEMATTR_VAL_STA, now_month )		-------------る 	
+	SetItemAttr(Item_new, ITEMATTR_VAL_STR, now_day )		-------------ら  
+	SetItemAttr(Item_new, ITEMATTR_VAL_CON, now_hour )		-------------   
+	SetItemAttr(Item_new, ITEMATTR_VAL_DEX, now_miniute )		-------------だ   
+	SetItemAttr(Item_new, ITEMATTR_VAL_AGI, now_scend )		------------- 
 	SynChaKitbag(character,13)
 	return LUA_TRUE
 end
@@ -720,24 +705,24 @@ function AddChaItem4(character,npc,value)
 	local i= CheckBagItem( character, value )
 		--SystemNotice( character , "i=="..i)
 	if i~=1 then
-		SystemNotice( character , "请确保您身上只有有1张特别行动卡")
+		SystemNotice( character , "Please ensure that you have only 1 Special Operation Card")
 		return LUA_FALSE
 	end
 	
 	
-	----------记录时间
-	local now_yes = os.date("%y")			-------------年
-	local now_month= os.date("%m")			-------------月
-	local now_day= os.date("%d")			-------------日
-	local now_hour= os.date("%H")			-------------时
-	local now_miniute= os.date("%M")		-------------分
-	local now_scend=  os.date("%S")			-------------秒
-	now_yes = tonumber(now_yes)			-------------年     
-	now_month= tonumber(now_month)		-------------月     
-	now_day= tonumber(now_day)			-------------日     
-	now_hour= tonumber(now_hour)			-------------时     
-	now_miniute= tonumber(now_miniute)	 	-------------分     
-	now_scend= tonumber(now_scend)		-------------秒     
+	----------癘魁丁
+	local now_yes = os.date("%y")			-------------
+	local now_month= os.date("%m")			-------------る
+	local now_day= os.date("%d")			-------------ら
+	local now_hour= os.date("%H")			-------------
+	local now_miniute= os.date("%M")		-------------だ
+	local now_scend=  os.date("%S")			-------------
+	now_yes = tonumber(now_yes)			-------------     
+	now_month= tonumber(now_month)		-------------る     
+	now_day= tonumber(now_day)			-------------ら     
+	now_hour= tonumber(now_hour)			-------------     
+	now_miniute= tonumber(now_miniute)	 	-------------だ     
+	now_scend= tonumber(now_scend)		-------------     
 	--SystemNotice ( character , "now_yes=="..now_yes )
 	--SystemNotice ( character , "now_month=="..now_month )
 	--SystemNotice ( character , "now_day=="..now_day )
@@ -745,23 +730,23 @@ function AddChaItem4(character,npc,value)
 	--SystemNotice ( character , "now_miniute=="..now_miniute )
 	--SystemNotice ( character , "now_scend=="..now_scend )
 
-	local item_old = GetChaItem2 ( character , 2 , value )--------特别行动卡
-	---------取特别行动卡的时间	
-	local old_month = GetItemAttr(item_old, ITEMATTR_VAL_STA)		-------------月 	
-	local old_day = GetItemAttr(item_old, ITEMATTR_VAL_STR)			-------------日  
-	local old_hour = GetItemAttr(item_old, ITEMATTR_VAL_CON)			-------------时   
-	local old_miniute = GetItemAttr(item_old, ITEMATTR_VAL_DEX)		-------------分   
-	local old_scend = GetItemAttr(item_old, ITEMATTR_VAL_AGI)			-------------秒 
+	local item_old = GetChaItem2 ( character , 2 , value )--------疭︽笆
+	---------疭︽笆丁	
+	local old_month = GetItemAttr(item_old, ITEMATTR_VAL_STA)		-------------る 	
+	local old_day = GetItemAttr(item_old, ITEMATTR_VAL_STR)			-------------ら  
+	local old_hour = GetItemAttr(item_old, ITEMATTR_VAL_CON)			-------------   
+	local old_miniute = GetItemAttr(item_old, ITEMATTR_VAL_DEX)		-------------だ   
+	local old_scend = GetItemAttr(item_old, ITEMATTR_VAL_AGI)			------------- 
 	--SystemNotice ( character , "old_month=="..old_month )
 	--SystemNotice ( character , "old_day=="..old_day )       
 	--SystemNotice ( character , "old_hour=="..old_hour )    
 	--SystemNotice ( character , "old_miniute=="..old_miniute)
 	--SystemNotice ( character , "old_scend=="..old_scend ) 
 
-	---------删除特别行动卡
+	---------埃疭︽笆
 	local del_item =TakeItem( character, 0,value, 1 )--------------			                   
 	if del_item==0  then
-		SystemNotice ( character ,"删除特别行动卡失败")
+		SystemNotice ( character ,"Deletion of Special Operation Card failed")
 		return LUA_FALSE
 	end
 
@@ -770,10 +755,10 @@ function AddChaItem4(character,npc,value)
 	local cha_name = GetChaDefaultName ( character )
 
 	if used_time>900 or used_time<0 then
-		SystemNotice ( character ,"您完成特别任务的时间超长,建议中断任务从头再来!")
+		SystemNotice ( character ,"You took too long to complete this special quest. Please abandon the quest and try again!")
 		return LUA_FALSE
 	elseif used_time <= 900 and used_time>0 then
-		SystemNotice(character ,"恭喜你完成了特别任务,全程用时"..used_time.."秒.")
+		SystemNotice(character ,"Congratulations! You have completed the Special quest! You took "..used_time.." sec(s).")
 	end
 	
 	SynChaKitbag(character,13)
@@ -781,13 +766,13 @@ function AddChaItem4(character,npc,value)
 end
 
 
----------------判断角色是否有某乱斗点数
+---------------耞à︹琌Τ琘睹ゆ翴计
 function HasFightingPoint(character,value)
 		--SystemNotice( character , "HasFightingPoint" )
 		local i= CheckBagItem( character, 3849 )
 		--SystemNotice( character , "i=="..i)
 		if i~=1 then
-			SystemNotice( character , "请确定身上有荣誉证书")
+			SystemNotice( character , "Please ensure that you have a Medal of Honor")
 			return LUA_FALSE
 		end
 		local ATKER_LD = GetChaItem2 ( character , 2 , 3849 )
@@ -800,13 +785,13 @@ function HasFightingPoint(character,value)
 	end
 end
 
----------------判断角色是否有某荣誉点数
+---------------耞à︹琌Τ琘篴臕翴计
 function HasHonorPoint(character,value)
 		--SystemNotice( character , "HasHonorPoint" )
 		local i= CheckBagItem( character, 3849 )
 		--SystemNotice( character , "i=="..i)
 		if i~=1 then
-			SystemNotice( character , "请确定身上有荣誉证书")
+			SystemNotice( character , "Please ensure that you have a Medal of Honor")
 			return LUA_FALSE
 		end
 		local DEFER_RYZ1 = GetChaItem2 ( character , 2 , 3849 )
@@ -818,13 +803,13 @@ function HasHonorPoint(character,value)
 	end
 end
 
---判断好汉书时间是否小于某个值
+--耞簙丁琌琘
 function LessTime( character, value)
 	local HHS_Num = 0
 	HHS_Num = CheckBagItem( character, 2912 )
 	---SystemNotice(character,""..HHS_Num)
 	if HHS_Num ~= 1 then
-		SystemNotice( character, "请确保你的背包内只有一本好汉书")
+		SystemNotice( character, "Please make sure your inventory has only one copy of Bawcock Letter")
 		return 0
 	end
 	local role_HHS = GetChaItem2 ( character , 2 , 2912 )	
@@ -836,85 +821,75 @@ function LessTime( character, value)
 
 	return LUA_FALSE
 end
-
-----LOG---------金牛水手奖励 
+----LOG---------も贱纘 
 function JINNiuSS(character)
 
 	local cha_name = GetChaDefaultName ( character )
 	
-	LG( "JINNiuSS" , "玩家"..cha_name.."换取水手奖励" )
 	end
 
-	------------------------------------金牛海盗奖励
+	------------------------------------祍贱纘
 function JINNiuHD ( character,npc )
 
 	local cha_name = GetChaDefaultName ( character )
 	
-	LG( "JINNiuHD" , "玩家"..cha_name.."换取海盗奖励" )
 end
 
-------------------------------------金牛船长奖励
+------------------------------------差贱纘
 function JINNiuCZ ( character,npc )
 
 	local cha_name = GetChaDefaultName ( character )
 	
-	LG( "JINNiuCZ" , "玩家"..cha_name.."换取船长奖励" )
 end
-----LOG---------双子水手奖励 
+----LOG---------蛮も贱纘 
 function ShuangZiSS (character,npc)
 
 	local cha_name = GetChaDefaultName ( character )
 	
-	LG( "ShuangZiSS" , "玩家"..cha_name.."换取水手奖励" )
 	end
 
-	------------------------------------双子海盗奖励
+	------------------------------------蛮祍贱纘
 function ShuangZiHD ( character,npc )
 
 	local cha_name = GetChaDefaultName ( character )
 	
-	LG( "ShuangZiHD" , "玩家"..cha_name.."换取海盗奖励" )
 end
 
-------------------------------------双子船长奖励
+------------------------------------蛮差贱纘
 function ShuangZiCZ ( character,npc )
 
 	local cha_name = GetChaDefaultName ( character )
 	
-	LG( "ShuangZiCZ" , "玩家"..cha_name.."换取船长奖励" )
 end
 
------------------------------------开始转生
+-----------------------------------秨﹍锣ネ
 function ZSSTART ( character,npc )
 
 	local cha_name = GetChaDefaultName ( character )
 	
-	LG( "ZSSTART" , "玩家"..cha_name.."开始转生" )
 end
 
-------------------------------------结束转生
+------------------------------------挡锣ネ
 function ZSSTOP ( character,npc )
 
 	local cha_name = GetChaDefaultName ( character )
 	
-	LG( "ZSSTOP" , "玩家"..cha_name.."结束转生" )
 end
 
-------------------------------------结束二次转生----dina
+------------------------------------挡Ω锣ネ----dina
 function ZSSTOP2 ( character,npc )
 
 	local cha_name = GetChaDefaultName ( character )
 	
-	LG( "ZSSTOP2" , "玩家"..cha_name.."结束二次转生" )
 end
 
---判断好汉书时间是否大于某个值
+--耞簙丁琌琘
 function MoreTime( character, value)
 	local HHS_Num = 0
 	HHS_Num = CheckBagItem( character, 2912 )
 	---SystemNotice(character,""..HHS_Num)
 	if HHS_Num ~= 1 then
-		SystemNotice( character, "请确保你的背包内只有一本好汉书")
+		SystemNotice( character, "Please make sure your inventory has only one copy of Bawcock Letter")
 		return 0
 	end
 	local role_HHS = GetChaItem2 ( character , 2 , 2912 )	
@@ -927,7 +902,7 @@ function MoreTime( character, value)
 	return LUA_FALSE
 end
 
---判断是否穿着白羊套装
+--耞琌曝フο甅杆
 function BaiyangOn( character )
 	local head = GetChaItem ( character , 1 , 0 )
 	local body = GetChaItem ( character , 1 , 2 )
@@ -958,13 +933,13 @@ function BaiyangOn( character )
 	return LUA_TRUE
 end
 
----------------扣除角色身上的乱斗点数
+---------------Ι埃à︹ō睹ゆ翴计
 function TakeFightingPoint(character,value)
 		--SystemNotice( character , "TakeFightingPoint" )
 		local i= CheckBagItem( character, 3849 )
 		--SystemNotice( character , "i=="..i)
 		if i~=1 then
-			SystemNotice( character , "请确定身上有荣誉证书")
+			SystemNotice( character , "Please ensure that you have a Medal of Honor")
 			return LUA_FALSE
 		end
 		local ATKER_LD = GetChaItem2 ( character , 2 , 3849 )
@@ -979,13 +954,13 @@ function TakeFightingPoint(character,value)
 	end
 end
 
----------------扣除角色身上的荣誉点数
+---------------Ι埃à︹ō篴臕翴计
 function TakeHonorPoint(character,value)
 		--SystemNotice( character , "TakeHonorPoint" )
 		local i= CheckBagItem( character, 3849 )
 		--SystemNotice( character , "i=="..i)
 		if i~=1 then
-			SystemNotice( character , "请确定身上有荣誉证书")
+			SystemNotice( character , "Please ensure that you have a Medal of Honor")
 			return LUA_FALSE
 		end
 		local DEFER_RYZ1 = GetChaItem2 ( character , 2 , 3849 )
@@ -999,7 +974,7 @@ function TakeHonorPoint(character,value)
 		end
 end
 
---判断组队贡献度
+--耞舱钉癪膍
 function HasOffer( character, value )
 	local ret = HasZuDuiGongXianDu( character, value )
 	if ret == LUA_TRUE then
@@ -1009,7 +984,7 @@ function HasOffer( character, value )
 	return LUA_FALSE
 end
 
---扣除组队贡献度
+--Ι埃舱钉癪膍
 function TakeOffer( character, value )
 	local ret = TakeZuDuiGongXianDu( character, value )
 	if ret == LUA_TRUE then
@@ -1019,7 +994,7 @@ function TakeOffer( character, value )
 	return LUA_FALSE
 end
 
--------判断角色移动速度是否达到某值
+-------耞à︹簿笆硉琌笷琘
 function CheckSpeed( character, value)
 	local Role_Speed = GetChaAttr( character, ATTR_MSPD )
 	if Role_Speed < value then
@@ -1030,31 +1005,31 @@ function CheckSpeed( character, value)
 
 end
 	
----------------------------------------------------------------金牛特别行动卡---------missionsdk
+---------------------------------------------------------------疭︽笆---------missionsdk
 
 function AddChaItem5(character,npc,value)
 	
 	local i= CheckBagItem( character, value )
 		--SystemNotice( character , "i=="..i)
 	if i~=1 then
-		SystemNotice( character , "请确保您身上只有1张金牛特别行动卡")
+		SystemNotice( character , "Please make sure you have 1 Taurus Special Operation Card on you")
 		return LUA_FALSE
 	end
 	
 	
-	----------记录时间
-	local now_yes = os.date("%y")			-------------年
-	local now_month= os.date("%m")			-------------月
-	local now_day= os.date("%d")			-------------日
-	local now_hour= os.date("%H")			-------------时
-	local now_miniute= os.date("%M")		-------------分
-	local now_scend=  os.date("%S")			-------------秒
-	now_yes = tonumber(now_yes)			-------------年     
-	now_month= tonumber(now_month)		-------------月     
-	now_day= tonumber(now_day)			-------------日     
-	now_hour= tonumber(now_hour)			-------------时     
-	now_miniute= tonumber(now_miniute)	 	-------------分     
-	now_scend= tonumber(now_scend)		-------------秒     
+	----------癘魁丁
+	local now_yes = os.date("%y")			-------------
+	local now_month= os.date("%m")			-------------る
+	local now_day= os.date("%d")			-------------ら
+	local now_hour= os.date("%H")			-------------
+	local now_miniute= os.date("%M")		-------------だ
+	local now_scend=  os.date("%S")			-------------
+	now_yes = tonumber(now_yes)			-------------     
+	now_month= tonumber(now_month)		-------------る     
+	now_day= tonumber(now_day)			-------------ら     
+	now_hour= tonumber(now_hour)			-------------     
+	now_miniute= tonumber(now_miniute)	 	-------------だ     
+	now_scend= tonumber(now_scend)		-------------     
 	--SystemNotice ( character , "now_yes=="..now_yes )
 	--SystemNotice ( character , "now_month=="..now_month )
 	--SystemNotice ( character , "now_day=="..now_day )
@@ -1062,23 +1037,23 @@ function AddChaItem5(character,npc,value)
 	--SystemNotice ( character , "now_miniute=="..now_miniute )
 	--SystemNotice ( character , "now_scend=="..now_scend )
 
-	local item_old = GetChaItem2 ( character , 2 , value )--------金牛特别行动卡
-	---------取特别行动卡的时间	
-	local old_month = GetItemAttr(item_old, ITEMATTR_VAL_STA)		-------------月 	
-	local old_day = GetItemAttr(item_old, ITEMATTR_VAL_STR)			-------------日  
-	local old_hour = GetItemAttr(item_old, ITEMATTR_VAL_CON)			-------------时   
-	local old_miniute = GetItemAttr(item_old, ITEMATTR_VAL_DEX)		-------------分   
-	local old_scend = GetItemAttr(item_old, ITEMATTR_VAL_AGI)			-------------秒 
+	local item_old = GetChaItem2 ( character , 2 , value )--------疭︽笆
+	---------疭︽笆丁	
+	local old_month = GetItemAttr(item_old, ITEMATTR_VAL_STA)		-------------る 	
+	local old_day = GetItemAttr(item_old, ITEMATTR_VAL_STR)			-------------ら  
+	local old_hour = GetItemAttr(item_old, ITEMATTR_VAL_CON)			-------------   
+	local old_miniute = GetItemAttr(item_old, ITEMATTR_VAL_DEX)		-------------だ   
+	local old_scend = GetItemAttr(item_old, ITEMATTR_VAL_AGI)			------------- 
 	--SystemNotice ( character , "old_month=="..old_month )
 	--SystemNotice ( character , "old_day=="..old_day )       
 	--SystemNotice ( character , "old_hour=="..old_hour )    
 	--SystemNotice ( character , "old_miniute=="..old_miniute)
 	--SystemNotice ( character , "old_scend=="..old_scend ) 
 
-	---------删除特别行动卡
+	---------埃疭︽笆
 	local del_item =TakeItem( character, 0,value, 1 )--------------			                   
 	if del_item==0  then
-		SystemNotice ( character ,"删除金牛特别行动卡失败")
+		SystemNotice ( character ,"Deletion of Taurus special quest card failed")
 		return LUA_FALSE
 	end
 
@@ -1087,17 +1062,17 @@ function AddChaItem5(character,npc,value)
 	local cha_name = GetChaDefaultName ( character )
 
 	if used_time>420 or used_time<0 then
-		SystemNotice ( character ,"您完成特别任务的时间超长,建议中断任务从头再来!")
+		SystemNotice ( character ,"You took too long to complete this special quest. Please abandon the quest and try again!")
 		return LUA_FALSE
 	elseif used_time <= 420 and used_time>0 then
-		SystemNotice(character ,"恭喜你完成了特别任务,全程用时"..used_time.."秒.")
+		SystemNotice(character ,"Congratulations! You have completed the Special quest! You took "..used_time.." sec(s).")
 	end
 	
 	SynChaKitbag(character,13)
 	return LUA_TRUE
 end
 
-------------------判断是否转生过
+------------------耞琌锣ネ筁
 function CheckZS( character )
 	local Zs_Exp = GetChaAttr ( character , ATTR_CSAILEXP )
 	if Zs_Exp < 1 then
@@ -1108,7 +1083,7 @@ function CheckZS( character )
 
 end
 
---判断荣誉值是否小于某个值
+--耞篴臕琌琘
 function LessCredit( character, p1, value )
 	local ret = LessYongYuZhi( character, p1, value )
 	if ret == LUA_TRUE then
@@ -1117,10 +1092,10 @@ function LessCredit( character, p1, value )
 	
 	return LUA_FALSE
 end
-------------------检测道具上编号是否相同
+------------------浪代笵ㄣ絪腹琌
 function CheckItem( character, itemid1, itemid2 )
 	if itemid1 == nil or itemid2 == nil then
-		PRINT( "CheckItem:参数错误！" )
+		PRINT( "CheckItem:parameter error!" )
 		return LUA_ERROR
 	end
 	local item1=GetItemP(character,2)
@@ -1132,37 +1107,37 @@ function CheckItem( character, itemid1, itemid2 )
 		
 		
 	if itemid1_number~=itemid2_number or itemida~=2902  or itemidb~=2903 then
-	SystemNotice( character, "情缘编码不一致或者没有放在对应的背包格" )
+	SystemNotice( character, "Love number does not match or is not placed at correct inventory position" )
 		return LUA_FALSE	
 	end
 	return LUA_TRUE
 end
 
-function CheckBag( character, itemid, value1, value2)-----------value1===位置，value2===数量
+function CheckBag( character, itemid, value1, value2)-----------value1===竚value2===计秖
 	local cha = ChaIsBoat ( character ) 
 	if cha ==1 then
-		--SystemNotice( character ,"请您上岸接任务")
+		--SystemNotice( character ,"叫眤─钡ヴ叭")
 		return LUA_TRUE 
 	end	
 	if itemid== nil or value1== nil or value2== nil then
-		PRINT( "CheckBag:参数错误！" )
+		PRINT( "CheckBag:parameter error!" )
 		return LUA_ERROR
 	end
 	local item=GetItemP(character,value1)
 	local itemida=GetItemID( item )
-	local i = CheckBagItem( character, itemid )			---取数量
+	local i = CheckBagItem( character, itemid )			---计秖
 	local item_name=GetItemName ( itemid )
 	local item_pos=value1+1
 	if itemid~=itemida or i~=value2 then
-		SystemNotice( character, "请确认背包第"..item_pos.."个位置至少有"..value2.."个"..item_name )
+		SystemNotice( character, "Please ensure that inventory "..item_pos.." position still have "..value2.." "..item_name )
 		return LUA_FALSE	
 	end
 	return LUA_TRUE
 end
 
-function CheckBagEmp( character,value)-----------value===位置
+function CheckBagEmp( character,value)-----------value===竚
 	if value==nil then
-		PRINT( "CheckBagEmp: parameter error!" )
+		PRINT( "CheckBagEmp:parameter error!" )
 		return LUA_ERROR
 	end
 	local item=GetItemP(character,value)
@@ -1170,18 +1145,16 @@ function CheckBagEmp( character,value)-----------value===位置
 	local item_pos=value+1
 	local cha = ChaIsBoat ( character ) 
 	if cha ==1 then
-		--SystemNotice( character, "To challenge Genesis, player can go to (2217,2911) and look for Coddy. Also remove your inventory "..item_pos.." move inventory off this space. All Players at sea please land")
-		SystemNotice( character, "To challenge Genesis, player can go to (2217,2911) and look for Coddy. Also remove any item from slot "..item_pos.." of your inventory. All Players at sea please land")
+		SystemNotice( character, "To challenge Genesis, player can go to (2217, 2911) and look for Coddy. Also remove your inventory "..item_pos.."move inventory off this space. All players at sea please land")
 		return LUA_FALSE 
 	end	
 	if itemid~=0 then
-		--SystemNotice( character, "To challenge Genesis, player can go to (2217,2911) and look for Coddy. Also remove your inventory "..item_pos.." move inventory off this space. All Players at sea please land")
-		SystemNotice( character, "To challenge Genesis, player can go to (2217,2911) and look for Coddy. Also remove any item from slot "..item_pos.." of your inventory. All Players at sea please land")
+		SystemNotice( character, "To challenge Genesis, player can go to (2217, 2911) and look for Coddy. Also remove your inventory "..item_pos.."move inventory off this space. All players at sea please land")
 		return LUA_FALSE	
 	end
 	return LUA_TRUE
 end
---清除PK荣誉值
+--睲埃PK篴臕
 function AddCredit( character, value )
 	local ret = AddYongYuZhi( character, value )
 	if ret == LUA_TRUE then
@@ -1191,7 +1164,7 @@ function AddCredit( character, value )
 	return LUA_FALSE
 end
 
---检测钱不足
+--浪代窥ぃì
 function NoMoney( character, money )
 	PRINT( "NoMoney:HasMoney" )
 	local ret = HasMoney( character, money )
@@ -1202,33 +1175,33 @@ function NoMoney( character, money )
 	return LUA_FALSE
 end
 
---检查是否符合转职条件
+--浪琩琌才锣戮兵ン
 function CheckConvertProfession( character, newpf )
 	if newpf == nil then
-		PRINT( "CheckConvertProfession:functionparameter error!" )
-		SystemNotice( character, "CheckConvertProfession:functionparameter error!" )
+		PRINT( "CheckConvertProfession:Function parameter error!" )
+		SystemNotice( character, "CheckConvertProfession:Function parameter error!" )
 		return LUA_ERROR
 	end
 	
-	--取得角色职业和类型
+	--眔à︹戮穨㎝摸
 	local ret, cat, pf = GetCatAndPf( character )
 	PRINT( "CheckConvertProfession: GetCatAndPf: ret =, pf = , newpf = , cat = , Profession = ", ret, pf, newpf, cat, Profession )
-	--判断是否新手，新手没有转职限制
+	--耞琌穝も穝も⊿Τ锣戮
 	if pf ~= 0 then	
-		--检测是否有转职限制
+		--浪代琌Τ锣戮
 		if Profession ~= nil and Profession[pf] ~= nil then
 			local flag = 0
 			PRINT( "CheckConvertProfession: pf count = ", Profession[pf].count )
 			for n = 1, Profession[pf].count, 1 do
 				PRINT( "CheckConvertProfession: n =, newpf = , pf = ", n, newpf, Profession[pf][n] )
 				if Profession[pf][n] == newpf then
-					--该职业允许转职
+					--赣戮穨す砛锣戮
 					flag = 1
 					break
 				end
 			end
 			
-			--判断是否可以转职
+			--耞琌锣戮
 			if flag ~= 1 then
 				PRINT( "CheckConvertProfession: return false" )
 				return LUA_FALSE
@@ -1240,7 +1213,7 @@ function CheckConvertProfession( character, newpf )
 	end
 	
 	PRINT( "CheckConvertProfession: Category check cat =, newpf = ", cat, newpf )
-	--检测是否有体形限制
+	--浪代琌Τ砰
 	if Category ~= nil and Category[cat] ~= nil then
 		local flag = 0
 		for n = 1, Category[cat].count, 1 do
@@ -1264,19 +1237,16 @@ function CheckConvertProfession( character, newpf )
 	return LUA_TRUE
 end
 
---中断任务
+--い耞ヴ叭
 function CancelMission( character, id, sid )
 	PRINT( "CancelMission, sid = ", sid )
 	if sid == nil or Mission[sid] == nil then
 		PRINT( "CancelMission: abandoned quest function parameter cannot be as null!sid = "..sid )
 		SystemNotice( character, "CancelMission: abandoned quest function parameter cannot be as null!sid = "..sid )
-		LG( "mission_error", "CancelMission: abandoned quest function parameter cannot be as null!sid = "..sid )
 		local ret = ClearMission( character, id )
 		if ret ~= LUA_TRUE then
-			LG( "mission_error", "CancelMission: delete character target quest notice failed!charname = , id = , sid = ", GetCharName( character ), id, sid )
 		else
 			SystemNotice( character, "has cleared invalid quest notice !ID = "..sid )
-			LG( "mission_error", "CancelMission: clear target character quest notice successful!charname = , id = , sid = ", GetCharName( character ), id, sid )
 		end
 		
 		return LUA_FALSE
@@ -1287,7 +1257,7 @@ function CancelMission( character, id, sid )
 	PRINT( "CancelMission:mission.cancel", mission.cancel )
 	if mission.tp == NOMAL_MISSION or mission.tp == WORLD_MISSION then
 		if mission.cancel == nil then
-			PRINT( "CancelMission: Target quest has not cancel operation. Return true" )
+			PRINT( "CancelMission:Target quest has not cancel operation. Return true" )
 			return LUA_TRUE
 		end
 	
@@ -1299,10 +1269,10 @@ function CancelMission( character, id, sid )
 		end
 		PRINT( "CancelMission: NpcTrigger, return true" ) 
 	elseif mission.tp == RAND_MISSION then
-		--初始化全局随机任务参数
+		--﹍てЫradom ヴ叭把计
 		InitRandParam()
 		
-		--获取角色的随机任务配置信息
+		--莉à︹radom ヴ叭皌竚獺
 		PRINT( "CancelMission:GetRandMission, id = ", id  )
 		local ret
 		RandParam.id = id
@@ -1317,8 +1287,8 @@ function CancelMission( character, id, sid )
 		local index = GetRandMissionTypeIndex( mission, RandParam.tp )
 		PRINT( "CancelMission:GetRandMissionTypeIndex index = ", index )
 		if index == 0  then
-			PRINT( "CancelMission: obtain random quest matching type notice failed!" )
-			SystemNotice( character, "CancelMission: obtain random quest matching type notice failed!" )
+			PRINT( "CancelMission:obtain random quest matching type notice failed!" )
+			SystemNotice( character, "CancelMission:obtain random quest matching type notice failed!" )
 			return LUA_FALSE
 		end
 	
@@ -1329,7 +1299,7 @@ function CancelMission( character, id, sid )
 		end
 		
 		if mission.missionlist[index].cancel == nil then
-			PRINT( "CancelMission: Target quest has not cancel operation. Return true" )
+			PRINT( "CancelMission:Target quest has not cancel operation. Return true" )
 			return LUA_TRUE
 		end
 	
@@ -1349,21 +1319,20 @@ function CancelMission( character, id, sid )
 	return LUA_TRUE
 end
 
---接受任务
+--钡ヴ叭
 function AcceptMission( character, npc, missionlist, tpindex )
 	PRINT( "AcceptMission" )
 	local npcid = GetCharID( npc )
 	local ret, id, state, tp = GetMissionTempInfo( character, npcid )
 	if ret ~= LUA_TRUE then 
-		SystemNotice( character, "AcceptMission: obtain character dialogue temporary quest notice error!" )
+		SystemNotice( character, "AcceptMission:obtain character dialogue temporary quest notice error!" )
 		return LUA_FALSE
 	end
 	
 	local mission
 	if tp == WORLD_MISSION then
 		if Mission[id] == nil then
-			SystemNotice( character, "AcceptMission: Obtain character incorrect world quest index notice!ID = "..id )
-			LG( "mission_error", "AcceptMission: Obtain character incorrect world quest index notice!ID = "..id )
+			SystemNotice( character, "AcceptMission:Obtain character incorrect world quest index notice!ID = "..id )
 			return LUA_FALSE
 		end
 		mission = Mission[id]
@@ -1371,32 +1340,29 @@ function AcceptMission( character, npc, missionlist, tpindex )
 		if missionlist[id] == nil then
 			PRINT( "AcceptMission:obtain character incorrect common quest index notice!ID = "..id )
 			SystemNotice( character, "AcceptMission:obtain character incorrect common quest index notice!ID = "..id )
-			LG( "mission_error", "AcceptMission:obtain character incorrect common quest index notice!ID = "..id )
 			return LUA_FALSE
 		end
 		if missionlist == nil then
 			PRINT( "AcceptMission:Function parameter error!missionlist = "..missionlist )
 			SystemNotice( character, "AcceptMission:Function parameter error!missionlist = "..missionlist )
-			LG( "mission_error", "AcceptMission:Function parameter error!missionlist = "..missionlist )
 			return LUA_ERROR
 		end
 		mission = missionlist[id]
 	end
 	
 	if mission.begin == nil then
-		PRINT( "AcceptMission: obtain character incorrect quest start trigger notice! ID = "..id )
-		SystemNotice( character, "AcceptMission: obtain character incorrect quest start trigger notice!" )
-		LG( "mission_error", "AcceptMission: obtain character incorrect quest start trigger notice! ID = "..id )
+		PRINT( "AcceptMission:obtain character incorrect quest start trigger notice!ID = "..id )
+		SystemNotice( character, "AcceptMission:obtain character incorrect quest start trigger notice!" )
 		return LUA_FALSE
 	end
 	
 	PRINT( "AcceptMission:npcid = %d ", npcid )
 	if mission.tp == NOMAL_MISSION or mission.tp == WORLD_MISSION then
-		PRINT( "AcceptMission: Required number of empty slots in inventory: numgrid = ", mission.begin.baggrid )
+		PRINT( "AcceptMission:Required number of empty slots in inventory:numgrid = ", mission.begin.baggrid )
 		local ret = HasLeaveBagGrid( character, mission.begin.baggrid )
 		if ret ~= LUA_TRUE then
-			PRINT( "AcceptMission: insufficient inventory slot when character accept quest! num = ", mission.begin.baggrid )
-			BickerNotice( character, "Inventory space insufficient, requires"..mission.begin.baggrid.."space. Activation of quest failed!" )
+			PRINT( "AcceptMission:insufficient inventory slot when character accept quest! num = ", mission.begin.baggrid )
+			BickerNotice( character, "Inventory space insufficient, requires "..mission.begin.baggrid.." space. Activation of quest failed!" )
 			return LUA_FALSE
 		end
 		
@@ -1414,12 +1380,12 @@ function AcceptMission( character, npc, missionlist, tpindex )
 			return LUA_FALSE
 		end
 		
-		PRINT( "AcceptMission: Required number of empty slots in inventory: numgrid = ", mission.missionlist[tpindex].begin.baggrid )
+		PRINT( "AcceptMission:Required number of empty slots in inventory:numgrid = ", mission.missionlist[tpindex].begin.baggrid )
 		local numgrid = mission.missionlist[tpindex].begin.baggrid
 		local ret = HasLeaveBagGrid( character, numgrid )
 		if ret ~= LUA_TRUE then
-			PRINT( "AcceptMission: insufficient inventory slot when character accept quest! num = ", numgrid )
-			BickerNotice( character, "Inventory space insufficient, requires"..numgrid.."space. Activation of quest failed!" )
+			PRINT( "AcceptMission:insufficient inventory slot when character accept quest! num = ", numgrid )
+			BickerNotice( character, "Inventory space insufficient, requires "..numgrid.." space. Activation of quest failed!" )
 			return LUA_FALSE
 		end
 		
@@ -1429,10 +1395,10 @@ function AcceptMission( character, npc, missionlist, tpindex )
 			SystemNotice( character, "AcceptMission:NpcTrigger accept quest trigger management failed!" )
 			return LUA_FALSE
 		end
-		PRINT( "AcceptMission: Random quest: NpcTrigger, return true" )
+		PRINT( "AcceptMission: random quest: NpcTrigger, return true" )
 	else
-		PRINT( "AcceptMission: Incorrect quest type notice. ID = "..mission.sid )
-		SystemNotice( character, "AcceptMission: Incorrect quest type notice. ID = "..mission.sid )
+		PRINT( "AcceptMission:incorrect quest type notice.ID = "..mission.sid )
+		SystemNotice( character, "AcceptMission:incorrect quest type notice.ID = "..mission.sid )
 		return LUA_FALSE
 	end
 
@@ -1440,7 +1406,7 @@ function AcceptMission( character, npc, missionlist, tpindex )
 		ret = RefreshMissionState( character, npc )
 		if ret ~= LUA_TRUE then
 			PRINT( "AcceptMission:random quest: RefreshMissionState accept quest reset npc quest status failed!" )
-			SystemNotice( character, "AcceptMission:random quest: RefreshMissionState accept quest change npc quest status failed!" )
+			SystemNotice( character, "AcceptMission:random quest:RefreshMissionState accept quest change npc quest status failed!" )
 			return LUA_FALSE
 		end
 	end
@@ -1448,7 +1414,7 @@ function AcceptMission( character, npc, missionlist, tpindex )
 	return LUA_TRUE
 end
 
---完成任务
+--ЧΘヴ叭
 function CompleteMission( character, npc, missionlist, selitem, param )
 	PRINT( "CompleteMission" )
 	if missionlist == nil then
@@ -1459,22 +1425,20 @@ function CompleteMission( character, npc, missionlist, selitem, param )
 	local npcid = GetCharID( npc )
 	local ret, id, state, tp = GetMissionTempInfo( character, npcid )
 	if ret ~= LUA_TRUE then 
-		SystemNotice( character, "CompleteMission:obtain character dialogue quest notice error!" )
+		SystemNotice( character, "CompleteMission:obtain character dialogue temporary quest notice error!" )
 		return LUA_FALSE
 	end
 
 	local mission	
 	if tp == WORLD_MISSION then
 		if Mission[id] == nil then
-			SystemNotice( character, "CompleteMission: Obtain character error world quest index notice! ID = "..id )
-			LG( "mission_error", "CompleteMission: Obtain character error world quest index notice! ID = "..id )
+			SystemNotice( character, "CompleteMission:Obtain character incorrect world quest index notice!ID = "..id )
 			return LUA_FALSE
 		end
 		mission = Mission[id]
 	else		
 		if missionlist[id] == nil then
 			SystemNotice( character, "CompleteMission:obtain character incorrect common quest index notice!ID = "..id )
-			LG( "mission_error", "CompleteMission:obtain character incorrect common quest index notice!ID = "..id )
 			return LUA_FALSE
 		end
 		mission = missionlist[id]
@@ -1482,23 +1446,23 @@ function CompleteMission( character, npc, missionlist, selitem, param )
 	
 	local ret = HasMisssionFailure( character, mission.id )
 	if ret == LUA_TRUE then
-		BickerNotice( character, "Quest\""..mission.name.."\" has failed, please select to abandon to clear quest log!" )
+		BickerNotice( character, "Quest["..mission.name.."]has failed, please select to abandon to clear quest log!" )
 		return LUA_TRUE
 	end
 	
 	if mission.tp == NOMAL_MISSION or mission.tp == WORLD_MISSION then
-		PRINT( "CompleteMission: empty slot of inventory required: numgrid = ", mission.result.baggrid )
+		PRINT( "CompleteMission:Required number of empty slots in inventory:numgrid = ", mission.result.baggrid )
 		local ret = HasLeaveBagGrid( character, mission.result.baggrid )
 		if ret ~= LUA_TRUE then
-			PRINT( "CompleteMission: insufficient inventory slot when character completes quest! num = ", mission.result.baggrid )
-			BickerNotice( character, "Inventory space insufficient, requires"..mission.result.baggrid.."1 slot. Completion of quest failed!" )
+			PRINT( "CompleteMission:insufficient inventory slot when character completes quest!num = ", mission.result.baggrid )
+			BickerNotice( character, "Inventory space insufficient, requires "..mission.result.baggrid.."1 slot. Completion of quest failed!" )
 			return LUA_FALSE
 		end
 		
 		local ret = NpcTrigger( character,  npc, mission.result, mission.id, mission.sid )
 		if ret ~= LUA_TRUE then
-			PRINT( "CompleteMission:NpcTriggerfunction manage delievery trigger failed!" )
-			SystemNotice( character, "CompleteMission:NpcTriggerfunction manage delievery trigger failed!" )
+			PRINT( "CompleteMission:NpcTrigger function manage delievery trigger failed!" )
+			SystemNotice( character, "CompleteMission:NpcTrigger function manage delievery trigger failed!" )
 			return LUA_FALSE
 		end
 		
@@ -1506,32 +1470,32 @@ function CompleteMission( character, npc, missionlist, selitem, param )
 		if mission.prize.count > 0 then
 			local ret = MisPrizeProc( character, npc, mission, selitem, param )
 			if ret ~= LUA_TRUE then
-				PRINT( "CompleteMission:MisPrizeProcfunction manage quest reward failed!" )
-				SystemNotice( character, "CompleteMission:MisPrizeProcfunction manage quest reward failed!" )
+				PRINT( "CompleteMission:MisPrizeProc function manage quest reward failed!" )
+				SystemNotice( character, "CompleteMission:MisPrizeProc function manage quest reward failed!" )
 			end
 		end
 	elseif mission.tp == RAND_MISSION then
 		local ret, index, loopdata = GetCharRandMission( character, mission.id, mission )
 		if ret ~= LUA_TRUE or index == 0 then
-			--根据随机任务参数生成随机任务信息错误
+			--沮radom ヴ叭把计ネΘradom ヴ叭獺岿粇
 			PRINT( "CompleteMission:GetcharRandMission, according to random quest parameter generate random quest notice error!" )
 			SystemNotice( character, "CompleteMission:GetcharRandMission, according to random quest parameter generate random quest notice error!" )
 			return LUA_FALSE
 		end
 		
-		PRINT( "CompleteMission: empty slot of inventory required: numgrid = ", mission.missionlist[index].result.baggrid )
+		PRINT( "CompleteMission:Required number of empty slots in inventory:numgrid = ", mission.missionlist[index].result.baggrid )
 		local numgrid = mission.missionlist[index].result.baggrid
 		local ret = HasLeaveBagGrid( character, numgrid )
 		if ret ~= LUA_TRUE then
-			PRINT( "CompleteMission: insufficient inventory slot when character accept quest! num = ", numgrid )
-			BickerNotice( character, "Inventory space insufficient, requires"..numgrid.."1 slot. Completion of quest failed!" )
+			PRINT( "CompleteMission:insufficient inventory slot when character accept quest! num = ", numgrid )
+			BickerNotice( character, "Inventory space insufficient, requires "..numgrid.."1 slot. Completion of quest failed!" )
 			return LUA_FALSE
 		end
 		
 		local ret = NpcTrigger( character,  npc, mission.missionlist[index].result, mission.id, mission.sid )
 		if ret ~= LUA_TRUE then
-			PRINT( "CompleteMission:random quest: NpcTriggerfunction manage deliver quest trigger failed!" )
-			SystemNotice( character, "CompleteMission:random quest: NpcTriggerfunction manage deliver quest trigger failed!" )
+			PRINT( "CompleteMission:random quest: NpcTrigger function manage delievery trigger failed!" )
+			SystemNotice( character, "CompleteMission:random quest: NpcTrigger function manage delievery trigger failed!" )
 			return LUA_FALSE
 		end
 		
@@ -1539,60 +1503,56 @@ function CompleteMission( character, npc, missionlist, selitem, param )
 		if mission.missionlist[index].prize.count > 0 then
 			local ret = MisPrizeProc( character, npc, mission.missionlist[index], selitem, param )
 			if ret ~= LUA_TRUE then
-				PRINT( "CompleteMission:MisPrizeProcfunction manage quest reward failed!" )
-				SystemNotice( character, "CompleteMission:MisPrizeProcfunction manage quest reward failed!" )
+				PRINT( "CompleteMission:MisPrizeProc function manage quest reward failed!" )
+				SystemNotice( character, "CompleteMission:MisPrizeProc function manage quest reward failed!" )
 			end
 		end
 		
 		PRINT( "CompleteMission:CompleteRandMission, id = ", mission.id )
 		ret = CompleteRandMissionCount( character, mission.id )
 		if ret ~= LUA_TRUE then
-			PRINT( "CompleteRandMission:random quest completion completes calculation function transfer failed: misid = ", mission.id )
-			LG( "randmission_error", "CompleteRandMission:random quest completion completes calculation function transfer failed: misid = ", mission.id )
+			PRINT( "CompleteRandMission:random quest completion completes calculation function transfer failed:misid = ", mission.id )
 		end
 		
-		--判断是否跑环结束
+		--耞琌禲吏挡
 		local ret, loopnum = GetRandMissionNum( character, mission.id )
 		if ret ~= LUA_TRUE then
 			PRINT( "CompleteRandMission:GetRandMissionNum function transfer failed. Unable to obtain character random quest loop count!id = ", id )
-			LG( "randmission_error", "CompleteRandMission:GetRandMissionNum function transfer failed. Unable to obtain character random quest loop count!id = ", id )
 			SystemNotice( character, "CompleteRandMission:GetRandMissionNum function transfer failed. Unable to obtain character random quest loop count!id = "..id )
-			--清除该角色该随机任务计数
+			--睲埃赣à︹赣radom ヴ叭璸计
 			ResetRandMissionNum( character, mission.id )
 		else
-			loopnum = loopnum + 1 --转换为lua数组索引
+			loopnum = loopnum + 1 --锣传lua计舱ま
 			PRINT( "CompleteRandMission:loopnum, loopinfo", loopnum, mission.loopinfo[loopnum] )
 			
 			if loopdata == nil or mission.loopinfo[loopnum] == nil then
-				PRINT( "CompleteRandMission: quest cycle data error!loopnum = "..loopnum.." id = "..mission.id.." loopdata = "..loopdata )
-				LG( "randmission_error", "CompleteRandMission: quest cycle data error!loopnum = "..loopnum.." id = "..mission.id.." loopdata = "..loopdata )
-				SystemNotice( character, "CompleteRandMission: quest cycle data error!loopnum = "..loopnum.." id = "..mission.id.." loopdata = "..loopdata )
+				PRINT( "CompleteRandMission:quest cycle data error!loopnum = "..loopnum.." id = "..mission.id.." loopdata = "..loopdata )
+				SystemNotice( character, "CompleteRandMission:quest cycle data error!loopnum = "..loopnum.." id = "..mission.id.." loopdata = "..loopdata )
 				ResetRandMissionNum( character, mission.id )
 				return LUA_FALSE
 			end
 			
 			local ret = HasRandMissionCount( character, mission.id, mission.loopinfo[loopnum].num )
 			if ret == LUA_TRUE then
-				--清除该环任务计数，同时环计数增加
+				--睲埃赣吏ヴ叭璸计吏璸计糤
 				ret = AddRandMissionNum( character, mission.id )
 				if ret ~= LUA_TRUE then
 					PRINT( "CompleteRandMission:AddRandMissionNum reset quest cycle calculation failed!id = ", mission.id  )
-					LG( "randmission_error", "CompleteRandMission:AddRandMissionNum reset quest cycle count failed!id ", mission.id )
 					SystemNotice( character, "CompleteRandMission:AddRandMissionNum reset quest cycle calculation failed!id = "..mission.id )
 					return LUA_FALSE
 				end
 				if loopdata[loopnum + 1] == nil then
-					--清除该随机任务计数因为已经跑环完毕,任务计数从头开始
-					PRINT( "CompleteRandMission:ResetRandMissionNum: quest cycle completed!" )
+					--睲埃赣radom ヴ叭璸计竒禲吏Ч拨,ヴ叭璸计眖繷秨﹍
+					PRINT( "CompleteRandMission:ResetRandMissionNum:quest cycle completed!" )
 					ResetRandMissionNum( character, mission.id )
-					SystemNotice( character, "Quest cycle completed!" )
+					SystemNotice( character, "quest cycle completed!" )
 				end
 			end
 		end
 		
 	else
-		PRINT( "CompleteMission: Parameter quest type unknown. Invalid!" )
-		SystemNotice( character, "CompleteMission: Parameter quest type unknown. Invalid!" )
+		PRINT( "CompleteMission:Parameter quest type unknown. Invalid!" )
+		SystemNotice( character, "CompleteMission:Parameter quest type unknown. Invalid!" )
 		return LUA_FALSE
 	end
 	
@@ -1610,30 +1570,30 @@ function CompleteMission( character, npc, missionlist, selitem, param )
 	return LUA_TRUE
 end
 
---选择任务列表
+--匡拒ヴ叭
 function SelMissionList( character, npc, selindex, missionlist )
 	local npcid = GetCharID( npc )
 	local ret, id, state = GetMissionInfo( character, npcid, selindex )
 	if ret ~= LUA_TRUE then
-		PRINT( "SelMissionList: obtain quest notice failed!" )
-		return SystemNotice( character, "MissionProc: obtain quest notice failed!" )
+		PRINT( "SelMissionList:obtain quest notice failed!" )
+		return SystemNotice( character, "MissionProc:obtain quest notice failed!" )
 	end
 	
 	PRINT( "SelMissionList:id = %d, state = %d", id, state )
 	if missionlist[id] == nil then
-		PRINT( "SelMissionList: Server does not have requested quest notice error!" )
-		return SystemNotice( character, "MissionProc: server does not have requested quest notice error!" )
+		PRINT( "SelMissionList:Server does not have requested quest notice error!" )
+		return SystemNotice( character, "MissionProc:Server does not have requested quest notice error!" )
 	end
 	
 	ret = SetMissionTempInfo( character, npcid, id, state, missionlist[id].tp )
 	if ret ~= LUA_TRUE then
 		PRINT( "SelMissionList:set quest temporary data notice failed!" )
-		return SystemNotice( character, "MissionProc: Set quest temporary data notice failed!" )
+		return SystemNotice( character, "MissionProc:set quest temporary data notice failed!" )
 	end
 	
 	if missionlist[id].tp == NOMAL_MISSION then
 		PRINT( "SelMissioinList:NomalMission type" )
-		--根据任务状态发送任务的不同信息
+		--沮ヴ叭篈祇癳ヴ叭ぃ獺
 		if state == MIS_DELIVERY then
 			return SendDeliveryPage( character, npcid, missionlist[id], missionlist[id].id )
 		elseif state == MIS_ACCEPT then
@@ -1641,15 +1601,15 @@ function SelMissionList( character, npc, selindex, missionlist )
 		elseif state == MIS_PENDING then
 			return SendPendingPage( character, npcid, missionlist[id], missionlist[id].id )
 		else
-			PRINT( "SelMissionList: incorrect type of quest status notice!" )
-			return SystemNotice( character, "SelMissionList: incorrect type of quest status notice!" )
+			PRINT( "SelMissionList:incorrect type of quest status notice!" )
+			return SystemNotice( character, "SelMissionList:incorrect type of quest status notice!" )
 		end
 	elseif missionlist[id].tp == RAND_MISSION then
 		PRINT( "SelMissioinList:RandMission type" )
-		--判断是否已经接受了该随机任务，如果接受了则是来还任务得
+		--耞琌竒钡赣radom ヴ叭狦钡玥琌ㄓ临ヴ叭眔
 		ret = HasRandMission( character, missionlist[id].id )
 		if ret ~= LUA_TRUE then			
-			--随机任务在选择时就已经产生并且玩家接受任务
+			--radom ヴ叭匡拒碞竒玻ネPlayer钡ヴ叭
 			local ret = IsMissionFull( character )
 			if ret == LUA_TRUE then
 				return SystemNotice( character, "You quest log is full. Please abandon an existing quest before activating another!" )
@@ -1666,7 +1626,7 @@ function SelMissionList( character, npc, selindex, missionlist )
 			local ret, index = CreateRandMission( character, npc, missionlist[id] )
 			if ret ~= LUA_TRUE then
 				if index ~= nil then
-					-- 表明背包容量不足
+					-- 璉甧秖ぃì
 					return LUA_TRUE
 				end
 				
@@ -1681,13 +1641,13 @@ function SelMissionList( character, npc, selindex, missionlist )
 				return LUA_FALSE
 			end
 			
-			--发送随机任务的交付页面信息
+			--祇癳radom ヴ叭ユ獺
 			local ret, randid, state = GetMissionInfo( character, npcid, selindex )
 			if ret ~= LUA_TRUE or id ~= randid then
 				ret, state = GetCharMission( character, npcid, id )
 				if ret ~= LUA_TRUE then
-					PRINT( "SelMissionList:GetCharMission obtain quest notice failed!" )
-					return SystemNotice( character, "MissionProc:GetCharMission obtain quest notice failed!" )
+					PRINT( "SelMissionList:GetCharMissionobtain quest notice failed!" )
+					return SystemNotice( character, "MissionProc:GetCharMissionobtain quest notice failed!" )
 				end
 			end
 			
@@ -1698,13 +1658,13 @@ function SelMissionList( character, npc, selindex, missionlist )
 				--PRINT( "SelMissionList:SendDeliveryPage, index = , mission = ", index, missionlist[id].missionlist[index] )
 				--return SendDeliveryPage( character, npcid, missionlist[id].missionlist[index], missionlist[id].id )
 			--else
-				--PRINT( "SelMissionList:random quest accept response as PENDING or DELIVERY status, however test status incorrect. state = "..state )
-				--return SystemNotice( character, "SelMissionList:random quest accept response as PENDING or DELIVERY status, however test status incorrect. state = "..state )
+				--PRINT( "SelMissionList:radom ヴ叭钡莱PENDING or DELIVERY篈琌浪代篈ぃ癸state = "..state )
+				--return SystemNotice( character, "SelMissionList:radom ヴ叭钡莱PENDING or DELIVERY篈琌浪代篈ぃ癸state = "..state )
 			--end
 		else
 			local ret, index = GetCharRandMission( character, missionlist[id].id, missionlist[id] )
 			if ret ~= LUA_TRUE or index == 0 then
-				--根据随机任务参数生成随机任务信息错误
+				--沮radom ヴ叭把计ネΘradom ヴ叭獺岿粇
 				PRINT( "SelMissionList:GetcharRandMission, according to random quest parameter generate random quest notice error!" )
 				return SystemNotice( character, "SelMissionList:GetcharRandMission, according to random quest parameter generate random quest notice error!" )
 			end
@@ -1719,17 +1679,17 @@ function SelMissionList( character, npc, selindex, missionlist )
 		end
 		
 	else
-		PRINT( "SelMissionList: parameter quest type unknown, invalid!" )
-		SystemNotice( character, "SelMissionList: parameter quest type unknown, invalid!" )
+		PRINT( "SelMissionList:Parameter quest type unknown. Invalid!" )
+		SystemNotice( character, "SelMissionList:Parameter quest type unknown. Invalid!" )
 		return LUA_FALSE
 	end
 	
 end
 
---任务处理
+--ヴ叭矪瞶
 function MissionProc( character, npc, rpk, missionlist )
 	if missionlist == nil then
-		SystemNotice( character, "MissionProc: parameter error!" )
+		SystemNotice( character, "MissionProc:parameter error!" )
 		return LUA_FALSE
 	end
 	
@@ -1740,7 +1700,7 @@ function MissionProc( character, npc, rpk, missionlist )
 	elseif byCmd == MIS_BTNACCEPT then
 		local ret = IsMissionFull( character )
 		if ret == LUA_TRUE then
-			return BickerNotice( character, "Quest slots are all taken. Unable to obtain new quest!" )
+			return BickerNotice( character, "Quest slots are all taken. accept quest failed!" )
 		end
 		return AcceptMission( character, npc, missionlist )
 	elseif byCmd == MIS_BTNDELIVERY then
@@ -1748,7 +1708,7 @@ function MissionProc( character, npc, rpk, missionlist )
 		local byParam2 = ReadByte( rpk )
 		local ret = CompleteMission( character, npc, missionlist, byParam1, byParam2 )
 		--if ret == LUA_TRUE then
-			--完成任务后继续下一个任务
+			--ЧΘヴ叭膥尿ヴ叭
 			--local npcid = GetCharID( npc )
 			--local ret, index, id, state = GetNextMission( character, npcid )
 			--PRINT( "MissionProc:GetNextMission: ret, index, id, state", ret, index, id, state )
@@ -1765,13 +1725,12 @@ function MissionProc( character, npc, rpk, missionlist )
 	end
 end
 
---查询任务日志信息
+--琩高ヴ叭ら粁獺
 function MissionLog( character, sid )
 	PRINT( "MissionLog" )
 	if sid == nil  or Mission[sid] == nil then
-		PRINT( "MissionLog: cannot locate quest script notice, sid = "..sid )		
-		LG( "mission_error", "MissionLog: cannot locate quest script notice, sid = "..sid )
-		SystemNotice( character, "MissionLog: cannot locate quest script notice, sid = "..sid )
+		PRINT( "MissionLog: cannot locate quest script noticesid = "..sid )		
+		SystemNotice( character, "MissionLog: cannot locate quest script noticesid = "..sid )
 		return
 	end
 	
@@ -1780,32 +1739,32 @@ function MissionLog( character, sid )
 	elseif Mission[sid].tp == RAND_MISSION then
 		local ret, index, loopdata = GetCharRandMission( character, Mission[sid].id, Mission[sid] )
 		if ret ~= LUA_TRUE or index == 0 then
-			--根据随机任务参数生成随机任务信息错误
-			PRINT( "MissionLog:GetcharRandMission, according to random quest parameter generated quest notice error!" )
-			SystemNotice( character, "MissionLog:GetcharRandMission, according to random quest parameter generated quest notice error!" )
+			--沮radom ヴ叭把计ネΘradom ヴ叭獺岿粇
+			PRINT( "MissionLog:GetcharRandMission, according to random quest parameter generate random quest notice error!" )
+			SystemNotice( character, "MissionLog:GetcharRandMission, according to random quest parameter generate random quest notice error!" )
 			return
 		end
 		
 		PRINT( "MissionLog:SendMissionLog, index = , mission = ", index, Mission[sid].missionlist[index] )
 		SendMissionLog( character, Mission[sid].missionlist[index], Mission[sid].id, Mission[sid].name )
 	else
-		PRINT( "MissionLog: parameter quest type unknown, invalid!ID = "..sid )
-		SystemNotice( character, "SelMissionList: parameter quest type unknown, invalid!ID = "..sid )		
+		PRINT( "MissionLog:Parameter quest type unknown. Invalid!ID = "..sid )
+		SystemNotice( character, "SelMissionList:Parameter quest type unknown. Invalid!ID = "..sid )		
 	end
 end
 
---发送任务日志信息
+--祇癳ヴ叭ら粁獺
 function SendMissionLog( character, mission, id, name )
 	PRINT( "SendMissionLog" )
 	if id == nil or mission == nil then
-		return SystemNotice( character, "Have not found target quest log notice, ID = "..id )		
+		return SystemNotice( character, "Have not found target quest log notice,ID = "..id )		
 	end
 	
 	local packet = GetPacket()
 	WriteCmd( packet, CMD_MC_MISLOGINFO )
 	WriteWord( packet, id )
 	
-	--发送任务需求信息
+	--祇癳ヴ叭惠―獺
 	WriteString( packet, name )
 	PRINT( "SendMissionLog:misname = ", name )
 	WriteByte( packet, mission.need.count )
@@ -1816,21 +1775,19 @@ function SendMissionLog( character, mission, id, name )
 		if mission.need[n].tp == MIS_NEED_ITEM then
 			WriteWord( packet, mission.need[n].p1 )
 			WriteWord( packet, mission.need[n].p2 )
-			--获取任务需求完成计数
+			--莉ヴ叭惠―ЧΘ璸计
 			local ret, num = GetNeedItemCount( character, id, mission.need[n].p1 )
 			PRINT( "SendMissionLog:GetNeedItemCount, num = ", num )
 			if ret ~= LUA_TRUE then
-				PRINT( "SendMissionLog:GetNeedItemCount,error. misid = , itemid = , num = ", id, mission.need[n].p1, mission.need[n].p2 )
-				SystemNotice( character, "SendMissionLog: GetNeedItemCount,error." )
-				LG( "mislog_error", "SendMissionLog:GetNeedItemCount,error. misid = , itemid = , num = ", id, mission.need[n].p1, mission.need[n].p2 )
+				PRINT( "SendMissionLog:GetNeedItemCount,errormisid = , itemid = , num = ", id, mission.need[n].p1, mission.need[n].p2 )
+				SystemNotice( character, "SendMissionLog:GetNeedItemCount,error" )
 				num = 0
 			end
 			WriteByte( packet, num )
 		elseif mission.need[n].tp == MIS_NEED_KILL then
 			WriteWord( packet, mission.need[n].p1 )
 			WriteWord( packet, mission.need[n].p2 )
-			--获取任务需求完成计数
-			PRINT( "SendMissionLog:GetNumFlag:GetNumFalg, id, p1, p2", id, mission.need[n].p3, mission.need[n].p2 )
+			--莉ヴ叭惠―ЧΘ璸计
 			WriteByte( packet, GetNumFlag( character, id, mission.need[n].p3, mission.need[n].p2 ) )	
 		elseif mission.need[n].tp == MIS_NEED_DESP then
 			WriteString( packet, mission.need[n].p1 )
@@ -1841,7 +1798,7 @@ function SendMissionLog( character, mission, id, name )
 		end
 	end
 	
-	--发送任务奖励信息
+	--祇癳ヴ叭贱纘獺
 	WriteByte( packet, mission.prize.seltp )
 	WriteByte( packet, mission.prize.count )
 	PRINT( "SendMissionLog:prize count = , seltype =", mission.prize.count, mission.prize.seltp )
@@ -1852,17 +1809,15 @@ function SendMissionLog( character, mission, id, name )
 		WriteWord( packet, mission.prize[i].p2 )
 	end
 	
-	--发送任务描述信息
+	--祇癳ヴ叭磞瓃獺
 	PRINT( "SendMissionLog:begin talk = "..mission.begin.talk )
 	WriteString( packet, mission.begin.talk )
 	SendPacket( character, packet )
 end
 
---发送任务交付页信息
 function SendDeliveryPage( character, npcid, mission, id )
 	PRINT( "SendDeliveryPage" )
 
-	--发送报文信息
 	local packet = GetPacket()
 	WriteCmd( packet, CMD_MC_MISPAGE )
 	WriteByte( packet, MIS_BTNDELIVERY )
@@ -1870,44 +1825,7 @@ function SendDeliveryPage( character, npcid, mission, id )
 	WriteString( packet, mission.name )
 	PRINT( "SenddeliveryPage:missionname = ", mission.name )
 	PRINT( "SendDeliveryPage:need = ", mission.need )
-	
-	--发送任务需求信息
-	--完成任务页不发送任务需求消息
 	WriteByte( packet, 0 )
-	--WriteByte( packet, mission.need.count )
-	--PRINT( "SendDeliveryPage:need count = "..mission.need.count )
-	--for n = 1, mission.need.count, 1 do
-		--PRINT( "SendDeliveryPage:need n = , tp, p1, p2, p3 ", n, mission.need[n].tp, mission.need[n].p1, mission.need[n].p2, mission.need[n].p3 )
-		--WriteByte( packet, mission.need[n].tp )
-		--if mission.need[n].tp == MIS_NEED_ITEM then
-			--WriteWord( packet, mission.need[n].p1 )
-			--WriteWord( packet, mission.need[n].p2 )
-			----获取任务需求完成计数
-			--local ret, num = GetNeedItemCount( character, id, mission.need[n].p1 )
-			--PRINT( "SendDeliveryPage:GetNeedItemCount, num = ", num )
-			--if ret ~= LUA_TRUE then
-				--PRINT( "SendDeliveryPage:GetNeedItemCount,error.itemid = , num = ", mission.need[n].p1, mission.need[n].p2 )
-				--SystemNotice( character, "SendDeliveryPage:GetNeedItemCount,error." )
-				--LG( "mislog_error", "SendDeliveryPage:GetNeedItemCount,error.itemid = , num = ", mission.need[n].p1, mission.need[n].p2 )
-				--num = 0
-			--end
-			--WriteByte( packet, num )
-		--elseif mission.need[n].tp == MIS_NEED_KILL then
-			--WriteWord( packet, mission.need[n].p1 )
-			--WriteWord( packet, mission.need[n].p2 )
-			----获取任务需求完成计数
-			--PRINT( "SendDeliveryPage:GetNumFlag:GetNumFalg, id, p1, p2", id, mission.need[n].p3, mission.need[n].p2 )
-			--WriteByte( packet, GetNumFlag( character, id, mission.need[n].p3, mission.need[n].p2 ) )	
-		--elseif mission.need[n].tp == MIS_NEED_DESP then
-			--WriteString( packet, mission.need[n].p1 )
-		--else
-			--PRINT( "SendDeliveryPage:unknown quest required type!mission id = ", id )
-			--SystemNotice( character, "SendDeliveryPage:unknown quest required type!mission id = ", id )
-			--return
-		--end
-	--end
-	
-	--发送任务奖励信息
 	WriteByte( packet, mission.prize.seltp )
 	WriteByte( packet, mission.prize.count )
 	PRINT( "SendDeliveryPage:prize count = , seltype =", mission.prize.count, mission.prize.seltp )
@@ -1916,22 +1834,18 @@ function SendDeliveryPage( character, npcid, mission, id )
 		WriteByte( packet, mission.prize[i].tp )
 		WriteWord( packet, mission.prize[i].p1 )
 		WriteWord( packet, mission.prize[i].p2 )
-		--WriteWord( packet, mission.prize[i].p3 )
-		--WriteWord( packet, mission.prize[i].p4 )
 	end
 	
-	--发送任务描述信息
 	PRINT( "SendDeliveryPage:result talk = "..mission.result.talk )
 	WriteString( packet, mission.result.talk )
 	SendPacket( character, packet )
 end
 
---发送一个任务给角色
+--祇癳ヴ叭倒à︹
 function GiveMission( character, id )
 	if id == nil or Mission[id] == nil then
-		PRINT( "GiveMission: Invalid quest! ID = "..id )
-		LG( "mission_error", "GiveMission: Invalid quest! ID = "..id )
-		SystemNotice( character, "GiveMission: Invalid quest! ID = "..id )
+		PRINT( "GiveMission:Invalid quest! ID = "..id )
+		SystemNotice( character, "GiveMission:Invalid quest! ID = "..id )
 		return LUA_FALSE
 	end
 	
@@ -1947,7 +1861,7 @@ function GiveMission( character, id )
 	ret = SetMissionTempInfo( character, npcid, id, MIS_ACCEPT, Mission[id].tp )
 	if ret ~= LUA_TRUE then 
 		PRINT( "SelMissionList:set quest temporary data notice failed!" )
-		SystemNotice( character, "MissionProc: Set quest temporary data notice failed!" )
+		SystemNotice( character, "MissionProc:set quest temporary data notice failed!" )
 		return LUA_FALSE
 	end
 	
@@ -1955,11 +1869,10 @@ function GiveMission( character, id )
 	return LUA_TRUE
 end
 
---强制交付一个任务
+--眏ユヴ叭
 function ObligeCompleteMission( character, id )
 	if id == nil or Mission[id] == nil then
 		PRINT( "ObligeCompleteMission:Invalid quest! ID = "..id )
-		LG( "mission_error", "ObligeCompleteMission:Invalid quest! ID = "..id )
 		SystemNotice( character, "ObligeCompleteMission:Invalid quest! ID = "..id )
 		return LUA_FALSE
 	end
@@ -1975,36 +1888,34 @@ function ObligeCompleteMission( character, id )
 	PRINT( "ObligeCompleteMission: npcid, id, mistp", npcid, id, Mission[id].tp )
 	ret = SetMissionTempInfo( character, npcid, id, MIS_ACCEPT, Mission[id].tp )
 	if ret ~= LUA_TRUE then
-		PRINT( "ObligeCompleteMission:SetMissionTempInfo: set temporary quest data notice failed!" )
-		SystemNotice( character, "ObligeCompleteMission:SetMissionTempInfo: set temporary quest data notice failed!" )
+		PRINT( "ObligeCompleteMission:SetMissionTempInfo:set quest temporary data notice failed!" )
+		SystemNotice( character, "ObligeCompleteMission:SetMissionTempInfo:set quest temporary data notice failed!" )
 		return LUA_FALSE
 	end
 	
 	ret = CompleteMission( character, npc )
 	if ret ~= LUA_TRUE then
 		SystemNotice( "ObligeCompleteMission:CompleteMission: force character accept completion failed!" )
-		LG( "mission_error", "ObligeCompleteMission: CompleteMission: Forced completion of quest failed!" )
 		return LUA_FALSE
 	end
 	
 	--SendPendingPage( character, npcid, Mission[id], Mission[id].id )
-	BickerNotice( character, "Quest\""..Mission[id].name.."\"Successfully completed delivery!" )
+	BickerNotice( character, "Quest["..Mission[id].name.."]Successfully completed delivery!" )
 	return LUA_TRUE
 end
 
---强制接受一个任务
+--眏钡ヴ叭
 function ObligeAcceptMission( character, id )
 	if id == nil or Mission[id] == nil then
-		PRINT( "ObligeMission: Invalid quest! ID = "..id )
-		LG( "mission_error", "ObligeMission: Invalid quest! ID = "..id )
-		SystemNotice( character, "ObligeMission: Invalid quest! ID = "..id )
+		PRINT( "ObligeMission:Invalid quest! ID = "..id )
+		SystemNotice( character, "ObligeMission:Invalid quest! ID = "..id )
 		return LUA_FALSE
 	end
 	
 	local ret, npc = GetEudemon()
 	if ret ~= LUA_TRUE then
-		PRINT( "ObligeMission:GetEudemon:function transfer failed!" )
-		SystemNotice( character, "ObligeMission:GetEudemon:function transfer failed!" )
+		PRINT( "ObligeMission:GetEudemon:functiontransfer failed!" )
+		SystemNotice( character, "ObligeMission:GetEudemon:functiontransfer failed!" )
 		return LUA_FALSE
 	end
 	
@@ -2018,15 +1929,14 @@ function ObligeAcceptMission( character, id )
 	PRINT( "ObligeMission: npcid, id, mistp", npcid, id, Mission[id].tp )
 	ret = SetMissionTempInfo( character, npcid, id, MIS_ACCEPT, Mission[id].tp )
 	if ret ~= LUA_TRUE then
-		PRINT( "ObligeMission: set quest temporary data notice failed!" )
-		SystemNotice( character, "ObligeMission: set quest temporary data notice failed!" )
+		PRINT( "ObligeMission:set quest temporary data notice failed!" )
+		SystemNotice( character, "ObligeMission:set quest temporary data notice failed!" )
 		return LUA_FALSE
 	end
 	
 	ret = AcceptMission( character, npc )
 	if ret ~= LUA_TRUE then
-		SystemNotice( "ObligeMission:AcceptMission: forced character acception of quest failed!" )
-		LG( "mission_error", "ObligeMission:AcceptMission: forced character acception of quest failed!" )
+		SystemNotice( "ObligeMission:AcceptMission: forced character accept quest failed!" )
 		return LUA_FALSE
 	end
 	
@@ -2034,11 +1944,11 @@ function ObligeAcceptMission( character, id )
 	return LUA_TRUE
 end
 
---发送任务接受页信息
+--祇癳ヴ叭钡獺
 function SendAcceptPage( character, npcid, mission, id )	
 	PRINT( "SendAcceptPage" )
 
-	--发送报文信息
+	--祇癳厨ゅ獺
 	local packet = GetPacket()
 	WriteCmd( packet, CMD_MC_MISPAGE )
 	WriteByte( packet, MIS_BTNACCEPT )
@@ -2046,7 +1956,7 @@ function SendAcceptPage( character, npcid, mission, id )
 	WriteString( packet, mission.name )
 	PRINT( "SendAcceptPage: name = ", mission.name )
 	
-	--发送任务需求信息
+	--祇癳ヴ叭惠―獺
 	WriteByte( packet, mission.need.count )
 	PRINT( "SendAcceptPage:need count = "..mission.need.count )
 	for n = 1, mission.need.count, 1 do
@@ -2055,7 +1965,7 @@ function SendAcceptPage( character, npcid, mission, id )
 		if mission.need[n].tp == MIS_NEED_ITEM or mission.need[n].tp == MIS_NEED_KILL then
 			WriteWord( packet, mission.need[n].p1 )
 			WriteWord( packet, mission.need[n].p2 )
-			--获取任务需求完成计数
+			--莉ヴ叭惠―ЧΘ璸计
 			WriteByte( packet, 0 )
 		elseif mission.need[n].tp == MIS_NEED_DESP then
 			WriteString( packet, mission.need[n].p1 )
@@ -2066,7 +1976,7 @@ function SendAcceptPage( character, npcid, mission, id )
 		end
 	end
 	
-	--发送任务奖励信息
+	--祇癳ヴ叭贱纘獺
 	WriteByte( packet, mission.prize.seltp )
 	WriteByte( packet, mission.prize.count )
 	PRINT( "SendAcceptPage:prize count = , seltype =", mission.prize.count, mission.prize.seltp )
@@ -2079,17 +1989,17 @@ function SendAcceptPage( character, npcid, mission, id )
 		--WriteWord( packet, mission.prize[i].p4 )
 	end
 	
-	--发送任务描述信息
+	--祇癳ヴ叭磞瓃獺
 	PRINT( "SendAcceptPage:begin talk = "..mission.begin.talk )
 	WriteString( packet, mission.begin.talk )
 	SendPacket( character, packet )
 end
 
---发送任务未决页信息
+--祇癳ヴ叭ゼ∕獺
 function SendPendingPage( character, npcid, mission, id )
 	PRINT( "SendPendingPage" )
 	
-	--发送报文信息
+	--祇癳厨ゅ獺
 	local packet = GetPacket()
 	WriteCmd( packet, CMD_MC_MISPAGE )
 	WriteByte( packet, MIS_BTNPENDING )
@@ -2097,7 +2007,7 @@ function SendPendingPage( character, npcid, mission, id )
 	WriteString( packet, mission.name )
 	PRINT( "SendPendingPage: name = ", mission.name )
 	
-	--发送任务需求信息
+	--祇癳ヴ叭惠―獺
 	WriteByte( packet, mission.need.count )
 	PRINT( "SendPendingPage:need count = "..mission.need.count )
 	for n = 1, mission.need.count, 1 do
@@ -2106,32 +2016,32 @@ function SendPendingPage( character, npcid, mission, id )
 		if mission.need[n].tp == MIS_NEED_ITEM then
 			WriteWord( packet, mission.need[n].p1 )
 			WriteWord( packet, mission.need[n].p2 )
-			--获取任务需求完成计数
+			--莉ヴ叭惠―ЧΘ璸计
 			local ret, num = GetNeedItemCount( character, id, mission.need[n].p1 )
 			PRINT( "SendPendingPage:GetNeedItemCount, num = ", num )
 			if ret ~= LUA_TRUE then
-				PRINT( "SendPendingPage: GetNeedItemCount,error. itemid = , num = ", mission.need[n].p1, mission.need[n].p2 )
-				SystemNotice( character, "SendPendingPage:GetNeedItemCount, error." )
+				PRINT( "SendPendingPage:GetNeedItemCount,erroritemid = , num = ", mission.need[n].p1, mission.need[n].p2 )
+				SystemNotice( character, "SendPendingPage:GetNeedItemCount,error" )
 				num = 0
 			end
 			WriteByte( packet, num )
 		elseif mission.need[n].tp == MIS_NEED_KILL then
 			WriteWord( packet, mission.need[n].p1 )
 			WriteWord( packet, mission.need[n].p2 )
-			--获取任务需求完成计数
+			--莉ヴ叭惠―ЧΘ璸计
 			local numflag  = GetNumFlag( character, id, mission.need[n].p3, mission.need[n].p2 )
 			PRINT( "SendPendingPage:GetNumFlag, numflag = ", numflag )
 			WriteByte( packet, numflag )		
 		elseif mission.need[n].tp == MIS_NEED_DESP then
 			WriteString( packet, mission.need[n].p1 )
 		else
-			PRINT( "SendPendingPage: unknown quest required type!mission id = ", id )
-			SystemNotice( character, "SendPendingPage: unknown quest required type!mission id = "..id )
+			PRINT( "SendPendingPage:unknown quest required type!mission id = ", id )
+			SystemNotice( character, "SendPendingPage:unknown quest required type!mission id = "..id )
 			return
 		end
 	end
 	
-	--发送任务奖励信息
+	--祇癳ヴ叭贱纘獺
 	WriteByte( packet, mission.prize.seltp )
 	WriteByte( packet, mission.prize.count )
 	PRINT( "SendPendingPage:prize count = , seltype =", mission.prize.count, mission.prize.seltp )
@@ -2144,21 +2054,21 @@ function SendPendingPage( character, npcid, mission, id )
 		--WriteWord( packet, mission.prize[i].p4 )
 	end
 	
-	--发送任务描述信息
+	--祇癳ヴ叭磞瓃獺
 	PRINT( "SendPendingPage:help = ", mission.result.help )
 	WriteString( packet, mission.result.help )
 	SendPacket( character, packet )
 end
 
---任务奖励操作
+--ヴ叭贱纘巨
 function MisPrizeProc( character, npc, mission, selitem, param )
 	if mission == nil then
-		SystemNotice( character, "MisPrizeProc: parameter error!" )
+		SystemNotice( character, "MisPrizeProc:parameter error!" )
 		return LUA_FALSE
 	end
 	PRINT( "MisPrizeProc:prize count =, sel type = , selitem = ", mission.prize.count, mission.prize.seltp, selitem )
 	if mission.prize.seltp == PRIZE_SELONE then
-	--单选
+	--虫匡
 		if selitem == nil then
 			SystemNotice( character, "MisPrizeProc: select parameter invalid!" )
 			return LUA_FALSE
@@ -2169,16 +2079,16 @@ function MisPrizeProc( character, npc, mission, selitem, param )
 			return LUA_FALSE
 		end
 		if mission.prize[selitem].tp == nil or mission.prize[selitem].p1 == nil or mission.prize[selitem].p2 == nil  then
-			SystemNotice( character, "MisPrizeProc: selected reward notice invalid! Please check!" )
+			SystemNotice( character, "MisPrizeProc:selected reward notice invalid! Please check!" )
 			return LUA_FALSE
 		end
 		return MisPrizeAction( character, npc, mission.prize[selitem].tp, mission.prize[selitem].p1, mission.prize[selitem].p2, mission.prize[selitem].p3, mission.prize[selitem].p4 )
 	elseif mission.prize.seltp == PRIZE_SELALL then 
-	--全选
+	--匡
 		for n = 1, mission.prize.count, 1 do
 			PRINT( "MisPrizeProc: prize n = "..n )
 			if mission.prize[n].tp == nil or mission.prize[n].p1 == nil or mission.prize[n].p2 == nil  then
-				SystemNotice( character, "MisPrizeProc: selected reward notice invalid! Please check!" )
+				SystemNotice( character, "MisPrizeProc:selected reward notice invalid! Please check!" )
 				return LUA_FALSE
 			end
 			local ret = MisPrizeAction( character, npc, mission.prize[n].tp, mission.prize[n].p1, mission.prize[n].p2, mission.prize[n].p3, mission.prize[n].p4 )
@@ -2204,15 +2114,14 @@ function AddPetExp( character, p1, p2 )
 	return Give_ElfEXP_MISSION ( character , p1 + Rand( p2 ) )
 end
 
---任务奖励操作
+--ヴ叭贱纘巨
 function MisPrizeAction( character, npc, tp, p1, p2, p3, p4 )
 	PRINT( "MisPrizeAction:tp, p1, p2, p3, p4", tp, p1, p2, p3, p4 )
 	if tp == MIS_PRIZE_ITEM then
 		PRINT( "MisPrizeAction:GiveItem, p1 = , p2 = ", p1, p2, p3 )
 		local ret = GiveItem( character, npc, p1, p2, p3 )
 		if ret ~= LUA_TRUE then
-			SystemNotice( character, "MisPrizeAction:GiveItem: Function transfer failed!" )
-			LG( "mission_error", "MisPrizeAction:GiveItem:functiontransfer failed!npcname = , tp = , p1 = , p2 =, p3 = ", GetCharName( npc ), tp, p1, p2, p3 )
+			SystemNotice( character, "MisPrizeAction:GiveItem:functiontransfer failed!" )
 			return LUA_FALSE
 		end
 	elseif tp == MIS_PRIZE_MONEY then
@@ -2220,7 +2129,6 @@ function MisPrizeAction( character, npc, tp, p1, p2, p3, p4 )
 		local ret = AddMoney( character, npc, p1 )
 		if ret ~= LUA_TRUE then
 			SystemNotice( character, "MisPrizeAction:AddMoney:functiontransfer failed!" )
-			LG( "mission_error", "MisPrizeAction:AddMoney:functiontransfer failed!npcname = , tp = , p1 = , p2  ", GetCharName( npc ), tp, p1, p2 )
 			return LUA_FALSE
 		end		
 	elseif tp == MIS_PRIZE_FAME then
@@ -2228,7 +2136,6 @@ function MisPrizeAction( character, npc, tp, p1, p2, p3, p4 )
 		--local ret = AddFame( character, npc, p1 )
 		--if ret ~= LUA_TRUE then
 			--SystemNotice( character, "MisPrizeAction:AddFame:functiontransfer failed!" )
-			--LG( "mission_error", "MisPrizeAction:AddFame: Function transfer failed! npcname = , tp = , p1 = , p2  ", GetCharName( npc ), tp, p1, p2 )
 			--return LUA_FALSE
 		--end
 	elseif tp == MIS_PRIZE_CESS then
@@ -2236,7 +2143,6 @@ function MisPrizeAction( character, npc, tp, p1, p2, p3, p4 )
 		local ret = AdjustTradeCess( character, p1, p2 )
 		if ret ~= LUA_TRUE then
 			SystemNotice( character, "MisPrizeAction:AdjustTradeCess:functiontransfer failed!" )
-			LG( "mission_error", "MisPrizeAction:AdjustTradeCess:functiontransfer failed!npcname = , tp = , p1 = , p2  ", GetCharName( npc ), tp, p1, p2 )
 			return LUA_FALSE
 		end
 	elseif tp == MIS_PRIZE_PETEXP then
@@ -2244,7 +2150,6 @@ function MisPrizeAction( character, npc, tp, p1, p2, p3, p4 )
 		local ret = AddPetExp( character, p1, p2 )
 		if ret ~= LUA_TRUE then
 			SystemNotice( character, "MisPrizeAction:AddPetExp:functiontransfer failed!" )
-			LG( "mission_error", "MisPrizeAction:AddPetExp:functiontransfer failed!npcname = , tp = , p1 = , p2 = ", GetCharName( npc ), tp, p1, p2 )
 			return LUA_FALSE
 		end
 	else
@@ -2254,36 +2159,36 @@ function MisPrizeAction( character, npc, tp, p1, p2, p3, p4 )
 	return LUA_TRUE
 end
 
---任务NPC状态检测
+--ヴ叭NPC篈浪代
 function MissionState( character, npcid, missionlist )
 	PRINT( "MissionState" )
 	if missionlist == nil then
-		SystemNotice( character, "MissionState:Npcquest notice as null!" )
+		SystemNotice( character, "MissionState:Npc quest notice as null!" )
 		return LUA_FALSE
 	end
-	--检测任务状态
+	--浪代ヴ叭篈
 	for i = 1, 32, 1 do
 		if missionlist[i] == nil then
 			break
 		end
 		local mission = missionlist[i]
 		if mission.name == nil or mission.id == nil then
-			SystemNotice( character, "MissionState: NPC quest list name ord id value cannot be as null!" )
+			SystemNotice( character, "MissionState:NPC quest list name ord id value cannot be as null!" )
 			return LUA_FALSE
 		end
 		if mission.tp == NOMAL_MISSION then
 			PRINT( "MissionState:nomal mission" )
-			--判断角色是否有该任务		
+			--耞à︹琌Τ赣ヴ叭		
 			PRINT( "MissionState:2, ID =", mission.id )		
 			local ret = HasMission( character, mission.id )
 			PRINT( "MissionState:5" )
 			if ret == LUA_TRUE then
 				if mission.result == nil then
-					SystemNotice( character, "MissionState: quest completion trigger cannot be as null!" )
+					SystemNotice( character, "MissionState:quest completion trigger cannot be as null!" )
 				else
 					local ret = NpcTriggerCheck( character, mission.result )
 					if ret == LUA_TRUE then
-						--检测到可以还任务跳出循环检测并记录数据信息
+						--浪代临ヴ叭铬碻吏浪代癘魁计沮獺
 						PRINT( "MissionState:Add state = %d delivery, i = %d", MIS_DELIVERY, i )
 						AddMissionState( character, npcid, i, MIS_DELIVERY )
 					elseif mission.show ~= COMPLETE_SHOW then
@@ -2298,7 +2203,7 @@ function MissionState( character, npcid, missionlist )
 				else
 					local ret = NpcTriggerCheck( character, mission.begin )
 					if ret == LUA_TRUE then
-						--检测到可以接任务记录数据信息
+						--浪代钡ヴ叭癘魁计沮獺
 						PRINT( "MissionState:Add state = %d accept, i = %d", MIS_ACCEPT, i )
 						AddMissionState( character, npcid, i, MIS_ACCEPT )
 					end
@@ -2308,19 +2213,19 @@ function MissionState( character, npcid, missionlist )
 			PRINT( "MissionState:rand mission, mission.id", mission.id )
 			local ret = HasRandMission( character, mission.id )
 			if ret == LUA_TRUE then
-				--已经接了随机任务，查看他是否可以交付
+				--竒钡radom ヴ叭琩琌ユ
 				PRINT( "MissionState, GetCharRandMission" )
 				local ret, index = GetCharRandMission( character, mission.id, mission )
 				PRINT( "MissionState:GetCharRandMission, ret =, index =  ", ret, index )
 				if ret == LUA_TRUE and index ~= 0 then
 					PRINT( "MissionState: proc rand mission" )
 					if mission.missionlist[index] == nil or mission.missionlist[index].result == nil then
-						SystemNotice( character, "MissionState:random quest completion trigger cannot be as null!" )
+						SystemNotice( character, "MissionState:radom quest completion trigger cannot be as null!" )
 					else
 						PRINT( "MissionState: RandMission, NpcTriggerCheck" )
 						ret = NpcTriggerCheck( character, mission.missionlist[index].result )
 						if ret == LUA_TRUE then
-							--检测到可以还任务跳出循环检测并记录数据信息		
+							--浪代临ヴ叭铬碻吏浪代癘魁计沮獺		
 							PRINT( "MissionState:random quest: Add state = %d delivery, i = %d", MIS_DELIVERY, i )
 							AddMissionState( character, npcid, i, MIS_DELIVERY )
 						else
@@ -2330,12 +2235,12 @@ function MissionState( character, npcid, missionlist )
 					end
 				end
 			else
-				--未接随机任务，看是否可以接
+				--ゼ钡radom ヴ叭琌钡
 				local ret = IsRandMissionAccept( character, mission )
 				if ret == LUA_TRUE then
 					ret = NpcTriggerCheck( character, mission.begin )
 					if ret == LUA_TRUE then
-						PRINT( "MissionState: random quest: Add state = %d accept, i = %d", MIS_ACCEPT, i )
+						PRINT( "MissionState:random quest: Add state = %d accept, i = %d", MIS_ACCEPT, i )
 						AddMissionState( character, npcid, i, MIS_ACCEPT )					
 					end
 				end
@@ -2350,7 +2255,7 @@ function MissionState( character, npcid, missionlist )
 	return LUA_TRUE
 end
 
---刷新npc任务状态标志信息
+--穝npcヴ叭篈夹粁獺
 function RefreshMissionState( character, npc )
 	if character == nil or npc == nil then
 		PRINT( "RefreshMissionState: parameter error!" )
@@ -2358,12 +2263,12 @@ function RefreshMissionState( character, npc )
 	return ResetMissionState( character, npc )
 end
 
---刷新任务完成状态
+--穝ヴ叭ЧΘ篈
 function RefreshCompleteFlag( character, sid )
 	PRINT( "RefreshCompleteFlag" )
 	if sid == nil or Mission[sid] == nil then
-		PRINT( "RefreshCompleteFlag:incorrect quest script ID number, sid = "..sid )
-		SystemNotice( character, "RefreshCompleteFlag:incorrect quest script ID number, sid = "..sid )
+		PRINT( "RefreshCompleteFlag:incorrect quest script ID number,sid = "..sid )
+		SystemNotice( character, "RefreshCompleteFlag:incorrect quest script ID number,sid = "..sid )
 		return LUA_FALSE
 	end
 
@@ -2371,14 +2276,14 @@ function RefreshCompleteFlag( character, sid )
 	if Mission[sid].tp == NOMAL_MISSION then
 		mission = Mission[sid]
 	elseif Mission[sid].tp == RAND_MISSION then
-		--已经接了随机任务，查看他是否可以交付
+		--竒钡radom ヴ叭琩琌ユ
 		PRINT( "RefreshCompleteFlag, GetCharRandMission" )
 		local ret, index = GetCharRandMission( character, Mission[sid].id, Mission[sid] )
 		PRINT( "RefreshCompleteFlag:GetCharRandMission, ret =, index =  ", ret, index )
 		if ret == LUA_TRUE and index ~= 0 then
 			PRINT( "RefreshCompleteFlag: proc rand mission" )
 			if Mission[sid].missionlist[index] == nil or Mission[sid].missionlist[index].result == nil then
-				SystemNotice( character, "MissionState:random quest completion trigger cannot be as null!" )
+				SystemNotice( character, "MissionState:radom quest completion trigger cannot be as null!" )
 				return LUA_FALSE
 			end
 			mission = Mission[sid].missionlist[index]
@@ -2391,13 +2296,13 @@ function RefreshCompleteFlag( character, sid )
 	PRINT( "RefreshCompleteFlag:NpcTriggerCheck" )
 	local ret = NpcTriggerCheck( character, mission.result )
 	if ret == LUA_TRUE then
-		--检测到任务完成
-		PRINT( "RefreshCompleteFlag: quest has completed!" )
-		--SystemNotice( character, "RefreshCompleteFlag: quest has completed!" )
+		--浪代ヴ叭ЧΘ
+		PRINT( "RefreshCompleteFlag:quest has completed!" )
+		--SystemNotice( character, "RefreshCompleteFlag:quest has completed!" )
 		ret = SetMissionComplete( character, Mission[sid].id )
 		if ret ~= LUA_TRUE then
-			PRINT( "RefreshCompleteFlag: SetMissionComplete set quest completion label failed!" )
-			SystemNotice( character, "RefreshCompleteFlag: SetMissionComplete set quest completion label failed!" )
+			PRINT( "RefreshCompleteFlag:SetMissionComplete set quest completion label failed!" )
+			SystemNotice( character, "RefreshCompleteFlag:SetMissionComplete set quest completion label failed!" )
 		end
 	end
 	
@@ -2405,7 +2310,7 @@ function RefreshCompleteFlag( character, sid )
 	return LUA_TRUE
 end
 
---任务条件判断处理函数
+--ヴ叭兵ン耞矪瞶ㄧ计
 function ConditionsTest( character, conditions, param1, param2, npc )
 	if conditions == nil then
 		SystemNotice( character, "ConditionsTest: condition test function conditions parameter cannot be as null!" )
@@ -2419,18 +2324,34 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 		if conditions.count ~= nil then
 			num = conditions.count
 		end
-		for i = 1, num, 1 do --检测触发器限制条件最多12个条件
+		for i = 1, num, 1 do --浪代牟祇竟兵ン程12兵ン
 			if conditions[i] == nil then			
 				break;
 			end
 			if conditions[i].func == nil then
-				SystemNotice( character, "ConditionsTest: condition management function cannot be as null!" )			
+				--SystemNotice( character, "ConditionsTest: condition management function cannot be as null!" )			
 			end
 			if conditions[i].func == NoMission then
 				PRINT( "ConditionsTest:NoMission, p1 = ", conditions[i].p1 )
 				local Ret = NoMission( character, conditions[i].p1 )
 				if Ret ~= LUA_TRUE then
 					PRINT( "ConditionsTest: NoMission = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func == CheckTime then
+                PRINT( "ConditionsTest: CheckTime")
+                local ret = CheckTime(character)
+                if ret ~= LUA_TRUE then
+                    PRINT( "ConditionsTest: CheckTime = false" )
+                    return LUA_FALSE
+                end
+			-----------------------
+			-- ?????????? ?????? --
+			-----------------------
+			elseif conditions[i].func == IsGiveQuest then
+				local ret = IsGiveQuest(character, conditions[i].p1)
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:IsGiveQuest = false" )
 					return LUA_FALSE
 				end
 			elseif conditions[i].func == HasMission then
@@ -2524,6 +2445,7 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 					PRINT( "ConditionsTest:HasItem = false" )
 					return LUA_FALSE
 				end
+			
 			elseif conditions[i].func == NoItem then
 				PRINT( "ConditionsTest: NoItem, p1 =, p2 =", conditions[i].p1, conditions[i].p2 )
 				local ret = NoItem( character, conditions[i].p1, conditions[i].p2 )
@@ -2559,13 +2481,6 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 					PRINT( "ConditionsTest:CheckPoint = false" )
 					return LUA_FALSE
 				end
-			elseif conditions[i].func == ItemAttrNum then
-				PRINT( "ConditionsTest: ItemAttrNum, p1 = ", conditions[i].p1,conditions[i].p2,conditions[i].p3,conditions[i].p4)
-				local ret = ItemAttrNum( character,conditions[i].p1,conditions[i].p2,conditions[i].p3,conditions[i].p4)
-				if ret ~= LUA_TRUE then
-					PRINT( "ConditionsTest:ItemAttrNum = false" )
-					return LUA_FALSE
-				end
 			elseif conditions[i].func == HaveNoItem then
 				PRINT( "ConditionsTest: HaveNoItem, p1 = ", conditions[i].p1)
 				local ret = HaveNoItem( character,conditions[i].p1)
@@ -2585,6 +2500,12 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 				local ret = EquipNoItem( character, conditions[i].p1, conditions[i].p2 )
 				if ret ~= LUA_TRUE then
 					PRINT( "ConditionsTest:EquipNoItem = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func == CheckTeam then
+				local ret = CheckTeam( character)
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:CheckTeam = false" )
 					return LUA_FALSE
 				end
 			elseif conditions[i].func == CheckTeam1 then
@@ -2608,7 +2529,7 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 					PRINT( "ConditionsTest:CheckErroNum = false" )
 					return LUA_FALSE
 				end
-			elseif conditions[i].func == HasReadExp then		--小测验时必须有经验
+			elseif conditions[i].func == HasReadExp then		--代喷ゲ斗Τ竒喷
 				local ret = HasReadExp( character )
 				if ret ~= LUA_TRUE then
 					return LUA_FALSE
@@ -2669,6 +2590,36 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 					PRINT( "ConditionsTest:HasMoney = false" )
 					return LUA_FALSE
 				end
+			-----------------
+			-- Check Reset --
+			-----------------
+			elseif conditions[i].func == Check_Reset then
+				PRINT( "ConditionsTest: Check_Reset, p1 = ", conditions[i].p1 )
+				local ret = Check_Reset( character, conditions[i].p1 )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:Check_Reset = false" )
+					return LUA_FALSE
+				end
+			-----------------
+			-- Check Forge --
+			-----------------
+			elseif conditions[i].func == CheckForge then
+				PRINT( "ConditionsTest: CheckForge, p1 = ", conditions[i].p1 )
+				local ret = CheckForge( character, conditions[i].p1 )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:CheckForge = false" )
+					return LUA_FALSE
+				end
+			--------------
+			-- Check GM --
+			--------------
+			elseif conditions[i].func == CheckGM then
+				PRINT( "ConditionsTest: CheckGM, p1 = ", conditions[i].p1 )
+				local ret = CheckGM( character, conditions[i].p1 )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:CheckGM = false" )
+					return LUA_FALSE
+				end
 			elseif conditions[i].func == HasCancelMissionMoney then
 				PRINT( "ConditionsTest: HasCancelMissionMoney" )
 				local ret = HasCancelMissionMoney( character )
@@ -2690,7 +2641,7 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 			elseif conditions[i].func == IsItem then
 				PRINT( "ConditionsTest:IsItem, p1 =, p2 =", conditions[i].p1, param1 )
 				if param1 == nil then
-					SystemNotice( "ConditionsTest: determine obtain item type function, parameter invalid! param1 = nil" )
+					SystemNotice( "ConditionsTest:determine obtain item type function, parameter invalid!param1 = nil" )
 					return LUA_FALSE
 				end
 				local ret = IsItem( conditions[i].p1, param1 )
@@ -2943,13 +2894,6 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 					PRINT( "ConditionsTest:HasAllBoatInBerth = false" )
 					return LUA_FALSE
 				end
-			--elseif conditions[i].func == HasAllBoatInBerth_eitheror then
-			--	PRINT( "ConditionsTest:HasAllBoatInBerth , p1 = , p2 = ", conditions[i].p1, conditions[i].p2 )
-			--	local ret = HasAllBoatInBerth_eitheror( character, conditions[i].p1, conditions[i].p2 )
-			--	if ret ~= LUA_TRUE then
-			--		PRINT( "ConditionsTest:HasAllBoatInBerth_eitheror = false" )
-			--		return LUA_FALSE
-			--	end
 			elseif conditions[i].func == HasLuanchOut then
 				PRINT( "ConditionsTest:HasLuanchOut" )
 				local ret = HasLuanchOut( character )
@@ -3062,13 +3006,6 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 					PRINT( "ConditionsTest:CheckEnergy = false" )
 					return LUA_FALSE
 				end
-			elseif conditions[i].func == CheckChaItem then
-				PRINT( "ConditionsTest: CheckChaItem, p1 = ")
-				local ret = CheckChaItem( character )
-				if ret ~= LUA_TRUE then
-					PRINT( "ConditionsTest:CheckChaItem = false" )
-					return LUA_FALSE
-				end			
 			elseif conditions[i].func == HasXmasYB then
 				PRINT( "ConditionsTest:HasXmasYB,p1, p2", conditions[i].p1, conditions[i].p2 )
 				local ret = HasXmasYB( character, conditions[i].p1, conditions[i].p2 )
@@ -3110,7 +3047,7 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 				if ret ~= LUA_TRUE then
 					PRINT( "ConditionsTest:KitbagLock = false" )
 					return LUA_FALSE
-				end
+				end	
 			elseif conditions[i].func == ValentinesRing then
 				PRINT( "ConditionsTest:ValentinesRing, p1 = ", conditions[i].p1 )
 				local ret = ValentinesRing( character, conditions[i].p1 )
@@ -3118,42 +3055,6 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 					PRINT( "ConditionsTest:ValentinesRing = false" )
 					return LUA_FALSE
 				end	
-			elseif conditions[i].func ==DuiHhuan1 then
-				PRINT( "ConditionsTest: DuiHhuan1")
-				local ret = DuiHhuan1( character )
-				if ret ~= LUA_TRUE then
-					PRINT( "ConditionsTest:DuiHhuan1 = false" )
-					return LUA_FALSE
-				end	
-			elseif conditions[i].func ==DuiHhuan2 then
-				PRINT( "ConditionsTest: DuiHhuan2")
-				local ret = DuiHhuan2( character )
-				if ret ~= LUA_TRUE then
-					PRINT( "ConditionsTest:DuiHhuan2 = false" )
-					return LUA_FALSE
-				end	
-			elseif conditions[i].func ==DuiHhuan3 then
-				PRINT( "ConditionsTest: DuiHhuan3")
-				local ret = DuiHhuan3( character )
-				if ret ~= LUA_TRUE then
-					PRINT( "ConditionsTest:DuiHhuan3 = false" )
-					return LUA_FALSE
-			end	
-				elseif conditions[i].func ==DuiHhuan4 then
-				PRINT( "ConditionsTest: DuiHhuan4")
-				local ret = DuiHhuan4( character )
-				if ret ~= LUA_TRUE then
-					PRINT( "ConditionsTest:DuiHhuan4 = false" )
-					return LUA_FALSE
-			end	
-				elseif conditions[i].func ==DuiHhuan5 then
-				PRINT( "ConditionsTest: DuiHhuan5")
-				local ret = DuiHhuan5( character )
-				if ret ~= LUA_TRUE then
-					PRINT( "ConditionsTest:DuiHhuan5 = false" )
-					return LUA_FALSE
-			end	
-
 			elseif conditions[i].func == ValentinesRingJudge then
 				PRINT( "ConditionsTest:ValentinesRingJudge, p1 = ", conditions[i].p1 )
 				local ret = ValentinesRingJudge( character, conditions[i].p1 )
@@ -3161,10 +3062,17 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 					PRINT( "ConditionsTest:ValentinesRingJudge = false" )
 					return LUA_FALSE
 				end
+			elseif conditions[i].func ==CheckTime then
+				PRINT( "ConditionsTest: CheckTime, p1 =, p2 =", conditions[i].p1)
+				local ret = CheckTime( character, conditions[i].p1 )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:CheckTime = false" )
+					return LUA_FALSE
+				end
 			else
---				PRINT( "ConditionsTest: unknown condition function!i = %d", i )
---				SystemNotice( character, "ConditionsTest:unknown condition function error!" )
---				return LUA_ERROR
+				PRINT( "ConditionsTest: unknown condition function!i = %d", i )
+				--SystemNotice( character, "ConditionsTest:unknown condition function error!" )
+				return LUA_ERROR
 			end
 		end
 	end
@@ -3173,16 +3081,16 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 	return LUA_TRUE
 end
 
---任务动作处理函数
+--ヴ叭笆矪瞶ㄧ计
 function ActionsProc( character, actions, npc, page, misid, scriptid, param1, param2 )
 	PRINT( "ActionProc: actions proc" )
 	if actions == nil then
-		PRINT( "ActionProc: quest action management function parameter actions cannot be as null!" )
-		SystemNotice( character, "ActionProc: quest action management function parameter actions cannot be as null!" )
+		PRINT( "ActionProc:quest action management function parameter actions cannot be as null!" )
+		SystemNotice( character, "ActionProc:quest action management function parameter actions cannot be as null!" )
 		return LUA_ERROR
 	end
 	
-	--触发器符合条件动作
+	--牟祇竟才兵ン笆
 	local num = TR_MAXNUM_ACTIONS
 	if actions.count ~= nil then
 		num = actions.count
@@ -3201,6 +3109,9 @@ function ActionsProc( character, actions, npc, page, misid, scriptid, param1, pa
 		elseif actions[i].func == CloseTalk then
 			PRINT( "ActionProc:CloseTalk" )
 			CloseTalk( character, npc )
+		--?????????? ??????
+		elseif actions[i].func == SaveQuest then
+			SaveQuest( character, actions[i].p1 )
 		elseif actions[i].func == AddMission then
 			PRINT( "ActionProc: AddMission actions[i].p1 = , scriptid = ", actions[i].p1, scriptid )
 			local ret = AddMission( character, actions[i].p1, scriptid )
@@ -3209,18 +3120,12 @@ function ActionsProc( character, actions, npc, page, misid, scriptid, param1, pa
 				SystemNotice( character, "ActionProc: Adds quest failed!" )
 				return LUA_FALSE
 			end
-			
-elseif actions[i].func == Addlvl then
-local ret = Addlvl (character)
-if ret ~= LUA_TRUE then
-return LUA_FALSE
-end
 		elseif actions[i].func == AddTrigger then
 			PRINT( "ActionProc: AddTrigger, misid, p1 = , p2 = , p3 = , p4 = , p5 = , p6 = , p7 = , p8 = ", misid, actions[i].p1, actions[i].p2, actions[i].p3, actions[i].p4, actions[i].p5, actions[i].p6, actions[i].p7, actions[i].p8 )
 			local ret = AddTrigger( character, misid, actions[i].p1, actions[i].p2, actions[i].p3, actions[i].p4, actions[i].p5, actions[i].p6, actions[i].p7, actions[i].p8 )
 			if ret ~= LUA_TRUE then
 				PRINT( "ActionProc: AddTrigger failed!" )
-				SystemNotice( character, "ActionProc: adds trigger failed!" )
+				SystemNotice( character, "ActionProc:  adds trigger failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == AddNpcTrigger then
@@ -3228,14 +3133,13 @@ end
 			local ret = AddNpcTrigger( character, actions[i].p1, actions[i].p2, actions[i].p3, actions[i].p4, actions[i].p5, actions[i].p6 )
 			if ret ~= LUA_TRUE then
 				PRINT( "ActionProc: AddNpcTrigger failed!" )
-				LG( "trigger_error", "ActionProc: AddNpcTrigger adds trigger failed!NPC = "..GetCharName( character ) )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == AddNextFlag then
 			PRINT( "ActionProc:AddNextFlag, p1, p2, p3", actions[i].p1, actions[i].p2, actions[i].p3 )
 			local ret = AddNextFlag( character, actions[i].p1, actions[i].p2, actions[i].p3 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: AddNextFlag Failed!" )
+				PRINT( "ActionProc: AddNextFlag failed!" )
 				SystemNotice( character, "ActionProc: adds list quest record label failed!" )
 				return LUA_FALSE
 			end
@@ -3255,25 +3159,40 @@ end
 				SystemNotice( character, "ActionProc: Set quest record label failed!" )
 				return LUA_FALSE
 			end
-		elseif actions[i].func == MegaBuff then
-			PRINT( "ActionProc:MegaBuff" )
-			MegaBuff( character, npc )
-		elseif actions[i].func == FireworksChurch then
-				PRINT( "ActionProc: FireworksChurch")
-				local ret = FireworksChurch( character, npc)
-				if ret ~= LUA_TRUE then
-					PRINT( "ActionProc:FireworksChurch = false" )
-					return LUA_FALSE
-				end
-
 		elseif actions[i].func == SetRecord then
 			PRINT( "ActionProc:SetRecord, p1 = ", actions[i].p1 )
 			local ret = SetRecord( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
 				PRINT( "ActionProc:SetRecord failed!" )
-				SystemNotice( character, "ActionProc: Set story record label failed!" )
+				SystemNotice( character, "ActionProc:Set story record label failed!" )
 				return LUA_FALSE
 			end
+		------------------
+		-- ???? ??????? --
+		------------------
+		elseif actions[i].func == GuildBank.InitNPC then
+			local ret = GuildBank.InitNPC(character, npc)
+			if ret ~= LUA_TRUE then
+				return LUA_FALSE
+			end	
+		elseif actions[i].func == GuildBank.CheckAccess then
+			local ret = GuildBank.CheckAccess(character, npc)
+			if ret ~= LUA_TRUE then
+				return LUA_FALSE
+			end
+		elseif actions[i].func == GuildBank.GiveKey then
+			local ret = GuildBank.GiveKey(character, actions[i].p1)
+			if ret ~= LUA_TRUE then
+				return LUA_FALSE
+			end
+		elseif actions[i].func == GuildBank.RemoveAccess then
+			local ret = GuildBank.RemoveAccess(character)
+			if ret ~= LUA_TRUE then
+				return LUA_FALSE
+			end	
+		-------------------------
+		-- ????? ????? ??????? --
+		-------------------------
 		elseif actions[i].func == GiveNSDX then
 			PRINT( "ActionProc: GiveNSDX, p1 = ", actions[i].p1)
 			local ret = GiveNSDX( character,npc, actions[i].p1)
@@ -3285,24 +3204,24 @@ end
 			PRINT( "ActionProc:JINNiuSS, p1 = " )
 			local ret = JINNiuSS( character)
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:JINNiuSS 失败！" )
-				--SystemNotice( character, "ActionProc:设置历史记录标签失败！" )
+				PRINT( "ActionProc:JINNiuSS failed!" )
+				--SystemNotice( character, "ActionProc:Set story record label failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == JINNiuHD then
 			PRINT( "ActionProc:JINNiuHD, p1 = " )
 			local ret = JINNiuHD( character)
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:JINNiuHD 失败！" )
-				--SystemNotice( character, "ActionProc:设置历史记录标签失败！" )
+				PRINT( "ActionProc:JINNiuHD failed!" )
+				--SystemNotice( character, "ActionProc:Set story record label failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == JINNiuCZ then
 			PRINT( "ActionProc:JINNiuCZ, p1 = " )
 			local ret = JINNiuCZ( character)
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:JINNiuCZ 失败！" )
-				--SystemNotice( character, "ActionProc:设置历史记录标签失败！" )
+				PRINT( "ActionProc:JINNiuCZ failed!" )
+				--SystemNotice( character, "ActionProc:Set story record label failed!" )
 				return LUA_FALSE
 			end
 
@@ -3310,48 +3229,48 @@ end
 			PRINT( "ActionProc:ShuangZiSS, p1 = " )
 			local ret = ShuangZiSS( character)
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:ShuangZiSS 失败！" )
-				--SystemNotice( character, "ActionProc:设置历史记录标签失败！" )
+				PRINT( "ActionProc:ShuangZiSS failed!" )
+				--SystemNotice( character, "ActionProc:Set story record label failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == ShuangZiHD then
 			PRINT( "ActionProc:ShuangZiHD, p1 = " )
 			local ret = ShuangZiHD( character)
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:ShuangZiHD 失败！" )
-				--SystemNotice( character, "ActionProc:设置历史记录标签失败！" )
+				PRINT( "ActionProc:ShuangZiHD failed!" )
+				--SystemNotice( character, "ActionProc:Set story record label failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == ShuangZiCZ then
 			PRINT( "ActionProc:ShuangZiCZ, p1 = " )
 			local ret = ShuangZiCZ( character)
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:ShuangZiCZ 失败！" )
-				--SystemNotice( character, "ActionProc:设置历史记录标签失败！" )
+				PRINT( "ActionProc:ShuangZiCZ failed!" )
+				--SystemNotice( character, "ActionProc:Set story record label failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == AddReadingBook then
 			PRINT( "ActionProc:AddReadingBook, p1 = ", actions[i].p1 )
 			local ret = AddReadingBook( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:AddReadingBook 失败！" )
-				SystemNotice( character, "ActionProc:添加书本失败！" )
+				PRINT( "ActionProc:AddReadingBook failed!" )
+				SystemNotice( character, "ActionProc:睰セfailed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == AddExpPer then
 			PRINT( "ActionProc:AddExpPer, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
 			local ret = AddExpPer( character, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: AddExpPer 失败！" )
-				SystemNotice( character, "ActionProc: 给予经验失败！" )
+				PRINT( "ActionProc: AddExpPer failed!" )
+				SystemNotice( character, "ActionProc: 倒ぉ竒喷failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == ZSSTART then
 			PRINT( "ActionProc:ZSSTART, p1 = " )
 			local ret = ZSSTART( character)
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:ZSSTART 失败！" )
-				--SystemNotice( character, "ActionProc:设置历史记录标签失败！" )
+				PRINT( "ActionProc:ZSSTART failed!" )
+				--SystemNotice( character, "ActionProc:Set story record label failed!" )
 				return LUA_FALSE
 			end
 
@@ -3367,8 +3286,8 @@ end
 			PRINT( "ActionProc:AddExpNextLv1, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
 			local ret = AddExpNextLv1( character, npc, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: AddExpNextLv1 失败！" )
-				SystemNotice( character, "ActionProc: AddExpNextLv1添加经验失败！" )
+				PRINT( "ActionProc: AddExpNextLv1 failed!" )
+				SystemNotice( character, "ActionProc: AddExpNextLv1 Add Exp failed!" )
 				return LUA_FALSE
 			end
 
@@ -3376,46 +3295,41 @@ end
 			PRINT( "ActionProc:AddExpNextLv2, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
 			local ret = AddExpNextLv2( character, npc, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: AddExpNextLv2 失败！" )
-				SystemNotice( character, "ActionProc:AddExpNextLv2添加经验失败！" )
+				PRINT( "ActionProc: AddExpNextLv2 failed!" )
+				SystemNotice( character, "ActionProc:AddExpNextLv2 Add Exp failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == ZSSTOP then
 			PRINT( "ActionProc:ZSSTOP, p1 = " )
 			local ret = ZSSTOP( character)
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:ZSSTOP 失败！" )
-				--SystemNotice( character, "ActionProc:设置历史记录标签失败！" )
+				PRINT( "ActionProc:ZSSTOP failed!" )
+				--SystemNotice( character, "ActionProc:Set story record label failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == ZSSTOP2 then
 			PRINT( "ActionProc:ZSSTOP2, p1 = " )
 			local ret = ZSSTOP2( character)
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:ZSSTOP2 失败！" )
-				--SystemNotice( character, "ActionProc:设置历史记录标签失败！" )
+				PRINT( "ActionProc:ZSSTOP2 failed!" )
+				--SystemNotice( character, "ActionProc:Set story record label failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == AddExp then
-			PRINT( "ActionProc:AddExp, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
---			local ret = AddExp( character, npc, actions[i].p1, actions[i].p2 )
-			local retExpState = GetExpState(character)
---			Notice("做任务奖励经验的防沉迷返还系数为"..retExpState)
-			
-			actions[i].p1 = actions[i].p1  *GetExpState(character) /100
-			actions[i].p2 = actions[i].p2  *GetExpState(character) /100
-			local ret = AddExp( character, npc, actions[i].p1, actions[i].p2 )
-			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: AddExp Failed!" )
-				SystemNotice( character, "ActionProc: AddExp add experience failed!" )
-				return LUA_FALSE
-			end
+PRINT( "ActionProc:AddExp, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
+local ret = AddExp( character, npc, actions[i].p1, actions[i].p2 )
+if ret ~= LUA_TRUE then
+PRINT( "ActionProc: AddExp Failed!" )
+SystemNotice( character, "ActionProc: AddExp add experience failed!" )
+return LUA_FALSE
+end
+
 		elseif actions[i].func == AddSailExp then
 			PRINT( "ActionProc:AddSailExp, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
 			local ret = AddSailExp( character, npc, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
 				PRINT( "ActionProc: AddSailExp failed!" )
-				SystemNotice( character, "ActionProc: AddSailExp failed!" )
+				SystemNotice( character, "ActionProc: AddSailExp Add Exp failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == AddLifeExp then
@@ -3423,7 +3337,7 @@ end
 			local ret = AddLifeExp( character, npc, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
 				PRINT( "ActionProc: AddLifeExp failed!" )
-				SystemNotice( character, "ActionProc: AddLifeExp add experience failed!" )
+				SystemNotice( character, "ActionProc: AddLifeExp Add Exp failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == AddChaItem7 then
@@ -3463,7 +3377,7 @@ end
 			local ret = AddExpAndType( character, npc, actions[i].p1, actions[i].p2, actions[i].p3 )
 			if ret ~= LUA_TRUE then
 				PRINT( "ActionProc: AddExpAndType failed!" )
-				SystemNotice( character, "ActionProc: AddExpAndType add experience failed!" )
+				SystemNotice( character, "ActionProc: AddExpAndType Add Exp failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == AddMoney then
@@ -3471,7 +3385,7 @@ end
 			local ret = AddMoney( character, npc, actions[i].p1 )
 			if ret ~= LUA_TRUE then
 				PRINT( "ActionProc: AddMoney failed!param1 = %d", actions[i].p1 )
-				SystemNotice( character, "ActionProc: AddMoney Failed!" )
+				SystemNotice( character, "ActionProc: AddMoney failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == TakeCredit then
@@ -3502,6 +3416,7 @@ end
 					PRINT( "ActionProc:Givejiluka = false" )
 					return LUA_FALSE
 				end
+
 		elseif actions[i].func == TakeHonorPoint then
 				PRINT( "ActionProc: TakeHonorPoint, p1 = ", actions[i].p1)
 				local ret = TakeHonorPoint( character, actions[i].p1)
@@ -3537,16 +3452,16 @@ end
 					PRINT( "ActionProc:AddChaItem1 = false" )
 					return LUA_FALSE
 				end
-		elseif actions[i].func == AddChaItem4 then
+		elseif actions[i].func == AddChaItem5 then
 				PRINT( "ActionProc: AddChaItem2, p1 = ", actions[i].p1)
-				local ret = AddChaItem4( character,npc, actions[i].p1)
+				local ret = AddChaItem5( character,npc, actions[i].p1)
 				if ret ~= LUA_TRUE then
 					PRINT( "ActionProc:AddChaItem2 = false" )
 					return LUA_FALSE
 				end
-		elseif actions[i].func == AddChaItem5 then
+		elseif actions[i].func == AddChaItem4 then
 				PRINT( "ActionProc: AddChaItem2, p1 = ", actions[i].p1)
-				local ret = AddChaItem5( character,npc, actions[i].p1)
+				local ret = AddChaItem4( character,npc, actions[i].p1)
 				if ret ~= LUA_TRUE then
 					PRINT( "ActionProc:AddChaItem2 = false" )
 					return LUA_FALSE
@@ -3603,7 +3518,7 @@ end
 			local ret = TakeAllRandItem( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
 				PRINT( "ActionProc: TakeAllRandItem failed!" )
-				SystemNotice( character, "ActionProc: TakeAllRandItem: Obtain NPC quest item failed!" )
+				SystemNotice( character, "ActionProc: TakeAllRandItem: obtain NPC item failed!" )
 				return LUA_FALSE
 			end			
 		elseif actions[i].func == ClearMission then
@@ -3611,7 +3526,7 @@ end
 			local ret = ClearMission( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
 				PRINT( "ActionProc: ClearMission failed!" )
-				SystemNotice( character, "ActionProc: clear quest IDfailed!" )
+				SystemNotice( character, "ActionProc: clear quest ID failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == ClearTrigger then
@@ -3619,7 +3534,7 @@ end
 			local ret = ClearTrigger( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
 				PRINT( "ActionProc: ClearTrigger failed!" )
-				SystemNotice( character, "ActionProc: clear trigger IDfailed!" )
+				SystemNotice( character, "ActionProc: clear trigger ID failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == DeleteTrigger then
@@ -3627,7 +3542,7 @@ end
 			local ret = DeleteTrigger( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
 				PRINT( "ActionProc: DeleteTrigger failed!" )
-				SystemNotice( character, "ActionProc: delete trigger ID failed!" )
+				SystemNotice( character, "ActionProc:delete trigger ID failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == ClearFlag then
@@ -3642,7 +3557,7 @@ end
 			PRINT( "ActionProc:ClearRecord, p1 = ", actions[i].p1 )
 			local ret = ClearRecord( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: ClearRecord failed!" )
+				PRINT( "ActionProc:ClearRecord failed!" )
 				SystemNotice( character, "ActionProc: clearn history record label failed!" )
 				return LUA_FALSE
 			end
@@ -3654,6 +3569,21 @@ end
 				SystemNotice( character, "ActionProc:RefreshCompleteFlag, refresh quest completion status error!" )
 				return LUA_FALSE
 			end
+		elseif actions[i].func == MegaBuff then
+			PRINT( "ActionProc:MegaBuff" ) 
+			MegaBuff( character, npc )
+		----------------------------
+		-- ?????? ?????? ?? ????? --
+		----------------------------
+		elseif actions[i].func == Spawn_MiniBoss then
+			PRINT( "ActionProc:Spawn_MiniBoss, p1 = , p2 = , p3 =  , p4 = ", actions[i].p1 , actions[i].p2 , actions[i].p3 , actions[i].p4)
+			Spawn_MiniBoss( character, actions[i].p1 , actions[i].p2 , actions[i].p3 , actions[i].p4)
+		elseif actions[i].func == PK_points then
+			PRINT( "ActionProc:PK_points" ) 
+			PK_points( character, npc )
+		elseif actions[i].func == PVP_points then
+			PRINT( "ActionProc:PVP_points" ) 
+			PVP_points( character, npc )
 		elseif actions[i].func == ReAll then
 			PRINT( "ActionProc:ReAll" )
 			ReAll( character )
@@ -3711,7 +3641,7 @@ end
 			local ret = ObligeCompleteMission( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
 				PRINT( "ActionProc:ObligeCompleteMission failed!" )
-				SystemNotice( character, "ActionProc: ObligeCompleteMissionfailed!" )
+				SystemNotice( character, "ActionProc:ObligeCompleteMissionfailed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == SummonNpc then
@@ -3742,32 +3672,32 @@ end
 			PRINT( "ActionProc:TakeXmasYB, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
 			local ret = TakeXmasYB( character, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: TakeXmasYB 失败！" )
-				SystemNotice( character, "ActionProc: 提取硬币失败！" )
+				PRINT( "ActionProc: TakeXmasYB failed!" )
+				SystemNotice( character, "ActionProc: 矗祑刽failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == CpHuojiNum then
 			PRINT( "ActionsProc:CpHuojiNum, p1 = ", actions[i].p1 )
 			local ret = CpHuojiNum( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:CpHuojiNum 失败！" )
-				SystemNotice( character, "ActionsProc:CpHuojiNum 失败！" )
+				PRINT( "ActionsProc:CpHuojiNum failed!" )
+				SystemNotice( character, "ActionsProc:CpHuojiNum failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == CpMiluNum then
 			PRINT( "ActionsProc:CpMiluNum, p1 = ", actions[i].p1 )
 			local ret = CpMiluNum( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:CpMiluNum 失败！" )
-				SystemNotice( character, "ActionsProc:CpMiluNum 失败！" )
+				PRINT( "ActionsProc:CpMiluNum failed!" )
+				SystemNotice( character, "ActionsProc:CpMiluNum failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == CpXuerenNum then
 			PRINT( "ActionsProc:CpXuerenNum, p1 = ", actions[i].p1 )
 			local ret = CpXuerenNum( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:CpXuerenNum 失败！" )
-				SystemNotice( character, "ActionsProc:CpXuerenNum 失败！" )
+				PRINT( "ActionsProc:CpXuerenNum failed!" )
+				SystemNotice( character, "ActionsProc:CpXuerenNum failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == ClearAllConvoyNpc then
@@ -3782,40 +3712,40 @@ end
 			PRINT( "ActionsProc:SetMissionFailure, p1 = ", actions[i].p1 )
 			local ret = SetMissionFailure( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc: SetMissionFailure failed!" )
-				SystemNotice( character, "ActionsProc: SetMissionFailure failed!" )
+				PRINT( "ActionsProc:SetMissionFailure failed!" )
+				SystemNotice( character, "ActionsProc:SetMissionFailure failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == SetMissionComplete then
 			PRINT( "ActionsProc:SetMissionComplete, p1 = ", actions[i].p1 )
 			local ret = SetMissionComplete( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:SetMissionComplete Failed!" )
-				SystemNotice( character, "ActionsProc:SetMissionComplete Failed!" )
+				PRINT( "ActionsProc:SetMissionComplete failed!" )
+				SystemNotice( character, "ActionsProc:SetMissionComplete failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == SetTestTime then
 			PRINT( "ActionProc:SetTestTime, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
 			local ret = SetTestTime( character, npc, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: SetTestTime 失败！" )
-				SystemNotice( character, "ActionProc: SetTestTime设置初始时间失败！" )
+				PRINT( "ActionProc: SetTestTime failed!" )
+				SystemNotice( character, "ActionProc: SetTestTime砞竚﹍丁failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == RenewTestTime1 then
 			PRINT( "ActionProc:RenewTestTime1, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
 			local ret = RenewTestTime1( character, npc, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: RenewTestTime1 失败！" )
-				SystemNotice( character, "ActionProc: RenewTestTime1检测新的时间失败！" )
+				PRINT( "ActionProc: RenewTestTime1 failed!" )
+				SystemNotice( character, "ActionProc: RenewTestTime1浪代穝丁failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == RenewTestTime2 then
 			PRINT( "ActionProc:RenewTestTime2, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
 			local ret = RenewTestTime2( character, npc, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: RenewTestTime2 失败！" )
-				SystemNotice( character, "ActionProc: RenewTestTime2检测新的时间失败！" )
+				PRINT( "ActionProc: RenewTestTime2 failed!" )
+				SystemNotice( character, "ActionProc: RenewTestTime2浪代穝丁failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == FailureRandMissionCount then
@@ -3844,22 +3774,19 @@ end
 			end
 		elseif actions[i].func == GoTo then
 			PRINT( "ActionsProc:GoTo, p1 = , p2 = , p3 = ", actions[i].p1, actions[i].p2, actions[i].p3 )
-			_G[GetChaDefaultName (character).."_goto"] = { x = actions[i].p1, y = actions[i].p2, map = actions[i].p3 }
-    --[[
-            local ret = GoTo( character, actions[i].p1, actions[i].p2, actions[i].p3 )
-            PRINT( "Goto: ret = ", ret )
-            if ret ~= LUA_TRUE then
-                PRINT( "ActionsProc:GoTo failed!" )
-                SystemNotice( character, "ActionsProc:GoTo failed!" )
-                  return LUA_FALSE
-                end
-        ]]--
+			local ret = GoTo( character, actions[i].p1, actions[i].p2, actions[i].p3 )
+			PRINT( "Goto: ret = ", ret )
+			if ret ~= LUA_TRUE then
+				PRINT( "ActionsProc:GoTo failed!" )
+				SystemNotice( character, "ActionsProc:GoTo failed!" )
+				return LUA_FALSE
+			end
 		elseif actions[i].func == MultiTrigger then
 			PRINT( "ActionsProc:MultiTrigger, p1, p2 ", actions[i].p1, actions[i].p2 )
 			local ret = MultiTrigger( character, npc, page, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc: MultiTrigger failed!" )
-				SystemNotice( character, "ActionsProc: MultiTrigger failed!" )
+				PRINT( "ActionsProc:MultiTrigger failed!" )
+				SystemNotice( character, "ActionsProc:MultiTrigger failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == SaveMissionData then
@@ -3882,8 +3809,8 @@ end
 			PRINT( "ActionsProc:MoveCity, p1 = ", actions[i].p1 )
 			local ret = MoveCity( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:MoveCity Failed!" )
-				SystemNotice( character, "ActionsProc:MoveCity Failed!" )
+				PRINT( "ActionsProc:MoveCity failed!" )
+				SystemNotice( character, "ActionsProc:MoveCity failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == CreateGuild then
@@ -3894,12 +3821,15 @@ end
 				SystemNotice( character, "ActionsProc:CreateGuild failed!" )
 				return LUA_FALSE
 			end
+			if ret ~= LUA_TRUE then
+				return LUA_FALSE
+			end
 		elseif actions[i].func == ListAllGuild then
 			PRINT( "ActionsProc:ListAllGuild, p1 = ", actions[i].p1 )
 			local ret = ListAllGuild( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:ListAllGuild failed!" )
-				SystemNotice( character, "ActionsProc:ListAllGuild failed!" )
+				PRINT( "ActionsProc:ListAllGuild ?? ???????!" )
+				SystemNotice( character, "ActionsProc:ListAllGuild ?? ???????!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == RepairBoat then
@@ -3923,7 +3853,7 @@ end
 			local ret = CreateBoat( character, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
 				PRINT( "ActionsProc:CreateBoat failed!" )
-				SystemNotice( character, "ActionsProc:CreateBoat failed!" )
+				--SystemNotice( character, "ActionsProc:CreateBoat failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == BoatLuanchOut then
@@ -3935,20 +3865,15 @@ end
 				return LUA_FALSE
 			end			
 		elseif actions[i].func == LuanchBerthList then
-			--PRINT( "ActionsProc:RemoveYS" )
+			
 			PRINT( "ActionsProc:BoatBerthList, p1 = , p2 = , p3 = , p4 = ", actions[i].p1, actions[i].p2, actions[i].p3, actions[i].p4 )
 			local ret = LuanchBerthList( character, npc, actions[i].p1, actions[i].p2, actions[i].p3, actions[i].p4 )
-			--local ret1 = RemoveYS( character )
+			
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:LuanchBerthList failed!" )
-				SystemNotice( character, "ActionsProc:LuanchBerthList failed!" )
+				PRINT( "ActionsProc:LuanchBerthList ?? ???????!" )
+				SystemNotice( character, "ActionsProc:LuanchBerthList ?? ???????!" )
 				return LUA_FALSE
 			end
-			--if ret1 ~= 1 then
-			--	PRINT( "ActionsProc:RemoveYS 失败！" )
-			--	SystemNotice( character, "ActionsProc:RemoveYS 失败！" )
-			--	return LUA_FALSE
-			--end
 		elseif actions[i].func == TradeBerthList then
 			PRINT( "ActionsProc:TradeBerthList, p1 = ", actions[i].p1 )
 			local ret = TradeBerthList( character, npc, actions[i].p1 )
@@ -3966,7 +3891,7 @@ end
 			local ret = CheckBBBB( character )
 			if ret ~= LUA_TRUE then
 				return LUA_FALSE
-			end
+			end	
 		elseif actions[i].func == RepairBerthList then
 			PRINT( "ActionsProc:RepairBerthList, p1 = ", actions[i].p1 )
 			local ret = RepairBerthList( character, npc, actions[i].p1 )
@@ -3979,16 +3904,16 @@ end
 			PRINT( "ActionsProc:SalvageBerthList, p1 = ", actions[i].p1 )
 			local ret = SalvageBerthList( character, npc, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc: SalvageBerthList failed!" )
-				SystemNotice( character, "ActionsProc: SalvageBerthList failed!" )
+				PRINT( "ActionsProc:SalvageBerthList failed!" )
+				SystemNotice( character, "ActionsProc:SalvageBerthList failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == SupplyBerthList then
 			PRINT( "ActionsProc:SupplyBerthList, p1 = ", actions[i].p1 )
 			local ret = SupplyBerthList( character, npc, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc: SupplyBerthList failed!" )
-				SystemNotice( character, "ActionsProc: SupplyBerthList failed!" )
+				PRINT( "ActionsProc:SupplyBerthList failed!" )
+				SystemNotice( character, "ActionsProc:SupplyBerthList failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == BoatLevelBerthList then
@@ -4003,8 +3928,8 @@ end
 			PRINT( "ActionsProc:BoatBerth, p1 = , p2 = , p3 = , p4 = ", actions[i].p1, actions[i].p2, actions[i].p3, actions[i].p4 )
 			local ret = BoatBerth( character, actions[i].p1, actions[i].p2, actions[i].p3, actions[i].p4 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc: BoatBerth failed!" )
-				SystemNotice( character, "ActionsProc: BoatBerth failed!" )
+				PRINT( "ActionsProc:BoatBerth failed!" )
+				SystemNotice( character, "ActionsProc:BoatBerth failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == PackBagList then
@@ -4019,8 +3944,8 @@ end
 			PRINT( "ActionsProc:SetTradeItemLevel, p1 = ", actions[i].p1 )
 			local ret = SetTradeItemLevel( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:SetTradeItemLevel Failed!" )
-				SystemNotice( character, "ActionsProc:SetTradeItemLevel Failed!" )
+				PRINT( "ActionsProc:SetTradeItemLevel failed!" )
+				SystemNotice( character, "ActionsProc:SetTradeItemLevel failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == AdjustTradeCess then
@@ -4047,19 +3972,12 @@ end
 				SystemNotice( character, "ActionsProc:OpenHair failed!" )
 				return LUA_FALSE
 			end
-		elseif actions[i].func == CheckChaItem then
-				PRINT( "ActionProc: CheckChaItem, p1 = ", actions[i].p1)
-				local ret = CheckChaItem( character)
-				if ret ~= LUA_TRUE then
-					PRINT( "ActionProc:CheckChaItem = false" )
-					return LUA_FALSE
-				end
 		elseif actions[i].func == OpenRepair then
 			PRINT( "ActionsProc:OpenRepair" )
 			local ret = OpenRepair( character, npc )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:OpenRepair Failed!" )
-				SystemNotice( character, "ActionsProc:OpenRepair Failed!" )
+				PRINT( "ActionsProc:OpenRepair failed!" )
+				SystemNotice( character, "ActionsProc:OpenRepair failed!" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == RandFunction then
@@ -4097,23 +4015,53 @@ end
 			PRINT( "ActionsProc:ValentinesRing, p1 = ", actions[i].p1 )
 			local ret = ValentinesRing( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:ValentinesRing 失败！" )
-				SystemNotice( character, "ActionsProc:ValentinesRing 失败！" )
+				PRINT( "ActionsProc:ValentinesRing failed!" )
+				SystemNotice( character, "ActionsProc:ValentinesRing failed!" )
 				return LUA_FALSE
 			end
-		elseif actions[i].func == Take_THSJ_Record then     ---清除任务记录
-			local ret = Take_THSJ_Record( character )
-			if ret ~= LUA_TRUE then
-				return LUA_FALSE
-			end
-		elseif actions[i].func == ClearItemNum2 then
-			PRINT( "ActionProc:ClearItemNum2, p1, p2, p3", actions[i].p1, actions[i].p2, actions[i].p3 )
-			local ret = ClearItemNum2( character)
-			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: ClearItemNum2 失败！" )
-				SystemNotice( character, "ActionProc: ClearItemNum2" )
-				return LUA_FALSE
-		end
+		elseif actions[i].func == AddExp_1 then
+				PRINT( "ActionProc: AddExp_1, p1 = ", actions[i].p1)
+				local ret = AddExp_1( character,npc, actions[i].p1)
+				if ret ~= LUA_TRUE then
+					PRINT( "ActionProc:AddExp_1 = false" )
+					return LUA_FALSE
+				end
+		elseif actions[i].func == AddExp_2 then
+				PRINT( "ActionProc: AddExp_2, p1 = ", actions[i].p1)
+				local ret = AddExp_2( character,npc, actions[i].p1)
+				if ret ~= LUA_TRUE then
+					PRINT( "ActionProc:AddExp_2 = false" )
+					return LUA_FALSE
+				end
+		elseif actions[i].func == AddExp_3 then
+				PRINT( "ActionProc: AddExp_3, p1 = ", actions[i].p1)
+				local ret = AddExp_3( character,npc, actions[i].p1)
+				if ret ~= LUA_TRUE then
+					PRINT( "ActionProc:AddExp_3 = false" )
+					return LUA_FALSE
+				end
+		elseif actions[i].func == AddExp_4 then
+				PRINT( "ActionProc: AddExp_4, p1 = ", actions[i].p1)
+				local ret = AddExp_4( character,npc, actions[i].p1)
+				if ret ~= LUA_TRUE then
+					PRINT( "ActionProc:AddExp_4 = false" )
+					return LUA_FALSE
+				end
+
+		elseif actions[i].func == AddExp_5 then
+				PRINT( "ActionProc: AddExp_5, p1 = ", actions[i].p1)
+				local ret = AddExp_5( character,npc, actions[i].p1)
+				if ret ~= LUA_TRUE then
+					PRINT( "ActionProc:AddExp_5 = false" )
+					return LUA_FALSE
+				end
+		elseif actions[i].func == AddExp_6 then
+				PRINT( "ActionProc: AddExp_6, p1 = ", actions[i].p1)
+				local ret = AddExp_6( character,npc, actions[i].p1)
+				if ret ~= LUA_TRUE then
+					PRINT( "ActionProc:AddExp_6 = false" )
+					return LUA_FALSE
+				end
 		else
 			PRINT( "ActionProc:unknown operation error function notice!" )
 			SystemNotice( character, "ActionProc:unknown operation error function!" )
@@ -4125,7 +4073,7 @@ end
 	return LUA_TRUE
 end
 
---NPC触发器条件检查函数
+--NPC牟祇竟兵ン浪琩ㄧ计
 function NpcTriggerCheck( character, trigger )
 	PRINT( "NpcTriggerCheck" )
 	if trigger == nil or trigger.conditions == nil then
@@ -4136,18 +4084,7 @@ function NpcTriggerCheck( character, trigger )
 	return ConditionsTest( character, trigger.conditions )
 end
 
-function Take_THSJ_Record(role)     --清除任务记录
-	for checknum = 1 , 7 , 1 do
-		local value = 1280 + checknum
-		local Ishave = HasRecord( role , value )
-		if Ishave == LUA_TRUE then
-			ClearRecord( role , value )
-		end
-	end
-	return LUA_TRUE
-end
-
---是否任务已经完成
+--琌ヴ叭竒ЧΘ
 function NpcTriggerResult( character, trigger )
 	PRINT( "NpcTriggerResult" )
 	if trigger == nil then
@@ -4155,7 +4092,7 @@ function NpcTriggerResult( character, trigger )
 		return LUA_ERROR
 	end
 	
-	--默认如果触发器没有结果条件则为永远不符合条件
+	--纐粄狦牟祇竟⊿Τ挡狦兵ン玥ッ环ぃ才兵ン
 	if trigger.restul == nil or trigger.result[1] == nil then
 		PRINT( "NpcTriggerResult: condition as null, consent return FALSE, denote does not match requirement permanently!" )
 		return LUA_FALSE
@@ -4165,7 +4102,7 @@ function NpcTriggerResult( character, trigger )
 	return ConditionsTest( character, trigger.result )
 end
 
---取消一个任务
+--ヴ叭
 function NpcCancelTrigger( character, trigger, misid, scriptid )
 	PRINT( "NpcCancelTrigger" )
 	if trigger == nil or trigger.actions == nil then
@@ -4173,7 +4110,7 @@ function NpcCancelTrigger( character, trigger, misid, scriptid )
 		return LUA_ERROR
 	end
 	
-	--检测触发器限制条件
+	--浪代牟祇竟兵ン
 	PRINT( "NpcCancelTrigger:conditions test" )
 	if trigger.conditions ~= nil and trigger.conditions[1] ~= nil then
 		local ret = ConditionsTest( character, trigger.conditions )
@@ -4217,7 +4154,7 @@ function NpcTrigger( character, npc, trigger, misid, scriptid )
 		return LUA_ERROR
 	end
 	
-	--检测触发器限制条件
+	--浪代牟祇竟兵ン
 	PRINT( "NpcTrigger:conditions test" )
 	if trigger.conditions ~= nil and trigger.conditions[1] ~= nil then
 		local ret = ConditionsTest( character, trigger.conditions )
@@ -4249,7 +4186,7 @@ function TriggerProc( character, id, param1, param2, param3, param4 )
 	PRINT( "TriggerProc: conditions proc!" )
 	local trigger = TriggerList[id]
 	if trigger.tp == MIS_TRIGGER_NOMAL then
-		--检测触发器限制条件
+		--浪代牟祇竟兵ン
 		if trigger.conditions ~= nil and trigger.conditions[1] ~= nil then
 			local ret = ConditionsTest( character, trigger.conditions, param1, param2 )
 			if ret ~= LUA_TRUE then
@@ -4258,7 +4195,7 @@ function TriggerProc( character, id, param1, param2, param3, param4 )
 			end
 		end
 		
-		--处理触发器动作
+		--矪瞶牟祇竟笆
 		PRINT( "TriggerProc:actions proc" )
 		if trigger.actions ~= nil and trigger.actions[1] ~= nil then
 			local ret = ActionsProc( character, trigger.actions, nil, nil, 0, 0, param1, param2 )
@@ -4273,9 +4210,8 @@ function TriggerProc( character, id, param1, param2, param3, param4 )
 		PRINT( "TriggerProc:random quest: param3, param4", param3, param4 )
 		if trigger.actions[1].func == AddRMNextFlag then
 			if param3 == nil or param4 == nil then
-				PRINT( "TriggerProc:random quest: while reseting AddRMNextFlagfunction parameter, param3, param4 cannot be nil" )
-				SystemNotice( character, "TriggerProc:random quest: while reseting AddRMNextFlagfunction parameter, param3, param4 cannot be nil" )
-				LG( "randmission_error", "TriggerProc:random quest: while resetting AddRMNextFlagfunction parameter, param3, param4 cannot be as nil, triggerid = ", id )
+				PRINT( "TriggerProc:random quest:while reseting AddRMNextFlagfunction parameter, param3, param4 cannot be nil" )
+				SystemNotice( character, "TriggerProc:random quest:while reseting AddRMNextFlagfunction parameter, param3, param4 cannot be nil" )
 				return LUA_FALSE
 			end
 			
@@ -4283,7 +4219,7 @@ function TriggerProc( character, id, param1, param2, param3, param4 )
 			trigger.actions[1].p3 = param4
 		end
 		
-		--检测触发器限制条件
+		--浪代牟祇竟兵ン
 		if trigger.conditions ~= nil and trigger.conditions[1] ~= nil then
 			local ret = ConditionsTest( character, trigger.conditions, param1, param2 )
 			if ret ~= LUA_TRUE then
@@ -4292,7 +4228,7 @@ function TriggerProc( character, id, param1, param2, param3, param4 )
 			end
 		end
 		
-		--处理触发器动作
+		--矪瞶牟祇竟笆
 		PRINT( "TriggerProc:random quest: actions proc" )
 		if trigger.actions ~= nil and trigger.actions[1] ~= nil then
 			local ret = ActionsProc( character, trigger.actions )
@@ -4325,7 +4261,7 @@ function TriggerResult( character, id, param1, param2 )
 	PRINT( "TriggerResult: conditions proc!" )
 	local trigger = TriggerList[id]
 	
-	--处理触发器结束动作
+	--矪瞶牟祇竟挡笆
 	PRINT( "TriggerProc:failures proc" )
 	if trigger.failures ~= nil and trigger.failures[1] ~= nil then
 		local ret = ActionsProc( character, trigger.failures )
@@ -4338,26 +4274,25 @@ function TriggerResult( character, id, param1, param2 )
 	return LUA_TRUE
 end 
 
---获取角色的适合的随机任务生成信息段
+--莉à︹続radom ヴ叭ネΘ獺琿
 function GetRandMissionLevel( character, sid, leveltp )
-	if leveltp == MIS_LEVEL_CHAR then	    --角色随机任务等级类型
+	if leveltp == MIS_LEVEL_CHAR then	    --à︹radom ヴ叭单摸
 		local level = GetCharMissionLevel( character )
 		if level == nil then
 			return 10000
 		end
 		return level --1 + GetSection( level, 5 )
-	elseif leveltp == MIS_LEVEL_GANG then	--公会随机任务等级类型
+	elseif leveltp == MIS_LEVEL_GANG then	--そ穦radom ヴ叭单摸
 		local level = GetCharGangLevel( character )
 		return level
 	else
-		SystemNotice( character, "GetRandMissionLevel: incorrect random quest level type!missid = "..sid )
-		LG( "randmission_error", "GetRandMissionLevel: incorrect random quest level type!missid = "..sid )
+		SystemNotice( character, "GetRandMissionLevel:incorrect random quest level type!missid = "..sid )
 		return 10000
 	end
 	return 10000
 end
 
---根据随机任务送物件库中随机生成一个物件，给玩家送到NPC处
+--沮radom ヴ叭癳ン畐いradom ネΘン倒Player癳NPC矪
 function GetRandMissionSendItem( itemlist )
 	PRINT( "GetRandMissionSendItem:itemlist = , itemlist.count = ", itemlist, itemlist.count )
 	local id = Rand( itemlist.count ) + 1
@@ -4365,54 +4300,51 @@ function GetRandMissionSendItem( itemlist )
 	return itemlist[id]
 end
 
---根据角色完成的随机任务次数随机产生一个高级物品，作为任务奖励
+--沮à︹ЧΘradom ヴ叭Ω计radom 玻ネ蔼珇ヴ叭贱纘
 function GetRandMissionPrize( character, misname, id, loopinfo, loopdata )
 	PRINT( "GetRandMissionPrize" )
 	if loopinfo == nil or loopdata == nil or id == nil or misname == nil then
 		PRINT( "GetRandMissionPrize: id = , loopdata = ", id, loopdata )
-		LG( "randmission_error", "GetRandMissionPrize: Function parameter error!prizeitem = nil and id = "..id )
-		SystemNotice( character, "GetRandMissionPrize:functionparameter error , reward failed!" )
+		SystemNotice( character, "GetRandMissionPrize:function parameter errorreward failed!" )
 		return 0, 0
 	end
 	
 	local ret, loopnum = GetRandMissionNum( character, id )
 	if ret ~= LUA_TRUE then
-		PRINT( "GetRandMissionPrize: GetRandMissionNum function transfer failed. Unable to obtain character random quest loop count!id = ", id )
-		LG( "randmission_error", "GetRandMissionPrize: GetRandMissionNum function transfer failed. Unable to obtain character random quest loop count!id = ", id )
-		SystemNotice( character, "GetRandMissionPrize: GetRandMissionNum function transfer failed. Unable to obtain character random quest loop count!id = "..id )
-		--清除该角色该随机任务计数
+		PRINT( "GetRandMissionPrize:GetRandMissionNum function transfer failed. Unable to obtain character random quest loop count!id = ", id )
+		SystemNotice( character, "GetRandMissionPrize:GetRandMissionNum function transfer failed. Unable to obtain character random quest loop count!id = "..id )
+		--睲埃赣à︹赣radom ヴ叭璸计
 		ResetRandMissionNum( character, id )
 		return 0, 0
 	else		
-		loopnum = loopnum + 1 --转换为lua数组索引
+		loopnum = loopnum + 1 --锣传lua计舱ま
 		PRINT( "GetRandMissionPrize:GetRandMissionNum: return loopnum = ", loopnum )
 		PRINT( "loopdata, loopdata", loopdata, loopdata[loopnum] )
 		if loopinfo[loopnum] == nil or loopdata[loopnum] == nil or loopdata[loopnum].Prize == nil then
-			PRINT( "GetRandMissionPrize: invalid random quest cycle data notice or reward item notice, id = , loopnum = ", id, loopnum )
-			SystemNotice( character, "GetRandMissionPrize: invalid random quest cycle data notice or reward item notice, id = "..id.." loopnum = "..loopnum )
-			--清除该角色该随机任务计数
+			PRINT( "GetRandMissionPrize: invalid random quest cycle data notice or reward item notice,id = , loopnum = ", id, loopnum )
+			SystemNotice( character, "GetRandMissionPrize: invalid random quest cycle data notice or reward item notice,id = "..id.." loopnum = "..loopnum )
+			--睲埃赣à︹赣radom ヴ叭璸计
 			ResetRandMissionNum( character, id )
 			return 0, 0
 		end
 		
 		local ret, miscount = GetRandMissionCount( character, id )
 		miscount = miscount + 1
-		SystemNotice( character, "You have accepted quest ["..misname.."] No. "..miscount.."!" )
+		SystemNotice( character, "You have accepted quest ["..misname.."] No."..miscount.."!" )
 		
 		PRINT( "GetRandMissionPrize:HasRandMissionCount, id = , num = ", loopinfo[loopnum].num )
 		local ret = HasRandMissionCount( character, id, loopinfo[loopnum].num - 1 )
 		if ret == LUA_TRUE then
-			--清除该环任务计数，同时环计数增加
+			--睲埃赣吏ヴ叭璸计吏璸计糤
 			--ret = AddRandMissionNum( character, id )
 			--if ret ~= LUA_TRUE then
-				--PRINT( "GetRandMissionPrizeItem:AddRandMissionNum reset quest cycle value failed!id = ", id  )
-				--LG( "randmission_error", "GetRandMissionPrizeItem: AddRandMissionNum reset quest loop count failed!id ", id )
-				--SystemNotice( character, "GetRandMissionPrizeItem:AddRandMissionNum reset quest cycle value failed!id = "..id )
+				--PRINT( "GetRandMissionPrizeItem:AddRandMissionNum reset quest cycle calculation failed!id = ", id  )
+				--SystemNotice( character, "GetRandMissionPrizeItem:AddRandMissionNum reset quest cycle calculation failed!id = "..id )
 				--return 0, 0
 			--end
 			
 			PRINT( "GetRandMissionPrize:Prize", loopdata[loopnum].Prize )
-			--角色不同段位作随机任务获得高级物品的几率将会随段位增加而下降
+			--à︹ぃ琿radom ヴ叭莉眔蔼珇碭瞯盢穦繦琿糤τ
 			local prizelist = loopdata[loopnum].Prize
 			local value = Rand( 100 )
 			PRINT( "GetRandMissionPrize: prize rand value = , odds = ", value, loopinfo[loopnum].odds )
@@ -4421,7 +4353,7 @@ function GetRandMissionPrize( character, misname, id, loopinfo, loopdata )
 			end
 			
 			if prizelist.tp == MIS_PRIZE_ITEM then
-				--计算高级物品奖励随机率
+				--璸衡蔼珇贱纘radom 瞯
 				local randdata = 0
 				for n = 1, prizelist.count, 1 do
 					randdata = randdata + prizelist[n].p2
@@ -4441,14 +4373,12 @@ function GetRandMissionPrize( character, misname, id, loopinfo, loopdata )
 				PRINT( "GetRandMissionPrize:prizetp = , p1 = , p2 = index = ", prizelist[index].tp, prizelist[index].p1, prizelist[index].p2, index )		
 				if prizelist[index] == nil then
 					SystemNotice( character, "Error: cannot locate random quest high level equipment reward notice!id = "..id.."prize index = "..index )
-					LG( "randmission_error", "Error: cannot locate random quest high level equipment reward notice!id = "..id.." prize index = "..index )
 					return 0
 				end
 				
 				--local charname = GetCharName( character )
-				--local str = "GetRandMissionPrizeItem, allocate character with a high level random quest equipment! name = ["
-				--str = str..charname.."]  item id = "..prizelist[index].."misid = "..id.."loopnum = "..loopnum
-				--LG( "randmission_info", str )
+				--local str = "GetRandMissionPrizeItem, だ皌倒à︹蔼单radom ヴ叭杆称name = "
+				--str = str..charname.." item id = "..prizelist[index].."misid = "..id.."loopnum = "..loopnum
 				
 				PRINT( "GetRandMissionPrize: return prizetp = , p1 = ", prizelist[index].tp, prizelist[index].p1 )
 				return prizelist[index].tp, prizelist[index].p1
@@ -4460,7 +4390,7 @@ function GetRandMissionPrize( character, misname, id, loopinfo, loopdata )
 	return 0, 0
 end
 
---判断该随机任务是否可以被该角色接受
+--耞赣radom ヴ叭琌砆赣à︹钡
 function IsRandMissionAccept( character, mission )
 	PRINT( "IsRandMissionAccept:character, mission", character, mission )
 	if mission == nil or mission.tp ~= RAND_MISSION then
@@ -4469,7 +4399,7 @@ function IsRandMissionAccept( character, mission )
 		return LUA_FALSE
 	end
 	
-	--获取该角色随机任务数据段值
+	--莉赣à︹radom ヴ叭计沮琿
 	local level = GetRandMissionLevel( character, mission.sid, mission.leveltp )
 	PRINT( "IsRandMissionAccept:GetRandMissionLevel : level = ", level )
 	if mission.RandInfo == nil or mission.RandInfo[level] == nil then
@@ -4481,16 +4411,15 @@ function IsRandMissionAccept( character, mission )
 	return LUA_TRUE
 end
 	
---测试计算随机任务公式
+--代刚璸衡radom ヴ叭そΑ
 function GetRandMissionExp( loopnum, miscount, exp )
 	--X*(350+Z*550)*0.0001*((10+Y*15)*0.001+INT(Y*0.1)*0.075)
-	--x=总经验
-	--y=小环数
-	--z=大环数 
+	--x=羆竒喷
+	--y=吏计
+	--z=吏计 
 	
 	if loopnum == nil or miscount == nil or exp == nil then
-		PRINT( "GetRandMissionExp: Function parameter error! loopnum, miscount, exp", loopnum, miscount, exp )
-		LG( "randmission_error", "GetRandMissionExp:Function parameter error!" )
+		PRINT( "GetRandMissionExp:Function parameter error!loopnum, miscount, exp", loopnum, miscount, exp )
 		return 0
 	end
 	
@@ -4508,7 +4437,6 @@ end
 function GetRandMissionMoney( loopnum, miscount, money )
 	if loopnum == nil or miscount == nil or money == nil then
 		PRINT( "GetRandMissionExp:Function parameter error!loopnu, miscount, money", loopnum, miscount, money )
-		LG( "randmission_error", "GetRandMissionMoney:Function parameter error!" )
 		return 0
 	end
 	
@@ -4523,7 +4451,7 @@ function GetRandMissionMoney( loopnum, miscount, money )
 	return newmoney
 end
 
---根据角色的信息生成一个随机任务
+--沮à︹獺ネΘradom ヴ叭
 function CreateRandMission( character, npc, mission )
 	PRINT( "CreateRandMission:character, npc, mission", character, npc, mission )
 	if mission == nil or mission.tp ~= RAND_MISSION then
@@ -4532,7 +4460,7 @@ function CreateRandMission( character, npc, mission )
 		return LUA_FALSE
 	end
 				
-	--初始化全局随机任务参数
+	--﹍てЫradom ヴ叭把计
 	InitRandParam()
 	RandParam.id = mission.id
 	RandParam.sid = mission.sid
@@ -4541,11 +4469,11 @@ function CreateRandMission( character, npc, mission )
 	RandParam.npcarea  = mission.npcarea	
 	PRINT( "CreateRandMission:RandParam.id = , RandParam.sid = ,  bounty = , name = , area = ", RandParam.id, RandParam.sid, RandParam.bounty, RandParam.npcname, RandParam.npcarea )
 	
-	--获取该角色随机任务数据段值
+	--莉赣à︹radom ヴ叭计沮琿
 	RandParam.level = GetRandMissionLevel( character, mission.sid, mission.leveltp )
 	PRINT( "CreateRandMission:RandParam.level =, mission.RandInfo =, mission.RandInfo[level] = ", RandParam.level, mission.RandInfo, mission.RandInfo[RandParam.level] )
 	if mission.RandInfo == nil or mission.RandInfo[RandParam.level] == nil then
-		PRINT( "CreateRandMission:mission notice does not exist random quest data generated notice, please checl.level = "..RandParam.level )
+		PRINT( "CreateRandMission:mission notice does not exist random quest data generated notice, please checl.llevel = "..RandParam.level )
 		local desp = GetCharName( npc )
 		desp = desp..": Sorry, I do not have any quest suitable for your level. Please look elsewhere."
 		HelpInfo( character, MIS_HELP_DESP, desp )
@@ -4553,39 +4481,36 @@ function CreateRandMission( character, npc, mission )
 	end
 	
 	PRINT( "CreateRandMission: rand type count = ", mission.RandInfo[RandParam.level].tpinfo.count )
-	--随机一个任务类型
+	--radom ヴ叭摸
 	--local tpinfoid = Rand( mission.RandInfo[RandParam.level].tpinfo.count ) + 1
 	local tpinfoid = GetRandTpinfoIndex( mission.RandInfo[RandParam.level].tpinfo )
 	
 	PRINT( "CreateRandMission:Rand mission info, tpinfoid =, type = ", tpinfoid, mission.RandInfo[RandParam.level].tpinfo[tpinfoid].tp )
 	if mission.RandInfo[RandParam.level].tpinfo[tpinfoid] == nil or mission.RandInfo[RandParam.level].tpinfo[tpinfoid].tp == nil then
-		PRINT( "CreateRandMission: Random quest type shortcut notice as nil. level, tpinfoid", RandParam.level, tpinfoid )
-		LG( "randmission_error", "CreateRandMission: random generated quest type shortcut notice as null.level = , tpinfoid= ", RandParam.level, tpinfoid )
-		SystemNotice( character, "CreateRandMission: random generated quest type shortcut notice as null.level = , tpinfoid= "..RandParam.level..tpinfoid )
+		PRINT( "CreateRandMission:Random quest type shortcut notice as nil.level, tpinfoid", RandParam.level, tpinfoid )
+		SystemNotice( character, "CreateRandMission:Random quest type shortcut notice as nil.level = , tpinfoid = "..RandParam.level..tpinfoid )
 		return LUA_FALSE
 	end
 	
-	--随机取一个任务数据
+	--radom ヴ叭计沮
 	RandParam.tp = mission.RandInfo[RandParam.level].tpinfo[tpinfoid].tp
 	local tpindex = GetRandMissionTypeIndex( mission, RandParam.tp )
 	PRINT( "CreateRandMission:tpindex = ", tpindex )
 	if tpindex == 0 then
-		LG( "randmission_error", "CreateRandMission:GetRandMissionTypeIndex:id, tp, level, exp, money, item, numdata", RandParam.id, RandParam.tp, RandParam.level, RandParam.exp, RandParam.money, RandParam.prizedata, RandParam.prizetp, RandParam.numdata )
-		PRINT( "CreateRandMission: GetRandMissionTypeIndex has not found any quest mission that matches with random question type initialization date notice" )
-		SystemNotice( character, "CreateRandMission: GetRandMissionTypeIndex has not found any quest mission that matches with random question type initialization date notice" )
+		PRINT( "CreateRandMission:GetRandMission:GetRandMissionTypeIndex has not found any quest mission that matches with random question type initialization date notice" )
+		SystemNotice( character, "CreateRandMission:GetRandMissionGetRandMissionTypeIndex has not found any quest mission that matches with random question type initialization date notice" )
 		return LUA_FALSE
 	end
 	
 	local randnum = mission.missionlist[tpindex].randnum
 	if randnum == nil or randnum < 1 or randnum > 4 then
-		LG( "randmission_error", "CreateRandMission:random quest highest random value type cannot be less than 1 or greater than 4! num = "..randnum )
 		PRINT( "CreateRandMission:random quest highest random value type cannot be less than 1 or greater than 4! num = "..randnum )
 		SystemNotice( character, "CreateRandMission:random quest highest random value type cannot be less than 1 or greater than 4! num = "..randnum )
 		return LUA_FALSE
 	end
 	PRINT( "CreateRandMission:randnum = , val = ", mission.missionlist[tpindex].randnum, randnum )
 	
-	--获取随机任务的计数
+	--莉radom ヴ叭璸计
 	local ret, miscount = GetRandMissionCount( character, mission.id )
 	--if miscount == 0 then
 		--miscount = 1
@@ -4599,12 +4524,12 @@ function CreateRandMission( character, npc, mission )
 	misloopnum = misloopnum + 1
 	
 	--X*(350+Z*550)*0.0001*((10+Y*15)*0.001+INT(Y*0.1)*0.075)
-	--x=总经验
-	--y=小环数
-	--z=大环数 
+	--x=羆竒喷
+	--y=吏计
+	--z=吏计 
 
-	if RandParam.tp == MIS_RAND_KILL then					--猎杀怪物
-		--随机最大4个怪物类型
+	if RandParam.tp == MIS_RAND_KILL then					--聐炳┣
+		--radom 程4┣摸
 		RandParam.numdata = Rand( randnum ) + 1
 		PRINT( "CreateRandMission:rand numdata = ", RandParam.numdata )
 		if RandParam.numdata > mission.RandInfo[RandParam.level].KillInfo.count then
@@ -4613,7 +4538,7 @@ function CreateRandMission( character, npc, mission )
 		PRINT( "CreateRandMission:rand numdata = ", RandParam.numdata )
 		if RandParam.numdata <= 0 then
 			PRINT( "CreateRandMission, hunt monster quest random value cannot be less than zero. Please check if level of monster item matches! Level = ", RandParam.level )
-			SystemNotice( character, "CreateRandMission, hunt monster quest random value cannot be less than zero. Please check if level of monster item matches! Level = "..RandParam.level )
+			SystemNotice( character, "CreateRandMission, hunt monster quest random value cannot be less than zero. Please check if level of monster item matches!Level = "..RandParam.level )
 			return LUA_FALSE
 		end
 		
@@ -4621,7 +4546,7 @@ function CreateRandMission( character, npc, mission )
 			local flag = 1
 			local infoid = Rand( mission.RandInfo[RandParam.level].KillInfo.count ) + 1
 			PRINT( "CreateRandMission:rand infoid = ", infoid )
-			--检查是否有重复的数据索引信息
+			--浪琩琌Τ狡计沮ま獺
 			for i = 1, n - 1, 1 do
 				if RandParam.data[i].id == infoid then
 					PRINT( "CreateRandMission:3" )
@@ -4633,7 +4558,7 @@ function CreateRandMission( character, npc, mission )
 			end
 			PRINT( "CreateRandMission:4" )
 			if flag == 1 then
-				--保存数据
+				--玂计沮
 				PRINT( "CreateRandMission:5" )
 				RandParam.data[n].id = infoid
 				RandParam.data[n].p1 = mission.RandInfo[RandParam.level].KillInfo[infoid].p1
@@ -4654,8 +4579,8 @@ function CreateRandMission( character, npc, mission )
 			end
 		end
 		
-	elseif RandParam.tp == MIS_RAND_GET then			--获取物品
-		--随机最大4个怪物类型
+	elseif RandParam.tp == MIS_RAND_GET then			--莉珇
+		--radom 程4┣摸
 		RandParam.numdata = Rand( randnum ) + 1
 		if RandParam.numdata > mission.RandInfo[RandParam.level].GetInfo.count then
 			RandParam.numdata = mission.RandInfo[RandParam.level].GetInfo.count
@@ -4670,7 +4595,7 @@ function CreateRandMission( character, npc, mission )
 			local flag = 1
 			local infoid = Rand( mission.RandInfo[RandParam.level].GetInfo.count ) + 1
 			PRINT( "CreateRandMission:rand infoid = ", infoid )
-			--检查是否有重复的数据索引信息
+			--浪琩琌Τ狡计沮ま獺
 			for i = 1, n - 1, 1 do
 				if RandParam.data[i].id == infoid then
 					n = n - 1
@@ -4680,7 +4605,7 @@ function CreateRandMission( character, npc, mission )
 			end
 			
 			if flag == 1 then
-			--保存数据
+			--玂计沮
 				RandParam.data[n].id = infoid
 				RandParam.data[n].p1 = mission.RandInfo[RandParam.level].GetInfo[infoid].p1
 				RandParam.data[n].p2 = mission.RandInfo[RandParam.level].GetInfo[infoid].p2 + Rand(mission.RandInfo[RandParam.level].GetInfo[infoid].p3)
@@ -4698,10 +4623,10 @@ function CreateRandMission( character, npc, mission )
 			end
 		end
 		
-	elseif RandParam.tp == MIS_RAND_SEND then			--送给物品
-		--随机选择一定类型数量的NPC
+	elseif RandParam.tp == MIS_RAND_SEND then			--癳倒珇
+		--radom 匡拒﹚摸计秖NPC
 		PRINT( "Rand send" )
-		local npcinfoid = nil --GetNpcInfoID( npc ) --获取当前NPC的infoid，避免有自己发信自己收信的情况出现
+		local npcinfoid = nil --GetNpcInfoID( npc ) --莉讽玡NPCinfoid磷Τ祇獺Μ獺薄猵瞷
 		RandParam.numdata = Rand( randnum ) + 1
 		PRINT( "CreateRandMission1: numdata = , randnum = , RandParam.level = , infocount = , itemcount = ", RandParam.numdata, randnum, RandParam.level, mission.RandInfo[RandParam.level].SendInfo.count, mission.RandInfo[RandParam.level].SendItem.count )
 		if RandParam.numdata > mission.RandInfo[RandParam.level].SendInfo.count then
@@ -4711,8 +4636,8 @@ function CreateRandMission( character, npc, mission )
 			RandParam.numdata = mission.RandInfo[RandParam.level].SendItem.count
 		end
 		if RandParam.numdata <= 0 then
-			PRINT( "CreateRandMission, send letter quest random value cannot be greater than zero. Please check target level of send letter notice is correct! Level = ", RandParam.level )
-			SystemNotice( character, "CreateRandMission, send letter quest random value cannot be greater than zero. Please check target level of send letter notice is correct! Level = "..RandParam.level )
+			PRINT( "CreateRandMission, send letter quest random value cannot be greater than zero. Please check target level of send letter notice is correct!Level = ", RandParam.level )
+			SystemNotice( character, "CreateRandMission, send letter quest random value cannot be greater than zero. Please check target level of send letter notice is correct!Level = "..RandParam.level )
 			return LUA_FALSE
 		end
 		
@@ -4722,7 +4647,7 @@ function CreateRandMission( character, npc, mission )
 			local infoid = Rand( mission.RandInfo[RandParam.level].SendInfo.count ) + 1
 			local itemid = GetRandMissionSendItem( mission.RandInfo[RandParam.level].SendItem )
 			PRINT( "CreateRandMission:rand infoid = , itemid = ", infoid, itemid )
-			--检查是否有重复的数据索引信息
+			--浪琩琌Τ狡计沮ま獺
 			if mission.RandInfo[RandParam.level].SendInfo[infoid].p1 == npcinfoid then
 				n = n - 1
 				flag = 0
@@ -4738,7 +4663,7 @@ function CreateRandMission( character, npc, mission )
 			end
 			
 			if flag == 1 then
-				--保存数据
+				--玂计沮
 				RandParam.data[n].id = infoid
 				RandParam.data[n].p1 = mission.RandInfo[RandParam.level].SendInfo[infoid].p1 --npc info id
 				RandParam.data[n].p2 = itemid --item id
@@ -4754,15 +4679,15 @@ function CreateRandMission( character, npc, mission )
 			end
 		end
 		
-	elseif RandParam.tp == MIS_RAND_CONVOY then		--护送NPC
+	elseif RandParam.tp == MIS_RAND_CONVOY then		--臔癳NPC
 		PRINT( "Convoy npc" )
-		--随机选择一个护送NPC目标		
-		RandParam.numdata = 1 --护送任务暂时只支持护送一个NPC，但是程序支持护送多个NPC
+		--radom 匡拒臔癳NPCヘ夹		
+		RandParam.numdata = 1 --臔癳ヴ叭既や臔癳NPC琌祘や臔癳NPC
 		if RandParam.numdata > mission.RandInfo[RandParam.level].ConvoyInfo.count then
 			RandParam.numdata = mission.RandInfo[RandParam.level].ConvoyInfo.count
 		end
 		if RandParam.numdata <= 0 then
-			PRINT( "CreateRandMission, escort NPC quest quantity must be greater than zero, please check if target's level escort notice is correct! Level = ", RandParam.level )
+			PRINT( "CreateRandMission, escort NPC quest quantity must be greater than zero, please check if target's level escort notice is correct!Level = ", RandParam.level )
 			SystemNotice( character, "CreateRandMission, escort NPC quest quantity must be greater than zero, please check if target's level escort notice is correct! Level = "..RandParam.level )
 			return LUA_FALSE
 		end
@@ -4770,7 +4695,7 @@ function CreateRandMission( character, npc, mission )
 		for n = 1, RandParam.numdata, 1 do
 			local flag = 1
 			local infoid = Rand( mission.RandInfo[RandParam.level].ConvoyInfo.count ) + 1
-			--检查是否有重复的数据索引信息
+			--浪琩琌Τ狡计沮ま獺
 			for i = 1, n - 1, 1 do
 				if RandParam.data[i].id == infoid then
 					PRINT( "CreateRandMission:convoy npc ,rand value repeat" )
@@ -4781,7 +4706,7 @@ function CreateRandMission( character, npc, mission )
 			end
 			
 			if flag == 1 then
-				--保存数据
+				--玂计沮
 				RandParam.data[n].id = infoid
 				RandParam.data[n].p1 = mission.RandInfo[RandParam.level].ConvoyInfo[infoid].p1 --char info id
 				RandParam.data[n].p2 = mission.RandInfo[RandParam.level].ConvoyInfo[infoid].p2 --map id
@@ -4797,21 +4722,19 @@ function CreateRandMission( character, npc, mission )
 			end
 		end
 		
-	elseif RandParam.tp == MIS_RAND_EXPLORE then		--探索地图
+	elseif RandParam.tp == MIS_RAND_EXPLORE then		--贝瓜
 		
 	else
 		PRINT( "CreateRandMission: invalid random quest type!tp = "..RandParam.tp )
 		SystemNotice( character, "CreateRandMission: invalid random quest type!tp = "..RandParam.tp )
-		LG( "randmission_error", "CreateRandMission: invalid random quest type!tp = "..RandParam.tp )
 		return LUA_FALSE
 	end
 	
 	PRINT( "CreateRandMission: name, id, level, loopinfo, loopdata", mission.name, RandParam.id, mission.loopinfo, mission.RandInfo[RandParam.level].LoopData )
 	RandParam.prizetp, RandParam.prizedata = GetRandMissionPrize( character, mission.name, RandParam.id, mission.loopinfo, mission.RandInfo[RandParam.level].LoopData )
 
-	--设置随机任务的经验类型
+	--砞竚radom ヴ叭竒喷摸
 	if mission.missionlist[tpindex].exptp == nil then
-		LG( "randmission_error", "Invalid random quest experience type!exptp = ", mission.missionlist[tpindex].exptp ) 
 		PRINT( "Invalid random quest experience type!exptp = ", mission.missionlist[tpindex].exptp )
 		SystemNotice( character, "Invalid random quest experience type!exptp = ", mission.missionlist[tpindex].exptp )
 		return LUA_FALSE
@@ -4819,32 +4742,30 @@ function CreateRandMission( character, npc, mission )
 	RandParam.exptp = mission.missionlist[tpindex].exptp
 	PRINT( "CreateRandMission:exptp = ", RandParam.exptp )
 	
-	--根据参数生成随机任务信息
+	--沮把计ネΘradom ヴ叭獺
 	local ret = RandMission( mission.missionlist[tpindex], RandParam )
 	if ret ~= LUA_TRUE then
-		LG( "randmission_error", "CreateRandMission:RandMission:id, sid, tp, level, exp, money, item, numdata", RandParam.id, RandParam.sid, RandParam.tp, RandParam.level, RandParam.exp, RandParam.money, RandParam.prizedata, RandParam.prizetp, RandParam.numdata )
 		PRINT( "CreateRandMission:RandMission generate random quest notice error!" )
 		SystemNotice( character, "CreateRandMission:RandMission generate random quest notice error!" )
 		return LUA_FALSE
 	end
 	
-	--检测随机任务背包需求
-	PRINT( "CreateRandMission: Empty slots in inventory required: numgrid = ", mission.missionlist[tpindex].begin.baggrid )
+	--浪代radom ヴ叭璉惠―
+	PRINT( "CreateRandMission:Required number of empty slots in inventory:numgrid = ", mission.missionlist[tpindex].begin.baggrid )
 	local numgrid = mission.missionlist[tpindex].begin.baggrid
 	local ret = HasLeaveBagGrid( character, numgrid )
 	if ret ~= LUA_TRUE then
-		PRINT( "CreateRandMission: insufficient inventory slot when character accept quest! num = ", numgrid )
-		BickerNotice( character, "Inventory space insufficient, requires"..numgrid.."space. Activation of quest failed!" )
+		PRINT( "CreateRandMission:insufficient inventory slot when character accept quest! num = ", numgrid )
+		BickerNotice( character, "Inventory space insufficient, requires "..numgrid.." space. Activation of quest failed!" )
 		return LUA_FALSE, 0
 	end
 		
-	--存储生成的数据到角色中	
+	--纗ネΘ计沮à︹い	
 	PRINT( "CreateRandMission:AddRandMission:id, sid, tp, level, exp, money, prizedata, prizetp, numdata", RandParam.id, RandParam.sid, RandParam.tp, RandParam.level, RandParam.exp, RandParam.money, RandParam.prizedata, RandParam.prizetp, RandParam.numdata )
 	local ret = AddRandMission( character, RandParam.id, RandParam.sid, RandParam.tp, RandParam.level, RandParam.exp, RandParam.money, RandParam.prizedata, RandParam.prizetp, RandParam.numdata )
 	if ret ~= LUA_TRUE then 
-		LG( "randmission_error", "AddRandMission:id, sid, tp, level, exp, money, prizedata, prizetp, numdata", RandParam.id, RandParam.sid, RandParam.tp, RandParam.level, RandParam.exp, RandParam.money, RandParam.prizedata, RandParam.prizetp, RandParam.numdata )
-		PRINT( "CreateRandMission: AddRandMission add character random quest notice failed!" )
-		SystemNotice( character, "CreateRandMission: AddRandMission add character random quest notice failed!" )
+		PRINT( "CreateRandMission:AddRandMission add character random quest notice failed!" )
+		SystemNotice( character, "CreateRandMission:AddRandMission add character random quest notice failed!" )
 		return LUA_FALSE
 	end
 	
@@ -4853,7 +4774,7 @@ function CreateRandMission( character, npc, mission )
 		ret = SetRandMissionData( character, RandParam.id, n - 1, RandParam.data[n].p1, RandParam.data[n].p2, RandParam.data[n].p3, RandParam.data[n].p4, RandParam.data[n].p5, RandParam.data[n].p6 )
 		if ret ~= LUA_TRUE then
 			PRINT( "CreateRandMission:SetRandMissionData adds character random quest notice failed!, n = ", n )
-			SystemNotice( character, "CreateRandMission:SetRandMissionData add character random quest notice failed!n = "..n )
+			SystemNotice( character, "CreateRandMission:SetRandMissionData adds character random quest notice failed!n = "..n )
 			return LUA_FALSE
 		end
 	end
@@ -4865,11 +4786,10 @@ function CreateRandMission( character, npc, mission )
 	return LUA_TRUE, tpindex
 end
 
---获取随机任务的匹配类型索引
+--莉radom ヴ叭で皌摸ま
 function GetRandMissionTypeIndex( mission, tp )
 	if mission == nil or tp == nil then
-		PRINT( "GetRandMissionTypeIndex: parameter cannot be equal to nil. mission = nil or tp = nil" )
-		LG( "randmission_error", "GetRandMissionTypeIndex: parameter cannot be equal to nil. mission = nil or tp = nil" )
+		PRINT( "GetRandMissionTypeIndex:parameter cannot be equal to nil. mission = nil or tp = nil" )
 		return 0
 	end
 	PRINT( "GetRandMissionTypeIndex:mission, tp, mission.missionlist.count", mission, tp, mission.missionlist.count )
@@ -4883,7 +4803,7 @@ function GetRandMissionTypeIndex( mission, tp )
 	return 0
 end
 
---获取随机任务信息随机数
+--莉radom ヴ叭獺radom 计
 function GetRandTpinfoIndex( tpinfo )
 	local randdata = 0
 	for n = 1, tpinfo.count, 1 do					
@@ -4902,21 +4822,21 @@ function GetRandTpinfoIndex( tpinfo )
 	return 0
 end
 
---根据角色的保存的随机生成任务配置信息重构任务
+--沮à︹玂radom ネΘヴ叭皌竚獺篶ヴ叭
 function GetCharRandMission( character, id, mission )
 	PRINT( "GetRandMission:character", character )
 	
-	--判断角色是否有随机任务配置信息
+	--耞à︹琌Τradom ヴ叭皌竚獺
 	if HasRandMission( character, id ) ~= LUA_TRUE then
-		PRINT( "GetRandMission:HasRandMission does not detect random quest notice on target, ID = "..id )
-		SystemNotice( character, "GetRandMission: does not find quest notice on character, ID = "..id )
+		PRINT( "GetRandMission:HasRandMission does not detect random quest notice on target,ID = "..id )
+		SystemNotice( character, "GetRandMission: does not detect random quest notice on target,ID = "..id )
 		return LUA_TRUE, 0
 	end
 	
-	--初始化全局随机任务参数
+	--﹍てЫradom ヴ叭把计
 	InitRandParam()
 	
-	--获取角色的随机任务配置信息
+	--莉à︹radom ヴ叭皌竚獺
 	PRINT( "GetCharRandMission:GetRandMission, id = ", id  )
 	local ret
 	RandParam.id = id
@@ -4932,7 +4852,7 @@ function GetCharRandMission( character, id, mission )
 		return LUA_FALSE
 	end
 	PRINT( "GetCharRandMission:tp, level, exp, money, prizedata, prizetp, numdata",  RandParam.tp, RandParam.level, RandParam.exp, RandParam.money, RandParam.prizedata, RandParam.prizetp, RandParam.numdata )
-	--获取配置信息列表
+	--莉皌竚獺
 	for n = 1, RandParam.numdata, 1 do
 		ret, RandParam.data[n].p1, RandParam.data[n].p2, RandParam.data[n].p3, RandParam.data[n].p4, RandParam.data[n].p5, RandParam.data[n].p6 = GetRandMissionData( character, id, n - 1 )
 		PRINT( "GetRandMissionData: p1, p2, p3, p4, p5, p6 ", RandParam.data[n].p1, RandParam.data[n].p2, RandParam.data[n].p3, RandParam.data[n].p4, RandParam.data[n].p5, RandParam.data[n].p6 )
@@ -4946,14 +4866,13 @@ function GetCharRandMission( character, id, mission )
 	local index = GetRandMissionTypeIndex( mission, RandParam.tp )
 	PRINT( "GetCharRandMission:GetRandMissionTypeIndex index = ", index )
 	if index == 0  then
-		PRINT( "GetRandMission: obtain random quest matching type notice failed!" )
-		SystemNotice( character, "GetRandMission: obtain random quest matching type notice failed!" )
+		PRINT( "GetRandMission:obtain random quest matching type notice failed!" )
+		SystemNotice( character, "GetRandMission:obtain random quest matching type notice failed!" )
 		return LUA_FALSE
 	end
 
-	--设置随机任务的经验类型
+	--砞竚radom ヴ叭竒喷摸
 	if mission.missionlist[index].exptp == nil then
-		LG( "randmission_error", "Invalid random quest experience type!exptp = ", mission.missionlist[index].exptp ) 
 		PRINT( "Invalid random quest experience type!exptp = ", mission.missionlist[index].exptp )
 		SystemNotice( character, "Invalid random quest experience type!exptp = ", mission.missionlist[index].exptp )
 		return LUA_FALSE
@@ -4972,7 +4891,7 @@ function GetCharRandMission( character, id, mission )
 	return LUA_TRUE, index, mission.RandInfo[RandParam.level].LoopData
 end
 
---随机生成一个任务
+--radom ネΘヴ叭
 function RandMission( mission, param )
 	PRINT( "RandMission" )
 	if mission == nil or param == nil or param.tp ~= mission.tp then
@@ -4980,22 +4899,22 @@ function RandMission( mission, param )
 		return LUA_FALSE
 	end
 	
-	--初始化角色任务背包容量需求
+	--﹍てà︹ヴ叭璉甧秖惠―
 	mission.begin.baggrid = 0
 	mission.result.baggrid = 0
 	
 	PRINT( "RandMission, mission.tp = , param.tp", mission.tp, param.tp )	
-	--根据随机任务的类型和参数生成一个新任务
-	if mission.tp == MIS_RAND_KILL then				--摧毁物件
-		--猎杀的怪物类型数量
+	--沮繦诀ヴ叭摸㎝把计ネΘ穝ヴ叭
+	if mission.tp == MIS_RAND_KILL then				--篟反ン
+		--聐炳┣摸计秖
 		local num = 0
 		mission.begin.actions.count = param.numdata
 		mission.result.conditions.count = param.numdata
 		mission.need.count = param.numdata + 1
-		mission.need[1].p1 = "  <b"..param.npcarea..">'s <y"..param.npcname.."> needs you to hunt"
+		mission.need[1].p1 = "  <b"..param.npcarea..">'s<y"..param.npcname.."> needs you to hunt"
 
-		--mission.begin.talk = "<t>Hi my friend! Interested to make some gold? I have a hunting quest here. You must hunt"
-		--mission.result.help = "<t>Hi my friend, please remember what you have promised. You will need to hunt"
+		--mission.begin.talk = "<t>顿狟ねΤ砍届泵窥盾и硂柑Τ聐ヴ叭璶"
+		--mission.result.help = "<t>顿狟ね璶ㄨ癘眔氮莱иㄆ薄瓳璶"
 		
 		PRINT( mission.begin.talkstart, mission.result.talkstart, mission.result.helpstart )
 		PRINT( mission.begin.talkend, mission.result.talkend, mission.result.helpend )
@@ -5004,22 +4923,22 @@ function RandMission( mission, param )
 		mission.result.help = mission.result.helpstart
 		PRINT( "RandMission,1" )
 		for n = 1, param.numdata, 1 do
-			--更新任务需求
-			mission.need[n+1].p1 = param.data[n].p1 	--怪物类型ID
-			mission.need[n+1].p2 = param.data[n].p2 	--怪物数量
-			mission.need[n+1].p3 = num						--开始记录标签位置
+			--穝ヴ叭惠―
+			mission.need[n+1].p1 = param.data[n].p1 	--┣摸ID
+			mission.need[n+1].p2 = param.data[n].p2 	--┣计秖
+			mission.need[n+1].p3 = num						--秨﹍癘魁夹乓竚
 			
-			--更新任务开始触发器动作信息(AddTrigger)
-			mission.begin.actions[n].p3 = param.data[n].p1 --怪物类型ID
-			mission.begin.actions[n].p4 = param.data[n].p2 --怪物数量
-			mission.begin.actions[n].p5 = num --开始记录标签位置
+			--穝ヴ叭秨﹍牟祇竟笆獺(AddTrigger)
+			mission.begin.actions[n].p3 = param.data[n].p1 --┣摸ID
+			mission.begin.actions[n].p4 = param.data[n].p2 --┣计秖
+			mission.begin.actions[n].p5 = num --秨﹍癘魁夹乓竚
 			mission.begin.actions[n].p6 = 0
 			
-			--更新任务完成条件信息
+			--穝ヴ叭ЧΘ兵ン獺
 			num = num + param.data[n].p2
-			mission.result.conditions[n].p2 = num - 1 --杀死怪物触发器记录的标记
+			mission.result.conditions[n].p2 = num - 1 --炳┣牟祇竟癘魁夹癘
 			
-			--任务开始描述信息
+			--ヴ叭秨﹍磞瓃獺
 			PRINT( "RandMission, 2" )
 		    local monstername = GetMonsterName( param.data[n].p1 )
 			PRINT( "RandMission, 3, count, talk, need[count].p2, monstername", n, mission.begin.talk, mission.need[n].p2, monstername )			
@@ -5031,30 +4950,30 @@ function RandMission( mission, param )
 			mission.result.help = mission.result.help.."<r"..nummonster.."> <r\""..monstername.."\">"
 			mission.need[1].p1 = mission.need[1].p1.."<r"..nummonster.."> <r\""..monstername.."\">"
 			if n < param.numdata then
-				mission.begin.talk = mission.begin.talk..", "
-				mission.result.help = mission.result.help..", "
-				mission.need[1].p1 = mission.need[1].p1..", "
+				mission.begin.talk = mission.begin.talk..""
+				mission.result.help = mission.result.help..""
+				mission.need[1].p1 = mission.need[1].p1..""
 			end
 		end
 
-		--任务结束动作(AddExpAndType)	
+		--ヴ叭挡笆(AddExpAndType)	
 		mission.result.actions[2].p1 = param.exptp
 		mission.result.actions[2].p2 = param.exp
 		mission.result.actions[2].p3 = param.exp
 		PRINT( "RandMission:AddExpAndType, exp = ", mission.result.actions[2].p1 )
 		
-		--任务描述信息
-		--mission.begin.talk = mission.begin.talk.."."
-		--mission.result.talk = "<t>Looks like you have very good capability to become a bounty hunter. This is your reward. Hope to work with you in the future."
-		--mission.result.help = mission.result.help.."."
+		--ヴ叭磞瓃獺
+		--mission.begin.talk = mission.begin.talk..""
+		--mission.result.talk = "<t>垛癬ㄓ芞ㄣ称洁聐估豲硂琌倒贱纘辨иΩ"
+		--mission.result.help = mission.result.help..""
 
 		mission.begin.talk = mission.begin.talk..mission.begin.talkend
 		mission.result.talk = mission.result.talk..mission.result.talkend
 		mission.result.help = mission.result.help..mission.result.helpend
-		mission.need[1].p1 = mission.need[1].p1.."."
+		mission.need[1].p1 = mission.need[1].p1..""
 		
 		PRINT( "RandMission,4 " )
-		--随机任务奖励
+		--繦诀ヴ叭贱纘
 		mission.prize[1].p1 = param.money
 		if param.prizedata ~= 0 then
 			PRINT( "RandMission,5, prizetp, prizedata", param.prizetp, param.prizedata )
@@ -5070,8 +4989,7 @@ function RandMission( mission, param )
 			elseif param.prizetp == MIS_PRIZE_FAME then
 				mission.prize[2].p2 = 0
 			else
-				PRINT( "RandMission: Invalid reward type notice! misid = , tp = , p1 = ", param.id, param.prizetp, param.prizedata )
-				LG( "mission_error", "RandMission: Invalid reward type notice! misid = , tp = , p1 = ", param.id, param.prizetp, param.prizedata )
+				PRINT( "RandMission:Invalid reward type notice!misid = , tp = , p1 = ", param.id, param.prizetp, param.prizedata )
 				mission.prize[2].tp = 0
 				mission.prize[2].p1 = 0
 				mission.prize.count = 1
@@ -5081,21 +4999,21 @@ function RandMission( mission, param )
 			mission.prize.count = 1
 		end
 		PRINT( "RandMission,7" )
-	elseif mission.tp == MIS_RAND_GET then		--获取物品
-		--获取的物品类型数量
+	elseif mission.tp == MIS_RAND_GET then		--莉珇
+		--莉珇摸计秖
 		PRINT( "RandMission:tp = MIS_RAND_GET:param.numdata = ", param.numdata ) 
 		local num = 0
 		mission.begin.actions.count = param.numdata
 		mission.result.conditions.count = param.numdata * 2
 		mission.result.actions.count = 2 + param.numdata
 		mission.need.count = param.numdata + 1
-		mission.need[1].p1 = "  <b"..param.npcarea..">'s <y"..param.npcname.."> requires your help to collect"
-		mission.need[1].p1 = mission.need[1].p1.."<r"..param.numdata.."> items, "
+		mission.need[1].p1 = "  <b"..param.npcarea..">'s<y"..param.npcname..">requires your help to collect"
+		mission.need[1].p1 = mission.need[1].p1.."<r"..param.numdata.."> items,"
 		
-		--mission.begin.talk = "<t>Hi friend! I need"
-		--mission.begin.talk = mission.begin.talk.."<r"..param.numdata.."> items, please help me collect: "
-		--mission.result.help = "Hmm, did you help me get the stuff? I need"
-		--mission.result.help = mission.result.help.."<r"..param.numdata.."> items, "
+		--mission.begin.talk = "<t>狟ねи硂柑惠"
+		--mission.begin.talk = mission.begin.talk.."<r"..param.numdata..">妓狥﹁叫腊иΜ栋"
+		--mission.result.help = "hmmΤ腊иΜ栋и璶狥﹁或ぃ穦а癘и惠璶"
+		--mission.result.help = mission.result.help.."<r"..param.numdata..">妓狥﹁"
 		PRINT( mission.begin.talkstart, mission.result.talkstart, mission.result.helpstart )
 		PRINT( mission.begin.talkend, mission.result.talkend, mission.result.helpend )
 		mission.begin.talk = mission.begin.talkstart
@@ -5103,59 +5021,59 @@ function RandMission( mission, param )
 		mission.result.help = mission.result.helpstart
 		
 		for n = 1, param.numdata, 1 do
-			--更新任务需求
-			mission.need[n+1].p1 = param.data[n].p1   	--物品类型ID
-			mission.need[n+1].p2 = param.data[n].p2 	--物品数量
-			mission.need[n+1].p3 = num						--开始记录标签位置
+			--穝ヴ叭惠―
+			mission.need[n+1].p1 = param.data[n].p1   	--珇摸ID
+			mission.need[n+1].p2 = param.data[n].p2 	--珇计秖
+			mission.need[n+1].p3 = num						--秨﹍癘魁夹乓竚
 			
-			--更新任务开始触发器动作信息(AddTrigger)
-			mission.begin.actions[n].p3 = param.data[n].p1	 --物品类型ID
-			mission.begin.actions[n].p4 = param.data[n].p2  --物品数量
-			mission.begin.actions[n].p5 = num --开始记录标签位置
+			--穝ヴ叭秨﹍牟祇竟笆獺(AddTrigger)
+			mission.begin.actions[n].p3 = param.data[n].p1	 --珇摸ID
+			mission.begin.actions[n].p4 = param.data[n].p2  --珇计秖
+			mission.begin.actions[n].p5 = num --秨﹍癘魁夹乓竚
 			mission.begin.actions[n].p6 = 0
 			
-			--任务结束动作(TakeItem)
+			--ヴ叭挡笆(TakeItem)
 			mission.result.actions[n+2].p1 = param.data[n].p1
 			mission.result.actions[n+2].p2 = param.data[n].p2
 			PRINT( "RandMission:TakeItem, item = , num = ", mission.result.actions[n+2].p1, mission.result.actions[n+2].p2 )
 			
-			--更新任务完成条件信息
+			--穝ヴ叭ЧΘ兵ン獺
 			num = num + param.data[n].p2
-			--设置HasFlag 函数参数
-			mission.result.conditions[1 + (n - 1)*2].p2 = num - 1 --获取物品触发器记录的标记
-			--设置HasItem 函数参数
-			mission.result.conditions[2 + (n - 1)*2].p1 = param.data[n].p1 --获取物品类型ID
-			mission.result.conditions[2 + (n - 1)*2].p2 = param.data[n].p2 --获取物品数量
+			--砞竚HasFlag ㄧ计把计
+			mission.result.conditions[1 + (n - 1)*2].p2 = num - 1 --莉珇牟祇竟癘魁夹癘
+			--砞竚HasItem ㄧ计把计
+			mission.result.conditions[2 + (n - 1)*2].p1 = param.data[n].p1 --莉珇摸ID
+			mission.result.conditions[2 + (n - 1)*2].p2 = param.data[n].p2 --莉珇计秖
 			
-			--任务开始描述信息
+			--ヴ叭秨﹍磞瓃獺
 			local itemname = GetItemName( param.data[n].p1 )
 			mission.begin.talk = mission.begin.talk.."<r"..mission.need[n+1].p2.."> <r"..itemname..">"
 			mission.result.help = mission.result.help.."<r"..mission.need[n+1].p2.."> <r"..itemname..">"
 			mission.need[1].p1 = mission.need[1].p1.."<r"..mission.need[n+1].p2.."> <r"..itemname..">"
 			if n < param.numdata then
-				mission.begin.talk = mission.begin.talk..", "
-				mission.result.help = mission.result.help..", "
-				mission.need[1].p1 = mission.need[1].p1..", "
+				mission.begin.talk = mission.begin.talk..""
+				mission.result.help = mission.result.help..""
+				mission.need[1].p1 = mission.need[1].p1..""
 			end
 		end
 		
-		--任务结束动作(AddExpAndType)	
+		--ヴ叭挡笆(AddExpAndType)	
 		mission.result.actions[2].p1 = param.exptp
 		mission.result.actions[2].p2 = param.exp
 		mission.result.actions[2].p3 = param.exp
 		PRINT( "RandMission:AddExpAndType, exp = ", mission.result.actions[2].p1 )
 		
-		--任务描述信息
-		--mission.begin.talk = mission.begin.talk.."."
-		--mission.result.help = mission.begin.talk.."Remember well! Do not lack any!"
-		--mission.result.talk = "<t>Oh lala! More stuff to add to my collections! Thanks for your help and this is your reward. Look for me again if you are free."
-		mission.need[1].p1 = mission.need[1].p1.."."
+		--ヴ叭磞瓃獺
+		--mission.begin.talk = mission.begin.talk..""
+		--mission.result.help = mission.begin.talk.."癘ぶ常ぃ︽"
+		--mission.result.talk = "<t>摆┋Τ腊Γ硂ΩиΜ旅珇伦碔硂琌倒贱纘狦Τ砍届ㄓти"
+		mission.need[1].p1 = mission.need[1].p1..""
 
 		mission.begin.talk = mission.begin.talk..mission.begin.talkend
 		mission.result.talk = mission.result.talk..mission.result.talkend
 		mission.result.help = mission.result.help..mission.result.helpend
 		
-		--随机任务奖励
+		--繦诀ヴ叭贱纘
 		mission.prize[1].p1 = param.money
 		if param.prizedata ~= 0 then
 			PRINT( "RandMission,5, prizetp, prizedata", param.prizetp, param.prizedata )
@@ -5171,8 +5089,7 @@ function RandMission( mission, param )
 			elseif param.prizetp == MIS_PRIZE_FAME then
 				mission.prize[2].p2 = 0
 			else
-				PRINT( "RandMission: Invalid reward type notice! misid = , tp = , p1 = ", param.id, param.prizetp, param.prizedata )
-				LG( "mission_error", "RandMission: Invalid reward type notice! misid = , tp = , p1 = ", param.id, param.prizetp, param.prizedata )
+				PRINT( "RandMission:Invalid reward type notice!misid = , tp = , p1 = ", param.id, param.prizetp, param.prizedata )
 				mission.prize[2].tp = 0
 				mission.prize[2].p1 = 0
 				mission.prize.count = 1
@@ -5182,18 +5099,18 @@ function RandMission( mission, param )
 			mission.prize.count = 1
 		end
 		
-	elseif mission.tp == MIS_RAND_SEND then			--送物品
-		--送的物品类型数量
+	elseif mission.tp == MIS_RAND_SEND then			--癳珇
+		--癳珇摸计秖
 		local num = 0
 		mission.begin.actions.count = param.numdata
 		mission.result.conditions.count = param.numdata
-		mission.need.count = param.numdata + 1 --需要以后添加新的任务目标类型
-		mission.need[1].p1 = "  <b"..param.npcarea..">'s <y"..param.npcname.."> needs you to help him on an errand. He will reward you after you return."
+		mission.need.count = param.numdata + 1 --惠璶睰穝ヴ叭ヘ夹摸
+		mission.need[1].p1 = "  <b"..param.npcarea..">'s<y"..param.npcname..">needs you to help him on an errand. He will reward you after you return."
 
-		--mission.begin.talk = "<t>Hi my friend. I have here"
-		--mission.begin.talk = mission.begin.talk.."<r"..param.numdata.."> item, please"
-		--mission.result.help = "<t>Hi! The item I requested you to"
-		--mission.result.help = mission.result.help.."<r"..param.numdata.."> items are delieved?"
+		--mission.begin.talk = "<t>狟ねи硂柑Τ"
+		--mission.begin.talk = mission.begin.talk.."<r"..param.numdata..">妓狥﹁叫р"
+		--mission.result.help = "<t>顿狟ねиΛ癳"
+		--mission.result.help = mission.result.help.."<r"..param.numdata..">妓狥﹁常癳⊿Τ瓳р"
 				
 		PRINT( mission.begin.talkstart, mission.result.talkstart, mission.result.helpstart )
 		PRINT( mission.begin.talkend, mission.result.talkend, mission.result.helpend )
@@ -5202,15 +5119,15 @@ function RandMission( mission, param )
 		mission.result.help = mission.result.helpstart
 		
 		for n = 1, param.numdata, 1 do
-			--更新任务开始触发器动作信息(GiveItem)
-			mission.begin.actions[n].p1 = param.data[n].p2	 --物品ID
+			--穝ヴ叭秨﹍牟祇竟笆獺(GiveItem)
+			mission.begin.actions[n].p1 = param.data[n].p2	 --珇ID
 			mission.begin.actions[n].p2 = 1
 			PRINT( "RandMission: GiveItem item = , count = ", mission.begin.actions[n].p2, 1 )
 			
-			--更新任务完成条件信息(HasRandItemFlag)
-			mission.result.conditions[n].p2 = param.data[n].p1 --检测是否有NPC收到物件的标记
+			--穝ヴ叭ЧΘ兵ン獺(HasRandItemFlag)
+			mission.result.conditions[n].p2 = param.data[n].p1 --浪代琌ΤNPCΜン夹癘
 			
-			--任务开始描述信息
+			--ヴ叭秨﹍磞瓃獺
 			local npcname = GetNpcName( param.data[n].p1 )
 			PRINT( "RandMission, npcname = ", npcname )
 			local areaname = GetAreaName( param.data[n].p3 )
@@ -5219,33 +5136,33 @@ function RandMission( mission, param )
 			mission.begin.talk = mission.begin.talk.."<r["..itemname.."]> to give <p"..areaname..">'s <b\""..npcname.."\">"
 			mission.result.help = mission.result.help.."<r["..itemname.."]> to give <p"..areaname..">'s <b\""..npcname.."\">"
 			if n < param.numdata then				
-				mission.begin.talk = mission.begin.talk..", "
-				mission.result.help = mission.result.help..", "
+				mission.begin.talk = mission.begin.talk..""
+				mission.result.help = mission.result.help..""
 			end
 			PRINT( "RandMission, talk = ", mission.begin.talk )
 			
-			--更新任务需求
-			mission.need[n+1].p1 = n..") hold <r["..itemname.."]> pass to <p"..areaname..">'s <b\""..npcname.."\">"   --任务目标			
+			--穝ヴ叭惠―
+			mission.need[n+1].p1 = n..") hold <r["..itemname.."]> pass to <p"..areaname..">'s <b\""..npcname.."\">"   --ヴ叭ヘ夹			
 			PRINT( "RandMission: need.p1 = ", mission.need[n+1].p1 )
 		end
 		
-		--任务结束动作(AddExpAndType)	
+		--ヴ叭挡笆(AddExpAndType)	
 		mission.result.actions[2].p1 = param.exptp
 		mission.result.actions[2].p2 = param.exp
 		mission.result.actions[2].p3 = param.exp
 		PRINT( "RandMission:AddExpAndType, exp = ", mission.result.actions[2].p1 )		
 		
-		--任务描述信息
+		--ヴ叭磞瓃獺
 		mission.begin.baggrid = param.numdata
-		--mission.begin.talk = mission.begin.talk.."."		
-		--mission.result.help = mission.result.help.."."
-		--mission.result.talk = "<t>Woah! You are fast! Thank you, this is your reward. Look for me again next time."
+		--mission.begin.talk = mission.begin.talk..""		
+		--mission.result.help = mission.result.help..""
+		--mission.result.talk = "<t>珃硉е估碞竒р狥﹁癳瓳谅谅狟ね硂琌骋笆┮眔ΩΤㄓ瓳"
 		
 		mission.begin.talk = mission.begin.talk..mission.begin.talkend
 		mission.result.talk = mission.result.talk..mission.result.talkend
 		mission.result.help = mission.result.help..mission.result.helpend
 		
-		--随机任务奖励
+		--繦诀ヴ叭贱纘
 		mission.prize[1].p1 = param.money
 		if param.prizedata ~= 0 then
 			PRINT( "RandMission,5, prizetp, prizedata", param.prizetp, param.prizedata )
@@ -5261,8 +5178,7 @@ function RandMission( mission, param )
 			elseif param.prizetp == MIS_PRIZE_FAME then
 				mission.prize[2].p2 = 0
 			else
-				PRINT( "RandMission: Invalid reward type notice! misid = , tp = , p1 = ", param.id, param.prizetp, param.prizedata )
-				LG( "mission_error", "RandMission: Invalid reward type notice! misid = , tp = , p1 = ", param.id, param.prizetp, param.prizedata )
+				PRINT( "RandMission:Invalid reward type notice!misid = , tp = , p1 = ", param.id, param.prizetp, param.prizedata )
 				mission.prize[2].tp = 0
 				mission.prize[2].p1 = 0
 				mission.prize.count = 1
@@ -5272,15 +5188,15 @@ function RandMission( mission, param )
 			mission.prize.count = 1
 		end
 		
-	elseif mission.tp == MIS_RAND_CONVOY then		--护送NPC
-		--护送的NPC
+	elseif mission.tp == MIS_RAND_CONVOY then		--臔癳NPC
+		--臔癳NPC
 		local num = 0
 		mission.begin.actions.count = 1 + param.numdata*2
 		mission.result.conditions.count = param.numdata
-		mission.need.count = param.numdata + 1 --需要以后添加新的任务目标类型
-		mission.need[1].p1 = "  <b"..param.npcarea..">'s <y"..param.npcname.."> needs your help to escort some people to another place. You can get your reward from him after you return"
+		mission.need.count = param.numdata + 1 --惠璶睰穝ヴ叭ヘ夹摸
+		mission.need[1].p1 = "  <b"..param.npcarea..">'s <y"..param.npcname..">needs your help to escort some people to another place. You can get your reward from him after you return."
 		
-		--mission.begin.talk = "<t>Hi, my friend! Are you willing"
+		--mission.begin.talk = "<t>狟ね腀種"
 		
 		PRINT( mission.begin.talkstart, mission.result.talkstart, mission.result.helpstart )
 		PRINT( mission.begin.talkend, mission.result.talkend, mission.result.helpend )		
@@ -5289,7 +5205,7 @@ function RandMission( mission, param )
 		mission.result.help = mission.result.helpstart
 		
 		for n = 1, param.numdata, 1 do
-			--更新任务开始触发器动作信息(AddTrigger)
+			--穝ヴ叭秨﹍牟祇竟笆獺(AddTrigger)
 			mission.begin.actions[2 + (n - 1)*2].p3 = param.data[n].p2	 --map ID
 			mission.begin.actions[2 + (n - 1)*2].p4 = param.data[n].p4  --x
 			mission.begin.actions[2 + (n - 1)*2].p5 = param.data[n].p5  --y
@@ -5301,30 +5217,30 @@ function RandMission( mission, param )
 			
 			PRINT( "RandMission: Convoy npcid =  to map = , x = , y = , scope = ", mission.begin.actions[3 + (n - 1)*2].p3, mission.begin.actions[2 + (n - 1)*2].p3, mission.begin.actions[2 + (n - 1)*2].p4, mission.begin.actions[2 + (n - 1)*2].p5, mission.begin.actions[2 + (n - 1)*2].p6 )
 
-			--更新任务完成条件信息(HasFlag)
+			--穝ヴ叭ЧΘ兵ン獺(HasFlag)
 			
-			--任务开始描述信息
+			--ヴ叭秨﹍磞瓃獺
 			local npcname = GetMonsterName( param.data[n].p1 ) --charinfo name
 			PRINT( "RandMission, npcname = ", npcname )
 			local areaname = GetAreaName( param.data[n].p3 )
 			PRINT( "RandMission, areaname = ", areaname )
 			
-			mission.begin.talk = mission.begin.talk.."escort <b\""..npcname.."\"> reached <p"..areaname..">'s <b"..param.data[n].p4..", "..param.data[n].p5.."> nearby?"
+			mission.begin.talk = mission.begin.talk.."escort <b\""..npcname.."\"> reached <p"..areaname..">'s <b"..param.data[n].p4..""..param.data[n].p5.."> nearby?"
 			PRINT( "RandMission, talk = ", mission.begin.talk )
 			
-			--更新任务需求
-			mission.need[n+1].p1 = n..") escort <b\""..npcname.."\"> reached <p"..areaname..">"   --任务目标
+			--穝ヴ叭惠―
+			mission.need[n+1].p1 = n..") escort <b\""..npcname.."\"> reached <p"..areaname..">"   --ヴ叭ヘ夹
 			PRINT( "RandMission: need.p1 = ", mission.need[n+1].p1 )
 		end
 
-		--任务结束动作(AddExpAndType)	
+		--ヴ叭挡笆(AddExpAndType)	
 		mission.result.actions[2].p1 = param.exptp
 		mission.result.actions[2].p2 = param.exp
 		mission.result.actions[2].p3 = param.exp
 		PRINT( "RandMission:AddExpAndType, exp = ", mission.result.actions[2].p1 )
 		
-		--任务描述信息
-		--mission.begin.talk = mission.begin.talk.."You need to complete this task in <r1 hour>."
+		--ヴ叭磞瓃獺
+		--mission.begin.talk = mission.begin.talk.."璶<r>ず快Т硂ンㄆ"
 		--mission.result.talk = mission.begin.talk
 		--mission.result.help = mission.begin.talk
 		
@@ -5332,7 +5248,7 @@ function RandMission( mission, param )
 		mission.result.talk = mission.result.talk..mission.result.talkend
 		mission.result.help = mission.result.help..mission.result.helpend
 		
-		--随机任务奖励
+		--繦诀ヴ叭贱纘
 		mission.prize[1].p1 = param.money
 		if param.prizedata ~= 0 then
 			PRINT( "RandMission,5, prizetp, prizedata", param.prizetp, param.prizedata )
@@ -5348,8 +5264,7 @@ function RandMission( mission, param )
 			elseif param.prizetp == MIS_PRIZE_FAME then
 				mission.prize[2].p2 = 0
 			else
-				PRINT( "RandMission: Invalid reward type notice! misid = , tp = , p1 = ", param.id, param.prizetp, param.prizedata )
-				LG( "mission_error", "RandMission: Invalid reward type notice! misid = , tp = , p1 = ", param.id, param.prizetp, param.prizedata )
+				PRINT( "RandMission:Invalid reward type notice!misid = , tp = , p1 = ", param.id, param.prizetp, param.prizedata )
 				mission.prize[2].tp = 0
 				mission.prize[2].p1 = 0
 				mission.prize.count = 1
@@ -5359,14 +5274,14 @@ function RandMission( mission, param )
 			mission.prize.count = 1
 		end
 		
-	elseif mission.tp == MIS_RAND_EXPLORE then		--探索地图
+	elseif mission.tp == MIS_RAND_EXPLORE then		--贝瓜
 		
 	end
 	
 	return LUA_TRUE
 end
 
-------------给予0能量的女神雕像
+------------倒ぉ0秖繨钩
 function GiveNSDX ( character , npc , value )
 	local r1=0
 	local r2=0
@@ -5378,7 +5293,7 @@ function GiveNSDX ( character , npc , value )
 	RefreshCha( character )
 end
 
------------判断女神雕像能量是否达到999
+-----------耞繨钩秖琌笷999
 function CheckEnergy ( character )
 	local NSDX_Num = CheckBagItem( character, 3010 )
 	---SystemNotice(character,""..HHS_Num)
@@ -5394,7 +5309,7 @@ function CheckEnergy ( character )
 	return LUA_TRUE
 end
 
------------------------判断角色没有转生经验
+-----------------------耞à︹⊿Τ锣ネ竒喷
 function HasNOZSExp ( character )
 	local attr_zsexp = GetChaAttr ( character , ATTR_CSAILEXP )
 	if attr_zsexp == 0 then
@@ -5404,7 +5319,7 @@ function HasNOZSExp ( character )
 	return LUA_FALSE
 end
 
-------------------------判断身上没有某种道具
+------------------------耞ō⊿Τ琘贺笵ㄣ
 function HasNoItem( character ,value )
 	local item_number = CheckBagItem( character, value )			
 	if item_number >= 1 then
@@ -5413,30 +5328,30 @@ function HasNoItem( character ,value )
 	return LUA_TRUE
 end
 function AddChaItem7(character)        
-	------------取升级考卷的指针
+	------------どσ皐
 	local r1=0
 	local r2=0
 	r1,r2 =MakeItem ( character , 3280  , 1 , 4 )
 	local Item_new = GetChaItem ( character , 2 , r2 )
 
-	----------记录时间
-	local now_yes = os.date("%y")		-------------年
-	local now_month= os.date("%m")		-------------月
-	local now_day= os.date("%d")		-------------日
-	local now_hour= os.date("%H")		-------------时
-	local now_miniute= os.date("%M")	-------------分
-	local now_scend=  os.date("%S")		-------------秒
-	now_yes = tonumber(now_yes)			-------------年     
-	now_month= tonumber(now_month)		-------------月     
-	now_day= tonumber(now_day)			-------------日     
-	now_hour= tonumber(now_hour)			-------------时     
-	now_miniute= tonumber(now_miniute)	 	-------------分     
-	now_scend= tonumber(now_scend)		-------------秒     
-	SetItemAttr(Item_new, ITEMATTR_VAL_STA, now_month )		-------------月 	
-	SetItemAttr(Item_new, ITEMATTR_VAL_STR, now_day )		-------------日  
-	SetItemAttr(Item_new, ITEMATTR_VAL_CON, now_hour )		-------------时   
-	SetItemAttr(Item_new, ITEMATTR_VAL_DEX, now_miniute )		-------------分   
-	SetItemAttr(Item_new, ITEMATTR_VAL_AGI, now_scend )		-------------秒 
+	----------癘魁丁
+	local now_yes = os.date("%y")		-------------
+	local now_month= os.date("%m")		-------------る
+	local now_day= os.date("%d")		-------------ら
+	local now_hour= os.date("%H")		-------------
+	local now_miniute= os.date("%M")	-------------だ
+	local now_scend=  os.date("%S")		-------------
+	now_yes = tonumber(now_yes)			-------------     
+	now_month= tonumber(now_month)		-------------る     
+	now_day= tonumber(now_day)			-------------ら     
+	now_hour= tonumber(now_hour)			-------------     
+	now_miniute= tonumber(now_miniute)	 	-------------だ     
+	now_scend= tonumber(now_scend)		-------------     
+	SetItemAttr(Item_new, ITEMATTR_VAL_STA, now_month )		-------------る 	
+	SetItemAttr(Item_new, ITEMATTR_VAL_STR, now_day )		-------------ら  
+	SetItemAttr(Item_new, ITEMATTR_VAL_CON, now_hour )		-------------   
+	SetItemAttr(Item_new, ITEMATTR_VAL_DEX, now_miniute )		-------------だ   
+	SetItemAttr(Item_new, ITEMATTR_VAL_AGI, now_scend )		------------- 
 	SynChaKitbag(character,13)
 	return LUA_TRUE
 end
@@ -5448,104 +5363,102 @@ function CheckKJNum ( character )
 	end
 end	
 function AddChaItem8(character)
-	------------取升级考卷的指针
+	------------どσ皐
 	local role_kj=GetChaItem2( character , 2 , 3280 )
-	----------记录时间
-	local now_yes = os.date("%y")			-------------年
-	local now_month= os.date("%m")			-------------月
-	local now_day= os.date("%d")			-------------日
-	local now_hour= os.date("%H")			-------------时
-	local now_miniute= os.date("%M")		-------------分
-	local now_scend=  os.date("%S")			-------------秒
-	now_yes = tonumber(now_yes)			-------------年     
-	now_month= tonumber(now_month)		-------------月     
-	now_day= tonumber(now_day)			-------------日     
-	now_hour= tonumber(now_hour)			-------------时     
-	now_miniute= tonumber(now_miniute)	 	-------------分     
-	now_scend= tonumber(now_scend)		-------------秒     
+	----------癘魁丁
+	local now_yes = os.date("%y")			-------------
+	local now_month= os.date("%m")			-------------る
+	local now_day= os.date("%d")			-------------ら
+	local now_hour= os.date("%H")			-------------
+	local now_miniute= os.date("%M")		-------------だ
+	local now_scend=  os.date("%S")			-------------
+	now_yes = tonumber(now_yes)			-------------     
+	now_month= tonumber(now_month)		-------------る     
+	now_day= tonumber(now_day)			-------------ら     
+	now_hour= tonumber(now_hour)			-------------     
+	now_miniute= tonumber(now_miniute)	 	-------------だ     
+	now_scend= tonumber(now_scend)		-------------     
 
-	---------取升级考卷的时间	
-	local old_month = GetItemAttr(role_kj, ITEMATTR_VAL_STA)		-------------月 	
-	local old_day = GetItemAttr(role_kj, ITEMATTR_VAL_STR)			-------------日  
-	local old_hour = GetItemAttr(role_kj, ITEMATTR_VAL_CON)			-------------时   
-	local old_miniute = GetItemAttr(role_kj, ITEMATTR_VAL_DEX)		-------------分   
-	local old_scend = GetItemAttr(role_kj, ITEMATTR_VAL_AGI)			-------------秒 
-	---------删除升级考卷
+	---------どσ丁	
+	local old_month = GetItemAttr(role_kj, ITEMATTR_VAL_STA)		-------------る 	
+	local old_day = GetItemAttr(role_kj, ITEMATTR_VAL_STR)			-------------ら  
+	local old_hour = GetItemAttr(role_kj, ITEMATTR_VAL_CON)			-------------   
+	local old_miniute = GetItemAttr(role_kj, ITEMATTR_VAL_DEX)		-------------だ   
+	local old_scend = GetItemAttr(role_kj, ITEMATTR_VAL_AGI)			------------- 
+	---------埃どσ
 	local del_item =TakeItem( character, 0,3280, 1 )			                   
 	if del_item==0  then
-		SystemNotice ( character ,"删除升级考卷失败")
+		SystemNotice ( character ,"埃どσア毖")
 	end
 
 	local used_time=(now_scend - old_scend)+(now_miniute - old_miniute)*60+(now_hour - old_hour)*3600+(now_day - old_day)*86400+(JNSTime_Flag[now_month] - JNSTime_Flag[old_month] )*86400
-	------------取升级成绩单的指针
+	------------どΘ罿虫皐
 	local r1=0
 	local r2=0
 	r1,r2 =MakeItem ( character , 3281  , 1 , 4 )
 	local Item_new = GetChaItem ( character , 2 , r2 )
-	SetItemAttr(Item_new, ITEMATTR_VAL_AGI, used_time )		-------------秒  
+	SetItemAttr(Item_new, ITEMATTR_VAL_AGI, used_time )		-------------  
 	SynChaKitbag(character,13)
 	return LUA_TRUE
 end
 
 
-----------测验判断成绩单时间               
+----------代喷耞Θ罿虫丁               
 function checkcytime( character , npc )
 	local role_xsz = GetChaItem2 ( character , 2 , 3289 )
-	local exp_xsz = GetItemAttr ( role_xsz , ITEMATTR_ENERGY )		-----取学生证当前经验
-	local mexp_xsz = GetItemAttr ( role_xsz , ITEMATTR_MAXENERGY )		-----取学生证最大经验
+	local exp_xsz = GetItemAttr ( role_xsz , ITEMATTR_ENERGY )		-----厩ネ靡讽玡竒喷
+	local mexp_xsz = GetItemAttr ( role_xsz , ITEMATTR_MAXENERGY )		-----厩ネ靡程竒喷
 	local newexp_xsz = exp_xsz * 1000
-	local ch_xsz = GetItemAttr ( role_xsz , ITEMATTR_URE )		-----取学生证当前学分
-	local mch_xsz = GetItemAttr ( role_xsz, ITEMATTR_MAXURE )	-----取学生证最大学分
+	local ch_xsz = GetItemAttr ( role_xsz , ITEMATTR_URE )		-----厩ネ靡讽玡厩だ
+	local mch_xsz = GetItemAttr ( role_xsz, ITEMATTR_MAXURE )	-----厩ネ靡程厩だ
 	local role_cjd = GetChaItem2 ( character , 2 , 3279 )
 	local cha_name = GetChaDefaultName ( character )
 	local newch_xsz = ch_xsz + math.floor(50*(exp_xsz/mexp_xsz))
 	if newch_xsz <= mch_xsz then
-		SystemNotice ( character , "恭喜你通过了考试学分增加")
-		SetItemAttr ( role_xsz , ITEMATTR_URE , newch_xsz )	------设置学生证新的学分
+		SystemNotice ( character , "尺硄筁σ刚厩だ糤")
+		SetItemAttr ( role_xsz , ITEMATTR_URE , newch_xsz )	------砞竚厩ネ靡穝厩だ
 		AddExp ( character , npc , newexp_xsz , newexp_xsz )
 		SetItemAttr ( role_xsz, ITEMATTR_ENERGY, 0 )
 		RefreshCha( character )
 	else
-		SystemNotice( character , "恭喜你通过考试，学分已达上限，不能增加")
+		SystemNotice( character , "尺硄筁σ刚厩だ笷ぃ糤")
 		AddExp ( character , npc, newexp_xsz , newexp_xsz )
-		SetItemAttr ( role_xsz , ITEMATTR_URE , mch_xsz )	------设置学生证新的学分
+		SetItemAttr ( role_xsz , ITEMATTR_URE , mch_xsz )	------砞竚厩ネ靡穝厩だ
 		SetItemAttr ( role_xsz, ITEMATTR_ENERGY, 0 )
 		RefreshCha( character )
 	end
 	local del_item =TakeItem( character, 0,3279, 1 )
 	if del_item == 0 then
-		SystemNotice( character, "删除测验成绩单失败")
+		SystemNotice( character, "埃代喷Θ罿虫ア毖")
 	end
 	return LUA_TRUE
 end
 
-----------升级考试判断成绩单时间
+----------どσ刚耞Θ罿虫丁
 function checksjtime( character ,npc )
 	local role_xsz = GetChaItem2 ( character , 2 , 3289 )
-	local lv_ch = GetItemAttr ( role_xsz , ITEMATTR_FORGE )		----取学生证当前学历
+	local lv_ch = GetItemAttr ( role_xsz , ITEMATTR_FORGE )		----厩ネ靡讽玡厩菌
 	local role_cjd = GetChaItem2 ( character , 2 , 3281 )
 	local time_cjd = GetItemAttr ( role_cjd , ITEMATTR_VAL_AGI )
 	local cha_name = GetChaDefaultName ( character )
 	if time_cjd > 0 and time_cjd <= 1800 then
-		LG("玩家"..cha_name.."成功通过升级考试，学历上升！")
 		lv_ch = lv_ch + 1
-		SetItemAttr( role_xsz , ITEMATTR_FORGE , lv_ch )	----设置学生证新的学历
-		SetItemAttr( role_xsz , ITEMATTR_URE , 0 )		----学分清零
+		SetItemAttr( role_xsz , ITEMATTR_FORGE , lv_ch )	----砞竚厩ネ靡穝厩菌
+		SetItemAttr( role_xsz , ITEMATTR_URE , 0 )		----厩だ睲箂
 		local new_mch = Reading_Credit[lv_ch]
 		local new_mexp = Reading_EXP[lv_ch]
-		SetItemAttr( role_xsz , ITEMATTR_MAXURE , new_mch )	----设置学生证新的最大学分
-		SetItemAttr( role_xsz , ITEMATTR_MAXENERGY , new_mexp )	----设置学生证新的最大经验
+		SetItemAttr( role_xsz , ITEMATTR_MAXURE , new_mch )	----砞竚厩ネ靡穝程厩だ
+		SetItemAttr( role_xsz , ITEMATTR_MAXENERGY , new_mexp )	----砞竚厩ネ靡穝程竒喷
 		RefreshCha( character )
 	elseif time_cjd > 1800 then
-		LG("玩家"..cha_name.."未能通过升级考试，需要留级！")
 	end
 	local del_item =TakeItem( character, 0,3281, 1 )
 	if del_item == 0 then
-		SystemNotice( character, "删除升级考试成绩单失败")
+		SystemNotice( character, "埃どσ刚Θ罿虫ア毖")
 	end
 	return LUA_TRUE
 end
-------------------addexp经验瓶处理包壳
+------------------addexp竒喷瞺矪瞶催
 --function AddExp2 ( role , npc, p1, p2 )
 --	local lv = GetChaAttr(role, ATTR_LV)
 --	if lv == 100 then
@@ -5556,7 +5469,7 @@ end
 --			local exp_add = (p1+p2)/2
 --			exp_store = exp_store+exp_add
 --			SetItemAttr ( role_jyp, ITEMATTR_VAL_PARAM1, exp_store)
---			SystemNotice( role, "你的经验瓶中的积分增加了"..exp_add)
+--			SystemNotice( role, "竒喷瞺い縩だ糤"..exp_add)
 --		else
 --			AddExp ( role , npc , p1 , p2 )
 --		end
@@ -5566,7 +5479,7 @@ end
 --	return LUA_TRUE
 --end
 
-function HasXmasYB ( role, value )				-------------判断是否有足够硬币
+function HasXmasYB ( role, value )				-------------耞琌Τì镑祑刽
 	local num_wyyb = CheckBagItem( role, 2962 )
 	local num_bwyb = CheckBagItem( role, 2963 )
 	local money = num_wyyb + num_bwyb * 100
@@ -5575,7 +5488,7 @@ function HasXmasYB ( role, value )				-------------判断是否有足够硬币
 	end
 end
 
-function TakeXmasYB ( role, value )				-------------提取硬币
+function TakeXmasYB ( role, value )				-------------矗祑刽
 	local num_bwyb = math.floor( value/100 )
 	local num_wyyb = math.mod ( value , 100 )
 	local bag_bwyb = CheckBagItem( role, 2963 )
@@ -5598,33 +5511,33 @@ function TakeXmasYB ( role, value )				-------------提取硬币
 	return LUA_TRUE
 end
 
-function CpHuojiNum ( role )					-----------------计算被杀火鸡数量
+function CpHuojiNum ( role )					-----------------璸衡砆炳蔓计秖
 	XmasMonsterNum1 = XmasMonsterNum1 + 100
 	XmasMonsterNum4 = XmasMonsterNum4 + 100
 	XmasMonsterNum5 = XmasMonsterNum5 + 100
 	return LUA_TRUE
 end
 
-function CpMiluNum ( role )					------------------计算被杀麋鹿数量			
+function CpMiluNum ( role )					------------------璸衡砆炳翯忱计秖			
 	XmasMonsterNum2 = XmasMonsterNum2 + 100
 	XmasMonsterNum4 = XmasMonsterNum4 + 100
 	XmasMonsterNum5 = XmasMonsterNum5 + 100
 	return LUA_TRUE
 end
 
-function CpXuerenNum ( role )					------------------计算被杀雪人数量
+function CpXuerenNum ( role )					------------------璸衡砆炳撤计秖
 	XmasMonsterNum3 = XmasMonsterNum3 + 100
 	XmasMonsterNum5 = XmasMonsterNum5 + 100
 	return LUA_TRUE
 end
 
-function XmasNotice ( role, value )				------------------圣诞村自动提示
+function XmasNotice ( role, value )				------------------竧较笆矗ボ
 	local cha_name = GetChaDefaultName ( role ) 
 	local message={}
-	message[1]="圣诞老人:欢迎来到圣诞村,"..cha_name..",如果你是第一次来这里的话,你可以找旁边的圣诞村·蘑菇头了解一下这个村子!"
-	message[2]="土著狂欢者:"..cha_name.."~来和我们一起跳舞吧,围着篝火一起跳舞,祈祷明年会更好!"
-	message[3]="科恩悄悄的对你说:"..cha_name..",来吧,来完成我交付你给的任务,让更多的BOSS降临到圣诞竞技场中!"
-	message[4]="小汤姆:看啊~看啊~那个人我认识,他叫"..cha_name..",我长大后一定要像他那么强!"
+	message[1]="Santa Claus: Welcome to the Christmas Village," .. cha_name .. ", if you are a first time here, you can find next to the Christmas Village ?mushrooms first to find out the village!"
+	message[2]="Indigenous revelers:" .. cha_name .. "~ to dance with us, dancing around the campfire together dance, prayer will be better next year!"
+	message[3]="Cohen said quietly to you:" .. cha_name .. ", Come on, I referred to you to complete the task to so that more of the BOSS comes to Christmas in the Arena!"
+	message[4]="small Tom: see ah ah ~ ~ look at that person I know that he called" .. cha_name .. ", I grow up I as he must be so strong!"
 	SystemNotice( role , message[value] )
 	return LUA_TRUE
 end

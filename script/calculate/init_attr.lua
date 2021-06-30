@@ -1,62 +1,51 @@
---------------------------------------------------------------------------
---									--
---									--
---				AInit_Attr.lua				--
---									--
---									--
---------------------------------------------------------------------------
 print( "Loading Init_Attr.lua" )
-
-
 function Init_attr() 
---LG("init_attr", "enter function initattr : " , "\n" ) 
-for i = 0, 240, 1 do						--³õÊ¼»¯ËùÓÐÊôÐÔ
-	SetChaAttrMax( i, 100000000) 
-end 
+	for i = 0, 240, 1 do						
+		SetChaAttrMax( i, 100000000) 
+	end 
 end 
 
 Init_attr() 
-
-SetChaAttrMax( ATTR_LV		,	500		)	-- Max Level Possible
-SetChaAttrMax( ATTR_HP		,	2000000000	)	-- µ±Ç°HP
-SetChaAttrMax( ATTR_SP		,	2000000000	)	-- µ±Ç°SP
-SetChaAttrMax( ATTR_JOB		,	100		)	-- ½ÇÉ«Ö°Òµ
-SetChaAttrMax( ATTR_CEXP	,	42000000000000000	)	-- µ±Ç°¾­Ñé
-SetChaAttrMax( ATTR_NLEXP	,	42000000000000000	)	-- ÏÂÒ»¼¶ËùÐè¾­Ñé
-SetChaAttrMax( ATTR_AP		,	300		)	-- ÊôÐÔµã
-SetChaAttrMax( ATTR_TP		,	200		)	-- ¼¼ÄÜµã
-SetChaAttrMax( ATTR_GD		,	2000000000	)	-- ½ðÇ®
-SetChaAttrMax( ATTR_CLEXP	,	42000000000000000	)	-- µ±Ç°µÈ¼¶µÄ¾­Ñé
-SetChaAttrMax( ATTR_MXHP	,	2000000000	)	-- ×î´óhp
-SetChaAttrMax( ATTR_MXSP	,	2000000000	)	-- ×î´ósp
-SetChaAttrMax( ATTR_BSTR	,	140		)	-- Max STR Possible
-SetChaAttrMax( ATTR_BDEX	,	150		)	-- Max ACC Possible
-SetChaAttrMax( ATTR_BAGI	,	150		)	-- Max AGI Possible
-SetChaAttrMax( ATTR_BCON	,	100		)	-- Max CON Possible
-SetChaAttrMax( ATTR_BSTA	,	150		)	-- Max SPR Possible
-SetChaAttrMax( ATTR_BLUK	,	150		)	-- Max LUK Possible
-SetChaAttrMax( ATTR_BMXHP	,	2000000000	)	-- »ù±¾×î´óHP         
-SetChaAttrMax( ATTR_BMXSP	,	2000000000	)	-- »ù±¾×î´óSP         
-SetChaAttrMax( ATTR_BMNATK	,	99999999		)	-- »ù±¾×îÐ¡¹¥»÷Á¦    
-SetChaAttrMax( ATTR_BMXATK	,	99999999		)	-- »ù±¾×î´ó¹¥»÷Á¦    
-SetChaAttrMax( ATTR_BDEF	,	30000		)	-- »ù±¾·ÀÓùÁ¦          
-SetChaAttrMax( ATTR_BHIT	,	99999999		)	-- »ù±¾ÃüÖÐÂÊ          
-SetChaAttrMax( ATTR_BFLEE	,	99999999		)	-- »ù±¾ÉÁ±ÜÂÊ          
-SetChaAttrMax( ATTR_BMF		,	99999999		)	-- »ù±¾Ñ°±¦ÂÊ          
-SetChaAttrMax( ATTR_BCRT	,	99999999		)	-- »ù±¾±¬»÷ÂÊ          
-SetChaAttrMax( ATTR_BHREC	,	99999999		)	-- »ù±¾hp»Ö¸´ËÙ¶È   
-SetChaAttrMax( ATTR_BSREC	,	99999999		)	-- »ù±¾sp»Ö¸´ËÙ¶È    
-SetChaAttrMax( ATTR_BASPD	,	2000		)	-- »ù±¾¹¥»÷¼ä¸ô       
-SetChaAttrMax( ATTR_BADIS	,	99999999		)	-- »ù±¾¹¥»÷¾àÀë       
-SetChaAttrMax( ATTR_BMSPD	,	99999999		)	-- »ù±¾ÒÆ¶¯ËÙ¶È       
-SetChaAttrMax( ATTR_BCOL	,	99999999		)	-- »ù±¾×ÊÔ´²É¼¯ËÙ¶È 
-SetChaAttrMax( ATTR_MSPD	,	99999999		)	-- ÒÆ¶¯ËÙ¶È
-SetChaAttrMax( ATTR_LHAND_ITEMV	,	99999999		)	-- ×óÊÖµÀ¾ß¼Ó³É
-SetChaAttrMax( ATTR_BOAT_SHIP	,	100000		)	-- ´¬Ö»ID
-SetChaAttrMax( ATTR_BOAT_HEADER	,	100000		)	-- ´¬Í·ÀàÐÍ
-SetChaAttrMax( ATTR_BOAT_BODY	,	100000		)	-- ´¬ÉíÀàÐÍ
-SetChaAttrMax( ATTR_BOAT_ENGINE	,	100000		)	-- ´¬ÒýÇæÀàÐÍ
-SetChaAttrMax( ATTR_BOAT_CANNON	,	100000		)	-- ´¬»ðÅÚÀàÐÍ
-SetChaAttrMax( ATTR_BOAT_PART	,	100000		)	-- ´¬Åä¼þÀàÐÍ
-SetChaAttrMax( ATTR_BOAT_BERTH	,	100000		)	-- ´¬Ö»Í£²´¸Û¿Ú
-SetChaAttrMax( ATTR_BOAT_DBID	,	2000000000	)	-- ´¬Ö÷µÄID
+SetChaAttrMax( ATTR_LV		,	1000			)	-- Óðîâåíü ïåðñîíàæà
+SetChaAttrMax( ATTR_HP		,	2000000000		)	-- Ìàêñ. ÕÏ
+SetChaAttrMax( ATTR_SP		,	2000000000		)	-- Ìàêñ. ÌÍ
+SetChaAttrMax( ATTR_JOB		,	100				)	-- Ìàêñ. ïðîôåññèè
+SetChaAttrMax( ATTR_CEXP	,	2000000000		)	-- 
+SetChaAttrMax( ATTR_NLEXP	,	2000000000		)	
+SetChaAttrMax( ATTR_AP		,	50000			)	
+SetChaAttrMax( ATTR_TP		,	2000000000		)	
+SetChaAttrMax( ATTR_GD		,	2000000000		)	-- Ìàêñ. çîëîòà
+SetChaAttrMax( ATTR_CLEXP	,	2000000000		)	
+SetChaAttrMax( ATTR_MXHP	,	2000000000		)	
+SetChaAttrMax( ATTR_MXSP	,	2000000000		)	
+SetChaAttrMax( ATTR_BSTR	,	3000		)	-- Ìàêñ. Ñèëà
+SetChaAttrMax( ATTR_BDEX	,	3000		)	-- Ìàêñ. Òî÷íîñòü
+SetChaAttrMax( ATTR_BAGI	,	3000		)	-- Ìàêñ. Ëîâêîñòü
+SetChaAttrMax( ATTR_BCON	,	3000		)	-- Ìàêñ. Òåëîñëîæåíèå
+SetChaAttrMax( ATTR_BSTA	,	3000		)	-- Ìàêñ. Äóõ
+SetChaAttrMax( ATTR_BLUK	,	150				)	-- Ìàêñ. Óäà÷à
+SetChaAttrMax( ATTR_BMXHP	,	2000000000		)	--        
+SetChaAttrMax( ATTR_BMXSP	,	2000000000		)	--        
+SetChaAttrMax( ATTR_BMNATK	,	2000000000		)	--    
+SetChaAttrMax( ATTR_BMXATK	,	2000000000		)	--    
+SetChaAttrMax( ATTR_BDEF	,	2000000000		)	--        
+SetChaAttrMax( ATTR_BHIT	,	2000000000		)	--        
+SetChaAttrMax( ATTR_BFLEE	,	2000000000		)	--        
+SetChaAttrMax( ATTR_BMF		,	2000000000		)	--        
+SetChaAttrMax( ATTR_BCRT	,	2000000000		)	--        
+SetChaAttrMax( ATTR_BHREC	,	2000000000		)	--   
+SetChaAttrMax( ATTR_BSREC	,	2000000000		)	--    
+SetChaAttrMax( ATTR_BASPD	,	2000000000		)	--      
+SetChaAttrMax( ATTR_BADIS	,	2000000000		)	--      
+SetChaAttrMax( ATTR_BMSPD	,	2000000000		)	--      
+SetChaAttrMax( ATTR_BCOL	,	2000000000		)	--  
+SetChaAttrMax( ATTR_MSPD	,	2000000000		)	-- 
+SetChaAttrMax( ATTR_LHAND_ITEMV	,	2000000000	)	-- 
+SetChaAttrMax( ATTR_BOAT_SHIP	,	2000000000		)	-- 
+SetChaAttrMax( ATTR_BOAT_HEADER	,	2000000000		)	-- 
+SetChaAttrMax( ATTR_BOAT_BODY	,	2000000000		)	-- 
+SetChaAttrMax( ATTR_BOAT_ENGINE	,	2000000000		)	-- 
+SetChaAttrMax( ATTR_BOAT_CANNON	,	2000000000		)	-- 
+SetChaAttrMax( ATTR_BOAT_PART	,	2000000000		)	-- 
+SetChaAttrMax( ATTR_BOAT_BERTH	,	2000000000		)	-- 
+SetChaAttrMax( ATTR_BOAT_DBID	,	2000000000	)	-- 

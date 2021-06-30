@@ -1,24 +1,8 @@
---------------------------------------------------------------------------
---									--
---									--
---				Help.lua				--
---									--
---									--
---------------------------------------------------------------------------
 print( "Loading Help.lua" )
 
---初始化
 ClearHelpNPC()  
 AddHelpNPC("Drunkyard - Anthony")
 dofile(GetResPath("script/help/monsterhelp.lua"))
-
-
---白银城酒吧, 酒鬼的帮助功能
-
---格式为: 关键字 + 内容
-
---游戏正式的帮助信息
-
 
 AddHelpInfo("Pirate King",   "You are lucky! You have played the best game!")
 AddHelpInfo("Conch",     "Corals are the unique weapons of Explorer and Voyager. They can be recharged by different weather regions in the sea")

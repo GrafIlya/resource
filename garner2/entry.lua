@@ -1,85 +1,76 @@
 function config_entry(entry) 
-    SetMapEntryEntiID(entry,2492,1) 
+    SetMapEntryEntiID(entry,2492,1)
+
 end 
 
 function after_create_entry(entry) 
-    local copy_mgr = GetMapEntryCopyObj(entry, 0) 
-	local EntryName = "Серебряный Хаос"
+    local copy_mgr = GetMapEntryCopyObj(entry, 0)
+	local EntryName = " \213\224\238\241 \204\238\241\234\226\251"
 	SetMapEntryEventName( entry, EntryName )
-    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) 
-    Notice("Новость: В Аргенте по координатам ["..posx..","..posy.."] открылся портал ведущий в Серебряный Хаос!")
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry)
 end
 
 function after_destroy_entry_garner2(entry)
     map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) 
-	Notice("Новость: Портал в Серебряный Хаос только что закрылся. Удачи!") 
+    GMNotice("\207\238\240\242\224\235 \226 \213\224\238\241 \204\238\241\234\226\251 \231\224\234\240\251\235\241\255.") 
 end
 
 function after_player_login_garner2(entry, player_name)
-    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) 
-    ChaNotice(player_name, "Новость: в Аргенте открыт портал ["..posx..","..posy.."] ведущий в Серебряный Хаос!") 
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry)
+    ChaNotice(player_name, "\207\238 \234\238\238\240\228\232\237\224\242\224\236 ["..posx..","..posy.."] \239\238\240\242\224\235 \226 \213\224\238\241 \204\238\241\234\226\251")
+
 end
 
-function check_can_enter_garner2( role, copy_mgr )
+
+
+function check_can_enter_garner2(role, copy_mgr)
 	local FightingBook_Num = 0
-	FightingBook_Num = CheckBagItem( role,3849 )
+	FightingBook_Num = CheckBagItem(role, 3849)
+
+	----------------------------
+	-- Конец проверки на форж --
+	----------------------------
 	local Team_In = IsInTeam(role)
-	if Team_In == 1 then
-		SystemNotice ( role , "Нельзя войти в Серебряный хаос в отряде. Каждый сам за себя " )
+	
+	if (Team_In == 1) then
+		SystemNotice(role, "\205\229\235\252\231\255 \226\238\233\242\232 \226 \213\224\238\241 \226 \238\242\240\255\228\229. \194\251\233\228\232\242\229 \232\231 \238\242\240\255\228\224 \232 \226\238\233\228\232\242\229 \241\237\238\226\224")
+		--SystemNotice(role, "§Ї§Ц§Э§о§Щ§с §У§а§Ы§д§Ъ §У §·§С§а§г §У §а§д§в§с§Х§Ц. §Ј§н§Ы§Х§Ъ§д§Ц §Ъ§Щ §а§д§в§с§Х§С §Ъ §У§а§Ы§Х§Ъ§д§Ц §г§Я§а§У§С")
 		return 0
 	end
+	
 	if FightingBook_Num <= 0 then
-		SystemNotice ( role , "Ты забыл взять с собой Медаль Чести,старичок " )
+		SystemNotice(role, "\202 \241\238\230\224\235\229\237\232\254, \243 \226\224\241 \237\229\242 \204\229\228\224\235\232 \206\242\226\224\227\232")
+		--SystemNotice(role, "§¬ §г§а§Ш§С§Э§Ц§Я§Ъ§р, §е §У§С§г §Я§Ц§д §®§Ц§Х§С§Э§Ъ §°§д§У§С§Ф§Ъ")
 		return 0
 	elseif FightingBook_Num > 1 then
-		LG("RYZ_PK","Требуется 1 Медаль Чести ")
 		return 0
 	end
-	local role_RY = GetChaItem2 ( role , 2 , 3849 )
-	local HonorPoint = GetItemAttr ( role_RY , ITEMATTR_VAL_STR)
-	if HonorPoint < 20 then
-		SystemNotice ( role , "Чтобы войти в Серебряный хаос требуется 20 очков чести " )
-		return 0
-	end
-	if HonorPoint >30000 then
-		SystemNotice ( role , "Нет, определенно вам нельзя войти в [Серебряный Хаос]. Вы слишком великий воин! У Вас очень много очков чести!" )
-		return 0
-	end
-	local Credit_Garner2 = GetCredit(role)
-	 if Credit_Garner2 < 30 then 
-		SystemNotice ( role , "Чтобы войти в [Серебряный хаос] нужно 30 очков репутации " )
-		return 0
-	end
-	if Lv(role) < 20 then
-	SystemNotice(role, "Только игроки выше 20 уровня могут войти в [Серебряный хаос]")
-		return 0    
-	end
+
 	local Has_money = check_HasMoney(role)
 	if Has_money == 1 then
 		return 1
 	else
-		SystemNotice(role,"У вас не хватает золота для участия в боях [Серебряного хаоса]")
+		SystemNotice(role, "\211 \226\224\241 \237\229 \245\226\224\242\224\229\242 \231\238\235\238\242\224 \228\235\255 \243\247\224\241\242\232\255 \226 \225\238\255\245 \213\224\238\241\224")
+		--SystemNotice(role, "§µ §У§С§г §Я§Ц §з§У§С§д§С§Ц§д §Щ§а§Э§а§д§С §Х§Э§с §е§й§С§г§д§Ъ§с §У §Т§а§с§з §·§С§а§г§С")
 		return 0
 	end
 end
 
 function check_HasMoney(role)
 	local lv= GetChaAttr(role, ATTR_LV)
-	local Money_Need = lv*50
+	local Money_Need = lv*100
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
-		if Money_Have >= Money_Need then
-			return 1
-		end
+	if Money_Have >= Money_Need then
+		return 1
+	end
 end
 
 function begin_enter_garner2(role, copy_mgr) 
-	local	Money_Have = GetChaAttr ( role , ATTR_GD )
+	local Money_Have = GetChaAttr ( role , ATTR_GD )
 	local lv= GetChaAttr(role, ATTR_LV)
-	local Money_Need = lv*50
-	local	Money_Now = Money_Have - Money_Need
+	local Money_Need = lv*100
+	local Money_Now = Money_Have - Money_Need
 	SetChaAttrI( role , ATTR_GD , Money_Now )
-	DelCredit(role,30)
-		SystemNotice(role,"Взят взнос за вход в [Серебряный хаос]: "..Money_Need.." золота") 
-		MoveCity(role, "Chaos Argent")
-Money_all = Money_all + Money_Need * 0.8
+	SystemNotice(role,"\194\231\237\238\241 \231\224 \226\245\238\228 "..Money_Need.." \231\238\235\238\242\224 ") 
+	MoveCity( role, "Chaos Argent" )
 end

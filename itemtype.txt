@@ -1,4 +1,3 @@
-//scripted by skyfear919@hotmail.com
 1	Sword
 2	Greatsword
 3	Bow
@@ -37,4 +36,3 @@
 62	Cannon Tower
 63	Cannon Tube
 64	Cannon Symbol
-// [Gemini.Decompiler] End of data

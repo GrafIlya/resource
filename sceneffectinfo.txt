@@ -1,4 +1,4 @@
-﻿//scripted by skyfear919@hotmail.com
+//scripted by skyfear919@hotmail.com
 1	wave1.par	Sea Wave	Sea Wave	0	0	-1	-1	1	0	0	-1
 2	dian.par	Electric Ball	Sea Wave	0	0	0	-1	0	0	0	-1
 3	shuihua01.par	Big Spray	Big Spray	0	0	0	-1	0	0	0	-1
@@ -161,7 +161,7 @@
 233	01010507.par	Baby Icy Dragon 	Sea Wave	0	0	-1	-1	0	1	0	-1
 234	01010508.par	Big Icy Dragon H	Sea Wave	0	0	-1	-1	0	1	0	-1
 235	01010514.par	Oyster Hit Rate	Sea Wave	0	0	-1	-1	0	1	0	-1
-236	barrierf.par	Berserk Hit Rate	Sea Wave	0	0	-1	-1	0	1	0	-1
+236	firegush.par	Berserk Hit Rate	Sea Wave	0	0	-1	-1	0	1	0	-1
 237	abysm02.par	Abyss Mire Disch	Sea Wave	0	0	-1	-1	0	1	0	-1
 238	abysm01.par	Abyss Mire Item 	Sea Wave	0	0	-1	-1	0	1	0	-1
 239	abysm03.par	Abyss Mire Hit R	Sea Wave	0	0	-1	-1	0	1	0	-1
@@ -449,6 +449,7 @@
 551	hl_crab.par	��з������	Sea Wave	1	0	24	-1	0	0	0	-1
 552	elfbm1.par	Brute Strength	Sea Wave	1	0	-1	-1	0	0	0	-1
 553	elfbm2.par	Brute Strength	Sea Wave	1	0	-1	-1	0	0	0	-1
+554	fjlxitim.par	Mini Fairy 2	Sea Wave	1	0	-1	-1	3	0	0	-1
 564	mct.par	ʥ���̻�	Sea Wave	0	0	-1	-1	0	1	0	-1
 565	hny.par	�����̻�	Sea Wave	0	0	-1	-1	0	1	0	-1
 566	sdlr.par	ʥ�������̻�	Sea Wave	0	0	-1	-1	0	1	0	-1
@@ -493,6 +494,27 @@
 605	nvshen.par	Ů����Ч	Sea Wave	0	0	-1	-1	0	1	0	-1
 606	chibangjy.par	0	Sea Wave	1	0	24	-1	0	0	0	-1
 607	flag.par	������	Sea Wave	1	0	-1	-1	0	0	0	-1
+610	angellts.par	В¤OВ¤Г‘ВЁГЏВ¤В§Г	Sea Wave	0	0	0	-1	0	1	0	-1
+611	angeldlts.par	ВјZВёВЁВ¤Г‘ВЁГЏВ	Sea Wave	0	0	0	-1	0	1	0	-1
+612	angelqts.par	Г…vВ¤Г‘ВЁГЏВ¤В§Г	Sea Wave	0	0	0	-1	0	1	0	-1
+613	angelzts.par	ВҐDВ¤Г‘ВЁГЏВ¤В§Г	Sea Wave	0	0	0	-1	0	1	0	-1
+614	angelzzts.par	В®yВ¤Г‘ВЁГЏВ¤В§Г	Sea Wave	0	0	0	-1	0	1	0	-1
+785	wng1.par	xxx	РљСЂС‹Р»СЊСЏ	0	0	0	-1	0	1	0	-1
+786	wng2.par	xxx	РљСЂС‹Р»СЊСЏ	0	0	0	-1	0	1	0	-1
+787	wng3.par	xxx	РљСЂС‹Р»СЊСЏ	0	0	0	-1	0	1	0	-1
+788	wng4.par	xxx	РљСЂС‹Р»СЊСЏ	0	0	0	-1	0	1	0	-1
+789	vln1.par	xxx	РљСЂС‹Р»СЊСЏ	0	0	0	-1	0	1	0	-1
+790	vln2.par	xxx	РљСЂС‹Р»СЊСЏ	0	0	0	-1	0	1	0	-1
+791	fzzi5.par	xxx	РњРѕСЂСЃРєР°СЏ Р	0	0	0	-1	0	1	0	-1
+792	fzzi6.par	xxx	РњРѕСЂСЃРєР°СЏ Р	0	0	0	-1	0	1	0	-1
+793	fzzi7.par	xxx	РњРѕСЂСЃРєР°СЏ Р	0	0	0	-1	0	1	0	-1
+794	fzzi8.par	xxx	РњРѕСЂСЃРєР°СЏ Р	0	0	0	-1	0	1	0	-1
+795	socball.par	xxx	РњРѕСЂСЃРєР°СЏ Р	0	0	0	-1	0	1	0	-1
+796	thnd.par	xxx	РљСЂС‹Р»СЊСЏ	0	0	0	-1	0	1	0	-1
+797	frst.par	xxx	РљСЂС‹Р»СЊСЏ	0	0	0	-1	0	1	0	-1
+798	nght.par	xxx	РљСЂС‹Р»СЊСЏ	0	0	0	-1	0	1	0	-1
+799	break_wing.par	xxx	РљСЂС‹Р»СЊСЏ	0	0	0	-1	0	1	0	-1
+800	icedragonready01.par	xxx	Sea Wave	1	0	1	-1	0	1	0	-1
 800	icedragonready01.par	Frost Breath	Sea Wave	1	0	1	-1	0	1	0	-1
 801	icedragonready02.par	Icy Dragon Arc F	Sea Wave	1	0	1	-1	0	1	0	-1
 802	sd.par	Pharaoh Poison	Sea Wave	1	0	1	-1	0	1	0	-1
@@ -591,10 +613,12 @@
 941	shzhanfs.par	Navy Slash	Sea Wave	0	0	-1	-1	0	1	0	-1
 942	hdzhanfs.par	Pirate Slash	Sea Wave	0	0	-1	-1	0	1	0	-1
 943	binghuans.par	Ice persists	Sea Wave	0	0	-1	-1	0	1	0	-1
-944	01020026.par	Legendary Class	Sea Wave	1	0	24	-1	0	0	0	-1
-945	01020029.par	Legendary Class	Sea Wave	1	0	24	-1	0	0	0	-1
-
-3000	jf004.par	Staff Bonus Head	Sea Wave	1	0	1	-1	0	0	0	-1
+945	eidolon1.par	Thunder Class S	Sea Wave	1	0	0	-1	0	0	0	-1
+947	eidolon2.par	Light Class Spi	Sea Wave	1	0	0	-1	0	0	0	-1
+948	eidolon3.par	Darkness Class	Sea Wave	1	0	0	-1	0	0	0	-1
+949	01020018.par	Darkness Class	Sea Wave	1	0	24	-1	0	0	0	-1
+950	01020019.par	Darkness Class	Sea Wave	1	0	24	-1	0	0	0	-1
+3000	jf004.par	Staff Bonus Head	Sea Wave	1	0	1	-1	0	0	0	-1							
 3001	jf003.par	Staff Bonus Head	Sea Wave	1	0	1	-1	0	0	0	-1
 3002	jf002.par	Staff Bonus Head	Sea Wave	1	0	1	-1	0	0	0	-1
 3003	jf001.par	Staff Bonus Head	Sea Wave	1	0	1	-1	0	0	0	-1
@@ -994,13 +1018,83 @@
 3991	cangying.par	Insect Swarm 2	Sea Wave	1	0	1	-1	0	0	0	-1
 3992	cangying.par	Insect Swarm 3	Sea Wave	1	0	1	-1	0	0	0	-1
 3993	cangying.par	Insect Swarm 4	Sea Wave	1	0	1	-1	0	0	0	-1
+3994	01020026.par	Legendary Class	Sea Wave	1	0	24	-1	0	0	0	-1
+3995	01020029.par	Legendary Class	Sea Wave	1	0	24	-1	0	0	0	-1
 4000	ssdao.par	Death Scythe Ray	Sea Wave	1	0	10	11	0	0	0	-1
 4010	ssjj.par	Death Scythe Lav	Sea Wave	1	0	4	-1	0	0	0	-1
 4011	ssjj.par	Death Scythe Lav	Sea Wave	1	0	4	-1	0	0	0	-1
 4012	ssjj.par	Death Scythe Lav	Sea Wave	1	0	4	-1	0	0	0	-1
 4013	ssjj.par	Death Scythe Lav	Sea Wave	1	0	4	-1	0	0	0	-1
-4014	fjl803.par	Brute Strength	Sea Wave	1	0	-1	-1	0	0	0	-1
-
-
-
+4014	01020026.par	Legendary Class	Sea Wave	1	0	24	-1	0	0	0	-1
+4015	cap1.par	cap model	Sea Wave	1	0	24	-1	0	0	0	-1
+4016	cap2.par	cap model	Sea Wave	1	0	24	-1	0	0	0	-1
+4017	cap3.par	cap model	Sea Wave	1	0	24	-1	0	0	0	-1
+4018	cap4.par	cap model	Sea Wave	1	0	24	-1	0	0	0	-1
+4019	xhlgua.par	Dragon Class	Sea Wave	1	0	0	-1	0	0	0	-1
+4022	bmtitle02.par	Vip	Sea Wave	1	0	24	-1	0	0	0	-1
+4030	ttitle2.par	Rousing Persists	Sea Wave	0	0	0	-1	0	1	0	-1
+4031	ttitle3.par	Rousing Persists	Sea Wave	0	0	0	-1	0	1	0	-1
+4032	4100_2.par	Åû·ç1~2JÌØ	Sea Wave	1	0	1	-1	0	0	0	-1
+4044	fzzi7.par	Эффект феи 13	Sea Wave	0	0	-1	-1	0	1	0	-1
+4045	fzzi8.par	Эффект феи 14	Морская волна	0	0	0	-1	0	1	0	-1
+4047	socball.par	Футбольный мяч	Морская волна	0	0	0	-1	0	1	0	-1
+4048	thnd.par	Перо грома	Крылья	0	0	0	-1	0	1	0	-1
+4051	break_wing.par	Сломанное терран	Крылья	0	0	0	-1	0	1	0	-1
+4052	vln1.par	Перо грома	Крылья	0	0	0	-1	0	1	0	-1
+4060	01020029.par	????(?)	??	1	0	3,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4061	01020029(2).par	????(?)	??	1	0	3,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4062	01020029(3).par	????(?)	??	1	0	3,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4063	01020029(4).par	????(?)	??	1	0	24,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4064	01020031.par	????(?)	??	1	0	3,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4065	01020031(2).par	????(?)	??	1	0	3,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4066	01020031(3).par	????(?)	??	1	0	3,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4067	01020031(4).par	????(?)	??	1	0	24,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4068	01020037.par	HelloKitty??(	??	1	0	3,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4069	01020037(2).par	HelloKitty??(	??	1	0	3,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4070	01020037(3).par	HelloKitty??(	??	1	0	3,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4071	01020037(4).par	HelloKitty??(	??	1	0	24,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4072	01020039.par	?????(?)	??	1	0	3,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4073	01020039(2).par	?????(?)	??	1	0	3,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4074	01020039(3).par	?????(?)	??	1	0	3,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4075	01020039(4).par	?????(?)	??	1	0	24,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4076	01020041.par	???????(	??	1	0	3,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4077	01020041(2).par	???????(	??	1	0	3,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4078	01020041(3).par	???????(	??	1	0	3,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4079	01020041(4).par	???????(	??	1	0	24,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4080	01020042.par	?????(?)	??	1	0	3,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4081	01020042(2).par	?????(?)	??	1	0	3,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4082	01020042(3).par	?????(?)	??	1	0	3,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4083	01020042(4).par	?????(?)	??	1	0	24,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4084	01020043.par	????(?)	??	1	0	3,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4085	01020043(2).par	????(?)	??	1	0	3,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4086	01020043(3).par	????(?)	??	1	0	3,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4087	01020043(4).par	????(?)	??	1	0	24,-1,-1,-1,-1,-1,-1,-1	-1	0	0.0	0.0	-1.0
+4096	cap1.par	cap model	Sea Wave	1	0	24	-1	0	0	0	-1
+4097	cap2.par	cap model	Sea Wave	1	0	24	-1	0	0	0	-1
+4098	cap3.par	cap model	Sea Wave	1	0	24	-1	0	0	0	-1
+4099	cap4.par	cap model	Sea Wave	1	0	24	-1	0	0	0	-1
+4138	m1_bronze.par	Mastery	Waves	0	0	0	-1	0	1	0	-1
+4139	m2_silver.par	Mastery	Waves	0	0	0	-1	0	1	0	-1
+4140	m3_gold.par	Mastery	Waves	0	0	0	-1	0	1	0	-1
+4141	m4_platinum.par	Mastery	Waves	0	0	0	-1	0	1	0	-1
+4142	m5_diamond.par	Mastery	Waves	0	0	0	-1	0	1	0	-1
+4143	m6_master.par	Mastery	Waves	0	0	0	-1	0	1	0	-1
+4144	m7_challenger.par	Mastery	Waves	0	0	0	-1	0	1	0	-1
+4150	jiantou.par	PK Eff	Sea Wave	1	0	1	-1	0	0	0	-1
+4151	01029018.par	NewWings	New	1	0	24	-1	0	0	0	-1
+4152	futi1.tga	Eagle's Eye Disc	Sea Wave	0	0	-1	-1	0	1	0	-1
+4153	futi2.tga	Eagle's Eye Disc	Sea Wave	0	0	-1	-1	0	1	0	-1
+4154	futi3.tga	Eagle's Eye Disc	Sea Wave	0	0	-1	-1	0	1	0	-1
+4155	futi4.tga	Eagle's Eye Disc	Sea Wave	0	0	-1	-1	0	1	0	-1
+4156	futi5.tga	Eagle's Eye Disc	Sea Wave	0	0	-1	-1	0	1	0	-1
+4157	futi6.tga	Eagle's Eye Disc	Sea Wave	0	0	-1	-1	0	1	0	-1
+4158	futi7.tga	Eagle's Eye Disc	Sea Wave	0	0	-1	-1	0	1	0	-1
+4159	futi8.tga	Eagle's Eye Disc	Sea Wave	0	0	-1	-1	0	1	0	-1
+7895	01020019.par	NewWings	New	1	0	24	-1	0	0	0	-1
+7898	premium.par	VIPПоБґ	єЈАЛ	1	0	0	-1	3	0	0	-1
+7899	top1gil.par	Dragon Class	Sea Wave	1	0	0	-1	0	0	0	-1
+7900	top2gil.par	Dragon Class	Sea Wave	1	0	0	-1	0	0	0	-1
+7901	top3gil.par	Dragon Class	Sea Wave	1	0	0	-1	0	0	0	-1
+7904	newbaff3.par	Angelic Shield P	Sea Wave	0	0	0	-1	0	1	0	-1
+7906	01040039.par	Anti Magic	Sea Wave	0	0	0	-1	0	1	0	-1
 // [Gemini.Decompiler] End of data

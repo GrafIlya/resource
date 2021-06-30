@@ -1,49 +1,39 @@
-------------------------------------------------------------------------------------------------------------------
---														--
---					NpcSdk.lua								--
---					Ñåðâåð Liptona								--
---					Âåðñèÿ èãðû 1.36								--
---					Ïåðåâîä âûïîëíèë Pastuh							--
---					Ïðîâåðêó âûïîëíèëè Pastuh è LiptonTea					--
---														--
-------------------------------------------------------------------------------------------------------------------
+print( " " )
+dofile(GetResPath("script\\calculate\\LuaSQL\\LuaSQL.lua"))
 print( "------------------------------------" )
-print( "‡ £àã§ª   SDK Files:" )
+print( "Loading SDK Files:" )
 print( "------------------------------------" )
-print( "‡ £àã§ª   NpcSdk.lua" )
-
---·þÎñÆ÷¶Ë·¢ËÍÃüÁîÏûÏ¢Ð­Òé¶¨Òå
+print( "Loading NpcSdk.lua" )
 CMD_MC_BASE				= 500
 CMD_MC_ROLEBASE 			= CMD_MC_BASE + 300
 CMD_MC_TALKPAGE 			= CMD_MC_ROLEBASE + 1
 CMD_MC_FUNCPAGE 		= CMD_MC_ROLEBASE + 2
 CMD_MC_CLOSETALK 		= CMD_MC_ROLEBASE + 3
-CMD_MC_HELPINFO			= CMD_MC_ROLEBASE + 4  -- °ïÖúÐÅÏ¢
+CMD_MC_HELPINFO			= CMD_MC_ROLEBASE + 4 
 CMD_MC_TRADEPAGE		= CMD_MC_ROLEBASE + 5
 CMD_MC_TRADERESULT	= CMD_MC_ROLEBASE + 6
-CMD_MC_TRADE_DATA		= CMD_MC_ROLEBASE + 7 -- NPC½»Ò×Êý¾ÝÐÅÏ¢¸üÐÂ
-CMD_MC_TRADE_ALLDATA	= CMD_MC_ROLEBASE + 8 -- NPC½»Ò×ËùÓÐÊý¾ÝÐÅÏ¢¸üÐÂ
+CMD_MC_TRADE_DATA		= CMD_MC_ROLEBASE + 7 
+CMD_MC_TRADE_ALLDATA	= CMD_MC_ROLEBASE + 8 
 
 CMD_MC_MISSION			= CMD_MC_ROLEBASE + 22
 CMD_MC_MISSIONLIST		= CMD_MC_ROLEBASE + 23
 CMD_MC_MISSIONTALK		= CMD_MC_ROLEBASE + 24
-CMD_MC_MISPAGE			= CMD_MC_ROLEBASE + 27 -- ÈÎÎñÒ³ÐÅÏ¢
-CMD_MC_MISLOG				= CMD_MC_ROLEBASE + 28 -- ÈÎÎñÈÕÖ¾
-CMD_MC_MISLOGINFO		= CMD_MC_ROLEBASE + 29 -- µ¥¸öÈÎÎñÏêÏ¸ÐÅÏ¢
-CMD_MC_BEGIN_ITEM_FORGE   = CMD_MC_ROLEBASE + 35 -- ¾«Á·µÀ¾ß
-CMD_MC_BEGIN_ITEM_UNITE   = CMD_MC_ROLEBASE + 36 -- µÀ¾ßºÏ³É
+CMD_MC_MISPAGE			= CMD_MC_ROLEBASE + 27 		
+CMD_MC_MISLOG				= CMD_MC_ROLEBASE + 28  
+CMD_MC_MISLOGINFO		= CMD_MC_ROLEBASE + 29 		
+CMD_MC_BEGIN_ITEM_FORGE   = CMD_MC_ROLEBASE + 35 	
+CMD_MC_BEGIN_ITEM_UNITE   = CMD_MC_ROLEBASE + 36 	
 
-CMD_MC_CREATEBOAT		= CMD_MC_ROLEBASE + 38 -- ´´½¨´¬Ö»
-CMD_MC_UPDATEBOAT		= CMD_MC_ROLEBASE + 39 -- ¸ÄÔì´¬Ö»
-CMD_MC_UPDATEBOAT_PART	= CMD_MC_ROLEBASE + 40 -- ¸ÄÔì´¬Ö»µÄ²¿¼þ
-CMD_MC_BERTH_LIST		= CMD_MC_ROLEBASE + 41 -- ´¬Ö»Í£²´ÁÐ±í
-CMD_MC_BOAT_LIST		= CMD_MC_ROLEBASE + 42 -- Í¬²½½ÇÉ«ÓµÓÐµÄËùÓÐ´¬Ö»ÊôÐÔ
-CMD_MC_BOAT_ADD			= CMD_MC_ROLEBASE + 43 -- Ìí¼ÓÒ»ËÒ´¬
-CMD_MC_BOAT_CLEAR		= CMD_MC_ROLEBASE + 44 -- Çå³ýÒ»ËÒ´¬
-CMD_MC_BOATINFO			= CMD_MC_ROLEBASE + 45 -- Í¬²½´¬Ö»ÊôÐÔÐÅÏ¢
-CMD_MC_BOAT_BAGLIST	= CMD_MC_ROLEBASE + 46 -- ÏÔÊ¾¿ÉÒÔ´ò°üµÄ´¬Ö»ÁÐ±í
+CMD_MC_CREATEBOAT		= CMD_MC_ROLEBASE + 38 
+CMD_MC_UPDATEBOAT		= CMD_MC_ROLEBASE + 39 
+CMD_MC_UPDATEBOAT_PART	= CMD_MC_ROLEBASE + 40 
+CMD_MC_BERTH_LIST		= CMD_MC_ROLEBASE + 41 
+CMD_MC_BOAT_LIST		= CMD_MC_ROLEBASE + 42 
+CMD_MC_BOAT_ADD			= CMD_MC_ROLEBASE + 43 
+CMD_MC_BOAT_CLEAR		= CMD_MC_ROLEBASE + 44 
+CMD_MC_BOATINFO			= CMD_MC_ROLEBASE + 45 
+CMD_MC_BOAT_BAGLIST	= CMD_MC_ROLEBASE + 46
 
---¿Í»§¶Ë·¢ËÍÃüÁîÏûÏ¢Ð­Òé¶¨Òå
 CMD_CM_BASE				= 0
 CMD_CM_ROLEBASE 			= CMD_CM_BASE + 300
 CMD_CM_REQUESTTALK 	= CMD_CM_ROLEBASE + 1
@@ -55,62 +45,53 @@ CMD_CM_REQUESTAGENCY= CMD_CM_ROLEBASE + 10
 CMD_CM_MISSION			= CMD_CM_ROLEBASE + 22
 CMD_CM_MISSIONLIST		= CMD_CM_ROLEBASE + 23
 CMD_CM_MISSIONTALK		= CMD_CM_ROLEBASE + 24
-CMD_CM_MISLOG				= CMD_CM_ROLEBASE + 25 -- ÈÎÎñÈÕÖ¾
+CMD_CM_MISLOG				= CMD_CM_ROLEBASE + 25 
 
---ºÚÊÐ½»Ò×
-CMD_MC_BLACKMARKET_EXCHANGEDATA	= CMD_MC_BASE + 71	-- ºÚÊÐ¶Ò»»Êý¾Ý
-CMD_MC_BLACKMARKET_EXCHANGEUPDATE = CMD_MC_BASE + 73	-- ºÚÊÐ¶Ò»»¸üÐÂ
-CMD_MC_BLACKMARKET_TRADEUPDATE = CMD_MC_BASE + 74	-- ºÚÊÐ½»Ò×¸üÐÂ
+CMD_MC_BLACKMARKET_EXCHANGEDATA	= CMD_MC_BASE + 71	
+CMD_MC_BLACKMARKET_EXCHANGEUPDATE = CMD_MC_BASE + 73	
+CMD_MC_BLACKMARKET_TRADEUPDATE = CMD_MC_BASE + 74	
 CMD_MC_EXCHANGEDATA = CMD_MC_BASE + 75
 CMD_CM_BLACKMARKET_EXCHANGE_REQ = CMD_CM_BASE + 51
 
 
---¶Ô»°Ò³ÃüÁîÐÅÏ¢
-ROLE_FIRSTPAGE				= 0		-- ÇëÇó³õ´Î¶Ô»°ÐÅÏ¢
-ROLE_CLOSEPAGE			= -1		-- ÇëÇó¹Ø±Õ¶Ô»°Ò³ÃüÁî
+ROLE_FIRSTPAGE				= 0		
+ROLE_CLOSEPAGE			= -1		
 
---½»Ò×ºêÐÅÏ¢¶¨Òå
-ROLE_MAXNUM_TRADEITEM = 60	--Ã¿¸ö½»Ò×Ò³×î´ó°Ú·ÅÎïÆ·ÊýÁ¿
-ROLE_INVALID_ID				= -1		--ÎÞÐ§µÄË÷Òý
+ROLE_MAXNUM_TRADEITEM = 60
+ROLE_INVALID_ID				= -1		
 
---½»Ò×ÎïÆ·ÀàÐÍ¶¨Òå
-WEAPON 						= 0		--ÎäÆ÷ÀàÐÍ
-DEFENCE 						= 1 		--·À¾ßÀàÐÍ
-OTHER    						= 2		--ÔÓÏîÀàÐÍ
-SYNTHESIS 					= 3		--ºÏ³ÉÎïÆ·ÀàÐÍ
+WEAPON 						= 0		
+DEFENCE 						= 1 		
+OTHER    						= 2		
+SYNTHESIS 					= 3		
 
-TRADE_SALE					= 0       --³öÊÛÎïÆ·²Ù×÷
-TRADE_BUY						= 1       --¹ºÂòÎïÆ·²Ù×÷
-TRADE_GOODS				= 2 		--½»Ò×´¬²Õ»õÎï
+TRADE_SALE					= 0       
+TRADE_BUY						= 1      
+TRADE_GOODS				= 2 		
 
-ROLE_TRADE_SALE				= 0	--ÇëÇó³öÊÛÎïÆ·
-ROLE_TRADE_BUY				= 1	--ÇëÇó¹ºÂòÎïÆ·
-ROLE_TRADE_SALE_GOODS 	= 2	--ÇëÇó³öÊÛ»õ²ÕÎïÆ·
-ROLE_TRADE_BUY_GOODS		= 3	--ÇëÇó¹ºÂò»õ²ÕÎïÆ·
-ROLE_TRADE_SELECT_BOAT   = 4   --Ñ¡Ôñ½»Ò×µÄ´¬Ö»
+ROLE_TRADE_SALE				= 0	
+ROLE_TRADE_BUY				= 1	
+ROLE_TRADE_SALE_GOODS 	= 2		
+ROLE_TRADE_BUY_GOODS		= 3	
+ROLE_TRADE_SELECT_BOAT   = 4   	
 
---´¬Ö»ÏÔÊ¾ÁÐ±íÀàÐÍ
-BERTH_TRADE_LIST				= 0	-- ½»Ò×´¬Ö»ÁÐ±í
-BERTH_LUANCH_LIST			= 1	-- ³öº£´¬Ö»ÁÐ±í
-BERTH_REPAIR_LIST				= 3	-- ´¬Ö»ÐÞÀíÁÐ±í
-BERTH_SALVAGE_LIST			= 4	-- ´¬Ö»´òÀÌÁÐ±í
-BERTH_SUPPLY_LIST			= 5	-- ´¬Ö»²¹¸øÁÐ±í
-BERTH_BOATLEVEL_LIST		= 6	-- ´¬Ö»Éý¼¶ÁÐ±í
+BERTH_TRADE_LIST				= 0	
+BERTH_LUANCH_LIST			= 1		
+BERTH_REPAIR_LIST				= 3	
+BERTH_SALVAGE_LIST			= 4		
+BERTH_SUPPLY_LIST			= 5		
+BERTH_BOATLEVEL_LIST		= 6		
 
---×ÊÔ´ÀàÐÍ
-RES_WOOD							= 0	--Ä¾²Ä×ÊÔ´
-RES_MINE							= 1	--¿óÊ¯×ÊÔ´
+RES_WOOD							= 0	
+RES_MINE							= 1	
 
---¶Ô»°ºê¶¨Òå
 ROLE_MAXNUM_PAGEITEM	= 9
 
---°ïÖúÐÅÏ¢ÀàÐÍ
-MIS_HELP_DESP				= 0		--ÎÄ×Ö°ïÖúÐÅÏ¢
-MIS_HELP_IMAGE				= 1		--Í¼ÐÎ°ïÖúÐÅÏ¢
-MIS_HELP_SOUND			= 2		--ÉùÒô°ïÖúÐÅÏ¢
-MIS_HELP_BICKER			= 3		--ÉÁ¶¯×ÖÌåÐÅÏ¢
+MIS_HELP_DESP				= 0		
+MIS_HELP_IMAGE				= 1		
+MIS_HELP_SOUND				= 2		
+MIS_HELP_BICKER				= 3		
 
---·¢ËÍ¶Ô»°Ò³º¯Êý
 function SendTalkPage( character, npc, pageid, desp )
 	local packet = GetPacket();
 	WriteCmd( packet, CMD_MC_TALKPAGE );
@@ -121,7 +102,6 @@ function SendTalkPage( character, npc, pageid, desp )
 	SendPacket( character, packet );
 end
 
---Ïò¿Í»§¶Ë·¢ËÍ¶Ò»»Êý¾Ý
 function SendExchangeData( character, npc )
 	local packet = GetPacket()
 	WriteCmd( packet, CMD_MC_BLACKMARKET_EXCHANGEDATA )
@@ -145,9 +125,6 @@ function SendExchangeData( character, npc )
 	SendPacket( character, packet );
 end
 
-
-
-
 function SendExchangeXData( character, npc, exchangeData )
 	local packet = GetPacket()
 	WriteCmd( packet, CMD_MC_EXCHANGEDATA )
@@ -170,7 +147,6 @@ function SendExchangeXData( character, npc, exchangeData )
 	SendPacket( character, packet );
 end
 
---Ïò¿Í»§¶Ë·¢ËÍ¶Ò»»¸üÐÂÊý¾Ý
 function SendExchangeUpdateData( character, npc )
 	local packet = GetPacket()
 	WriteCmd( packet, CMD_MC_BLACKMARKET_EXCHANGEUPDATE )
@@ -204,7 +180,6 @@ function SendDebugPage( character, npc, info )
 	SendPacket( character, packet );
 end
 
---·¢ËÍ·þÎñÆ÷ÌáÊ¾°ïÖúÒ³ÐÅÏ¢
 function HelpInfo( character, tp, info )
 	PRINT( "HelpInfo" )
 	local packet = GetPacket()
@@ -220,7 +195,6 @@ function HelpInfo( character, tp, info )
 	SendPacket( character, packet );
 end
 
---·¢ËÍ¹¦ÄÜÒ³º¯Êý
 function SendFuncPage( character, npc, pageid, item, count )
 	local packet = GetPacket();
 	WriteCmd( packet, CMD_MC_FUNCPAGE );
@@ -228,9 +202,7 @@ function SendFuncPage( character, npc, pageid, item, count )
 	WriteDword( packet, npcid );
 	WriteByte( packet, pageid );
 	WriteByte( packet, count );
-	--PRINT( "send function page function, count = ", count )
 	for i = 1, count, 1 do
-		--PRINT( "send function page function, i = ", i, item[i] )
 		if item[i] ~= nil then
 			WriteString( packet, item[i] )
 		else
@@ -240,7 +212,6 @@ function SendFuncPage( character, npc, pageid, item, count )
 	SendPacket( character, packet );
 end
 
---·¢ËÍÒ³ÐÅÏ¢
 function SendPage( character, npc, pageid, talk, item, count )
 	local packet = GetPacket();
 	WriteCmd( packet, CMD_MC_FUNCPAGE );
@@ -249,9 +220,7 @@ function SendPage( character, npc, pageid, talk, item, count )
 	WriteByte( packet, pageid );
 	WriteString( packet, talk );
 	WriteByte( packet, count );
-	--PRINT( "send function page function, count = ", count )
 	for i = 1, count, 1 do
-		--PRINT( "send function page function, i = ", i, item[i] )
 		if item[i] ~= nil then
 			WriteString( packet, item[i] )
 		else
@@ -261,7 +230,6 @@ function SendPage( character, npc, pageid, talk, item, count )
 	SendPacket( character, packet );
 end
 
---·¢ËÍº¬ÈÎÎñÁÐ±íÐÅÏ¢¶Ô»°Ò³
 function SendMissionPage( character, npc, pageid, talk, item, count, misitem, misnum )
 	PRINT( "SendMissionPage" )
 	local packet = GetPacket();
@@ -271,9 +239,7 @@ function SendMissionPage( character, npc, pageid, talk, item, count, misitem, mi
 	WriteByte( packet, pageid );
 	WriteString( packet, talk );
 	WriteByte( packet, count );
-	--PRINT( "send function page function, count = ", count )
 	for i = 1, count, 1 do
-		--PRINT( "send function page function, i = ", i, item[i] )
 		if item[i] ~= nil then
 			WriteString( packet, item[i] )
 		else
@@ -290,7 +256,6 @@ function SendMissionPage( character, npc, pageid, talk, item, count, misitem, mi
 	SendPacket( character, packet );
 end
 
---¹Ø±Õ¶Ô»°º¯Êý
 function SendClosePage( character, npc )
 	local packet = GetPacket();
 	WriteCmd( packet, CMD_MC_CLOSETALK );
@@ -299,7 +264,6 @@ function SendClosePage( character, npc )
 	SendPacket( character, packet );
 end
 
---·¢ËÍÈÎÎñÁÐ±íÐÅÏ¢
 function SendMissionList( character, npc, missionlist, itemid, optype, listtype )
 	PRINT( "SendMissionList, itemid, optype, listtype", itemid, optype, listtype )
 	local npcid = GetCharID( npc )
@@ -740,7 +704,6 @@ function SendTradePage( character, npc, cmd, trade, tradetype, p1 )
 				end
 			end
 		else
-			EXLG( "NpcSdk_error", "npc trade item quantity or type error, please check! NpcName = %s", GetCharName( npc ) )
 			return SystemNotice( character, "npc trade item value or type error, please check!" )
 		end
 	end
@@ -802,7 +765,6 @@ function SendTradeUpdate( character, npc, trade, tradetype, p1 )
 				end
 			end
 		else
-			EXLG( "NpcSdk_error", "npc trade item quantity or type error, please check! NpcName = %s", GetCharName( npc ) )
 			return SystemNotice( character, "npc trade item value or type error, please check!" )
 		end
 	end
@@ -866,7 +828,6 @@ function SendUpdateTradePage( character, npc, cmd, trade, tradetype, p1 )
 				end
 			end
 		else
-			EXLG( "NpcSdk_error", "SendUpdateTradePage:npc trade quantity or type error, please check!NpcName = %s", GetCharName( npc ) )
 			return SystemNotice( character, "SendUpdateTradePage:npc trade item quantity or type error, please check!" )
 		end
 	end
@@ -922,12 +883,6 @@ end
 function LuanchBerthList( character, npc, berth, xpos, ypos, dir )
 	PRINT( "LuanchBerthList: show docked ship list!" )
 	local npcid = GetCharID( npc )
-	--local ret1 = RemoveYS( character )
-	--if ret1 ~= 1 then
-	--	PRINT( "LuanchBerthList: RemoveYS failed!" )
-	--	SystemNotice( character, "LuanchBerthList: RemoveYS failed!" )
-	--	return --LUA_FALSE
-	--end
 	return BoatBerthList( character, npcid, BERTH_LUANCH_LIST, berth, xpos, ypos, dir )
 end
 
@@ -961,48 +916,74 @@ end
 
 --³öÊÛÎïÆ·
 function Sale( character, npc, index, count )
-local antisale = GetChaStateLv ( character , 5 )
-if antisale == 0 then
-PRINT( "Sale" )
-if index == nil or count == nil then
-PRINT( "Sale:Function parameter error!" )
-SystemNotice( character, "Sale: Ôóíêöèÿ îøèáî÷íà. " )
-return LUA_FALSE
-end
-local statelv = 1
-local statetime = 2 --Çàäåðæêà (â ñåêóíäàõ)
-         SafeSale( character, index, count )
-AddState ( character, character, 5, statelv, statetime )
-return LUA_TRUE
-else
-SystemNotice(character, "Ïðîäàâàòü ìîæíî êàæäûå 2 ñåêóíäû. ")
-return LUA_FALSE
-end
-
+	if index == nil or count == nil then
+		PRINT( "Sale:Function parameter error!" )
+		SystemNotice( character, "Sale:Function parameter error!" )
+		return LUA_FALSE
+	end
+	
+	local item = GetChaItem ( character , 2 , index )
+	local itemID = GetItemID (item)
+	local itemName = GetItemName(itemID)
+	local stack = GetStackSize(itemID)
+	local price = GetPrice(itemID)
+	
+	if (count * (price / 2) > 2000000000) then
+	SystemNotice( character, "\209\243\236\236\224 \239\240\238\228\224\230\232 ["..itemName.."] \241\238\241\242\224\226\235\255\229\242 ("..count * (price / 2).."), \236\224\234\241\232\236\224\235\252\237\238 \228\238\239\243\241\242\232\236\224\255 \241\243\236\236\224 (2000000000).")
+	LG( "GoldHack", " \199\224\244\232\234\241\232\240\238\226\224\237\224 \239\238\239\251\242\234\224 \245\224\234\224 \231\238\235\238\242\224 \239\240\232 \239\240\238\228\224\230\229 \239\229\240\241\238\237\224\230\229\236 "..GetChaDefaultName(character)..", \207\240\229\228\236\229\242: ["..itemName.."] ("..itemID.."), \202\238\235-\226\238/\214\229\237\224: "..count.."/"..count * (price / 2)..".")	
+		return LUA_FALSE
+	end
+	
+	if count > stack then
+	SystemNotice( character, "\206\225\237\224\240\243\230\229\237\224 \239\238\228\236\229\237\224 \241\242\253\234\238\226\234\232 \239\240\229\228\236\229\242\224 ["..itemName.."],  \239\240\238\228\224\230\224 \226 \234\238\235\235\232\247\229\241\242\226\229 "..count.." \237\229\226\238\231\236\238\230\237\224!" )
+	LG( "StackHack", " \199\224\244\232\234\241\232\240\238\226\224\237\224 \239\238\239\251\242\234\224 \239\238\228\236\229\237\251 \241\242\253\234\238\226\234\232 \239\240\232 \239\240\238\228\224\230\229 \239\229\240\241\238\237\224\230\229\236 "..GetChaDefaultName(character)..", \207\240\229\228\236\229\242: ["..itemName.."] ("..itemID.."), \202\238\235-\226\238: "..count.."/"..stack..".")
+		return LUA_FALSE
+	end
+	
+	SafeSale( character, index, count )
+	return LUA_TRUE
 end
 
 --¹ºÂòÎïÆ·
 function Buy( character, npc, trade, itemtype, index1, index2, count )
+	itemtype = itemtype + 1
+	index1 = index1 + 1
+	
+	local itemid = trade[itemtype].item[index1]
+	local stack = GetStackSize(itemid)
+	local price = GetPrice(itemid)
+	local name = GetItemName(itemid)
+	
+	if (count * price > 2000000000) then
+	SystemNotice( character, "\205\229 \245\226\224\242\224\229\242 \231\238\235\238\242\224 \228\235\255 \239\238\234\243\239\234\232 \239\240\229\228\236\229\242\224 ["..name.."], \237\229\238\225\245\238\228\232\236\238 ("..count * price.."), \243 \226\224\241 ("..GetChaAttr(character,ATTR_GD)..").")
+	LG( "GoldHack", " \199\224\244\232\234\241\232\240\238\226\224\237\224 \239\238\239\251\242\234\224 \245\224\234\224 \231\238\235\238\242\224 \239\240\232 \239\238\234\243\239\234\229 \239\229\240\241\238\237\224\230\229\236 "..GetChaDefaultName(character)..", \207\240\229\228\236\229\242: ["..name.."] ("..itemid.."), \202\238\235-\226\238/\214\229\237\224: "..count.."/"..count * (price / 2)..".")		
+		return LUA_FALSE
+	end
+	
+	if count > stack then
+	SystemNotice( character, "\206\225\237\224\240\243\230\229\237\224 \239\238\228\236\229\237\224 \241\242\253\234\238\226\234\232 \239\240\229\228\236\229\242\224 ["..name.."],  \239\238\234\243\239\234\224 \226 \234\238\235\235\232\247\229\241\242\226\229 "..count.." \237\229\226\238\231\236\238\230\237\224!" )
+	LG( "StackHack", " \199\224\244\232\234\241\232\240\238\226\224\237\224 \239\238\239\251\242\234\224 \239\238\228\236\229\237\251 \241\242\253\234\238\226\234\232 \239\240\232 \239\238\234\243\239\234\229 \239\229\240\241\238\237\224\230\229\236 "..GetChaDefaultName(character)..", \207\240\229\228\236\229\242: ["..name.."] ("..itemid.."), \202\238\235-\226\238: "..count.."/"..stack..".")
+		return LUA_FALSE
+	end
+	
+	if trade[itemtype] == nil or trade[itemtype].item == nil or trade[itemtype].item[index1] == nil then
+		
+		PRINT( "Buy:function parameter error!" )
+		SystemNotice( character, "Buy:function parameter error!" )
+		return LUA_FALSE
+	end
+	
 	local antibuy = GetChaStateLv ( character , 5 )
-if antibuy == 0 then
-PRINT( "Buy" )
-itemtype = itemtype + 1
-index1 = index1 + 1
-if trade[itemtype] == nil or trade[itemtype].item == nil or trade[itemtype].item[index1] == nil then
-PRINT( "Buy: Function error." )
-SystemNotice( character, "Buy: Ôóíêöèÿ îøèáî÷íà. " )
-return LUA_FALSE
-end
-local itemid = trade[itemtype].item[index1]
-local statelv = 1
-local statetime = 1 --Çàäåðæêà (â ñåêóíäàõ)
-         SafeBuy( character, itemid, index2, count )
-AddState ( character, character, 5, statelv, statetime )
-return LUA_TRUE
-else
-SystemNotice(character, "Ïîêóïàòü ìîæíî êàæäóþ 1 ñåêóíäó. ")
-return LUA_FALSE
-end
+	if antibuy == 0 then
+		local statelv = 1
+  		local statetime = 1
+    	SafeBuy( character, itemid, index2, count )
+  		AddState ( character, character, 5, statelv, statetime )
+	else
+		SystemNotice(character, "§±§à§Ü§å§á§Ñ§ä§î §Þ§à§Ø§ß§à §Ü§Ñ§Ø§Õ§å§ð §ã§Ö§Ü§å§ß§Õ§å.")
+	end
+	
+	return LUA_TRUE
 end
 
 --³öÊÛ»õÎï
@@ -1056,7 +1037,6 @@ function SaleGoods( character, npc, trade, boatid, index, count )
 	if ret ~= LUA_TRUE then
 		PRINT( "SaleGoods: sale of commerce goods failed!boatid, index, count, price", boatid, index, count, price )
 		SystemNotice( character, "SaleGoods: Sales of commerce products failed!" )
-		LG( "trade_error", "SaleGoods: sale of commerce goods failed!boatid, index, count, price", boatid, index, count, price )
 		return LUA_FALSE
 	end
 	local allcessdata = cessdata*count
@@ -1092,7 +1072,6 @@ function BuyGoods( character, npc, trade, boatid, itemtype, index1, index2, coun
 		local ret, level, cess = GetTradeItemData( character )
 		if ret ~= LUA_TRUE then
 			SystemNotice( character, "BuyGoods: GetTradeItemData: function transfer failed! Check if Commerce Permit exist!" )
-			LG( "trade_error", "BuyGoods: GetTradeItemData: function transfer failed! Check if Commerce Permit exist!" )
 			return LUA_FALSE
 		end
 		PRINT( "BuyGoods:GetTradeItemData: level = , cess = ", level, cess )
@@ -1120,7 +1099,6 @@ function BuyGoods( character, npc, trade, boatid, itemtype, index1, index2, coun
 	return LUA_TRUE
 end
 
---»õÎïÐÅÏ¢Í¬²½
 function SendGoodsData( npc, index, id, count, price )
 	if npc == nil or index == nil or id == nil or count == nil or price == nil then
 		PRINT( "SendGoodsData:Function parameter error!npc, index, id, count, price", npc, index, id, count, price )
@@ -1133,7 +1111,7 @@ function SendGoodsData( npc, index, id, count, price )
 	WriteCmd( packet, CMD_MC_TRADE_DATA )
 	local npcid = GetCharID( npc )
 	WriteDword( packet, npcid )
-	WriteByte( packet, 0 ) --µÚÒ»Ò³ÎªÏúÊÛÎïÆ·Ò³ÐÅÏ¢
+	WriteByte( packet, 0 ) --¦Ì§¼§´?§´?§°?§±§ì§¬§½§°§á§¨¡¤§´?§²§¦§±?
 	WriteByte( packet, index )
 	WriteWord( packet, id )
 	WriteWord( packet, count )
@@ -1159,7 +1137,6 @@ function PackBagGoods( character, boat, tp, level )
 	PRINT( "PackBagGoods: character, boat, tp, level ", character, boat, tp, level )
 	if character == nil or boat == nil or level == nil or tp == nil then
 		PRINT( "PackBagGoods:functionparameter error , character, boat, tp, level ", character, boat, tp, level )
-		LG( "goods_error", "PackBagGoods:functionparameter error , character, boat, tp, level ", character, boat, tp, level )
 		return LUA_FALSE
 	end
 
@@ -1172,7 +1149,6 @@ function PackBagGoods( character, boat, tp, level )
 		PRINT( "PackBagGoods: 1" )
 		if ResourceList.wood[level].itemid == nil or ResourceList.wood[level].count == nil or ResourceList.wood[level].pileid == nil then
 			PRINT( "PackBagGoods: Invalid wood resource loading notice!level, Itemid, count, pileid", level, ResourceList.wood[level].itemid, ResourceList.wood[level].count, ResourceList.wood[level].pileid )
-			LG( "goods_error", "PackBagGoods: Invalid wood resource loading notice!level, Itemid, count, pileid", ResourceList.wood[level].itemid, ResourceList.wood[level].count, ResourceList.wood[level].pileid )
 			return LUA_FALSE
 		end
 
@@ -1189,7 +1165,6 @@ function PackBagGoods( character, boat, tp, level )
 	elseif tp == RES_MINE	then		-- ¿óÊ¯×ÊÔ´
 		if ResourceList.mine[level].itemid == nil or ResourceList.mine[level].count == nil or ResourceList.mine[level].pileid == nil then
 			PRINT( "PackBagGoods: Invalid ore resource loading notice! level, Itemid, count, pileid", ResourceList.mine[level].itemid, ResourceList.mine[level].count, ResourceList.mine[level].pileid )
-			LG( "goods_error", "PackBagGoods: Invalid ore resource loading notice! level, Itemid, count, pileid", ResourceList.mine[level].itemid, ResourceList.mine[level].count, ResourceList.mine[level].pileid )
 			return LUA_FALSE
 		end
 
@@ -1205,7 +1180,6 @@ function PackBagGoods( character, boat, tp, level )
 		end
 	else
 		PRINT( "PackBagGoods: Invalid resource loading type, character, boat, tp, level ", character, boat, tp, level )
-		LG( "goods_error", "PackBagGoods: Invalid resource loading type, character, boat, tp, level ", character, boat, tp, level )
 		return LUA_FALSE
 	end
 	PRINT( "PackBagGoods: return true" )
@@ -1216,14 +1190,12 @@ end
 function AdjustTradeCess( character, cess, cessrange )
 	if cess == nil or cessrange == nil then
 		SystemNotice( character, "AdjustTradeCess:Function parameter error!" )
-		LG( "mission_error", "AdjustTradeCess:Function parameter error!" )
 		return LUA_ERROR
 	end
 
 	local ret, level, cessdata = GetTradeItemData( character )
 	if ret ~= LUA_TRUE then
 		SystemNotice( character, "AdjustTradeCess:GetTradeItemData function transfer failed, check if Commerce Permit exists!" )
-		LG( "mission_error", "AdjustTradeCess:GetTradeItemData function transfer failed, check if Commerce Permit exists!" )
 		return LUA_FALSE
 	end
 
@@ -1236,7 +1208,6 @@ function AdjustTradeCess( character, cess, cessrange )
 		return AdjustTradeItemCess( character, 60000, cess + Rand( cessrange ) )
 	else
 		SystemNotice( character, "AdjustTradeCess: Commerce Permit level exceeded! level = "..level )
-		LG( "mission_error", "AdjustTradeCess: character ["..GetCharName( character ).."] commerce permit level exceeded!level = "..level )
 		return LUA_FALSE
 	end
 
@@ -1255,7 +1226,7 @@ function CreditExchange( character, npc, tp )
 	return LUA_TRUE
 end
 
---´¬Ö»Éý¼¶´¦Àíº¯Êý
+--§±§à§Ó§í§ê§Ö§ß§Ú§Ö §å§â§à§Ó§ß§ñ §Ü§à§â§Ñ§Ò§Ý§ñ
 function BoatLevelUp( character, boat, levelup )
 	PRINT( "BoatLevelUp: levelup", levelup )
 	if levelup == nil or BoatLevelList == nil  then
@@ -1265,7 +1236,8 @@ function BoatLevelUp( character, boat, levelup )
 	end
 
 	if BoatLevelList[levelup] == nil or BoatLevelList[levelup].money == nil or BoatLevelList[levelup].exp == nil	then
-		BickerNotice( character, "Your ship has reached maximum level!" )
+		--HelpInfo( character, 0, "§£§Ñ§ê §Ü§à§â§Ñ§Ò§Ý§î §Õ§à§ã§ä§Ú§Ô §Þ§Ñ§Ü§ã§Ú§Þ§Ñ§Ý§î§ß§à§Ô§à §å§â§à§Ó§ß§ñ!" )
+		HelpInfo( character, 0, "\194\224\248 \234\238\240\224\225\235\252 \228\238\241\242\232\227 \236\224\234\241\232\236\224\235\252\237\238\227\238 \243\240\238\226\237\255!" )
 		return LUA_TRUE
 	end
 
@@ -1283,7 +1255,6 @@ end
 function MsgProc( character, npc, rpk, page, trade, missionlist, exchangeData )
 	if character == nil or npc == nil or rpk == nil then
 		PRINT( "MsgProc:Function parameter error!" )
-		EXLG( "NpcSdk_error", "MsgProc:Function parameter error!" )
 		return
 	end
 	PRINT( "MsgProc:Net message process." )
@@ -1330,7 +1301,6 @@ function MsgProc( character, npc, rpk, page, trade, missionlist, exchangeData )
 				local PageID = byTalkID + 1
 
 				if page[PageID] == nil then
-					EXLG( "NpcSdk_error", "MsgProc: page notice link incorrect, does not have next page or unknown link function! NpcName = %s, PageID = %d", GetCharName( npc ), PageID )
 					return SystemNotice( character, "MsgProc: page notice link error, does not have next page or unknown link function!" )
 				end
 				return JumpPage( character, npc, page, PageID )
@@ -1342,7 +1312,6 @@ function MsgProc( character, npc, rpk, page, trade, missionlist, exchangeData )
 		local byItem = ReadByte( rpk ); --¶ÁÈ¡¹¦ÄÜÑ¡ÏîË÷ÒýÐÅÏ¢
 		PRINT( "MsgProc: pageid = , itemid = ", byPage, byItem )
 		if page[byPage] == nil or page[byPage][1] == nil then
-			EXLG( "NpcSdk_error", "MsgProc:unknown function page index notice error or target page notice does not exist! NpcName = %s, PageID = %d, ItemID = %d", GetCharName( npc ), byPage, byItem )
 			return SystemNotice( character, "MsgProc:unknown function page index notice error or target page does not exist!" )
 		end
 
@@ -1360,33 +1329,17 @@ function MsgProc( character, npc, rpk, page, trade, missionlist, exchangeData )
 		--´¦Àí¹¦ÄÜÏîÄ¿Ñ¡ÔñÃüÁî
 		local item = page[byPage][byItem]
 		if item == nil or item.func == nil then
-			EXLG( "NpcSdk_error", "MsgProc: target page does not have function option notice or function notice! NpcName = %s, PageID = %d, ItemID = %d", GetCharName( npc ), byPage, byItem )
 			return SystemNotice( character, "MsgProc: Target page does not have function page notice nor function notice!" )
 		end
 
 		if item.func == JumpPage then
 			return JumpPage( character, npc, page, item.p1 )
-
-elseif item.func == MegaBuff then 
-return MegaBuff(character) 
 		elseif item.func == FuncPage then
 			return FuncPage( character, npc, page, item.p1 )
 		elseif item.func == CloseTalk then
 			return CloseTalk( character, npc )
 		elseif item.func == GoTo then
 			return GoTo( character, item.p1, item.p2, item.p3 )
-		elseif item.func == GetChaGuildType then
-			return GetChaGuildType(character)
-		elseif item.func == StandartBuff5 then
-			return StandartBuff5(character)
-		elseif item.func == StandartBuff4 then
-			return StandartBuff4(character)
-		elseif item.func == StandartBuff3 then
-			return StandartBuff3(character)
-		elseif item.func == StandartBuff2 then
-			return StandartBuff2(character)
-		elseif item.func == StandartBuff1 then
-			return StandartBuff1(character)
 		elseif item.func == RandToMap then
 			return RandToMap( character, npc, item.p1, item.p2 )
 		elseif item.func == RandFunction then
@@ -1397,10 +1350,28 @@ return MegaBuff(character)
 			return SalePage( character, npc, trade )
 		elseif item.func == BuyPage then
 			return BuyPage( character, npc, trade )
+		------------------
+		-- §¢§Ñ§ß§Ü §¤§Ú§Ý§î§Õ§Ú§Û --
+		------------------
+		elseif item.func == GuildBank.BuyPage then										
+			return GuildBank.BuyPage(character, npc, trade)	
 		elseif item.func == ListAuction then
 			return ListAuction( character, npc )
 		elseif item.func == ChangeItem then
 			return ChangeItem(character,npc)
+		elseif item.func == MonsterSummon then
+			return MonsterSummon(character, npc, item.p1)
+		------------------
+		-- §±§â§Ú§Ù§í §Ù§Ñ §ä§à§á --
+		------------------
+		elseif item.func == RankByDB.Claim then
+			return RankByDB.Claim(character)
+		--§²§Ö§ã§Ö§ä§í
+		elseif item.func == Reborn.Push then
+			return Reborn.Push(character,item.p1)
+		--§±§Ö§â§Ö§â§à§Ø§Õ§Ö§ß§Ú§Ö
+		elseif item.func == RB.Push then
+			return RB.Push(character,item.p1)
 		elseif item.func == TradeGoods then
 			return TradeGoods( character, npc, trade, item.p1 )
 		elseif item.func == MultiTrigger then
@@ -1415,6 +1386,14 @@ return MegaBuff(character)
 			return MultiTrigger_3( character, npc, page, item.p1, item.p2 )
 		elseif item.func == OpenForge then
 			return OpenForge( character, npc )
+		elseif item.func == MonsterSiege.StartEvent then
+			return MonsterSiege.StartEvent(character, item.p1, item.p2)	
+		elseif item.func == MonsterSiege.Ranking.PlayerStatus then
+			return MonsterSiege.Ranking.PlayerStatus(character)
+		elseif item.func == MonsterSiege.Ranking.Display then
+			return MonsterSiege.Ranking.Display(character)	
+		elseif item.func == MonsterSiege.Ranking.GiveReward then
+			return MonsterSiege.Ranking.GiveReward(character)
 		elseif item.func == OpenUnite then
 			return OpenUnite( character, npc )
 		elseif item.func == OpenMilling then
@@ -1427,8 +1406,6 @@ return MegaBuff(character)
 			return OpenFusion( character, npc )
 		elseif item.func == OpenUpgrade then
 			return OpenUpgrade( character, npc )
-		elseif item.func == AddSkillNPC then
-			return AddSkillNPC( character, npc )
 		elseif item.func == OpenEidolonMetempsychosis then
 			return OpenEidolonMetempsychosis( character, npc )
 		elseif item.func == OpenItemTiChun then
@@ -1447,18 +1424,14 @@ return MegaBuff(character)
 			return OpenTiger( character, npc )
 		elseif item.func == GoTosdBoss then
 			return GoTosdBoss(character,item.p1)
-		elseif item.func == MarryCertificate then
-			return MarryCertificate(character,npc)
 		elseif item.func == SetSpawnPos then
 			return SetSpawnPos( character, item.p1 )
 		elseif item.func == TransferDiamond then
 			return TransferDiamond( character, item.p1 )
 		elseif item.func == ListChallenge then
 			return ListChallenge( character, npc )
-		elseif item.func == ListAuction then
-			return ListAuction( character, npc )
-		elseif item.func == Marry then
-			return Marry(character,npc)
+		--elseif item.func == ListAuction then
+			--return ListAuction( character, npc )
 		elseif item.func == SendExchangeData then
 			return SendExchangeData( character, npc )
 		elseif item.func == SendExchangeXData then
@@ -1550,29 +1523,52 @@ return MegaBuff(character)
 		elseif item.func == GetChaName6_born then
 			return GetChaName6_born(character,npc )
 		elseif item.func == GetChaName1_born2 then
-                        return GetChaName1_born2(character,npc )
-                elseif item.func == GetChaName2_born2 then
-                        return GetChaName2_born2(character,npc )
-                elseif item.func == GetChaName3_born2 then
-                        return GetChaName3_born2(character,npc )
-                elseif item.func == GetChaName4_born2 then
-                        return GetChaName4_born2(character,npc )
-                elseif item.func == GetChaName5_born2 then
-                        return GetChaName5_born2(character,npc )
-                elseif item.func == GetChaName6_born2 then
-                        return GetChaName6_born2(character,npc )
-                elseif item.func == GetChaName1_born3 then
-                        return GetChaName1_born3(character,npc )
-                elseif item.func == GetChaName2_born3 then
-                        return GetChaName2_born3(character,npc )
-                elseif item.func == GetChaName3_born3 then
-                        return GetChaName3_born3(character,npc )
-                elseif item.func == GetChaName4_born3 then
-                        return GetChaName4_born3(character,npc )
-                elseif item.func == GetChaName5_born3 then
-                        return GetChaName5_born3(character,npc )
-                elseif item.func == GetChaName6_born3 then
-                        return GetChaName6_born3(character,npc )
+			return GetChaName1_born2(character,npc )
+		elseif item.func == GetChaName2_born2 then
+			return GetChaName2_born2(character,npc )
+		elseif item.func == GetChaName3_born2 then
+			return GetChaName3_born2(character,npc )
+		elseif item.func == GetChaName4_born2 then
+			return GetChaName4_born2(character,npc )
+		elseif item.func == GetChaName5_born2 then
+			return GetChaName5_born2(character,npc )
+		elseif item.func == GetChaName6_born2 then
+			return GetChaName6_born2(character,npc )
+		elseif item.func == GetChaName1_born3 then
+			return GetChaName1_born3(character,npc )
+		elseif item.func == GetChaName2_born3 then
+			return GetChaName2_born3(character,npc )
+		elseif item.func == GetChaName3_born3 then
+			return GetChaName3_born3(character,npc )
+		elseif item.func == GetChaName4_born3 then
+			return GetChaName4_born3(character,npc )
+		elseif item.func == GetChaName5_born3 then
+			return GetChaName5_born3(character,npc )
+		elseif item.func == GetChaName6_born3 then
+			return GetChaName6_born3(character,npc )
+		elseif item.func == UnfuseNpc then
+			return UnfuseNpc(character)
+		elseif item.func ==  Market.Trade then
+			return Market.Trade(character, item.p1)	
+		elseif item.func == Instance_RegParty then
+			return Instance_RegParty(character)
+		elseif item.func == Instance_ConfirmParty then
+			return Instance_ConfirmParty(character)
+		elseif item.func == BDAltar then
+            return BDAltar(character)
+		elseif item.func == MegaBuff then
+            return MegaBuff(character)
+		elseif item.func == PK_points then
+            return PK_points(character)
+		elseif item.func == PVP_points then
+            return PVP_points(character)
+		elseif item.func == AddSkillNPC then
+            return AddSkillNPC(character)
+		elseif item.func == FastCombiner then
+	        return FastCombiner(character,item.p1,item.p2)
+		---Convert
+		elseif item.func == ConvertItemToCrystall then
+	        return ConvertItemToCrystall(character,item.p1,item.p2,item.p3)
 		elseif item.func == GiveHoe then
 			return GiveHoe(character,npc)
 		elseif item.func == CheckMetal then
@@ -1671,8 +1667,6 @@ return MegaBuff(character)
 			return GetChaName44_guildwar(character)
 		elseif item.func == GetChaName45_guildwar then
 			return GetChaName45_guildwar(character)
-		elseif item.func == ChangeItem then
-			return ChangeItem(character,npc)
 		else
 			return SystemNotice( character, "MsgProc: function option unknown function!" )
 		end
@@ -1772,7 +1766,6 @@ return MegaBuff(character)
 	elseif usCmd == CMD_CM_MISSION then --ÈÎÎñ´¦Àí
 		return MissionProc( character, npc, rpk, missionlist )
 	else
-		EXLG( "NpcSdk_error", "MsgProc:unknown internet command! CMD = %d", usCmd )
 		return SystemNotice( character, "MsgProc: Unknown internet command!" )
 	end
 end
@@ -1878,4 +1871,3 @@ function GoTosdBoss ( role, value )
 	GoTo( role, br_x[value][n] , br_y[value][n] , "sdBoss")
 	return LUA_TRUE
 end
-

@@ -1,36 +1,26 @@
---´ËÎÄ¼şÖĞ£¬·²ÊÇ¿ÉÄÜ±»¶à´ÎÖ´ĞĞµÄº¯Êı£¬º¯ÊıÃû¶¼Òª¼ÓÉÏµØÍ¼ÃûÇ°×º
+print( "‡ £àã§ª  Ctrl.lua" )
 
 function config(map)
-    MapCanSavePos(map, 0) --ÉèÖÃµØÍ¼ÊÇ·ñ±£´æ½ÇÉ«Î»ÖÃ£¨µØÍ¼£¬×ø±ê£¬·½Ïò£©£¬´ËÉèÖÃÓ°Ïì¸ÃµØÍ¼µÄËùÓĞ¸±±¾
-    MapCanPK(map, 1) --ÉèÖÃµØÍ¼ÊÇ·ñ¿ÉÒÔPK£¬´ËÉèÖÃÓ°Ïì¸ÃµØÍ¼µÄËùÓĞ¸±±¾
-    MapCopyNum(map, 1) --ÉèÖÃµØÍ¼µÄ¸±±¾ÊıÄ¿£¬Èç¹û²»µ÷ÓÃ¸ÃÓï¾ä£¬ÔòÊ¹ÓÃÄ¬ÈÏÖµ1
-    MapCopyStartType(map, 1) --ÉèÖÃµØÍ¼Á¢¼´¿ªÊ¼
-    SingleMapCopyPlyNum(map, 300)   --ÉèÖÃÒ»¸ö¸±±¾µÄÍæ¼ÒÊı
+    MapCanSavePos(map, 0) 
+    MapCanPK(map, 1) 
+    MapCopyNum(map, 1) 
+    MapCopyStartType(map, 1) 
+    SingleMapCopyPlyNum(map, 300)   
     MapCanTeam(map , 1)
     MapType ( map , 4 )
 end
 
-
-function get_map_entry_pos_hell()   --ÉèÖÃÈë¿ÚµÄÎ»ÖÃµÄ×ø±ê£¨×ø±ê£¨Ã×£©£©
-
-	local POS_X=199
-	local POS_Y=941
-	return POS_X , POS_Y
+function get_map_entry_pos_hell()   
 
 end
 
 function init_entry(map)
-    SetMapEntryMapName(map, "jialebi") --ÉèÖÃÈë¿ÚµÄÎ»ÖÃ£¨µØÍ¼Ãû£¬×ø±ê£¨Ã×£©£©
-    SetMapEntryTime(map, "2007/1/19/21/0", "1/0/0", "0/1/0", "0/6/0") --ÉèÖÃÈë¿ÚµÄÊ±¼ä£¬µØÍ¼¶ÔÏó£¬Ê×´Î¿ªÆôÊ±¼ä£¨Äê/ÔÂ/ÈÕ/Ê±/·Ö£©£¬ÒÔºóÔÙ´Î¿ªÆôµÄ¼ä¸ô£¨ÈÕ/Ê±/·Ö£¬È«£°±íÊ¾Ö»ÓĞÊ×´Î¿ªÆô£©£¬Ã¿´Î¿ªÆôµ½Èë¿ÚÏûÊ§µÄ¼ä¸ô£¨ÈÕ/Ê±/·Ö£¬È«£°±íÊ¾ÓÀ²»ÏûÊ§£©£¬Ã¿´Î¿ªÆôµ½µØÍ¼¹Ø±ÕµÄ¼ä¸ô£¨ÈÕ/Ê±/·Ö£¬È«£°±íÊ¾ÓÀ²»¹Ø±Õ£©¡£¡£
 
 end
 
 function after_enter_hell( role , map_copy )
-
 local cha_name=GetChaDefaultName(role)
-
-	SystemNotice ( role, "Mysterious Voice: Intruders of Death Realm<"..cha_name..">Ah, my pets will rip you apart mercilessly!" ) 
-
+	SystemNotice ( role, "Òàèíñòâåííûé ãîëîñ "..cha_name..",ãîòîâ ëè òû ïğîéòè Èñïûòàíèå? " ) 
 end
 
 function before_leave_hell ( role )
@@ -43,96 +33,19 @@ end
 
 function map_copy_run_hell( map_copy )
 
-
-		if CheckMonsterDead ( AZRAEL[5] ) == 1 then
-			if CRY[5]==0 then
-				local Notice_all = "Saro: This feeling of suffering is the power of Despair. I'll revive and you all will fall into depths more deeper than despair!!!"
-				MapCopyNotice ( map_copy , Notice_all )
-				CRY[5]=1
-			end
-		end
-		
-		if CheckMonsterDead ( AZRAEL[6] ) == 1 then
-			if CRY[6]==0 then
-				local Notice_all = "Karu: You might have passed this stage, but prepare for the worst!"
-				MapCopyNotice ( map_copy , Notice_all )
-				CRY[6]=1
-			end
-		end
-
-		if CheckMonsterDead ( AZRAEL[7] ) == 1 then
-			if CRY[7]==0 then
-				local Notice_all = "Aruthur: I...I was defeated...Please let me off my lord! I do not want to return to damnation!"
-				MapCopyNotice ( map_copy , Notice_all )
-				CRY[7]=1
-			end
-		end
-
-		if CheckMonsterDead ( AZRAEL[8] ) == 1 then
-			if CRY[8]==0 then
-				local Notice_all = "Sacrois: Foolish humans, Death has bestowed upon us the gift of immortality. We will meet again! Haha! Haha!"
-				MapCopyNotice ( map_copy , Notice_all )
-				CRY[8]=1
-			end
-		end
-
-
-				
-	if CRY[5]==1 and CRY[6]==1 and CRY[7]==1 and CRY[8]==1 then
-		
-		if HELLCLOSETIME==300 then
-			Notice ( "Mysterious Voice: Do not let the defeat of my 4 pets get to your head. Their sacrifice will not be in vain! Prepare as the earth beneath your feet will vanished in 5 minutes!")
-		end
-
-		local closetime = HELLCLOSETIME
-		for i = 1 , MAXNOTICE , 1 do
-			if closetime ==NOTICETIME[i] then
-				local Notice_all = "Warning! Collapse of Abaddon 5 to Abaddon 8 left "..closetime.." sec(s)! All adventurer prepare to hide"
-				MapCopyNotice ( map_copy ,Notice_all )
-			end
-		end
-		HELLCLOSETIME = HELLCLOSETIME-1
-
-		if HELLCLOSETIME == 0 then
-
-			HELLCLOSETIME = 300
-			CRY[5]=0
-			CRY[6]=0
-			CRY[7]=0
-			CRY[8]=0
-			CloseMapEntry ( "hell" )
-			CloseMapCopy ( "hell" )
-
-		end
-	end
 end
 
---Ã¿5ÃëÖ´ĞĞÒ»´ÎµÄ
+
 function map_run_hell( map )
 
 end
 
---µØÍ¼¹Ø±ÕÊ±Ö´ĞĞ
+
 function map_copy_close_hell ( map_copy )
 
-			HELLCLOSETIME = 300
-			CRY[5]=0
-			CRY[6]=0
-			CRY[7]=0
-			CRY[8]=0
 
 end
-		
---µØÍ¼¿ª¹ØÅĞ¶Ï¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function can_open_entry_hell( map ) 
 
---	local time = GetTickCount ( ) 
-	local Now_Week = GetNowWeek()
-	if Now_Week >=5 and Now_Week < 7 then
-		return 1
-	end
-
-		return 0
-
-end 
+end 	

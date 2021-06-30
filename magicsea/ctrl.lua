@@ -1,51 +1,39 @@
---------------------------------------------------------------------------
---									--
---									--
---				ctrl.lua				--
---									--
---									--
---------------------------------------------------------------------------
-print( "Loading Magicsea Ctrl.lua" )
-
-
---´ËÎÄ¼þÖÐ£¬·²ÊÇ¿ÉÄÜ±»¶à´ÎÖ´ÐÐµÄº¯Êý£¬º¯ÊýÃû¶¼Òª¼ÓÉÏµØÍ¼ÃûÇ°×º
-
+print( "‡ £àã§ª  ª àâë: \"Œ £¨ç¥áª¨© Žª¥ ­\" ­ ç « áì!" )
+print( "‡ £àã§ª  Ctrl.lua" )
 function config(map)
-    MapCanPK(map, 0)			-- 1 = Turns on PK Mouse Sword Icon // 0 = Turns off PK Mouse Sword Icon ( Need to press CTRL key )
---    MapType ( map , 3 )			-- 0 = PvP Off // 1 = PvP Off // 2 = PvP On ( Not allowed to kill Guild and Party Mates ) // 3 = PvP On ( Allowed to kill any player but not Party Mates ) // 4 = PvP On ( Not allowed to kill Guild and Party Mates )        
-end
-
-
-function get_map_entry_pos_magicsea()   --ÉèÖÃÈë¿ÚµÄÎ»ÖÃµÄ×ø±ê£¨×ø±ê£¨Ã×£©£©
-
-end
-
-function init_entry(map)
+    MapCanSavePos(map, 1) 
+    MapCanPK(map, 1) 
+    MapCopyNum(map, 1) 
+    SingleMapCopyPlyNum(map, 300)
+    MapCanTeam(map , 1)
+    MapType ( map , 3 )
 
 end
+function get_map_entry_pos_magicsea()
+end
 
-function after_enter_magicsea( role , map_copy )
+function init_entry( map )
+end
+
+function after_enter_magicsea( role, map_copy )
 end
 
 function before_leave_magicsea( role )
 end
 
 function map_copy_first_run_magicsea( map_copy )
-
 end
 
 function map_copy_run_magicsea( map_copy )
 end
 
---Ã¿5ÃëÖ´ÐÐÒ»´ÎµÄ
 function map_run_magicsea( map )
 end
 
---µØÍ¼¹Ø±ÕÊ±Ö´ÐÐ
-function map_copy_close_magicsea ( map_copy )
+function map_copy_close_magicsea( map_copy )
 end
-		
---µØÍ¼¿ª¹ØÅÐ¶Ï¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
-function can_open_entry_magicsea( map ) 
-end 
+function can_open_entry_magicsea( map )
+end
+function map_copy_run_special_magicsea(map)
+end

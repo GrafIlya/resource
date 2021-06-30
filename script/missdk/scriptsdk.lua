@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------
 --									--
 --									--
---		ScriptSdk.lua Created by knight 2005.1.14.		--
+--				ScriptSdk.lua 				--
 --									--
 --定义简化策划书写任务和npc对话脚本的函数接口				--
 --------------------------------------------------------------------------
@@ -255,7 +255,6 @@ function AddBoatLevel( level, money, exp )
 	BoatLevelList[level] = {}
 	BoatLevelList[level].money = money
 	BoatLevelList[level].exp = exp	
-	LG( "boatlevel_init", "AddBoatLevel: count, level, money, exp", BoatLevelList.count, level, money, exp )
 end
 
 --初始化地图列表信息
@@ -279,12 +278,10 @@ function AddMap( idname, str )
 	MapList.count = MapList.count + 1
 	MapList.idname[MapList.count] = idname
 	MapList.mapname[MapList.count] = str
-	LG( "mission", "Set map ["..MapList.mapname[MapList.count].."], IDNAME = "..MapList.idname[MapList.count].."ID = "..MapList.count )
 	PRINT( "Set map ["..MapList.mapname[MapList.count].."], IDNAME = "..MapList.idname[MapList.count].."ID = "..MapList.count )
 	
 	local ret = SetMap( MapList.idname[MapList.count], MapList.count )
 	if ret == LUA_FALSE then
-		LG( "mission", "Set map notice failed ["..MapList.mapname[MapList.count].."], IDNAME = "..MapList.idname[MapList.count].."ID = "..MapList.count )
 		PRINT( "Set map notice failed ["..MapList.mapname[MapList.count].."], IDNAME = "..MapList.idname[MapList.count].."ID = "..MapList.count )
 	end
 end
@@ -424,7 +421,6 @@ function ResetNpcInfo( npc, name )
 	NpcPointer = npc
 	local str = "Initialization NPC ["..name.."] script notice successful!"
 	PRINT( str )
-	LG( "npcinit", str )
 end
 
 --获取npc对话信息和交易信息ID
@@ -437,14 +433,12 @@ function GetNpcInfo( npc, name )
 	NpcInfoList[NpcInfoList.count].missionlist = NpcMissionList
 	SetNpcScriptID( npc, NpcInfoList.count )
 	if NpcMissionList.count > 0 then
-		LG( "mission", "Set NPC bring quest label!" )
 		SetNpcHasMission( npc, 1 )
 	end
 	NpcPointer = LUA_NULL
 	
 	local str = "Obtain NPC ["..name.."] script data notice, ID = "..NpcInfoList.count
 	PRINT( str )
-	LG( "npcinit", str )
 end
 
 --动态修改npc脚本信息
@@ -471,7 +465,6 @@ function ModifyNpcInfo( npc, name, id )
 	
 	local str = "修改NPC《"..name.."] script data notice, ID = "..id
 	PRINT( str )
-	LG( "npcinit", str )
 end
 
 -- npc消息处理函数
@@ -484,7 +477,7 @@ function NpcProc( character, npc, rpk, id )
 		SendPage( character, npc, 0, str, nil, 0 )
 		return
 	end
-	MsgProc( character, npc, rpk, NpcInfoList[id].page, NpcInfoList[id].trade, NpcInfoList[id].missionlist )
+	MsgProc( character, npc, rpk, NpcInfoList[id].page, NpcInfoList[id].trade, NpcInfoList[id].missionlist, NpcInfoList[id].eXchange )
 end
 
 --npc任务状态处理函数
@@ -492,7 +485,6 @@ function NpcState( character, npcid, id )
    PRINT( "NpcState:character, npcid, NpcMissionList", character, npcid, id )
 	if NpcInfoList[id] == nil or NpcInfoList[id].missionlist == nil then
 		PRINT( "unable to obtain NPC script notice!ID = ",  id )
-		LG( "npc_error", "unable to obtain NPC script notice!ID = ",  id )
 		return LUA_FALSE
 	end
 
@@ -526,7 +518,6 @@ end
 function Talk( pageid, talk )
 	Page[pageid].count = Page[pageid].count + 1
 	Page[pageid][Page[pageid].count].talk = talk
-	LG( "npcinit", "Talk:pageid, count, talk", pageid, Page[pageid].count, Page[pageid][Page[pageid].count].talk )
 end
 
 --对话选项信息注册
@@ -538,13 +529,11 @@ function Text( pageid, text, func, p1, p2, p3, p4 )
 	Page[pageid][Page[pageid].count].p2 = p2
 	Page[pageid][Page[pageid].count].p3 = p3
 	Page[pageid][Page[pageid].count].p4 = p4
-	LG( "npcinit", "Text:pageid, count, text, func, p1, p2, p3, p4 ", pageid, Page[pageid].count, text, func, p1, p2, p3, p4 )
 end
 
 --设置对话页包含任务信息
 function MisListPage( pageid )
 	Page[pageid].ismission = 1
-	LG( "npcinit", "MisListPage:"..pageid )
 end
 
 --交易信息注册
@@ -552,19 +541,16 @@ function Weapon( id )
 	--武器
 	Trade[1].count = Trade[1].count + 1;
 	Trade[1].item[Trade[1].count] = id
-	LG( "npcinit", "Weapon:count, id", Trade[1].count, id )
 end
 function Defence( id )
 	--防具
 	Trade[2].count = Trade[2].count + 1;
 	Trade[2].item[Trade[2].count] = id
-	LG( "npcinit", "Defence:count, id", Trade[2].count, id )
 end
 function Other( id )
 	--杂项
 	Trade[3].count = Trade[3].count + 1;
 	Trade[3].item[Trade[3].count] = id
-	LG( "npcinit", "Other:count, id", Trade[3].count, id )
 end
 function OtherX( trade, id )
 	trade[3].count = trade[3].count + 1;
@@ -574,13 +560,11 @@ function Synthesis( id )
 	--合成
 	Trade[4].count = Trade[4].count + 1;
 	Trade[4].item[Trade[4].count] = id
-	LG( "npcinit", "Synthesis:count, id", Trade[4].count, id )
 end
 
 --交易货物买卖收购信息
 function SaleGoodsData( level, id, num, price, pricerange )
 	if level == nil or id == nil or num == nil or price == nil or pricerange == nil then
-		LG( "npcinit_error", "SaleGoodsData:Function parameter error!level, id, num, price, pricerange", level, id, num, price, pricerange )
 		return
 	end
 	
@@ -598,7 +582,6 @@ function SaleGoodsData( level, id, num, price, pricerange )
 	Trade[1].price[Trade[1].count].price = price
 	Trade[1].price[Trade[1].count].range = pricerange
 	Trade[1].price[Trade[1].count].curprice = price + Rand( pricerange )
-	LG( "npcinit_trade", "SaleGoodsData, count, level, id, num, price, range, curprice", Trade[1].count, level, id, num, price, pricerange, Trade[1].price[Trade[1].count].curprice )
 end
 
 --初始化黑市兑换信息
@@ -624,7 +607,6 @@ end
 --黑市商人兑换
 function ExchangeData( srcID, srcNum, tarID, tarNum, timeNum )
 	if srcID == nil or srcNum == nil or tarID == nil or tarNum == nil or timeNum == nil then
-		LG( "npcinit_error", "ExchangeData:函数参数错误！srcID, srcNum, tarID, tarNum, timeNum", srcID, srcNum, tarID, tarNum, timeNum )
 		return
 	end
 	
@@ -640,7 +622,6 @@ end
 
 function ExchangeDataX( srcID, srcNum, tarID, tarNum )
 	if srcID == nil or srcNum == nil or tarID == nil or tarNum == nil then
-		LG( "npcinit_error", "ExchangeDataX:函数参数错误！srcID, srcNum, tarID, tarNum", srcID, srcNum, tarID, tarNum )
 		return
 	end
 	
@@ -688,7 +669,6 @@ end
 
 function BuyGoodsData( level, id, num, price, pricerange )
 	if level == nil or id == nil or num == nil or price == nil or pricerange == nil then
-		LG( "npcinit_error", "BuyGoodsData:Function parameter error!level, id, num, price, pricerange", level, id, num, price, pricerange )
 		return
 	end
 	
@@ -706,7 +686,6 @@ function BuyGoodsData( level, id, num, price, pricerange )
 	Trade[2].price[Trade[2].count].price = price
 	Trade[2].price[Trade[2].count].range = pricerange
 	Trade[2].price[Trade[2].count].curprice = price + Rand( pricerange )
-	LG( "npcinit_trade", "BuyGoodsData, count, level, id, num, price, range, curprice", Trade[2].count, level, id, num, price, pricerange, Trade[2].price[Trade[2].count].curprice )
 end
 
 --货物交易出售物品价格数量更新
@@ -714,7 +693,6 @@ function UpdateGoodsData( tradenpc )
 	PRINT( "UpdateGoodsData" )
 	if tradenpc == nil then
 		PRINT( "UpdateGoodsData:Function parameter error!" )
-		LG( "UpdateGoodsData:Function parameter error!" )
 		return LUA_ERROR
 	end
 
@@ -722,13 +700,11 @@ function UpdateGoodsData( tradenpc )
 	local ret, id = GetScriptID( tradenpc )
 	if ret ~= LUA_TRUE then
 		PRINT( "UpdateGoodsData:GetScriptID, obtain npc"..name.."script notice ID failed!" )
-		LG( "npctrade_error", "UpdateGoodsData:GetScriptID, obtain npc"..name.."script notice ID failed!" )
 		return LUA_FALSE
 	end
 
 	if NpcInfoList == nil or NpcInfoList[id] == nil then		
 		PRINT( "UpdateGoodsData:GetScriptID, npc"..name.."script notice does not exist! NpcInfoList, ID", NpcInfoList, id )
-		LG( "npctrade_error", "UpdateGoodsData:npc"..name.."script notice does not exist! NpcInfoList,  ID", NpcInfoList, id )
 		return LUA_FALSE
 	end
 	
@@ -746,7 +722,6 @@ function UpdateGoodsData( tradenpc )
 		PRINT( "Purchase item: ID = , Count = , CurPrice = ", trade[2].item[n].id, trade[2].item[n].count, trade[2].price[n].curprice )
 	end
 	
-	SendAllGoodsData( tradenpc, trade )
 	return LUA_TRUE	
 end
 
@@ -754,26 +729,23 @@ end
 function UpdateGoodsKinds( tradenpc )
 	PRINT( "UpdateGoodsData" )
 	if tradenpc == nil then
-		PRINT( "UpdateGoodsData:函数参数错误！" )
-		LG( "UpdateGoodsData:函数参数错误！" )
+		PRINT( "UpdateGoodsData:Function parameter error!" )
 		return LUA_ERROR
 	end
 
 	local name = GetCharName( tradenpc )
 	local ret, id = GetScriptID( tradenpc )
 	if ret ~= LUA_TRUE then
-		PRINT( "UpdateGoodsData:GetScriptID，获取npc"..name.."脚本信息ID失败！" )
-		LG( "npctrade_error", "UpdateGoodsData:GetScriptID，获取npc"..name.."脚本信息ID失败！" )
+		PRINT( "UpdateGoodsData:GetScriptID, obtain npc"..name.."script notice ID failed!" )
 		return LUA_FALSE
 	end
 
 	if NpcInfoList == nil or NpcInfoList[id] == nil then		
-		PRINT( "UpdateGoodsData:GetScriptID，npc"..name.."脚本信息不存在！NpcInfoList, ID", NpcInfoList, id )
-		LG( "npctrade_error", "UpdateGoodsData:npc"..name.."脚本信息不存在！NpcInfoList,  ID", NpcInfoList, id )
+		PRINT( "UpdateGoodsData:GetScriptID, npc"..name.."script notice does not exist! NpcInfoList, ID", NpcInfoList, id )
 		return LUA_FALSE
 	end
 	
-	PRINT( name..": 更新交易数据信息" )	
+	PRINT( name..": update trade data notice" )	
 	
 	local trade = NpcInfoList[id].trade
 	InitTradeX( trade )
@@ -796,7 +768,6 @@ end
 
 --初始化全局多函数列表
 function InitFuncList()
-	LG( "npcinit", "InitFuncList" )
 	FuncList = {}
 	FuncList.count = 0
 end
@@ -810,7 +781,6 @@ function AddFuncList( func, p1, p2, p3, p4 )
 	FuncList[FuncList.count].p2 = p2
 	FuncList[FuncList.count].p3 = p3
 	FuncList[FuncList.count].p4 = p4
-	LG( "npcinit", "AddFuncList, func, p1, p2, p3, p4", func, p1, p2, p3, p4 )
 end
 
 --获取函数列表信息
@@ -824,7 +794,6 @@ end
 
 --初始化全局触发器
 function InitTrigger()
-	LG( "trigger", "InitTrigger" )
 	Trigger = {}	
 	for n = 1, 16, 1 do
 		Trigger[n] = {}
@@ -846,7 +815,6 @@ end
 --设置触发器的事件类型和启动方式
 function SetTrigger( id, startup, event )	
 	if Trigger[id] == nil then
-		return LG( "trigger", "SetTrigger: incorrect trigger search ID = "..id )		
 	end
 	Trigger[id].startup = startup
 	Trigger[id].event   = event 
@@ -854,13 +822,11 @@ end
 
 --触发器类型设定
 function SetTriggerType( id, tp )
-	LG( "trigger", "SetTriggerType: id, tp ", id, tp )
 	Trigger[id].tp = tp
 end
 
 --触发器条件函数注册
 function TriggerCondition( id, func, p1, p2, p3, p4 )
-	LG( "trigger", "TriggerCondition: id, func, p1, p2, p3, p4 ", id, func, p1, p2, p3, p4 )
 	Trigger[id].conditions.count = Trigger[id].conditions.count + 1
 	Trigger[id].conditions[Trigger[id].conditions.count] = {}
 	Trigger[id].conditions[Trigger[id].conditions.count].func = func
@@ -874,13 +840,11 @@ end
 function SetTriggerActionValue( id, index, p1, p2, p3, p4 )
 	if id == nil or index == nil or TriggerList[id] == nil then
 		PRINT( "SetTriggerActionValue:Function parameter error!triggerid = , index =", id, index )
-		LG( "randmission_error", "SetTriggerActionValue:functionparameter error , triggerid = , index", id, index )
 		return LUA_FALSE
 	end
 	
 	if TriggerList[id].actions == nil or TriggerList[id].actions[index] == nil then
 		PRINT( "SetTriggerActionValue: Trigger no action notice error!triggerid = , index = ", id, index )
-		LG( "randmission_error", "SetTriggerActionValue: Trigger no action notice error!triggerid = , index = ", id, index )
 		return LUA_FALSE
 	end
 	TriggerList[id].actions[index].p1 = p1
@@ -891,7 +855,6 @@ end
 
 --触发器动作函数注册
 function TriggerAction( id, func, p1, p2, p3, p4, p5, p6, p7, p8 )
-	LG( "trigger", "TriggerAction: id, func, p1, p2, p3, p4 ", id, func, p1, p2, p3, p4 )
 	Trigger[id].actions.count = Trigger[id].actions.count + 1
 	Trigger[id].actions[Trigger[id].actions.count] = {}
 	Trigger[id].actions[Trigger[id].actions.count].func = func
@@ -922,7 +885,6 @@ function TriggerAction( id, func, p1, p2, p3, p4, p5, p6, p7, p8 )
 end
 
 function TriggerFailure( id, func, p1, p2, p3, p4, p5, p6, p7, p8 )
-	LG( "trigger", "TriggerFailure: id, func, p1, p2, p3, p4 ", id, func, p1, p2, p3, p4 )
 	Trigger[id].failures.count = Trigger[id].failures.count + 1
 	Trigger[id].failures[Trigger[id].failures.count] = {}
 	Trigger[id].failures[Trigger[id].failures.count].func = func
@@ -967,11 +929,9 @@ function RegTrigger( id, triggerid )
 		PRINT( "RegTrigger: register triggered cannot be as null!" )
 	end
 	if Trigger[triggerid] == nil then
-		LG( "trigger_error", "RegTrigger: try registrating a null trigger to all classified trigger list,ID = "..triggerid )
 		return
 	end
 	if TriggerList[id] ~= nil then
-		LG( "trigger_error", "RegTrigger: register trigger overlayed original trigger notice. ID = "..id )
 	end
 	TriggerList[id] = Trigger[triggerid]
 end
@@ -982,7 +942,6 @@ end
 
 --对话开始触发器注册
 function Start( trigger, count )
-	LG( "trigger", "Start:trigger, count", trigger, count )
 	Page.start = MultiTrigger
 	Page.p1 = trigger
 	Page.p2 = count
@@ -998,13 +957,11 @@ end
 function SetNpcTrigger( trigger )
 	PRINT( "SetNpcTrigger, trigger = , npc = ", trigger, NpcPointer )
 	if trigger == nil or trigger.actions == nil then
-		LG( "trigger_error", "SetNpcTrigger: trigger = nil or trigger.actions = nil" )
 		PRINT( "SetNpcTrigger: trigger = nil or trigger.actions = nil" )
 		return
 	end
 	local ret = ActionsProc( NpcPointer, trigger.actions, NpcPointer, nil, 0, nil )
 	if ret ~= LUA_TRUE then
-		LG( "trigger_error", "SetNpcTrigger: ActionsProc called error!" )
 		PRINT( "SetNpcTrigger: ActionsProc called error!" )
 	end
 end
@@ -1015,13 +972,11 @@ function SetNpcActive()
 	local ret = SetActive( NpcPointer )
 	if ret ~= LUA_TRUE then
 		PRINT( "SetNpcActive: Set current NPC activate status failed!NPC = "..GetCharName( NpcPointer ) )
-		LG( "npcinit_error", "SetNpcActive: Set current NPC activate status failed!NPC = "..GetCharName( NpcPointer ) )
 	end
 end
 
 --任务基本信息注册
 function DefineMission( id, name, misid, show, mistp )
-	LG( "mission", "ID: "..id, " Name:"..name, " MisID:"..misid )
 	--设置任务基本信息
 	Mission[id] = {}
 	Mission[id].id = misid		--任务识别ID
@@ -1079,7 +1034,6 @@ end
 --任务触发器信息注册函数
 function MisBeginTalk( str )
 	Mission.curmission.begin.talk = str
-	LG( "mission", "MisBeginTalk:talk = "..str )
 end
 
 --任务完成需求信息
@@ -1091,7 +1045,6 @@ function MisNeed( needtype, p1, p2, p3, p4 )
 	Mission.curmission.need[Mission.curmission.need.count].p2 = p2
 	Mission.curmission.need[Mission.curmission.need.count].p3 = p3
 	Mission.curmission.need[Mission.curmission.need.count].p4 = p4
-	LG( "mission", "MisNeed:count, type, p1, p2, p3, p4", Mission.curmission.need.count, needtype, p1, p2, p3, p4 )
 end
 
 --任务完成奖励信息
@@ -1103,12 +1056,10 @@ function MisPrize( prizetype, p1, p2, p3, p4 )
 	Mission.curmission.prize[Mission.curmission.prize.count].p2 = p2
 	Mission.curmission.prize[Mission.curmission.prize.count].p3 = p3
 	Mission.curmission.prize[Mission.curmission.prize.count].p4 = p4
-	LG( "mission", "MisPrize:count, type, p1, p2, p3, p4", Mission.curmission.prize.count, prizetype, p1, p2, p3, p4 )
 end
 
 --任务完成奖励类型
 function MisPrizeType( seltype )
-   LG( "mission", "MisPrizeType: prize select type = "..seltype )
    Mission.curmission.prize.seltp = seltype
 end
 
@@ -1129,7 +1080,6 @@ function MisBeginCondition( func, p1, p2, p3, p4 )
 	Mission.curmission.begin.conditions[Mission.curmission.begin.conditions.count].p2 = p2
 	Mission.curmission.begin.conditions[Mission.curmission.begin.conditions.count].p3 = p3	
 	Mission.curmission.begin.conditions[Mission.curmission.begin.conditions.count].p4 = p4
-	LG( "mission", "MisBeginCondition:count, func, p1, p2, p3, p4", Mission.curmission.begin.conditions.count, func, p1, p2, p3, p4 )
 end
 
 --任务开始动作信息注册
@@ -1162,7 +1112,6 @@ function MisBeginAction( func, p1, p2, p3, p4, p5, p6, p7, p8 )
 		Mission.curmission.begin.actions[Mission.curmission.begin.actions.count].p8 = 0
 	end
 	
-	LG( "mission", "MisBeginAction:count, func, p1, p2, p3, p4, p5, p6, p7, p8", Mission.curmission.begin.actions.count, func, p1, p2, p3, p4, p5, p6, p7, p8 )
 end
 
 --任务开始角色背包容量需求
@@ -1173,13 +1122,11 @@ end
 --任务交付完成对话信息注册
 function MisResultTalk( str )
 	Mission.curmission.result.talk = str
-	LG( "mission", "MisCompleteTalk:talk = "..str )
 end
 
 --任务交付帮助对话信息注册
 function MisHelpTalk( str )
 	Mission.curmission.result.help = str
-	LG( "mission", "MisHelpTalk:help = "..str )
 end
 
 --任务完成条件信息注册
@@ -1191,7 +1138,6 @@ function MisResultCondition( func, p1, p2, p3, p4 )
 	Mission.curmission.result.conditions[Mission.curmission.result.conditions.count].p2 = p2
 	Mission.curmission.result.conditions[Mission.curmission.result.conditions.count].p3 = p3
 	Mission.curmission.result.conditions[Mission.curmission.result.conditions.count].p4 = p4
-	LG( "mission", "MisResultCondition:count, func, p1, p2, p3, p4", Mission.curmission.result.conditions.count, func, p1, p2, p3, p4 )
 end
 
 --任务完成动作信息注册
@@ -1223,7 +1169,6 @@ function MisResultAction( func, p1, p2, p3, p4, p5, p6, p7, p8 )
 	else
 		Mission.curmission.result.actions[Mission.curmission.result.actions.count].p8 = 0
 	end	
-	LG( "mission", "MisResultAction:count, func, p1, p2, p3, p4, p5, p6, p7, p8", Mission.curmission.result.actions.count, func, p1, p2, p3, p4, p5, p6, p7, p8 )
 end
 
 --任务完成时背包容量需求
@@ -1240,7 +1185,6 @@ function MisCancelCondition( func, p1, p2, p3, p4 )
 	Mission.curmission.cancel.conditions[Mission.curmission.cancel.conditions.count].p2 = p2
 	Mission.curmission.cancel.conditions[Mission.curmission.cancel.conditions.count].p3 = p3
 	Mission.curmission.cancel.conditions[Mission.curmission.cancel.conditions.count].p4 = p4
-	LG( "mission", "MisCancelCondition:count, func, p1, p2, p3, p4", Mission.curmission.cancel.conditions.count, func, p1, p2, p3, p4 )
 end
 
 --任务取消动作信息注册
@@ -1272,7 +1216,6 @@ function MisCancelAction( func, p1, p2, p3, p4, p5, p6, p7, p8 )
 	else
 		Mission.curmission.cancel.actions[Mission.curmission.cancel.actions.count].p8 = 0
 	end	
-	LG( "mission", "MisCancelAction:count, func, p1, p2, p3, p4, p5, p6, p7, p8", Mission.curmission.cancel.actions.count, func, p1, p2, p3, p4, p5, p6, p7, p8 )
 end
 
 --将任务注册到npc身上
@@ -1280,8 +1223,6 @@ function AddNpcMission( id )
 	NpcMissionList.count = NpcMissionList.count + 1
 	NpcMissionList[NpcMissionList.count ] = {}
 	NpcMissionList[NpcMissionList.count ] = Mission[id]
-	PRINT( "Set quest ["..NpcMissionList.count.."]: ["..id.."]: ["..Mission[id].name.."]" )
-	LG( "missioninit", "Set quest ["..NpcMissionList.count.."]: ["..id.."]: ["..Mission[id].name.."]" )
 end
 
 --初始化随机任务参数表结构
@@ -1314,7 +1255,6 @@ end
 
 --随机任务信息脚本生成函数接口
 function DefineRandMission( id, name, misid, bounty, npcname, npcarea, leveltp )
-	LG( "randmission_init", "ID: "..id, " Name:"..name, " MisID:"..misid, "Bounty:"..bounty )
 	--设置任务基本信息
 	Mission[id] = {}
 	Mission[id].id = misid		--任务识别ID
@@ -1381,36 +1321,27 @@ end
 --添加随机任务描述信息前缀后缀
 function AddRandMissionBeginTalk( talkstart, talkend )
 	if talkstart == nil or talkend  == nil then
-		LG( "randmission_inittalk_error", "AddRandMissionBeginTalk: misid = , ", Mission.curmission.sid )
 		return
 	end
 	
-	LG( "randmission_init", "AddRandMissionBeginTalk: talkstart = ", talkstart )
-	LG( "randmission_init", "AddRandMissionBeginTalk: talkend = ", talkend )
 	talklist.btalkstart = talkstart
 	talklist.btalkend = talkend
 end
 
 function AddRandMissionResultTalk( talkstart, talkend )
 	if talkstart == nil or talkend  == nil then
-		LG( "randmission_inittalk_error", "AddRandMissionBeginTalk: misid = , ", Mission.curmission.sid )
 		return
 	end
 
-	LG( "randmission_init", "AddRandMissionResultTalk: talkstart = ", talkstart )
-	LG( "randmission_init", "AddRandMissionResultTalk: talkend = ", talkend )	
 	talklist.rtalkstart = talkstart
 	talklist.rtalkend = talkend
 end
 
 function AddRandMissionHelpTalk( talkstart, talkend )
 	if talkstart == nil or talkend  == nil then
-		LG( "randmission_inittalk_error", "AddRandMissionBeginTalk: misid = , ", Mission.curmission.sid )
 		return
 	end
 	
-	LG( "randmission_init", "AddRandMissionHelpTalk: talkstart = ", talkstart )
-	LG( "randmission_init", "AddRandMissionHelpTalk: talkend = ", talkend )	
 	talklist.helpstart = talkstart
 	talklist.helpend = talkend
 end
@@ -1427,7 +1358,6 @@ function AddRandMissionType( tp, tprand, talklist, exptp, randnum, p1, p2, p3, p
 		return
 	end
    
-	LG( "randmission_init", "AddRandMissionType:Add rand mission id["..Mission.curmission.sid.."], tp = "..tp )
 	
 	--检测类型信息
 	for n = 1, Mission.curmission.missionlist.count, 1 do
@@ -2437,7 +2367,6 @@ end
 --添加随机任务生成信息
 function AddRandMissionInfo( id, level, tp, p1, p2, p3, p4, p5, p6, p7, p8 )	
 	if Mission[id] == nil then
-		LG( "randmission_init", "AddRandMissionInfo:Mission[id] = nil, id = "..id )
 		PRINT( "AddRandMissionInfo:Mission[id] = nil, id = "..id )
 		return LUA_FALSE
 	end
@@ -2455,7 +2384,6 @@ function AddRandMissionInfo( id, level, tp, p1, p2, p3, p4, p5, p6, p7, p8 )
 	end
 	if flag == 0 then
 		PRINT( "AddRandMissionInfo: Add data fail due to target data type switch is not opened. id, level, tp, p1, p2, p3, p4, p5, p6", id, level, tp, p1, p2, p3, p4, p5, p6 )
-		LG( "randmission_error", "AddRandMissionInfo: add data failed die to data type switch not opened.", tp )
 	end
 	
 	if Mission[id].RandInfo[level] == nil then
@@ -2484,7 +2412,6 @@ function AddRandMissionInfo( id, level, tp, p1, p2, p3, p4, p5, p6, p7, p8 )
 		Mission[id].RandInfo[level].tpinfo.count = 0
 	end
 
-	LG( "randmission_init", "mission = , mission.RandInfo = , mission.RandInfo[level] = ", Mission[id], Mission[id].RandInfo, Mission[id].RandInfo[level] )
 	
 	if tp == MIS_RAND_KILL then					--猎杀怪物
 		Mission[id].RandInfo[level].KillInfo.count = Mission[id].RandInfo[level].KillInfo.count + 1
@@ -2543,7 +2470,6 @@ function AddRandMissionInfo( id, level, tp, p1, p2, p3, p4, p5, p6, p7, p8 )
 		Mission[id].RandInfo[level].ExploreInfo[Mission[id].RandInfo[level].ExploreInfo.count].p8 = p8
 	else
 		PRINT( "AddRandMissionInfo: adds data type error, tp = "..tp )
-		LG( "randmission_init",  "AddRandMissionInfo: adds data type error, tp = "..tp )
 		return LUA_FALSE
 	end
 
@@ -2568,8 +2494,6 @@ function AddRandMissionInfo( id, level, tp, p1, p2, p3, p4, p5, p6, p7, p8 )
 		Mission[id].RandInfo[level].tpinfo[Mission[id].RandInfo[level].tpinfo.count].tp = tp
 		Mission[id].RandInfo[level].tpinfo[Mission[id].RandInfo[level].tpinfo.count].tprand = tprand
 	end
-	LG( "randmission_init", "mission = , mission.RandInfo = , mission.RandInfo[level] = ", Mission[id], Mission[id].RandInfo, Mission[id].RandInfo[level] )
-	LG( "randmission_init",  "AddRandMissionInfo:id = , level = , tp = , tprand = , p1 =, p2 =, p3 =, p4 =, p5 =, p6 =, p7 =, p8 =", id, level, tp, tprand, p1, p2, p3, p4, p5, p6, p7, p8 )
 	return LUA_TRUE
 end
 
@@ -2577,86 +2501,71 @@ end
 function AddRandKillInfo( level, monsterid, randvalue, randscope, exp, money )
 	if Mission.curmission == nil or Mission.curmission.sid == nil then
 		PRINT( "AddRandKillInfo: register random quest notice, please define a random quest!level, monsterid,  randvalue, randscope, exp, money", level, monsterid, randvalue, randscope, exp, money )
-		LG( "randmission_error", "AddRandKillInfo: register random quest notice, please define a random quest!level, monsterid,  randvalue, randscope, exp, money", level, monsterid, randvalue, randscope, exp, money )
 		return
 	end
 	
 	local ret = AddRandMissionInfo( Mission.curmission.sid, level, MIS_RAND_KILL, monsterid, randvalue, randscope, exp, money )
 	if ret ~= LUA_TRUE then
 			PRINT( "AddRandKillInfo:AddRandMissionInfo: register random quest notice error! level, monsterid,  randvalue, randscope, exp, money", level, monsterid, randvalue, randscope, exp, money )
-			LG( "randmission_error", "AddRandKillInfo:AddRandMissionInfo: register random quest notice error! level, monsterid,  randvalue, randscope, exp, money", level, monsterid, randvalue, randscope, exp, money )
 			return
 	end	
-	LG( "randmission_init", "AddRandKillInfo:level, monsterid, randvalue, randscope, exp, money", level, monsterid, randvalue, randscope, exp, money )
 end
 
 --添加获取物品类型随机库信息
 function AddRandGetItem( level, itemid, randvalue, randscope, exp, money )
 	if Mission.curmission == nil or Mission.curmission.sid == nil then
 		PRINT( "AddRandGetItem: register random quest notice, please define a random quest!level, itemid,  randvalue, randscope, exp, money", level, itemid, randvalue, randscope, exp, money )
-		LG( "randmission_error", "AddRandGetItem: register random quest notice, please define a random quest!level, itemid,  randvalue, randscope, exp, money", level, itemid, randvalue, randscope, exp, money )
 		return
 	end
 	
 	local ret = AddRandMissionInfo( Mission.curmission.sid, level, MIS_RAND_GET, itemid, randvalue, randscope, exp, money )
 	if ret ~= LUA_TRUE then
 			PRINT( "AddRandGetItem:AddRandMissionInfo: register random quest notice error! level, monsterid,  randvalue, randscope, exp, money", level, itemid, randvalue, randscope, exp, money )
-			LG( "randmission_error", "AddRandGetItem:AddRandMissionInfo: register random quest notice error! level, itemid,  randvalue, randscope, exp, money", level, itemid, randvalue, randscope, exp, money )
 			return
 	end
-	LG( "randmission_init", "AddRandGetItem:level, itemid, randvalue, randscope, exp, money", level, itemid, randvalue, randscope, exp, money )
 end
 
 --添加送物件类型随机库信息
 function AddRandSendInfo( level, npcid, exp, money )
 	if Mission.curmission == nil or Mission.curmission.sid == nil then
 		PRINT( "AddRandSendInfo: register random quest notice, please define a random quest!level, npcid, exp, money", level, npcid, exp, money )
-		LG( "randmission_error", "AddRandSendInfo: register random quest notice, please define a random quest!level, npcid, exp, money", level, npcid, exp, money )
 		return
 	end
 	
 	if npcid == nil or NpcList[npcid] == nil or NpcList[npcid].mapid == nil or NpcList[npcid].areaid == nil then
 		PRINT( "AddRandSendInfo: Please input correct NPC ID notice. npcid = ", npcid )
-		LG( "randmission_error", "AddRandSendInfo: Please input correct NPC ID notice. npcid = ", npcid )
 		return
 	end
 	
 	local ret = AddRandMissionInfo( Mission.curmission.sid, level, MIS_RAND_SEND, npcid, NpcList[npcid].areaid, NpcList[npcid].mapid, exp, money )
 	if ret ~= LUA_TRUE then
 			PRINT( "AddRandSendInfo:AddRandMissionInfo: register random quest notice error! level, npcid, mapid, areaid, mapid, exp, money", level, npcid, NpcList[npcid].areaid, NpcList[npcid].mapid, exp, money )
-			LG( "randmission_error", "AddRandSendInfo:AddRandMissionInfo: register random quest notice error! level, npcid, areaid, mapid, exp, money", level, npcid, NpcList[npcid].areaid, NpcList[npcid].mapid, exp, money )
 			return
 	end
-	LG( "randmission_init", "AddRandSendInfo:level, npcid, mapid, areaid, exp, money", level, npcid, NpcList[npcid].areaid, NpcList[npcid].mapid, exp, money )
 end
 
 --添加送物件类型随机库可选物件信息
 function AddRandSendItem( level, item )
 	if Mission.curmission.RandInfo[level] == nil then
 		PRINT( "AddRandSendItem: add send letter random quest item, exceeds level.level = ", level )
-		LG( "randmission_error", "AddRandSendItem: add send letter random quest item, exceeds level.level = ", level )
 		return
 	end
 	Mission.curmission.RandInfo[level].SendItem.count = Mission.curmission.RandInfo[level].SendItem.count + 1
 	Mission.curmission.RandInfo[level].SendItem[Mission.curmission.RandInfo[level].SendItem.count] = item
-	LG( "randmission_init", "AddRandSendItem:misid, level, item", Mission.curmission.sid, level, item )
 end
 
 --添加护送类型随机库信息
 function AddRandConvoyInfo( level, charid, mapid, areaid, x, y, scope, exp, money )
 	if Mission.curmission == nil or Mission.curmission.sid == nil then
 		PRINT( "AddRandConvoyInfo: when registering random quest notice , please define a random quest!level, npcid, areaid, mapid, exp, money", level, areaid, mapid, exp, money )
-		LG( "randmission_error", "AddRandConvoyInfo: when registering random quest notice , please define a random quest!level, npcid, areaid, mapid, exp, money", level, areaid, mapid, exp, money )
 		return
 	end
 
 	local ret = AddRandMissionInfo( Mission.curmission.sid, level, MIS_RAND_CONVOY, charid, mapid, areaid, x, y, scope, exp, money )
 	if ret ~= LUA_TRUE then
 			PRINT( "AddRandConvoyInfo:AddRandMissionInfo: Register random quest notice error! level, charid, mapid, mapid, areaid, x, y, scope, exp, money", level, charid, mapid, areaid, x, y, scope, exp, money )
-			LG( "randmission_error", "AddRandConvoyInfo:AddRandMissionInfo: register random quest notice error! level, charid, mapid, areaid, x, y, scope, exp, money", level, charid, mapid, areaid, x, y, scope, exp, money )
 			return
 	end
-	LG( "randmission_init", "AddRandConvoyInfo:level, charid, mapid, areaid, x, y, scope, exp, money", level, charid, mapid, areaid, x, y, scope, exp, money )
 end
 
 --添加探索类型随机库信息
@@ -2666,9 +2575,7 @@ end
 --添加随机任务完成次数后随机高级装备奖励
 --随机任务贸易税点奖励
 function AddRandPriceCess( level, cess, cessrange )
-	LG( "randmission_init", "AddRandPrizeItem:misid, level, cess, cessrange", Mission.curmission.sid, level, cess, cessrange )
 	if Mission.curmission.RandInfo[level] == nil then
-		LG( "randmission_prize_error", "AddRandPriceCess, level data error.", level )
 		return
 	end
 	
@@ -2688,9 +2595,7 @@ end
 
 --随机任务角色声望奖励
 function AddRandPriceFrame( level, frame, framerange )
-	LG( "randmission_init", "AddRandPrizeItem:misid, level, frame, framerange" )
 	if Mission.curmission.RandInfo[level] == nil then
-		LG( "randmission_prize_error", "AddRandPriceFrame, level data error.", level )
 		return
 	end
 	
@@ -2710,9 +2615,7 @@ end
 
 --随即任务角色宠物经验奖励
 function AddRandPricePetExp( level, exp, exprange )
-	LG( "randmission_init", "AddRandPricePetExp:misid, level, exp, exprange" )
 	if Mission.curmission.RandInfo[level] == nil then
-		LG( "randmission_prize_error", "AddRandPricePetExp, level data error.", level )
 		return
 	end
 	
@@ -2732,9 +2635,7 @@ end
 
 --开始添加随机任务高级奖励
 function SetRandPrizeItem( level )
-	LG( "randmission_init2", "SetRandPrizeItem:misid, level", Mission.curmission.sid, level )
 	if Mission.curmission.RandInfo[level] == nil then
-		LG( "randmission_prize_error", "SetRandPrizeItem, level data error.", level )
 		return
 	end
 	
@@ -2748,15 +2649,12 @@ end
 --随机任务高级物品奖励
 function AddRandPrizeItem( level, item1, itemdata1, item2, itemdata2, item3, itemdata3, item4, itemdata4 )	
 	if Mission.curmission.RandInfo[level] == nil then
-		LG( "randmission_prize_error", "AddRandPrizeItem, level data error.", level )
 		return
 	end
 	
 	if Mission.curmission.RandInfo[level].LoopData[Mission.curmission.RandInfo[level].LoopData.count] == nil or Mission.curmission.RandInfo[level].LoopData[Mission.curmission.RandInfo[level].LoopData.count].Prize == nil then
-		LG( "randmission_error", "AddRandPrizeItem: level data notice has not initialized, misid = , level = ", Mission.curmission.sid, level )
 		return
 	end
-	LG( "randmission_init2", "AddRandPrizeItem:misid, level, item1, itemdata1, item2, itemdata2, item3, itemdata3, item4, itemdata4", Mission.curmission.sid, level, item1, itemdata1, item2, itemdata2, item3, itemdata3, item4, itemdata4 )
 	
 	if item1 ~= nil then
 		local count = Mission.curmission.RandInfo[level].LoopData[Mission.curmission.RandInfo[level].LoopData.count].Prize.count + 1
@@ -2808,12 +2706,9 @@ end
 function SetRandPrizeOdds( loopnum, odds, completenum )
 	--Mission.curmission.RandInfo[level].PrizeItem.odds = odds
 	--Mission.curmission.RandInfo[level].PrizeItem.num  = completenum
-	--LG( "randmission_init", "AddRandPrizeItem:Add item, level, odds, completenum", level, odds, completenum )
 	
-	LG( "randmission_init", "SetRandPrizeOdds:loopnum, odds, completenum", loopnum, odds, completenum )
 	if Mission.curmission.loopinfo[loopnum] ~= nil then
 		PRINT( "SetRandPrizeOdds: data set duplicate.loopnum, odds completenum", loopnum, Mission.curmission.loopinfo[loopnum].odds, Mission.curmission.loopinfo[loopnum].completenum )
-		LG( "randmission_error", "SetRandPrizeOdds: data set duplicate.loopnum, odds completenum", loopnum, Mission.curmission.loopinfo[loopnum].odds, Mission.curmission.loopinfo[loopnum].completenum )
 	end
 	
 	Mission.curmission.loopinfo[loopnum] = {}
@@ -2829,10 +2724,8 @@ end
 
 --添加NPC信息
 function AddNpcInfo( npcid, name, mapid, areaid )
-	PRINT( "Add NPC, ID["..npcid.."], Name ["..name.."] , MapID = "..mapid.."AreaID = "..areaid )
-	LG( "npcinfo", "AddNpcInfo:npcid = "..npcid.."name = "..name.."mapid = "..mapid.."areaid = "..areaid )
+	PRINT( "Add NPC, ID["..npcid.."], nick ["..name.."] , MapID = "..mapid.."AreaID = "..areaid )
 	if NpcList[npcid] ~= nil then
-		LG( "npcinfo", "AddNpcInfo: found duplicate ID while adding notice, overlay original NPC notice.ID = "..npcid.."name = "..NpcList[npcid].name )
 		PRINT( "AddNpcInfo: found duplicate ID while adding notice, overlay original NPC notice.ID = "..npcid.."name = "..NpcList[npcid].name )
 	end
 	NpcList[npcid] = {}
@@ -2859,19 +2752,16 @@ end
 function SetWoodResource( level, itemid, count, pileid )
 	if level == nil or itemid == nil or count == nil or pileid == nil then
 		PRINT( "SetWoodResource:Function parameter error!level, itemid, count, pileid", level, itemid, count, pileid )
-		LG( "goods_error", "SetWoodResource:Function parameter error!level, itemid, count, pileid", level, itemid, count, pileid )
 		return LUA_FALSE
 	end
 	
 	if ResourceList == nil or ResourceList.wood == nil then
 		PRINT( "SetWoodResource: resource notice list cannot be as null!" )
-		LG( "goods_error", "SetWoodResource: resource notice list cannot be as null!" )
 		return LAU_FALSE
 	end
 	
 	if ResourceList.wood[level] ~= nil then
 		PRINT( "While setting wood resource loading notice, overlay of notice level is discovered!old data, level, itemid, count, pileid", level, itemid, count, pileid )
-		LG( "goods_error", "While setting wood resource loading notice, overlay of notice level is discovered!old data, level, itemid, count, pileid", level, itemid, count, pileid )
 	end
 	
 	ResourceList.wood[level] = {}
@@ -2879,26 +2769,22 @@ function SetWoodResource( level, itemid, count, pileid )
 	ResourceList.wood[level].count = count
 	ResourceList.wood[level].pileid  = pileid
 	PRINT( "Set wood resource loading notice: Level, ItemID, Count, PileID", level, itemid, count, pileid )
-	LG( "packbag_init", "Set wood resource loading notice: Level, ItemID, Count, PileID", level, itemid, count, pileid )
 	return LUA_TRUE
 end
 
 function SetMineResource( level, itemid, count, pileid )
 	if level == nil or itemid == nil or count == nil or pileid == nil then
 		PRINT( "SetMineResource:Function parameter error!level, itemid, count, pileid", level, itemid, count, pileid )
-		LG( "goods_error", "SetMineResource:Function parameter error!level, itemid, count, pileid", level, itemid, count, pileid )
 		return LUA_FALSE
 	end
 	
 	if ResourceList == nil or ResourceList.mine == nil then
 		PRINT( "SetMineResource: resource notice list cannot be as null!" )
-		LG( "goods_error", "SetMineResource: resource notice list cannot be as null!" )
 		return LAU_FALSE
 	end
 	
 	if ResourceList.mine[level] ~= nil then
 		PRINT( "While setting ore resource loading notice, level notice discovered to be overlayed! old data, level, itemid, count, pileid", level, itemid, count, pileid )
-		LG( "goods_error", "While setting ore resource loading notice, level notice discovered to be overlayed! old data, level, itemid, count, pileid", level, itemid, count, pileid )
 	end
 	
 	ResourceList.mine[level] = {}
@@ -2906,16 +2792,13 @@ function SetMineResource( level, itemid, count, pileid )
 	ResourceList.mine[level].count = count
 	ResourceList.mine[level].pileid  = pileid
 	PRINT( "set ore resource loading notice: level, ItemID, Count, PileID", level, itemid, count, pileid )
-	LG( "packbag_init", "set ore resource loading notice: level, ItemID, Count, PileID", level, itemid, count, pileid )
 	return LUA_TRUE
 end
 
 --添加港口信息
 function AddBerthPort( id, name )
-	PRINT( "Add Harbor Notice: ID["..id.."], Name["..name.."]" )
-	LG( "boat_init", "Add Harbor Notice: ID["..id.."], Name["..name.."]" )
+	PRINT( "add harbor notice: ID["..id.."],名称《"..name.."]" )
 	if BerthPortList[id] ~= nil then
-		LG( "boat_error", "AddBerthPort: adds harbor notice sending duplicate ID found, overlayed date: ID = "..id.."name = "..BerthPortList[id].name )
 		PRINT( "AddBerthPort: adds harbor notice sending duplicate ID found, overlayed date: ID = "..id.."name = "..BerthPortList[id].name )
 	end
 	
@@ -2936,27 +2819,22 @@ function CreateBerthEntity( name, cid, infoid, xpos1, ypos1, dir1, berth, xpos2,
 	PRINT( "Build Dock", name, cid, infoid, xpos1, ypos1, dir1, berth, xpos2, ypos2, dir2 )
 	if name == nil or cid == nil or infoid == nil or xpos1 == nil or ypos1 == nil or dir1 == nil or berth == nil or xpos2 == nil or ypos2 == nil or dir2 == nil then
 		PRINT( "CreateBerthEntity: Create function parameter notice error!" )
-		LG( "entity_error", "CreateBerthEntity: Create function parameter notice error!" )
 		return
 	end
-	LG( "entity_init", "CreateBerthEntity:name, cid, infoid, xpos1, ypos1, dir1, berth, xpos2, ypos2, dir2", name, cid, infoid, xpos1, ypos1, dir1, berth, xpos2, ypos2, dir2 )	
 	
 	local ret, submap = GetCurSubmap()
 	if ret ~= LUA_TRUE then
 		PRINT( "CreateBerthEntity:GetCurSubmapfunctiontransfer failed!" )
-		LG( "entity_error", "CreateBerthEntity:GetCurSubmapfunctiontransfer failed!" )
 		return
 	end
 	local ret, e = CreateEventEntity( BERTH_ENTITY, submap, name, cid, infoid, xpos1, ypos1, dir1 )
 	if ret ~= LUA_TRUE then
 		PRINT( "CreateBerthEntity:CreateEventEntity:functiontransfer failed!tp, submap, name, cid, infoid, xpos1, ypos1, dir1", BERTH_ENTITY, submap, name, cid, infoid, xpos1, ypos1, dir1 )
-		LG( "entity_error", "CreateBerthEntity:CreateEventEntity function transfer failed! tp, submap, name, cid, infoid, xpos1, ypos1, dir1", BERTH_ENTITY, submap, name, cid, infoid, xpos1, ypos1, dir1 )
 		return
 	end
 	ret = SetEntityData( e, berth, xpos2, ypos2, dir2 )
 	if ret ~= LUA_TRUE then
 		PRINT( "CreateBerthEntity:SetEntityDatafunctiontransfer failed!e, berth, xpos2, ypos2, dir2 ", e, berth, xpos2, ypos2, dir2 )
-		LG( "entity_error", "CreateBerthEntity:e, berth, xpos2, ypos2, dir2", e, berth, xpos2, ypos2, dir2 )
 		return
 	end
 end
@@ -2966,27 +2844,22 @@ function CreateResourceEntity( name, cid, infoid, xpos, ypos, dir, itemid, count
 	PRINT( "create resource entity", name, cid, infoid, xpos, ypos, dir, itemid, count, time )
 	if name == nil or cid == nil or infoid == nil or xpos == nil or ypos == nil or dir == nil or itemid == nil or count == nil or time == nil then
 		PRINT( "CreateResourceEntity: create function parameter notice error!" )
-		LG( "entity_error", "CreateResourceEntity: create function parameter notice error!" )
 		return
 	end
-	LG( "entity_init", "CreateResourceEntity:name, cid, infoid, xpos, ypos, dir, itemid, count, time", name, cid, infoid, xpos, ypos, dir, itemid, count, time )	
 	
 	local ret, submap = GetCurSubmap()
 	if ret ~= LUA_TRUE then
 		PRINT( "CreateResourceEntity:GetCurSubmapfunctiontransfer failed!" )
-		LG( "entity_error", "CreateResourceEntity:GetCurSubmapfunctiontransfer failed!" )
 		return
 	end
 	local ret, e = CreateEventEntity( RESOURCE_ENTITY, submap, name, cid, infoid, xpos, ypos, dir )
 	if ret ~= LUA_TRUE then
 		PRINT( "CreateResourceEntity:CreateEventEntity: function transfer failed!tp, submap, name, cid, infoid, xpos, ypos, dir", RESOURCE_ENTITY, submap, name, cid, infoid, xpos, ypos, dir )
-		LG( "entity_error", "CreateResourceEntity:CreateEventEntityfunctiontransfer failed!tp, submap, name, cid, infoid, xpos, ypos, dir", RESOURCE_ENTITY, submap, name, cid, infoid, xpos, ypos, dir )
 		return
 	end
 	ret = SetEntityData( e, itemid, count, time )
 	if ret ~= LUA_TRUE then
 		PRINT( "CreateResourceEntity:SetEntityDatafunctiontransfer failed!e, itemid, count, time ", e, itemid, count, time )
-		LG( "entity_error", "CreateResourceEntity:e, itemid, count, time", e, itemid, count, time )
 		return
 	end
 end
@@ -3001,7 +2874,6 @@ function AddPfTable( curpf, uppf )
 	for n = 1, Profession[curpf].count, 1 do
 		if Profession[curpf][n] == uppf then
 			PRINT( "Set target class advancement list notice already existed, add target notice failed!curpf = , uppf = ", curpf, uppf )
-			LG( "PfTable_error", "Set target class advancement list notice already existed, add target notice failed!" )
 			return
 		end
 	end
@@ -3009,7 +2881,6 @@ function AddPfTable( curpf, uppf )
 	Profession[curpf].count = Profession[curpf].count + 1
 	Profession[curpf][Profession[curpf].count] = uppf
 	
-	LG( "PfTable", "AddPfTable, curpf, uppf, count", curpf, uppf, Profession[curpf].count )
 end
 
 function AddCatTable( cat, pf )
@@ -3021,7 +2892,6 @@ function AddCatTable( cat, pf )
 	for n = 1, Category[cat].count, 1 do
 		if Category[cat][n] == pf then
 			PRINT( "Set target size class advancement restriction notice already existed add target notice failed!, cat, pt ", cat, pf )
-			LG( "PfTable_error", "Set target size class advancement restriction notice already existed, add target notice failed!" )
 			return
 		end
 	end
@@ -3029,7 +2899,6 @@ function AddCatTable( cat, pf )
 	Category[cat].count = Category[cat].count + 1
 	Category[cat][Category[cat].count] = pf
 	
-	LG( "PfTable", "AddCatTable, cat, pf, count ", cat, pf, Category[cat].count )
 end
 
 ------------------------------------------------------------
@@ -3232,7 +3101,7 @@ function TestBorn()
 	--define trigger 26
 	InitTrigger()
 	TriggerAction( 1, SystemNotice, "Time single per 1 minute trig" )
-	TriggerAction( 1, SystemNotice, "Welcome to the world of Pirate King Online!" )
+	TriggerAction( 1, SystemNotice, "Welcome to the world of Tales of Pirates!" )
 	RegTrigger( 26, 1 )
 	
 	--define trigger 27
@@ -3314,12 +3183,10 @@ function TestConvertProfession()
 	AddCatTable( 2, 17 )	--转职为爆发户
 	
 	--女主角一转职
-	AddCatTable( 3, 1 )
 	AddCatTable( 3, 2 )		--转职为猎人
 	AddCatTable( 3, 3 )		--转职为水手
 	AddCatTable( 3, 5 )		--转职为祈愿使
 	AddCatTable( 3, 7 )		--转职为商人
-	AddCatTable( 3, 9 )
 	AddCatTable( 3, 11 )	--转职为训兽师
 	AddCatTable( 3, 12 )	--转职为狙击手
 	AddCatTable( 3, 13 )	--转职为圣职者
@@ -3346,15 +3213,74 @@ end
 --SetMineResource( 1, 1, 1, 2 )
 
 --船只升级数据测试
---InitBoatLevel()
---AddBoatLevel( 1, 10, 0)
---AddBoatLevel( 2, 10, 0)
---AddBoatLevel( 3, 10, 0)
---AddBoatLevel( 4, 10, 0)
---AddBoatLevel( 5, 10, 0)
---AddBoatLevel( 6, 10, 0)
---AddBoatLevel( 7, 10, 0)
-
--- My Stuff
-
-
+InitBoatLevel()
+AddBoatLevel( 1, 10000, 100)
+AddBoatLevel( 2, 20000, 200)
+AddBoatLevel( 3, 30000, 300)
+AddBoatLevel( 4, 40000, 400)
+AddBoatLevel( 5, 50000, 500)
+AddBoatLevel( 6, 60000, 600)
+AddBoatLevel( 7, 70000, 700)
+AddBoatLevel( 8, 80000, 800)
+AddBoatLevel( 9, 90000, 900)
+AddBoatLevel( 10, 100000, 1000)
+AddBoatLevel( 11, 110000, 1100)
+AddBoatLevel( 12, 120000, 1200)
+AddBoatLevel( 13, 130000, 1300)
+AddBoatLevel( 14, 140000, 1400)
+AddBoatLevel( 15, 150000, 1500)
+AddBoatLevel( 16, 160000, 1600)
+AddBoatLevel( 17, 170000, 1700)
+AddBoatLevel( 18, 180000, 1800)
+AddBoatLevel( 19, 190000, 1900)
+AddBoatLevel( 20, 200000, 2000)
+AddBoatLevel( 21, 210000, 2100)
+AddBoatLevel( 22, 220000, 2200)
+AddBoatLevel( 23, 230000, 2300)
+AddBoatLevel( 24, 240000, 2400)
+AddBoatLevel( 25, 250000, 2500)
+AddBoatLevel( 26, 260000, 2600)
+AddBoatLevel( 27, 270000, 2700)
+AddBoatLevel( 28, 280000, 2800)
+AddBoatLevel( 29, 290000, 2900)
+AddBoatLevel( 30, 300000, 3000)
+AddBoatLevel( 31, 310000, 3100)
+AddBoatLevel( 32, 320000, 3200)
+AddBoatLevel( 33, 330000, 3300)
+AddBoatLevel( 34, 340000, 3400)
+AddBoatLevel( 35, 350000, 3500)
+AddBoatLevel( 36, 360000, 3600)
+AddBoatLevel( 37, 370000, 3700)
+AddBoatLevel( 38, 380000, 3800)
+AddBoatLevel( 39, 390000, 3900)
+AddBoatLevel( 40, 400000, 4000)
+AddBoatLevel( 41, 410000, 4100)
+AddBoatLevel( 42, 420000, 4200)
+AddBoatLevel( 43, 430000, 4300)
+AddBoatLevel( 44, 440000, 4400)
+AddBoatLevel( 45, 450000, 4500)
+AddBoatLevel( 46, 460000, 4600)
+AddBoatLevel( 47, 470000, 4700)
+AddBoatLevel( 48, 480000, 4800)
+AddBoatLevel( 49, 490000, 4900)
+AddBoatLevel( 50, 500000, 5000)
+AddBoatLevel( 51, 510000, 5100)
+AddBoatLevel( 52, 520000, 5200)
+AddBoatLevel( 53, 530000, 5300)
+AddBoatLevel( 54, 540000, 5400)
+AddBoatLevel( 55, 550000, 5500)
+AddBoatLevel( 56, 560000, 5600)
+AddBoatLevel( 57, 570000, 5700)
+AddBoatLevel( 58, 580000, 5800)
+AddBoatLevel( 59, 590000, 5900)
+AddBoatLevel( 60, 600000, 6000)
+AddBoatLevel( 61, 610000, 6100)
+AddBoatLevel( 62, 620000, 6200)
+AddBoatLevel( 63, 630000, 6300)
+AddBoatLevel( 64, 640000, 6400)
+AddBoatLevel( 65, 650000, 6500)
+AddBoatLevel( 66, 660000, 6600)
+AddBoatLevel( 67, 670000, 6700)
+AddBoatLevel( 68, 680000, 6800)
+AddBoatLevel( 69, 690000, 6900)
+AddBoatLevel( 70, 700000, 7000)

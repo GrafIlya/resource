@@ -1,16 +1,7 @@
---------------------------------------------------------------------------
---									--
---									--
---		TemplateSdk.lua Created by bt 2005.1.27.		--
---									--
---任务系统脚本模板函数							--
---------------------------------------------------------------------------
 print( "Loading TemplateSDK.lua" )
 print( "------------------------------------" )
 
 function MisKillMonster( Talk, Param, Prize )
-
-	--Created By BT 2005.01.28
 
 	DefineMission( Param.CurMissionID, Param.MissionName, Param.CurMissionID )
 
@@ -109,18 +100,15 @@ end
 
 
 function DefSendItemMission( id, name, misid, npcid, areaid, sid )
-	--定义一个任务（详见该函数说明，COMPLETE_SHOW函数参数表明该任务只有在角色完全符合条件可以交付时才会显示给玩家角色）
 	DefineMission( id, name, misid, COMPLETE_SHOW )
 	
 	MisBeginCondition( AlwaysFailure )
 	
 	MisResultTalk("谢谢你把我的包裹送过来！")
 	
-	--填写接受送信条件判定姓习，详见函数说明
 	MisResultCondition( HasRandMissionNpc, misid, npcid, areaid )
 	MisResultCondition( NoRandNpcItemFlag, misid, npcid )
 	
-	--任务完成动作信息（见随机任务的物品提取函数TakeRandNpcItem信息说明,该函数必须有）
 	MisResultAction( TakeRandNpcItem, misid, npcid, GetNpcName( npcid ) )
 	MisResultAction( RefreshCompleteFlag, sid )
 end

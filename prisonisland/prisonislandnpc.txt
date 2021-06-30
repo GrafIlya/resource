@@ -1,4 +1,0 @@
-//Serial	NPC Name	NPC Type	Chrindex ID	Show Mini-map	Coordinates starting point	Coordination Goal	NPC placement	Region	Region ID	NPC Script	info manage	Test Status
-1	ѕродавец Ѕилетов	1	415	0	27300,21200	27300,21200	270	Ља”ьµЇ	142	0	simplepro_02	0
-2	Грант	1	415	0	28000,21800	28000,21800	270	Ља”ьµЇ	90	0	obmen_rep1241	0
-

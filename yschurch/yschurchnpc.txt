@@ -1,8 +1,0 @@
-//Serial	NPC Name	NPC Type	Chrindex ID	Show Mini-map	Coordinates starting point	Coordination Goal	NPC placement	Region	Region ID	NPC Script	info manage	Test Status
-0	Свидетельница	1	1188	0	46575,4775	46575,4775	180	Церковь	1	0	church_talk02	0
-1	Свидетель	1	1189	0	47375,4775	47375,4775	180	Церковь	1	0	church_talk01	0
-2	Первосященник	1	1189	0	47000,4300	47000,4300	180	Церковь	1	0	church_talk03	0
-3	Прихожанка	1	430	0	20375,16425	20375,16425	210	Церковь	1	0	church_talk04	0
-
-
-

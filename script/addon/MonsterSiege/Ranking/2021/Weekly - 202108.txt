@@ -1,0 +1,1 @@
+return {[1]={["Kills"]=172,["Name"]="Daugther"},[2]={["Kills"]=31,["Name"]="Xyu"},[3]={["Kills"]=0,["Name"]="пусто"}}

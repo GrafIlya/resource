@@ -1,21 +1,11 @@
---------------------------------------------------------------------------
---									--
---									--
---				Look.lua				--
---									--
---									--
---------------------------------------------------------------------------
 print( "Loading Look.lua" )
-
-
-enumEQUIP_HEAD		= 0;	-- 五个身体部位;头;脸;身体;手;脚
-enumEQUIP_FACE		= 1;
-enumEQUIP_BODY		= 2;
-enumEQUIP_GLOVE		= 3;	-- 手套
-enumEQUIP_SHOES		= 4;	-- 鞋子
-
-enumEQUIP_NECK		= 5;	-- 脖子:带项链;徽章
-enumEQUIP_LHAND		= 6;	-- 左手		-- 左手右手的道具值为客户端Link点
-enumEQUIP_HAND1		= 7;	-- 两个手饰
-enumEQUIP_HAND2		= 8;
-enumEQUIP_RHAND		= 9;	-- 右手
+enumEQUIP_HEAD		= 0;	--袚芯谢芯胁邪
+enumEQUIP_FACE		= 1;	--袥懈褑芯
+enumEQUIP_BODY		= 2;	--孝械谢芯
+enumEQUIP_GLOVE		= 3;	--袩械褉褔邪褌泻懈
+enumEQUIP_SHOES		= 4;	--袘芯褌懈薪泻懈
+enumEQUIP_NECK		= 5;	--袨卸械褉械谢褜械
+enumEQUIP_LHAND		= 6;	--袨褉褍卸懈械 褋锌褉邪胁邪 胁 懈薪胁械薪褌邪褉械
+enumEQUIP_HAND1		= 7;	--袣芯谢褜褑芯 褋谢械胁邪 胁 懈薪胁械薪褌邪褉械
+enumEQUIP_HAND2		= 8;	--袣芯谢褜褑芯 褋锌褉邪胁邪 胁 懈薪胁械薪褌邪褉械
+enumEQUIP_RHAND		= 9;	--袨褉褍卸懈械 褋谢械胁邪 胁 懈薪胁械薪褌邪褉械

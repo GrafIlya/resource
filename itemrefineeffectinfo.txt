@@ -20,15 +20,15 @@
 19	Staff Parry Bonus	1	0	0	325	325	4	0	0	301	301	4	0	0	324	324	0	0	0	0	0	0
 20	Great Bonus Add Defense	3	326	326	0	0	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 21	Great Bonus adds Attack	1	329	329	0	0	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
-22	Great Attack Add Defense	2	332	332	0	0	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+22	Great Attack Add Defense	3	332	332	0	0	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 23	Great Parry Bonus	1	335	335	0	0	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
-24	Sword Bonus Defense	3	327	327	0	0	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
-25	Sword Bonus add Attack	1	330	330	0	0	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
-26	Sword Attack Added Defense	2	333	333	0	0	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+24	Sword Bonus Defense	4	327	327	0	0	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+25	Sword Bonus add Attack	6	330	330	0	0	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+26	Sword Attack Added Defense	3	333	333	0	0	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 27	Sword Parry Bonus	1	336	336	0	0	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
-28	Dagger Bonus Defense	3	328	0	328	328	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
-29	Dagger Bonus adds Attack	1	331	0	331	331	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
-30	Dagger Attack Adds Defense	2	334	0	334	334	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+28	Dagger Bonus Defense	2	328	0	328	328	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+29	Dagger Bonus adds Attack	4	331	0	331	331	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+30	Dagger Attack Adds Defense	3	334	0	334	334	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 31	DaggerParry Bonus	1	337	0	337	337	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 32	Gun Defense adds Bonus	2	320	0	320	0	3	323	0	323	0	1	0	0	0	0	0	0	0	0	0	0
 33	Gun Bonus Attack	3	322	0	322	0	3	307	0	307	0	1	0	0	0	0	0	0	0	0	0	0
@@ -58,8 +58,8 @@
 57	Staff Poison adds Defense	2	0	0	350	350	4	0	0	301	301	4	0	0	310	310	0	0	0	0	0	0
 58	Staff Bonus adds Poison	3	0	0	350	350	4	0	0	309	309	4	0	0	302	302	0	0	0	0	0	0
 59	Poisoned Staff Attack	1	0	0	350	350	4	0	0	312	312	4	0	0	313	313	0	0	0	0	0	0
-60	Gun Defense Added Poison	2	320	0	320	0	3	354	0	354	0	1	0	0	0	0	0	0	0	0	0	0
-61	Gun Bonus adds Poison	3	322	0	322	0	3	354	0	354	0	1	0	0	0	0	0	0	0	0	0	0
+60	Gun Defense Added Poison	2	320	0	320	0	3	307	0	307	0	1	0	0	0	0	0	0	0	0	0	0
+61	Gun Bonus adds Poison	3	320	0	320	0	3	307	0	307	0	1	0	0	0	0	0	0	0	0	0	0
 62	Gun Poison Adds Attack	1	353	0	353	0	3	307	0	307	0	1	0	0	0	0	0	0	0	0	0	0
 63	Sword Poison Resist	4	367	367	0	0	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 64	Sword Attack Bonus Poison	4	368	368	0	0	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0

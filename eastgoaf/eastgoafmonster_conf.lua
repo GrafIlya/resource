@@ -8,4 +8,5 @@
 print( "Loading EastgoafMonster_Conf.lua" )
 print( "------------------------------------" )
 
+CreateCha(1159,131500,307900,145,1800)
 

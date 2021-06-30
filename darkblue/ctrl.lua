@@ -1,51 +1,38 @@
---------------------------------------------------------------------------
---									--
---									--
---				ctrl.lua				--
---									--
---									--
---------------------------------------------------------------------------
-print( "Loading Darkblue Ctrl.lua" )
-
-
---此文件中，凡是可能被多次执行的函数，函数名都要加上地图名前缀
-
+print( "嚑｀悃獱 Ctrl.lua" )
 function config(map)
-    MapCanPK(map, 0)			-- 1 = Turns on PK Mouse Sword Icon // 0 = Turns off PK Mouse Sword Icon ( Need to press CTRL key )
---    MapType ( map , 3 )			-- 0 = PvP Off // 1 = PvP Off // 2 = PvP On ( Not allowed to kill Guild and Party Mates ) // 3 = PvP On ( Allowed to kill any player but not Party Mates ) // 4 = PvP On ( Not allowed to kill Guild and Party Mates )        
-end
-
-
-function get_map_entry_pos_darkblue()   --设置入口的位置的坐标（坐标（米））
-
-end
-
-function init_entry(map)
+    MapCanSavePos(map, 1) 
+    MapCanPK(map, 1) 
+    MapCopyNum(map, 1) 
+    SingleMapCopyPlyNum(map, 300)
+    MapCanTeam(map , 1)
+    MapType ( map , 3 )
 
 end
+function get_map_entry_pos_darkblue()
+end
 
-function after_enter_darkblue( role , map_copy )
+function init_entry( map )
+end
+
+function after_enter_darkblue( role, map_copy )
 end
 
 function before_leave_darkblue( role )
 end
 
 function map_copy_first_run_darkblue( map_copy )
-
 end
 
 function map_copy_run_darkblue( map_copy )
 end
 
---每5秒执行一次的
 function map_run_darkblue( map )
 end
 
---地图关闭时执行
-function map_copy_close_darkblue ( map_copy )
+function map_copy_close_darkblue( map_copy )
 end
-		
---地图开关判断——————————————————————————————————————————
 
-function can_open_entry_darkblue( map ) 
-end 
+function can_open_entry_darkblue( map )
+end
+function map_copy_run_special_darkblue(map)
+end

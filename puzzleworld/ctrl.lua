@@ -22,14 +22,14 @@ end
 
 function get_map_entry_pos_puzzleworld()   --设置入口的位置的坐标（坐标（米））
 
-	local POS_X=2168
-	local POS_Y=2773
+	local POS_X=2173
+	local POS_Y=2245
 	return POS_X , POS_Y
 
 end
 
 function init_entry(map)
     SetMapEntryMapName(map, "garner")					-- 设置入口的位置（地图名）
-    SetMapEntryTime(map, "2011/3/29/0/0", "0/3/0", "0/0/45", "0/1/15")	-- The first set of numbers is the starting point (Year/Month/Day/Hour/Minute), next is opening interval (Day/Hour/Minute), portal open duration (Day/Hour/Minute), and last is the map duration (Day/Hour/Minute)
+    SetMapEntryTime(map, "2011/3/29/0/0", "0/3/0", "0/2/0", "0/2/0")	-- The first set of numbers is the starting point (Year/Month/Day/Hour/Minute), next is opening interval (Day/Hour/Minute), portal open duration (Day/Hour/Minute), and last is the map duration (Day/Hour/Minute)
 
 end

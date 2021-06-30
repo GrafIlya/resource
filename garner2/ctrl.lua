@@ -1,78 +1,45 @@
---´ËÎÄ¼þÖÐ£¬·²ÊÇ¿ÉÄÜ±»¶à´ÎÖ´ÐÐµÄº¯Êý£¬º¯ÊýÃû¶¼Òª¼ÓÉÏµØÍ¼ÃûÇ°×º
+print( "Loading Garner2 Ctrl.lua" )
 
 function config(map)
-    MapCanSavePos(map, 0) --ÉèÖÃµØÍ¼ÊÇ·ñ±£´æ½ÇÉ«Î»ÖÃ£¨µØÍ¼£¬×ø±ê£¬·½Ïò£©£¬´ËÉèÖÃÓ°Ïì¸ÃµØÍ¼µÄËùÓÐ¸±±¾
-    MapCanPK(map, 1) --ÉèÖÃµØÍ¼ÊÇ·ñ¿ÉÒÔPK£¬´ËÉèÖÃÓ°Ïì¸ÃµØÍ¼µÄËùÓÐ¸±±¾
-    MapCanTeam( map, 1 )
-    MapType( map , 3 )
-    MapCopyNum(map, 1) --ÉèÖÃµØÍ¼µÄ¸±±¾ÊýÄ¿£¬Èç¹û²»µ÷ÓÃ¸ÃÓï¾ä£¬ÔòÊ¹ÓÃÄ¬ÈÏÖµ1
-    SingleMapCopyPlyNum(map, 300)   --ÉèÖÃÒ»¸ö¸±±¾µÄÍæ¼ÒÊý
-    --MapCanTeam(map , 1)
-    MapCanStall(map , 0)
+    MapCanSavePos(map, 0	)		
+    MapCanPK(map, 1)				
+    MapCanTeam( map, 1 )			
+    MapType( map , 3 )				        
+    MapCopyNum(map, 1)				
+    SingleMapCopyPlyNum(map, 300)	
+    MapCanStall(map , 0)			
 end
 
 
-function get_map_entry_pos_garner2()   --ÉèÖÃÈë¿ÚµÄÎ»ÖÃµÄ×ø±ê£¨×ø±ê£¨Ã×£©£©
+function get_map_entry_pos_garner2()   
 
-	local POS_X=2167
-	local POS_Y=2786
-
+	local POS_X=2232
+	local POS_Y=2782
 	return POS_X , POS_Y
 
 end
 
 function init_entry(map)
 
-    SetMapEntryMapName(map, "garner") --ÉèÖÃÈë¿ÚµÄÎ»ÖÃ£¨µØÍ¼Ãû£©
-     SetMapEntryTime(map, "2010/8/1/0/0", "0/2/0", "0/0/30", "0/0/50") --ÉèÖÃÈë¿ÚµÄÊ±¼ä£¬µØÍ¼¶ÔÏó£¬Ê×´Î¿ªÆôÊ±¼ä£¨Äê/ÔÂ/ÈÕ/Ê±/·Ö£©£¬ÒÔºóÔÙ´Î¿ªÆôµÄ¼ä¸ô£¨ÈÕ/Ê±/·Ö£¬È«£°±íÊ¾Ö»ÓÐÊ×´Î¿ªÆô£©£¬Ã¿´Î¿ªÆôµ½Èë¿ÚÏûÊ§µÄ¼ä¸ô£¨ÈÕ/Ê±/·Ö£¬È«£°±íÊ¾ÓÀ²»ÏûÊ§£©£¬Ã¿´Î¿ªÆôµ½µØÍ¼¹Ø±ÕµÄ¼ä¸ô£¨ÈÕ/Ê±/·Ö£¬È«£°±íÊ¾ÓÀ²»¹Ø±Õ£©¡£¡£
+    SetMapEntryMapName(map, "garner") 
+    SetMapEntryTime(map, "2008/10/18/10/0", "0/1/0", "0/0/30", "0/0/45")	-- The first set of numbers is the starting point (Year/Month/Day/Hour/Minute), next is opening interval (Day/Hour/Minute), portal open duration (Day/Hour/Minute), and last is the map duration (Day/Hour/Minute)
 
 end
 
-function after_enter_garner2(role, map_copy)
-	
-	local cha_id = GetRoleID(role)
-	chaos_kills[cha_id] = 0
-
+function after_enter_garner2( role , map_copy )
 end
 
-function before_leave_garner2(role)
-
-	local cha_id = GetRoleID(role)
-	chaos_kills[cha_id] = nil
-	
+function before_leave_garner2( role )
 end
 
---function map_copy_first_run_garner2( map_copy )
---	lua_SetCopySpecialInter(map_copy , 10000)
---	Notice("10")
---
---end
+function map_copy_run_garner2( map_copy )
+end
 
---function map_copy_run_garner2( map_copy )
-----Notice("3")
---local new1 = CreateChaEx(791, 120, 120, 145, 50)
---	SetChaLifeTime(new1, 900000)
---		
---end
-
---ƒõ5ú––“ƒ«?1??
-function map_copy_run_special_garner2( map_copy ) 
-	local HowManyNoDead = GetMapActivePlayer(map_copy)
-	if HowManyNoDead > 4 and HowManyNoDead <= 20 then
-	Notice("Â Ñåðåáðÿíîì Õàîñå åñòü âûæèâøèå: "..HowManyNoDead.." ÷åëîâåê " )
-	elseif HowManyNoDead > 1 and HowManyNoDead <= 4 then
-	Notice("Â Ñåðåáðÿíîì Õàîñå åñòü âûæèâøèå: "..HowManyNoDead.." ÷åëîâåêà " )
-	elseif HowManyNoDead > 21 and HowManyNoDead <= 24 then
-	Notice("Â Ñåðåáðÿíîì Õàîñå åñòü âûæèâøèå: "..HowManyNoDead.." ÷åëîâåêà " )
-	elseif HowManyNoDead > 24 and HowManyNoDead <= 30 then
-	Notice("Â Ñåðåáðÿíîì Õàîñå åñòü âûæèâøèå: "..HowManyNoDead.." ÷åëîâåê " )
-	elseif HowManyNoDead == 1 then
-	Notice("Â Ñåðåáðÿíîì Õàîñå åñòü âûæèâøèå: "..HowManyNoDead.." ÷åëîâåê " )
-	else
-		Notice("Â Ñåðåáðÿíîì Õàîñå íåò íè åäèíîãî âûæèâøåãî.Òîëüêî ïðàõ ïàäøèõ âîéíîâ ")
-	end
-	Every_5_minute = Every_5_minute+1
-	if Every_5_minute == 2 then -- ??+³?
+function map_copy_run_special_garner2( map_copy )
+	local HowManyNoDead = GetMapActivePlayer( map_copy )
+	Notice( "Â Ñåðåáðÿííîì õàîñå "..HowManyNoDead.." âûæèâøèõ" )
+	Every_5_minute = Every_5_minute + 1
+	if Every_5_minute == 2 then
 		local Monster2 = CreateChaEx(859, 6352, 3558, 145, 60,map_copy)
 		local Monster3 = CreateChaEx(859, 6761, 13062, 145, 60,map_copy)
 		local Monster4 = CreateChaEx(859, 10820, 24989, 145, 60,map_copy)
@@ -86,7 +53,7 @@ function map_copy_run_special_garner2( map_copy )
 		local Monster12 = CreateChaEx(859, 14373, 7541, 145, 60,map_copy)
 		local Monster13 = CreateChaEx(859, 10186, 6273, 145, 60,map_copy)
 		local Monster14 = CreateChaEx(859, 10043, 9649, 145, 60,map_copy)
-		local Monster15 = CreateChaEx(1225, 13600, 13600 , 145, 60,map_copy)
+		local Monster15 = CreateChaEx(859, 17186, 3343, 145, 60,map_copy)
 		SetChaLifeTime(Monster2,299050)
 		SetChaLifeTime(Monster3,299100)
 		SetChaLifeTime(Monster4,299150)
@@ -103,7 +70,7 @@ function map_copy_run_special_garner2( map_copy )
 		SetChaLifeTime(Monster15,299700)
 
 	end
-	if Every_5_minute == 3 then -- –?+³?
+	if Every_5_minute == 3 then 
 		local Monster16 = CreateChaEx(860, 11339, 24276, 145, 60,map_copy)
 		local Monster17 = CreateChaEx(860, 13812, 18439, 145, 60,map_copy)
 		local Monster18 = CreateChaEx(860, 15189, 6218, 145, 60,map_copy)
@@ -120,7 +87,7 @@ function map_copy_run_special_garner2( map_copy )
 		SetChaLifeTime(Monster22, 299350)
 
 	end
-	if Every_5_minute == 4 then -- ñŸ?+³?
+	if Every_5_minute == 4 then 
 		local Monster23 = CreateChaEx(861, 12167, 25665, 145, 60,map_copy)
 		local Monster24 = CreateChaEx(861, 13564, 23189, 145, 60,map_copy)
 		local Monster25 = CreateChaEx(861, 18274, 13329, 145, 60,map_copy)
@@ -137,7 +104,7 @@ function map_copy_run_special_garner2( map_copy )
 		SetChaLifeTime(Monster29, 299350)
 
 	end
-	if Every_5_minute == 5 then --‚Š–
+	if Every_5_minute == 5 then 
 		local Monster30 = CreateChaEx(875, 10785, 24073, 145, 60,map_copy)
 		local Monster31 = CreateChaEx(872, 13477, 22976, 145, 60,map_copy)
 		local Monster32 = CreateChaEx(868, 14639, 15668, 145, 60,map_copy)
@@ -184,7 +151,7 @@ function map_copy_run_special_garner2( map_copy )
 		SetChaLifeTime(Monster51,299100)
 
 	end
-	if Every_5_minute == 6 then -- ?—ò?‡‰<
+	if Every_5_minute == 6 then 
 		local Monster52 = CreateChaEx(869, 6383, 3326, 130, 60,map_copy)
 		local Monster53 = CreateChaEx(880, 6760, 5283, 310, 60,map_copy)
 		local Monster54 = CreateChaEx(876, 5985, 6834, 85, 60,map_copy)
@@ -217,7 +184,7 @@ function map_copy_run_special_garner2( map_copy )
 		local Monster81 = CreateChaEx(876, 17617, 5696, 175, 60,map_copy)
 		local Monster82 = CreateChaEx(873, 17042, 6149, 145, 60,map_copy)
 		local Monster83 = CreateChaEx(869, 16166, 6177, 190, 60,map_copy)
-		local Monster84 = CreateChaEx(879, 19034, 3793, 145, 60,map_copy)
+		local Monster84 = CreateChaEx(869, 19034, 3793, 145, 60,map_copy)
 		local Monster85 = CreateChaEx(876, 16762, 3079, 145, 60,map_copy)
 		local Monster86 = CreateChaEx(880, 15763, 3315, 145, 60,map_copy)
 		local Monster87 = CreateChaEx(873, 15786, 3892, 145, 60,map_copy)
@@ -271,7 +238,7 @@ function map_copy_run_special_garner2( map_copy )
 			SetChaLifeTime(Monster93,299100)
 
 	end
-	if Every_5_minute == 7 then -- î—?‡‰<
+	if Every_5_minute == 7 then 
 		local Monster94 = CreateChaEx(870, 8103, 15758, 145, 60,map_copy)
 		local Monster95 = CreateChaEx(871, 6366, 16072, 145, 60,map_copy)
 		local Monster96 = CreateChaEx(877, 6158, 14021, 145, 60,map_copy)
@@ -422,174 +389,175 @@ function map_copy_run_special_garner2( map_copy )
 			SetChaLifeTime(Monster167,299700)
 
 	end
-	if Every_5_minute == 8 then -- óšê?‡‰<
-		local Monster168 =CreateChaEx(886, 12509, 4259, 145, 60,map_copy)
-		local Monster169 =CreateChaEx(885, 5457, 4334, 145, 60,map_copy)
-		local Monster170 =CreateChaEx(886, 5773, 6410, 145, 60,map_copy)
-		local Monster171 =CreateChaEx(885, 6015, 7907, 145, 60,map_copy)
+	if Every_5_minute == 8 then 
+		local Monster168 =CreateChaEx(883, 12509, 4259, 145, 60,map_copy)
+		local Monster169 =CreateChaEx(884, 5457, 4334, 145, 60,map_copy)
+		local Monster170 =CreateChaEx(885, 5773, 6410, 145, 60,map_copy)
+		local Monster171 =CreateChaEx(886, 6015, 7907, 145, 60,map_copy)
 		local Monster172 =CreateChaEx(883, 5912, 9755, 145, 60,map_copy)
-		local Monster173 =CreateChaEx(885, 5765, 11923, 145, 60,map_copy)
+		local Monster173 =CreateChaEx(884, 5765, 11923, 145, 60,map_copy)
 		local Monster174 =CreateChaEx(885, 5778, 16229, 100, 60,map_copy)
 		local Monster175 =CreateChaEx(886, 12287, 23966, 235, 60,map_copy)
-		local Monster176 =CreateChaEx(885, 12452, 16601, 10, 60,map_copy)
-		local Monster177 =CreateChaEx(885, 8745, 16392, 70, 60,map_copy)
-		local Monster178 =CreateChaEx(883, 10637, 17204, 340, 60,map_copy)
-		local Monster179 =CreateChaEx(883, 13138, 18622, 145, 60,map_copy)
-		local Monster180 =CreateChaEx(886, 13053, 20648, 145, 60,map_copy)
-		local Monster181 =CreateChaEx(885, 11115, 22603, 145, 60,map_copy)
-		local Monster182 =CreateChaEx(886, 9806, 23768, 145, 60,map_copy)
-		local Monster183 =CreateChaEx(885, 10671, 24923, 355, 60,map_copy)
+		local Monster176 =CreateChaEx(883, 12452, 16601, 10, 60,map_copy)
+		local Monster177 =CreateChaEx(884, 8745, 16392, 70, 60,map_copy)
+		local Monster178 =CreateChaEx(885, 10637, 17204, 340, 60,map_copy)
+		local Monster179 =CreateChaEx(886, 13138, 18622, 145, 60,map_copy)
+		local Monster180 =CreateChaEx(883, 13053, 20648, 145, 60,map_copy)
+		local Monster181 =CreateChaEx(884, 11115, 22603, 145, 60,map_copy)
+		local Monster182 =CreateChaEx(885, 9806, 23768, 145, 60,map_copy)
+		local Monster183 =CreateChaEx(886, 10671, 24923, 355, 60,map_copy)
 		local Monster184 =CreateChaEx(883, 12144, 25703, 340, 60,map_copy)
 		local Monster185 =CreateChaEx(884, 13693, 25149, 325, 60,map_copy)
-		local Monster186 =CreateChaEx(883, 14113, 24077, 220, 60,map_copy)
+		local Monster186 =CreateChaEx(885, 14113, 24077, 220, 60,map_copy)
 		local Monster187 =CreateChaEx(886, 14256, 22667, 235, 60,map_copy)
-		local Monster188 =CreateChaEx(885, 13194, 22154, 160, 60,map_copy)
-		local Monster189 =CreateChaEx(883, 13766, 20308, 145, 60,map_copy)
+		local Monster188 =CreateChaEx(883, 13194, 22154, 160, 60,map_copy)
+		local Monster189 =CreateChaEx(884, 13766, 20308, 145, 60,map_copy)
 		local Monster190 =CreateChaEx(885, 14438, 21317, 115, 60,map_copy)
-		local Monster191 =CreateChaEx(885, 15361, 20579, 220, 60,map_copy)
-		local Monster192 =CreateChaEx(884, 13893, 19379, 250, 60,map_copy)
-		local Monster193 =CreateChaEx(883, 12373, 19662, 145, 60,map_copy)
-		local Monster194 =CreateChaEx(886, 14845, 17779, 235, 60,map_copy)
-		local Monster195 =CreateChaEx(885, 12338, 17990, 145, 60,map_copy)
-		local Monster196 =CreateChaEx(886, 13878, 17083, 145, 60,map_copy)
-		local Monster197 =CreateChaEx(885, 17986, 16422, 145, 60,map_copy)
-		local Monster198 =CreateChaEx(883, 18897, 18510, 220, 60,map_copy)
-		local Monster199 =CreateChaEx(885, 18986, 20192, 235, 60,map_copy)
-		local Monster200 =CreateChaEx(886, 17770, 21172, 145, 60,map_copy)
-		local Monster201 =CreateChaEx(885, 17749, 20183, 145, 60,map_copy)
-		local Monster202 =CreateChaEx(886, 17608, 17940, 145, 60,map_copy)
-		local Monster203 =CreateChaEx(885, 17966, 16919, 145, 60,map_copy)
-		local Monster204 =CreateChaEx(885, 15719, 16587, 355, 60,map_copy)
+		local Monster191 =CreateChaEx(886, 15361, 20579, 220, 60,map_copy)
+		local Monster192 =CreateChaEx(883, 13893, 19379, 250, 60,map_copy)
+		local Monster193 =CreateChaEx(884, 12373, 19662, 145, 60,map_copy)
+		local Monster194 =CreateChaEx(885, 14845, 17779, 235, 60,map_copy)
+		local Monster195 =CreateChaEx(886, 12338, 17990, 145, 60,map_copy)
+		local Monster196 =CreateChaEx(883, 13878, 17083, 145, 60,map_copy)
+		local Monster197 =CreateChaEx(884, 17986, 16422, 145, 60,map_copy)
+		local Monster198 =CreateChaEx(885, 18897, 18510, 220, 60,map_copy)
+		local Monster199 =CreateChaEx(886, 18986, 20192, 235, 60,map_copy)
+		local Monster200 =CreateChaEx(883, 17770, 21172, 145, 60,map_copy)
+		local Monster201 =CreateChaEx(884, 17749, 20183, 145, 60,map_copy)
+		local Monster202 =CreateChaEx(885, 17608, 17940, 145, 60,map_copy)
+		local Monster203 =CreateChaEx(886, 17966, 16919, 145, 60,map_copy)
+		local Monster204 =CreateChaEx(883, 15719, 16587, 355, 60,map_copy)
 		local Monster205 =CreateChaEx(884, 13626, 15567, 145, 60,map_copy)
-		local Monster206 =CreateChaEx(883, 12259, 15636, 145, 60,map_copy)
-		local Monster207 =CreateChaEx(883, 10368, 15866, 145, 60,map_copy)
-		local Monster208 =CreateChaEx(886, 10862, 14192, 145, 60,map_copy)
-		local Monster209 =CreateChaEx(886, 12133, 14455, 145, 60,map_copy)
-		local Monster210 =CreateChaEx(886, 11717, 11742, 145, 60,map_copy)
+		local Monster206 =CreateChaEx(885, 12259, 15636, 145, 60,map_copy)
+		local Monster207 =CreateChaEx(886, 10368, 15866, 145, 60,map_copy)
+		local Monster208 =CreateChaEx(883, 10862, 14192, 145, 60,map_copy)
+		local Monster209 =CreateChaEx(884, 12133, 14455, 145, 60,map_copy)
+		local Monster210 =CreateChaEx(885, 11717, 11742, 145, 60,map_copy)
 		local Monster211 =CreateChaEx(886, 14496, 13609, 145, 60,map_copy)
-		local Monster212 =CreateChaEx(884, 15696, 15415, 145, 60,map_copy)
-		local Monster213 =CreateChaEx(883, 17531, 15466, 175, 60,map_copy)
+		local Monster212 =CreateChaEx(883, 15696, 15415, 145, 60,map_copy)
+		local Monster213 =CreateChaEx(884, 17531, 15466, 175, 60,map_copy)
 		local Monster214 =CreateChaEx(885, 19447, 19081, 25, 60,map_copy)
 		local Monster215 =CreateChaEx(886, 21536, 18830, 85, 60,map_copy)
 		local Monster216 =CreateChaEx(883, 22710, 19054, 340, 60,map_copy)
-		local Monster217 =CreateChaEx(885, 24410, 19083, 295, 60,map_copy)
-		local Monster218 =CreateChaEx(886, 24879, 17783, 265, 60,map_copy)
-		local Monster219 =CreateChaEx(884, 24537, 16584, 145, 60,map_copy)
-		local Monster220 =CreateChaEx(885, 23040, 16326, 145, 60,map_copy)
-		local Monster221 =CreateChaEx(883, 21823, 16318, 145, 60,map_copy)
+		local Monster217 =CreateChaEx(884, 24410, 19083, 295, 60,map_copy)
+		local Monster218 =CreateChaEx(885, 24879, 17783, 265, 60,map_copy)
+		local Monster219 =CreateChaEx(886, 24537, 16584, 145, 60,map_copy)
+		local Monster220 =CreateChaEx(883, 23040, 16326, 145, 60,map_copy)
+		local Monster221 =CreateChaEx(884, 21823, 16318, 145, 60,map_copy)
 		local Monster222 =CreateChaEx(885, 21039, 17245, 205, 60,map_copy)
 		local Monster223 =CreateChaEx(886, 19761, 16810, 220, 60,map_copy)
-		local Monster224 =CreateChaEx(884, 19295, 17794, 130, 60,map_copy)
-		local Monster225 =CreateChaEx(885, 19336, 16410, 265, 60,map_copy)
-		local Monster226 =CreateChaEx(883, 19761, 15645, 235, 60,map_copy)
-		local Monster227 =CreateChaEx(885, 20661, 12547, 145, 60,map_copy)
-		local Monster228 =CreateChaEx(886, 20309, 14934, 265, 60,map_copy)
-		local Monster229 =CreateChaEx(885, 20643, 13701, 175, 60,map_copy)
-		local Monster230 =CreateChaEx(884, 19566, 13489, 145, 60,map_copy)
-		local Monster231 =CreateChaEx(883, 19582, 12389, 145, 60,map_copy)
-		local Monster232 =CreateChaEx(885, 17997, 12389, 145, 60,map_copy)
+		local Monster224 =CreateChaEx(883, 19295, 17794, 130, 60,map_copy)
+		local Monster225 =CreateChaEx(884, 19336, 16410, 265, 60,map_copy)
+		local Monster226 =CreateChaEx(885, 19761, 15645, 235, 60,map_copy)
+		local Monster227 =CreateChaEx(886, 20661, 12547, 145, 60,map_copy)
+		local Monster228 =CreateChaEx(883, 20309, 14934, 265, 60,map_copy)
+		local Monster229 =CreateChaEx(884, 20643, 13701, 175, 60,map_copy)
+		local Monster230 =CreateChaEx(885, 19566, 13489, 145, 60,map_copy)
+		local Monster231 =CreateChaEx(886, 19582, 12389, 145, 60,map_copy)
+		local Monster232 =CreateChaEx(883, 17997, 12389, 145, 60,map_copy)
 		local Monster233 =CreateChaEx(884, 16476, 12852, 145, 60,map_copy)
-		local Monster234 =CreateChaEx(883, 14757, 12515, 145, 60,map_copy)
-		local Monster235 =CreateChaEx(885, 13520, 11379, 145, 60,map_copy)
-		local Monster236 =CreateChaEx(886, 12775, 11229, 145, 60,map_copy)
-		local Monster237 =CreateChaEx(885, 13050, 9677, 235, 60,map_copy)
-		local Monster238 =CreateChaEx(884, 10951, 10978, 145, 60,map_copy)
-		local Monster239 =CreateChaEx(883, 10735, 9437, 145, 60,map_copy)
-		local Monster240 =CreateChaEx(886, 12030, 13049, 145, 60,map_copy)
-		local Monster241 =CreateChaEx(886, 11154, 13044, 145, 60,map_copy)
+		local Monster234 =CreateChaEx(885, 14757, 12515, 145, 60,map_copy)
+		local Monster235 =CreateChaEx(886, 13520, 11379, 145, 60,map_copy)
+		local Monster236 =CreateChaEx(883, 12775, 11229, 145, 60,map_copy)
+		local Monster237 =CreateChaEx(884, 13050, 9677, 235, 60,map_copy)
+		local Monster238 =CreateChaEx(885, 10951, 10978, 145, 60,map_copy)
+		local Monster239 =CreateChaEx(886, 10735, 9437, 145, 60,map_copy)
+		local Monster240 =CreateChaEx(883, 12030, 13049, 145, 60,map_copy)
+		local Monster241 =CreateChaEx(884, 11154, 13044, 145, 60,map_copy)
 		local Monster242 =CreateChaEx(885, 9754, 13486, 145, 60,map_copy)
-		local Monster243 =CreateChaEx(883, 8647, 13953, 145, 60,map_copy)
-		local Monster244 =CreateChaEx(886, 8724, 12802, 145, 60,map_copy)
-		local Monster245 =CreateChaEx(885, 9664, 12421, 145, 60,map_copy)
-		local Monster246 =CreateChaEx(884, 9603, 11357, 145, 60,map_copy)
+		local Monster243 =CreateChaEx(886, 8647, 13953, 145, 60,map_copy)
+		local Monster244 =CreateChaEx(883, 8724, 12802, 145, 60,map_copy)
+		local Monster245 =CreateChaEx(884, 9664, 12421, 145, 60,map_copy)
+		local Monster246 =CreateChaEx(885, 9603, 11357, 145, 60,map_copy)
 		local Monster247 =CreateChaEx(886, 9958, 10562, 145, 60,map_copy)
-		local Monster248 =CreateChaEx(885, 8655, 10842, 145, 60,map_copy)
-		local Monster249 =CreateChaEx(886, 8639, 9741, 145, 60,map_copy)
-		local Monster250 =CreateChaEx(886, 8666, 5103, 145, 60,map_copy)
-		local Monster251 =CreateChaEx(885, 8702, 6631, 145, 60,map_copy)
+		local Monster248 =CreateChaEx(883, 8655, 10842, 145, 60,map_copy)
+		local Monster249 =CreateChaEx(884, 8639, 9741, 145, 60,map_copy)
+		local Monster250 =CreateChaEx(885, 8666, 5103, 145, 60,map_copy)
+		local Monster251 =CreateChaEx(886, 8702, 6631, 145, 60,map_copy)
 		local Monster252 =CreateChaEx(883, 8721, 8236, 145, 60,map_copy)
-		local Monster253 =CreateChaEx(886, 10323, 9552, 145, 60,map_copy)
+		local Monster253 =CreateChaEx(884, 10323, 9552, 145, 60,map_copy)
 		local Monster254 =CreateChaEx(885, 9828, 8401, 145, 60,map_copy)
-		local Monster255 =CreateChaEx(884, 9615, 7427, 145, 60,map_copy)
+		local Monster255 =CreateChaEx(886, 9615, 7427, 145, 60,map_copy)
 		local Monster256 =CreateChaEx(883, 11009, 8562, 145, 60,map_copy)
-		local Monster257 =CreateChaEx(886, 12226, 8433, 145, 60,map_copy)
-		local Monster258 =CreateChaEx(884, 15415, 7607, 145, 60,map_copy)
-		local Monster259 =CreateChaEx(883, 14380, 8470, 145, 60,map_copy)
-		local Monster260 =CreateChaEx(885, 14279, 10057, 145, 60,map_copy)
-		local Monster261 =CreateChaEx(883, 14500, 11200, 145, 60,map_copy)
-		local Monster262 =CreateChaEx(886, 15774, 12103, 145, 60,map_copy)
-		local Monster263 =CreateChaEx(883, 15897, 9088, 145, 60,map_copy)
-		local Monster264 =CreateChaEx(886, 15927, 9926, 145, 60,map_copy)
-		local Monster265 =CreateChaEx(885, 15870, 11318, 145, 60,map_copy)
-		local Monster266 =CreateChaEx(884, 16705, 11009, 145, 60,map_copy)
+		local Monster257 =CreateChaEx(884, 12226, 8433, 145, 60,map_copy)
+		local Monster258 =CreateChaEx(885, 15415, 7607, 145, 60,map_copy)
+		local Monster259 =CreateChaEx(886, 14380, 8470, 145, 60,map_copy)
+		local Monster260 =CreateChaEx(883, 14279, 10057, 145, 60,map_copy)
+		local Monster261 =CreateChaEx(884, 14500, 11200, 145, 60,map_copy)
+		local Monster262 =CreateChaEx(885, 15774, 12103, 145, 60,map_copy)
+		local Monster263 =CreateChaEx(886, 15897, 9088, 145, 60,map_copy)
+		local Monster264 =CreateChaEx(883, 15927, 9926, 145, 60,map_copy)
+		local Monster265 =CreateChaEx(884, 15870, 11318, 145, 60,map_copy)
+		local Monster266 =CreateChaEx(885, 16705, 11009, 145, 60,map_copy)
 		local Monster267 =CreateChaEx(886, 16991, 10282, 145, 60,map_copy)
-		local Monster268 =CreateChaEx(885, 16776, 9390, 100, 60,map_copy)
+		local Monster268 =CreateChaEx(883, 16776, 9390, 100, 60,map_copy)
 		local Monster269 =CreateChaEx(884, 16228, 8008, 145, 60,map_copy)
 		local Monster270 =CreateChaEx(885, 17340, 5441, 145, 60,map_copy)
 		local Monster271 =CreateChaEx(886, 16977, 6826, 250, 60,map_copy)
-		local Monster272 =CreateChaEx(885, 17895, 7596, 145, 60,map_copy)
-		local Monster273 =CreateChaEx(883, 18350, 9107, 145, 60,map_copy)
+		local Monster272 =CreateChaEx(883, 17895, 7596, 145, 60,map_copy)
+		local Monster273 =CreateChaEx(884, 18350, 9107, 145, 60,map_copy)
 		local Monster274 =CreateChaEx(885, 17184, 12038, 145, 60,map_copy)
-		local Monster275 =CreateChaEx(884, 17675, 13625, 280, 60,map_copy)
+		local Monster275 =CreateChaEx(886, 17675, 13625, 280, 60,map_copy)
 		local Monster276 =CreateChaEx(883, 17292, 14462, 355, 60,map_copy)
-		local Monster277 =CreateChaEx(885, 18674, 13972, 250, 60,map_copy)
-		local Monster278 =CreateChaEx(886, 18726, 13152, 235, 60,map_copy)
-		local Monster279 =CreateChaEx(884, 19140, 11976, 235, 60,map_copy)
-		local Monster280 =CreateChaEx(885, 19373, 10749, 205, 60,map_copy)
-		local Monster281 =CreateChaEx(883, 19756, 9173, 250, 60,map_copy)
-		local Monster282 =CreateChaEx(884, 20326, 10478, 250, 60,map_copy)
-		local Monster283 =CreateChaEx(885, 21174, 11534, 280, 60,map_copy)
+		local Monster277 =CreateChaEx(884, 18674, 13972, 250, 60,map_copy)
+		local Monster278 =CreateChaEx(885, 18726, 13152, 235, 60,map_copy)
+		local Monster279 =CreateChaEx(886, 19140, 11976, 235, 60,map_copy)
+		local Monster280 =CreateChaEx(883, 19373, 10749, 205, 60,map_copy)
+		local Monster281 =CreateChaEx(884, 19756, 9173, 250, 60,map_copy)
+		local Monster282 =CreateChaEx(885, 20326, 10478, 250, 60,map_copy)
+		local Monster283 =CreateChaEx(886, 21174, 11534, 280, 60,map_copy)
 		local Monster284 =CreateChaEx(883, 21691, 10492, 220, 60,map_copy)
-		local Monster285 =CreateChaEx(886, 8797, 15531, 145, 60,map_copy)
-		local Monster286 =CreateChaEx(886, 20759, 8953, 235, 60,map_copy)
+		local Monster285 =CreateChaEx(884, 8797, 15531, 145, 60,map_copy)
+		local Monster286 =CreateChaEx(885, 20759, 8953, 235, 60,map_copy)
 		local Monster287 =CreateChaEx(886, 19452, 7657, 220, 60,map_copy)
-		local Monster288 =CreateChaEx(884, 19486, 6799, 220, 60,map_copy)
-		local Monster289 =CreateChaEx(885, 20496, 7737, 145, 60,map_copy)
-		local Monster290 =CreateChaEx(886, 20700, 6806, 145, 60,map_copy)
-		local Monster291 =CreateChaEx(885, 20642, 5653, 220, 60,map_copy)
+		local Monster288 =CreateChaEx(883, 19486, 6799, 220, 60,map_copy)
+		local Monster289 =CreateChaEx(884, 20496, 7737, 145, 60,map_copy)
+		local Monster290 =CreateChaEx(885, 20700, 6806, 145, 60,map_copy)
+		local Monster291 =CreateChaEx(886, 20642, 5653, 220, 60,map_copy)
 		local Monster292 =CreateChaEx(883, 19568, 5521, 220, 60,map_copy)
-		local Monster293 =CreateChaEx(883, 18070, 5694, 145, 60,map_copy)
+		local Monster293 =CreateChaEx(884, 18070, 5694, 145, 60,map_copy)
 		local Monster294 =CreateChaEx(885, 15987, 6943, 145, 60,map_copy)
 		local Monster295 =CreateChaEx(886, 14332, 7074, 145, 60,map_copy)
-		local Monster296 =CreateChaEx(884, 13255, 6892, 145, 60,map_copy)
-		local Monster297 =CreateChaEx(885, 11828, 7155, 145, 60,map_copy)
-		local Monster298 =CreateChaEx(886, 10361, 6896, 175, 60,map_copy)
-		local Monster299 =CreateChaEx(884, 9856, 6512, 145, 60,map_copy)
+		local Monster296 =CreateChaEx(883, 13255, 6892, 145, 60,map_copy)
+		local Monster297 =CreateChaEx(884, 11828, 7155, 145, 60,map_copy)
+		local Monster298 =CreateChaEx(885, 10361, 6896, 175, 60,map_copy)
+		local Monster299 =CreateChaEx(886, 9856, 6512, 145, 60,map_copy)
 		local Monster300 =CreateChaEx(883, 10510, 5556, 145, 60,map_copy)
-		local Monster301 =CreateChaEx(886, 11501, 6188, 145, 60,map_copy)
+		local Monster301 =CreateChaEx(884, 11501, 6188, 145, 60,map_copy)
 		local Monster302 =CreateChaEx(885, 12417, 5925, 175, 60,map_copy)
 		local Monster303 =CreateChaEx(886, 14962, 6289, 145, 60,map_copy)
-		local Monster304 =CreateChaEx(884, 14056, 6124, 145, 60,map_copy)
-		local Monster305 =CreateChaEx(885, 15776, 5999, 190, 60,map_copy)
-		local Monster306 =CreateChaEx(883, 14497, 4230, 115, 60,map_copy)
-		local Monster307 =CreateChaEx(883, 17683, 4209, 250, 60,map_copy)
-		local Monster308 =CreateChaEx(886, 19524, 4054, 220, 60,map_copy)
-		local Monster309 =CreateChaEx(883, 19698, 3217, 160, 60,map_copy)
-		local Monster310 =CreateChaEx(886, 19010, 3462, 145, 60,map_copy)
-		local Monster311 =CreateChaEx(885, 17617, 3373, 145, 60,map_copy)
-		local Monster312 =CreateChaEx(884, 16722, 2757, 145, 60,map_copy)
-		local Monster313 =CreateChaEx(883, 15852, 3275, 145, 60,map_copy)
-		local Monster314 =CreateChaEx(886, 15111, 3340, 145, 60,map_copy)
-		local Monster315 =CreateChaEx(885, 14381, 2672, 145, 60,map_copy)
-		local Monster316 =CreateChaEx(884, 13548, 3291, 145, 60,map_copy)
-		local Monster317 =CreateChaEx(886, 12330, 2930, 145, 60,map_copy)
+		local Monster304 =CreateChaEx(883, 14056, 6124, 145, 60,map_copy)
+		local Monster305 =CreateChaEx(884, 15776, 5999, 190, 60,map_copy)
+		local Monster306 =CreateChaEx(885, 14497, 4230, 115, 60,map_copy)
+		local Monster307 =CreateChaEx(886, 17683, 4209, 250, 60,map_copy)
+		local Monster308 =CreateChaEx(883, 19524, 4054, 220, 60,map_copy)
+		local Monster309 =CreateChaEx(884, 19698, 3217, 160, 60,map_copy)
+		local Monster310 =CreateChaEx(885, 19010, 3462, 145, 60,map_copy)
+		local Monster311 =CreateChaEx(886, 17617, 3373, 145, 60,map_copy)
+		local Monster312 =CreateChaEx(883, 16722, 2757, 145, 60,map_copy)
+		local Monster313 =CreateChaEx(884, 15852, 3275, 145, 60,map_copy)
+		local Monster314 =CreateChaEx(885, 15111, 3340, 145, 60,map_copy)
+		local Monster315 =CreateChaEx(886, 14381, 2672, 145, 60,map_copy)
+		local Monster316 =CreateChaEx(883, 13548, 3291, 145, 60,map_copy)
+		local Monster317 =CreateChaEx(884, 12330, 2930, 145, 60,map_copy)
 		local Monster318 =CreateChaEx(885, 11616, 3663, 145, 60,map_copy)
-		local Monster319 =CreateChaEx(884, 10642, 2901, 145, 60,map_copy)
+		local Monster319 =CreateChaEx(886, 10642, 2901, 145, 60,map_copy)
 		local Monster320 =CreateChaEx(883, 10180, 4087, 145, 60,map_copy)
-		local Monster321 =CreateChaEx(886, 9541, 3296, 145, 60,map_copy)
+		local Monster321 =CreateChaEx(884, 9541, 3296, 145, 60,map_copy)
 		local Monster322 =CreateChaEx(885, 9087, 3095, 145, 60,map_copy)
 		local Monster323 =CreateChaEx(886, 8476, 3854, 145, 60,map_copy)
-		local Monster324 =CreateChaEx(884, 7821, 3114, 145, 60,map_copy)
-		local Monster325 =CreateChaEx(883, 6536, 4350, 145, 60,map_copy)
-		local Monster326 =CreateChaEx(884, 7257, 5414, 115, 60,map_copy)
-		local Monster327 =CreateChaEx(885, 7122, 7119, 145, 60,map_copy)
-		local Monster328 =CreateChaEx(886, 7189, 8852, 145, 60,map_copy)	
-		local Monster329 =CreateChaEx(885, 7165, 11359, 145, 60,map_copy)	
-		local Monster330 =CreateChaEx(884, 7175, 13327, 100, 60,map_copy)	
+		local Monster324 =CreateChaEx(883, 7821, 3114, 145, 60,map_copy)
+		local Monster325 =CreateChaEx(884, 6536, 4350, 145, 60,map_copy)
+		local Monster326 =CreateChaEx(885, 7257, 5414, 115, 60,map_copy)
+		local Monster327 =CreateChaEx(886, 7122, 7119, 145, 60,map_copy)
+		local Monster328 =CreateChaEx(883, 7189, 8852, 145, 60,map_copy)	
+		local Monster329 =CreateChaEx(884, 7165, 11359, 145, 60,map_copy)	
+		local Monster330 =CreateChaEx(885, 7175, 13327, 100, 60,map_copy)	
 		local Monster331 =CreateChaEx(883, 7096, 15693, 70, 60,map_copy)	
 		local Monster332 =CreateChaEx(884, 6836, 3723, 145, 60,map_copy)	
-		local Monster333 =CreateChaEx(884, 21369, 9546, 205, 60,map_copy)
-		local Monster334 =CreateChaEx(1226, 13600, 13700, 205, 60,map_copy)
+		local Monster333 =CreateChaEx(885, 21369, 9546, 205, 60,map_copy)
+		local Monster334 =CreateChaEx(886, 21811, 3311, 205, 60,map_copy)
+		local Monster335 =CreateChaEx(886, 13600, 13900, 205, 60,map_copy)
 			SetChaLifeTime(Monster168,290050)
 			SetChaLifeTime(Monster169,290100)
 			SetChaLifeTime(Monster170,290150)
@@ -757,85 +725,75 @@ function map_copy_run_special_garner2( map_copy )
 			SetChaLifeTime(Monster332,298250)
 			SetChaLifeTime(Monster333,298300)
 			SetChaLifeTime(Monster334,298350)
-
+			SetChaLifeTime(Monster335,298400)
 
 	end
-end
---ƒõ5ƒ«???Žç?
-function map_run_garner2( map )
-	
+
 end
 
---ç˜?ü˜+•Š+?
+function map_run_garner2( map )
+
+end
+
 function map_copy_before_close_garner2( map_copy )
 	How_Many_Active = GetMapActivePlayer(map_copy)
 	if How_Many_Active > 0 then
-		DealAllActivePlayerInMap(map_copy,"GiveSpecItem")
+		DealAllActivePlayerInMap(map_copy,"GiveSpecItem3")
 	end
 	How_Many_Active = 0
-	Money_all = 100000000
 	Every_5_minute = 0
 end
 
---ç˜?ü˜+•Š+–?
 function map_copy_close_garner2( map_copy )
 	ClearAllSubMapCha(map_copy)
 end
---
---µØÍ¼¿ª¹ØÅÐ¶Ï¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
-function can_open_entry_garner2( map )
+function can_open_entry_garner2( map ) 
 	local Now_Time = GetNowTime()
+	if Now_Time ==0 or Now_Time ==1 or Now_Time ==2 or Now_Time ==3 or Now_Time ==4 or Now_Time ==5 or Now_Time ==6 or Now_Time ==7 or Now_Time ==8 or Now_Time ==9 or Now_Time ==10 or Now_Time ==11 or Now_Time ==12 or Now_Time ==13 or Now_Time ==14 or Now_Time ==15 or Now_Time ==16 or Now_Time ==17 or Now_Time ==18 or Now_Time ==19 or Now_Time == 20 or Now_Time ==21 or Now_Time ==22 or Now_Time ==23 then
 		return 1
-
+	else
+		return 0
+	end
 end 
 
-
-function GiveSpecItem( role )
+function GiveSpecItem3( role )
 	if How_Many_Active == 0 then
 		return
 	end
 	
-	local Money_Garner2 = Money_all/How_Many_Active
---	SystemNotice(role,How_Many_Active)
+	local Money_Moscow = Money_Moscow/How_Many_Active
 
 	if How_Many_Active > 5 then
-		AddMoney ( role , 0 , Money_Garner2 )
-	--	local message = "‚ë¦¨«® "..How_Many_Active .. "¨£à®ª®¢, ®­¨ ¯®«ãç¨«¨ "..Money_Garner2 .." ¤¥­¥£ "
-	--	SystemNotice(role,How_Many_Active)
+		AddMoney ( role , 0 , Money_Moscow )
 		return
 	end
 
 	if How_Many_Active <  6 and How_Many_Active > 1 then
 		local Item_CanGet = GetChaFreeBagGridNum ( role )
 		if Item_CanGet <= 0 then
-			GiveItemX ( role , 0 , 7664  , 1 , 4 )
+			GiveItemX ( role , 0 , 1031  , 1 , 4 )
 		else
-			GiveItem ( role , 0 , 7664  , 1 , 4 )
+			GiveItem ( role , 0 , 1031  , 1 , 4 )
 		end
 			 
-		AddMoney ( role , 0 , Money_Garner2 )
-		--SystemNotice(role,How_Many_Active)
-					
-		--local message = "‚ë¦¨«® "..How_Many_Active .."¨£à®ª , ˆ¬ ¤ «®áì "..Money_Garner2 .."£®«¤  ¨ 1 ‘¢ïâãî í¬¡«¥¬ã ª®«ìæ  "
-		--Notice ( message )
+		AddMoney ( role , 0 , Money_Moscow )
+
 		return
 	end
 	
 	if How_Many_Active == 1 then
 		local Item_CanGet = GetChaFreeBagGridNum ( role )
 		if Item_CanGet <= 0 then
-			GiveItemX ( role , 0 , 7665  , 1 , 4 )
-			
+			GiveItemX ( role , 0 , 1032  , 1 , 4 )
 		else
-			GiveItemX ( role , 0 , 7665  , 1 , 4 )
-			
+			GiveItem ( role , 0 , 1032  , 1 , 4 )
 		end
-		AddMoney ( role , 1 , Money_Garner2 )
+		AddMoney ( role , 0 , Money_Moscow )
 		local cha_name = GetChaDefaultName ( role )
-		local message = "Ïîçäðàâëÿåì "..cha_name.."! Âû çàáèðàåòå èç Õàîñà Àðãåíòà Çîëîòóþ Ìîíåòó"
-	--	SystemNotice(role,How_Many_Active)
-		SystemNotice(role,message)
+		local message = "\207\238\231\228\240\224\226\235\255\229\236! \200\227\240\238\234 - "..cha_name.." \226\251\241\242\238\255\235 \213\224\238\241 \204\238\241\234\226\251 \226 \238\228\232\237\238\247\234\243! "
+
+		GMNotice(message)
 		return
 	end
 end 

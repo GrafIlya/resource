@@ -1,0 +1,2 @@
+//Serial	NPC Name	NPC Type	Chrindex ID	Coordinates starting point	Coordination Goal	NPC placement	Spare 1	Spare 2	NPC Script	info manage	Test Status
+

@@ -1,2 +1,1 @@
 //Serial	NPC Name	NPC Type	Chrindex ID	Show Mini-map	Coordinates starting point	Coordination Goal	NPC placement	Region	Region ID	NPC Script	info manage	Test Status
-1	Телепортер в Аргент	1	418	12	5700,6300	5700,6300	180	Argent City	13	0	kul_tp6	lol_telep

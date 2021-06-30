@@ -2,26 +2,52 @@
 
 function config(map)
     MapCanSavePos(map, 0) --ЙиЦГµШНјКЗ·с±ЈґжЅЗЙ«О»ЦГЈЁµШНјЈ¬Чш±кЈ¬·ЅПтЈ©Ј¬ґЛЙиЦГУ°ПмёГµШНјµДЛщУРё±±ѕ
-    --MapCanPK(map, 0) --ЙиЦГµШНјКЗ·сїЙТФPKЈ¬ґЛЙиЦГУ°ПмёГµШНјµДЛщУРё±±ѕ
+    MapCanPK(map, 1) --ЙиЦГµШНјКЗ·сїЙТФPKЈ¬ґЛЙиЦГУ°ПмёГµШНјµДЛщУРё±±ѕ
     MapCopyNum(map, 1) --ЙиЦГµШНјµДё±±ѕКэДїЈ¬Из№ыІ»µчУГёГУпѕдЈ¬ФтК№УГД¬ИПЦµ1
     SingleMapCopyPlyNum(map, 300)   --ЙиЦГТ»ёцё±±ѕµДНжјТКэ
 	MapCanTeam(map , 1)
-    MapType ( map , 3 )
+    MapType ( map , 4 )
 end
 
+function map_run_leiting2( map )
+
+end
 
 function get_map_entry_pos_leiting2()   --Мест?открыт? портал?
 
-	local POS_X=2160
-	local POS_Y=2782
+	local POS_X=2168
+	local POS_Y=2805
 	return POS_X , POS_Y
 
 end
 
 function init_entry(map)
     SetMapEntryMapName(map, "garner") --Регион появлен? портал??Мира?Ледыни
-    SetMapEntryTime(map, "2010/10/18/0/0", "0/3/0", "0/0/30", "0/0/50") --Время появлен? портал??Мира?Ледыни
+    --SetMapEntryTime(map, "2010/10/18/0/0", "0/2/0", "0/1/0", "0/1/0") --Время появлен? портал??Мира?Ледыни
+    SetMapEntryTime(map, "2010/10/18/0/0", "0/1/0", "0/1/0", "0/1/0") --Время появлен? портал??Мира?Ледыни
 
 end
 
 
+function can_open_entry_binglang2( map ) 
+--	local time = GetTickCount ( ) 
+	local Now_Time = GetNowTime()
+	if Now_Time == 0 or Now_Time == 6 or Now_Time == 12 or Now_Time == 18 then
+		return 1
+	else
+		return 1
+	end
+
+end 
+
+function map_copy_run_leiting2(map_copy)
+end
+
+function map_copy_run_special_leiting2(map_copy)
+end
+
+function after_enter_leiting2( role , map_copy )
+end
+
+function before_leave_leiting2( role )
+end

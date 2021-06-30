@@ -1,30 +1,4 @@
-1	Blacksmith-Ben	1	21	1	31000,87700	31000,87700	270	Luna Haven	177	0	d_talk1	0
-2	Grocer - Eddie	1	19	12	32300,85800	32300,85800	180	Luna Haven	177	0	d_talk2	0
-3	Physician - Vegito	1	19	11	27600,87700	27600,87700	180	Luna Haven	177	0	d_talk3	0
-4	Tailor Dar		1	17	2	26000,83200	26000,83200	270	Luna Haven	177	0	d_talk4	0
-//5	Unknown		1	17	0	32300,90300	32300,90300	270	Luna Haven	177	0	d_talk5	0
-6	Teleporter - Mary	1	400	7	24900,86400	24900,86400	180	Luna Haven	177	0	d_talk6	0
-7	Harbor Operatro-Sunny	1	453	9	32200,94600	32900,94700	90	Luna Haven	177	0	d_talk7	0
-8	Researcher Yee	1	1172	0	29700,90100	29700,90100	180	Luna Haven	177	0	d_talk8	0
-9	Nurse - Tsukino	1	419	3	25400,88100	25400,88100	270	Luna Haven	177	0	d_talk28	0
-10	Builder-Endymion	1	425	0	28300,92400	28300,92400	90	Luna Haven	177	0	d_talk29	0
-11	Harbor Operator Luna		1	453	9	69400,70400	69400,70400	90	Winter Island	179	0	d_talk9	0
-12	Explorer - Winston	1	19	0	47200,53100	47200,53100	180	Winter Island	179	0	d_talk10	0
-13	Snow Cara Guardian	1	535	7	55700,30000	55700,30000	90	Winter Island	179	0	d_talk11	0
-//14	Unknown		1	453	9	103900,61200	103900,61200	0	Winter Island	180	0	d_talk12	0
-15	Explorer - Chris	1	19	0	114700,40300	114700,40300	90	Winter Island	180	0	d_talk13	0
-//16	Unknown		1	535	7	104400,18200	104400,18200	180	Winter Island	180	0	d_talk14	0
-//17	Unknown		1	453	9	25900,120000	25900,120000	270	Icy Lake Island		181	0	d_talk15	0
-18	North Ville	1	1078	0	71500,113500	71500,113500	180	¶¬єюµє	181	0	d_talk16	0
-19	Explorer - Lion	1	421	0	36500,152600	36500,152600	90	¶¬єюµє	181	0	d_talk17	0
-20	Explorer - Jill	1	425	0	95800,115900	95800,115900	180	¶¬єюµє	181	0	d_talk18	0
-//21	Unknown		1	535	9	65500,147100	65500,147100	0	Icy Lake Island	181	0	d_talk19	0
-22	Ancient Relic rotector	1	536	9	201000,78300	201000,78300	180	Ice-covered Island	182	0	d_talk20	0
-23	Kara's Statue	1	1076	0	144000,126800	144000,126800	90	Ice-covered Island	182	0	d_talk21	0
-24	Ville's Statue	1	1077	0	146400,46400	146400,46400	270	Ice-covered Island	182	0	d_talk22	0
-//25	Unknown		1	421	0	25000,91000	25000,91000	180	Luna Haven	177	0	peter_talk001	0
-//26	Unknown		1	415	0	25300,91000	25300,91000	180	Luna Haven	177	0	peter_talk002	0
-//27	Unknown		1	1075	0	25000,90700	25000,90700	180	Luna Haven	177	0	0	0
-//28	Unknown		1	1072	0	24900,91000	24900,91000	180	Luna Haven	177	0	peter_talk003	0
-29	Researcher Little Bell	1	1171	0	29900,90100	29900,90100	180	Luna Haven	177	0	d_talk31	0
-30	Aurora Teleporter	1	45	0	25500,86600	25500,86600	180	Winter Island	0	0	alex_tp2	0
+1	Портальщица - Мэри - Санни	1	400	9	32200,94600	32900,94700	90	Бухта Луны	177	0	winter_port	0
+2	Медсестра - Цукино	1	419	11	27600,87700	27600,87700	180	Бухта Луны	177	0	med_winter	0
+3	Служитель - Ли	1	17	0	27300,87800	27300,87800	180	Бухта Луны	177	0	baff_winter	0
+4	Банкир - Хрюша	1	1072	0	26000,88300	26000,88300	180	Бухта Луны	1	0	bank_winter	0

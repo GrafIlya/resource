@@ -1,15 +1,5 @@
---------------------------------------------------------------------------
---									--
---									--
---			ItemGetMission.lua				--
---									--
---									--
---------------------------------------------------------------------------
 print( "Loading ItemGetMission.lua" )
-
-
----相关判断函数
-function CheckMisChaBoat ( role , ChaType )						--船只人物检测
+function CheckMisChaBoat ( role , ChaType )
 	local Cha_Boat = GetCtrlBoat ( role )
 	local ChaIsBoat = 0
 	
@@ -26,7 +16,7 @@ function CheckMisChaBoat ( role , ChaType )						--船只人物检测
 	end
 end
 
-function CheckChaPos ( role , Cha_x_min , Cha_x_max , Cha_y_min , Cha_y_max , MapName )	--坐标检测
+function CheckChaPos ( role , Cha_x_min , Cha_x_max , Cha_y_min , Cha_y_max , MapName )
 
 	local Cha_Boat = GetCtrlBoat ( role )
 	local ChaIsBoat = 0
@@ -57,7 +47,7 @@ function CheckChaPos ( role , Cha_x_min , Cha_x_max , Cha_y_min , Cha_y_max , Ma
 	return 1
 end
 
-function CheckChaGuildType ( role , GuildType , CheckType )				--检测公会类型
+function CheckChaGuildType ( role , GuildType , CheckType )				
 	
 	local Cha_GuildID = GetChaGuildID( role )
 	
@@ -93,7 +83,6 @@ function CheckChaGuildType ( role , GuildType , CheckType )				--检测公会类型
 end
 
 function MissionMsgCheck ( role , HasRecordID , NoRecordID , HasMissionID , No_MissionID , HasRecordNotice , NoRecordNotice , HasMissionNotice , NoMissionNotice )
---	SystemNotice ( role , "MissionMsgCheck")
 	local Have_Record	= 0
 	local No_Record		= 0
 	local Have_Mission	= 0

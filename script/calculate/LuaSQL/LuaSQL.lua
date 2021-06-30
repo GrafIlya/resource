@@ -4,29 +4,29 @@ SQL_CONNECTION = {}
 SQL_CONNECTION[1] = 
 		{
 		SQL_CONNECT	= 'connect',
-		SQL_HOST	= '127.0.0.1,1434',
-		SQL_UID		= 'FlamingDevil',
+		SQL_HOST	= '127.0.0.1',
+		SQL_UID		= 'DarkSide',
 		SQL_PWD		= '2020Graf2020'
 		}
 SQL_CONNECTION[2] = 
 		{
 		SQL_CONNECT	= 'connect',
-		SQL_HOST	= '127.0.0.1,1434',
-		SQL_UID		= 'FlamingDevil',
+		SQL_HOST	= '127.0.0.1',
+		SQL_UID		= 'DarkSide',
 		SQL_PWD		= '2020Graf2020'
 		}
 SQL_CONNECTION[3] = 
 		{
 		SQL_CONNECT	= 'connect',
-		SQL_HOST	= '127.0.0.1,1434',
-		SQL_UID		= 'FlamingDevil',
+		SQL_HOST	= '127.0.0.1',
+		SQL_UID		= 'DarkSide',
 		SQL_PWD		= '2020Graf2020'
 		}
 SQL_CONNECTION[4] = 
 		{
 		SQL_CONNECT	= 'connect',
-		SQL_HOST	= '127.0.0.1,1434',
-		SQL_UID		= 'FlamingDevil',
+		SQL_HOST	= '127.0.0.1',
+		SQL_UID		= 'DarkSide',
 		SQL_PWD		= '2020Graf2020'
 		}
 function CheckConnection()

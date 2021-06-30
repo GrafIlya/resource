@@ -6,16 +6,16 @@ end
 function after_create_entry(entry) 
 
     local copy_mgr = GetMapEntryCopyObj(entry, 0)
-    local EntryName = "Вечный Абаддон"
+    local EntryName = " Главное Испытание "
     SetMapEntryEventName( entry, EntryName )
     
     map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry)
-    Notice("Объявление: В глубинах Абаддона 18 "["..posx..","..posy.."]" открылся портал, ведущий во что-то неизведанное человеком!")
+   -- Notice("Испытание: По координатам "["..posx..","..posy.."]" открылся портал,ведущий в финальное")
 
 end
 
 function after_destroy_entry_hell5(entry)
-    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) 
+   -- map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) 
     --Notice("Announcement: Challenge for today has ended.") 
 
 end
@@ -27,23 +27,25 @@ end
 
 function check_can_enter_hell5( role, copy_mgr )
 
-	if CRY[18]==0 then
-
-		SystemNotice(role,"Темные силы запечатали врата в Вечный Абаддон, как бы ты ни старался они не котроются.")
+	Num = CheckBagItem(role,7786)
+	if Num < 1 then
+		SystemNotice(role, "Нужен Знак Испытания ")	
 		return 0
-
 	end
-
-	return 1
 
 end
 
 function begin_enter_hell5(role, copy_mgr) 
-    
-
-		SystemNotice(role,"Вас тянет в глубинны Абаддона...")
-
-		MoveCity(role, "Abaddon 5")
+local Cha = TurnToCha(role)	
+	local Dbag = 0
+	Dbag = DelBagItem(Cha, 7786, 1)
+	
+	if Dbag == 1 then
+		SystemNotice(role,"Вы вошли в Главное Испытание ") 
+		MoveCity(role, "Eternal Abaddon")
+	else
+		SystemNotice(role, "У вас нет талона на вход. Вы не можете попасть в Пустыню!")
+	end
+end
 	
 
-end 

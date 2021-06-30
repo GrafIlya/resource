@@ -1,6 +1,3 @@
-
-
-
 function GetOnlineCount ( year , month , day , dayofweek , timehour , timemin , loginnumber, playnumber )
 
 	local a = loginnumber

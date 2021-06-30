@@ -1,4 +1,3 @@
-//scripted by skyfear919@hotmail.com
 1	by-bd001.lmo	Argent Palace 01	0	0	0	0	1	0	1	0	1	0
 2	by-bd002.lmo	Argent Navy Admi	0	0	0	0	1	0	1	0	1	0
 3	by-bd003.lmo	Argent Bank HQ 0	0	0	0	0	1	0	1	0	1	0
@@ -355,6 +354,25 @@
 354	yyyy004.lmo	Passable 7	2	0	0	0	1	0	200	0	1	0
 355	yyyy005.lmo	Passable 3	2	0	0	0	1	0	200	0	1	0
 356	yyyy006.lmo	Impassable 3	2	0	0	0	1	0	200	0	1	0
+360	2-1.lmo	Impassable 3	0	0	0	0	1	1	5	0	1	0
+361	3-1.lmo	Impassable 3	0	0	0	0	1	1	5	0	1	0
+363	5-1.lmo	Spring Town Bell	0	0	0	0	1	1	5	0	1	0
+370	FB_ZJCCZ_wuqizao_0003.lmo	Spring Town Bell	0	0	0	0	1	1	5	0	1	0
+371	FB_ZJCCZ_wuqizao_0002.lmo	Spring Town Bell	0	0	0	0	1	1	5	0	1	0
+372	FB_ZJCCZ_wuqizao_0001.lmo	Spring Town Bell	0	0	0	0	1	1	5	0	1	0
+373	FB_ZJCCZ_tuiche_0002.lmo	Spring Town Bell	0	0	0	0	1	1	5	0	1	0
+374	FB_ZJCCZ_muxiang_0003.lmo	Spring Town Bell	0	0	0	0	1	1	5	0	1	0
+375	FB_ZJCCZ_muchai_0002.lmo	Spring Town Bell	0	0	0	0	1	1	5	0	1	0
+377	FB_ZJCCZ_fangzi_0003.lmo	Spring Town Bell	0	0	0	0	1	1	5	0	1	0
+378	FB_ZJCCZ_fangzi_0002.lmo	Spring Town Bell	0	0	0	0	1	1	5	0	1	0
+380	FB_ZJCCZ_dengzi_0001.lmo	Spring Town Bell	0	0	0	0	1	1	5	0	1	0
+384	FB_TTT_diaosu_01.lmo	Spring Town Bell	0	0	0	0	1	1	5	0	1	0
+385	FB_ttts_penquan_0001.lmo	Spring Town Bell	0	0	0	0	1	1	5	0	1	0
+386	FB_ttts_diaoxiang_0002.lmo	Spring Town Bell	0	0	0	0	1	1	5	0	1	0
+391	FB_SGSD_bosstaizi_0001.lmo	Spring Town Bell	0	0	0	0	1	1	5	0	1	0
+392	FB_SDHJ_shu_0002.lmo	Spring Town Bell	0	0	0	0	1	1	5	0	1	0
+393	FB_SDHJ_shu_0001.lmo	Spring Town Bell	0	0	0	0	1	1	5	0	1	0
+394	FB_SDHJ_shu_0003.lmo	Spring Town Bell	0	0	0	0	1	1	5	0	1	0
 400	yyyy007.lmo	Lamp 01	3	0,255,0	10,1,2	0	1	0	200	0	1	0
 401	yyyy007.lmo	Lamp 02	3	0,255,0	10,1,0	0	1	0	200	0	1	0
 402	yyyy007.lmo	Lamp 03	3	0,18,255	10,1,3	0	1	0	200	0	1	0
@@ -364,6 +382,9 @@
 406	yyyy007.lmo	Lamp 07	3	248,228,137	3,1,4	0	1	0	200	0	1	0
 407	yyyy007.lmo	Lamp 08	3	250,120,50	6,1,7	0	1	0	200	0	1	0
 408	yyyy007.lmo	Lamp 09	3	25,226,153	3,1,8	0	1	0	200	0	1	0
+412	FB_BSFB_caibao_02.lmo	Spring Town Bell	0	0	0	0	1	1	5	0	1	0
+413	FB_BSFB_caibao_01.lmo	Spring Town Bell	0	0	0	0	1	1	5	0	1	0
+420	cc-bd030.lmo	Spring Town Bell	0	0	0	0	1	1	5	0	1	0
 421	nml-bd154.lmo	Wooden Harbor Mo	0	0	0	0	1	1	9	0	1	1
 422	nml-bd155.lmo	Wooden Harbor Mo	0	0	0	0	1	1	9	0	1	1
 423	nml-bd156.lmo	Wooden Harbor Mo	0	0	0	0	1	1	9	0	1	1
@@ -432,6 +453,7 @@
 487	yyyy080.lmo	Factory Sound Ef	6	env_BlackSmi	2500	0	1	0	200	0	1	0
 488	yyyy080.lmo	Fountain Sound E	6	env_fountain	2500	0	1	0	200	0	1	0
 489	yyyy080.lmo	River Sound Effe	6	env_ghyll	2500	0	1	0	200	0	1	0
+496	kyjj-bd05-01.lmo	Spring Town Bell	0	0	0	0	1	1	5	0	1	0
 501	by-bd042.lmo	New Road Sign 01	0	0	0	0	1	0	1	0	1	0
 502	by-bd043.lmo	Argent Ship Fact	0	0	0	0	1	0	1	0	1	0
 503	by-bd044.lmo	Navy Admin Post 	0	0	0	0	1	0	1	0	1	0
@@ -592,4 +614,20 @@
 658	dd_bd014.lmo	Winter Island La	0	0	0	0	1	0	5	0	1	1
 659	dd_bd015.lmo	Winter Island La	0	0	0	0	1	0	5	0	1	1
 660	MY_bd001.lmo	Treasure Room	0	0	0	0	1	0	5	0	1	1
-// [Gemini.Decompiler] End of data
+746	by-bd116.lmo	Argent House 03	0	0	0	0	1	0	1	0	1	0
+747	by-bd101.lmo	A. Palace 0	0	0	0	0	1	0	1	0	1	0
+749	by-bd103.lmo	A. Bank HQ 	0	0	0	0	1	0	1	0	1	0
+750	by-bd104.lmo	A. Commerce	0	0	0	0	1	0	1	0	1	0
+751	by-bd105.lmo	A. Blacksmi	0	0	0	0	1	0	1	0	1	1
+752	by-bd107.lmo	A. Trading 	0	0	0	0	1	0	1	0	1	0
+754	by-bd109.lmo	A. Deep Blu	0	0	0	0	1	0	1	0	1	0
+756	by-bd111.lmo	A. Church 0	0	0	0	0	1	0	1	0	1	0
+766	by-bd115.lmo	A. Bell Tow	0	0	0	0	0	0	1	0	1	0
+767	by-bd117.lmo	A. House 02	0	0	0	0	1	0	1	0	1	0
+775	by-bd127.lmo	A. Church B	0	0	0	0	1	0	1	0	1	0
+778	by-bd138.lmo	A. Gate Pil	0	0	0	0	1	0	1	0	1	0
+779	by-bd139.lmo	A. City Wal	0	0	0	0	1	0	1	0	1	0
+794	nml-bd106a.lmo	Fruit Cart2 01	0	0	0	0	1	0	1	0	1	0
+795	nml-bd136a.lmo	Bench2 01	0	0	0	0	1	0	1	0	1	0
+796	nml-bd147a.lmo	Market2 01	0	0	0	0	1	0	1	0	1	0
+798	nml-bd140a.lmo	Metal Fence 01	0	0	0	0	1	0	9	0	1	0
