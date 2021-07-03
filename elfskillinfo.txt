@@ -26,4 +26,3 @@
 25	Novice Cooking	16	1
 26	Standard Cooking	16	2
 27	Advanced Cooking	16	3
-// [Gemini.Decompiler] End of data
