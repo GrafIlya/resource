@@ -1,78 +1,68 @@
 function config_entry(entry) 
-    SetMapEntryEntiID(entry, 193,1) --Оствляем как есть.
-
+    SetMapEntryEntiID(entry, 193,1)
 end 
 
 function after_create_entry(entry) 
-    local copy_mgr = GetMapEntryCopyObj(entry, 0) --Без понятия, не меняем ничего.
-
-	local EntryName = " Мираж АлкашГрада "
-    SetMapEntryEventName( entry, EntryName )
-	
-    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --Объявления об открытии портала в Мираж Громограда.
-    --Notice("В Москве ["..posx..","..posy.."] появился портал в Мираж АлкашГрада.")
-
+    local copy_mgr = GetMapEntryCopyObj(entry, 0)
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry)
+	Notice("Объявление: Поступают сообщения, что в Аскароне ["..posx..","..posy.."] появился портал, ведущий в [Мираж Громограда]. Следите за объявлениями. Удачи!") 
 end
 
 function after_destroy_entry_leiting2(entry)
     map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) 
-    --Notice("Объявление: По имеющейся информации, портал в Мираж АлкашГрада исчез!") 
-
+	Notice("Объявление: Портал в [Мираж Громограда] закрылся. Удачи!") 
 end
 
 function after_player_login_leiting2(entry, player_name)
-    --map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --Объявления об открытии портала в Мираж Громограда.
-   -- ChaNotice(player_name, "В Москве ["..posx..","..posy.."] появился портал в Параллельный мир.")
-
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry)
+	ChaNotice(player_name, "Объявление: Поступают сообщения, что в Аскароне ["..posx..","..posy.."] появился портал, ведущий в [Мираж Громограда]. Следите за объявлениями. Удачи!") 
 end
 
-
---Мираж Громограда(Системные Нотайсы)
---DS team
 function check_can_enter_leiting2( role, copy_mgr )
-	----------------------------
-	-- Конец проверки на форж --
-	----------------------------
 	local i = IsChaStall(role)
 	if i == LUA_TRUE then
-		PopupNotice(role, "Ты не можешь телепортироваться ")
+	SystemNotice(role, "Невозможно телепортироваться, когда вы торгуете в лотке")
 		return 0    
 	end
-	if Lv(role) < 170 then
-		PopupNotice(role, "Персонажи меньше 170 лвл не допускаются в Мираж АлкашГрада ")
+	if Lv(role) < 70 then
+		SystemNotice(role, "Вы должны быть не ниже 70 уровня, чтобы войти в [Мираж Громограда]")
 		return 0    
 	end
-	
+	if Lv(role) > 89 then
+		SystemNotice(role, "Вы должны быть не выше 90 уровня, чтобы войти в [Мираж Громограда]")
+		return 0    
+	end
 	local Num
 	Num = CheckBagItem(role,2326)
 	if Num < 1 then
-		PopupNotice(role, "Для входа нужна Маска реальности ")	
+		SystemNotice(role, "У вас нет маски реальности. Невозможно войти в [Мираж Громограда]")
 		return 0
 	end
-
 	local Credit_Leiting2 = GetCredit(role)
-	if Credit_Leiting2 < 15 then
-		PopupNotice(role, "Ты не имеешь достаточно репутации, чтобы войти в Параллельный мир ")
+	if Credit_Leiting2 < 10 then
+		SystemNotice(role, "Недостаточно очков репутации. Невозможно войти в [Мираж Громограда]")
 		return 0
 	else
-		DelCredit(role,15)
+		DelCredit(role,10)
 		return 1
 	end
 end
 
-
-function begin_enter_leiting2(role, copy_mgr)
-
-	local Cha = TurnToCha(role)	
+function begin_enter_leiting2( role, copy_mgr )
+	local Cha = TurnToCha( role )
 	local Dbag = 0
-	Dbag = DelBagItem(Cha, 2326, 1)
-	
-	if Dbag == 1 then
-		SystemNotice(role,"Вы вошли в Параллельный мир ") 
-		MoveCity(role, "Thundoria Mirage")
+	Dbag = DelBagItem( Cha, 2326, 1 )
 
+	if Dbag == 1 then
+		SystemNotice( role, "Вход в [Мираж Громограда]" )
+
+		if ( AddonSystem["Teleport"] == 1 ) then
+			local n = 99
+			teleport( role, n )
+		else
+			MoveCity( role, "Thundoria Mirage" )
+		end
 	else
-	
-		SystemNotice(role, "Не удается войти в Параллельный мир ")
+		SystemNotice( role, "У вас нет маски реальности. Невозможно войти в [Мираж Громограда]" )
 	end
 end

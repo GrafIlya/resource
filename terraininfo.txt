@@ -1,4 +1,3 @@
-//scripted by skyfear919@hotmail.com
 1	texture/terrain/subtract.bmp	1	0
 2	texture/terrain/brick01.bmp	1	0
 3	texture/terrain/brick04.bmp	1	0
@@ -48,17 +47,3 @@
 47	texture/terrain/brick10.bmp	1	0
 48	texture/terrain/brick109.bmp	1	0
 49	texture/terrain/brick110.bmp	1	0
-50	texture/terrain/brick111.bmp	3	1
-51	texture/terrain/lava22.bmp	1	0
-52	texture/terrain/asand.bmp	1	0
-53	texture/terrain/awood.bmp	1	0
-54	texture/terrain/agrass.bmp	1	0
-55	texture/terrain/lava1.bmp	1	0
-56	texture/terrain/chess.bmp	1	0
-57	texture/terrain/brick70.bmp	1	0
-58	texture/terrain/grass69.bmp	1	0
-59	texture/terrain/brick69.bmp	1	0
-60	texture/terrain/lava.bmp	1	0
-61	texture/terrain/floor.bmp	1	0
-62	texture/terrain/gold.bmp	1	0
-// [Gemini.Decompiler] End of data

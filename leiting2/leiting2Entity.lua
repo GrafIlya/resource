@@ -1,2 +1,2 @@
-print( "Loading Leiting2 EventEntity.lua" )
+print( "Загрузка Leiting2Entity.lua" )
 print( "-------------------------------------------------------------------------------" )

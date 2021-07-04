@@ -1,4 +1,3 @@
-//scripted by skyfear919@hotmail.com
 1	music/01.mp3	0
 2	music/02.mp3	0
 3	music/03.mp3	0
@@ -13,7 +12,6 @@
 12	music/12.mp3	0
 13	music/13.mp3	0
 14	music/14.mp3	0
-15	music/15.mp3	0
 21	music/sound/pc/01.wav	1
 22	music/sound/pc/02.wav	1
 23	music/sound/pc/03.wav	1
@@ -394,4 +392,3 @@
 454	music/sound/monster/254.wav	1
 455	music/sound/monster/255.wav	1
 456	music/sound/monster/256.wav	1
-// [Gemini.Decompiler] End of data

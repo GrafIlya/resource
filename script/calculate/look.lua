@@ -1,11 +1,12 @@
-print( "Loading Look.lua" )
-enumEQUIP_HEAD		= 0;	--Р“РѕР»РѕРІР°
-enumEQUIP_FACE		= 1;	--Р›РёС†Рѕ
-enumEQUIP_BODY		= 2;	--РўРµР»Рѕ
-enumEQUIP_GLOVE		= 3;	--РџРµСЂС‡Р°С‚РєРё
-enumEQUIP_SHOES		= 4;	--Р‘РѕС‚РёРЅРєРё
-enumEQUIP_NECK		= 5;	--РћР¶РµСЂРµР»СЊРµ
-enumEQUIP_LHAND		= 6;	--РћСЂСѓР¶РёРµ СЃРїСЂР°РІР° РІ РёРЅРІРµРЅС‚Р°СЂРµ
-enumEQUIP_HAND1		= 7;	--РљРѕР»СЊС†Рѕ СЃР»РµРІР° РІ РёРЅРІРµРЅС‚Р°СЂРµ
-enumEQUIP_HAND2		= 8;	--РљРѕР»СЊС†Рѕ СЃРїСЂР°РІР° РІ РёРЅРІРµРЅС‚Р°СЂРµ
-enumEQUIP_RHAND		= 9;	--РћСЂСѓР¶РёРµ СЃР»РµРІР° РІ РёРЅРІРµРЅС‚Р°СЂРµ
+print( "‡ Јаг§Є  Look.lua" )
+
+enumEQUIP_HEAD		= 0; -- Голова
+enumEQUIP_FACE		= 1; -- Лицо
+enumEQUIP_BODY		= 2; -- Тело
+enumEQUIP_GLOVE		= 3; -- Руки
+enumEQUIP_SHOES		= 4; -- Ноги
+enumEQUIP_NECK		= 5; -- Шея: Для ожерелья, Медалей
+enumEQUIP_LHAND		= 6; -- Левая рука
+enumEQUIP_HAND1		= 7; -- Рука под кольца
+enumEQUIP_HAND2		= 8; -- Рука под кольца
+enumEQUIP_RHAND		= 9; -- Правая рука

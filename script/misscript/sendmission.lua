@@ -1,15 +1,10 @@
-print( "Loading SendMission.lua" )
+print( "‡ Јаг§Є  SendMission.lua" )
 
 function TestDefMission( id, name, misid, npcid, areaid )
 	DefineMission( id, name, misid, COMPLETE_SHOW )
-
 	MisBeginCondition( AlwaysFailure )
-
-	MisReultTalk("Р»Р»Дг°СОТµД°ь№ьЛН№эАґЈЎ")
-	
+	MisReultTalk("Спасибо что доставили мне посылку!")
 	MisResultCondition( HasRandMissionNpc, misid, npcid, areaid )
 	MisResultCondition( NoRandNpcItemFlag, misid, npcid )
-	
 	MisResultAction( TakeRandNpcItem, misid, npcid )
 end
-

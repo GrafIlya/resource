@@ -1,8 +1,2 @@
-print( "loading EventEntity.lua" )
+print( "Загрузка Hell3Entity.lua" )
 print( "-------------------------------------------------------------------------------" )
-
-
-function InitGarnerEntity()
-
-
-end

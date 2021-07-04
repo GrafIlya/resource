@@ -95,8 +95,9 @@
 	
  ]]
 
- 
-print(">> Loading Hook Library (by MaTT)");
+print("-------------------------------------------------------------------------------")
+print("Загрузка библиотеки Hook (by MaTT)");
+print("-------------------------------------------------------------------------------")
 
 Hook = { hookList = {}, enabled = true }
 
@@ -166,7 +167,6 @@ function Hook:InitHook(originalFctName)
 	return hookDef
 end
 
-
 function Hook:AddPreHook(originalFctName, hookFct, priorityOrder)
 	local hookDef = self.hookList[originalFctName]
 	if (hookDef == nil) then
@@ -197,8 +197,6 @@ function Hook:RemovePreHook(originalFctName, hookFct, priorityOrder)
 	print("ERROR >> Hook:RemovePreHook() is not yet implemented !!")
 end
 
-
-
 function Hook:AddPostHook(originalFctName, hookFct, priorityOrder)
 	local hookDef = self.hookList[originalFctName]
 	if (hookDef == nil) then
@@ -224,13 +222,10 @@ function Hook:AddPostHook(originalFctName, hookFct, priorityOrder)
 	Hook:SortHooks(hookDef.post)
 end
 
-
 -- TODO
 function Hook:RemovePostHook(originalFctName, hookFct, priorityOrder)
 	rint("ERROR >> Hook:RemovePostHook() is not yet implemented !!")
 end
-
-
 
 function Hook:DisableHooks(originalFctName)
 	local hookDef = self.hookList[originalFctName]
@@ -239,16 +234,12 @@ function Hook:DisableHooks(originalFctName)
 	end
 end
 
-
-
 function Hook:EnableHooks(originalFctName)
 	local hookDef = self.hookList[originalFctName]
 	if (hookDef ~= nil) then
 		hookDef.enabled = true
 	end
 end
-
-
 
 function Hook:ClearHooks(originalFctName)
 	local hookDef = self.hookList[originalFctName]
@@ -259,22 +250,18 @@ function Hook:ClearHooks(originalFctName)
 	self.hookList[originalFctName] = nil
 end
 
-
 -- TODO
 function Hook:ClearAllHooks()
 	print("ERROR >> Hook:ClearAllHooks() is not yet implemented !!")
 end
 
-
 function Hook:DisableAllHooks()
 	self.enabled = false
 end
 
-
 function Hook:EnableAllHooks()
 	self.enabled = true
 end
-
 
 function Hook:LoadHookFile(filename)
 	
@@ -332,7 +319,6 @@ function Hook:LoadHookFile(filename)
 	io.close(file)
 end
 
-
 function Hook:SetHookPattern(pattern, hookType, hookFct, priority)
 	-- make sure hook fct is defined
 	if (hookFct == nil) then
@@ -358,8 +344,7 @@ function Hook:SetHookPattern(pattern, hookType, hookFct, priority)
 		end
 	end
 end
-	
-	
+
 -- PRIVATE
 function Hook:SortHooks(hookList)
 	local compareFct = 	function (a,b)
@@ -367,5 +352,3 @@ function Hook:SortHooks(hookList)
 						end
 	table.sort(hookList, compareFct)
 end
-
-

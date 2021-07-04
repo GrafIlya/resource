@@ -1,6 +1,1 @@
-//8	Newbie knife
-//289	Newbie Vest
-//641	Newbie Shoes
-//465
-//ID	Class	Items ID given to new players (MAX of 6 items)
-0	Newbie	5341
+0	Newbie	289,641,8

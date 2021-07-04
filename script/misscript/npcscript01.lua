@@ -1,623 +1,10066 @@
-print( "------------------------------------" )
-print(  "Loading NPCScript01.lua " )
+print( "‡ Јаг§Є  NpcScript01.lua" )
 
-jp= JumpPage
-amp=AutoMissionPage
-ct=CloseTalk
-am=AddMission
-MissionCheck = HasFlag
-mc=MissionCheck
+--------------------------
+--	Список сокращений	--
+--------------------------
+jp				= JumpPage
+amp				= AutoMissionPage
+ct				= CloseTalk
+am				= AddMission
+MissionCheck 	= HasFlag
+mc				= MissionCheck
 
-function test_convert()
-	Talk(1, "Hello. I can convert you items to IGS Crystall. ")
-	
-	Text(1, "Test.", ConvertItemToCrystall, 3457, 10, 10)
-	Text(1, "Close.", CloseTalk)
-end
+--------------------------------------------------------------------------------------------------------------------
+--													r_talk (Начало)												  --
+--------------------------------------------------------------------------------------------------------------------
+function r_talk01()
+	Talk( 1,  "Салвьер: Здравствуйте, Вы похожи на новичка в этих краях. Могу ли я чем то помочь? " )
+	Text( 1,  "Кто Вы? ", JumpPage, 2)
+	Text( 1,  "Что это за место? ", JumpPage, 3 )
+	Text( 1,  "Я думаю все понял. Спасибо. ", JumpPage, 4 )
 
-function RBSTONE()
-	Talk(1, "Привет. Я могу помочь тебе добыть камни перерождения. ")
-	Text(1, "Посмотреть камни ", JumpPage, 2)
-	
-	Talk(2, "Выбирай камень, который хочешь получить: ")
-	Text(2, "Камень 1 РБ ", JumpPage, 3)
-	Text(2, "Камень 2 РБ ", JumpPage, 4)
-	Text(2, "Камень 3 РБ ", JumpPage, 5)
-	
-	Talk(3,"Чтобы получить камень 1 РБ, принеси мне:_1.Осколок мистического кристалла - 75шт. ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 4541, 75 )
-	TriggerAction( 1, TakeItem, 4541,75 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 2235,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 3, "Обменять камень. ", MultiTrigger, GetMultiTrigger(), 1)
-	
-	Talk(4,"Чтобы получить камень 2 РБ, принеси мне:_1.Слезный камень богини - 150шт. ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2480, 150 )
-	TriggerAction( 1, TakeItem, 2480,150 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 6949,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 4, "Обменять камень. ", MultiTrigger, GetMultiTrigger(), 1)
-	
-	
-end
+	Talk( 2,  "Салвьер: Я отвечаю на вопросы жителей этого города. Если у Вас какие то трудности, то ищите меня. " )
+	Text( 2,  "Назад. ", JumpPage, 1)
 
-function exch_bust()
-	Talk(1, "Привет. Я могу обменять твои мешки на золото:_1. Мешок 1лвл на 5к;_1. Мешок 2лвл на 20к;_1. Мешок 3лвл на 60к;_1. Мешок 4лвл на 400к;_1. Мешок 5лвл на 1кк. ")
-	Text(1, "Обменять 1 штуку ", JumpPage, 2)
-	Text(1, "Обменять 10 штук ", JumpPage, 3)
-	Text(1, "Обменять 100 штук ", JumpPage, 4)
-	Text(1, "Уйти. ", CloseTalk)
+	Talk( 3,  "Салвьер: Это самый преуспевающий город во всем Аскароне. У нас нет никаких проблем с ресурсами и все благодаря нашему градоначальнику. " )
+	Text( 3,  "Назад. ", JumpPage, 1)
+
+	Talk( 4,  "Салвьер: Хорошо, если Вам будет нужна помощь - обращайтесь. " )
+	Text( 4,  "Я хочу задать еще вопросы. ", JumpPage, 5)
 	
-	Talk(2,"Выбирай, какой мешок хочешь обменять: ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 7999, 1 )
-	TriggerAction( 1, TakeItem, 7999,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, AddMoney, 5000, 5000 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 2, "Мешок 1 уровня ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 8000, 1 )
-	TriggerAction( 1, TakeItem, 8000,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, AddMoney, 20000, 20000 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 2, "Мешок 2 уровня ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 8001, 1 )
-	TriggerAction( 1, TakeItem, 8001,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, AddMoney, 60000, 60000 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 2, "Мешок 3 уровня ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 8002, 1 )
-	TriggerAction( 1, TakeItem, 8002,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, AddMoney, 400000, 400000 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 2, "Мешок 4 уровня ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 8003, 1 )
-	TriggerAction( 1, TakeItem, 8003,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, AddMoney, 1000000, 1000000 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 2, "Мешок 5 уровня ", MultiTrigger, GetMultiTrigger(), 1)
-	Text( 2, "Уйти. ", CloseTalk)
+	Talk( 5,  "Салвьер: Не стесняйтесь, задавайте. " )
+	Text( 5,  "Градоначальник и основание Аргента. ", JumpPage, 6)
 	
-	Talk(3,"Выбирай, какой мешок хочешь обменять: ")
+	Talk( 6,  "Салвьер: Много столетий назад велась война между демонами и империей Аскарон. Это длилось в течение многих лет и Империя потеряла множество своих верных граждан. Герцог и его племянник отступили и решили основать новый город на тогда еще пустующей равнине. Этот город пережил после этого еще множество войн, но ни разу не был взят врагами. " )
+
 	InitTrigger()
-	TriggerCondition( 1, HasItem, 7999, 10 )
-	TriggerAction( 1, TakeItem, 7999,10 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, AddMoney, 50000, 50000 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 3, "(x10)Мешок 1 уровня ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 8000, 10 )
-	TriggerAction( 1, TakeItem, 8000,10 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, AddMoney, 200000, 200000 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 3, "(x10)Мешок 2 уровня ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 8001, 10 )
-	TriggerAction( 1, TakeItem, 8001,10 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, AddMoney, 600000, 600000 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 3, "(x10)Мешок 3 уровня ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 8002, 10 )
-	TriggerAction( 1, TakeItem, 8002,10 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, AddMoney, 4000000, 4000000 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 3, "(x10)Мешок 4 уровня ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 8003, 10 )
-	TriggerAction( 1, TakeItem, 8003,10 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, AddMoney, 10000000, 10000000 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 3, "(x10)Мешок 5 уровня ", MultiTrigger, GetMultiTrigger(), 1)
-	Text( 3, "Уйти. ", CloseTalk)
+
+	TriggerCondition( 1, NoRecord, 500 )
+
+	TriggerAction( 1, CloseTalk )
+	TriggerAction( 1, AddExp, 100, 200 )
+	TriggerAction( 1, SetRecord, 500 )
+	TriggerAction( 1, AddMoney, 100 )
 	
-	Talk(4,"Выбирай, какой мешок хочешь обменять: ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 7999, 100 )
-	TriggerAction( 1, TakeItem, 7999,100 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, AddMoney, 500000, 500000 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 4, "(x100)Мешок 1 уровня ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 8000, 100 )
-	TriggerAction( 1, TakeItem, 8000,100 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, AddMoney, 2000000, 2000000 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 4, "(x100)Мешок 2 уровня ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 8001, 100 )
-	TriggerAction( 1, TakeItem, 8001,100 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, AddMoney, 6000000, 6000000 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 4, "(x100)Мешок 3 уровня ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 8002, 100 )
-	TriggerAction( 1, TakeItem, 8002,100 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, AddMoney, 40000000, 40000000 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 4, "(x100)Мешок 4 уровня ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 8003, 100 )
-	TriggerAction( 1, TakeItem, 8003,100 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, AddMoney, 100000000, 100000000 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 4, "(x100)Мешок 5 уровня ", MultiTrigger, GetMultiTrigger(), 1)
-	Text( 4, "Уйти. ", CloseTalk)
-	
-end
+--[[Talk( 7, "Салвьер: Как один из самых значимых людей города я принимаю всех новичков с подобающим гостеприимством. Всем новобранцам подарок - 100 золотых и бесплатное лечение у медсестры до 5лвл!" )
+	Text( 7, "Спасибо!",  MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 8, "Салвьер: Серебрянный город нуждается в таких новобранцах как Вы!" )
+	Text( 8, "Спасибо. Я пока осматриваюсь. ",  CloseTalk )]]--
 
 
+	InitTrigger()
 
-function ex_apparels()
-	Talk( 1, "Привет. У меня ты можешь приобрести эксклюзивные аппарели! " )
-	Text( 1, "Посмотреть ассортимент. ", BuyPage)
+	TriggerCondition( 1, HasRecord, 500 )
+	TriggerAction( 1, JumpPage, 8 )
+	TriggerFailure( 1, JumpPage, 1 )
+
+	Start( GetMultiTrigger(), 1 )
+
+	AddNpcMission ( 203  )
+	AddNpcMission ( 204  )
+	AddNpcMission ( 205  )
+	AddNpcMission ( 206  )
+	AddNpcMission ( 221  )
+	AddNpcMission ( 222  )
+	AddNpcMission ( 1002 )
+	AddNpcMission ( 1057 )
+	AddNpcMission ( 1112 )
+	AddNpcMission ( 1166 )
+	AddNpcMission ( 55 	 )
+	AddNpcMission ( 56 	 )
+	AddNpcMission ( 57 	 )
+	AddNpcMission ( 1220 )
+	AddNpcMission ( 319  )
+	AddNpcMission ( 325  )
+	AddNpcMission ( 326  )
+	AddNpcMission ( 5037 )	
+	MisListPage(8)
+end 
+
+function r_talk02()
+	Talk( 1,  "Бабушка Белди: Здравствуйте молодой человек. " )
+	Text( 1,  "Сделать светильник ", JumpPage, 7 )
+	Text( 1,  "До свидания... ", CloseTalk)
+
+	Talk( 2,  "Бабушка Белди: Чтобы сделать Зернышко Любви необходимо 1 Чистую воду, 1 Лепесток многоцвета, 1 Идеальный сапфир и 1 Сердце наяды. " )
+	Text( 2,  "Сделать Зернышко Любви. ", GetChaName_21, 1 )
+
+	Talk( 3,  "Бабушка Белди: Вы можете обменять 10 Зернышек Любви на 1 Медовый шоколад. ")
+	Text( 3,  "Обменять ",  GetChaName_22, 1)
+
+	Talk( 4,  "Бабушка Белди: Вы можете обменять 100 Зернышек Любви на 3 Усилителя стремлений. ")
+	Text( 4,  "Обменять ",  GetChaName_23, 1)
+
+	Talk( 5,  "Бабушка Белди: Вы можете обменять 1000 Зернышек Любви на 1 Пропуск в Абаддон 4. ")
+	Text( 5,  "Обменять ",  GetChaName_24, 1)
+	
+	InitTrigger()
+	TriggerCondition(1, HasItem, 0058, 1)
+	TriggerCondition(1, HasItem, 0060, 1)
+	TriggerCondition(1, HasLeaveBagGrid, 1)
+	TriggerCondition(1, KitbagLock, 0 )
+	TriggerAction(1, TakeItem, 0058, 1)
+	TriggerAction(1, TakeItem, 0060, 1)
+	TriggerAction(1, GiveItem, 0059, 1, 4)
+	TriggerFailure(1, JumpPage, 8)
+
+InitTrigger()
+	TriggerCondition( 1, HasItem, 3904, 15 )
+	TriggerCondition( 1, HasItem, 3911, 15 )
+	TriggerCondition( 1, HasItem, 4450, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerAction( 1, TakeItem, 3904, 15 )
+	TriggerAction( 1, TakeItem, 3911, 15 )
+	TriggerAction( 1, TakeItem, 4450, 1 )
+ 	TriggerAction( 1, GiveItem, 3342, 1 ,4)
+	TriggerFailure( 1, JumpPage, 9 ) 
+	Talk( 7,  "Бабушка Белди: дайте мне 15 Красной бумаги, 15 Бамбуковых палочек, и 1 Странную свечу для обмена на Светильник. ")
+	Text( 7,  "Обмен. ", MultiTrigger, GetMultiTrigger(), 1) 
+
+	Talk( 9,  "Бабушка Белди у Вас нет необходимых ингридиентов. ")
+
+	MisListPage(1)
+
+	AddNpcMission ( 282  )
+	AddNpcMission ( 283  )
+	AddNpcMission (	1026 )
+	AddNpcMission (	1084 )
+	AddNpcMission (	1137 )
+	AddNpcMission (	1189 )
+	AddNpcMission (	1224 )
+	AddNpcMission (	373	 )
+	AddNpcMission (	374	 )
+	AddNpcMission (	388	 )
+	AddNpcMission (	5631 )
+	AddNpcMission (	5632 )
+end 
+
+function r_talk03()
+	Talk( 1,  "Дито: Взгляните на мои травы, все собранны мной лично. " )
+	Text( 1,  "Торг ", BuyPage)
+	Text( 1,  "Сделать восстанавливающие зелья. ", JumpPage, 5)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1779, 1 )
+	TriggerCondition( 1, HasItem, 3129, 10 )
+	TriggerCondition( 1, HasMoney, 50 )
+	TriggerAction( 1, TakeMoney, 50 )
+	TriggerAction( 1, TakeItem, 3129, 10 )
+	TriggerAction( 1, TakeItem, 1779, 1 )
+	TriggerAction( 1, GiveItem, 3133, 1, 4 )
+	TriggerAction( 1, JumpPage, 6 )
+	TriggerFailure( 1, JumpPage, 7 )
+
+	Talk( 5,  "Дито: Вы можете изготовить у меня любые лечебные зелья, в которых нуждаетесь. " )
+	Text( 5,  "Приготовить Лакричное зелье ", MultiTrigger, GetMultiTrigger(), 1 )
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1779, 1 )
+	TriggerCondition( 1, HasItem, 3130, 10 )
+	TriggerCondition( 1, HasMoney, 50 )
+	TriggerAction( 1, TakeMoney, 50 )
+	TriggerAction( 1, TakeItem, 3130, 10 )
+	TriggerAction( 1, TakeItem, 1779, 1 )
+	TriggerAction( 1, GiveItem, 3134, 1, 4 )
+	TriggerAction( 1, JumpPage, 6 )
+	TriggerFailure( 1, JumpPage, 8 )
+
+	Text( 5,  "Сварить Чай Бодрячок ", MultiTrigger, GetMultiTrigger(), 1 )
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1779, 1 )
+	TriggerCondition( 1, HasItem, 3131, 10 )
+	TriggerCondition( 1, HasMoney, 50 )
+	TriggerAction( 1, TakeMoney, 50 )
+	TriggerAction( 1, TakeItem, 3131, 10 )
+	TriggerAction( 1, TakeItem, 1779, 1 )
+	TriggerAction( 1, GiveItem, 3135, 1, 4 )
+	TriggerAction( 1, JumpPage, 6 )
+	TriggerFailure( 1, JumpPage, 9 )
+
+	Text( 5,  "Сделать Чудо-мазь ", MultiTrigger, GetMultiTrigger(), 1 )
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1779, 1 )
+	TriggerCondition( 1, HasItem, 3132, 10 )
+	TriggerCondition( 1, HasMoney, 50 )
+	TriggerAction( 1, TakeMoney, 50 )
+	TriggerAction( 1, TakeItem, 3132, 10 )
+	TriggerAction( 1, TakeItem, 1779, 1 )
+	TriggerAction( 1, GiveItem, 3136, 1 , 4)
+	TriggerAction( 1, JumpPage, 6 )
+	TriggerFailure( 1, JumpPage, 10 )
+
+	Text( 5,  "Сделать Брикет снежной травы ", MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 6,  "Дито: Деньги вперед! Вот, держите что просили. Желаю удачи! " )
+
+	Talk( 7,  "Дито: Для создания 1 Лакричного зелья необходимо 10 Целебной травы, 1 Флакон и 50 золота! " )
+
+	Talk( 8,  "Дито: Для создания 1 Чай Бодрячок необходимо 10 Лепестков многоцвета, 1 Флакон и 50 золота! " )
+
+	Talk( 9,  "Дито: Для создания 1 Чудо-мази необходимо 10 Чудо-фруктов, 1 Флакон и 50 золота! " )
+
+	Talk( 10, "Дито: Для создания 1 Брикет снежной травы необходимо 10 Снежных побегов, 1 Флакон и 50 золота! " )
+
 	InitTrade()
-	Defence( 16122)
-end
+	Other(	1847	)
+	Other(	1848	)
+	Other(	1849	)
+	Other(	3143	)
+	Other(	1576	)
+	Other(	4049	)
+	Other(	4050	)
+	Other(	1578	)
+	Other(	4060	)
+	Other(	4055	)
+	Other(	4061	)
+	Other(	2225	)
+	Other(	4057	)
+	Other(	1768	)
 
-function new_acc()
-	Talk( 1, "Привет. Я помогу тебе стать сильнее! " )
-	Text( 1, "Купить аксессуары ", BuyPage)
-	InitTrade()
-	Other( 495)
-	Other( 497)
-	Other( 6638)
-	Other( 6639)
-	Other( 6640)
-	Other( 6641)
-	Other( 6642)
-	Other( 6643)
-	Other( 6644)
-	Other( 6645)
-	Other( 6646)
-	Other( 6647)
-	Other( 6648)
-	Other( 6649)
-	Other( 6650)
-	Other( 6651)
-	Other( 6652)
-	Other( 6653)
-	Other( 6654)
-	Other( 6655)
-	Other( 6656)
-	Other( 6657)
-	Other( 6658)
-	Other( 6659)
-	Other( 6660)
-	Other( 6661)
-	Other( 6662)
-end
+	MisListPage(1)
 
-function guilds()
-	Talk( 1, "Привет. Я помогу тебе создать гильдию! Для создания нужен Камень клятвы и 3.000.000 золота. " )
-	Text( 1, "Купить камень ", BuyPage)
+	AddNpcMission ( 707  )
+	AddNpcMission ( 214  )
+	AddNpcMission ( 215  )
+	AddNpcMission ( 217  )
+	AddNpcMission ( 218  )
+	AddNpcMission ( 219  )
+	AddNpcMission ( 220  )
+	AddNpcMission ( 1046 )
+	AddNpcMission ( 1208 )
+	AddNpcMission ( 73	 )
+	AddNpcMission ( 74	 )
+	AddNpcMission ( 75	 )
+	AddNpcMission ( 5027 )
+	AddNpcMission ( 5035 )
+	AddNpcMission ( 5036 )
+
+	MisListPage(4)
+end 
+
+function r_talk04()
+	InitTrigger()
+	TriggerCondition( 1, LvCheck, "<", 6 )
+	TriggerCondition( 1, HasRecord, 500 )
+	TriggerAction( 1, ReAll )
+	TriggerCondition( 2, HasMoney, 200 )
+	TriggerAction( 2, TakeMoney, 200 )
+	TriggerAction( 2, ReAll )
+	TriggerFailure( 2, JumpPage, 2 )
+
+	Talk( 1,  "Джина: Привет! Я медсестра Джина! Ищите меня если больны или травмированы. " )
+	Text( 1,  "Большое исцеление ", MultiTrigger,GetMultiTrigger(),2)
+
+	InitTrigger()
+	TriggerCondition( 1, LvCheck, "<", 6 )
+	TriggerCondition( 1, HasRecord, 500 )
+	TriggerAction( 1, ReHp, 50 )
+	TriggerCondition( 2, HasMoney, 50 )
+	TriggerAction( 2, TakeMoney, 50 )
+	TriggerAction( 2, ReHp,50 )
+	TriggerFailure( 2, JumpPage, 3 )
+
+	Text( 1,  "Исцеление ", MultiTrigger,GetMultiTrigger(),2)
+
+	Talk( 2,  "Джина: Прошу прощения, но Большое исцеление стоит 200 золотых. У вас недостаточно денег! " )
+
+	Talk( 3,  "Джина: Прошу прощения, но Исцеление стоит 50 золотых. У вас недостаточно денег! " )
+
+	Talk( 4,  "Я не жду никакого письма. Полагаю вы ошиблись. " )
+
+	Talk( 5,  "Забудьте это. Вот возьмите награду за свою нелегкую работу. " )
+
+	InitTrigger()
+	TriggerCondition( 1, LvCheck, "<", 6 )
+	TriggerCondition( 1, HasRecord, 500 )
+	TriggerAction( 1, ReAll )
+	TriggerCondition( 2, HasMoney, 200 )
+	TriggerAction( 2, TakeMoney, 200 )
+	TriggerAction( 2, ReAll )
+	TriggerFailure( 2, JumpPage, 2 )
+
+	Talk( 6,  "Джина: Привет! Я медсестра Джина! Ищите меня если больны или травмированы. " )
+	Text( 6,  "Большое исцеление ", MultiTrigger,GetMultiTrigger(),2)
+
+	InitTrigger()
+	TriggerCondition( 1, LvCheck, "<", 6 )
+	TriggerCondition( 1, HasRecord, 500 )
+	TriggerAction( 1, ReHp, 50 )
+	TriggerCondition( 2, HasMoney, 50 )
+	TriggerAction( 2, TakeMoney, 50 )
+	TriggerAction( 2, ReHp,50 )
+	TriggerFailure( 2, JumpPage, 3 )
+
+	Text( 6,  "Исцеление ", MultiTrigger,GetMultiTrigger(),2)
+
+	InitTrigger()
+	TriggerCondition( 1, HasMission, 53 )
+	TriggerCondition( 1, HasFlag, 53, 1 )
+	TriggerCondition( 1, NoRecord, 53 )
+	TriggerCondition( 1, NoFlag, 53, 4 )
+	TriggerCondition( 1, HasItem, 2304, 1 )
+	TriggerAction( 1, JumpPage, 6 )
+	TriggerFailure( 1, JumpPage, 1 )
+
+	Start( GetMultiTrigger(), 1 )
+	AddNpcMission ( 1048 )
+	AddNpcMission ( 1210 )
+	AddNpcMission ( 920	 )
+	AddNpcMission (	921	 )
+
+	MisListPage(6)
+
+	AddNpcMission ( 6117 )
+	AddNpcMission ( 6118 )
+	AddNpcMission ( 6119 )
+	AddNpcMission ( 6120 )
+end 
+
+function r_talk05()
+	Talk( 1,  "Дина: Привет, я Дина! Вы действительно моряк? Наверное вы знаете так много замечательных историй... " )
+	Text( 1,  "Купить вино ", BuyPage )
+	Text( 1,  "Обменять репутацию ",JumpPage,4)
+	
 	InitTrade()
-	Other( 1780)
+	Other(	3916	)
+
+	Talk( 2,  "Дина: Я слышала вы ищете Вино восьми драгоценностей? У меня есть в запасе оно. Если вы хотите его купить, то принесите мне 100000 золотых. " )
+	InitTrigger()
+	TriggerCondition( 1, HasMoney, 100000 )
+	TriggerAction( 1, TakeMoney, 100000 )
+	TriggerAction( 1, GiveItem, 4072, 1, 4 )
+	TriggerFailure( 1, JumpPage, 3 )
+	Text( 2,  "Вино восьми драгоценностей ", MultiTrigger,GetMultiTrigger(),1)
+
+	Talk( 3,  "Дина: Кажется вы имеете недостаточно денег. Это вино не для бедных! Возвращайтесь как соберете достаточную сумму. " )
+
+	Talk( 4,  "Репутация очень важна! Те кто делают полезное для общества получают репутацию. Полученную репутацию вы можете обменять здесь на необходимые предметы. ")
+	Text( 4,  "Я верю в свою репутацию. Я здесь чтобы получить награду. ", JumpPage,5)
+
+	Talk( 5,  "Выберите нужную награду. Когда вы получите предмет ваша репутация будет уменьшена. ")
 	
 	InitTrigger()
+	TriggerCondition( 1, HasCredit,20 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, DelRoleCredit, 20 )
+	TriggerAction( 1, GiveItem, 2602,1,4 )
+	TriggerFailure( 1, JumpPage, 6)
+	Text(5, "Эмблема сремления новичка - стоимость 20 очков репутации. " ,MultiTrigger,GetMultiTrigger(),1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasCredit,200 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, DelRoleCredit, 200 )
+	TriggerAction( 1, GiveItem, 2603,1,4 )
+	TriggerFailure( 1, JumpPage, 6)
+	Text( 5,  "Эмблема стремления станд. ур. - стоимость 200 очков репутации. " ,MultiTrigger,GetMultiTrigger(),1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasCredit,2000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, DelRoleCredit, 2000 )
+	TriggerAction( 1, GiveItem, 2604,1,4 )
+	TriggerFailure( 1, JumpPage, 6)
+	Text( 5,  "Эмблема стремления выс. ур. - стоимость 2000 очков репутации. " ,MultiTrigger,GetMultiTrigger(),1)
+	Talk( 6,  "Пожалуйста проверьте есть ли у вас свободные ячейки в инвентаре и что вы имеете достаточно репутации. Заработать репутацию вы можете например взяв себе ученика. ",CloseTalk)
+
+	Talk( 7,  "Привет! Мы Короли пиратов и служим только пиратам с отличной репутацией. Набрав требуемое количество репутации вы можете обменять ее на необходимые предметы. ")
+	InitTrigger()
+	TriggerCondition( 1, HasCredit,500 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, DelRoleCredit, 500 )
+	TriggerAction( 1, GiveItem, 855,5,4 )
+	TriggerAction( 1, JumpPage,8 )
+	TriggerFailure( 1, JumpPage, 6)
+	Text( 7,  "5 Монет феи - стоимость 500 очков репутации. " ,MultiTrigger,GetMultiTrigger(),1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasCredit,5000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, DelRoleCredit, 5000 )
+	TriggerAction( 1, GiveItem, 3094,3,4 )
+	TriggerAction( 1, JumpPage,8 )
+	TriggerFailure( 1, JumpPage, 6)
+	Text( 7,  "3 Усилителя стремлений - стоимость 5000 очков репутации. " ,MultiTrigger,GetMultiTrigger(),1)
+
+
+	InitTrigger()
+	TriggerCondition( 1, HasCredit,20000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, DelRoleCredit, 20000 )
+	TriggerAction( 1, GiveItem, 0610,1,4 )
+	TriggerAction( 1, JumpPage,8 )
+	TriggerFailure( 1, JumpPage, 6)
+	Text( 7,  "Самоуничтожение начального уровня - стоимость 20000 очков репутации. " ,MultiTrigger,GetMultiTrigger(),1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasCredit,50000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, DelRoleCredit, 50000 )
+	TriggerAction( 1, GiveItem, 0885,1,4 )
+	TriggerAction( 1, JumpPage,8 )
+	TriggerFailure( 1, JumpPage, 6)
+	Text( 7,  "Очищающий самоцвет 1 уровня - стоимость 50000 очков репутации. " ,MultiTrigger,GetMultiTrigger(),1)
+
+
+	InitTrigger()
+	TriggerCondition( 1, HasCredit,200000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, DelRoleCredit, 200000 )
+	TriggerAction( 1, GiveItem, 0862,1,4 )
+	TriggerAction( 1, JumpPage,8 )
+	TriggerFailure( 1, JumpPage, 6)
+	Text(7, "Самоцвет колосса - стоимость 200000 очков репутации. " ,MultiTrigger,GetMultiTrigger(),1)
+
+
+	InitTrigger()
+	TriggerCondition( 1, HasCredit,600000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, DelRoleCredit, 600000 )
+	TriggerAction( 1, GiveItem, 1012,1,4 )
+	TriggerAction( 1, JumpPage,8 )
+	TriggerFailure( 1, JumpPage, 6)
+	Text( 7,  "Самоцвет души - стоимость 600000 очков репутации. " ,MultiTrigger,GetMultiTrigger(),1)
+
+	Talk( 8,  "Добро пожаловать в Королевские пираты! Работайте больше для достижения своей цели. ")
+
+	InitTrigger()
+	TriggerCondition( 1, HasRecord, 255 )
+	TriggerCondition( 1, NoItem, 4072, 1 )
+	TriggerCondition( 1, NoRecord, 242 )
+	TriggerAction( 1, JumpPage, 2 )
+	TriggerFailure( 1, JumpPage, 1 )
+
+	Start( GetMultiTrigger(), 1 )
+
+	MisListPage(2)
+
+	AddNpcMission ( 268  )
+	AddNpcMission ( 269  )
+	AddNpcMission ( 288  )
+	AddNpcMission ( 502  )
+	AddNpcMission ( 334  )
+	AddNpcMission ( 6081 )
+end 
+
+function r_talk06()
+	Talk( 1,  "Малыш Даниэль: Доводилось вам быть у святыни в пустыне? Или в Одинокой башне в чаще Священного леса? В молодом возрасте нужно больше исследовать мир. " )
+	Text( 1,  "Сделать Генератор древних ",JumpPage,2)
+	Text( 1,  "У меня мало времени, чтобы слушать истории.", CloseTalk)
+
+	
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3933, 10 )
+	TriggerCondition( 1, HasMoney, 5000 )
+	TriggerAction( 1, TakeItem, 3933, 10 )
+	TriggerAction( 1, TakeMoney, 5000 )
+	TriggerAction( 1, GiveItem, 1812, 1, 4 )
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Talk( 2,  "Малыш Дэниэль: Ох, опять эти детали машин. В последнее время мы все чаще находим их в телах пиратов! Принесите мне 10 Деталей робота и 5000 золотых и я сделаю для вас Генератор древних. " )
+	Text( 2,  "Сделать Генератор древних ",  MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 2,  "Нет, я передумал. ", CloseTalk)
+
+	Talk( 3,  "Малыш Дэниэль: Вот, держите Генератор древних. Он позволит вам проникнуть в Заброшенный город. Приходите если вам потребуется еще. ")
+
+	Talk( 4,  "Малыш Дэниель: Простите, у вас нет 10 Деталей робота или 5000 золотых. ")
+
+	InitTrade()
+	Other(	3243	)
+	Other(	3244	)
+	Other(	3245	)
+	Other(	3246	)
+	Other(	3247	)
+	Other(	3248	)
+	Other(	3249	)
+	Other(	3250	)
+	Other(	3251	)
+	Other(	3252	)
+	Other(	3253	)
+	Other(	3254	)
+	Other(	3255	)
+	Other(	3256	)
+	Other(	3257	)
+	Other(	3258	)
+	Other(	3259	)
+	Other(	3260	)
+	Other(	3261	)
+	Other(	3262	)
+	Other(	3263	)
+	Other(	3264	)
+	Other(	3265	)
+	Other(	3266	)
+	Other(	3267	)
+	Other(	3268	)
+	Other(	3269	)
+	Other(	3270	)
+	Other(	3271	)
+	Other(	3272	)
+	Other(	3273	)
+	Other(	3274	)
+	Other(	3275	)
+	Other(	3276	)
+	Other(	3277	)
+	Other(	3278	)
+	Other(	3279	)
+	Other(	3280	)
+	Other(	3281	)
+	Other(	3282	)
+	Other(	3283	)
+	Other(	3284	)
+	Other(	3285	)
+	Other(	3286	)
+	Other(	3287	)
+	Other(	3288	)
+	Other(	3289	)
+	Other(	3290	)
+	Other(	3291	)
+	Other(	3292	)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3933, 10 )
+	TriggerCondition( 1, HasMoney, 5000 )
+	TriggerAction( 1, JumpPage, 2 )
+	TriggerFailure( 1, JumpPage, 1 )
+
+	Start( GetMultiTrigger(), 1 )
+
+	AddNpcMission (	1045 )
+	AddNpcMission (	1099 )
+	AddNpcMission (	1157 )
+	AddNpcMission (	758  )
+	AddNpcMission (	103  )
+	AddNpcMission (	191  )
+	AddNpcMission (	192  )
+	AddNpcMission (	193  )
+	AddNpcMission (	197  )
+	AddNpcMission (	1225 )
+	AddNpcMission (	503	 )
+	AddNpcMission (	330  )
+	AddNpcMission (	331  )
+	AddNpcMission (	332  )
+	AddNpcMission (	335  )
+	AddNpcMission (	359  )
+	AddNpcMission (	360  )
+	AddNpcMission (	361  )
+	AddNpcMission (	362  )
+	AddNpcMission (	363  )
+	AddNpcMission (	364  )
+	AddNpcMission (	365  )
+	AddNpcMission (	366  )
+	AddNpcMission (	367  )
+	AddNpcMission (	368  )
+	AddNpcMission (	369  )
+	AddNpcMission (	370  )
+	AddNpcMission (	371  )
+	AddNpcMission (	522  )
+	AddNpcMission (	5058 )
+	AddNpcMission (	5062 )
+
+	MisListPage(2)
+end 
+
+function r_talk07()
+	Talk( 1,  "Джимбери: Привет! Могу я тебе чем-нибудь помочь? " )
+	Text( 1,  "Торг ", BuyPage )
+	Text( 1,  "Ничего... ",CloseTalk )
+	Text( 1,  "Сделать Маску реальности. ",JumpPage, 2 )
+
+	InitTrade()
+	Other(	3297	)
+	Other(	3298	)
+	Other(	3164	)
+	Other(	3160	)
+	Other(	3161	)
+	Other(	3165	)
+	Other(	3238	)
+	Other(	3170	)
+	Other(	3293	)
+	Other(	3174	)
+	Other(	3163	)
+	Other(	3176	)
+	Other(	3180	)
+	Other(	3179	)
+	Other(	3177	)
+	Other(	3168	)
+	Other(	3162	)
+	Other(	3166	)
+	Other(	3167	)
+	Other(	3172	)
+	Other(	3173	)
+	Other(	3227	)
+	Other(	3231	)
+	Other(	3228	)
+	Other(	3229	)
+	Other(	3230	)
+	Other(	3232	)
+	Other(	3233	)
+	Other(	3234	)
+	Other(	3235	)
+	Other(	3236	)
+	Other(	3237	)
+	Other(	3225	)
+	Other(	3226	)
+	Other(	3294	)
+	Other(	3295	)
+	Other(	3141	)
+	Other(	4602	)
+	Other(	4603	)
+	Other(	4604	)
+	Other(	3296	)
+	Other(	3299	)
+	Other(	2679	)
+	Other(	2689	)
+	Other(	2699	)
+	Other(	2709	)
+	Other(	1611	)
+	Other(	1682	)
+	Other(	1842	)
+	Other(	1612	)
+	Other(	1710	)
+	Other(	1693	)
+	Other(	4716	)
+	Other(	1716	)
+	Other(	1711	)
+	Other(	3384	)
+	Other(	3932	)
+	Other(	1619	)
+	Other(	2396	)
+	Other(	1729	)
+	Other(	4459	)
+	Other(	1697	)
+	Other(	1730	)
+	Other(	1712	)
+	Other(	1734	)
+	Other(	1621	)
+	Other(	1703	)
+	Other(	3288	)
+	Other(  2440    )
+
+	InitTrigger()
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerCondition( 1, HasItem, 2588, 1 )
+	TriggerCondition( 1, HasItem, 1624, 10 )
+	TriggerCondition( 1, HasMoney, 10000 )
+	TriggerAction( 1, TakeItem, 2588, 1 )
+	TriggerAction( 1, TakeItem, 1624, 10 )
+	TriggerAction( 1, TakeMoney, 10000 )
+	TriggerAction( 1, GiveItem, 2326, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Talk( 2,  "Для создания Маски реальности необходимы 1 Эльфийская печать, 10000 золота и 10 любых ресурсов 3 уровня. " )
+	Text( 2,  "Обменять Осколок кости на Маску реальности. ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerCondition( 1, HasItem, 2588, 1 )
+	TriggerCondition( 1, HasItem, 4031, 10 )
+	TriggerCondition( 1, HasMoney, 10000 )
+	TriggerAction( 1, TakeItem, 2588, 1 )
+	TriggerAction( 1, TakeItem, 4031, 10 )
+	TriggerAction( 1, TakeMoney, 10000 )
+	TriggerAction( 1, GiveItem, 2326, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Text( 2,  "Обменять Руду на Маску реальности. ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerCondition( 1, HasItem, 2588, 1 )
+	TriggerCondition( 1, HasItem, 3991, 10 )
+	TriggerCondition( 1, HasMoney, 10000 )
+	TriggerAction( 1, TakeItem, 2588, 1 )
+	TriggerAction( 1, TakeItem, 3991, 10 )
+	TriggerAction( 1, TakeMoney, 10000 )
+	TriggerAction( 1, GiveItem, 2326, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Text( 2,  "Обменять Дерево на Маску реальности. ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerCondition( 1, HasItem, 2588, 1 )
+	TriggerCondition( 1, HasItem, 4011, 10 )
+	TriggerCondition( 1, HasMoney, 10000 )
+	TriggerAction( 1, TakeItem, 2588, 1 )
+	TriggerAction( 1, TakeItem, 4011, 10 )
+	TriggerAction( 1, TakeMoney, 50000 )
+	TriggerAction( 1, GiveItem, 2326, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Text( 2,  "Обменять Сашими на Маску реальности. ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 3,  "Джимбери: Держите! Маска реальности готова. " )
+	Talk( 4,  "Джимбери: Вы не имеете всех необходимых компонентов или ваш инвентарь заблокирован. " )
+end 
+
+function r_talk08()
+	Talk( 1,  "Маргарет: Привет! Вчера по телевидению... Хахаха... видела его. Он такой забавный... " )
+	Text( 1,  "Сделать укрепляющую пищу ", JumpPage, 2)
+	
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1777, 1 )
+	TriggerCondition( 1, HasItem, 3116, 10 )
+	TriggerAction( 1, TakeItem, 3116, 10 )
+	TriggerAction( 1, TakeItem, 1777, 1 )
+	TriggerAction( 1, GiveItem, 3122, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Talk( 2,  "Вы хотите действительно вкусную и полезную пищу? Тогда вы действительно по адресу! " )
+	Text( 2,  "Сделать Сок эльфийского фрукта. ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1777, 1 )
+	TriggerCondition( 1, HasItem, 3117, 10 )
+	TriggerAction( 1, TakeItem, 3117, 10 )
+	TriggerAction( 1, TakeItem, 1777, 1 )
+	TriggerAction( 1, GiveItem, 3123, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 5 )
+	Text( 2,  "Сделать Чай из красных фиников. ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1777, 1 )
+	TriggerCondition( 1, HasItem, 3118, 10 )
+	TriggerAction( 1, TakeItem, 3118, 10 )
+	TriggerAction( 1, TakeItem, 1777, 1 )
+	TriggerAction( 1, GiveItem, 3124, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 6 )
+	Text( 2,  "Сделать Грибной суп. ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1777, 1 )
+	TriggerCondition( 1, HasItem, 3119, 10 )
+	TriggerAction( 1, TakeItem, 3119, 10 )
+	TriggerAction( 1, TakeItem, 1777, 1 )
+	TriggerAction( 1, GiveItem, 3125, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 7 )
+	Text( 2,  "Сделать Сок плодов дурмана. ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1777, 1 )
+	TriggerCondition( 1, HasItem, 3120, 10 )
+	TriggerAction( 1, TakeItem, 3120, 10 )
+	TriggerAction( 1, TakeItem, 1777, 1 )
+	TriggerAction( 1, GiveItem, 3126, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 8 )
+	Text( 2,  "Сделать Мороженное ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 3,  "Маргарет: Вот то что вы хотели! Не больше и не меньше. " )
+
+	Talk( 4,  "Маргарет: Чтобы сделать 1 Сок эльфийского фрукта необходимо 10 Эльфийских фруктов и 1 Стакан. " )
+
+	Talk( 5,  "Margaret: Чтобы сделать 1 Чай из красных фиников необходимо 10 Красных фиников и 1 Стакан. " )
+
+	Talk( 6,  "Маргарет: Чтобы сделать 1 Грибной суп необходимо 10 Грибов и 1 Стакан. " )
+
+	Talk( 7,  "Маргарет: Чтобы сделать 1 Сок плодов дурмана необходимо 10 Плодов дурмана и 1 Стакан. " )
+
+	Talk( 8,  "Маргарет: Чтобы сделать 1 Мороженное необходимо 10 Ледянных фруктов и 1 Стакан. " )
+
+	AddNpcMission (	1023 )
+	AddNpcMission (	1080 )
+	AddNpcMission (	1135 )
+	AddNpcMission (	1186 )
+	AddNpcMission (	1223 )
+end 
+
+function r_talk09()
+	Talk( 1,  "Мариам: Вас интересуют лучшие краски для волос? " )		
+	Text( 1,  "Сделать краситель для волос. ", JumpPage, 2)
+
+-- Рождественский ивент
+--	Text(1,  "Приготовить Вкусное индюшачье мясо ", JumpPage, 10)
+--	Text(1,  "Приготовить Рождественский обед ", JumpPage, 13)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2886, 10 )
+	TriggerCondition( 1, HasMoney, 10000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerAction( 1, TakeMoney, 10000 )
+	TriggerAction( 1, TakeItem, 2886,10 )
+	TriggerAction( 1, GiveItem, 2895, 1 , 4)
+	TriggerAction( 1, JumpPage, 11 )
+	TriggerFailure( 1, JumpPage, 12)
+	Talk( 10,  "Мариам: Мне требуется 10 Индюшатины и 10000 золота. ")
+	Text( 10,  "Приготовить ",  MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 11,  "Мариам: Вот Вкусное мясо индюшки! Надеюсь вы оцените его сочный вкус! " )
+
+	Talk( 13,  "Мариам: Каждому положено не более трех Рождественских обедов! ")
+	Text( 13,  "Первый Рождественский обед. ",  JumpPage, 15)
+	Text( 13,  "Второй Рождественский обед. ",  JumpPage, 16)
+	Text( 13,  "Третий Рождественский обед. ", JumpPage, 17)
+
+	InitTrigger()
+	TriggerCondition( 1, NoRecord, 815 )
+	TriggerCondition( 1, HasItem, 2895, 10 )
+	TriggerCondition( 1, HasItem, 2894, 1 )
+	TriggerCondition( 1, HasMoney, 10000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerAction( 1, TakeMoney, 10000 )
+	TriggerAction( 1, TakeItem, 2895,10 )
+	TriggerAction( 1, TakeItem, 2894,1 )
+	TriggerAction( 1, GiveItem, 2898, 1 , 4)
+	TriggerAction( 1, SetRecord, 815 )
+	TriggerAction( 1, JumpPage, 11 )
+	TriggerFailure( 1, JumpPage, 14 )
+	Talk( 15,  "Мариам: Сделать хороший Рождественнский обед не просто. Мне необходимы 10 кусков Вкусной индюшатины и 1 Рождественнская роза. Также вы должны заплатить 10000 золота. Я смогу приготовить Рождественнский обед лишь 3 раза! ")
+	Text( 15,  "Приготовить ",  MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasRecord, 815 )
+	TriggerCondition( 1, NoRecord, 816 )
+	TriggerCondition( 1, HasItem, 2895, 10 )
+	TriggerCondition( 1, HasItem, 2894, 1 )
+	TriggerCondition( 1, HasMoney,1000000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerAction( 1, TakeMoney, 1000000 )
+	TriggerAction( 1, TakeItem, 2895,10 )
+	TriggerAction( 1, TakeItem, 2894,1 )
+	TriggerAction(1, GiveItem, 2898, 1 , 4)
+	TriggerAction( 1, SetRecord, 816 )
+	TriggerAction( 1, JumpPage, 11 )
+	TriggerFailure( 1, JumpPage, 18 )
+	Talk( 16,  "Мариам: Сделать хороший Рождественнский обед не просто. Мне необходимы 10 кусков Вкусной индюшатины и 1 Рождественнская роза. Также вы должны заплатить 1000000 золота. Я смогу приготовить Рождественнский обед лишь 3 раза! ")
+	Text( 16,  "Приготовить ",  MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasRecord, 816 )
+	TriggerCondition( 1, NoRecord, 817 )
+	TriggerCondition( 1, HasItem, 2895, 10 )
+	TriggerCondition( 1, HasItem, 2894, 1 )
+	TriggerCondition( 1, HasMoney, 10000000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerAction( 1, TakeMoney, 10000000 )
+	TriggerAction( 1, TakeItem, 2895,10 )
+	TriggerAction( 1, TakeItem, 2894,1 )
+	TriggerAction( 1, GiveItem, 2898, 1 , 4)
+	TriggerAction( 1, SetRecord, 817 )
+	TriggerAction( 1, JumpPage, 11 )
+	TriggerFailure( 1, JumpPage,19 )
+	Talk( 17,  "Мариам: Сделать хороший Рождественнский обед не просто. Мне необходимы 10 кусков Вкусной индюшатины и 1 Рождественнская роза. Также вы должны заплатить 10000000 золота. Я смогу приготовить Рождественнский обед лишь 3 раза! ")
+	Text( 17,  "Приготовить ",  MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 14,  "Мариам: Кажется вы не имеете всех необходимых компонентов или достаточно золота! Также вы должны иметь 1 свободную ячейку в инвентаре. Вы делаете Рождественнский обед впервые? Вы сможете приготовить его лишь 3 раза! ")
+
+	Talk( 18,  "Мариам: Кажется вы не имеете всех необходимых компонентов или достаточно золота! Также вы должны иметь 1 свободную ячейку в инвентаре. Вы делаете Рождественнский обед второй раз? Вы сможете приготовить его лишь 3 раза! ")
+
+	Talk( 19,  "Мариам: Кажется вы не имеете всех необходимых компонентов или достаточно золота! Также вы должны иметь 1 свободную ячейку в инвентаре. Вы делаете Рождественнский обед в третий раз? Вы сможете приготовить его лишь 3 раза! ")
+
+	Talk( 12,  "Мариам: Кажется вы не имеете всех необходимых компонентов или достаточно золота! Также вы должны иметь 1 свободную ячейку в инвентаре. ")
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1787, 5 )
+	TriggerCondition( 1, HasItem, 1657, 1 )
+	TriggerCondition( 1, HasItem, 1778, 1 )
+	TriggerCondition( 1, HasMoney, 200 )
+	TriggerAction( 1, TakeMoney, 200 )
+	TriggerAction( 1, TakeItem, 1787, 5 )
+	TriggerAction( 1, TakeItem, 1657, 1 )
+	TriggerAction( 1, TakeItem, 1778, 1 )
+	TriggerAction( 1, GiveItem, 1797, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Talk( 2,  "Мариам: Иметь один и тот же цвет прически постоянно скучно. Я могу приготовить для вас краситель для интересующего вас цвета. " )
+	Text( 2,  "Сделать Красный краситель ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1788, 5 )
+	TriggerCondition( 1, HasItem, 1657, 1 )
+	TriggerCondition( 1, HasItem, 1778, 1 )
+	TriggerCondition( 1, HasMoney, 200 )
+	TriggerAction( 1, TakeMoney, 200 )
+	TriggerAction( 1, TakeItem, 1788, 5 )
+	TriggerAction( 1, TakeItem, 1657, 1 )
+	TriggerAction( 1, TakeItem, 1778, 1 )
+	TriggerAction( 1, GiveItem, 1798, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 5 )
+	Text( 2,  "Сделать Оранжевый краситель ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 4606, 5 )
+	TriggerCondition( 1, HasItem, 1657, 1 )
+	TriggerCondition( 1, HasItem, 1778, 1 )
+	TriggerCondition( 1, HasMoney, 200 )
+	TriggerAction( 1, TakeMoney, 200 )
+	TriggerAction( 1, TakeItem, 4606, 5 )
+	TriggerAction( 1, TakeItem, 1657, 1 )
+	TriggerAction( 1, TakeItem, 1778, 1 )
+	TriggerAction( 1, GiveItem, 4607, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 8 )
+	Text( 2,  "Сделать Черный краситель ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 4608, 5 )
+	TriggerCondition( 1, HasItem, 1657, 1 )
+	TriggerCondition( 1, HasItem, 1778, 1 )
+	TriggerCondition( 1, HasMoney, 200 )
+	TriggerAction( 1, TakeMoney, 200 )
+	TriggerAction( 1, TakeItem, 4608, 5 )
+	TriggerAction( 1, TakeItem, 1657, 1 )
+	TriggerAction( 1, TakeItem, 1778, 1 )
+	TriggerAction( 1, GiveItem, 4609, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 9 )
+	Text( 2,  "Сделать коричневый краситель ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 3,  "Мариам: Готово! Возьмите этот превосходный краситель, сваренный именно для вас. " )
+
+	Talk( 4,  "Мариам: Чтобы приготовить 1 Красный краситель необходимо 5 Красной краски, 1 Особый газ, 1 Радужный стакан и 200 золотых. " )
+
+	Talk( 5,  "Мариам: Чтобы приготовить 1 Оранжевый краситель необходимо 5 Оранжевой краски, 1 Особый газ, 1 Радужный стакан и 200 золотых. " )
+
+	InitTrigger()
+	TriggerCondition( 1, LvCheck, "<", 2 )
+	TriggerAction( 1, AddExp, 116688305, 116688305 )
+	TriggerAction( 1, AddExpAndType,2,370500,370500)
+	TriggerAction( 1, AddMoney, 1000000 )
+	TriggerFailure( 1, JumpPage, 7 )
+--	Talk( 6, "Мариам: To test PK, I will make you Lv 65 and add 1 million gold for you." )
+--	Text( 6, "Хорошо ", MultiTrigger, GetMultiTrigger(), 1)
+
+--	Talk( 7, "Мариам: Я только give this chance to level 1 new players." ) --Непоймишто О_____о
+
+	Talk( 8,  "Мариам: Чтобы приготовить 1 Черный краситель необходимо 5 Черной краски, 1 Особый газ, 1 Радужный стакан и 200 золотых. " )
+
+	Talk( 9,  "Мариам: Чтобы приготовить 1 Коричневой краситель необходимо 5 Коричневой краски, 1 Особый газ, 1 Радужный стакан и 200 золотых. " )
+
+	AddNpcMission (	1029 )
+	AddNpcMission (	1192 )
+	AddNpcMission (	5536 )
+end 
+
+function r_talk11()
+	Talk( 1,  "Форбей: Привет! Я расскажу вам одну длинную историю... Подождите! Не уходите! " )
+
+	AddNpcMission (	1009 )
+	AddNpcMission (	1173 )
+	AddNpcMission ( 6123 )
+	AddNpcMission ( 6124 )
+end 
+
+function r_talk12()
+	Talk( 1,  "Коди: Привет! Я моряк Коди. " )
+
+	AddNpcMission (	1039 )
+	AddNpcMission (	1202 )
+	AddNpcMission (	80	 )
+	AddNpcMission (	81	 )
+	AddNpcMission (	79	 )
+	AddNpcMission (	5510 )
+end 
+
+function r_talk13()	
+	Talk( 1,  "Моника: Привет! Я банкир Моника! В нашем банке ваши вещи всегда под надежной защитой! " )
+	InitTrigger()
+	TriggerCondition( 1, HasMoney, 200 )
+	TriggerAction( 1, TakeMoney, 200 )
+	TriggerAction( 1, OpenBank )
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1,  "Хранилище (стоимость 200 золотых) ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 2,  "Простите, Вы не имеете достаточное количество золота! " )
+
+	AddNpcMission (	1050 )
+	AddNpcMission (	1212 )
+	AddNpcMission ( 6091 )
+	AddNpcMission ( 6092 )
+end 
+
+function r_talk14()
+	Talk( 1,  "Вильям: Привет, Я генерал Вильям. Тут я самый главный! " )
+	Text( 1,  "Пока.",CloseTalk )
+
+	AddNpcMission ( 207  )
+	AddNpcMission ( 208  )
+	AddNpcMission ( 209  )
+	AddNpcMission ( 212  )
+	AddNpcMission ( 213  )
+	AddNpcMission ( 216  )
+	AddNpcMission ( 274  )
+	AddNpcMission ( 275  )
+	AddNpcMission ( 276  )
+	AddNpcMission (	1016 )
+	AddNpcMission (	1179 )
+	AddNpcMission (	69	 )
+	AddNpcMission (	70	 )
+	AddNpcMission (	71	 )
+	AddNpcMission (	194  )
+	AddNpcMission (	195  )
+	AddNpcMission (	196  )
+	AddNpcMission (	318	 )
+	AddNpcMission (	323	 )
+	AddNpcMission (	324	 )
+	AddNpcMission (	5053 )
+
+	MisListPage(2)
+end
+
+function r_talk15()
+	Talk( 1,  "Ксиба: Хотя я и посол, но все же не могу проводить все свое время в работе. Вы также должны играть чтобы уравновесить это. " )
+
+	AddNpcMission (	1032 )
+	AddNpcMission (	1195 )
+end 
+
+function r_talk16()
+	Talk( 1,  "Рональд: Я правитель и отвечаю за всю торговлю в этом городе. Я могу научить вас как стать самым богатым в Аргенте. " )
+	
+	AddNpcMission ( 271  )
+	AddNpcMission ( 277  )
+	AddNpcMission ( 278  )
+	AddNpcMission ( 280  )
+	AddNpcMission ( 286  )
+	AddNpcMission (	5076 )
+	AddNpcMission (	5077 )
+	AddNpcMission (	5078 )
+	AddNpcMission (	5079 )
+	AddNpcMission (	5088 )
+	AddNpcMission (	5110 )
+	AddNpcMission (	5112 )
+	AddNpcMission (	5114 )
+	AddNpcMission (	5116 )
+	AddNpcMission (	5147 )
+end 
+
+function r_talk17()
+	Talk( 1,  "Пачкуля: Бабушка Белди печет самое вкусное печенье! " )
+
+	AddNpcMission ( 266  )
+	AddNpcMission ( 267  )
+	AddNpcMission ( 270  )
+	AddNpcMission ( 272  )
+	AddNpcMission ( 273  )
+	AddNpcMission ( 337  )
+	AddNpcMission ( 338  )
+	AddNpcMission ( 554  )
+	AddNpcMission ( 555  )
+	AddNpcMission ( 901  )
+	AddNpcMission ( 5557 )
+	AddNpcMission ( 5558 )
+	AddNpcMission ( 6168 )
+	AddNpcMission ( 6169 )
+	AddNpcMission ( 6170 )
+	AddNpcMission ( 6173 )
+end 
+
+function r_talk18()
+	Talk( 1,  "Рори: Я думаю у нашего правителя есть тайна и я действительно очень хочу ее узнать. " )
+	
+	AddNpcMission ( 76 	 )
+	AddNpcMission ( 77 	 )
+	AddNpcMission ( 78 	 )
+end 
+
+function r_talk19()
+	Talk( 1,  "Странник: Из всех морских монстров наибольший страх мне внушает Пузырчатый моллюск. Это правда! Я видел Однажды в порту огромную особь. Если бы в него не начали стрелять Сакура 13, я думаю он мог бы убить горожан. " )
+	
+	AddNpcMission ( 6086 )
+	AddNpcMission ( 6089 )
+	AddNpcMission ( 6090 )
+end 
+
+function r_talk20()
+	Talk( 1,  "Энтони: Э? Что? Вы что то хотите? Боюсь вы не по адресу. " )
+	
+	AddNpcMission ( 500  )
+	AddNpcMission ( 501  )
+	AddNpcMission ( 358  )
+	AddNpcMission ( 372  )
+	AddNpcMission ( 6082 )
+end 
+
+function r_talk21()
+	Talk( 1,  "Томми: Привет, я Томми. А вы? Монстры что то какие то неспокойные в последнее время. " )
+	
+	AddNpcMission ( 210  )
+	AddNpcMission ( 211  )
+	AddNpcMission (	1034 )
+	AddNpcMission (	1197 )
+end 
+
+function r_talk22()
+	Talk( 1,  "Дезмонд: Работа ремесленника лучше чем у вас! Но вы люди слишком высокомерны чтобы это признать. " )
+	
+	AddNpcMission (	1054 )
+	AddNpcMission (	1216 )
+end 
+
+function r_talk23()
+	Talk( 1,  "Контрабандист Банни: Запрещенные товары? Я имею все, в чем вы нуждаетесь! " )
+	
+	AddNpcMission (	1000 )
+	AddNpcMission (	1164 )
+end 
+
+function r_talk24()
+	Talk( 1,  "Дессаро: Привет! Я являюсь самым главным в Громограде. Не желаете присоединится к нашей команде? " )
+
+	InitTrigger()
+	TriggerCondition( 1, HasMoney, 100000 )
 	TriggerCondition( 1, HasItem, 1780, 1 )
 	TriggerCondition( 1, NoGuild )
 	TriggerAction( 1, CreateGuild, 0 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Создать гильдию Флота ", MultiTrigger, GetMultiTrigger(), 1)
-	
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 1780, 1 )
-	TriggerCondition( 1, NoGuild )
-	TriggerAction( 1, CreateGuild, 1 )
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1,  "Создать пиратскую гильдию ", MultiTrigger, GetMultiTrigger(), 1)
-	
-	Talk(2, "У вас нет Камня Клятвы или 1 миллиона золота. ")
-	Text(2, "Понял, ушел. ",CloseTalk)
+	Text( 1,  "Создать гильдию Флота ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 2,  "Дессаро: Чтобы создать гильдию Флота вы должны заплатить 100000 золота и принести Камень клятвы. так вы докажете вашу преданность. " )
+  
+	AddNpcMission (	566	 )
+	AddNpcMission (	477	 )
+	AddNpcMission (	478  )
+	AddNpcMission ( 6087 )
+	AddNpcMission ( 6088 )
 end 
 
-function guild1()
-	Talk( 1, "Гевас: Привет! Мне известны все пиратские организации в мире! Хотите присмотреть местечко для себя? ")
-	InitTrigger()
-	TriggerCondition( 1, IsGuildType, 1 )
-	TriggerAction( 1, ListAllGuild, 1 )
-	TriggerCondition( 2, IsGuildType, 0 )
-	TriggerAction( 2, JumpPage, 2 )
-	TriggerCondition( 3, NoGuild )
-	TriggerAction( 3, ListAllGuild, 1 )
-	TriggerFailure( 3, JumpPage, 3 )
-	Text( 1, "Посмотреть пиратские гильдии ", MultiTrigger, GetMultiTrigger(), 3)
+function r_talk25()
+	Talk( 1,  "Мона: Привет! Вы слышали про пирата Сакура 13? Она мой идол! Я желаю поскорее оставить это скучное место и стать таким пиратом как она! " )
 
-	Text( 1, "Прощайте ", CloseTalk)
-	
-	Talk( 2, "Гевас: Эй, да вы из флота! Я не буду говорить ни с кем из флота! ")
+	AddNpcMission (	1022 )
+	AddNpcMission (	1079 )
+	AddNpcMission (	1134 )
+	AddNpcMission (	1185 )
+	AddNpcMission (	378	 )
+end 
 
-	Talk( 3, "Гевас: Хотите узнать кто самый известный пират? Я этого не скажу. ")
-end
+function r_talk26()
+	Talk( 1,  "Дио: Привет! Я моряк Дио. Будьте осторожны в открытом море, там есть много свирепых монстров, а особенно акулы! Они откусят вам ногу также как мою. О, моя бедная нога... " )
 
-function guild2()
-	Talk( 1, "Далонгдан: привет! Я осведомитель флота. У меня есть полный списко всех флотских гильдий! ")
-	InitTrigger()
-	TriggerCondition( 1, IsGuildType, 0 )
-	TriggerAction( 1, ListAllGuild, 0 )
-	TriggerCondition( 2, IsGuildType, 1 )
-	TriggerAction( 2, JumpPage, 3 )
-	TriggerCondition( 3, NoGuild )
-	TriggerAction( 3, ListAllGuild, 0 )
-	TriggerFailure( 3, JumpPage, 2 )
-	Text( 1, "Посмотреть список гильдий ", MultiTrigger, GetMultiTrigger(), 3)
-	Text( 1, "До свидания ", CloseTalk)
-	
-	Talk( 2, "Далонгдан: Вы не можете посмотреть списки гильдий не имея при себе рекомендательного письма! ")
+	AddNpcMission (	1038 )
+	AddNpcMission (	1092 )
+	AddNpcMission (	1150 )
+	AddNpcMission (	1201 )
+	AddNpcMission (	5535 )
+end 
 
-	Talk( 3, "Далонгдан: Вы не принадлежите к флоту. Я не буду давать вам никакую информацию! ")
-end
--------------
--- PK очки --
--------------
-function pk_points()
-	InitTrigger()
-	TriggerAction( 1, PK_points )
-	Start( GetMultiTrigger(), 1 )
-end
-
---------------
--- PVP очки --
---------------
-function pvp_points()
-	InitTrigger()
-	TriggerAction( 1, PVP_points )
-	Start( GetMultiTrigger(), 1 )
-end
-
------------------
--- Топ Гильдий --
------------------
-function top_guilds()
-	Talk( 1,  "Сила в единстве! Хотите бросить вызов одной из 3 самых сильных гильдий? Хотите править этим миром? " )
-	Text( 1,  "Топ 3 гильдий ", ListChallenge)
-	
-end
-------------------------------------------------------------
--- 						Профессии						  --
-------------------------------------------------------------
-function npc_job ()
-
-	Talk( 1, "Привет! Я помогаю освоить профессию. Выбирай:" )
-	Text( 1, "Хочу первую ", JumpPage, 2)
-	Text( 1, "Хочу вторую ", JumpPage, 3)
-	Text( 1, "Уйти. ",  CloseTalk)
-
-
-	Talk( 2, "Для получения требуется 9 лвл и 1к голда! " )
-	Text( 2, "Мечник ", JumpPage, 4 )
-	Text( 2, "Охотник ", JumpPage, 5 )
-	Text( 2, "Знахарка ", JumpPage, 6 )
-	Text( 2, "Путешевственник ", JumpPage, 7 )
-	Text( 2, "Ебнуть и убежать ", CloseTalk )
-
-	Talk( 3, "Для получения требуется 40 лвл и 50к голда! " )
-	Text( 3, "Воитель ", JumpPage, 8 )
-	Text( 3, "Чемпион ", JumpPage, 9 )
-	Text( 3, "Стрелок ", JumpPage, 10 )
-	Text( 3, "Целительница ", JumpPage, 11 )
-	Text( 3, "Колдунья ", JumpPage, 12 )
-	Text( 3, "Покоритель морей ", JumpPage, 13 )
-	Text( 3, "Ебнуть и убежать ", CloseTalk )
-
-	Talk( 4, "У тебя уже есть 9 лвл и 1к золота? ну выберай =) " )
-	InitTrigger()
-	TriggerCondition( 1, LvCheck, ">", 8 )
-	TriggerCondition( 1, IsCategory, 1 )
-	TriggerCondition( 1, PfEqual, 0 )
-	TriggerCondition( 1, HasMoney, 1000,1000 )
-	TriggerAction( 1, TakeMoney, 1000,1000 )
-	TriggerAction( 1, SetProfession, 1 )
-	TriggerAction( 1, JumpPage, 14 )
-	TriggerCondition( 2, LvCheck, ">", 8 )
-	TriggerCondition( 2, IsCategory, 2 )
-	TriggerCondition( 2, PfEqual, 0 )
-	TriggerCondition( 2, HasMoney, 1000,1000 )
-	TriggerAction( 2, TakeMoney, 1000,1000 )
-	TriggerAction( 2, SetProfession, 1 )
-	TriggerAction( 2, JumpPage, 14 )
-	TriggerCondition( 3, LvCheck, ">", 8 )
-	TriggerCondition( 3, IsCategory, 3 )
-	TriggerCondition( 3, PfEqual, 0 )
-	TriggerCondition( 3, HasMoney, 1000,1000 )
-	TriggerAction( 3, TakeMoney, 1000,1000 )
-	TriggerAction( 3, SetProfession, 1 )
-	TriggerAction( 3, JumpPage, 14 )
-	TriggerCondition( 4, LvCheck, ">", 8 )
-	TriggerCondition( 4, IsCategory, 4 )
-	TriggerCondition( 4, PfEqual, 0 )
-	TriggerCondition( 4, HasMoney, 1000,1000 )
-	TriggerAction( 4, TakeMoney, 1000,1000 )
-	TriggerAction( 4, SetProfession, 1 )
-	TriggerAction( 4, JumpPage, 14 )
-	TriggerFailure( 4, JumpPage, 15 )
-	Text( 4, "Точно хочу ", MultiTrigger, GetMultiTrigger(), 4)
-	Text( 4, "Перейти к выбору проф ", JumpPage, 2 )
-
-	Talk( 5, "У тебя уже есть 9 лвл и 1к золота? ну выберай =) " )
-	InitTrigger()
-	TriggerCondition( 1, LvCheck, ">", 8 )
-	TriggerCondition( 1, IsCategory, 1 )
-	TriggerCondition( 1, PfEqual, 0 )
-	TriggerCondition( 1, HasMoney, 1000,1000 )
-	TriggerAction( 1, TakeMoney, 1000,1000 )
-	TriggerAction( 1, SetProfession, 2 )
-	TriggerAction( 1, JumpPage, 14 )
-	TriggerCondition( 2, LvCheck, ">", 8 )
-	TriggerCondition( 2, IsCategory, 3 )
-	TriggerCondition( 2, PfEqual, 0 )
-	TriggerCondition( 2, HasMoney, 1000,1000 )
-	TriggerAction( 2, TakeMoney, 1000,1000 )
-	TriggerAction( 2, SetProfession, 2 )
-	TriggerAction( 2, JumpPage, 14 )
-	TriggerFailure( 2, JumpPage, 15 )
-	Text( 5, "Точно хочу ", MultiTrigger, GetMultiTrigger(), 2)
-	Text( 5, "Перейти к выбору проф ", JumpPage, 2 )
-
-
-	Talk( 6, "У тебя уже есть 9 лвл и 1к золота? ну выберай =) " )
-	InitTrigger()
-	TriggerCondition( 1, LvCheck, ">", 8 )
-	TriggerCondition( 1, IsCategory, 3 )
-	TriggerCondition( 1, PfEqual, 0 )
-	TriggerCondition( 1, HasMoney, 1000,1000 )
-	TriggerAction( 1, TakeMoney, 1000,1000 )
-	TriggerAction( 1, SetProfession, 5 )
-	TriggerAction( 1, JumpPage, 14 )
-	TriggerCondition( 2, LvCheck, ">", 8 )
-	TriggerCondition( 2, IsCategory, 4 )
-	TriggerCondition( 2, PfEqual, 0 )
-	TriggerCondition( 2, HasMoney, 1000,1000 )
-	TriggerAction( 2, TakeMoney, 1000,1000 )
-	TriggerAction( 2, SetProfession, 5 )
-	TriggerAction( 2, JumpPage, 14 )
-	TriggerCondition( 3, LvCheck, ">", 8 )
-	TriggerCondition( 3, IsCategory, 1 )
-	TriggerCondition( 3, PfEqual, 0 )
-	TriggerCondition( 3, HasMoney, 1000,1000 )
-	TriggerAction( 3, TakeMoney, 1000,1000 )
-	TriggerAction( 3, SetProfession, 5 )
-	TriggerAction( 3, JumpPage, 14 )
-	TriggerFailure( 3, JumpPage, 15 )
-	Text( 6, "Точно хочу ", MultiTrigger, GetMultiTrigger(), 3)
-	Text( 6, "Перейти к выбору проф ", JumpPage, 2 )
-
-	Talk( 7, "У тебя уже есть 9 лвл и 1к золота? ну выберай =) " )
-	InitTrigger()
-	TriggerCondition( 1, LvCheck, ">", 8 )
-	TriggerCondition( 1, IsCategory, 1 )
-	TriggerCondition( 1, PfEqual, 0 )
-	TriggerCondition( 1, HasMoney, 1000,1000 )
-	TriggerAction( 1, TakeMoney, 1000,1000 )
-	TriggerAction( 1, SetProfession, 4 )
-	TriggerAction( 1, JumpPage, 14 )
-	TriggerCondition( 2, LvCheck, ">", 8 )
-	TriggerCondition( 2, IsCategory, 3 )
-	TriggerCondition( 2, PfEqual, 0 )
-	TriggerCondition( 2, HasMoney, 1000,1000 )
-	TriggerAction( 2, TakeMoney, 1000,1000 )
-	TriggerAction( 2, SetProfession, 4 )
-	TriggerAction( 2, JumpPage, 14 )
-	TriggerCondition( 3, LvCheck, ">", 8 )
-	TriggerCondition( 3, IsCategory, 4 )
-	TriggerCondition( 3, PfEqual, 0 )
-	TriggerCondition( 3, HasMoney, 1000,1000 )
-	TriggerAction( 3, TakeMoney, 1000,1000 )
-	TriggerAction( 3, SetProfession, 4 )
-	TriggerAction( 3, JumpPage, 14 )
-	TriggerFailure( 3, JumpPage, 15 )
-	Text( 7, "Точно хочу ", MultiTrigger, GetMultiTrigger(), 3)
-	Text( 7, "Перейти к выбору проф ", JumpPage, 2 )
-
-
-	Talk( 8, "У тебя уже есть 40 лвл и 50к золота? ну выберай =) " )
-	InitTrigger()
-	TriggerCondition( 1, LvCheck, ">", 39 )
-	TriggerCondition( 1, IsCategory, 1 )
-	TriggerCondition( 1, PfEqual, 1 )
-	TriggerCondition( 1, HasMoney, 50000,50000 )
-	TriggerAction( 1, TakeMoney, 50000,50000 )
-	TriggerAction( 1, SetProfession, 9 )
-	TriggerAction( 1, JumpPage, 14 )
-	TriggerCondition( 2, LvCheck, ">", 39 )
-	TriggerCondition( 2, IsCategory, 3 )
-	TriggerCondition( 2, PfEqual, 1 )
-	TriggerCondition( 2, HasMoney, 50000,50000 )
-	TriggerAction( 2, TakeMoney, 50000,50000 )
-	TriggerAction( 2, SetProfession, 9 )
-	TriggerAction( 2, JumpPage, 14 )
-	TriggerCondition( 3, LvCheck, ">", 39 )
-	TriggerCondition( 3, IsCategory, 2 )
-	TriggerCondition( 3, PfEqual, 1 )
-	TriggerCondition( 3, HasMoney, 50000,50000 )
-	TriggerAction( 3, TakeMoney, 50000,50000 )
-	TriggerAction( 3, SetProfession, 9 )
-	TriggerAction( 3, JumpPage, 14 )
-	TriggerFailure( 3, JumpPage, 15 )
-	Text( 8, "Точно хочу ", MultiTrigger, GetMultiTrigger(), 3)
-	Text( 8, "Перейти к выбору проф", JumpPage, 2 )
-
-	Talk( 9, "У тебя уже есть 40 лвл и 50к золота? ну выберай =) " )
-	InitTrigger()
-	TriggerCondition( 1, LvCheck, ">", 39 )
-	TriggerCondition( 1, IsCategory, 2 )
-	TriggerCondition( 1, PfEqual, 1 )
-	TriggerCondition( 1, HasMoney, 50000, 50000)
-	TriggerAction( 1, SetProfession, 8 )
-	TriggerAction( 1, TakeMoney, 50000, 50000 )
-	TriggerAction( 1, JumpPage, 14 )
-	TriggerCondition( 2, LvCheck, ">", 39 )
-	TriggerCondition( 2, IsCategory, 4 )
-	TriggerCondition( 2, PfEqual, 1 )
-	TriggerCondition( 2, HasMoney, 50000, 50000)
-	TriggerAction( 2, SetProfession, 8 )
-	TriggerAction( 2, TakeMoney, 50000, 50000 )
-	TriggerAction( 2, JumpPage, 14 )
-	TriggerCondition( 3, LvCheck, ">", 39 )
-	TriggerCondition( 3, IsCategory, 3 )
-	TriggerCondition( 3, PfEqual, 1 )
-	TriggerCondition( 3, HasMoney, 50000, 50000)
-	TriggerAction( 3, SetProfession, 8 )
-	TriggerAction( 3, TakeMoney, 50000, 50000 )
-	TriggerAction( 3, JumpPage, 14 )
-	TriggerCondition( 4, LvCheck, ">", 39 )
-	TriggerCondition( 4, IsCategory, 1 )
-	TriggerCondition( 4, PfEqual, 1 )
-	TriggerCondition( 4, HasMoney, 50000, 50000)
-	TriggerAction( 4, SetProfession, 8 )
-	TriggerAction( 4, TakeMoney, 50000, 50000 )
-	TriggerAction( 4, JumpPage, 14 )
-	TriggerFailure( 4, JumpPage, 15 )
-	Text( 9, "Точно хочу ", MultiTrigger, GetMultiTrigger(), 4)
-	Text( 9, "Перейти к выбору проф ", JumpPage, 2 )
-
-	Talk( 10, "У тебя уже есть 40 лвл и 50к золота? ну выберай =) " )
-	InitTrigger()
-	TriggerCondition( 1, LvCheck, ">", 39 )
-	TriggerCondition( 1, IsCategory, 1 )
-	TriggerCondition( 1, PfEqual, 2 )
-	TriggerCondition( 1, HasMoney, 50000,50000 )
-	TriggerAction( 1, TakeMoney, 50000,50000 )
-	TriggerAction( 1, SetProfession, 12 )
-	TriggerAction( 1, JumpPage, 14 )
-	TriggerCondition( 2, LvCheck, ">", 39 )
-	TriggerCondition( 2, IsCategory, 3 )
-	TriggerCondition( 2, PfEqual, 2 )
-	TriggerCondition( 2, HasMoney, 50000,50000 )
-	TriggerAction( 2, TakeMoney, 50000,50000 )
-	TriggerAction( 2, SetProfession, 12 )
-	TriggerAction( 2, JumpPage, 14 )
-	TriggerFailure( 2, JumpPage, 15 )
-	Text( 10, "Точно хочу ", MultiTrigger, GetMultiTrigger(), 2)
-	Text( 10, "Перейти к выбору проф ", JumpPage, 2 )
-
-	Talk( 11, "У тебя уже есть 40 лвл и 50к золота? ну выберай =) " )
-	InitTrigger()
-	TriggerCondition( 1, LvCheck, ">", 39 )
-	TriggerCondition( 1, IsCategory, 3 )
-	TriggerCondition( 1, PfEqual, 5 )
-	TriggerCondition( 1, HasMoney, 50000,50000 )
-	TriggerAction( 1, TakeMoney, 50000,50000 )
-	TriggerAction( 1, SetProfession, 13 )
-	TriggerAction( 1, JumpPage, 14 )
-	TriggerCondition( 2, LvCheck, ">", 39 )
-	TriggerCondition( 2, IsCategory, 4 )
-	TriggerCondition( 2, PfEqual, 5 )
-	TriggerCondition( 2, HasMoney, 50000,50000 )
-	TriggerAction( 2, TakeMoney, 50000,50000 )
-	TriggerAction( 2, SetProfession, 13 )
-	TriggerAction( 2, JumpPage, 14 )
-	TriggerCondition( 3, LvCheck, ">", 39 )
-	TriggerCondition( 3, IsCategory, 1 )
-	TriggerCondition( 3, PfEqual, 5 )
-	TriggerCondition( 3, HasMoney, 50000,50000 )
-	TriggerAction( 3, TakeMoney, 50000,50000 )
-	TriggerAction( 3, SetProfession, 13 )
-	TriggerAction( 3, JumpPage, 14 )
-	TriggerFailure( 3, JumpPage, 15 )
-	Text( 11, "Точно хочу ", MultiTrigger, GetMultiTrigger(), 3)
-	Text( 11, "Перейти к выбору проф ", JumpPage, 2 )
-
-	Talk( 12, "У тебя уже есть 40 лвл и 50к золота? ну выберай =) " )
-	InitTrigger()
-	TriggerCondition( 1, LvCheck, ">", 39 )
-	TriggerCondition( 1, IsCategory, 3 )
-	TriggerCondition( 1, PfEqual, 5 )
-	TriggerCondition( 1, HasMoney, 50000,50000 )
-	TriggerAction( 1, TakeMoney, 50000,50000 )
-	TriggerAction( 1, SetProfession, 14 )
-	TriggerAction( 1, JumpPage, 14 )
-	TriggerCondition( 2, LvCheck, ">", 39 )
-	TriggerCondition( 2, IsCategory, 4 )
-	TriggerCondition( 2, PfEqual, 5 )
-	TriggerCondition( 2, HasMoney, 50000,50000 )
-	TriggerAction( 2, TakeMoney, 50000,50000 )
-	TriggerAction( 2, SetProfession, 14 )
-	TriggerAction( 2, JumpPage, 14 )
-	TriggerCondition( 3, LvCheck, ">", 39 )
-	TriggerCondition( 3, IsCategory, 1 )
-	TriggerCondition( 3, PfEqual, 5 )
-	TriggerCondition( 3, HasMoney, 50000,50000 )
-	TriggerAction( 3, TakeMoney, 50000,50000 )
-	TriggerAction( 3, SetProfession, 14 )
-	TriggerAction( 3, JumpPage, 14 )
-	TriggerFailure( 3, JumpPage, 15 )
-	Text( 12, "Точно хочу ", MultiTrigger, GetMultiTrigger(), 3)
-	Text( 12, "Перейти к выбору проф ", JumpPage, 2 )
-
-	Talk( 13, "У тебя уже есть 40 лвл и 50к золота? ну выберай =) " )
-	InitTrigger()
-	TriggerCondition( 1, LvCheck, ">", 39 )
-	TriggerCondition( 1, IsCategory, 1 )
-	TriggerCondition( 1, PfEqual, 4 )
-	TriggerCondition( 1, HasMoney, 50000,50000 )
-	TriggerAction( 1, TakeMoney, 50000,50000 )
-	TriggerAction( 1, SetProfession, 16 )
-	TriggerAction( 1, JumpPage, 14 )
-	TriggerCondition( 2, LvCheck, ">", 39 )
-	TriggerCondition( 2, IsCategory, 3 )
-	TriggerCondition( 2, PfEqual, 4 )
-	TriggerCondition( 2, HasMoney, 50000,50000 )
-	TriggerAction( 2, TakeMoney, 50000,50000 )
-	TriggerAction( 2, SetProfession, 16 )
-	TriggerAction( 2, JumpPage, 14 )
-	TriggerCondition( 3, LvCheck, ">", 39 )
-	TriggerCondition( 3, IsCategory, 4 )
-	TriggerCondition( 3, PfEqual, 4 )
-	TriggerCondition( 3, HasMoney, 50000,50000 )
-	TriggerAction( 3, TakeMoney, 50000,50000 )
-	TriggerAction( 3, SetProfession, 16 )
-	TriggerAction( 3, JumpPage, 14 )
-	TriggerFailure( 3, JumpPage, 15 )
-	Text( 13, "Точно хочу ", MultiTrigger, GetMultiTrigger(), 3)
-	Text( 13, "Перейти к выбору проф ", JumpPage, 2 )
-
-	Talk( 14, "Сменщик проф: Поздравляю тебя с получением профессии ")
-	Text( 14, "Спасибо ",  CloseTalk)
-
-	Talk( 15, "Сменщик проф: Ты не подходишь под требования!")
-	Text( 15, "Я понел ",  CloseTalk)
-
-end
-
-function kuznec ()
-	Talk( 1,  "Голди: при улучшении экипировки,убедитесь что в вашем инвентаре достаточно свободного места! При полном инвентаре вещь исчезает! " )
+function r_talk28()
+	Talk( 1,  "Маса: С вами что то не так? Я военный доктор Громограда. Не ищите меня по пустякам! " )
 	Text( 1,  "Торг ", BuyPage )
-	Text( 1,  "Ремонт ", OpenRepair )
-	Text( 1,  "Сделать слот ", OpenMilling)
-	Text( 1,  "Вставить самоцвет ", OpenForge)
-	Text( 1,  "Комбинация самоцветов ", OpenUnite)
-	Text( 1,  "Улучшение аппарели ", OpenUpgrade)
-	Text( 1,  "Вставить в аппарель ", OpenFusion)
-
+	Text( 1,  "Ничего... ",CloseTalk )
 
 	InitTrade()
-	Weapon(	0891	)
-	Weapon(	0890	)
-	Weapon(	1020	)
-	Weapon(	7916	)
-	Weapon(	7917	)
-	Weapon(	0886	)
-	Weapon(	0885	)
-	Weapon(	8130	)
-	Weapon(	8131	)
-	Weapon(	8132	)
+	Other(	1847	)
+	Other(	1848	)
+	Other(	1849	)
+	Other(	3143	)
 
-
-	AddNpcMission ( 703  )
-	AddNpcMission (	58	 )
-	AddNpcMission (	59	 )
-	AddNpcMission (	60	 )
-	AddNpcMission (	1221 )
+	AddNpcMission (	1024 )
+	AddNpcMission (	1081 )
+	AddNpcMission (	1136 )
+	AddNpcMission (	1187 )
+	AddNpcMission (	5130 )
+	AddNpcMission (	5131 )
+	AddNpcMission (	5132 )
 end 
 
-function equip()
+function r_talk29()
+	Talk( 1,  "Макурдо: Добро пожаловать в банк Громограда! " )
+
+	InitTrigger()
+	TriggerCondition( 1, HasMoney, 200 )
+	TriggerAction( 1, TakeMoney, 200 )
+	TriggerAction( 1, OpenBank )
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1,  "Хранилище (200 золотых) ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 2,  "Простите, у вас недостаточно золота для входа в хранилище! " )
+
+	AddNpcMission (	1049 )
+	AddNpcMission (	1103 )
+	AddNpcMission (	1159 )
+	AddNpcMission (	1211 )
+	AddNpcMission (	320	 )
+	AddNpcMission (	375	 )
+	AddNpcMission (	376	 )
+	AddNpcMission (	377	 ) 
+	AddNpcMission (	432	 )
+	AddNpcMission (	560	 )
+	AddNpcMission (	561	 )
+	AddNpcMission (	542	 )
+	AddNpcMission (	562	 )
+end 
+
+function r_talk30()
+	Talk( 1,  "Фарлингтон: Что? Плавка? Хехе. " )
+	Text( 1,  "Очистить ", JumpPage, 2)
+	Text( 1,  "Ничего... ",CloseTalk )
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1784, 10 )
+	TriggerCondition( 1, HasMoney, 200 )
+	TriggerAction( 1, TakeMoney, 200 )
+	TriggerAction( 1, TakeItem, 1784, 10 )
+	TriggerAction( 1, GiveItem, 1785, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Talk( 2,  "Фарлингтон: Ковка, ковка, ковка. И так каждый день, одна ковка. " )
+	Text( 2,  "Очистить Кусок звенящего кристалла. ",MultiTrigger, GetMultiTrigger(), 1)
+	
+	Talk( 3,  "Фарлингтон: Ваш Кусок звенящего кристалла готов. Ищите меня снова если потребуется помощь. " )
+	Talk( 4,  "Фарлингтон: Чтобы приготовить 1 Кусок звенящего кристалла мне необходимо 10 Звенящего песка и 200 золота. " )
+
+	AddNpcMission (	1042 )
+	AddNpcMission (	1094 )
+	AddNpcMission (	1153 )
+	AddNpcMission (	1205 )	
+end 
+
+function r_talk31()
+	Talk( 1,  "Синди: Привет! Я люблю хороший материал. Если вы найдете что то ценное, то сохраните для меня. " )
+	Text( 1,  "Дворец Овна-вампира (Гороскоп) ", JumpPage,6 )
+	Text( 1,  "Награда моряка ", JumpPage,8 )
+	Text( 1,  "Награда пирата ", JumpPage,11 )
+	Text( 1,  "Награда капитана ", JumpPage,12 )
+	Text( 1,  "Сделать краситель для волос ", JumpPage, 2)
+
+	Talk( 6,  "Синди: Пожалуйста выберите сложность в порядке от моряка к капитану. Чем больше сложность, тем более лучшие награды. Вы сделали выбор? Изменить его потом будет невозможно! " )
+
+	InitTrigger()
+	TriggerCondition( 1, NoRecord,834 )
+	TriggerCondition( 1, NoRecord,835 )
+	TriggerAction( 1, SetRecord, 833 )
+	TriggerAction( 1, SetRecord, 836 )
+	TriggerAction( 1, JumpPage, 7 )
+	TriggerFailure( 1, JumpPage, 13 )
+	Text( 6,  "Моряк ",MultiTrigger_1, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, NoRecord,833 )
+	TriggerCondition( 1, NoRecord,835 )
+	TriggerAction( 1, SetRecord, 834 )
+	TriggerAction( 1, SetRecord, 836 )
+	TriggerAction( 1, JumpPage, 7 )
+	TriggerFailure( 1, JumpPage, 13 )
+	Text( 6,  "Пират ",MultiTrigger_2, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, NoRecord,834 )
+	TriggerCondition( 1, NoRecord,833 )
+	TriggerAction( 1, SetRecord, 835 )
+	TriggerAction( 1, SetRecord, 836 )
+	TriggerAction( 1, JumpPage, 7 )
+	TriggerFailure( 1, JumpPage, 13 )
+	Text( 6,  "Капитан ",MultiTrigger_3, GetMultiTrigger(), 1)
+
+	Talk( 7,  "Синди: Желаю удачи! " )
+ 
+	InitTrigger()
+	TriggerCondition( 1, HasRecord,833 )
+	TriggerCondition( 1, HasItem, 2944, 1 )
+	TriggerCondition( 1, HasItem, 2945, 1 )
+	TriggerCondition( 1, HasItem, 2946, 1 )
+	TriggerCondition( 1, HasItem, 2947, 1 )
+	TriggerCondition( 1, HasItem, 2948, 1 )
+	TriggerCondition( 1, HasItem, 2949, 1 )
+	TriggerCondition( 1, HasItem, 2950, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 3 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 2944, 1 )
+	TriggerAction( 1, TakeItem, 2945, 1 )
+	TriggerAction( 1, TakeItem, 2946, 1 )
+	TriggerAction( 1, TakeItem, 2947, 1 )
+	TriggerAction( 1, TakeItem, 2948, 1 )
+	TriggerAction( 1, TakeItem, 2949, 1 )
+	TriggerAction( 1, TakeItem, 2950, 1 )
+
+	TriggerAction( 1, GiveItem, 2942, 1 , 4)
+	TriggerAction( 1, GiveItem, 2943, 1 , 4)
+	TriggerAction( 1, GiveItem, 3094, 1 , 4)
+	TriggerAction( 1, AddMoney, 10000 )
+	TriggerAction( 1, JumpPage, 9 )
+	TriggerFailure( 1, JumpPage, 10 )
+	Talk( 8,  "Синди: Соберите 7 эмблем для получения Печати Овна и пропуска к следующему дворцу. " )
+	Text( 8,  "Обменять ",MultiTrigger_0, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasRecord,834 )
+	TriggerCondition( 1, HasItem, 2944, 1 )
+	TriggerCondition( 1, HasItem, 2945, 1 )
+	TriggerCondition( 1, HasItem, 2946, 1 )
+	TriggerCondition( 1, HasItem, 2947, 1 )
+	TriggerCondition( 1, HasItem, 2948, 1 )
+	TriggerCondition( 1, HasItem, 2949, 1 )
+	TriggerCondition( 1, HasItem, 2950, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 3 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 2944, 1 )
+	TriggerAction( 1, TakeItem, 2945, 1 )
+	TriggerAction( 1, TakeItem, 2946, 1 )
+	TriggerAction( 1, TakeItem, 2947, 1 )
+	TriggerAction( 1, TakeItem, 2948, 1 )
+	TriggerAction( 1, TakeItem, 2949, 1 )
+	TriggerAction( 1, TakeItem, 2950, 1 )
+	TriggerAction( 1, GiveItem, 2942, 1 , 4)
+	TriggerAction( 1, GiveItem, 2943, 1 , 4)
+	TriggerAction( 1, GiveItem, 3094, 3 , 4)
+	TriggerAction( 1, AddMoney, 50000 )
+	TriggerAction( 1, JumpPage, 9 )
+	TriggerFailure( 1, JumpPage, 10 )
+	Talk( 11,  "Синди: Соберите 7 эмблем для получения Печати Овна и пропуска к следующему дворцу. " )
+	Text( 11,  "Обменять ",MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasRecord,835 )
+	TriggerCondition( 1, HasItem, 2944, 1 )
+	TriggerCondition( 1, HasItem, 2945, 1 )
+	TriggerCondition( 1, HasItem, 2946, 1 )
+	TriggerCondition( 1, HasItem, 2947, 1 )
+	TriggerCondition( 1, HasItem, 2948, 1 )
+	TriggerCondition( 1, HasItem, 2949, 1 )
+	TriggerCondition( 1, HasItem, 2950, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 3 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 2944, 1 )
+	TriggerAction( 1, TakeItem, 2945, 1 )
+	TriggerAction( 1, TakeItem, 2946, 1 )
+	TriggerAction( 1, TakeItem, 2947, 1 )
+	TriggerAction( 1, TakeItem, 2948, 1 )
+	TriggerAction( 1, TakeItem, 2949, 1 )
+	TriggerAction( 1, TakeItem, 2950, 1 )
+	TriggerAction( 1, GiveItem, 2942, 1 , 4)
+	TriggerAction( 1, GiveItem, 2943, 1 , 4)
+	TriggerAction( 1, GiveItem, 3094, 5 , 4)
+	TriggerAction( 1, AddMoney, 80000 )
+	TriggerAction( 1, JumpPage, 9 )
+	TriggerFailure( 1, JumpPage, 10 )
+	Talk( 12,  "Синди: Соберите 7 эмблем для получения Печати Овна и пропуска к следующему дворцу. " )
+	Text( 12,  "Обменять ",MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 10,  "Синди: Вы не собрали все эмблемы, или ваш инвентарь заблокирован. Возможно также у вас нет свободных ячеек. ")
+
+	Talk( 9,   "Синди: Дворец Тельца ждет вас! ")
+
+	Talk( 13,  "Синди: Вы можете делать свой выбор лишь 1 раз! ")
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1789, 5 )
+	TriggerCondition( 1, HasItem, 1657, 1 )
+	TriggerCondition( 1, HasItem, 1778, 1 )
+	TriggerCondition( 1, HasMoney, 200 )
+	TriggerAction( 1, TakeMoney, 200 )
+	TriggerAction( 1, TakeItem, 1789, 5 )
+	TriggerAction( 1, TakeItem, 1657, 1 )
+	TriggerAction( 1, TakeItem, 1778, 1 )
+	TriggerAction( 1, GiveItem, 1799, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Talk( 2,  "Синди: Планируете сменить прическу? Я приготовлю для вас лучшие красители! " )
+	Text( 2,  "Сделать Желтый краситель ",MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1790, 5 )
+	TriggerCondition( 1, HasItem, 1657, 1 )
+	TriggerCondition( 1, HasItem, 1778, 1 )
+	TriggerCondition( 1, HasMoney, 200 )
+	TriggerAction( 1, TakeMoney, 200 )
+	TriggerAction( 1, TakeItem, 1790, 5 )
+	TriggerAction( 1, TakeItem, 1657, 1 )
+	TriggerAction( 1, TakeItem, 1778, 1 )
+	TriggerAction( 1, GiveItem, 1800, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 5 )
+	Text( 2,  "Сделать Зеленый краситель ",MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 3,  "Синди: Вот краситель, в котором вы нуждались! " )
+
+	Talk( 4,  "Синди: Чтобы сделать Желтый краситель необходмо 5 Желтых красок, 1 Особый газ, 1 радужный стакан и 200 золотых! " )
+
+	Talk( 5,  "Синди: Чтобы сделать Зеленый краситель необходмо 5 Зеленых красок, 1 Особый газ, 1 радужный стакан и 200 золотых! " )
+	AddNpcMission (	1036 )
+	AddNpcMission (	1090 )
+	AddNpcMission (	1148 )
+	AddNpcMission (	1199 )
+	AddNpcMission (	867	 )
+	AddNpcMission (	863	 )
+	AddNpcMission (	5536 )
+	AddNpcMission (	5537 )
+	AddNpcMission (	5538 )
+	AddNpcMission (	5539 )
+	AddNpcMission (	5540 )
+	AddNpcMission (	5541 )
+	AddNpcMission (	5542 )
+	AddNpcMission (	5543 )
+	AddNpcMission (	5544 )
+	AddNpcMission (	5545 )
+	AddNpcMission (	5546 )
+	AddNpcMission (	5547 )
+	AddNpcMission (	5548 )
+	AddNpcMission (	5549 )
+	AddNpcMission (	5550 )
+	AddNpcMission (	5551 )
+	AddNpcMission (	5552 )
+	AddNpcMission (	5597 )
+	AddNpcMission (	5600 )
+end 
+
+function r_talk32()
+	Talk( 1,  "Аликс: Привет! Я посол Шайтана. У вас есть вопросы? Если что ищите меня в этом месте! " )
+
+	AddNpcMission (	1033 )
+	AddNpcMission (	1088 )
+	AddNpcMission (	1145 )
+	AddNpcMission (	1196 )
+end 
+
+function r_talk33()
+	Talk( 1,  "Уисли: Привет! Я тоже новичок в этом городе. Прошу вас посещайте меня почаще. " )
+
+	AddNpcMission (	1008 )
+	AddNpcMission (	1063 )
+	AddNpcMission (	1118 )
+	AddNpcMission (	1172 )
+	AddNpcMission (	850	 )
+	AddNpcMission (	861	 )
+	AddNpcMission (	868	 )	
+end 
+
+function r_talk34()
+	Talk( 1,  "Бабушка Майя: Моя гостиница закрыта, поскольку мне нездоровится. " )
+
+	AddNpcMission (	1030 )
+	AddNpcMission (	1086 )
+	AddNpcMission (	1139 )
+	AddNpcMission (	1193 )
+end 
+
+function r_talk35()
+	Talk( 1,  "Дитер: Привет! В данный момент мы закрыты! " )
+	Text( 1,  "Спасибо... ",CloseTalk )
+
+	AddNpcMission (	1010 )
+	AddNpcMission (	1066 )
+	AddNpcMission (	1122 )
+	AddNpcMission (	1174 )
+end 
+
+function r_talk36()
+	Talk( 1,  "Ята: Только злые торговцы сделали его таким большим. Хахаха. " )
+
+	AddNpcMission (	1003 )
+	AddNpcMission (	1058 )
+	AddNpcMission (	1113 )
+	AddNpcMission (	1167 )
+	AddNpcMission ( 6025 )
+	AddNpcMission ( 6026 )
+	AddNpcMission ( 6027 )
+end 
+
+function r_talk37()
+	Talk( 1,  "Мэллоу: Привет! Я стражник крепости Громограда. " )
+	Text( 1,  "Ничего... ",CloseTalk )
+
+	AddNpcMission (	1019 )
+	AddNpcMission (	1074 )
+	AddNpcMission (	1130 )
+	AddNpcMission (	1182 )
+	AddNpcMission (	852	 )
+	AddNpcMission (	855	 )
+	AddNpcMission (	865	 )
+	AddNpcMission (	473	 )
+
+	MisListPage(5)
+end 
+
+function r_talk38()
+	Talk( 1,  "Каду: Привет! Вы прибыли как раз вовремя. Вы можете получить скидку у меня! " )
+	Text( 1,  "Ничего... ",CloseTalk )
+
+	AddNpcMission (	1053 )
+	AddNpcMission (	1107 )
+	AddNpcMission (	1163 )
+	AddNpcMission (	1215 )
+end 
+
+function r_talk39()
+	Talk( 1,  "Риоли: Вы были во многих местах. Встречали ли вы Генерала Вильяма? Его отправили в Аргент. Слишком скучное место. " )
+
+	AddNpcMission (	1035 )
+	AddNpcMission (	1089 )
+	AddNpcMission (	1147 )
+	AddNpcMission (	1198 )
+end 
+
+function r_talk40()
+	Talk( 1,  "Генерал Кен: Я чувствую Макси затевает мне неприятности. Он всегда устраивает для меня мнеприятности. " )
+
+	AddNpcMission (	1017 )
+	AddNpcMission (	1071 )
+	AddNpcMission (	1127 )
+	AddNpcMission (	1180 )
+	AddNpcMission (	5575 )
+	AddNpcMission (	5576 )
+end 
+
+function r_talk41()
+	Talk( 1,  "Полковник Макси: Привет! Генерал Кен отправил меня заботится об этом месте. Хехе. Я люблю устраивать ему неприятности. " )
+	
+	AddNpcMission	(849)
+	AddNpcMission	(856)
+	AddNpcMission	(858)
+	AddNpcMission	(860)
+	AddNpcMission	(866)
+end 
+
+function r_talk42()
+	Talk( 1,  "Фрея: Вы парни считаете нас за демонов? Не заговаривайте со мной! " )
+	
+	AddNpcMission	(851)
+	AddNpcMission	(853)
+	AddNpcMission	(854)
+	AddNpcMission	(862)
+	AddNpcMission	(864)
+end 
+
+function r_talk43()
+	Talk( 1,  "Ниссон: Привет! Я близкий друг Сонни. Мы с ним оба превосходные стражники Флота! " )
+
+	AddNpcMission	(859)
+	AddNpcMission	(857)
+	AddNpcMission	(5690)
+	AddNpcMission	(5691)
+end 
+
+function r_talk44()
+	Talk( 1,  "Сонни: Привет! Никогда не заговаривай со мной о деньгах! " )
+
+	AddNpcMission	(474)
+end 
+
+function r_talk45()
+	Talk( 1,  "Бай: Громоград имеет хороший бар в порту. К сожалению туда очень далеко добираться. " )
+end 
+
+function r_talk46()
+	Talk( 1,  "Барабей: Привет! Действительно ли вы бывший пират? В Громограде встречаются только люди из флота, пираты не осмеливаются туда приближаться. " )
+	Text( 1,  "Очистить ", JumpPage, 2)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1782, 10 )
+	TriggerCondition( 1, HasMoney, 2000 )
+	TriggerAction( 1, TakeMoney, 2000 )
+	TriggerAction( 1, TakeItem, 1782, 10 )
+	TriggerAction( 1, GiveItem, 1783, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Talk( 2,  "Барабей: Моя работа - объединять множество фрагментов руды в одну. " )
+	Text( 2,  "Очистить Терранский золотой ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 3,  "Барабей: Я дам вам Терранский золотой. Не пожалейте в будущем. " )
+
+	Talk( 4,  "Барабей: Терранский золотой? Принесите мне 10 Терранской золотой руды и 2000 золота. " )
+end 
+
+function r_talk47()
+	Talk( 1,  "Гэньон: Здравствуй мой друг. Да благославит тебя Богиня Кара! Я высший жрец Шайтана " )
+	Text( 1,  "Исследовать руны ", JumpPage, 2)
+    Text( 1,  "Собрать карту сокровищ ", JumpPage, 7)
+    Text( 1,  "Обменять Фрагменты иллюзии на чертежи ", JumpPage, 9)
+	Text( 1,  "Обменять Сердце иллюзии на кольцо 60 уровня ", JumpPage, 10)
+
+	Talk( 2,  "Геньон: Я занимаюсь исследованиями древних рун. Если принесете мне их достаточное количество, то получите взамен некоторые ценные вещи. " )
+	Text( 2,  "Обменять на Скелетный набор ", JumpPage, 3)
+	Text( 2,  "Обменять на набор Заклинания ", JumpPage, 4)
+	Text( 2,  "Обменять на Исчезающий набор ", JumpPage, 5)
+	Text( 2,  "Обменять на Таинственный набор ", JumpPage, 6)
+	
+	Talk( 3,  "Геньон: Скелетный набор содержит экипировку 30 уровня из Заброшенного города. Чтобы его получить тебе необходимо найти 10 рун Наль и 10 рун Сол. " )
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3425, 10 )
+	TriggerCondition( 1, HasItem, 3426, 10 )
+	TriggerAction( 1, TakeItem, 3425, 10 )
+	TriggerAction( 1, TakeItem, 3426, 10 )
+	TriggerAction( 1, GiveItem, 3400, 1 , 4)
+	TriggerFailure( 1, JumpPage, 30 )
+	Text( 3,  "Получить сундук мечника ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3425, 10 )
+	TriggerCondition( 1, HasItem, 3426, 10 )
+	TriggerAction( 1, TakeItem, 3425, 10 )
+	TriggerAction( 1, TakeItem, 3426, 10 )
+	TriggerAction( 1, GiveItem, 3401, 1 , 4)
+	TriggerFailure( 1, JumpPage, 30 )
+	Text( 3,  "Получить сундук охотника ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3425, 10 )
+	TriggerCondition( 1, HasItem, 3426, 10 )
+	TriggerAction( 1, TakeItem, 3425, 10 )
+	TriggerAction( 1, TakeItem, 3426, 10 )
+	TriggerAction( 1, GiveItem, 3402, 1 , 4)
+	TriggerFailure( 1, JumpPage, 30 )
+	Text( 3,  "Получить сундук знахарки ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3425, 10 )
+	TriggerCondition( 1, HasItem, 3426, 10 )
+	TriggerAction( 1, TakeItem, 3425, 10 )
+	TriggerAction( 1, TakeItem, 3426, 10 )
+	TriggerAction( 1, GiveItem, 3403, 1 , 4)
+	TriggerFailure( 1, JumpPage, 30 )
+	Text( 3,  "Получить сундук исследователя ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 4,  "Геньон: Набор заклинателя содержит экипировку 40 уровня, полученную в Заброшенном городе и Темной топи. Для ее получения необходимо принести 10 рун Эль и 10 рун Кам " )
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3428, 10 )
+	TriggerCondition( 1, HasItem, 3429, 10 )
+	TriggerAction( 1, TakeItem, 3428, 10 )
+	TriggerAction( 1, TakeItem, 3429, 10 )
+	TriggerAction( 1, GiveItem, 3404, 1 , 4)
+	TriggerFailure( 1, JumpPage, 30 )
+	Text( 4,  "Получить сундук Воителя ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3428, 10 )
+	TriggerCondition( 1, HasItem, 3429, 10 )
+	TriggerAction( 1, TakeItem, 3428, 10 )
+	TriggerAction( 1, TakeItem, 3429, 10 )
+	TriggerAction( 1, GiveItem, 3405, 1 , 4)
+	TriggerFailure( 1, JumpPage, 30 )
+	Text( 4,  "Получить сундук Чемпиона ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3428, 10 )
+	TriggerCondition( 1, HasItem, 3429, 10 )
+	TriggerAction( 1, TakeItem, 3428, 10 )
+	TriggerAction( 1, TakeItem, 3429, 10 )
+	TriggerAction( 1, GiveItem, 3406, 1 , 4)
+	TriggerFailure( 1, JumpPage, 30 )
+	Text( 4,  "Получить сундук Стрелка ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3428, 10 )
+	TriggerCondition( 1, HasItem, 3429, 10 )
+	TriggerAction( 1, TakeItem, 3428, 10 )
+	TriggerAction( 1, TakeItem, 3429, 10 )
+	TriggerAction( 1, GiveItem, 3407, 1 , 4)
+	TriggerFailure( 1, JumpPage, 30 )
+	Text( 4,  "Получить сундук Целителя ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3428, 10 )
+	TriggerCondition( 1, HasItem, 3429, 10 )
+	TriggerAction( 1, TakeItem, 3428, 10 )
+	TriggerAction( 1, TakeItem, 3429, 10 )
+	TriggerAction( 1, GiveItem, 3408, 1 , 4)
+	TriggerFailure( 1, JumpPage, 30 )
+	Text( 4,  "Получить сундук Колдуньи ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3428, 10 )
+	TriggerCondition( 1, HasItem, 3429, 10 )
+	TriggerAction( 1, TakeItem, 3428, 10 )
+	TriggerAction( 1, TakeItem, 3429, 10 )
+	TriggerAction( 1, GiveItem, 3409, 1 , 4)
+	TriggerFailure( 1, JumpPage, 30 )
+	Text( 4,  "Получить сундук Покорителя морей ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 5,  "Геньон: Набор исчезновения содержит экипировку 50 уровня полученную в Мире Демонов. Для ее получения необходимо принести 10 рун Тер и 10 рун Фа. " )
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 3410, 1 , 4)
+	TriggerFailure( 1, JumpPage, 30 )
+	Text( 5,  "Получить сундук Воителя ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 3411, 1 , 4)
+	TriggerFailure( 1, JumpPage, 30 )
+	Text( 5,  "Получить сундук Чемпиона ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 3412, 1 , 4)
+	TriggerFailure( 1, JumpPage, 30 )
+	Text( 5,  "Получить сундук Стрелка ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 3413, 1 , 4)
+	TriggerFailure( 1, JumpPage, 30 )
+	Text( 5,  "Получить сундук Целителя ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 3414, 1 , 4)
+	TriggerFailure( 1, JumpPage, 30 )
+	Text( 5,  "Получить сундук Колдуньи ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 3415, 1 , 4)
+	TriggerFailure( 1, JumpPage, 30 )
+	Text( 5,  "Получить сундук Покорителя морей ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 6,  "Геньон: Таинственный набор содержит в себе экипировку 60 уровня, полученную в Мире Демонов. Для ее получения необходимо принести 10 рун Тер и 10 рун Фа. " )
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3455, 10 )
+	TriggerCondition( 1, HasItem, 3456, 10 )
+	TriggerAction( 1, TakeItem, 3455, 10 )
+	TriggerAction( 1, TakeItem, 3456, 10 )
+	TriggerAction( 1, GiveItem, 3416, 1 , 4)
+	TriggerFailure( 1, JumpPage, 30 )
+	Text( 6,  "Получить сундук Воителя ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3455, 10 )
+	TriggerCondition( 1, HasItem, 3456, 10 )
+	TriggerAction( 1, TakeItem, 3455, 10 )
+	TriggerAction( 1, TakeItem, 3456, 10 )
+	TriggerAction( 1, GiveItem, 3417, 1 , 4)
+	TriggerFailure( 1, JumpPage, 30 )
+	Text( 6,  "Получить сундук Чемпиона ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3455, 10 )
+	TriggerCondition( 1, HasItem, 3456, 10 )
+	TriggerAction( 1, TakeItem, 3455, 10 )
+	TriggerAction( 1, TakeItem, 3456, 10 )
+	TriggerAction( 1, GiveItem, 3418, 1 , 4)
+	TriggerFailure( 1, JumpPage, 30 )
+	Text( 6,  "Получить сундук Стрелка ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3455, 10 )
+	TriggerCondition( 1, HasItem, 3456, 10 )
+	TriggerAction( 1, TakeItem, 3455, 10 )
+	TriggerAction( 1, TakeItem, 3456, 10 )
+	TriggerAction( 1, GiveItem, 3419, 1 , 4)
+	TriggerFailure( 1, JumpPage, 30 )
+	Text( 6,  "Получить сундук Целителя ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3455, 10 )
+	TriggerCondition( 1, HasItem, 3456, 10 )
+	TriggerAction( 1, TakeItem, 3455, 10 )
+	TriggerAction( 1, TakeItem, 3456, 10 )
+	TriggerAction( 1, GiveItem, 3420, 1 , 4)
+	TriggerFailure( 1, JumpPage, 30 )
+	Text( 6,  "Получить сундук Колдуньи ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3455, 10 )
+	TriggerCondition( 1, HasItem, 3456, 10 )
+	TriggerAction( 1, TakeItem, 3455, 10 )
+	TriggerAction( 1, TakeItem, 3456, 10 )
+	TriggerAction( 1, GiveItem, 3421, 1 , 4)
+	TriggerFailure( 1, JumpPage, 30 )
+	Text( 6,  "Получить сундук Покорителя морей ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 0432, 1 )
+    TriggerCondition( 1, HasItem, 0433, 1 )
+	TriggerCondition( 1, HasItem, 0434, 1 )
+	TriggerCondition( 1, HasItem, 0435, 1 )
+	TriggerCondition( 1, HasMoney, 2000 )
+	TriggerAction( 1, TakeItem, 0432, 1 )
+	TriggerAction( 1, TakeItem, 0433, 1 )
+	TriggerAction( 1, TakeItem, 0434, 1 )
+	TriggerAction( 1, TakeItem, 0435, 1 )
+	TriggerAction( 1, TakeMoney, 2000 )
+	TriggerAction( 1, GiveItem, 1092, 1, 4 )
+	TriggerFailure( 1, JumpPage, 8 ) 
+
+	Talk( 7,  "Геньон: Принесите мне 4 фрагмента карты и я объединю их для вас в полную карту сокровищ " )
+	Text( 7,  "Объединить карту сокровищ ",MultiTrigger, GetMultiTrigger(), 1) 
+
+	Talk( 8,  "Геньон: Ищите меня когда соберете 4 фрагмента карты и 2000 золотых " )
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2324, 5 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 2324, 5 )
+	TriggerAction( 1, GiveItem, 1000, 1 , 4)
+	TriggerFailure( 1, JumpPage, 11 )
+	Talk( 9,  "Геньон: Вам известно что иллюзии могут быть материальными? Если принесете мне их осколки, я дам вам некоторые старые чертежи " )
+	Text( 9,  "5 Фрагментов иллюзии на чертеж Пачкули ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2324, 30 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 2324, 30 )
+	TriggerAction( 1, GiveItem, 1001, 1 , 4)
+	TriggerFailure( 1, JumpPage, 11 )
+	Text( 9,  "30 Фрагментов иллюзии на Зашифрованный чертеж  ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2324, 100 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 2324, 100 )
+	TriggerAction( 1, GiveItem, 1002, 1 , 4)
+	TriggerFailure( 1, JumpPage, 11 )
+	Text( 9,  "100 Фрагментов иллюзии на Запечатанный чертеж ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2324, 500 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 2324, 500 )
+	TriggerAction( 1, GiveItem, 1003, 1 , 4)
+	TriggerFailure( 1, JumpPage, 11 )
+	Text( 9,  "500 Фрагментов иллюзии на Чертеж призыва ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2325, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 2325, 1 )
+	TriggerAction( 1, GiveItem, 4656, 1 , 4)
+	TriggerFailure( 1, JumpPage, 11 )
+	Talk( 10,  "Геньон: Если вам было даровано Сердце иллюзии вы достойны награды " )
+	Text( 10,  "Получить Пламя ярости ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2325, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 2325, 1 )
+	TriggerAction( 1, GiveItem, 4657, 1 , 4)
+	TriggerFailure( 1, JumpPage, 11 )
+	Text( 10,  "Получить Булыжник ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2325, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 2325, 1 )
+	TriggerAction( 1, GiveItem, 4658, 1 , 4)
+	TriggerFailure( 1, JumpPage, 11 )
+	Text( 10,  "Получить Ветер благородной души ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2325, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 2325, 1 )
+	TriggerAction( 1, GiveItem, 4659, 1 , 4)
+	TriggerFailure( 1, JumpPage, 11 )
+	Text( 10,  "Получить Сплетенный хлыст из ротанга ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2325, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 2325, 1 )
+	TriggerAction( 1, GiveItem, 4660, 1 , 4)
+	TriggerFailure( 1, JumpPage, 11 )
+	Text( 10,  "Получить Чудесную воду ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 11,  "Геньон: К сожалению не могу произвести обмен. Возможно у вас нет необходимых компонентов или заблокирован инвентарь. " )
+
+	AddNpcMission ( 102 )
+	AddNpcMission 	(416)
+	AddNpcMission 	(751)
+	AddNpcMission 	(755)
+	AddNpcMission 	(95 )
+	AddNpcMission 	(96 )
+	AddNpcMission 	(97 )
+	AddNpcMission 	(151)
+	AddNpcMission	(1227)
+	AddNpcMission 	(342)
+	AddNpcMission 	(343)
+	AddNpcMission 	(344)
+	AddNpcMission 	(345)
+	AddNpcMission 	(346)
+	AddNpcMission 	(347)
+	AddNpcMission 	(348)
+	AddNpcMission 	(349)
+	AddNpcMission 	(350)
+	AddNpcMission 	(351)
+	AddNpcMission 	(352)
+	AddNpcMission 	(353)
+	AddNpcMission 	(354)
+	AddNpcMission 	(355)
+	AddNpcMission 	(5009)
+	AddNpcMission 	(5015)
+	AddNpcMission 	(5017)
+	AddNpcMission 	(5024)
+	AddNpcMission 	(5028)
+	AddNpcMission 	(5031)
+	AddNpcMission 	(5059)
+	AddNpcMission 	(5064)
+end 
+
+function r_talk48()
+	Talk( 1,  "Альбуда: Привет, я руководитель клана. Могу я чем то помочь? " )
+	InitTrigger()
+	TriggerCondition( 1, HasMission, 1014 )	
+	TriggerCondition( 1, HasRecord, 1013 )
+	TriggerCondition( 1, NoRecord, 1059 )
+	TriggerAction( 1, JumpPage, 2 )	
+	TriggerFailure( 1, JumpPage, 3)
+	Text( 1,  "Выбрать путь перерождения ",MultiTrigger, GetMultiTrigger(), 1 )
+
+
+	InitTrigger()
+	TriggerCondition( 1, HasRecord, 1059 )
+	TriggerCondition( 1, HasNOZSExp )
+	TriggerCondition( 1, NoRecord, 1056 )
+	TriggerAction( 1, JumpPage, 5 )
+	TriggerFailure( 1, JumpPage, 6)
+	Text( 1,  "Сменить путь перерождения ",MultiTrigger, GetMultiTrigger(), 1 )
+--	Text( 1, "There's something wrong with my Rebirth Quest", JumpPage, 9 )
+	Text( 1,  "До свидания ", CloseTalk)
+
+	InitTrigger()
+	TriggerAction( 1, SetRecord, 1015 )
+	TriggerAction( 1, SetRecord, 1059 )	
+	TriggerAction( 1, JumpPage, 4 )
+	Talk( 2,  "Альбуда: Для перерождения есть 2 пути. Вы вправе выбрать любой из них. Первый - сложный. Вам на пути встретятся очень сильные монстры и опасные задания. Второй путь - долгий. Этот путь для терпеливых. ")
+	Text( 2,  "Сложный путь ",MultiTrigger, GetMultiTrigger(), 1 )
+
+	InitTrigger()
+	TriggerAction( 1, SetRecord, 1016 )
+	TriggerAction( 1, SetRecord, 1059 )
+	TriggerAction( 1, JumpPage, 4 )
+	Text( 2,  "Долгий путь ",MultiTrigger, GetMultiTrigger(), 1  )
+
+	Talk( 3,  "Альбуда: Вы не можете выбрать путь перерождения или уже выбрали ")
+
+	Talk( 4,  "Альбуда: После выбора пути посетите Тинк! ")
+
+	InitTrigger()
+	TriggerCondition( 1, HasRecord, 1016 )
+	TriggerCondition( 1, HasMoney, 5000000 )
+	TriggerAction( 1, ClearRecord, 1016 )
+	TriggerAction( 1, SetRecord, 1015 )
+	TriggerAction( 1, TakeMoney, 5000000 )
+	TriggerAction( 1, JumpPage, 7 )
+	TriggerFailure( 1, JumpPage, 8)
+	Talk( 5,  "Альбуда: Смена пути перерождения потребует высокой цены. Готовы вы заплатить за это 5000000 золота? ")
+	Text( 5,  "Изменить на сложный путь ",MultiTrigger, GetMultiTrigger(), 1 )
+
+	InitTrigger()
+	TriggerCondition( 1, HasRecord, 1015 )
+	TriggerCondition( 1, HasMoney, 5000000 )
+	TriggerAction( 1, ClearRecord, 1015 )
+	TriggerAction( 1, SetRecord, 1016 )
+	TriggerAction( 1, TakeMoney, 5000000 )
+	TriggerAction( 1, JumpPage, 7 )
+	TriggerFailure( 1, JumpPage, 8)
+	Text( 5,  "Изменить на долгий путь ",MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 6,  "Альбуда: Вы не можете сменить путь перерождения. Это путь для игроков сожалеющих о ранее выбранном пути. ")
+
+	Talk( 7,  "Альбуда: Теперь вы должны работать усерднее. ")
+
+	Talk( 8,  "Альбуда: У вас недостаточно золота или данный путь уже выбран. ")
+
+--Не нужный кусок кода
+--[[	Talk( 9, "Choose the quest you want to reset according to the Rebirth Quest you selected.")
+	InitTrigger()
+	TriggerCondition( 1, HasRecord, 1059 )		
+	TriggerAction( 1, JumpPage, 10 )
+	TriggerFailure( 1, JumpPage, 13 )
+	Text( 9, "Tough Quest",MultiTrigger, GetMultiTrigger(), 1 )
+	InitTrigger()
+	TriggerCondition( 1, HasRecord, 1059 )		
+	TriggerAction( 1, JumpPage, 11 )
+	TriggerFailure( 1, JumpPage, 13 )
+	Text( 9, "Troublesome Quest",MultiTrigger, GetMultiTrigger(), 1 )
+	
+	Talk( 10, "Are you sure you want to reset the Tough Quest?")
+	InitTrigger()
+	TriggerCondition( 1, HasRecord, 1013 )
+	TriggerCondition( 1, HasRecord, 1059 )
+	TriggerCondition( 1, HasRecord, 1015 )
+	TriggerAction( 1, ClearRecord, 1013 )
+	TriggerAction( 1, ClearRecord, 1059 )
+	TriggerAction( 1, ClearRecord, 1015 )	
+	TriggerAction( 1, SetRecord, 1013 )	
+	TriggerAction( 1, JumpPage, 12 )
+	TriggerFailure( 1, JumpPage, 13 )
+	Text( 10, "Sure",MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 10, "No", CloseTalk )
+	
+	
+	Talk( 11, "Are you sure you want to reset the Troublesome Quest?")
+	InitTrigger()
+	TriggerCondition( 1, HasRecord, 1013 )
+	TriggerCondition( 1, HasRecord, 1059 )
+	TriggerCondition( 1, HasRecord, 1016 )
+	TriggerCondition( 1, NoRecord, 1015 )
+	TriggerAction( 1, ClearRecord, 1013 )
+	TriggerAction( 1, ClearRecord, 1059 )
+	TriggerAction( 1, ClearRecord, 1016 )	
+	TriggerAction( 1, SetRecord, 1013 )	
+	TriggerAction( 1, JumpPage, 12 )
+	TriggerFailure( 1, JumpPage, 13 )
+	Text( 11, "Sure",MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 11, "No", CloseTalk )
+	
+	Talk( 12, "Congratulations! Reset successful. Return to Passerby - Tink and continue your quest.")
+
+	Talk( 13, "WhatЎЇs the matter?")]]--
+
+	AddNpcMission ( 231 )
+	AddNpcMission ( 232 )
+	AddNpcMission ( 234 )
+	AddNpcMission	(1037)
+	AddNpcMission	(1091)
+	AddNpcMission	(1149)
+	AddNpcMission	(1200)
+	AddNpcMission(	1228	)
+	AddNpcMission	(327)
+	AddNpcMission	(339)
+	AddNpcMission	(340)
+	AddNpcMission ( 6017 )
+	AddNpcMission ( 6018 )
+end 
+
+function r_talk49()
+	Talk( 1,  "Ойа: Только для вас лучшие восстанавливающие зелья! Сварены с любовью! " )
+	Text( 1,  "Сделать восстанавливающее зелье ", JumpPage, 2 )
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1779, 1 )
+	TriggerCondition( 1, HasItem, 3129, 10 )
+	TriggerCondition( 1, HasMoney, 50 )
+	TriggerAction( 1, TakeItem, 3129, 10 )
+	TriggerAction( 1, TakeItem, 1779, 1 )
+	TriggerAction( 1, TakeMoney, 50 )
+	TriggerAction( 1, GiveItem, 3133, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Talk( 2,  "Ойа: Выберите зелье, которое желаете приготовить " )
+	Text( 2,  "Приготовить Лакричное зелье ", MultiTrigger, GetMultiTrigger(), 1)
+	
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1777, 1 )
+	TriggerCondition( 1, HasItem, 3116, 10 )
+	TriggerAction( 1, TakeItem, 3116, 10 )
+	TriggerAction( 1, TakeItem, 1777, 1 )
+	TriggerAction( 1, GiveItem, 3122, 1 , 4)
+	TriggerAction( 1, JumpPage, 5 )
+	TriggerFailure( 1, JumpPage, 6 )
+	Text( 2,  "Приготовить Сок эльфийского фрукта ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1779, 1 )
+	TriggerCondition( 1, HasItem, 3130, 10 )
+	TriggerCondition( 1, HasMoney, 50 )
+	TriggerAction( 1, TakeMoney, 50 )
+	TriggerAction( 1, TakeItem, 3130, 10 )
+	TriggerAction( 1, TakeItem, 1779, 1 )
+	TriggerAction( 1, GiveItem, 3134, 1 , 4)
+	TriggerAction( 1, JumpPage, 7 )
+	TriggerFailure( 1, JumpPage, 8 )
+	Text( 2,  "Приготовить Чай Бодрячок ", MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 3,  "Ойа: Деньги - вперед. Вот, держите что заказывали! " )
+
+	Talk( 4,  "Ойа: Для получения одного Лакричного зелья необходимо 10 Целебной травы, 1 Флакон и 50 золота " )
+
+	Talk( 5,  "Ойа: Этот фруктовый сок сварен из отборных фруктов! Держите, и удачи. " )
+
+	Talk( 6,  "Ойа: Для получения Сока эльфийского сока необходимо 10 Эльфийских фруктов, 1 Стакан и 50 золота " )
+
+	Talk( 7,  "Ойа: Деньги вперед! Не правда ли этот чай так освежает? " )
+
+	Talk( 8,  "Ойа: Чтобы приготовить 1 Чай Бодрячок необходимо 10 Лепестков многоцвета, 1 Флакон и 50 золота " )
+
+	AddNpcMission(	1007 )
+	AddNpcMission(	1117 )
+	AddNpcMission(	1171 )
+	AddNpcMission(	1062 )
+	AddNpcMission(	1229 )
+end 
+
+function r_talk50()
+	Talk( 1,  "Мойа: Я потомственный портной. Посмотрите мои вещи, возможно вас что то заинтересует. " )
+	Text( 1,  "Торг ", BuyPage )
+	Text( 1,  "Ничего... ",CloseTalk )
+
+	InitTrade()
+	Defence(	0365	)
+	Defence(	0541	)
+	Defence(	0717	)
+	Defence(	0372	)
+	Defence(	0548	)
+	Defence(	0724	)
+	Defence(	0366	)
+	Defence(	0542	)
+	Defence(	0718	)
+	Defence(	0373	)
+	Defence(	0549	)
+	Defence(	0725	)
+	Defence(	0368	)
+	Defence(	0544	)
+	Defence(	0720	)
+	Defence(	0374	)
+	Defence(	0550	)
+	Defence(	0726	)
+	Defence(	0367	)
+	Defence(	0543	)
+	Defence(	0719	)
+	Defence(	0375	)
+	Defence(	0551	)
+	Defence(	0727	)
+	Defence(	0369	)
+	Defence(	0545	)
+	Defence(	0721	)
+	Defence(	0376	)
+	Defence(	0552	)
+	Defence(	0728	)
+	Defence(	0370	)
+	Defence(	0546	)
+	Defence(	0722	)
+	Defence(	0378	)
+	Defence(	0554	)
+	Defence(	0730	)
+	Defence(	0371	)
+	Defence(	0547	)
+	Defence(	0723	)
+	Defence(	0379	)
+	Defence(	0555	)
+	Defence(	0731	)
+	Defence(	0383	)
+	Defence(	0559	)
+	Defence(	0735	)
+	Defence(	0359	)
+	Defence(	0535	)
+	Defence(	0711	)
+	Defence(	0381	)
+	Defence(	0557	)
+	Defence(	0733	)
+	Defence(	0360	)
+	Defence(	0536	)
+	Defence(	0712	)
+	Defence(	0389	)
+	Defence(	0565	)
+	Defence(	0741	)
+	Defence(	0361	)
+	Defence(	0537	)
+	Defence(	0713	)
+	Defence(	0390	)
+	Defence(	0566	)
+	Defence(	0742	)
+	Defence(	0362	)
+	Defence(	0538	)
+	Defence(	0714	)
+	Defence(	0385	)
+	Defence(	0561	)
+	Defence(	0737	)
+	Defence(	0363	)
+	Defence(	0539	)
+	Defence(	0715	)
+	Defence(	0392	)
+	Defence(	0568	)
+	Defence(	0744	)
+	Defence(	0388	)
+	Defence(	0564	)
+	Defence(	0740	)
+	Defence(	0382	)
+	Defence(	0558	)
+	Defence(	0734	)
+	Defence(	0391	)
+	Defence(	0567	)
+	Defence(	0743	)
+
+	AddNpcMission ( 715 )
+	AddNpcMission	(1011)
+	AddNpcMission	(1068)
+	AddNpcMission	(1123)
+	AddNpcMission	(1175)
+	AddNpcMission(	1230	)
+end 
+
+function r_talk51()
+	Talk( 1,  "Юдис: Привет! Добро пожаловать в Банк Шайтана. Могу ли я чем либо помочь? " )
+	InitTrigger()
+	TriggerCondition( 1, HasMoney, 200 )
+	TriggerAction( 1, TakeMoney, 200 )
+	TriggerAction( 1, OpenBank )
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1,  "Хранилище (200 золота) ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 2,  "Прости, но у тебя недостаточно денег на счету " )
+
+	AddNpcMission	(1051)
+	AddNpcMission	(1104)
+	AddNpcMission	(1160)
+	AddNpcMission	(1213)
+	AddNpcMission(	1231	)
+	AddNpcMission(	5012	)	
+end 
+
+function r_talk52()
+	Talk( 1,  "Франко: Я хотел вступить во Флот, но к сожалению из за недоразумения меня отправили сюда. " )
+	Text( 1,  "Ничего... ",CloseTalk )
+
+	AddNpcMission ( 243 )
+	AddNpcMission ( 244 )
+	AddNpcMission	(1012)
+	AddNpcMission	(1069)
+	AddNpcMission	(1124)
+	AddNpcMission	(1176)
+	AddNpcMission	(88)
+	AddNpcMission	(89)
+	AddNpcMission	(90)
+	AddNpcMission(	1232	)
+
+	MisListPage(5)
+end 
+
+function r_talk53()
+	Talk( 1,  "Коваль: Интересует качественное и недорогое оружие? Посмотреть можно и бесплатно! " )
+	Text( 1,  "Торг ", BuyPage )
+	Text( 1,  "Ремонт ", OpenRepair )
+	Text( 1,  "Вставить самоцвет ", OpenForge)
+	Text( 1,  "Сделать слот ", OpenMilling)
+	Text( 1,  "Вставить в аппарель ", OpenFusion)
+	Text( 1,  "Улучшение аппарели ", OpenUpgrade)
+	Text( 1,  "Ничего... ",CloseTalk )
+
+	InitTrade()
+	Weapon(	0008	)
+	Weapon(	0196	)
+	Weapon(	0197	)
+	Weapon(	0198	)
+	Weapon(	0097	)
+	Weapon(	0104	)
+	Weapon(	0098	)
+	Weapon(	0105	)
+	Weapon(	0099	)
+	Weapon(	0106	)
+	Weapon(	0101	)
+	Weapon(	0107	)
+	Weapon(	0102	)
+	Weapon(	0108	)
+	Weapon(	0100	)
+	Weapon(	4301	)
+	Weapon(	0103	)
+	Weapon(	4302	)
+	Weapon(	1427	)
+	Weapon(	1428	)
+	Weapon(	1429	)
+	Weapon(	1430	)
+	Weapon(	1431	)
+	Weapon(	1432	)
+	Weapon(	1433	)
+	Weapon(	1434	)
+	Weapon(	1435	)
+	Weapon(	1436	)
+	Weapon(	1437	)
+	Weapon(	1438	)
+	Weapon(	1440	)
+	Weapon(	1441	)
+	Weapon(	1462	)
+	Weapon(	1463	)
+	Weapon(	1464	)
+	Weapon(	1465	)
+	Weapon(	1466	)
+	Weapon(	1467	)
+	Weapon(	1468	)
+	Weapon(	1469	)
+	Weapon(	1470	)
+	Weapon(	1471	)
+	Weapon(	1472	)
+	Weapon(	1473	)
+	Weapon(	1475	)
+	Weapon(	1476	)
+
+	AddNpcMission 	(	713		)
+	AddNpcMission	(	1043	)
+	AddNpcMission	(	1095	)
+	AddNpcMission	(	1154	)
+	AddNpcMission	(	1206	)
+	AddNpcMission	(	91		)
+	AddNpcMission	(	92		)
+	AddNpcMission	(	93		)
+end 
+
+function r_talk54()
+	Talk( 1,  "Лена: Привет! Я жена кузнеца! " )
+	Text( 1,  "Изготовить краситель ", JumpPage, 2)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1791, 5 )
+	TriggerCondition( 1, HasItem, 1657, 1 )
+	TriggerCondition( 1, HasItem, 1778, 1 )
+	TriggerCondition( 1, HasMoney, 200 )
+	TriggerAction( 1, TakeMoney, 200 )
+	TriggerAction( 1, TakeItem, 1791, 5 )
+	TriggerAction( 1, TakeItem, 1657, 1 )
+	TriggerAction( 1, TakeItem, 1778, 1 )
+	TriggerAction( 1, GiveItem, 1801, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Talk( 2,  "Лена: Будь модным, будь красивым и тебя полюбят! С моими красителями для волос это так просто! " )
+	Text( 2,  "Изготовить Голубой краситель ",MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 3,  "Лена: Ну как? Этот краситель вам понравился? " )
+	Talk( 4,  "Лена: Для получения Голубого красителя необходимо 5 Голубых красок, 1 Особый газ, 1 Радужный стакан и 200 золота. " )
+	
+	AddNpcMission	(1146)
+	AddNpcMission	(155)
+	AddNpcMission	(156)
+	AddNpcMission	(157)
+end 
+
+function r_talk55()
+	Talk( 1,  "Амос: Только у меня самые последние разработки. Даже не трудитесь смотреть в другом месте. " )
+	Text( 1,  "Торг ", BuyPage )
+	Text( 1,  "Комбинация самоцветов ", OpenUnite)
+	Text( 1,  "Изготовить Маску реальности ",JumpPage, 2 )
+	Text( 1,  "Ничего... ",CloseTalk )
+
+	InitTrade()
+	Other(	3206	)
+	Other(	3208	)
+	Other(	3205	)
+	Other(	3242	)
+	Other(	3210	)
+	Other(	3207	)
+	Other(	3211	)
+	Other(	3215	)
+	Other(	3212	)
+	Other(	3209	)
+	Other(	3220	)
+	Other(	3222	)
+	Other(	3219	)
+	Other(	3218	)
+	Other(	3216	)
+	Other(	3223	)
+	Other(	3217	)
+	Other(	3224	)
+	Other(	3225	)
+	Other(	3226	)
+	Other(	3294	)
+	Other(	3295	)
+	Other(	3141	)
+	Other(	4602	)
+	Other(	4603	)
+	Other(	4604	)
+	Other(  3296 	)
+	Other(  886 	)
+	Other(	2679	)
+	Other(	2689	)
+	Other(	2699	)
+	Other(	2709	)
+	Other(	1611	)
+	Other(	1682	)
+	Other(	1842	)
+	Other(	1612	)
+	Other(	1710	)
+	Other(	1693	)
+	Other(	4716	)
+	Other(	1716	)
+	Other(	1711	)
+	Other(	3384	)
+	Other(	3932	)
+	Other(	1619	)
+	Other(	2396	)
+	Other(	1729	)
+	Other(	4459	)
+	Other(	1697	)
+	Other(	1730	)
+	Other(	1712	)
+	Other(	1734	)
+	Other(	1621	)
+	Other(	1703	)
+	Other(  2440    )
+
+	AddNpcMission	(1161)
+	AddNpcMission	(152)
+	AddNpcMission	(153)
+	AddNpcMission	(154)
+
+	InitTrigger()
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerCondition( 1, HasItem, 2588, 1 )
+	TriggerCondition( 1, HasItem, 1624, 10 )
+	TriggerCondition( 1, HasMoney, 10000 )
+	TriggerAction( 1, TakeItem, 2588, 1 )
+	TriggerAction( 1, TakeItem, 1624, 10 )
+	TriggerAction( 1, TakeMoney, 10000 )
+	TriggerAction( 1, GiveItem, 2326, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Talk( 2,  "Амос: Для изготовления Маски реальности необходимо 1 Эльфийскую печать, 10000 золота и 10 штук любых ресурсов 3 уровня. " )
+	Text( 2,  "Обменять Осколок кости на Маску реальности ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerCondition( 1, HasItem, 2588, 1 )
+	TriggerCondition( 1, HasItem, 4031, 10 )
+	TriggerCondition( 1, HasMoney, 10000 )
+	TriggerAction( 1, TakeItem, 2588, 1 )
+	TriggerAction( 1, TakeItem, 4031, 10 )
+	TriggerAction( 1, TakeMoney, 10000 )
+	TriggerAction( 1, GiveItem, 2326, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Text( 2,  "Обменять Руду на Маску реальности ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerCondition( 1, HasItem, 2588, 1 )
+	TriggerCondition( 1, HasItem, 3991, 10 )
+	TriggerCondition( 1, HasMoney, 10000 )
+	TriggerAction( 1, TakeItem, 2588, 1 )
+	TriggerAction( 1, TakeItem, 3991, 10 )
+	TriggerAction( 1, TakeMoney, 10000 )
+	TriggerAction( 1, GiveItem, 2326, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Text( 2,  "Обменять Дерево на Маску реальности  ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerCondition( 1, HasItem, 2588, 1 )
+	TriggerCondition( 1, HasItem, 4011, 10 )
+	TriggerCondition( 1, HasMoney, 10000 )
+	TriggerAction( 1, TakeItem, 2588, 1 )
+	TriggerAction( 1, TakeItem, 4011, 10 )
+	TriggerAction( 1, TakeMoney, 10000 )
+	TriggerAction( 1, GiveItem, 2326, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Text( 2,  "Обменять Сашими на маску реальности ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 3,  "Амос: Получите и распишитесь. " )
+
+	Talk( 4,  "Амос: У вас нет всех необходимых ингридиентов или свободных мест в инвентаре. ВОзможно также у вас заблокирован инвентарь. " )
+end 
+
+function r_talk56()
+	Talk( 1,  "Мокен: Привет! Не где остановиться? Я могу предложить чудесную комнату для двоих! " )
+	Text( 1,  "Сделать десерт ", JumpPage, 2)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1778, 1 )
+	TriggerCondition( 1, HasItem, 3121, 4 )
+	TriggerCondition( 1, HasMoney, 50 )
+	TriggerAction( 1, TakeMoney, 50 )
+	TriggerAction( 1, TakeItem, 3121, 4 )
+	TriggerAction( 1, TakeItem, 1778, 1 )
+	TriggerAction( 1, GiveItem, 3127, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Talk( 2,  "Мокен: Мой бизнес в этом году просто превосходен. Я уже распродал большую часть товара! " )
+	Text( 2,  "Смешать Сок радужных фруктов ",MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1778, 1 )
+	TriggerCondition( 1, HasItem, 3122, 1 )
+	TriggerCondition( 1, HasItem, 3123, 1 )
+	TriggerCondition( 1, HasItem, 3124, 1 )
+	TriggerCondition( 1, HasItem, 3125, 1 )
+	TriggerCondition( 1, HasMoney, 50 )
+	TriggerAction( 1, TakeMoney, 50 )
+	TriggerAction( 1, TakeItem, 3122, 1 )
+	TriggerAction( 1, TakeItem, 3123, 1 )
+	TriggerAction( 1, TakeItem, 3124, 1 )
+	TriggerAction( 1, TakeItem, 3125, 1 )
+	TriggerAction( 1, TakeItem, 1778, 1 )
+	TriggerAction( 1, GiveItem, 3128, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 5 )
+	Text( 2,  "Смешать Фруктовый коктейль ",MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 3,  "Мокен: Напиток что вы заказали готов! Приятного времяпровождения! " )
+
+	Talk( 4,  "Мокен: Простите, но для приготовления 1 Сока радужных фруктов необходимо 4 Радужных фрукта, 1 Радужный стакан и 50 золота. " )
+
+	Talk( 5,  "Мокен: Простите, но для изготовления 1 Фруктового коктейля необходимо 1 Сок эльфийского фрукта, 1 Чай из красных фиников, 1 Грибной суп, 1 Сок из плодов дурмана, 1 Радужный стакан и 50 золота. " )
+
+	AddNpcMission	(1138)
+	AddNpcMission	(1161)
+end 
+
+function r_talk57()
+	Talk( 1,  "Ленди: Привет, я начинающая медсетсра города Шайтана. К сожалению пока я еще учусь, поэтому не могу помочь вам в лечении. Если вам нужна помощь, то обратитесь к Целителю Шала. Он находится в точке (903,3646) " )
+
+	AddNpcMission	(1129)
+end 
+
+function r_talk58()
+	Talk( 1,  "Деки: Привет, я лидер пиратов-оборотней. В настоящий момент я на 7-ом месте в списке самых разыскиваемых пиратов флотом. Почему я тебе это рассказываю? Я не боюсь флота! Хехе " )
+	
+	AddNpcMission	(1125)
+	AddNpcMission	(5673)
+	AddNpcMission	(5674)
+	AddNpcMission	(5741)
+	AddNpcMission	(5742)
+	AddNpcMission	(5677)
+	AddNpcMission	(5678)
+	AddNpcMission	(5679)
+	AddNpcMission	(5680)
+	AddNpcMission	(5681)
+	AddNpcMission	(5682)
+	AddNpcMission	(5683)
+	AddNpcMission	(5684)
+	AddNpcMission	(5685)
+	AddNpcMission	(5686)
+	AddNpcMission	(5687)
+	AddNpcMission	(5688)
+	AddNpcMission	(5689)
+	AddNpcMission	(5730)
+	AddNpcMission	(5731)
+	AddNpcMission	(5733)
+	AddNpcMission	(5734)
+	AddNpcMission	(5735)	
+end 
+
+function r_talk59()
+	Talk( 1,  "Рислина: Привет! Я люблю болтать и совать свой нос в чужие неприятности. Если у вас есть неприятности - ищите меня. " )
+	Text( 1,  "Звезда Единства ", JumpPage, 31 )
+	Text( 1,  "Я хотел бы кое о чем спросить ", JumpPage, 4 )
+	Text( 1,  "Я хотел бы узнать о классах и атрибутах ", JumpPage, 11 )
+	Text( 1,  "Я хочу узнать координаты монстров ", JumpPage, 30 )
+
+	Talk( 4,  "Рислина: Город Шайтан является центром магии. Здесь также изготавливается лучшее оружие. Думаю вам лучше самим пройтисб и осмотреть наш чудесный город. " )
+	Text( 4,  "Узнать об оружейном магазине ", JumpPage, 5 )
+	Text( 4,  "Узнать об магазине доспехов ", JumpPage, 7 )
+	Text( 4,  "Узнать о магазине с предметами ", JumpPage, 8 )
+	Text( 4,  "Узнать о портальщиках ", JumpPage, 9 )
+	Text( 4,  "Я чувствую себя не очень хорошо, как найти доктора? ", JumpPage, 10 )
+
+	Talk( 5,  "Рислина: У шайтанского кузнеца всегда самое лучшее оружие. Ищите его магазин в верхнем право углу города. " )
+	Text( 5,  "Унать о других продавцах ", JumpPage, 4 )
+	Text( 5,  "Спасибо, я все понял ", CloseTalk )
+
+	Talk( 7,  "Рислина: Если вам нужны отличные доспехи, то ваш выбор - портной Мойа! Его магазин вы можете найти чуть ниже фонтана, справа. " )
+	Text( 7,  "Унать о других продавцах ", JumpPage, 4 )
+	Text( 7,  "Спасибо, я все понял ", CloseTalk )
+
+	Talk( 8,  "Рислина: Нужны полезные предметы? Продавец инструментов Оуйа в западном углу этого города. " )
+	Text( 8,  "Унать о других продавцах ", JumpPage, 4 )
+	Text( 8,  "Спасибо, я все понял ",  CloseTalk )
+
+	Talk( 9,  "Рислина: Если хотите попасть в другой крупный город этого мира - вам в помощь портальщик Шайтана. Он также может записать для вас здесь точку возвращения. Ищите его у выхода из города. " )
+	Text( 9,  "Унать о других продавцах ", JumpPage, 4 )
+	Text( 9,  "Спасибо, я все понял ",  CloseTalk )
+
+	Talk( 10,  "Рислина: Вы действительно больны? Медсестра находится ниже фонтана. " )
+	Text( 10,  "Унать о других продавцах ", JumpPage, 4 )
+	Text( 10,  "Спасибо, я все понял ",  CloseTalk)
+
+	InitTrigger()
+	TriggerCondition( 1, NoRecord, 706 )
+	TriggerCondition( 1, HasMission, 706 )
+	TriggerCondition( 1, NoFlag, 706, 10 )
+	TriggerAction( 1, SetFlag, 706, 10)
+	TriggerAction( 1, JumpPage, 12 )
+	TriggerFailure( 1, JumpPage, 12 )
+	Talk( 11,  "Рислина: Чтобы стать хорошим игроком вы должны знать хотя бы минимальные понятия о различных классах и атрибутах. Хотите знать больше? " )
+	Text( 11,  "Узнать о классах ", JumpPage, 12)
+	Text( 11,  "Узнать о атрибутах ", JumpPage, 13)
+
+	InitTrigger()
+	TriggerCondition( 1, NoRecord, 706 )
+	TriggerCondition( 1, HasMission, 706 )
+	TriggerCondition( 1, NoFlag, 706, 20 )
+	TriggerAction( 1, SetFlag, 706, 20)
+	TriggerAction( 1, JumpPage, 13 )
+	TriggerFailure( 1, JumpPage, 13 )
+
+	Talk( 12,  "Рислина: Здесь существует 4 основных базовых класса. Каждый из них удовлетворяет своей особой цели в игре. Про какой класс вы хотели бы узнать? " )
+	Text( 12,  "Узнать о мечниках ", JumpPage, 14 )
+	Text( 12,  "Узнать о охотниках ", JumpPage, 15 )
+	Text( 12,  "Узнать о исследователях ", JumpPage, 17 )
+	Text( 12,  "Узнать о знахарке ", JumpPage, 18 )
+
+	Talk( 13,  "Рислина: Всего существует 5 базовых атрибута. Каждый атрибут может иметь максимальное значение в 100. У новичка все атрибуты равны 5. Каждый уровень вам будет выдаваться еще 1 пункт атрибута и навыка. В начале игры у вас есть 5 свободных пункта, которые вы можете распределить по своим предпочтениям. " )
+	Text( 13,  "Узнать о силе ", JumpPage, 21 )
+	Text( 13,  "Узнать о ловкости ", JumpPage, 22 )
+	Text( 13,  "Узнать о телосложении ", JumpPage, 23 )
+	Text( 13,  "Узнать о духе ", JumpPage, 24 )
+	Text( 13,  "Узнать о точности ", JumpPage, 26 )
+
+	Talk( 14,  "Рислина: Мечники имеют самое высокое физическое сопротивление в этой игре. Мечником может стать только Ланс или Карциз. Если хотите стать мечником, то обратитесь к Стражнику Питеру в Аргенте. " )
+	Text( 14,  "Узнать о других классах ", JumpPage, 12)
+	Text( 14,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 14,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 15,  "Рислина: Охотники единственный класс, способный использовать дистанционное оружие в бою. Также в дальнейшем они могут научиться использовать огнестрельное оружие. Только Ланс или Филисс могут стать охотником. Если хотите стать охотником, то ищите Стражника Рея в Ледыне. " )
+	Text( 15,  "Узнать о других классах ", JumpPage, 12)
+	Text( 15,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 15,  "Спасибо, я все понял ", JumpPage, 27)
+	
+	Talk( 17,  "Рислина: Исследователи самый лучший класс для покорителей моря. Только Ами, Филис или Ланс могут стать исследователем. если хотите стать исследователем, то ищите малыша Дэниеля в Аргенте. " )
+	Text( 17,  "Узнать о других классах ", JumpPage, 12)
+	Text( 17,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 17,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 18,  "Рислина: Знахарки это последовательницы культа Богини Кары. За это им была дарована огромная магическая сила. Знахарки способны исцелять людей. Только Филисс или Ами могут стать знахарками. Если хотите стать знахаркой - ищите Верховного жреца Геньона в Шайтане. " )
+	Text( 18,  "Узнать о других классах ", JumpPage, 12)
+	Text( 18,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 18,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 21,  "Рислина: От силы зависит уровень вашей физической атаки. " )
+	Text( 21,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 21,  "Узнать о других классах ", JumpPage, 12)
+	Text( 21,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 22,  "Рислина: Ловкость влияет на скорость атаки и уклонение. " )
+	Text( 22,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 22,  "Узнать о других классах ", JumpPage, 12)
+	Text( 22,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 23,  "Рислина: Телосложение влияет на уровень вашей жизни и на защиту. " )
+	Text( 23,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 23,  "Узнать о других классах ", JumpPage, 12)
+	Text( 23,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 24,  "Рислина: Дух влияет на уровень вашей маны, на магическую защиту и на эффект некоторых умений. " )
+	Text( 24,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 24,  "Узнать о других классах ", JumpPage, 12)
+	Text( 24,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 26,  "Рислина: Точность влияет на уровень дистанционной атаки и на шанс урона. " )
+	Text( 26,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 26,  "Узнать о других классах ", JumpPage, 12)
+	Text( 26,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 27,  "Рислина: Хорошо. Обращайся если еще возникнут вопросы. ")
+
+	Talk( 28,  "Рислина: Я вижу вы уже неплохо разбираетесь в основных значениях. теперь попробуйте пообщаться с другими людьми и выполнять их поручения. " )
+	Text( 28,  "Я бы хотел кое о чем спросить ", JumpPage, 4 )
+	Text( 28,  "Узнать о классах и атрибутах ", JumpPage, 11 )
+	Text( 28,  "Спасибо, я все понял ",  CloseTalk)
+
+	Talk( 29,  "Рислина: Очень хорошо. Вы дотигли 9 уровня и можете начать задумываться о дальнейшей профессии " )
+	Text( 29,  "Я бы хотел кое о чем спросить ", JumpPage, 4 )
+	Text( 29,  "Узнать о классах и атрибутах ", JumpPage, 11 )
+	Text( 29,  "Спасибо, я все понял ",  CloseTalk )
+
+	Talk( 30,  "Рислина: Чтобы узнать координаты монстров вам необходимо обратиться к Пьянице Энтони в баре Аргента. " )
+
+	InitTrigger()
+	TriggerCondition( 1, NoItem, 1034, 1 )
+	TriggerCondition( 1, NoItem, 1033, 1 )
+	TriggerCondition( 1, BankNoItem, 1034, 1 )
+	TriggerCondition( 1, BankNoItem, 1033, 1 )
+	TriggerCondition( 1, EquipNoItem, 1034, 1 )
+	TriggerCondition( 1, EquipNoItem, 1033, 1 )
+
+	TriggerCondition( 1, LvCheck, "<", 41 )
+	TriggerAction( 1, GiveItem, 1033, 1, 4 )
+	TriggerFailure( 1, JumpPage, 6 )
+
+	Talk( 31,  "Рислина: Звезда Единства - предмет из другого мира. При ее использовании она начинает копить получаемый вами опыт. В некоторых условиях она может неожиданно отдать весь опыт обратно. Кроме того по достижении 41 уровня вы можете обменять Звезду Единства на экипировку 50 уровня. Получить Звезду Единства может любой игрок не старше 41 уровня. " )
+	Text( 31,  "Получить Звезду Единства ",MultiTrigger, GetMultiTrigger(), 1)
+	Text( 31,  "Обменять Звезду Единства ",JumpPage, 32 )
+
+	Talk( 32,  "Рислина: Если у вас есть Звезда Единства, то вы можете обменять ее на экипировку 50 уровня для своего класса. Вас это интересует? ")
+	Text( 32,  "Получить экипировку ", Transfer_TeamStar, 1)
+
+	Talk( 6,  "Рислина: Прошу прощения, но вы не подходите по условию. " )
+
+	AddNpcMission ( 711 )
+	AddNpcMission ( 712 )
+	AddNpcMission ( 714 )
+	AddNpcMission ( 716 )
+	AddNpcMission ( 718 )
+	AddNpcMission ( 202 )
+	AddNpcMission 	(414)
+	AddNpcMission 	(83)
+	AddNpcMission 	(84)
+	AddNpcMission 	(94)
+	AddNpcMission 	(161)
+	AddNpcMission 	(62)
+	AddNpcMission 	(63)
+	AddNpcMission 	(64)
+	AddNpcMission 	(65)
+
+	MisListPage(28)
+	MisListPage(29)
+end 
+
+function r_talk61()
+	Talk( 1,  "Адмирал Ник: Привет! Я первая девушка-офицер в этих местах! " )
+
+	AddNpcMission	(1126)
+	AddNpcMission	(98)
+	AddNpcMission	(99)
+	AddNpcMission	(150)
+end 
+
+function r_talk62()
+	Talk( 1,  "Плуто: Я люблю собирать странные вещи. Кроме того я всегда ищу товар по более низкой цене и продаю по более высокой. Меня можно назвать самым находчивым продавцом. " )
+	Text( 1,  "До свидания ",CloseTalk )
+
+	AddNpcMission	(1144)
+	AddNpcMission ( 6115 )
+	AddNpcMission ( 6116 )
+end 
+
+function r_talk63()
+	Talk( 1,  "Вово: Малышу Дэниелю нельзя доверять. Я переехал сюда только чтобы быть от него подальше. " )
+
+	AddNpcMission ( 6028 )
+	AddNpcMission ( 6029 )
+	AddNpcMission ( 6054 )
+	AddNpcMission ( 6055 )
+	AddNpcMission ( 6114 )
+end 
+
+function r_talk64()
+	Talk( 1,  "Волли: Привет! Я первая в мире говорящая овечка! Бееее " )
+
+	AddNpcMission ( 233 )
+	AddNpcMission	(5565)
+	AddNpcMission	(5566)
+end 
+
+function r_talk65()
+	Talk( 1,  "Тинтин: Мы всегда обещаем, но никогда не выполняем. " )
+end 
+
+function r_talk66()
+	Talk( 1,  "Яй: Святая жрица в храме города Шайтана. Она благославляет своих приверженцов. " )
+end 
+
+function r_talk67()
+	Talk( 1,  "Супермун: Я великий потомок супермена! Я буду владеть всей пустыней с помощью своей супер силы! (О Боже, он опять грезит наяву) " )
+	
+	AddNpcMission ( 237 )
+	AddNpcMission ( 238 )
+	AddNpcMission ( 239 )
+	AddNpcMission ( 240 )
+	AddNpcMission ( 248 )
+	AddNpcMission ( 557 )
+	AddNpcMission (5011 )
+end 
+
+function r_talk68()
+	Talk( 1,  "Хассан: Хмм.. На днях я начал чувствовать здесь какой то особый запах. Как хочется узнать что же это такое... " )
+	Text( 1,  "Комбинировать ", JumpPage, 2)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1785, 10 )
+	TriggerCondition( 1, HasMoney, 2000 )
+	TriggerAction( 1, TakeMoney, 2000 )
+	TriggerAction( 1, TakeItem, 1785, 10 )
+	TriggerAction( 1, GiveItem, 1786, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Talk( 2,  "Хассан: Кусок звенящего кристалла имеет небольшую ценность. Хотели бы вы объединить его в Звенящий кристалл? " )
+	Text( 2,  "Объединить Звенящий кристалл ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 3,  "Хассан: Ваш Звенящий кристалл готов. Приходите еще! " )
+
+	Talk( 4,  "Хассан: Для создания Звенящего кристалла необходимы 10 Кусков звенящего кристалла и 2000 золота. " )
+
+	AddNpcMission ( 5010)
+	AddNpcMission ( 5014)
+	AddNpcMission ( 5033)
+	AddNpcMission ( 5034)
+	AddNpcMission	(5553)
+	AddNpcMission	(5554)
+end 
+
+function r_talk69()
+	Talk( 1,  "Шармель: Привет! Я местный музыкант. " )
+
+	AddNpcMission	(5559)
+	AddNpcMission	(5560)
+end 
+
+function r_talk70()
+	Talk( 1,  "Ада: Здравствуй мой друг. Пусть Кара благославляет твой путь. Я Верховная жрица Ада. " )
+
+	AddNpcMission ( 756 )
+	AddNpcMission ( 341 )
+	AddNpcMission ( 356 )
+	AddNpcMission ( 357 )
+	AddNpcMission ( 521 )
+	AddNpcMission ( 539 )
+	AddNpcMission ( 540 )
+	AddNpcMission ( 541 )
+	AddNpcMission ( 552 )
+	AddNpcMission ( 553 )
+	AddNpcMission ( 556 )
+	AddNpcMission	(5627)
+	AddNpcMission	(5628)
+end 
+
+function r_talk71()
+	Talk( 1,  "Фейру: Знаете ли вы что у кактуса тоже бывают цветы? У них такой чудесный запах! " )
+end 
+
+function r_talk72()
+	Talk( 1,  "Форлан: Сила в единстве! Хотите бросить вызов одной из 3 самых сильных гильдий? Хотите править этим миром? " )
+	Text( 1,  "Топ 3 гильдий ", ListChallenge)
+end 
+
+function r_talk73()
+	Talk( 1,  "Баш: Добро пожаловать! Я продаю все виды оружия! " )
+	Text( 1,  "Торг ", BuyPage )
+	Text( 1,  "Ремонт ", OpenRepair)
+	Text( 1,  "Вставить самоцвет ", JumpPage, 2)
+	Text( 1,  "Комбинирование", JumpPage, 3)
+	Text( 1,  "Ничего ",CloseTalk )
+
+	Talk( 2,  "Баш: Вставить самоцвет? Только кузнец Шайтана знает как это делать. " )
+
+	Talk( 3,  "Баш: Хочешь соединить что-нибудь? Насколько я понимаю, тебе понадобится свиток ковки со списком необходимых предметов. Собери все, что понадобится, и поговори с Бакалейщиком - Амосом из Шайтана. Только он владеет искусством соединения." )
+
+	InitTrade()
+	Weapon(	0008	)
+	Weapon(	0196	)
+	Weapon(	0197	)
+	Weapon(	0198	)
+	Weapon(	0025	)
+	Weapon(	0032	)
+	Weapon(	0026	)
+	Weapon(	0033	)
+	Weapon(	0027	)
+	Weapon(	0034	)
+	Weapon(	1400	)
+	Weapon(	1401	)
+	Weapon(	1402	)
+	Weapon(	1403	)
+	Weapon(	1404	)
+	Weapon(	1405	)
+	Weapon(	0037	)
+	Weapon(	0038	)
+	Weapon(	0039	)
+	Weapon(	0044	)
+	Weapon(	0040	)
+	Weapon(	0045	)
+	Weapon(	1406	)
+	Weapon(	1407	)
+	Weapon(	1408	)
+	Weapon(	1409	)
+	Weapon(	1413	)
+	Weapon(	1414	)
+
+	AddNpcMission ( 723 )
+	AddNpcMission	(1041)
+	AddNpcMission	(1093)
+	AddNpcMission	(1152)
+	AddNpcMission	(1204)
+	AddNpcMission(	1233	)
+end 
+
+function r_talk74()
+	Talk( 1,  "Палпин: Привет! Я бакалейщик Ледыни. Ищи меня когда достигнешь 10 уровня, я дам тебе задание кое что найти. За это я хорошо заплачу! " )
+	Text( 1,  "Торг ", BuyPage )
+	Text( 1,  "Ничего... ",CloseTalk )
+	Text( 1,  "Изготовить Маску реальности ",JumpPage, 2 )
+
+	InitTrade()
+	Other(	3187	)
+	Other(	3188	)
+	Other(	3190	)
+	Other(	3239	)
+	Other(	3197	)
+	Other(	3193	)
+	Other(	3241	)
+	Other(	3192	)
+	Other(	3198	)
+	Other(	3202	)
+	Other(	3203	)
+	Other(	3204	)
+	Other(	3225	)
+	Other(	3226	)
+	Other(	3294	)
+	Other(	3295	)
+	Other(	3141	)
+	Other(	4602	)
+	Other(	4603	)
+	Other(	4604	)
+	Other( 	3296 	)
+	Other(	2679	)
+	Other(	2689	)
+	Other(	2699	)
+	Other(	2709	)
+	Other(	1611	)
+	Other(	1682	)
+	Other(	1842	)
+	Other(	1612	)
+	Other(	1710	)
+	Other(	1693	)
+	Other(	4716	)
+	Other(	1716	)
+	Other(	1711	)
+	Other(	3384	)
+	Other(	3932	)
+	Other(	1619	)
+	Other(	2396	)
+	Other(	1729	)
+	Other(	4459	)
+	Other(	1697	)
+	Other(	1730	)
+	Other(	1712	)
+	Other(	1734	)
+	Other(	1621	)
+	Other(	1703	)
+	Other(  2440    )
+
+	AddNpcMission	(1052)
+	AddNpcMission	(1106)
+	AddNpcMission	(1162)
+	AddNpcMission	(1214)
+	AddNpcMission	(181)
+	AddNpcMission	(182)
+	AddNpcMission	(183)
+	AddNpcMission	(1234)
+
+	InitTrigger()
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerCondition( 1, HasItem, 2588, 1 )
+	TriggerCondition( 1, HasItem, 1624, 10 )
+	TriggerCondition( 1, HasMoney, 10000 )
+	TriggerAction( 1, TakeItem, 2588, 1 )
+	TriggerAction( 1, TakeItem, 1624, 10 )
+	TriggerAction( 1, TakeMoney, 10000 )
+	TriggerAction( 1, GiveItem, 2326, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Talk( 2,  "Палпин: Для изготовления Маски реальности необходимо 1 Эльфийскую печать, 10000 золота и 10 любых ресурсов 3 уровня. " )
+	Text( 2,  "Обменять Осколок кости на Маску реальности ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerCondition( 1, HasItem, 2588, 1 )
+	TriggerCondition( 1, HasItem, 4031, 10 )
+	TriggerCondition( 1, HasMoney, 10000 )
+	TriggerAction( 1, TakeItem, 2588, 1 )
+	TriggerAction( 1, TakeItem, 4031, 10 )
+	TriggerAction( 1, TakeMoney, 10000 )
+	TriggerAction( 1, GiveItem, 2326, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Text( 2,  "Обменять Руду на Маску реальности ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerCondition( 1, HasItem, 2588, 1 )
+	TriggerCondition( 1, HasItem, 3991, 10 )
+	TriggerCondition( 1, HasMoney, 10000 )
+	TriggerAction( 1, TakeItem, 2588, 1 )
+	TriggerAction( 1, TakeItem, 3991, 10 )
+	TriggerAction( 1, TakeMoney, 10000 )
+	TriggerAction( 1, GiveItem, 2326, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Text( 2,  "Обменять Дерево на Маску реальности  ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerCondition( 1, HasItem, 2588, 1 )
+	TriggerCondition( 1, HasItem, 4011, 10 )
+	TriggerCondition( 1, HasMoney, 10000 )
+	TriggerAction( 1, TakeItem, 2588, 1 )
+	TriggerAction( 1, TakeItem, 4011, 10 )
+	TriggerAction( 1, TakeMoney, 10000 )
+	TriggerAction( 1, GiveItem, 2326, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Text( 2,  "Обменять Сашими на Маску реальности ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 3,  "Палпин: Вот, держите что заказали. " )
+
+	Talk( 4,  "Палпин: Вы не имеете всех необходимых ингридиентов  или у вас недостаточно свободного места в инвентаре. Также возможно что ваш инвентарь заблокирован. " )
+end 
+
+function r_talk75()
+	Talk( 1,  "Дайша: Привет! У меня лучшие травы во всей Ледыни! " )
+	Text( 1,  "Торг ", BuyPage )
+	Text( 1,  "Ничего... ",CloseTalk )
+	
+	Talk( 2,  "Дайша: Отлично! Вы дошли до 9 лвл. Вы можете выбрать свой класс с 10 лвл. Теперь идите к соответствующему НПС, чтобы начать выбор класса.Если вы хотите стать Мечником, то ищите Петра в Аргенте в (2192, 2767). Целительницам надо искать Первосвященник - Гэннон в Шайтане в (862, 3500). Охотнику надо искать Мечника Рэя в Ледыне в (1365, 570). Мореплавотелю надо найти Малыша Даниэля в Аргенте в(2193, 2730). Вы можете переместиться в Аргент или Шайтан с помощью телепорта. " )
+	Text( 2,  "Торг ", BuyPage )
+	Text( 2,  "Ничего... ",CloseTalk )
+
+	InitTrade()
+	Other(	1847	)
+	Other(	1848	)
+	Other(	1849	)
+	Other(	3143	)
+	Other(	1576	)
+	Other(	4049	)
+	Other(	4050	)
+	Other(	1578	)
+	Other(	4060	)
+	Other(	4055	)
+	Other(	4061	)
+	Other(	2225	)
+	Other(	4057	)
+	Other(	1768	)
+
+	AddNpcMission ( 727 )
+	AddNpcMission	(1047)
+	AddNpcMission	(1101)
+	AddNpcMission	(1158)
+	AddNpcMission	(1209)
+	AddNpcMission(	1235	)
+	AddNpcMission(	5067)
+	AddNpcMission(	593)
+	AddNpcMission(	594	)
+	AddNpcMission(	596	)	
+
+	MisListPage(2)
+end 
+
+function r_talk76()
+	Talk( 1,  "Анна: Првиет! Я медстестра Анна! Поскольку я пока нахожусь на обучении я не могу вам ничем помочь. " )
+
+	AddNpcMission	(1018)
+	AddNpcMission	(1073)
+	AddNpcMission	(1128)
+	AddNpcMission	(1181)
+	AddNpcMission(	1236	)
+end 
+
+function r_talk77()
+	Talk( 1,  "Анжела: Привет! Я наставница Ледыни. Я буду учить вас некоторым основным знаниям. Наслаждайтесь вечной зимой! " )
+	Text( 1,  "Звезда Единства ", JumpPage, 31 )
+	Text( 1,  "Я бы хотел кое о чем спросить ", JumpPage, 4 )
+	Text( 1,  "Узнать о классах и атрибутах ", JumpPage, 11 )
+	Text( 1,  "Узнать координаты монстров ", JumpPage, 30 )
+	Text( 1,  "Спасибо, я все понял ", CloseTalk )
+
+	Talk( 4,  "Анжела: Ледынь это место, где вечная зима. Чтобы тут выжить надо знать где найти нужные вещи. " )
+	Text( 4,  "Узнать об оружейном магазине ", JumpPage, 5 )
+	Text( 4,  "Узнать о магазине доспехов ", JumpPage, 7 )
+	Text( 4,  "Узнать о магазине с предметами ", JumpPage, 8 )
+	Text( 4,  "Узнать о магазине портальщиках ", JumpPage, 9 )
+	Text( 4,  "Узнать о магазине лечении ", JumpPage, 10 )
+
+	Talk( 5,  "Анжела: Отсюда двигайтесь на юг, а затем сверрните направо на перекрестке. Там вы увидите нашего кузнеца. " )
+	Text( 5,  "Унать о других продавцах ", JumpPage, 4 )
+	Text( 5,  "Спасибо, я все понял ", CloseTalk )
+
+	Talk( 7,  "Анжела: Чтобы купить доспехи ищите нашего портного. Он очень добрый человек. Находится в правой части города. " )
+	Text( 7,  "Унать о других продавцах ", JumpPage, 4 )
+	Text( 7,  "Спасибо, я все понял ", CloseTalk )
+
+	Talk( 8,  "Анжела: Купить предметы вы можете у бакалейщика нашего города. У него есть все для путешевствия. Он находится в западном углу этого города. " )
+	Text( 8,  "Унать о других продавцах ", JumpPage, 4 )
+	Text( 8,  "Спасибо, я все понял ", CloseTalk )
+
+	Talk( 9,  "Анжела: Идите по дороге на юг и вы увидите красивую леди стоящую там. Это наша портальщица. С помощью нее вы можете переместиться в любой крупный город этого мира. Также вы можете записать у нее точку возвращения. " )
+	Text( 9,  "Унать о других продавцах ", JumpPage, 4 )
+	Text( 9,  "Спасибо, я все понял ", CloseTalk )
+
+	Talk( 10,  "Анжела: Медсестра - девушка стоящая с другой стороны фонтана. Не забудьте найти ее если вы больны. " )
+	Text( 10,  "Унать о других продавцах ", JumpPage, 4 )
+	Text( 10,  "Спасибо, я все понял ", CloseTalk )
+
+	InitTrigger()
+	TriggerCondition( 1, NoRecord, 700 )
+	TriggerCondition( 1, HasMission, 700 )
+	TriggerCondition( 1, NoFlag, 700, 10 )
+	TriggerAction( 1, SetFlag, 700, 10)
+	TriggerAction( 1, JumpPage, 12 )
+	TriggerFailure( 1, JumpPage, 12 )
+	Talk( 11,  "Анжела: Вам как новому игроку необходимо очень много узнать. Я готовоа вам в этом помочь. " )
+	Text( 11,  "Узнать о классах ", JumpPage, 12)
+	Text( 11,  "Узнать о других атрибутах ", JumpPage, 13)
+
+	InitTrigger()
+	TriggerCondition( 1, NoRecord, 700 )
+	TriggerCondition( 1, HasMission, 700 )
+	TriggerCondition( 1, NoFlag, 700, 20 )
+	TriggerAction( 1, SetFlag, 700, 20)
+	TriggerAction( 1, JumpPage, 13 )
+	TriggerFailure( 1, JumpPage, 13 )
+
+	Talk( 12,  "Анжела: Всего существует 4 базовых класса. Каждый имеет свои особенности. " )
+	Text( 12,  "Узнать о мечниках ", JumpPage, 14 )
+	Text( 12,  "Узнать об охотниках ", JumpPage, 15 )
+	Text( 12,  "Узнать об исследователях ", JumpPage, 17 )
+	Text( 12,  "Узнать об знахарках ", JumpPage, 18 )
+	Text( 12,  "Я все понял. Хочу узнать кое что другое. ", JumpPage, 11 )
+
+	Talk( 13,  "Анжела: Всего существует 5 базовых атрибута. Каждый атрибут может иметь максимальное значение в 100. У новичка все атрибуты равны 5. Каждый уровень вам будет выдаваться еще 1 пункт атрибута и навыка. В начале игры у вас есть 5 свободных пункта, которые вы можете рас " )
+	Text( 13,  "Узнать о силе ", JumpPage, 21 )
+	Text( 13,  "Узнать о ловкости ", JumpPage, 22 )
+	Text( 13,  "Узнать о телосложении ", JumpPage, 23 )
+	Text( 13,  "Узнать о духе ", JumpPage, 24 )
+	Text( 13,  "Узнать о точности ", JumpPage, 26 )
+	Text( 13,  "Я все понял. Хочу узнать кое что другое. ", JumpPage, 11 )
+
+	Talk( 14,  "Мечники имеют самое высокое физическое сопротивление в этой игре. Мечником может стать только Ланс, Филисс или Карциз. Если хотите стать мечником, то обратитесь к Стражнику Питеру в Аргенте. " )
+	Text( 14,  "Узнать о других классах ", JumpPage, 12)
+	Text( 14,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 14,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 15,  "Анжела: Охотники это единственный класс использующий оружие с дистанционной атакой. Охотником может стать только Филисс или Ланс. Чтобы стать охотником необходимо обратится к мечнику Рею в Ледыни. " )
+	Text( 15,  "Узнать о других классах ", JumpPage, 12)
+	Text( 15,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 15,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 17,  "Анжела: Исследователь это лучший класс для морских путешевствий. Исследователем могут стать только Филисс, Ланс или Ами. Чтобы стать исследователем обратись к Малышу Дэниэлю в Аргенте. " )
+	Text( 17,  "Узнать о других классах ", JumpPage, 12)
+	Text( 17,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 17,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 18,  "Анжела: Целительницы это приверженцы культа Богини Кары, за это им дарована магическая сила. Целителем может стать только Филисс или Ами. Чтобы стать Целителем ищи Верховного жреца Геньона в Шайтане. " )
+	Text( 18,  "Узнать о других классах ", JumpPage, 12)
+	Text( 18,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 18,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 21,  "Анжела: Сила влияет на физический урон. " )
+	Text( 21,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 21,  "Узнать о других классах ", JumpPage, 12)
+	Text( 21,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 22,  "Анжела: Ловкость влияет на уклонение и скорость атаки. " )
+	Text( 22,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 22,  "Узнать о других классах ", JumpPage, 12)
+	Text( 22,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 23,  "Анжела: Телосложение влияет на количество жизни и на защиту. " )
+	Text( 23,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 23,  "Узнать о других классах ", JumpPage, 12)
+	Text( 23,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 24,  "Анжела: Дух влияет на количество маны, магическую защиту и урон от некоторых скиллов. " )
+	Text( 24,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 24,  "Узнать о других классах ", JumpPage, 12)
+	Text( 24,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 26,  "Анжела: Точность влияет на шанс урона и силу дистанционной атаки. " )
+	Text( 26,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 26,  "Узнать о других классах ", JumpPage, 12)
+	Text( 26,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 27,  "Анжела: Отлично! Ищи меня если что то понадобится. ")
+
+	Talk( 28,  "Анжела: Очень хорошо! Вы очень хорошо увоили основы. Попробуйте теперь пообщаться с другими жителями и постараться найти работу. " )
+	Text( 28,  "Я бы хотел кое о чем спросить ", JumpPage, 4 )
+	Text( 28,  "Узнать о классах и атрибутах ", JumpPage, 11 )
+	Text( 28,  "Спасибо, я все понял ",  CloseTalk )
+
+	Talk( 29,  "Анжела: Хорошо! Теперь вы можете определится с будующей профессией и обратится к тренеру своего класса. " )
+	Text( 29,  "Я бы хотел кое о чем спросить ", JumpPage, 4 )
+	Text( 29,  "Узнать о классах и атрибутах ", JumpPage, 11 )
+	Text( 29,  "Спасибо, я все понял ",  CloseTalk)
+
+	Talk( 30,  "Анжела: Чтобы узнать координаты монстров обратись к Пьянице Энтони в Баре Аргента. " )
+
+	InitTrigger()
+	TriggerCondition( 1, NoItem, 1034, 1 )
+	TriggerCondition( 1, NoItem, 1033, 1 )
+	TriggerCondition( 1, BankNoItem, 1034, 1 )
+	TriggerCondition( 1, BankNoItem, 1033, 1 )
+	TriggerCondition( 1, EquipNoItem, 1034, 1 )
+	TriggerCondition( 1, EquipNoItem, 1033, 1 )
+
+	TriggerCondition( 1, LvCheck, "<", 41 )
+	TriggerAction( 1, GiveItem, 1033, 1, 4 )
+	TriggerFailure( 1, JumpPage, 6 )
+
+	Talk( 31,  "Анжела: Звезда Единства - таинственный предмет из другого мира. При ношении способна накапливать опыт хозяина, а затем при некоторых условиях отдавать накопленное количество опыта назад. Кроме того вы можете обменять Звезду Единства на экипировку своего класса на 50 уровень когда достигнете 41 уровня. " )
+	Text( 31,  "Получить Звезду Единства ",MultiTrigger, GetMultiTrigger(), 1)
+	Text( 31,  "Обмен Звезды Единства ",JumpPage, 32 )
+
+	Talk( 32,  "Анжела: Спасибо за использование наших продуктов. Вы можете обменять Звезду Единства на экипировку своего класса на 50 уровень. Вас это интересует? ")
+	Text( 32,  "Получить оружие класса ", Transfer_TeamStar, 1)
+
+	Talk( 6,  "Анжела: Прошу прощения, но вы не подходите по требованиям. " )
+
+	AddNpcMission ( 721 )
+	AddNpcMission ( 722 )
+	AddNpcMission ( 724 )
+	AddNpcMission ( 726 )
+	AddNpcMission ( 728 )
+	AddNpcMission ( 201 )
+	AddNpcMission 	(406)
+	AddNpcMission 	(62)
+	AddNpcMission 	(63)
+	AddNpcMission 	(64)
+	AddNpcMission 	(65)
+	AddNpcMission 	(162)
+	AddNpcMission 	(163)
+	AddNpcMission 	(173)
+	AddNpcMission 	(190)
+
+	MisListPage(28)
+	MisListPage(29)
+end 
+
+function r_talk78()
+	Talk( 1,  "Рэй: Привет! Я наемный охотник, люблю охотится за нежитью. Если вас это интересует, то могу показать несколько хороших мест. " )
+
+	AddNpcMission ( 101 )
+	AddNpcMission ( 251 )
+	AddNpcMission ( 252 )
+	AddNpcMission ( 260 )
+	AddNpcMission ( 261 )
+	AddNpcMission 	(410)
+	AddNpcMission 	(757)
+	AddNpcMission 	(167)
+	AddNpcMission 	(168)
+	AddNpcMission 	(169)
+	AddNpcMission 	(174)
+	AddNpcMission 	(175)
+	AddNpcMission 	(176)
+	AddNpcMission 	(180)
+	AddNpcMission 	(523)
+	AddNpcMission(	1237	)
+	AddNpcMission(	5057	)
+	AddNpcMission(	5061	)	
+	AddNpcMission(	5069	)
+	AddNpcMission(	5168	)
+	AddNpcMission(	5090	)
+	AddNpcMission (5097 )
+	AddNpcMission (5098 )
+	AddNpcMission (5099 )
+	AddNpcMission (5100 )
+	AddNpcMission (5111 )
+
+	MisListPage(2)
+
+	AddNpcMission ( 6125 )
+end 
+
+function r_talk79()
+	Talk( 1,  "Рэйно: Привет! Я председатель Ледыни, самый богатый человек города. Я везде где есть деньги. " )
+	Text( 1,  "Сделать восстанавливающее зелье ", JumpPage, 5)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1779, 1 )
+	TriggerCondition( 1, HasItem, 3138, 2 )
+	TriggerCondition( 1, HasItem, 3137, 2 )
+	TriggerCondition( 1, HasMoney, 200 )
+	TriggerAction( 1, TakeMoney, 200 )
+	TriggerAction( 1, TakeItem, 3138, 2 )
+	TriggerAction( 1, TakeItem, 3137, 2 )
+	TriggerAction( 1, TakeItem, 1779, 1 )
+	TriggerAction( 1, GiveItem, 3139, 1 , 4)
+	TriggerAction( 1, JumpPage, 6 )
+	TriggerFailure( 1, JumpPage, 7 )
+	Talk( 5,  "Рэйно: Те травы, что продают целители самые обычные. Только я продаю самые волшебные травы! " )
+	Text( 5,  "Сделать Агрипнотик ",MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1779, 1 )
+	TriggerCondition( 1, HasItem, 3133, 1 )
+	TriggerCondition( 1, HasItem, 3134, 1 )
+	TriggerCondition( 1, HasItem, 3135, 1 )
+	TriggerCondition( 1, HasItem, 3136, 1 )
+	TriggerCondition( 1, HasMoney, 200 )
+	TriggerAction( 1, TakeMoney, 200 )
+	TriggerAction( 1, TakeItem, 3133, 1 )
+	TriggerAction( 1, TakeItem, 3134, 1 )
+	TriggerAction( 1, TakeItem, 3135, 1 )
+	TriggerAction( 1, TakeItem, 3136, 1 )
+	TriggerAction( 1, TakeItem, 1779, 1 )
+	TriggerAction( 1, GiveItem, 3140, 1 , 4)
+	TriggerAction( 1, JumpPage, 6 )
+	TriggerFailure( 1, JumpPage, 8 )
+	Text( 5,  "Сделать Волшебное зелье ",MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 6,  "Рэйно: Вот то, что вы заказывали. " )
+	Talk( 7,  "Рэйно: Чтобы сделать 1 Агрипнотик необходимо 2 Тиамарина, 2 Загадочных фрукта, 1 Стакан и 200 золота. " )
+	Talk( 8,  "Рэйно: Чтобы сделать 1 Волшебное зелье необходимо 1 Лакричное зелье, 1 Чай Бодрячок, 1 Чудо-мазь, 1 Брикет снежной травы, 1 Стакан и 200 золота. " )
+
+	AddNpcMission 	(459)
+	AddNpcMission 	(465)
+	AddNpcMission 	(699)
+	AddNpcMission 	(800)
+	AddNpcMission	(1005)
+	AddNpcMission	(1060)
+	AddNpcMission	(1115)
+	AddNpcMission	(1169)
+	AddNpcMission(	1238	)
+	AddNpcMission ( 5084	)
+	AddNpcMission ( 5085	)
+	AddNpcMission ( 5086	)
+	AddNpcMission ( 5087	)
+	AddNpcMission (5143 )
+	AddNpcMission (5144 )
+	AddNpcMission (5145 )
+	AddNpcMission (5146 )
+	AddNpcMission (5151 )
+end 
+
+function r_talk80()
+	Talk( 1,  "Мас: История моей семьи началась также давно как основали замок Ледыни. Здесь все меня знают и уважают. " )
+	Text( 1,  "Создать пиратскую гильдию ",JumpPage, 2 )
+	Text( 1,  "Ничего... ",CloseTalk )
+
+	Talk( 2,  "Мас: Хохо.. Хотите создать пиратскую гильдию? Думаю вам это по силам. " )
+	InitTrigger()
+	TriggerCondition( 1, HasMoney, 100000 )
+	TriggerCondition( 1, HasItem, 1780, 1 )
+	TriggerAction( 1, CreateGuild, 1 )
+	TriggerFailure( 1, JumpPage, 3 )
+	Text( 2,  "Создать пиратскую гильдию ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 3,  "Мас: Стать лидером пиратской гильдии не так просто. Вам нужно принести 1 камень клятвы и 100000 золота. " )
+
+	AddNpcMission ( 253  )
+	AddNpcMission ( 254  )
+	AddNpcMission (	453  )
+	AddNpcMission (	698	 )
+	AddNpcMission (	801	 )
+	AddNpcMission (	1004 )
+	AddNpcMission (	1059 )
+	AddNpcMission (	1114 )
+	AddNpcMission (	1168 )
+	AddNpcMission (	317	 )
+	AddNpcMission (	321	 )
+	AddNpcMission (	322	 )
+	AddNpcMission (	5045 )
+	AddNpcMission (	5046 )
+	AddNpcMission (	5047 )
+end 
+
+function r_talk81()
+	Talk( 1,  "Белинда: Добро пожаловать в банк Ледыни! Чем я могу помочь? " )
+	InitTrigger()
+	TriggerCondition( 1, HasMoney, 200 )
+	TriggerAction( 1, TakeMoney, 200 )
+	TriggerAction( 1, OpenBank )
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1,  "Хранилище (200 золотых) ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 2,  "Простите, но у вас недостаточно денег для входа в хранилище. " )
+
+	AddNpcMission (	1102 )
+	AddNpcMission (	187	 )
+	AddNpcMission (	188	 )
+	AddNpcMission (	189	 )
+	AddNpcMission (	597	 )
+	AddNpcMission (	598	 )
+	AddNpcMission ( 6093 )
+end 
+
+function r_talk82()
+	Talk( 1,  "Барбара: Здравствуйте! Не найдется ли у вас интересных историй для меня? " )
+	Text( 1,  "Дворец Тельца ", JumpPage,9)
+	Text( 1,  "Сделать краситель ", JumpPage, 2)
+	Text( 1,  "Сделать сок ", JumpPage, 6)
+
+	Talk( 9, "Барбара: Хочешь войти во Дворец Тельца? Задания буду гораздо сложнее, чем на предыдущем этапе. Можно выбрать один из уровней сложности." )
+
+	InitTrigger()
+	TriggerCondition( 1, NoRecord,1112 )
+	TriggerCondition( 1, NoRecord,1113 )
+	TriggerCondition( 1, HasItem, 2943, 1 )
+	TriggerAction( 1, TakeItem, 2943, 1 )
+	TriggerAction( 1, SetRecord, 1111 )
+	TriggerAction( 1, SetRecord, 1152 )
+	TriggerAction( 1, JumpPage, 10 )
+	TriggerFailure( 1, JumpPage, 13 )
+	Text( 9, "Матрос ",MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, NoRecord,1111 )
+	TriggerCondition( 1, NoRecord,1113 )
+	TriggerCondition( 1, HasItem, 2943, 1 )
+	TriggerAction( 1, TakeItem, 2943, 1 )
+	TriggerAction( 1, SetRecord, 1112 )
+	TriggerAction( 1, SetRecord, 1152 )
+	TriggerAction( 1, JumpPage, 10 )
+	TriggerFailure( 1, JumpPage, 13 )
+	Text( 9, "Пират ",MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, NoRecord,1111 )
+	TriggerCondition( 1, NoRecord,1112 )
+	TriggerCondition( 1, HasItem, 2943, 1 )
+	TriggerAction( 1, TakeItem, 2943, 1 )
+	TriggerAction( 1, SetRecord, 1113 )
+	TriggerAction( 1, SetRecord, 1152 )
+	TriggerAction( 1, JumpPage, 10 )
+	TriggerFailure( 1, JumpPage, 13 )
+	Text( 9, "Капитан ",MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 10, "Барбара: Выбрали? Тогда вперед, навстречу Тельцу!" )
+	Talk( 13, "Барбара: Проверь внимательно, может быть ты ещё не прошел Дворец Овна?")
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1792, 5 )
+	TriggerCondition( 1, HasItem, 1657, 1 )
+	TriggerCondition( 1, HasItem, 1778, 1 )
+	TriggerCondition( 1, HasMoney, 200 )
+	TriggerAction( 1, TakeMoney, 200 )
+	TriggerAction( 1, TakeItem, 1792, 5 )
+	TriggerAction( 1, TakeItem, 1657, 1 )
+	TriggerAction( 1, TakeItem, 1778, 1 )
+	TriggerAction( 1, GiveItem, 1802, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Talk( 2,  "Барбара: Вы столкнулись с чем то интересным? Сообщите мне! " )
+	Text( 2,  "Сделать Голубой краситель ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1793, 5 )
+	TriggerCondition( 1, HasItem, 1657, 1 )
+	TriggerCondition( 1, HasItem, 1778, 1 )
+	TriggerCondition( 1, HasMoney, 200 )
+	TriggerAction( 1, TakeMoney, 200 )
+	TriggerAction( 1, TakeItem, 1793, 5 )
+	TriggerAction( 1, TakeItem, 1657, 1 )
+	TriggerAction( 1, TakeItem, 1778, 1 )
+	TriggerAction( 1, GiveItem, 1803, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 5 )
+	Text( 2,  "Сделать Пурпурный краситель ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 3,  "Барбара: Вот, то что вы просили готово! " )
+	Talk( 4,  "Барбара: Для приготовления 1 Голубого красителя нужно 5 Голубой краски, 1 Особый газ, 1 Радужный стакан и 200 золота. " )
+	Talk( 5,  "Барбара: Для приготовления 1 Пурпурного красителя нужно 5 Пурпурной краски, 1 Особый газ, 1 Радужный стакан и 200 золота. " )
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1777, 1 )
+	TriggerCondition( 1, HasItem, 3116, 10 )
+	TriggerAction( 1, TakeItem, 3116, 10 )
+	TriggerAction( 1, TakeItem, 1777, 1 )
+	TriggerAction( 1, GiveItem, 3122, 1 , 4)
+	TriggerAction( 1, JumpPage, 7 )
+	TriggerFailure( 1, JumpPage, 8 )
+	Talk( 6,  "Барбара: У меня лучший сок во всей Ледыни! Вы приготовили стакан? " )
+	Text( 6,  "Сделать Сок эльфийского фрукта ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 7,  "Барбара: Держите ваш самый вкусный сок, как и просили. " )
+
+	Talk( 8,  "Барбара: Простите, но для приготовления 1 Сок эльфийского фрукта требуется 10 Эльфийских фруктов и 1 Стакан. " )
+
+	AddNpcMission (	1078 )
+	AddNpcMission (	389	 )
+	AddNpcMission (	5608 )
+	AddNpcMission (	5609 )
+	AddNpcMission (	5610 )
+	AddNpcMission (	5611 )
+	AddNpcMission (	5612 )
+	AddNpcMission (	5613 )
+	AddNpcMission (	5614 )
+	AddNpcMission (	5615 )
+	AddNpcMission (	5616 )
+	AddNpcMission (	5617 )
+	AddNpcMission (	5618 )
+	AddNpcMission (	5619 )
+	AddNpcMission (	5620 )
+	AddNpcMission (	5621 )
+	AddNpcMission (	5622 )
+	AddNpcMission (	5623 )
+	AddNpcMission (	5624 )
+	AddNpcMission (	5667 )
+	AddNpcMission (	5670 )
+	AddNpcMission (	5671 )
+	AddNpcMission (	5672 )
+	AddNpcMission (	5675 )
+end 
+
+function r_talk83()
+	Talk( 1,  "Ханна: Привет, я портной Ледыни. У меня вы можете найти лучшие доспехи в городе! " )
+	Text( 1,  "Торг ", BuyPage )
+	Text( 1,  "Ничего... ",CloseTalk )
+	
+	InitTrade()
+	Defence(	0305	)
+	Defence(	0481	)
+	Defence(	0657	)
+	Defence(	0313	)
+	Defence(	0487	)
+	Defence(	0665	)
+	Defence(	0306	)
+	Defence(	0482	)
+	Defence(	0658	)
+	Defence(	0311	)
+	Defence(	0489	)
+	Defence(	0663	)
+	Defence(	0307	)
+	Defence(	0483	)
+	Defence(	0659	)
+	Defence(	0314	)
+	Defence(	0490	)
+	Defence(	0666	)
+	Defence(	0310	)
+	Defence(	0486	)
+	Defence(	0662	)
+	Defence(	0491	)
+	Defence(	0315	)
+	Defence(	0667	)
+	Defence(	0312	)
+	Defence(	0488	)
+	Defence(	0664	)
+	Defence(	0316	)
+	Defence(	0492	)
+	Defence(	0668	)
+
+	AddNpcMission ( 725  )
+	AddNpcMission (	1067 )
+	AddNpcMission (	170	 )
+	AddNpcMission (	171	 )
+	AddNpcMission (	172	 )
+end 
+
+function r_talk84()
+	Talk( 1,  "Яски: Добро пожаловать в гостиницу Ледыни. Я ее владелец Яски. " )
+
+	AddNpcMission (	1085 )
+	AddNpcMission (	184	 )
+	AddNpcMission (	185	 )
+	AddNpcMission (	186	 )
+end 
+
+function r_talk85()
+	Talk( 1,  "Тинк: Вы видели трех моих братьев? Они живут в Громограде, Аргенте и Шайтане. " )
+	Text( 1,  "Очистить ", JumpPage, 2)
+	
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1781, 10 )
+	TriggerCondition( 1, HasMoney, 200 )
+	TriggerAction( 1, TakeMoney, 200 )
+	TriggerAction( 1, TakeItem, 1781, 10 )
+	TriggerAction( 1, GiveItem, 1782, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )	
+	Talk( 2, "Тинк: Я не простой НПС. Без меня в этой игре не обойтись! Хо-хо! Польволь-ка мне это доказать!" )
+	Text( 2, "Очистить Терранский золотой ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 3, "Тинк: Вот твоя Терранская золотая руда." )
+
+	Talk( 4, "Тинк: Я знаю способ изготовления Терранской золотой руды. Для этого мне необходимо: 10 терранских золотых и 200 золота." )
+
+	AddNpcMission ( 6015 )
+	AddNpcMission ( 6016 )
+	AddNpcMission ( 6019 )
+	AddNpcMission ( 6020 )
+	AddNpcMission ( 6021 )
+	AddNpcMission ( 6022 )
+	AddNpcMission ( 6023 )
+	AddNpcMission ( 6024 )
+	AddNpcMission ( 5859 )
+	AddNpcMission ( 5860 )
+end 
+
+function r_talk86()
+	Talk( 1,  "Питер: Привет, я Питер, стражник этого города. Я слежу за порядком и охраняю улицы от головорезов. У тебя есть ко мне какое то дело? ")
+
+	InitTrigger()
+	TriggerCondition( 1, LvCheck, ">", 9 )
+	TriggerCondition( 1, IsCategory, 1 )
+	TriggerCondition( 1, PfEqual, 0 )
+	TriggerCondition( 1, HasMoney, 1000 )
+	TriggerCondition( 1, HasItem, 3953, 1 )
+	TriggerAction( 1, TakeItem, 3953, 1 )
+	TriggerAction( 1, TakeMoney, 1000 )
+	TriggerAction( 1, GiveItem, 3164, 1, 4 )
+	TriggerAction( 1, GiveItem, 1, 1, 4 )
+	TriggerAction( 1, SetProfession, 1 )
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerCondition( 2, LvCheck, ">", 9 )
+	TriggerCondition( 2, IsCategory, 2 )
+	TriggerCondition( 2, PfEqual, 0 )
+	TriggerCondition( 2, HasMoney, 1000 )
+	TriggerCondition( 2, HasItem, 3953, 1 )
+	TriggerAction( 2, TakeItem, 3953, 1 )
+	TriggerAction( 2, TakeMoney, 1000 )
+	TriggerAction( 2, GiveItem, 3164, 1, 4 )
+	TriggerAction( 2, GiveItem, 1, 1, 4 )
+	TriggerAction( 2, SetProfession, 1  )
+	TriggerAction( 2, JumpPage, 3 )
+	TriggerFailure( 2, JumpPage, 4 )
+
+	AddNpcMission ( 100  )
+	AddNpcMission ( 204  )
+	AddNpcMission ( 279  )
+	AddNpcMission ( 281  )
+	AddNpcMission ( 404  )
+	AddNpcMission ( 749  )
+	AddNpcMission ( 750  )
+	AddNpcMission ( 66 	 )
+	AddNpcMission ( 67 	 )
+	AddNpcMission ( 68 	 )
+	AddNpcMission ( 72 	 )
+	AddNpcMission (	1222 )
+	AddNpcMission (	5056 )
+	AddNpcMission (	5060 )	
+	AddNpcMission (	5068 )	
+	AddNpcMission (	5167 )
+	AddNpcMission (	5089 )
+	AddNpcMission (	5093 )
+	AddNpcMission (	5094 )
+	AddNpcMission (	5095 )
+	AddNpcMission (	5096 )
+	AddNpcMission (	5109 )
+	AddNpcMission ( 6078 )
+	AddNpcMission ( 6079 )
+	AddNpcMission ( 6080 )
+	AddNpcMission ( 6097 )
+	AddNpcMission ( 6100 )
+	AddNpcMission ( 6101 )
+
+	MisListPage(2)
+end
+
+function r_talk87()
+	Talk( 1,  "Администратор Арены: Привет! Я Администратор Арены! Вы желаете попробовать свои силы и бросить вызов другим игрокам? " )	
+	Text( 1,  "Получить Медаль отваги ", JumpPage, 2)
+--	Text( 1,  "Правила боев ", JumpPage, 6)
+	Text( 1,  "Обменять очки взноса отряда ", JumpPage, 3)
+	Text( 1,  "Записать точку возвращения ", SetSpawnPos, "Argent Bar")
+
+	Talk( 2,  "Администратор Арены: Чтобы получить Медаль отваги вы должны быть 25 уровня и заплатить 50000 золота. Медаль отваги записывает все ваши победы и поражения в бою. После получения ее нельзя будет уничтожить. " )
+	InitTrigger()
+	TriggerCondition( 1, LvCheck, ">", 25 )
+	TriggerCondition( 1, HasMoney, 50000 )
+	TriggerCondition( 1, NoItem, 3849, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerAction( 1, TakeMoney, 50000 )
+	TriggerAction( 1, GiveItem, 3849, 1, 97 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Text( 2,  "Получить Медаль отваги ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 3,  "Администратор Арены: При отрицательном количестве чести вы можете обменять свои очки взноса отряда на очки чести. Стоимость 1 очка чести равна 10 очкам взноса отряда и 500 золота. " )
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3849, 1 )
+	TriggerCondition( 1, LessCredit, "<", 0 )
+	TriggerCondition( 1, HasOffer, 10 )
+	TriggerCondition( 1, HasMoney, 500 )
+	TriggerAction( 1, TakeMoney, 500 )
+	TriggerAction( 1, TakeOffer, 10 )
+	TriggerAction( 1, AddCredit, 1 )
+	TriggerFailure( 1, JumpPage, 5 )
+	Text( 3,  "Обменять 10 очков взноса отряда ", MultiTrigger, GetMultiTrigger(), 1)
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3849, 1 )
+	TriggerCondition( 1, LessCredit, "<", 0 )
+	TriggerCondition( 1, HasOffer, 50 )
+	TriggerCondition( 1, HasMoney, 2500 )
+	TriggerAction( 1, TakeMoney, 2500 )
+	TriggerAction( 1, TakeOffer, 50 )
+	TriggerAction( 1, AddCredit, 5 )
+	TriggerFailure( 1, JumpPage, 11 )
+	Text( 3,  "Обменять 50 очков взноса отряда ", MultiTrigger, GetMultiTrigger(), 1)
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3849, 1 )
+	TriggerCondition( 1, LessCredit, "<", 0 )
+	TriggerCondition( 1, HasOffer, 100 )
+	TriggerCondition( 1, HasMoney, 5000 )
+	TriggerAction( 1, TakeMoney, 5000 )
+	TriggerAction( 1, TakeOffer, 100 )
+	TriggerAction( 1, AddCredit, 10 )
+	TriggerFailure( 1, JumpPage, 12 )
+	Text( 3,  "Обменять 100 очков взноса отряда ", MultiTrigger, GetMultiTrigger(), 1)
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3849, 1 )
+	TriggerCondition( 1, LessCredit, "<", 0 )
+	TriggerCondition( 1, HasOffer, 300 )
+	TriggerCondition( 1, HasMoney, 15000 )
+	TriggerAction( 1, TakeMoney, 15000 )
+	TriggerAction( 1, TakeOffer, 300 )
+	TriggerAction( 1, AddCredit, 30 )
+	TriggerFailure( 1, JumpPage, 13 )
+	Text( 3,  "Обменять 300 очков взноса отряда ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 4,  "Администратор Арены: Простите но вы не подходите по требованию. Также возможно у вас уже есть Медаль отваги. " )
+
+	Talk( 5,  "Администратор Арены: Для обмена очков взноса отряда вы должны иметь отрицательную честь, кроме того заплатить 10 очков взноса отряда и 500 золота за каждое очко чести. " )
+end
+
+function r_talk88()
+	Talk( 1,  "Маркуза: Привет, я здесь новичок. Вокруг Аргента собирается много кальмаров, а капитан отправляет меня их убирать. От их чернил у меня постоянно слезятся глаза. Тут всегда так издеваются над новичком? " )
+
+	Talk( 2,  "Маркуза: Отлично! Вы дошли до 9 лвл. Вы можете выбрать свой класс с 10 лвл. Теперь идите к соответствующему НПС, чтобы начать выбор класса.Если вы хотите стать Мечником, то ищите Петра в Аргенте в (2192, 2767). Целительницам надо искать Первосвященник - Гэннон в Шайтане в (862, 3500). Охотнику надо искать Мечника Рэя в Ледыне в (1365, 570). Мореплавотелю надо найти Малыша Даниэля в Аргенте в(2193, 2730). Вы можете переместиться в Ледынь или Шайтан с помощью телепорта. " )
+
+	InitTrigger()
+	TriggerCondition( 1, LvCheck, ">", 8 )
+	TriggerCondition( 1, LvCheck, "<", 10 )
+	TriggerAction( 1, JumpPage, 2 )
+	TriggerFailure( 1, JumpPage, 1 )
+	Start( GetMultiTrigger(), 1 )
+
+	AddNpcMission ( 400  )
+	AddNpcMission ( 52 	 )
+	AddNpcMission ( 53 	 )
+	AddNpcMission ( 54 	 )
+	AddNpcMission (	5696 )
+	AddNpcMission (	5697 )
+
+	MisListPage(2)
+end
+
+function r_talk89()
+	Talk( 1,  "Майкл: Привет, я патрулирую местность в округе. Будьте осторожны, скорпионы довольно опасны! " )
+	
+	Talk( 2,  "Майкл: Отлично! Вы дошли до 9 лвл. Вы можете выбрать свой класс с 10 лвл. Теперь идите к соответствующему НПС, чтобы начать выбор класса.Если вы хотите стать Мечником, то ищите Петра в Аргенте в (2192, 2767). Целительницам надо искать Первосвященник - Гэннон в Шайтане в (862, 3500). Охотнику надо искать Мечника Рэя в Ледыне в (1365, 570). Вы можете переместиться в Ледынь или Аргент с помощью телепорта. " )
+
+	InitTrigger()
+	TriggerCondition( 1, LvCheck, ">", 8 )
+	TriggerCondition( 1, LvCheck, "<", 10 )
+	TriggerAction( 1, JumpPage, 2 )
+	TriggerFailure( 1, JumpPage, 1 )
+	Start( GetMultiTrigger(), 1 )
+
+	AddNpcMission ( 235  )
+	AddNpcMission ( 236  )
+	AddNpcMission ( 241  )
+	AddNpcMission ( 242  )
+	AddNpcMission (	412  )
+	AddNpcMission (	85	 )
+	AddNpcMission (	86	 )
+	AddNpcMission (	87	 )
+	AddNpcMission (	922	 )
+	AddNpcMission (	923	 )
+	AddNpcMission (	924	 )
+	AddNpcMission (	5692 )
+	AddNpcMission (	5693 )
+
+	MisListPage(2)
+end
+
+function r_talk90()
+	Talk( 1,  "Малыш Мо: Я патрулирую местность и мне ужасно хочется есть. У вас нет с собой при себе ничего чтобы поесть? Здесь в округе совсем нет еды... " )
+
+	Talk( 2,  "Малыш Мо: Отлично! Вы дошли до 9 лвл. Вы можете выбрать свой класс с 10 лвл. Теперь идите к соответствующему НПС, чтобы начать выбор класса.Если вы хотите стать Мечником, то ищите Петра в Аргенте в (2192, 2767). Целительницам надо искать Первосвященник - Гэннон в Шайтане в (862, 3500). Охотнику надо искать Мечника Рэя в Ледыне в (1365, 570). Вы можете переместиться в Ледынь или Аргент с помощью телепорта. " )
+
+	InitTrigger()
+	TriggerCondition( 1, LvCheck, ">", 8 )
+	TriggerCondition( 1, LvCheck, "<", 10 )
+	TriggerAction( 1, JumpPage, 2 )
+	TriggerFailure( 1, JumpPage, 1 )
+	Start( GetMultiTrigger(), 1 )
+
+	AddNpcMission ( 255  )
+	AddNpcMission ( 256  )
+	AddNpcMission (	408	 )
+	AddNpcMission (	164	 )
+	AddNpcMission (	165	 )
+	AddNpcMission (	166	 )
+	AddNpcMission (	177	 )
+	AddNpcMission (	178	 )
+	AddNpcMission (	179	 )
+
+	MisListPage(2)
+end
+
+function r_talk91()
+	Talk( 1,  "Шайла: Привет! Я целитель Шайтана! Я могу тебе чем то помочь? " )
+	Text( 1,  "Торг ", BuyPage )
+	Text( 1,  "Ничего... ",CloseTalk )
+
+	InitTrade()
+	Other(	1847	)
+	Other(	1848	)
+	Other(	1849	)
+	Other(	3143	)
+	Other(	1576	)
+	Other(	4049	)
+	Other(	4050	)
+	Other(	1578	)
+	Other(	4060	)
+	Other(	4055	)
+	Other(	4061	)
+	Other(	2225	)
+	Other(	4057	)
+	Other(	1768	)
+
+	AddNpcMission ( 717 )
+
+	MisListPage(2)
+end 
+
+function r_talk92()
+	Talk( 1,  "Чиво: Привет! Я местный доктор! Вам нужны какие нибудь травы? " )
+	Text( 1,  "Торг ", BuyPage )
+	Text( 1,  "Ничего... ",CloseTalk )
+
+	InitTrade()
+	Other(	1847	)
+	Other(	1848	)
+	Other(	1849	)
+
+	AddNpcMission (	471	 )
+	AddNpcMission (	472	 )
+	AddNpcMission (	753	 )
+end
+
+function r_talk93()
+	Talk( 1,  "Миносива: Привет! Я местный доктор! Что вас интересует? " )
+	Text( 1,  "Торг ", BuyPage )
+	Text( 1,  "Ничего... ",CloseTalk )
+
+	InitTrade()
+	Other(	1847	)
+	Other(	1848	)
+	Other(	1849	)
+
+	AddNpcMission (	1442 )
+	AddNpcMission (	1900 )
+	AddNpcMission (	5567 )
+	AddNpcMission (	5568 )
+	AddNpcMission ( 6052 )
+	AddNpcMission ( 6053 )
+end
+
+function r_talk94()
+	Talk( 1,  "Фукс: Возможно вы скажете что я высокомерен, но я хочу быть высокомерным моряком. Я уже говорил это? " )
+end
+
+function r_talk95()
+	Talk( 1,  "Фардей: Мой немой друг хочет привезти зимние шубы, чтобы продавать их в горячем Шайтане. Как мне его удержать? " )
+	Text( 1,  "Торг ", BuyPage )
+	Text( 1,  "Ничего... ",CloseTalk )
+
+	InitTrade()
+	Other(	1847	)
+	Other(	1848	)
+	Other(	1849	)
+
+	AddNpcMission (	1065 )
+	AddNpcMission (	869	 )
+	AddNpcMission (	872	 )
+	AddNpcMission (	874	 )
+	AddNpcMission (	878	 )
+	AddNpcMission (	886	 )
+	AddNpcMission (	889	 )
+	AddNpcMission (	470	 )
+	AddNpcMission (	1738 )
+	AddNpcMission (	1927 )
+	AddNpcMission (	1948 )
+end
+
+function r_talk96()
+	Talk( 1,  "Кситрон: Все в округе говорят что я волк в овечьей шкуре. Хехе " )
+end
+
+function r_talk97()
+	Talk( 1,  "Кентаро: Жизнь коротка как мимолетная снежинка, тающая даже не достигнув земли... " )
+
+	AddNpcMission (	409	 )
+	AddNpcMission (	415	 )
+	AddNpcMission (	424	 )
+	AddNpcMission (	426	 )
+	AddNpcMission (	449	 )
+	AddNpcMission (	809	 )
+	AddNpcMission (	813	 )
+	AddNpcMission (	1431 )
+	AddNpcMission (	1901 )
+	AddNpcMission (	5048 )
+	AddNpcMission (	5049 )
+	AddNpcMission (	5050 )
+	AddNpcMission (	5051 )
+	AddNpcMission (	5052 )
+	AddNpcMission ( 6030 )
+	AddNpcMission ( 6031 )
+end
+
+function r_talk98()
+	Talk( 1,  "Бабу: Мой отец пират! А я хочу присоединится к флоту и быть шпионом. " )
+end
+
+function r_talk99()
+	Talk( 1,  "Лулу: Хаха. Не видишь никакого зла? " )
+
+	AddNpcMission (	1736 )
+	AddNpcMission (	1925 )
+	AddNpcMission (	1946 )
+	AddNpcMission (	5561 )
+	AddNpcMission (	5562 )
+	AddNpcMission ( 6040 )
+	AddNpcMission ( 6041 )
+end
+
+function r_talk100()
+	Talk( 1,  "Одессис: Я так стар... Но тем не менее хочу отправится на остров Демонов и увидеть вулканическое извержение. " )
+
+	AddNpcMission (	454	 )
+	AddNpcMission (	458	 )
+	AddNpcMission (	654	 )
+	AddNpcMission (	657	 )
+	AddNpcMission (	658	 )
+	AddNpcMission (	663	 )
+	AddNpcMission (	666	 )
+	AddNpcMission (	1110 )
+	AddNpcMission (	1584 )
+	AddNpcMission (	1914 )
+end
+
+function r_talk101()
+	Talk( 1,  "Мелисса: Если хотите прекратить сплетню, то создайте новую. " )
+end
+
+function r_talk102()
+	Talk( 1,  "Гэдор: Я написал недавно книгу-бестселлер. Я слышал что она популярна у пиратов. " )
+
+	AddNpcMission (	603	 )
+	AddNpcMission (	608	 )
+	AddNpcMission (	613	 )
+	AddNpcMission (	615	 )
+	AddNpcMission (	618	 )
+	AddNpcMission (	5702 )
+	AddNpcMission (	5703 )
+end
+
+function r_talk103()
+	Talk( 1,  "Маленький Ковен: мама запрещает мне разговаривать с незнакомцами. Вы угостите меня конфетой? " )
+end
+
+function r_talk104()
+	Talk( 1,  "Тетушка Мэри: Я люблю поесть Шварцальский пирог с толстым слоем конфет наверху. Эта вкуснятина заставляет меня пускать слюни. " )
+end
+
+function r_talk105()
+	Talk( 1,  "Ваала: Рассказать секрет? Я недавно придумал новую игру в карты! Она требует 4 друзей и 108 карт. " )
+
+	AddNpcMission (	451	 )
+	AddNpcMission (	457	 )
+	AddNpcMission (	621	 )
+	AddNpcMission (	625	 )
+	AddNpcMission (	1590 )
+	AddNpcMission (	1902 )
+	AddNpcMission (	1940 )
+	AddNpcMission (	5708 )
+	AddNpcMission (	5709 )
+end
+
+function r_talk106()
+	Talk( 1,  "Джули Огонек: Хотите узнать почему наш кузнец лысый? Я сплетница? С вами так скучно... " )
+
+	AddNpcMission (	689	 )
+	AddNpcMission (	1109 )
+	AddNpcMission (	1579 )
+	AddNpcMission (	1918 )
+end
+
+function r_talk107()
+	Talk( 1,  "Александрис: Жизнь жестока! Так почему бы не поиграть в нее онлайн? " )
+	
+	AddNpcMission (	425	 )
+	AddNpcMission (	431	 )
+	AddNpcMission (	436	 )
+	AddNpcMission (	442	 )
+	AddNpcMission (	448	 )
+	AddNpcMission (	601	 )
+	AddNpcMission (	607	 )
+	AddNpcMission (	610	 )
+	AddNpcMission (	612	 )
+	AddNpcMission (	1001 )
+	AddNpcMission (	1165 )
+end
+
+function r_talk108()
+	Talk( 1,  "Старик Ковен: В этот жаркий день я мечтаю пойти на необитаемый остров и веселится в одиночестве. " )
+
+	AddNpcMission (	475	 )
+end
+
+function r_talk109()
+	Talk( 1,  "Тсссс, потише! Наш адмирал говорит." )
+end
+
+function r_talk110()
+	Talk( 1,  "Джернис: Моя семья лесорубы, однако недавно их забрал какой то страж природы. Так неприятно. " )
+
+	AddNpcMission (	411	 )
+	AddNpcMission (	669	 )
+	AddNpcMission (	675	 )
+	AddNpcMission (	678	 )
+	AddNpcMission (	680	 )
+	AddNpcMission (	1075 )
+end
+
+function r_talk111()
+	Talk( 1,  "Минели: Привет! Мои друзья называют меня Элли. Я не буду возражать если вы тоже будете меня так называть. " )
+
+	AddNpcMission (	456	 )
+	AddNpcMission (	656	 )
+	AddNpcMission (	661	 )
+	AddNpcMission (	665	 )
+	AddNpcMission (	1142 )
+	AddNpcMission (	1582 )
+	AddNpcMission (	1910 )
+	AddNpcMission (	5025 )
+	AddNpcMission ( 5026 )
+	AddNpcMission ( 5029 )
+	AddNpcMission (	5070 )
+	AddNpcMission ( 5072 )
+	AddNpcMission ( 5073 )
+	AddNpcMission ( 5074 )
+	AddNpcMission (	5092 )
+	AddNpcMission (	5101 )
+	AddNpcMission (	5102 )
+	AddNpcMission (	5103 )
+	AddNpcMission (	5104 )
+	AddNpcMission (	5113 )
+	AddNpcMission ( 6032 )
+	AddNpcMission ( 6033 )
+	AddNpcMission (	5722 )
+	AddNpcMission (	5723 )
+end
+
+function r_talk112()
+	Talk( 1,  "Августин: Есть много мифов и легенд ждущих большого авантюриста. " )
+
+	AddNpcMission (	1111 )
+end
+
+function r_talk113()
+	Talk( 1,  "Джейна: Привет! Я Джейна! " )
+
+	AddNpcMission (	1131 )
+end
+
+function r_talk114()
+	Talk( 1,  "Дитаро: Путешевственники! Давайте отправимся в открытый океан! " )
+
+	AddNpcMission (	640	 )
+	AddNpcMission (	644	 )
+	AddNpcMission (	645	 )
+	AddNpcMission (	646	 )
+	AddNpcMission (	651	 )
+	AddNpcMission (	1119 )
+	AddNpcMission (	1437 )
+	AddNpcMission (	1911 )
+	AddNpcMission ( 6038 )
+	AddNpcMission ( 6039 )
+end
+
+function r_talk115()
+	Talk( 1,  "Рубен Актус: Я нуждаюсь в большом количестве золота. Но так как у меня его нет, то я нуждаюсь в друге, у которого есть большое количество золота. " )
+
+	AddNpcMission (	1120 )
+	AddNpcMission (	5698 )
+	AddNpcMission (	5699 )
+end
+
+function r_talk116()
+	Talk( 1,  "Меррикс: Почему вы так удивлены? Вы никогда не видели женщину-пирата? " )
+	
+	AddNpcMission ( 245  )
+	AddNpcMission ( 246  )
+	AddNpcMission ( 247  )
+	AddNpcMission ( 249  )
+	AddNpcMission ( 250  )
+	AddNpcMission (	1141 )
+end
+
+function r_talk117()
+	Talk( 1,  "Гудас: Кто сказал что я страдаю морской болезнью? Я не страдаю морской болезни, просто я еще не привык к новому судну. " )
+end
+
+function r_talk118()
+	Talk( 1,  "Гасардис: Я не плачу чтобы быть добрым. " )
+	
+	AddNpcMission ( 257  )
+	AddNpcMission ( 258  )
+	AddNpcMission ( 259  )
+	AddNpcMission (	435	 )
+	AddNpcMission (	686	 )
+	AddNpcMission (	691	 )
+	AddNpcMission (	693	 )
+	AddNpcMission (	694	 )
+	AddNpcMission (	1082 )
+end
+
+function r_talk119()
+	Talk( 1,  "Оракул - Лунный Свет: Я могу видеть то, что другие не видят. " )
+
+	AddNpcMission (	804	 )
+	AddNpcMission (	808	 )
+	AddNpcMission (	468	 )
+	AddNpcMission (	1586 )
+	AddNpcMission (	1920 )
+	AddNpcMission (	5585 )
+	AddNpcMission (	5586 )
+end
+
+function r_talk120()
+	Talk( 1,  "Каворский: Я не завидую бывшему секретарю Аргента или чиновникам Громограда. Мне нравится быть собой. " )
+
+	AddNpcMission (	407	 )
+	AddNpcMission (	638	 )
+	AddNpcMission (	642	 )
+	AddNpcMission (	1438 )
+	AddNpcMission (	1912 )
+end
+
+function r_talk121()
+	Talk( 1,  "Нейла: А, это вы? Как жаль... Я сказала это вслух? " )
+
+	AddNpcMission (	870	 )
+	AddNpcMission (	875	 )
+	AddNpcMission (	876	 )
+	AddNpcMission (	880	 )
+	AddNpcMission (	882	 )
+	AddNpcMission (	885	 )
+	AddNpcMission (	888	 )
+	AddNpcMission (	891	 )
+	AddNpcMission (	892	 )
+	AddNpcMission (	1735 )
+	AddNpcMission (	1924 )
+	AddNpcMission (	1945 )
+end
+
+function r_talk122()
+	Talk( 1,  "Геля: Аргент известен как законодатель моды. Только пираты не следуют моде. " )
+
+	AddNpcMission (	428	 )
+	AddNpcMission (	812	 )
+	AddNpcMission (	1025 )
+	AddNpcMission (	1188 )
+end
+
+function r_talk123()
+	Talk( 1,  "Бек: У меня есть брат по имени Хэм. Однако я более симпатичен. " )
+end
+
+function r_talk124()
+	Talk( 1,  "Хэм: У меня есть брат по имени Бек. Однако я более симпатичен. " )
+
+	AddNpcMission (	5645 )
+	AddNpcMission (	5646 )
+end
+
+function r_talk125()
+	Talk( 1,  "Влюбленный Юрий: Любовь так рядом, но все же пока... " )
+end
+
+function r_talk126()
+	Talk( 1,  "Вилли: Во первых никогда не говорите что я жирный, во вторых никогда не говорите что я пухлый, в третьих никогда не говорите что я похож на свинью. Теперь можете говорить вы. " )
+
+	AddNpcMission (	685	 )
+	AddNpcMission (	688	 )
+	AddNpcMission (	690	 )
+	AddNpcMission (	1097 )
+	AddNpcMission ( 6034 )
+	AddNpcMission ( 6035 )
+end
+
+function r_talk127()
+	Talk( 1,  "Бабушка Донг: Молодой человек, путешевствуйте пока вы молоды! " )
+	
+	InitTrigger()
+	TriggerCondition( 1, HasRecord, 1557 )
+	TriggerCondition( 1, NoRecord, 1558 )
+	TriggerCondition( 1, NoRecord, 1559 )
+	TriggerCondition( 1, NoRecord, 1560 )
+	TriggerAction( 1, JumpPage, 2 )
+	TriggerFailure( 1, JumpPage, 3)
+	Text( 1,  "Привет!! ",MultiTrigger, GetMultiTrigger(), 1 )
+
+	InitTrigger()
+	TriggerCondition( 1, HasMission, 1561 )
+	TriggerCondition( 1, HasRecord, 1558 )
+	TriggerCondition( 1, HasRecord, 1559 )
+	TriggerCondition( 1, NoRecord, 1569 )
+	TriggerCondition( 1, NoRecord, 1561 )
+	TriggerAction( 1, JumpPage, 6 )
+	TriggerFailure( 1, JumpPage, 3)
+	Text( 1,  "Привет снова! ",MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1,  "Я только проходил мимо ",JumpPage, 3  )
+	
+	InitTrigger()
+	TriggerAction( 1, SetRecord, 1558 )
+	TriggerAction( 1, SetRecord, 1559 )
+	TriggerAction( 1, JumpPage, 4 )
+	Talk( 2,  "Бабушка Донг: Что появилось раньше - яйцо или курица? ")
+	Text( 2,  "Курица ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerAction( 1, SetRecord, 1558 )
+	TriggerAction( 1, SetRecord, 1560 )
+	TriggerAction( 1, JumpPage, 5 )
+	Text( 2,  "Яйцо ", MultiTrigger, GetMultiTrigger(), 1)
+	
+	Talk( 3,  "Бабушка Донг: Молодой человек, я очень занята. Если нет ничего важного, то пожалуйста отойдите! ")
+	Talk( 10, "Бабушка Донг: Молодой человек, вы ответили неправильно! Подумайте снова прежде чем подходить. ")
+
+	Talk( 4,  "Бабушка Донг: Поздравляю! Не плохо! ")
+
+	Talk( 5,  "Бабушка Донг: Может ли быть старчески маразм заразным? ")
+	
+	InitTrigger()
+	TriggerAction( 1, SetRecord, 1562 )
+	TriggerAction( 1, SetRecord, 1563 )
+	TriggerAction( 1, JumpPage, 7 )
+	Talk( 6,  "Бабушка Донг: Кролик и черепаха учавствуют в гонке. Кто победит? ")
+	Text( 6,  "Черепаха ",MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 6,  "Кролик ",JumpPage, 10  )
+
+	Talk( 7,  "Бабушка Донг: Конечно черепаха победит. Ведь черепаха, которая работает движется быстрее ветра. ")
+	Text( 7,  "Следующий вопрос ",JumpPage, 8  )
+	
+	InitTrigger()
+	TriggerAction( 1, SetRecord, 1562 )
+	TriggerAction( 1, SetRecord, 1564 )
+	TriggerAction( 1, JumpPage, 9 )
+	Talk( 8,  "Бабушка Донг: В гонке учавствуют кролик и черепаха в солнечных очках. Кто победит? ")
+	Text( 8,  "Черепаха в солнечных очках ",MultiTrigger, GetMultiTrigger(), 1 )
+	
+	InitTrigger()
+	TriggerAction( 1, SetRecord, 1562 )
+	TriggerAction( 1, SetRecord, 1565 )
+	TriggerAction( 1, JumpPage, 9 )
+	Text( 8,  "Кролик ",MultiTrigger, GetMultiTrigger(), 1  )
+
+	Talk( 9,  "Бабушка Донг: Кролик не победит, потому что черепаха в солнечных очках раллийный гонщик! ")-- Бывает же о_____О 
+
+	AddNpcMission (	417	 )
+	AddNpcMission (	674	 )
+	AddNpcMission (	676	 )
+	AddNpcMission (	681	 )
+	AddNpcMission (	1064 )
+	AddNpcMission (	752	 )
+	AddNpcMission (	5153 )
+	AddNpcMission (	5154 )
+	AddNpcMission (	5155 )
+	AddNpcMission (	5156 )
+	AddNpcMission (	5157 )
+	AddNpcMission (	5159 )
+end
+
+function r_talk128()
+	Talk( 1,  "Робин: Когда я был маленький мой отец ложил меня в мой рюкзак и бродил по миру. Я хотел бы сделать также. " )
+end
+
+function r_talk129()
+	Talk( 1,  "Дон Пит: Ах... Кто вы? Вы ищете меня? " )
+
+	AddNpcMission (	623	 )
+	AddNpcMission (	627	 )
+	AddNpcMission (	634	 )
+	AddNpcMission (	1031 )
+	AddNpcMission (	1194 )
+	AddNpcMission (	1591 )
+	AddNpcMission (	1905 )
+	AddNpcMission (	1941 )
+	AddNpcMission (	5583 )
+	AddNpcMission (	5584 )
+end
+
+function r_talk130()
+	Talk( 1,  "Вин: Мой дом находится в Ледыни. Вы его видели? " )
+
+	AddNpcMission (	5581 )
+	AddNpcMission (	5582 )
+end
+
+function r_talk131()
+	Talk( 1,  "Лесси: Все люди меня называют маленьким червячком. Но я не буду оставаться маленьким навсегда. " )
+
+	AddNpcMission ( 5653 )
+	AddNpcMission ( 5654 )
+end
+
+function r_talk132()
+	Talk( 1,  "Додо: Додо, Додо, Додо... " )
+
+	AddNpcMission (	1061 )
+	AddNpcMission (	1007 )
+	AddNpcMission (	1062 )
+	AddNpcMission (	1117 )
+	AddNpcMission (	1171 )
+end
+
+function r_talk133()
+	Talk( 1,  "Солару: Вы слышали о таинственном сундуке сокровищ? Я ищу его уже много лет. " )
+
+	AddNpcMission (	421	 )
+	AddNpcMission (	427	 )
+	AddNpcMission (	438	 )
+	AddNpcMission (	444	 )
+	AddNpcMission (	653	 )
+	AddNpcMission (	659	 )
+	AddNpcMission (	660	 )
+	AddNpcMission (	664	 )
+	AddNpcMission (	1151 )
+	AddNpcMission (	1583 )
+	AddNpcMission (	1913 )
+	AddNpcMission (	5657 )
+	AddNpcMission (	5658 )
+end
+
+function r_talk134()
+	Talk( 1,  "Ламут: За 3 дня ходьбы я не вижу города. Я потерялся? " )
+
+	AddNpcMission (	1083 )
+end
+
+function r_talk135()
+	Talk( 1,  "Ирисис: Если вы не принесли мне письмо для Легендарного Принца, то лучше не говорите со мной. " )
+
+	AddNpcMission ( 1098 )
+end
+
+function r_talk136()
+	Talk( 1,  "Элуна: Я готовлюсь сегодня идти на распродажу. Если я опоздаю, то ничего не останется. " )
+
+	AddNpcMission ( 262  )
+	AddNpcMission ( 263  )
+	AddNpcMission ( 264  )
+	AddNpcMission ( 265  )
+	AddNpcMission (	1056 )
+end
+
+function r_talk137()
+	Talk( 1,  "Шереда: Скучно... Здесь очень скучно... " )
+
+	AddNpcMission (	1072 )
+end
+
+function r_talk138()
+	Talk( 1,  "Чао: Я ненавижу кальмаров. Они всегда брызгаются своими чернилами. " )
+
+	AddNpcMission (	1105 )
+end
+
+function r_talk139()
+	Talk( 1,  "Земляничка: Вы видели тех розовых поросят? Они самые вкусные в округе. " )
+
+	AddNpcMission (	5555 )
+	AddNpcMission (	5556 )
+	AddNpcMission (	5706 )
+	AddNpcMission (	5707 )
+end
+
+function r_talk140()
+	Talk( 1,  "Ева: Привет, я Эве. Что вы здесь делаете? " )
+end
+
+function r_talk141()
+	Talk( 1,  "Сюзанна: О мой Бог. Время пролетает так быстро. " )
+end
+
+function r_talk142()
+	Talk( 1,  "Каролина: Я вегетарианец и меня кое что беспокоит. Катящаяся дыня это животное или растение? " )
+end
+
+function r_talk143()
+	Talk( 1,  "Джеймсон: Я слышал что в мире есть говорящий ягненок. " )
+end
+
+function r_talk144()
+	Talk( 1,  "Люси: Привет посетитель! " )
+end
+
+function r_talk145()
+	Talk( 1,  "Юландор: Я всегда зарабатываю убивая монстров. Однако с недавних пор заметил что у них стал маленький кошелек. " )
+end
+
+function r_talk146()
+	Talk( 1,  "Профессор Фейн: Однажды я встретил русалку в море. Правда забыл спрсить где она взяла такие очаровательные реснички. " )
+
+	AddNpcMission (	622	 )
+	AddNpcMission (	624	 )
+	AddNpcMission (	628	 )
+	AddNpcMission (	630	 )
+	AddNpcMission (	636	 )
+	AddNpcMission (	1006 )
+	AddNpcMission (	1170 )
+	AddNpcMission (	1592 )
+	AddNpcMission (	1906 )
+	AddNpcMission (	1942 )
+	AddNpcMission ( 6036 )
+	AddNpcMission ( 6037 )
+end
+
+function r_talk147()
+	Talk( 1,  "Бэрри: Это небо такое синее! Синий океан, синий цвет... И настроение у меня синее синее. " )
+
+	AddNpcMission ( 401  )
+	AddNpcMission (	810	 )
+	AddNpcMission (	1040 )
+	AddNpcMission (	1203 )
+	AddNpcMission (	1433 )
+	AddNpcMission (	1909 )
+	AddNpcMission (	5579 )
+	AddNpcMission (	5580 )
+end
+
+function r_talk148()
+	Talk( 1,  "Кетан: Привет, я думаю почему тут нет луны. А вы? " )
+end
+
+function r_talk149()
+	Talk( 1,  "Миссис Элли: Мне нечего вам сказать... " )
+end
+
+function r_talk156()
+	Talk( 1,  "Аякс: Привет! Я лучший моряк в округе! Нуждаетесь в моей помощи? " )
+end
+
+function r_talk157()
+	Talk( 1,  "Дуриан: Я всегда хочу есть и ем я много. Мне кажется это болезнь. " )
+
+	AddNpcMission (	419	 )
+	AddNpcMission (	460	 )
+	AddNpcMission (	600	 )
+	AddNpcMission (	604	 )
+	AddNpcMission (	606	 )
+	AddNpcMission (	611	 )
+	AddNpcMission (	614	 )
+	AddNpcMission (	619	 )
+	AddNpcMission (	1028 )
+	AddNpcMission (	1191 )
+	AddNpcMission (	1434 )
+	AddNpcMission (	1903 )
+	AddNpcMission (	5587 )
+	AddNpcMission (	5588 )
+	AddNpcMission ( 6042 )
+	AddNpcMission ( 6043 )
+end
+
+function r_talk158()
+	Talk( 1,  "Лейна: Что вы хотите купить? " )
+	Text( 1,  "Торг ", BuyPage )
+	Text( 1,  "Ничего... ",CloseTalk )
+
+	InitTrade()
+	Other(	1847	)
+	Other(	1848	)
+	Other(	1849	)
+
+	AddNpcMission (	450	 )
+	AddNpcMission (	452	 )
+	AddNpcMission (	602	 )
+	AddNpcMission (	605	 )
+	AddNpcMission (	609	 )
+	AddNpcMission (	616	 )
+	AddNpcMission (	617	 )
+	AddNpcMission (	1435 )
+	AddNpcMission (	1904 )	
+end
+
+function r_talk159()
+	Talk( 1,  "Гидерий: Покупки и продажи, ищите меня. " )
+	Text( 1,  "Торг ", BuyPage )
+	Text( 1,  "Ничего... ",CloseTalk )
+
+	InitTrade()
+	Other(	1847	)
+	Other(	1848	)
+	Other(	1849	)
+	
+	AddNpcMission (	463	 )
+	AddNpcMission (	620	 )
+	AddNpcMission (	626	 )
+	AddNpcMission (	629	 )
+	AddNpcMission (	631	 )
+	AddNpcMission (	632	 )
+	AddNpcMission (	633	 )
+	AddNpcMission (	635	 )
+	AddNpcMission (	637	 )
+	AddNpcMission (	1015 )
+	AddNpcMission (	1178 )
+	AddNpcMission (	1593 )
+	AddNpcMission (	1907 )
+	AddNpcMission (	1943 )
+end
+
+function r_talk160()
+	Talk( 1,  "Кэль: Привет! Я стражник Кэль. Это место в безопасности! " )
+
+	AddNpcMission ( 223  )
+	AddNpcMission ( 224  )
+	AddNpcMission ( 225  )
+	AddNpcMission ( 226  )
+	AddNpcMission ( 227  )
+	AddNpcMission ( 228  )
+	AddNpcMission ( 229  )
+	AddNpcMission ( 230  )
+	AddNpcMission (	1055 )
+	AddNpcMission (	1217 )
+	AddNpcMission (	1432 )
+	AddNpcMission (	1908 )
+end
+
+function r_talk161()
+	Talk( 1,  "Шахтер - Дранки: Я так хочу есть... И кажется я потерял свою бутылку. " )
+
+	AddNpcMission ( 284  )
+	AddNpcMission ( 285  )
+	AddNpcMission ( 311  )
+	AddNpcMission (	5663 )
+	AddNpcMission (	5664 )
+end
+
+function r_talk162()
+	Talk( 1,  "Грег: Привет, я Грег. Нужна моя помощь? " )
+	Text( 1,  "Торг ", BuyPage )
+	Text( 1,  "Ничего... ",CloseTalk )
+
+	InitTrade()
+	Other(	1847	)
+	Other(	1848	)
+	Other(	1849	)
+
+	AddNpcMission (	455	 )
+	AddNpcMission (	461	 )
+	AddNpcMission (	811	 )
+	AddNpcMission (	814	 )
+	AddNpcMission (	1013 )
+	AddNpcMission (	1014 )
+	AddNpcMission (	1177 )
+	AddNpcMission ( 6121 )
+	AddNpcMission ( 6122 )
+end
+
+function r_talk163()
+	Talk( 1,  "Линда: Я не хочу работать, но мой начальник вынуждает меня работать каждый день. А я хочу большей зарплаты! " )
+
+	AddNpcMission (	1027 )
+	AddNpcMission (	1190 )
+	AddNpcMission (	5139 )
+	AddNpcMission (	5140 )
+	AddNpcMission (	5141 )
+	AddNpcMission ( 6044 )
+	AddNpcMission ( 6045 )
+end
+
+function r_talk164()
+	Talk( 1,  "Дада: Привет мой друг. Вы приехали в столь опасное место не привезя с собой товара? " )
+end
+
+function r_talk165()
+	Talk( 1,  "Грег: Привет! Есть ли что то, что вам нужно? " )
+	Text( 1,  "Торг ", BuyPage )
+	Text( 1,  "Ничего... ",CloseTalk )
+
+	InitTrade()
+	Other(	1847	)
+	Other(	1848	)
+	Other(	1849	)
+
+	AddNpcMission (	5563 )
+	AddNpcMission (	5564 )
+end
+
+function r_talk166()
+	Talk( 1,  "Момо: Привет, я Момо. У меня вы можете купить неплохую пищу! " )
+	Text( 1,  "Торг ", BuyPage )
+	Text( 1,  "Ничего... ",CloseTalk )
+
+	InitTrade()
+	Other(	1847	)
+	Other(	1848	)
+	Other(	1849	)
+
+	AddNpcMission (	433	 )
+	AddNpcMission (	655	 )
+	AddNpcMission (	662	 )
+	AddNpcMission (	667	 )
+	AddNpcMission (	1143 )
+	AddNpcMission (	1585 )
+	AddNpcMission (	1915 )
+	AddNpcMission (	5577 )
+	AddNpcMission (	5578 )
+end
+
+function r_talk167()
+	Talk( 1,  "Венона: Я скоро женюсь! Я хочу чтобы все разделили мою радость! " )
+
+	AddNpcMission (	418	 )
+	AddNpcMission (	641	 )
+	AddNpcMission (	650	 )
+	AddNpcMission (	1156 )
+end
+
+function r_talk168()
+	Talk( 1,  "Фей Фей: Привет, я Фей Фей. " )
+
+	AddNpcMission (	422	 )
+	AddNpcMission (	639	 )
+	AddNpcMission (	648	 )
+	AddNpcMission (	1121 )
+	AddNpcMission (	1439 )
+	AddNpcMission (	1916 )
+	AddNpcMission (	5569 )
+	AddNpcMission (	5572 )
+end
+
+function r_talk169()
+	Talk( 1,  "Маркус: Я могу пополнить ваши запасы. В чем вы нуждаетесь? " )
+	Text( 1,  "Торг ", BuyPage )
+	Text( 1,  "Ничего... ",CloseTalk )
+
+	InitTrade()
+	Other(	1847	)
+	Other(	1848	)
+	Other(	1849	)
+
+	AddNpcMission (	403	 )
+	AddNpcMission (	413	 )
+	AddNpcMission (	420	 )
+	AddNpcMission (	643	 )
+	AddNpcMission (	647	 )
+	AddNpcMission (	649	 )
+	AddNpcMission (	652	 )
+	AddNpcMission (	1140 )
+	AddNpcMission (	1440 )
+	AddNpcMission (	1917 )
+	AddNpcMission (	5124 )
+	AddNpcMission (	5125 )
+	AddNpcMission (	5126 )
+end
+
+function r_talk170()
+	Talk( 1,  "Зурби: Я всегда слышу зов моря. Я думаю там есть много интересного, что нужно исследовать. " )
+
+	AddNpcMission (	429	 )
+	AddNpcMission (	464	 )
+	AddNpcMission (	466	 )
+	AddNpcMission (	684	 )
+	AddNpcMission (	696	 )
+	AddNpcMission (	697	 )
+	AddNpcMission (	1108 )
+	AddNpcMission (	5136 )
+	AddNpcMission (	5137 )
+	AddNpcMission (	5138 )
+	AddNpcMission (	5647 )
+	AddNpcMission (	5648 )
+end
+
+function r_talk171()
+	Talk( 1,  "Алкар: Привет! Вы хотите немного хлеба? " )
+	Text( 1,  "Торг ", BuyPage )
+	Text( 1,  "Ничего... ",CloseTalk )
+
+	InitTrade()
+	Other(	1847	)
+	Other(	1848	)
+	Other(	1849	)
+
+	AddNpcMission (	423	 )
+	AddNpcMission (	440	 )
+	AddNpcMission (	446	 )
+	AddNpcMission (	462	 )
+	AddNpcMission (	683	 )
+	AddNpcMission (	687	 )
+	AddNpcMission (	692	 )
+	AddNpcMission (	695	 )
+	AddNpcMission (	1580 )
+	AddNpcMission (	1919 )
+	AddNpcMission (	1955 )
+	AddNpcMission (	5718 )
+	AddNpcMission (	5719 )
+end
+
+function r_talk172()
+	Talk( 1,  "Зевс: Убивать и воровать презренно. " )
+
+	AddNpcMission (	802	 )
+	AddNpcMission (	807	 )
+	AddNpcMission (	1100 )
+	AddNpcMission (	1587 )
+	AddNpcMission (	1921 )
+	AddNpcMission (	1922 )
+	AddNpcMission (	5127 )
+	AddNpcMission (	5128 )
+	AddNpcMission (	5129 )
+	AddNpcMission ( 6046 )
+	AddNpcMission ( 6047 )
+	AddNpcMission (	5694 )
+	AddNpcMission (	5695 )
+end
+
+function r_talk173()
+	Talk( 1,  "Хохо: Привет! Нуждаетесь в каких нибудь припасах? " )
+	Text( 1,  "Торг ", BuyPage )
+	Text( 1,  "Ничего... ",CloseTalk )
+
+	InitTrade()
+	Other(	1847	)
+	Other(	1848	)
+	Other(	1849	)
+
+	AddNpcMission (	467	 )
+	AddNpcMission (	803	 )
+	AddNpcMission (	1588 )
+	AddNpcMission (	1923 )
+	AddNpcMission (	1944 )
+end
+
+function r_talk174()
+	Talk( 1,  "Миккилон: Мой отец восхищался великими художниками и назвал меня в честь одного из них. " )
+
+	AddNpcMission (	871	 )
+	AddNpcMission (	873	 )
+	AddNpcMission (	879	 )
+	AddNpcMission (	887	 )
+	AddNpcMission (	890	 )
+	AddNpcMission (	893	 )
+	AddNpcMission (	1737 )
+	AddNpcMission (	1926 )
+	AddNpcMission (	1947 )
+end
+
+function r_talk175()
+	Talk( 1,  "Нана: Я настолько глуп, что могу потеряться за пределами города. Конечно если со мной не будет проводника. " )
+
+	AddNpcMission (	405	 )
+	AddNpcMission (	432	 )
+	AddNpcMission (	668	 )
+	AddNpcMission (	672	 )
+	AddNpcMission (	673	 )
+	AddNpcMission (	677	 )
+	AddNpcMission (	1087 )
+	AddNpcMission (	1429 )
+	AddNpcMission (	1928 )
+	AddNpcMission (	5589 )
+	AddNpcMission (	5590 )
+	AddNpcMission ( 6050 )
+	AddNpcMission ( 6051 )
+	AddNpcMission (	5700 )
+	AddNpcMission (	5701 )
+end
+
+function r_talk176()
+	Talk( 1,  "Старик-предсказатель: Хоть я и выгляжу странно, но я являюсь местным целителем. " )
+	Text( 1,  "Торг ", BuyPage )
+	Text( 1,  "Ничего... ",CloseTalk )
+
+	InitTrade()
+	Other(	1847	)
+	Other(	1848	)
+	Other(	1849	)
+
+	AddNpcMission (	430	 )
+	AddNpcMission (	434	 )
+	AddNpcMission (	670	 )
+	AddNpcMission (	671	 )
+	AddNpcMission (	679	 )
+	AddNpcMission (	682	 )
+	AddNpcMission (	1070 )
+	AddNpcMission (	1430 )
+	AddNpcMission (	1929 )
+	AddNpcMission (	5148 )
+	AddNpcMission (	5150 )
+	AddNpcMission (	5152 )
+	AddNpcMission (	5158 )
+	AddNpcMission (	5160 )
+	AddNpcMission (	5161 )
+	AddNpcMission (	5162 )
+	AddNpcMission (	5163 )
+	AddNpcMission (	5164 )
+	AddNpcMission (	5165 )
+	AddNpcMission (	5166 )
+	AddNpcMission (	5169 )
+end
+
+function r_talk177()
+	Talk( 1,  "Тай: Я хочу организовать группу, состоящую из одних морских обитfтелей. " )
+
+	AddNpcMission (	805	 )
+	AddNpcMission (	806	 )
+	AddNpcMission (	1589 )
+	AddNpcMission (	1934 )
+	AddNpcMission (	1949 )
+	AddNpcMission (	5629 )
+	AddNpcMission (	5630 )
+end
+
+function r_talk221()
+	Talk( 1,  "Ламон: Я люблю собирать кораллы. У меня есть много уникальных. Хотите взглянуть? " )
+	Text( 1,  "Торг ", BuyPage )
+	Text( 1,  "Восстановление энергии коралла ", JumpPage, 2 )
+	Text( 1,  "Ничего... ",CloseTalk )
+
+	Talk( 2,  "Ламон: Коралл можно заряжать когда он опустеет. Коралл грозы заряжает гроза, коралл ветра - ветер, коралл тумана заряжается в тумане, а коралл удара можно зарядить в Веснограде. ")
+
+	InitTrade()
+	Weapon(	0817	)
+	Weapon(	0818	)
+	Weapon(	0867	)
+	Weapon(	0868	)
+	Weapon(	0872	)
+	Weapon(	0873	)
+	Weapon(	0635	)
+	Weapon(	0636	)
+
+	AddNpcMission (	5637 )
+	AddNpcMission (	5638 )
+end
+
+function r_talk222()
+	Talk( 1,  "Биби: Привет! Я новый портной. Я продаю любые типы одежды! " )
+	Text( 1,  "Торг ", BuyPage )
+
+	InitTrade()
+	Defence(	0335	)
+	Defence(	0511	)
+	Defence(	0687	)
+	Defence(	0336	)
+	Defence(	0512	)
+	Defence(	0688	)
+	Defence(	0338	)
+	Defence(	0514	)
+	Defence(	0690	)
+	Defence(	0337	)
+	Defence(	0513	)
+	Defence(	0689	)
+	Defence(	0340	)
+	Defence(	0516	)
+	Defence(	0692	)
+	Defence(	0339	)
+	Defence(	0515	)
+	Defence(	0691	)
+	Defence(	0341	)
+	Defence(	0517	)
+	Defence(	0693	)
+	Defence(	0342	)
+	Defence(	0518	)
+	Defence(	0694	)
+	Defence(	0345	)
+	Defence(	0521	)
+	Defence(	0697	)
+	Defence(	0343	)
+	Defence(	0519	)
+	Defence(	0695	)
+	Defence(	0380	)
+	Defence(	0556	)
+	Defence(	0732	)
+	Defence(	0351	)
+	Defence(	0527	)
+	Defence(	0703	)
+	Defence(	0386	)
+	Defence(	0562	)
+	Defence(	0738	)
+	Defence(	0352	)
+	Defence(	0528	)
+	Defence(	0704	)
+	Defence(	0350	)
+	Defence(	0526	)
+	Defence(	0702	)
+	Defence(	0354	)
+	Defence(	0530	)
+	Defence(	0706	)
+	Defence(	0353	)
+	Defence(	0529	)
+	Defence(	0705	)
+	Defence(	0356	)
+	Defence(	0532	)
+	Defence(	0708	)
+	Defence(	0355	)
+	Defence(	0531	)
+	Defence(	0707	)
+	Defence(	0357	)
+	Defence(	0533	)
+	Defence(	0709	)
+
+	AddNpcMission (	5118 )
+	AddNpcMission (	5119 )
+	AddNpcMission (	5120 )
+end
+
+function r_talk223()
+	Talk( 1,  "Лана: Привет, я портальщик острова Осени. Чем я могу помочь? " )
+	Text( 1,  "Вернуться в Ледынь ", GoTo, 1318, 510,  "darkblue " )
+end
+
+function r_talk224()
+	Talk( 1,  "Пират Джереми: Привет! Я пират и я счастлив! " )
+
+	AddNpcMission ( 306  )
+	AddNpcMission ( 307  )
+	AddNpcMission ( 308  )
+	AddNpcMission (	5651 )
+	AddNpcMission (	5652 )
+end
+
+function r_talk225()
+	Talk( 1,  "Капитан Джек: Привет! Я богат, красив и знаменит! Меня все боготворят! " )
+
+	AddNpcMission ( 309  )
+	AddNpcMission ( 310  )
+	AddNpcMission ( 312  )
+	AddNpcMission ( 313  )
+	AddNpcMission ( 314  )
+	AddNpcMission ( 315  )
+	AddNpcMission ( 316  )
+	AddNpcMission ( 328  )
+	AddNpcMission ( 329  )
+	AddNpcMission ( 333  )
+	AddNpcMission ( 336  )
+	AddNpcMission ( 483  )
+	AddNpcMission ( 484  )
+	AddNpcMission ( 5639 )
+	AddNpcMission ( 5640 )
+end
+
+function r_talk226()
+	Talk( 1,  "Люк: Мой брат любит постоянно устраивать мне неприятности. " )
+	
+	Talk( 2,  "Люк: Мой брат любит постоянно устраивать мне неприятности. " )
+	Text( 2,  "Я потерял кольцо которое ты мне дал ", JumpPage, 3)
+
+	InitTrigger()
+	TriggerCondition( 1, HasMoney, 50000 )
+	TriggerAction( 1, TakeMoney, 50000 )
+	TriggerAction( 1, GiveItem, 4144, 1 , 4)
+	TriggerAction( 1, JumpPage, 4 )
+	TriggerFailure( 1, JumpPage, 5 )
+	Talk( 3,  "Люк: Вы потеряли такое дорогое кольцо? Заплатите мне 50000G и я сделаю его Вам ")
+	Text( 3,  "Хорошо, вот держи 50000 золота ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 3,  "Это вымогательство! ", CloseTalk )
+
+	Talk( 4,  "Люк: Держите, это кольцо для Вас ")
+
+	Talk( 5,  "Люк: У Вас не достаточно золота ")
+
+	InitTrigger()
+	TriggerCondition( 1, HasRecord, 260 )
+	TriggerCondition( 1, NoRecord, 262 )
+	TriggerCondition( 1, NoItem, 4144, 1 )
+	TriggerAction( 1, JumpPage, 2 )
+	TriggerFailure( 1, JumpPage, 1 )
+	
+	Start( GetMultiTrigger(), 1 )
+
+	AddNpcMission ( 296  )
+	AddNpcMission ( 297  )
+	AddNpcMission ( 298  )
+	AddNpcMission ( 302  )
+	AddNpcMission ( 303  )
+end
+
+function r_talk227()
+	Talk( 1,  "Мастер Кера: Каждый думает что у меня сильная выдержка. Наверное потому что не имеют своей. " )
+
+	AddNpcMission ( 299  )
+	AddNpcMission ( 300  )
+	AddNpcMission ( 469  )
+	AddNpcMission ( 391  )
+	AddNpcMission (	5121 )
+	AddNpcMission (	5122 )
+	AddNpcMission (	5123 )
+end
+
+function r_talk228()
+	Talk( 1,  "Саймон Джилтер: И когда же я стану чиновником флота... Я же так очарователен. " )
+	
+	AddNpcMission ( 837  )
+	AddNpcMission ( 838  )
+	AddNpcMission ( 839  )
+end
+
+function r_talk229()
+	Talk( 1,  "Азур Бриз: Пожалуйста не забудьте найти красивую веточку для меня. " )
+
+	AddNpcMission ( 840  )
+	AddNpcMission ( 5591 )
+	AddNpcMission ( 5592 )
+	AddNpcMission ( 6048 )
+	AddNpcMission ( 6049 )
+end
+
+function r_talk230()
+	Talk( 1,  "Са Мори: Нет в этом мире девушки красивее меня! " )
+
+	AddNpcMission ( 844  )
+	AddNpcMission ( 841  )
+	AddNpcMission ( 842  )
+	AddNpcMission ( 843  )
+	AddNpcMission (	5625 )
+	AddNpcMission (	5626 )
+end
+
+function r_talk231()
+	Talk( 1,  "Кэрин Ливингстоун: Я ненавижу ту толстую старуху! До сих пор утверждает что она молода и красива. " )
+
+	AddNpcMission ( 845  )
+	AddNpcMission ( 846  )
+	AddNpcMission ( 847  )
+	AddNpcMission ( 848  )
+	AddNpcMission ( 5714 )
+	AddNpcMission ( 5715 )
+end
+
+function r_talk232()
+	Talk( 1,  "Саша: Здесь очень сильный ветер и до моей кожи часто добирается песок. Это очень ее портит. " )
+	
+	AddNpcMission ( 877  )
+	AddNpcMission ( 883  )
+	AddNpcMission ( 884  )
+end
+
+function r_talk233()
+	Talk( 1,  "Кэвин Вульф: Я волк блуждающий по пустыне. " )
+
+	AddNpcMission ( 881  )
+end
+
+function r_talk234()
+	Talk( 1,  "Парикмахер: Привет! Не желаете сменить свою прическу? " )
+	Text( 1,  "Я хочу сменить прическу ", JumpPage, 2)
+	
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1807, 1 )
+	TriggerAction( 1, OpenHair )
+	TriggerFailure( 1, JumpPage, 3 )
+	Talk( 2,  "Парикмахер: Отлично. Но вам потребуется Парикмахерская расписка! ")
+	Text( 2,  "Да, я знаю ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 2,  "Забудь ", CloseTalk )
+
+	Talk( 3,  "Парикмахер: У тебя нет Парикмахерской расписки! ")
+end
+
+function r_talk235()
+	Talk( 1,  "Пукан: Я продаю различные ожерелья и кольца. Может вас что то заинтересует? " )
+	Text( 1,  "Торг ", BuyPage )
+
+	InitTrade()
+	Defence(	4611	)
+	Defence(	4612	)
+	Defence(	4613	)
+	Defence(	4614	)
+	Defence(	4615	)
+	Defence(	4616	)
+	Defence(	4617	)
+	Defence(	4618	)
+	Defence(	4619	)
+	Defence(	4620	)
+end
+
+function r_talk236()
+	Talk( 1,  "Рикка: Я продаю разнообразные кольца и ожерелья. Посмотрите, возможно вас что-нибудь заинтересует. " )
+	Text( 1,  "Торг ", BuyPage )
+
+	InitTrade()
+	Defence(	4626	)
+	Defence(	4627	)
+	Defence(	4628	)
+	Defence(	4629	)
+	Defence(	4630	)
+	Defence(	4631	)
+	Defence(	4632	)
+	Defence(	4633	)
+	Defence(	4634	)
+	Defence(	4635	)
+
+	AddNpcMission	(5649)
+	AddNpcMission	(5650)
+end
+
+function r_talk237()
+	Talk( 1,  "Феррари: Я продаю разнообразные кольца и ожерелья. Посмотрите, возможно вас что-нибудь заинтересует. " )
+	Text( 1,  "Торг ", BuyPage )
+
+	InitTrade()
+	Defence(	4631	)
+	Defence(	4632	)
+	Defence(	4633	)
+	Defence(	4634	)
+	Defence(	4635	)
+	Defence(	4636	)
+	Defence(	4637	)
+	Defence(	4638	)
+	Defence(	4639	)
+	Defence(	4640	)
+end
+
+function r_talk238()
+	Talk( 1,  "Ветиго: Я продаю разнообразные кольца и ожерелья. Посмотрите, возможно вас что-нибудь заинтересует. " )
+	Text( 1,  "Торг ", BuyPage )
+
+	InitTrade()
+	Defence(	4641	)
+	Defence(	4642	)
+	Defence(	4643	)
+	Defence(	4644	)
+	Defence(	4645	)
+	Defence(	4646	)
+	Defence(	4647	)
+	Defence(	4648	)
+	Defence(	4649	)
+	Defence(	4650	)
+	Defence(	4706	)
+	Defence(	4707	)
+	Defence(	4708	)
+	Defence(	4709	)
+	Defence(	4711	)
+	Defence(	4712	)
+	Defence(	4713	)
+	Defence(	4714	)
+	Defence(	4715	)
+end
+
+function r_talk239()
+	Talk( 1,  "Ай: Я продаю разнообразные кольца и ожерелья. Посмотрите, возможно вас что-нибудь заинтересует. " )
+	Text( 1,  "Торг ", BuyPage )
+
+	InitTrade()
+	Defence(	4651	)
+	Defence(	4652	)
+	Defence(	4653	)
+	Defence(	4654	)
+	Defence(	4655	)
+	Defence(	4656	)
+	Defence(	4657	)
+	Defence(	4658	)
+	Defence(	4659	)
+	Defence(	4660	)
+end
+
+function r_talk240()
+	Talk( 1,  "Аксесуары - Аллан: Я продаю разнообразные кольца и ожерелья. Посмотрите, возможно вас что-нибудь заинтересует. " )
+	Text( 1,  "Торг ", BuyPage )
+
+	InitTrade()
+	Defence(	4666	)
+	Defence(	4667	)
+	Defence(	4668	)
+	Defence(	4669	)
+	Defence(	4671	)
+	Defence(	4672	)
+	Defence(	4673	)
+	Defence(	4674	)
+	Defence(	4675	)
+	Defence(	4676	)
+	Defence(	4677	)
+	Defence(	4678	)
+	Defence(	4679	)
+	Defence(	4681	)
+	Defence(	4682	)
+	Defence(	4683	)
+	Defence(	4684	)
+	Defence(	4685	)
+end
+
+function r_talk241()
+	Talk( 1,  "Дунман: Я продаю разнообразные кольца и ожерелья. Посмотрите, возможно вас что-нибудь заинтересует. " )
+	Text( 1,  "Торг ", BuyPage )
+
+	InitTrade()
+	Defence(	4686	)
+	Defence(	4687	)
+	Defence(	4688	)
+	Defence(	4689	)
+	Defence(	4691	)
+	Defence(	4692	)
+	Defence(	4693	)
+	Defence(	4694	)
+	Defence(	4695	)
+	Defence(	4696	)
+	Defence(	4697	)
+	Defence(	4698	)
+	Defence(	4699	)
+	Defence(	4701	)
+	Defence(	4702	)
+	Defence(	4703	)
+	Defence(	4704	)
+	Defence(	4705	)
+
+	AddNpcMission	(5712)
+	AddNpcMission	(5713)
+end
+
+function r_talk252()
+	
+	InitFuncList()
+	AddFuncList( GiveItem,	0817	,	1	,	4)
+	AddFuncList( GiveItem,	0818	,	1	,	4)
+	AddFuncList( GiveItem,	0819	,	1	,	4)
+	AddFuncList( GiveItem,	0867	,	1	,	4)
+	AddFuncList( GiveItem,	0868	,	1	,	4)
+	AddFuncList( GiveItem,	0869	,	1	,	4)
+	AddFuncList( GiveItem,	0872	,	1	,	4)
+	AddFuncList( GiveItem,	0873	,	1	,	4)
+	AddFuncList( GiveItem,	0874	,	1	,	4)
+	AddFuncList( GiveItem,	1630	,	2	,	4)
+	AddFuncList( GiveItem,	1631	,	1	,	4)
+	AddFuncList( GiveItem,	1632	,	1	,	4)
+	AddFuncList( GiveItem,	1633	,	2	,	4)
+	AddFuncList( GiveItem,	1634	,	1	,	4)
+	AddFuncList( GiveItem,	1635	,	1	,	4)
+	AddFuncList( GiveItem,	1636	,	2	,	4)
+	AddFuncList( GiveItem,	1637	,	1	,	4)
+	AddFuncList( GiveItem,	1638	,	1	,	4)
+	AddFuncList( GiveItem,	1639	,	2	,	4)
+	AddFuncList( GiveItem,	1640	,	1	,	4)
+	AddFuncList( GiveItem,	1641	,	1	,	4)
+	AddFuncList( GiveItem,	1642	,	2	,	4)
+	AddFuncList( GiveItem,	1643	,	1	,	4)
+	AddFuncList( GiveItem,	1644	,	1	,	4)
+	AddFuncList( GiveItem,	3360	,	1	,	4)
+	AddFuncList( GiveItem,	3361	,	1	,	4)
+	AddFuncList( GiveItem,	3362	,	1	,	4)
+	AddFuncList( GiveItem,	3363	,	1	,	4)
+	AddFuncList( GiveItem,	3364	,	1	,	4)
+	AddFuncList( GiveItem,	3365	,	1	,	4)
+	AddFuncList( GiveItem,	3366	,	1	,	4)
+	AddFuncList( GiveItem,	3367	,	1	,	4)
+	AddFuncList( GiveItem,	3425	,	1	,	4)
+	AddFuncList( GiveItem,	3426	,	1	,	4)
+	AddFuncList( GiveItem,	3427	,	1	,	4)
+	AddFuncList( GiveItem,	3428	,	1	,	4)
+	AddFuncList( GiveItem,	3429	,	1	,	4)
+	AddFuncList( GiveItem,	3430	,	1	,	4)
+	AddFuncList( GiveItem,	3431	,	1	,	4)
+	AddFuncList( GiveItem,	3432	,	1	,	4)
+	AddFuncList( GiveItem,	3433	,	1	,	4)
+	AddFuncList( GiveItem,	1804	,	1	,	4)
+	AddFuncList( GiveItem,	1805	,	1	,	4)
+	AddFuncList( GiveItem,	1806	,	1	,	4)
+	AddFuncList( GiveItem,	1807	,	1	,	4)
+	AddFuncList( GiveItem,	1808	,	1	,	4)
+	AddFuncList( GiveItem,	1809	,	1	,	4)
+	AddFuncList( GiveItem,	1810	,	1	,	4)
+	AddFuncList( GiveItem,	1811	,	1	,	4)
+	AddFuncList( GiveItem,	1787	,	1	,	4)
+	AddFuncList( GiveItem,	1788	,	1	,	4)
+	AddFuncList( GiveItem,	1789	,	1	,	4)
+	AddFuncList( GiveItem,	1790	,	1	,	4)
+	AddFuncList( GiveItem,	1791	,	1	,	4)
+	AddFuncList( GiveItem,	1792	,	1	,	4)
+	AddFuncList( GiveItem,	1793	,	1	,	4)
+	AddFuncList( GiveItem,	3930	,	1	,	4)
+	AddFuncList( GiveItem,	3931	,	1	,	4)
+	AddFuncList( GiveItem,	3932	,	1	,	4)
+	AddFuncList( GiveItem,	3930	,	1	,	4)
+	AddFuncList( GiveItem,	3931	,	1	,	4)
+	AddFuncList( GiveItem,	3932	,	1	,	4)
+	AddFuncList( GiveItem,	3930	,	1	,	4)
+	AddFuncList( GiveItem,	3931	,	1	,	4)
+	AddFuncList( GiveItem,	3932	,	1	,	4)
+	AddFuncList( GiveItem,	3930	,	1	,	4)
+	AddFuncList( GiveItem,	3931	,	1	,	4)
+	AddFuncList( GiveItem,	3932	,	1	,	4)
+	AddFuncList( GiveItem,	3930	,	1	,	4)
+	AddFuncList( GiveItem,	3931	,	1	,	4)
+	AddFuncList( GiveItem,	3932	,	1	,	4)
+	AddFuncList( GiveItem,	3930	,	1	,	4)
+	AddFuncList( GiveItem,	3930	,	1	,	4)
+	AddFuncList( GiveItem,	3931	,	1	,	4)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3927, 1 )
+	TriggerCondition( 1, HasMoney, 200 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeMoney, 200 )
+	TriggerAction( 1, TakeItem, 3927, 1 )
+	TriggerAction( 1, RandFunction, GetFuncList(), GetNumFunc() )
+	TriggerFailure( 1, JumpPage, 2 )
+	Talk( 1,  "Это очень старый чистильщик, способный очистить любую грязь. " )
+	Text( 1,  "Очистить Грязь ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2892, 1 )
+	TriggerCondition( 1, HasMoney, 10000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeMoney, 10000 )
+	TriggerAction( 1, TakeItem, 2892, 1 )
+	TriggerAction( 1, GiveItem, 2893, 1 , 4)
+	TriggerAction( 1, JumpPage, 4)
+	TriggerFailure( 1, JumpPage, 2 )
+	Talk( 3,  "Фу... Какая грязная коробка. Чтобы ее почистить вам придется заплатить 10000 золота! " )
+	Text( 3,  "Очистить ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 4,  "Какой красивый сундук! Открой и получишь сюрприз! " )
+
+	Talk( 2,  "Невозможно очистить. У вас недостаточно денег или нет предметов для очистки. " )
+end
+
+function r_talk253()
+	Talk( 1,  "Исследователь: Привет! Я отношусь к гильдии исследователей. Я долго изучал древние прокляться. Чем я могу помочь? " )
+	Text( 1,  "Избавится от печати огня ", JumpPage, 3)
+
+	Talk( 3,  "Исследователь: Хорошо, я помогу вам. Эта печать очень древняя, снять ее можно только используя руны.  " )
+	Text( 3,  "Мантия тайного знания ", JumpPage, 6)
+	Text( 3,  "Посох миражей ", JumpPage, 7)
+	Text( 3,  "Посох исчезновения ", JumpPage, 8)
+	Text( 3,  "Покров исчезновения ", JumpPage, 9)
+	Text( 3,  "Плащ исчезновения ", JumpPage, 10)
+	Text( 3,  "Тату исчезновения ", JumpPage, 11)
+	Text( 3,  "Доспех исчезновения ", JumpPage, 12)
+	Text( 3,  "Дальше --> ", JumpPage, 4)
+
+	Talk( 4,  "Исследователь: Хорошо, я помогу вам. Эта печать очень древняя, снять ее можно только используя руны. " )
+	Text( 4,  "Вопль исчезновения ", JumpPage, 13)
+	Text( 4,  "Рык исчезновения ", JumpPage, 14)
+	Text( 4,  "Танец исчезновения ", JumpPage, 15)
+	Text( 4,  "Зуб исчезновения ", JumpPage, 16)
+	Text( 4,  "Мантия оскорбления ", JumpPage, 17)
+	Text( 4,  "Рукавицы мсчезновения ", JumpPage, 18)
+	Text( 4,  "Поножи исчезновения ", JumpPage, 19)
+	Text( 4,  "Дальше --> ", JumpPage, 5)
+
+	Talk( 5,  "Исследователь: Хорошо, я помогу вам. Эта печать очень древняя, снять ее можно только используя руны. " )
+	Text( 5,  "Перчатки исчезновения ", JumpPage, 20)
+	Text( 5,  "Башмаки исчезновения ", JumpPage, 21)
+	Text( 5,  "Перчатки проклятья ", JumpPage, 22)
+	Text( 5,  "Сапоги оскорбления ", JumpPage, 23)
+	Text( 5,  "Перчатки тайного знания ", JumpPage, 24)
+	Text( 5,  "Сапоги тайного знания ", JumpPage, 25)
+	Text( 5,  "Тяжелые перчатки исчезновения ", JumpPage, 26)
+	Text( 5,  "Сапоги исчезновения ", JumpPage, 27)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1912, 1 )
+	TriggerCondition( 1, HasItem, 3433, 5 )
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerCondition( 1, HasMoney, 600000 )
+	TriggerAction( 1, TakeMoney, 600000 )
+	TriggerAction( 1, TakeItem, 1912, 1 )
+	TriggerAction( 1, TakeItem, 3433, 5 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 791, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 6,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
+	Text( 6,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1915, 1 )
+	TriggerCondition( 1, HasItem, 3433, 5 )
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerCondition( 1, HasMoney, 600000 )
+	TriggerAction( 1, TakeMoney, 600000 )
+	TriggerAction( 1, TakeItem, 1915, 1 )
+	TriggerAction( 1, TakeItem, 3433, 5 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 794, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 7,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
+	Text( 7,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1908, 1 )
+	TriggerCondition( 1, HasItem, 3433, 5 )
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerCondition( 1, HasMoney, 600000 )
+	TriggerAction( 1, TakeMoney, 600000 )
+	TriggerAction( 1, TakeItem, 1908, 1 )
+	TriggerAction( 1, TakeItem, 3433, 5 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 787, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 8,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
+	Text( 8,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1926, 1 )
+	TriggerCondition( 1, HasItem, 3433, 5 )
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerCondition( 1, HasMoney, 600000 )
+	TriggerAction( 1, TakeMoney, 600000 )
+	TriggerAction( 1, TakeItem, 1926, 1 )
+	TriggerAction( 1, TakeItem, 3433, 5 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 805, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 9,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
+	Text( 9,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1900, 1 )
+	TriggerCondition( 1, HasItem, 3433, 5 )
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerCondition( 1, HasMoney, 600000 )
+	TriggerAction( 1, TakeMoney, 600000 )
+	TriggerAction( 1, TakeItem, 1900, 1 )
+	TriggerAction( 1, TakeItem, 3433, 5 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 779, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 10,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
+	Text( 10,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1886, 1 )
+	TriggerCondition( 1, HasItem, 3433, 5 )
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerCondition( 1, HasMoney, 600000 )
+	TriggerAction( 1, TakeMoney, 600000 )
+	TriggerAction( 1, TakeItem, 1886, 1 )
+	TriggerAction( 1, TakeItem, 3433, 5 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 765, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 11,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
+	Text( 11,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1889, 1 )
+	TriggerCondition( 1, HasItem, 3433, 5 )
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerCondition( 1, HasMoney, 600000 )
+	TriggerAction( 1, TakeMoney, 600000 )
+	TriggerAction( 1, TakeItem, 1889, 1 )
+	TriggerAction( 1, TakeItem, 3433, 5 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 768, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 12,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
+	Text( 12,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1904, 1 )
+	TriggerCondition( 1, HasItem, 3433, 5 )
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerCondition( 1, HasMoney, 600000 )
+	TriggerAction( 1, TakeMoney, 600000 )
+	TriggerAction( 1, TakeItem, 1904, 1 )
+	TriggerAction( 1, TakeItem, 3433, 5 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 783, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 13,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
+	Text( 13,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1893, 1 )
+	TriggerCondition( 1, HasItem, 3433, 5 )
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerCondition( 1, HasMoney, 600000 )
+	TriggerAction( 1, TakeMoney, 600000 )
+	TriggerAction( 1, TakeItem, 1893, 1 )
+	TriggerAction( 1, TakeItem, 3433, 5 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 772, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 14,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
+	Text( 14,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1896, 1 )
+	TriggerCondition( 1, HasItem, 3433, 5 )
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerCondition( 1, HasMoney, 600000 )
+	TriggerAction( 1, TakeMoney, 600000 )
+	TriggerAction( 1, TakeItem, 1896, 1 )
+	TriggerAction( 1, TakeItem, 3433, 5 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 775, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 15,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
+	Text( 15,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1922, 1 )
+	TriggerCondition( 1, HasItem, 3433, 5 )
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerCondition( 1, HasMoney, 600000 )
+	TriggerAction( 1, TakeMoney, 600000 )
+	TriggerAction( 1, TakeItem, 1922, 1 )
+	TriggerAction( 1, TakeItem, 3433, 5 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 801, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 16,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
+	Text( 16,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1918, 1 )
+	TriggerCondition( 1, HasItem, 3433, 5 )
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerCondition( 1, HasMoney, 600000 )
+	TriggerAction( 1, TakeMoney, 600000 )
+	TriggerAction( 1, TakeItem, 1918, 1 )
+	TriggerAction( 1, TakeItem, 3433, 5 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 797, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 17,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
+	Text( 17,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+	
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1988, 1 )
+	TriggerCondition( 1, HasItem, 3433, 5 )
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerCondition( 1, HasMoney, 600000 )
+	TriggerAction( 1, TakeMoney, 600000 )
+	TriggerAction( 1, TakeItem, 1988, 1 )
+	TriggerAction( 1, TakeItem, 3433, 5 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 0807, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 18,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
+	Text( 18,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1989, 1 )
+	TriggerCondition( 1, HasItem, 3433, 5 )
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerCondition( 1, HasMoney, 600000 )
+	TriggerAction( 1, TakeMoney, 600000 )
+	TriggerAction( 1, TakeItem, 1989, 1 )
+	TriggerAction( 1, TakeItem, 3433, 5 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 0808, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 19,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
+	Text( 19,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1990, 1 )
+	TriggerCondition( 1, HasItem, 3433, 5 )
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerCondition( 1, HasMoney, 600000 )
+	TriggerAction( 1, TakeMoney, 600000 )
+	TriggerAction( 1, TakeItem, 1990, 1 )
+	TriggerAction( 1, TakeItem, 3433, 5 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 0809, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 20,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
+	Text( 20,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1991, 1 )
+	TriggerCondition( 1, HasItem, 3433, 5 )
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerCondition( 1, HasMoney, 600000 )
+	TriggerAction( 1, TakeMoney, 600000 )
+	TriggerAction( 1, TakeItem, 1991, 1 )
+	TriggerAction( 1, TakeItem, 3433, 5 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 0810, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 21,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
+	Text( 21,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1992, 1 )
+	TriggerCondition( 1, HasItem, 3433, 5 )
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerCondition( 1, HasMoney, 600000 )
+	TriggerAction( 1, TakeMoney, 600000 )
+	TriggerAction( 1, TakeItem, 1992, 1 )
+	TriggerAction( 1, TakeItem, 3433, 5 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 0811, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 22,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
+	Text( 22,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1994, 1 )
+	TriggerCondition( 1, HasItem, 3433, 5 )
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerCondition( 1, HasMoney, 600000 )
+	TriggerAction( 1, TakeMoney, 600000 )
+	TriggerAction( 1, TakeItem, 1994, 1 )
+	TriggerAction( 1, TakeItem, 3433, 5 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 0813, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 23,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
+	Text( 23,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1993, 1 )
+	TriggerCondition( 1, HasItem, 3433, 5 )
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerCondition( 1, HasMoney, 600000 )
+	TriggerAction( 1, TakeMoney, 600000 )
+	TriggerAction( 1, TakeItem, 1993, 1 )
+	TriggerAction( 1, TakeItem, 3433, 5 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 0812, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 24,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
+	Text( 24,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1995, 1 )
+	TriggerCondition( 1, HasItem, 3433, 5 )
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerCondition( 1, HasMoney, 600000 )
+	TriggerAction( 1, TakeMoney, 600000 )
+	TriggerAction( 1, TakeItem, 1995, 1 )
+	TriggerAction( 1, TakeItem, 3433, 5 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 0814, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 25,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
+	Text( 25,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1996, 1 )
+	TriggerCondition( 1, HasItem, 3433, 5 )
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerCondition( 1, HasMoney, 600000 )
+	TriggerAction( 1, TakeMoney, 600000 )
+	TriggerAction( 1, TakeItem, 1996, 1 )
+	TriggerAction( 1, TakeItem, 3433, 5 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 0815, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 26,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
+	Text( 26,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1997, 1 )
+	TriggerCondition( 1, HasItem, 3433, 5 )
+	TriggerCondition( 1, HasItem, 3427, 10 )
+	TriggerCondition( 1, HasItem, 3430, 10 )
+	TriggerCondition( 1, HasMoney, 600000 )
+	TriggerAction( 1, TakeMoney, 600000 )
+	TriggerAction( 1, TakeItem, 1997, 1 )
+	TriggerAction( 1, TakeItem, 3433, 5 )
+	TriggerAction( 1, TakeItem, 3427, 10 )
+	TriggerAction( 1, TakeItem, 3430, 10 )
+	TriggerAction( 1, GiveItem, 0877, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 27,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
+	Text( 27,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 30,  "Исследователь: Прошу прощения, но у вас нет всего необходимого. Я не могу снять печать. " )
+end
+
+function r_talk254()
+	Talk( 1,  "Исследователь: Привет! Я принадлежу к гильдии исследователей.Я занимаюсь исследованием Заброшенного города. Могу ли я чем то помочь? " )
+	Text( 1,  "Узнать о Заброшенном городе ", JumpPage, 2)
+
+	Talk( 2,  "Исследователь: Я занимаюсь исследованием Заброшенного города уже долгое время. Я умею снимать печати с найденных там проклятых вещей. " )
+	Text( 2,  "Снять печать ", JumpPage, 3)
+	
+	Talk( 3,  "Исследователь: В Заброшенном городе есть много оставленной запечатанной экипировки нежити. За годы работы я научился снимать печати с этих вещей. С чего вы хотите снять печать? " )
+	Text( 3,  "Зуб призрака ", JumpPage, 6)
+	Text( 3,  "Накидка нага ", JumpPage, 7)
+	Text( 3,  "Посох мстителя ", JumpPage, 8)
+	Text( 3,  "Меч печали ", JumpPage, 9)
+	Text( 3,  "Мантия смерти ", JumpPage, 10)
+	Text( 3,  "Касание смерти ", JumpPage, 11)
+	Text( 3,  "Мантия ядовитой ведьмы ", JumpPage, 12)
+	Text( 3,  "Доспех возвращенного ", JumpPage, 13)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1920, 1 )
+	TriggerCondition( 1, HasItem, 3431, 5 )
+	TriggerCondition( 1, HasItem, 3428, 5 )
+	TriggerCondition( 1, HasItem, 3425, 10 )
+	TriggerCondition( 1, HasMoney, 200000 )
+	TriggerAction( 1, TakeMoney, 200000 )
+	TriggerAction( 1, TakeItem, 1920, 1 )
+	TriggerAction( 1, TakeItem, 3431, 5  )
+	TriggerAction( 1, TakeItem, 3428, 5 )
+	TriggerAction( 1, TakeItem, 3425, 10)
+	TriggerAction( 1, GiveItem, 799, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 6,  "Исследователь: Чтобы снять печать с этого предмета мне понадобится - запечатанный предмет, 5 рун Ял, 5 рун Эль, 10 рун Наль и 200000 золота. " )
+	Text( 6,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1924, 1 )
+	TriggerCondition( 1, HasItem, 3431, 5 )
+	TriggerCondition( 1, HasItem, 3428, 5 )
+	TriggerCondition( 1, HasItem, 3425, 10 )
+	TriggerCondition( 1, HasMoney, 200000 )
+	TriggerAction( 1, TakeMoney, 200000 )
+	TriggerAction( 1, TakeItem, 1924, 1 )
+	TriggerAction( 1, TakeItem, 3431, 5  )
+	TriggerAction( 1, TakeItem, 3428, 5 )
+	TriggerAction( 1, TakeItem, 3425, 10)
+	TriggerAction( 1, GiveItem, 803, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 7,  "Исследователь: Чтобы снять печать с этого предмета мне понадобится - запечатанный предмет, 5 рун Ял, 5 рун Эль, 10 рун Наль и 200000 золота. " )
+	Text( 7,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1906, 1 )
+	TriggerCondition( 1, HasItem, 3431, 5 )
+	TriggerCondition( 1, HasItem, 3428, 5 )
+	TriggerCondition( 1, HasItem, 3425, 10 )
+	TriggerCondition( 1, HasMoney, 200000 )
+	TriggerAction( 1, TakeMoney, 200000 )
+	TriggerAction( 1, TakeItem, 1906, 1 )
+	TriggerAction( 1, TakeItem, 3431, 5  )
+	TriggerAction( 1, TakeItem, 3428, 5 )
+	TriggerAction( 1, TakeItem, 3425, 10)
+	TriggerAction( 1, GiveItem, 785, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 8,  "Исследователь: Чтобы снять печать с этого предмета мне понадобится - запечатанный предмет, 5 рун Ял, 5 рун Эль, 10 рун Наль и 200000 золота. " )
+	Text( 8,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1891, 1 )
+	TriggerCondition( 1, HasItem, 3431, 5 )
+	TriggerCondition( 1, HasItem, 3428, 5 )
+	TriggerCondition( 1, HasItem, 3425, 10 )
+	TriggerCondition( 1, HasMoney, 200000 )
+	TriggerAction( 1, TakeMoney, 200000 )
+	TriggerAction( 1, TakeItem, 1891, 1 )
+	TriggerAction( 1, TakeItem, 3431, 5  )
+	TriggerAction( 1, TakeItem, 3428, 5 )
+	TriggerAction( 1, TakeItem, 3425, 10)
+	TriggerAction( 1, GiveItem, 770, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 9,  "Исследователь: Чтобы снять печать с этого предмета мне понадобится - запечатанный предмет, 5 рун Ял, 5 рун Эль, 10 рун Наль и 200000 золота. " )
+	Text( 9,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1898, 1 )
+	TriggerCondition( 1, HasItem, 3431, 5 )
+	TriggerCondition( 1, HasItem, 3428, 5 )
+	TriggerCondition( 1, HasItem, 3425, 10 )
+	TriggerCondition( 1, HasMoney, 200000 )
+	TriggerAction( 1, TakeMoney, 200000 )
+	TriggerAction( 1, TakeItem, 1898, 1 )
+	TriggerAction( 1, TakeItem, 3431, 5  )
+	TriggerAction( 1, TakeItem, 3428, 5 )
+	TriggerAction( 1, TakeItem, 3425, 10)
+	TriggerAction( 1, GiveItem, 777, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 10,  "Исследователь: Чтобы снять печать с этого предмета мне понадобится - запечатанный предмет, 5 рун Ял, 5 рун Эль, 10 рун Наль и 200000 золота. " )
+	Text( 10,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1902, 1 )
+	TriggerCondition( 1, HasItem, 3431, 5 )
+	TriggerCondition( 1, HasItem, 3428, 5 )
+	TriggerCondition( 1, HasItem, 3425, 10 )
+	TriggerCondition( 1, HasMoney, 200000 )
+	TriggerAction( 1, TakeMoney, 200000 )
+	TriggerAction( 1, TakeItem, 1902, 1 )
+	TriggerAction( 1, TakeItem, 3431, 5  )
+	TriggerAction( 1, TakeItem, 3428, 5 )
+	TriggerAction( 1, TakeItem, 3425, 10)
+	TriggerAction( 1, GiveItem, 781, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 11,  "Исследователь: Чтобы снять печать с этого предмета мне понадобится - запечатанный предмет, 5 рун Ял, 5 рун Эль, 10 рун Наль и 200000 золота. " )
+	Text( 11,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1910, 1 )
+	TriggerCondition( 1, HasItem, 3431, 5 )
+	TriggerCondition( 1, HasItem, 3428, 5 )
+	TriggerCondition( 1, HasItem, 3425, 10 )
+	TriggerCondition( 1, HasMoney, 200000 )
+	TriggerAction( 1, TakeMoney, 200000 )
+	TriggerAction( 1, TakeItem, 1910, 1 )
+	TriggerAction( 1, TakeItem, 3431, 5  )
+	TriggerAction( 1, TakeItem, 3428, 5 )
+	TriggerAction( 1, TakeItem, 3425, 10)
+	TriggerAction( 1, GiveItem, 789, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 12,  "Исследователь: Чтобы снять печать с этого предмета мне понадобится - запечатанный предмет, 5 рун Ял, 5 рун Эль, 10 рун Наль и 200000 золота. " )
+	Text( 12,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1884, 1 )
+	TriggerCondition( 1, HasItem, 3431, 5 )
+	TriggerCondition( 1, HasItem, 3428, 5 )
+	TriggerCondition( 1, HasItem, 3425, 10 )
+	TriggerCondition( 1, HasMoney, 200000 )
+	TriggerAction( 1, TakeMoney, 200000 )
+	TriggerAction( 1, TakeItem, 1884, 1 )
+	TriggerAction( 1, TakeItem, 3431, 5  )
+	TriggerAction( 1, TakeItem, 3428, 5 )
+	TriggerAction( 1, TakeItem, 3425, 10)
+	TriggerAction( 1, GiveItem, 763, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 13,  "Исследователь: Чтобы снять печать с этого предмета мне понадобится - запечатанный предмет, 5 рун Ял, 5 рун Эль, 10 рун Наль и 200000 золота. " )
+	Text( 13,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 30,  "Исследователь: Простите, но у вас нет всех необходимых предметов. " )
+end
+
+function r_talk255()
+	Talk( 1,  "Исследователь: Привет! Я принадлежу к гильдии исследователей. Я занимаюсь исследованием проклятий Мира демонов. Могу я вам чем то помочь? " )
+	Text( 1,  "Узнать о Мире демонов ", JumpPage, 2)
+
+	Talk( 2,  "Исследователь: Я занимаюсь исследованиями Мира демонов уже многое время, и могу снимать проклятья с обнаруженных там вещей с помощью рун. " )
+	Text( 2,  "Снять печать ", JumpPage, 3)
+	
+	Talk( 3,  "Исследователь: В Мире демонов осталось много предметов, запечатанных льдом. Если у вас есть предмет с печатью льда, то я попробую распечатать его для вас. " )
+	Text( 3,  "Посох потаенного ", JumpPage, 6)
+	Text( 3,  "Накидка сфинкса ", JumpPage, 7)
+	Text( 3,  "Крис сфинкса ", JumpPage, 8)
+	Text( 3,  "Правосудие потаенного ", JumpPage, 9)
+	Text( 3,  "Аркебуз потаенного ", JumpPage, 10)
+	Text( 3,  "Накидка потаенного ", JumpPage, 11)
+	Text( 3,  "Плащ потаенного ", JumpPage, 12)
+	Text( 3,  "Дальше --> ", JumpPage, 4)
+
+	Talk( 4,  "Исследователь: В Мире демонов осталось много предметов, запечатанных льдом. Если у вас есть предмет с печатью льда, то я попробую распечатать его для вас. " )
+	Text( 4,  "Клинок потаенного ", JumpPage, 13)
+	Text( 4,  "Тату потаенного ", JumpPage, 14)
+	Text( 4,  "Доспех потаенного ", JumpPage, 15)
+	Text( 4,  "Мантия сфинкса ", JumpPage, 16)
+	Text( 4,  "Посох сфинкса ", JumpPage, 17)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1909, 1 )
+	TriggerCondition( 1, HasItem, 3457, 5 )
+	TriggerCondition( 1, HasItem, 3456, 10 )
+	TriggerCondition( 1, HasItem, 3455, 20 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1909, 1 )
+	TriggerAction( 1, TakeItem, 3457, 5  )
+	TriggerAction( 1, TakeItem, 3456, 10 )
+	TriggerAction( 1, TakeItem, 3455, 20)
+	TriggerAction( 1, GiveItem, 788, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 6,  "Исследователь: Для снятия печати с этого предмета тебе нужно принести - запечатанный предмет, 5 рун Кэль, 10 рун Фа, 20 рун Тер и 800000 золота. " )
+	Text( 6,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1927, 1 )
+	TriggerCondition( 1, HasItem, 3457, 5 )
+	TriggerCondition( 1, HasItem, 3456, 10 )
+	TriggerCondition( 1, HasItem, 3455, 20 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1927, 1 )
+	TriggerAction( 1, TakeItem, 3457, 5  )
+	TriggerAction( 1, TakeItem, 3456, 10 )
+	TriggerAction( 1, TakeItem, 3455, 20)
+	TriggerAction( 1, GiveItem, 806, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 7,  "Исследователь: Для снятия печати с этого предмета тебе нужно принести - запечатанный предмет, 5 рун Кэль, 10 рун Фа, 20 рун Тер и 800000 золота. " )
+	Text( 7,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1923, 1 )
+	TriggerCondition( 1, HasItem, 3457, 5 )
+	TriggerCondition( 1, HasItem, 3456, 10 )
+	TriggerCondition( 1, HasItem, 3455, 20 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1923, 1 )
+	TriggerAction( 1, TakeItem, 3457, 5  )
+	TriggerAction( 1, TakeItem, 3456, 10 )
+	TriggerAction( 1, TakeItem, 3455, 20)
+	TriggerAction( 1, GiveItem, 802, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 8,  "Исследователь: Для снятия печати с этого предмета тебе нужно принести - запечатанный предмет, 5 рун Кэль, 10 рун Фа, 20 рун Тер и 800000 золота. " )
+	Text( 8,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1894, 1 )
+	TriggerCondition( 1, HasItem, 3457, 5 )
+	TriggerCondition( 1, HasItem, 3456, 10 )
+	TriggerCondition( 1, HasItem, 3455, 20 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1894, 1 )
+	TriggerAction( 1, TakeItem, 3457, 5  )
+	TriggerAction( 1, TakeItem, 3456, 10 )
+	TriggerAction( 1, TakeItem, 3455, 20)
+	TriggerAction( 1, GiveItem, 773, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 9,  "Исследователь: Для снятия печати с этого предмета тебе нужно принести - запечатанный предмет, 5 рун Кэль, 10 рун Фа, 20 рун Тер и 800000 золота. " )
+	Text( 9,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1905, 1 )
+	TriggerCondition( 1, HasItem, 3457, 5 )
+	TriggerCondition( 1, HasItem, 3456, 10 )
+	TriggerCondition( 1, HasItem, 3455, 20 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1905, 1 )
+	TriggerAction( 1, TakeItem, 3457, 5  )
+	TriggerAction( 1, TakeItem, 3456, 10 )
+	TriggerAction( 1, TakeItem, 3455, 20)
+	TriggerAction( 1, GiveItem, 784, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 10,  "Исследователь: Для снятия печати с этого предмета тебе нужно принести - запечатанный предмет, 5 рун Кэль, 10 рун Фа, 20 рун Тер и 800000 золота. " )
+	Text( 10,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1901, 1 )
+	TriggerCondition( 1, HasItem, 3457, 5 )
+	TriggerCondition( 1, HasItem, 3456, 10 )
+	TriggerCondition( 1, HasItem, 3455, 20 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1901, 1 )
+	TriggerAction( 1, TakeItem, 3457, 5  )
+	TriggerAction( 1, TakeItem, 3456, 10 )
+	TriggerAction( 1, TakeItem, 3455, 20)
+	TriggerAction( 1, GiveItem, 780, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 11,  "Исследователь: Для снятия печати с этого предмета тебе нужно принести - запечатанный предмет, 5 рун Кэль, 10 рун Фа, 20 рун Тер и 800000 золота. " )
+	Text( 11,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1913, 1 )
+	TriggerCondition( 1, HasItem, 3457, 5 )
+	TriggerCondition( 1, HasItem, 3456, 10 )
+	TriggerCondition( 1, HasItem, 3455, 20 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1913, 1 )
+	TriggerAction( 1, TakeItem, 3457, 5  )
+	TriggerAction( 1, TakeItem, 3456, 10 )
+	TriggerAction( 1, TakeItem, 3455, 20)
+	TriggerAction( 1, GiveItem, 792, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 12,  "Исследователь: Для снятия печати с этого предмета тебе нужно принести - запечатанный предмет, 5 рун Кэль, 10 рун Фа, 20 рун Тер и 800000 золота. " )
+	Text( 12,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1897, 1 )
+	TriggerCondition( 1, HasItem, 3457, 5 )
+	TriggerCondition( 1, HasItem, 3456, 10 )
+	TriggerCondition( 1, HasItem, 3455, 20 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1897, 1 )
+	TriggerAction( 1, TakeItem, 3457, 5  )
+	TriggerAction( 1, TakeItem, 3456, 10 )
+	TriggerAction( 1, TakeItem, 3455, 20)
+	TriggerAction( 1, GiveItem, 776, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 13,  "Исследователь: Для снятия печати с этого предмета тебе нужно принести - запечатанный предмет, 5 рун Кэль, 10 рун Фа, 20 рун Тер и 800000 золота. " )
+	Text( 13,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1887, 1 )
+	TriggerCondition( 1, HasItem, 3457, 5 )
+	TriggerCondition( 1, HasItem, 3456, 10 )
+	TriggerCondition( 1, HasItem, 3455, 20 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1887, 1 )
+	TriggerAction( 1, TakeItem, 3457, 5  )
+	TriggerAction( 1, TakeItem, 3456, 10 )
+	TriggerAction( 1, TakeItem, 3455, 20)
+	TriggerAction( 1, GiveItem, 766, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 14,  "Исследователь: Для снятия печати с этого предмета тебе нужно принести - запечатанный предмет, 5 рун Кэль, 10 рун Фа, 20 рун Тер и 800000 золота. " )
+	Text( 14,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1890, 1 )
+	TriggerCondition( 1, HasItem, 3457, 5 )
+	TriggerCondition( 1, HasItem, 3456, 10 )
+	TriggerCondition( 1, HasItem, 3455, 20 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1890, 1 )
+	TriggerAction( 1, TakeItem, 3457, 5  )
+	TriggerAction( 1, TakeItem, 3456, 10 )
+	TriggerAction( 1, TakeItem, 3455, 20)
+	TriggerAction( 1, GiveItem, 769, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 15,  "Исследователь: Для снятия печати с этого предмета тебе нужно принести - запечатанный предмет, 5 рун Кэль, 10 рун Фа, 20 рун Тер и 800000 золота. " )
+	Text( 15,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1919, 1 )
+	TriggerCondition( 1, HasItem, 3457, 5 )
+	TriggerCondition( 1, HasItem, 3456, 10 )
+	TriggerCondition( 1, HasItem, 3455, 20 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1919, 1 )
+	TriggerAction( 1, TakeItem, 3457, 5  )
+	TriggerAction( 1, TakeItem, 3456, 10 )
+	TriggerAction( 1, TakeItem, 3455, 20)
+	TriggerAction( 1, GiveItem, 798, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 16,  "Исследователь: Для снятия печати с этого предмета тебе нужно принести - запечатанный предмет, 5 рун Кэль, 10 рун Фа, 20 рун Тер и 800000 золота. " )
+	Text( 16,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1916, 1 )
+	TriggerCondition( 1, HasItem, 3457, 5 )
+	TriggerCondition( 1, HasItem, 3456, 10 )
+	TriggerCondition( 1, HasItem, 3455, 20 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1916, 1 )
+	TriggerAction( 1, TakeItem, 3457, 5  )
+	TriggerAction( 1, TakeItem, 3456, 10 )
+	TriggerAction( 1, TakeItem, 3455, 20)
+	TriggerAction( 1, GiveItem, 795, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 17,  "Исследователь: Для снятия печати с этого предмета тебе нужно принести - запечатанный предмет, 5 рун Кэль, 10 рун Фа, 20 рун Тер и 800000 золота. " )
+	Text( 17,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 30,  "Исследователь: Простите, но у вас нет всех необходимых предметов. " )
+end
+
+function r_talk256()
+	Talk( 1,  "Исследователь: Привет! Я принадлежу к гильдии исследователей. Я занимаюсь исследованиями проклятий Темной Топи. Могу я вам чем то помочь? " )
+	Text( 1,  "Узнать о Темной Топи ", JumpPage, 2)
+
+	Talk( 2,  "Исследователь: Я занимаюсь исследованиями Темной Топи уже долгое время. Чтобы снять печать с предметов Темной Топи вы должны принести мне некоторые руны. Кроме того если вы найдете немного Темного масла я могу изготовить для вас Огненное зернышко. " )
+	Text( 2,  "Снять печати", JumpPage, 3)
+	Text( 2,  "Узнать о Огненном зернышке ", JumpPage, 5)
+	
+	Talk( 3,  "Исследователь: В Темной Топи есть много предметов с печатью земли. За время работы там я научился снимать эти печати. Если у вас есть предмет с печатью земли, то я помогу вам. " )
+	Text( 3,  "Плащ призыва ", JumpPage, 6)
+	Text( 3,  "Тату проклятого воина ", JumpPage, 7)
+	Text( 3,  "Накидка проклятого пламени ", JumpPage, 8)
+	Text( 3,  "Посох заклинаний ", JumpPage, 9)
+	Text( 3,  "Посох Кабалы ", JumpPage, 10)
+	Text( 3,  "Мантия каббалы ", JumpPage, 11)
+	Text( 3,  "Клинок заклинаний ", JumpPage, 12)
+	Text( 3,  "Дальше --> ", JumpPage, 4)
+
+	Talk( 4,  "Исследователь: В Темной топи есть много предметов с печатью земли. За время работы там я научился снимать эти печати. Если у вас есть предмет с печатью земли, то я помогу вам. " )
+	Text( 4,  "Пояс заклинаний ", JumpPage, 13)
+	Text( 4,  "Большой меч заклинаний ", JumpPage, 14)
+	Text( 4,  "Зуб проклятого ", JumpPage, 15)
+	Text( 4,  "Пластинчатый доспех проклятого ", JumpPage, 16)
+	Text( 4,  "Поцелуй проклятого ", JumpPage, 17)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3930, 5 )
+	TriggerCondition( 1, HasItem, 3931, 1 )
+	TriggerCondition( 1, HasItem, 3932, 5 )
+	TriggerCondition( 1, HasMoney, 200 )
+	TriggerAction( 1, TakeMoney, 200 )
+	TriggerAction( 1, TakeItem, 3930, 5 )
+	TriggerAction( 1, TakeItem, 3931, 1 )
+	TriggerAction( 1, TakeItem, 3932, 5 )
+	TriggerAction( 1, GiveItem, 3934, 1, 4 )
+	TriggerFailure( 1, JumpPage, 31 )
+	Talk( 5,  "Исследователь: Для изготовления Огненного зернышка необходимо: 5 Темное масло, 1 Зажигалка, 5 Клочок ткани. " )
+	Text( 5,  "Сделать Огненное зернышко ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1911, 1 )
+	TriggerCondition( 1, HasItem, 3432, 5 )
+	TriggerCondition( 1, HasItem, 3426, 10 )
+	TriggerCondition( 1, HasItem, 3429, 5 )
+	TriggerCondition( 1, HasMoney, 400000 )
+	TriggerAction( 1, TakeMoney, 400000 )
+	TriggerAction( 1, TakeItem, 1911, 1 )
+	TriggerAction( 1, TakeItem, 3432, 5  )
+	TriggerAction( 1, TakeItem, 3426, 10)
+	TriggerAction( 1, TakeItem, 3429, 5 )
+	TriggerAction( 1, GiveItem, 790, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 6,  "Исследователь: Для снятия печати с этого предмета мне необходимо - запечатанный предмет, 5 рун Лам, 10 рун Сол, 5 рун Кам и 400000 золота. " )
+	Text( 6,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1885, 1 )
+	TriggerCondition( 1, HasItem, 3432, 5 )
+	TriggerCondition( 1, HasItem, 3426, 10 )
+	TriggerCondition( 1, HasItem, 3429, 5 )
+	TriggerCondition( 1, HasMoney, 400000 )
+	TriggerAction( 1, TakeMoney, 400000 )
+	TriggerAction( 1, TakeItem, 1885, 1 )
+	TriggerAction( 1, TakeItem, 3432, 5  )
+	TriggerAction( 1, TakeItem, 3426, 10)
+	TriggerAction( 1, TakeItem, 3429, 5 )
+	TriggerAction( 1, GiveItem, 764, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 7,  "Исследователь: Для снятия печати с этого предмета мне необходимо - запечатанный предмет, 5 рун Лам, 10 рун Сол, 5 рун Кам и 400000 золота. " )
+	Text( 7,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1925, 1 )
+	TriggerCondition( 1, HasItem, 3432, 5 )
+	TriggerCondition( 1, HasItem, 3426, 10 )
+	TriggerCondition( 1, HasItem, 3429, 5 )
+	TriggerCondition( 1, HasMoney, 400000 )
+	TriggerAction( 1, TakeMoney, 400000 )
+	TriggerAction( 1, TakeItem, 1925, 1 )
+	TriggerAction( 1, TakeItem, 3432, 5  )
+	TriggerAction( 1, TakeItem, 3426, 10)
+	TriggerAction( 1, TakeItem, 3429, 5 )
+	TriggerAction( 1, GiveItem, 804, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 8,  "Исследователь: Для снятия печати с этого предмета мне необходимо - запечатанный предмет, 5 рун Лам, 10 рун Сол, 5 рун Кам и 400000 золота. " )
+	Text( 8,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1907, 1 )
+	TriggerCondition( 1, HasItem, 3432, 5 )
+	TriggerCondition( 1, HasItem, 3426, 10 )
+	TriggerCondition( 1, HasItem, 3429, 5 )
+	TriggerCondition( 1, HasMoney, 400000 )
+	TriggerAction( 1, TakeMoney, 400000 )
+	TriggerAction( 1, TakeItem, 1907, 1 )
+	TriggerAction( 1, TakeItem, 3432, 5  )
+	TriggerAction( 1, TakeItem, 3426, 10)
+	TriggerAction( 1, TakeItem, 3429, 5 )
+	TriggerAction( 1, GiveItem, 786, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 9,  "Исследователь: Для снятия печати с этого предмета мне необходимо - запечатанный предмет, 5 рун Лам, 10 рун Сол, 5 рун Кам и 400000 золота. " )
+	Text( 9,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1914, 1 )
+	TriggerCondition( 1, HasItem, 3432, 5 )
+	TriggerCondition( 1, HasItem, 3426, 10 )
+	TriggerCondition( 1, HasItem, 3429, 5 )
+	TriggerCondition( 1, HasMoney, 400000 )
+	TriggerAction( 1, TakeMoney, 400000 )
+	TriggerAction( 1, TakeItem, 1914, 1 )
+	TriggerAction( 1, TakeItem, 3432, 5  )
+	TriggerAction( 1, TakeItem, 3426, 10)
+	TriggerAction( 1, TakeItem, 3429, 5 )
+	TriggerAction( 1, GiveItem, 793, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 10,  "Исследователь: Для снятия печати с этого предмета мне необходимо - запечатанный предмет, 5 рун Лам, 10 рун Сол, 5 рун Кам и 400000 золота. " )
+	Text( 10,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1917, 1 )
+	TriggerCondition( 1, HasItem, 3432, 5 )
+	TriggerCondition( 1, HasItem, 3426, 10 )
+	TriggerCondition( 1, HasItem, 3429, 5 )
+	TriggerCondition( 1, HasMoney, 400000 )
+	TriggerAction( 1, TakeMoney, 400000 )
+	TriggerAction( 1, TakeItem, 1917, 1 )
+	TriggerAction( 1, TakeItem, 3432, 5  )
+	TriggerAction( 1, TakeItem, 3426, 10)
+	TriggerAction( 1, TakeItem, 3429, 5 )
+	TriggerAction( 1, GiveItem, 796, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 11,  "Исследователь: Для снятия печати с этого предмета мне необходимо - запечатанный предмет, 5 рун Лам, 10 рун Сол, 5 рун Кам и 400000 золота. " )
+	Text( 11,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1895, 1 )
+	TriggerCondition( 1, HasItem, 3432, 5 )
+	TriggerCondition( 1, HasItem, 3426, 10 )
+	TriggerCondition( 1, HasItem, 3429, 5 )
+	TriggerCondition( 1, HasMoney, 400000 )
+	TriggerAction( 1, TakeMoney, 400000 )
+	TriggerAction( 1, TakeItem, 1895, 1 )
+	TriggerAction( 1, TakeItem, 3432, 5  )
+	TriggerAction( 1, TakeItem, 3426, 10)
+	TriggerAction( 1, TakeItem, 3429, 5 )
+	TriggerAction( 1, GiveItem, 774, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 12,  "Исследователь: Для снятия печати с этого предмета мне необходимо - запечатанный предмет, 5 рун Лам, 10 рун Сол, 5 рун Кам и 400000 золота. " )
+	Text( 12,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1899, 1 )
+	TriggerCondition( 1, HasItem, 3432, 5 )
+	TriggerCondition( 1, HasItem, 3426, 10 )
+	TriggerCondition( 1, HasItem, 3429, 5 )
+	TriggerCondition( 1, HasMoney, 400000 )
+	TriggerAction( 1, TakeMoney, 400000 )
+	TriggerAction( 1, TakeItem, 1899, 1 )
+	TriggerAction( 1, TakeItem, 3432, 5  )
+	TriggerAction( 1, TakeItem, 3426, 10)
+	TriggerAction( 1, TakeItem, 3429, 5 )
+	TriggerAction( 1, GiveItem, 778, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 13,  "Исследователь: Для снятия печати с этого предмета мне необходимо - запечатанный предмет, 5 рун Лам, 10 рун Сол, 5 рун Кам и 400000 золота. " )
+	Text( 13,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1892, 1 )
+	TriggerCondition( 1, HasItem, 3432, 5 )
+	TriggerCondition( 1, HasItem, 3426, 10 )
+	TriggerCondition( 1, HasItem, 3429, 5 )
+	TriggerCondition( 1, HasMoney, 400000 )
+	TriggerAction( 1, TakeMoney, 400000 )
+	TriggerAction( 1, TakeItem, 1892, 1 )
+	TriggerAction( 1, TakeItem, 3432, 5  )
+	TriggerAction( 1, TakeItem, 3426, 10)
+	TriggerAction( 1, TakeItem, 3429, 5 )
+	TriggerAction( 1, GiveItem, 771, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 14,  "Исследователь: Для снятия печати с этого предмета мне необходимо - запечатанный предмет, 5 рун Лам, 10 рун Сол, 5 рун Кам и 400000 золота. " )
+	Text( 14,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1921, 1 )
+	TriggerCondition( 1, HasItem, 3432, 5 )
+	TriggerCondition( 1, HasItem, 3426, 10 )
+	TriggerCondition( 1, HasItem, 3429, 5 )
+	TriggerCondition( 1, HasMoney, 400000 )
+	TriggerAction( 1, TakeMoney, 400000 )
+	TriggerAction( 1, TakeItem, 1921, 1 )
+	TriggerAction( 1, TakeItem, 3432, 5  )
+	TriggerAction( 1, TakeItem, 3426, 10)
+	TriggerAction( 1, TakeItem, 3429, 5 )
+	TriggerAction( 1, GiveItem, 800, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 15,  "Исследователь: Для снятия печати с этого предмета мне необходимо - запечатанный предмет, 5 рун Лам, 10 рун Сол, 5 рун Кам и 400000 золота. " )
+	Text( 15,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1888, 1 )
+	TriggerCondition( 1, HasItem, 3432, 5 )
+	TriggerCondition( 1, HasItem, 3426, 10 )
+	TriggerCondition( 1, HasItem, 3429, 5 )
+	TriggerCondition( 1, HasMoney, 400000 )
+	TriggerAction( 1, TakeMoney, 400000 )
+	TriggerAction( 1, TakeItem, 1888, 1 )
+	TriggerAction( 1, TakeItem, 3432, 5  )
+	TriggerAction( 1, TakeItem, 3426, 10)
+	TriggerAction( 1, TakeItem, 3429, 5 )
+	TriggerAction( 1, GiveItem, 767, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 16,  "Исследователь: Для снятия печати с этого предмета мне необходимо - запечатанный предмет, 5 рун Лам, 10 рун Сол, 5 рун Кам и 400000 золота. " )
+	Text( 16,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1903, 1 )
+	TriggerCondition( 1, HasItem, 3432, 5 )
+	TriggerCondition( 1, HasItem, 3426, 10 )
+	TriggerCondition( 1, HasItem, 3429, 5 )
+	TriggerCondition( 1, HasMoney, 400000 )
+	TriggerAction( 1, TakeMoney, 400000 )
+	TriggerAction( 1, TakeItem, 1903, 1 )
+	TriggerAction( 1, TakeItem, 3432, 5  )
+	TriggerAction( 1, TakeItem, 3426, 10)
+	TriggerAction( 1, TakeItem, 3429, 5 )
+	TriggerAction( 1, GiveItem, 782, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 17,  "Исследователь: Для снятия печати с этого предмета мне необходимо - запечатанный предмет, 5 рун Лам, 10 рун Сол, 5 рун Кам и 400000 золота. " )
+	Text( 17,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 30,  "Исследователь: Простите, но у вас нет всех необходимых предметов. " )
+
+	Talk( 31,  "Исследователь: Простите, но у вас нет всех необходимых предметов. " )
+end
+
+function r_talk242()
+	Talk( 14,  "Бинго: Дайте мне расписку для получения самоцвета высокого класса. " )
+
+	InitTrigger() 
+	TriggerCondition( 1, HasItem,2899, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 3 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 2899, 1 )
+	TriggerAction( 1, GiveItem, 0860, 3, 101 )
+	TriggerFailure( 1, JumpPage, 15 )
+	Text( 14,  "Получить 3 Самоцвета ветра ",MultiTrigger, GetMultiTrigger(), 1) 
+
+	InitTrigger() 
+	TriggerCondition( 1, HasItem,2899, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 3 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 2899, 1 )
+	TriggerAction( 1, GiveItem, 0861, 3,101 )
+	TriggerFailure( 1, JumpPage, 15 )
+    Text( 14,  "Получить 3 Самоцвета удара ",MultiTrigger, GetMultiTrigger(), 1)
+	
+	InitTrigger()
+	TriggerCondition( 1, HasItem,2899, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 3 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 2899, 1 )
+	TriggerAction( 1, GiveItem, 0862, 3,101 )
+	TriggerFailure( 1, JumpPage, 15 )
+    Text( 14,  "Получить 3 Самоцвета колосса ",MultiTrigger, GetMultiTrigger(), 1) 
+
+	InitTrigger() 
+	TriggerCondition( 1, HasItem,2899, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 3 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 2899, 1 )
+	TriggerAction( 1, GiveItem, 0863, 3,101 )
+	TriggerFailure( 1, JumpPage, 15 )
+    Text( 14,  "Получить 3 Самоцвета ярости ",MultiTrigger, GetMultiTrigger(), 1) 
+
+	InitTrigger() 
+	TriggerCondition( 1, HasItem,2899, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 2899, 1 )
+	TriggerAction( 1, GiveItem, 1012, 1,101 )
+	TriggerFailure( 1, JumpPage, 15 )
+    Text( 14,  "Получить 1 Самоцвет души ",MultiTrigger, GetMultiTrigger(), 1) 
+	
+	Talk( 15,  "Бинго: Обмен невозможен! У вас нет расписки или заблокирован инвентарь  " )
+	
+	Talk( 16,  "С Новым годом! " )
+	
+	Talk( 1,  "Бинго: Привет! Я отдающая долги Бинго. У вас есть что то для меня? ")
+	Text( 1,  "Расписка на Рождественский самоцвет ", JumpPage, 14 )
+    Text( 1,  "Расписка на самоцвет ", JumpPage, 5 )
+	Text( 1,  "Расписка на уникальный самоцвет ", JumpPage, 12 )
+	Text( 1,  "Расписка на Очищающий самоцвет 1 уровня ", JumpPage, 2 )
+	Text( 1,  "Расписка на Очищающий самоцвет 2 уровня ", JumpPage, 3 )
+	Text( 1,  "Расписка на Очищающий самоцвет ", JumpPage, 4 )
+	Text( 1,  "Дальше --> ", JumpPage, 21 )
+
+	Talk( 21,  "Бинго: Привет! Я отдающая долги Бинго. У вас есть что то для меня? ")
+	Text( 21,  "Пиратская расписка ", JumpPage, 17 )
+    Text( 21,  "Объединить Камень желаний ", JumpPage, 6 )
+	Text( 21,  "Обменять Лунный пирог ", JumpPage, 20 )		
+	Text( 21,  "Получить Мартовскую фею ", JumpPage, 10 )
+	Text( 21,  "<-- Назад ", JumpPage, 1 )
+
+	Talk( 2,  "Бинго: Дай мне расписку на Очищающий самоцвет 1 уровня для получения очищающего самоцвета, а также еще 1 случайного самоцвета 1 уровня. ")
+	Text( 2,  "Обменять ", TransferDiamond, 1)
+
+	Talk( 3,  "Бинго: Дай мне расписку на Очищающий самоцвет 2 уровня для получения очищающего самоцвета, а также еще 1 случайного самоцвета 2 уровня. ")
+	Text( 3,  "Обменять ", TransferDiamond, 2)
+
+	Talk( 4,  "Бинго: Дай мне расписку на очищающий самоцвет для получения 1 очищающего самоцвета 1 уровня ")
+	Text( 4,  "Обменять ", TransferDiamond, 3)
+
+	Talk( 5,  "Бинго: Дай мне 1 расписку на самоцвет для получения 1 случайного самоцвета 1 уровня ")
+	Text( 5,  "Обменять ", TransferDiamond, 4)
+
+	Talk( 17,  "Бинго: У вас есть Пиратская расписка? ")
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2238, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 2238, 1 )
+ 	TriggerAction( 1, GiveItem, 2306, 1 ,4)
+	TriggerFailure( 1, JumpPage, 18 )
+	Text( 17,  "У меня есть пиратская расписка 8 ",MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2240, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 2240, 1 )
+ 	TriggerAction( 1, GiveItem, 1028, 1 ,4)
+	TriggerAction( 1,JumpPage, 19 )
+	TriggerFailure( 1, JumpPage, 18 )
+	Text( 17,  "У меня есть пиратская расписка 6 ",MultiTrigger, GetMultiTrigger(), 1)
+	Text( 17,  "У меня есть пиратская расписка 6 ",JumpPage, 19)
+
+	Talk( 19,  "Бинго: Вы хотите обменять? ")
+	Text( 19,  "Обменять ",GetChaName_5, 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2237, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 2237, 1 )
+ 	TriggerAction( 1, GiveItem, 855, 99 ,4)
+	TriggerFailure( 1, JumpPage, 18 )
+	Text( 17,  "У меня есть пиратская расписка 9 ",MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2239, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 2239, 1 )
+ 	TriggerAction( 1, GiveItem, 1001, 1 ,4)
+	TriggerFailure( 1, JumpPage, 18 )
+	Text( 17,  "У меня есть пиратская расписка 7 ",MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2241, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 2241, 1 )
+ 	TriggerAction( 1, GiveItem, 0578, 1 ,4)
+	TriggerFailure( 1, JumpPage, 18 )
+	Text( 17,  "У меня есть пиратская расписка 5 ",MultiTrigger, GetMultiTrigger(), 1)
+	Text( 17,  "Общая сумма пиратских расписок ", GetChaName_4, 1)
+
+	Talk( 18,  "Бинго: Кажется вы не имеете подходящую пиратскую расписку. Убедитесь также что ваш инвентарь не заблокирован и имеется хотя бы одно свободное место. ")
+
+ 	InitTrigger() 
+	TriggerCondition( 1, HasItem, 3905, 5 )
+	TriggerCondition( 1, HasItem, 3907, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 3905, 5 )
+	TriggerAction( 1, TakeItem, 3907, 1 )
+ 	TriggerAction( 1, GiveItem, 3906, 1 ,4)
+	TriggerFailure( 1, JumpPage, 8 )
+	Talk( 6,  "Бинго: Принесите мне 5 Темных камней желанийи 1 Катализатор ковки для обмена на 1 Искрящийся камень желаний ")
+	Text( 6,  "Комбинировать ",MultiTrigger, GetMultiTrigger(), 1)        
+ 	
+	Talk( 8,  "Бинго: Вы не имеете нужное количество Темных камней желаний или Катализаторов ковки. Убедитесь также что у вас имеется хотя бы 1 свободное место в инвентаре. ")
+	InitTrigger() 
+	TriggerCondition( 1, HasItem, 3342, 2 )
+	TriggerCondition( 1, HasItem, 3337, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 3342, 2 )
+	TriggerAction( 1, TakeItem, 3337, 1 )
+	TriggerAction( 1, GiveItem, 3335, 1 ,4)
+	TriggerFailure( 1, JumpPage, 11 ) 
+	Talk( 10,  "Бинго: Принесите мне 2 Светильника и 1 Душу феи для обмена на Мартовскую фею. Душу феи можно найти у Уиткомбы в Бухте Хафта. ")
+	Text( 10,  "Обменять ",MultiTrigger, GetMultiTrigger(), 1) 
+   
+	Talk( 11,  "У вас нет всего необходимого для обмена. Возможно также у вас нет свободных мест в инвентаре или он заблокирован. ")
+
+	Talk( 12,  "Бинго: Дайте мне 1 расписку на уникальный самоцвет для обмена на уникальный самоцвет. ")
+	InitTrigger() 
+	TriggerCondition( 1, HasItem, 0333, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+    TriggerAction( 1, TakeItem, 0333, 1 )
+	TriggerAction( 1, GiveItem, 0863, 1,101 )
+	TriggerFailure( 1, JumpPage, 13 ) 
+    Text( 12,  "Получить самоцвет ярости ",MultiTrigger, GetMultiTrigger(), 1) 
+
+	InitTrigger() 
+	TriggerCondition( 1, HasItem, 0333, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid,1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+    TriggerAction( 1, TakeItem, 0333, 1 )
+	TriggerAction( 1, GiveItem, 1012, 1,101 )
+	TriggerFailure( 1, JumpPage, 13 ) 
+    Text( 12,  "Получить самоцвет души ",MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger() 
+	TriggerCondition( 1, HasItem, 0333, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+    TriggerAction( 1, TakeItem, 0333, 1 )
+	TriggerAction( 1, GiveItem, 0862, 1,101 )
+	TriggerFailure( 1, JumpPage, 13 ) 
+    Text( 12,  "Получить самоцвет колосса ",MultiTrigger, GetMultiTrigger(), 1) 
+
+	InitTrigger() 
+	TriggerCondition( 1, HasItem, 0333, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1)
+	TriggerCondition( 1, KitbagLock, 0 )
+    TriggerAction( 1, TakeItem, 0333, 1 )
+	TriggerAction( 1, GiveItem, 0861, 1,101 )
+	TriggerFailure( 1, JumpPage, 13 ) 
+    Text( 12,  "Получить самоцвет удара ",MultiTrigger, GetMultiTrigger(), 1) 
+	
+	InitTrigger() 
+	TriggerCondition( 1, HasItem, 0333, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+    TriggerAction( 1, TakeItem, 0333, 1 )
+	TriggerAction( 1, GiveItem, 0860, 1, 101 )
+	TriggerFailure( 1, JumpPage, 13 ) 
+	Text( 12,  "Получить самоцвет ветра ",MultiTrigger, GetMultiTrigger(), 1) 
+
+	Talk( 13,  "Бинго: У вас нет расписки на уникальный самоцвет! Возможно также ваш инвентарь переполнен или заблокирован. ")
+
+	Talk( 20,  "Бинго: Я обожаю Лунные пироги? У вас есть? Я дам за них превосходный товар " )
+	InitTrigger() 
+	TriggerCondition( 1, HasItem,3095, 99 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 3915, 99 )
+	TriggerAction( 1, GiveItem, 2440, 10, 4 )
+	TriggerFailure( 1, JumpPage, 21 )
+	Text( 20,  "Обменять 99 пирогов на Супер усилитель стремлений ",MultiTrigger, GetMultiTrigger(), 1) 
+
+	InitTrigger() 
+	TriggerCondition( 1, HasItem,3097, 99 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 3915, 100 )
+	TriggerAction( 1, GiveItem, 3096, 1,4 )
+	TriggerFailure( 1, JumpPage, 21 )
+	Text( 20,  "Обменять 99 пирогов на Большой усилитель удачи ",MultiTrigger, GetMultiTrigger(), 1) 
+
+	Talk( 21,  "Бинго: У вас нет необходимого количества предметов! Возможно также ваш инвентарь переполнен или заблокирован. ") 
+end
+--------------------------------------------------------------------------------------------------------------------
+--													r_talk (Конец)												  --
+--------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------
+--													mmm_talk (Начало)											  --
+--------------------------------------------------------------------------------------------------------------------
+function mmm_talk01()
+	Talk( 1,  "Распространитель новостей: Обо всех готовящихся или проводимых мероприятиях вы можете узнать у меня. ")
+
+	InitTrigger()
+	TriggerCondition( 1, CheckZMKTime )
+	TriggerCondition( 1, HasItem, 3869, 1 )
+	TriggerCondition( 1, HasItem, 3864, 1 )
+	TriggerCondition( 1, HasItem, 3865, 1 )
+
+	TriggerAction( 1, TakeItem,   3869, 1 )
+	TriggerAction( 1, TakeItem,   3864, 1 )
+	TriggerAction( 1, TakeItem,   3865, 1 )
+	TriggerAction( 1, AddMoney, 500000)
+	TriggerFailure( 1, JumpPage, 19 )
+	Talk( 18,  "Распространитель новостей: Эта неделя удачливая для ковки. ")
+	Text( 18,  "Обменять ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 19,  "Распространитель новостей: Ты имеешь все карты при себе? Пожалуйста поверьте заблокирован ли у вас инвентарь! ")
+end 
+
+function mmm_talk02()
+	Talk( 1,  "Ку Ян: Эх... Снова длинная поездка домой... ")
+end
+
+function mmm_talk04()
+	Talk( 1,  "Ученик кузнеца: Привет! Расскажи про что ты хочешь узнать! " )
+	Text( 1,  "Как вставлять самоцветы? ", JumpPage, 2 )
+	Text( 1,  "Как объединить самоцветы? ", JumpPage, 3 )
+	Text( 1,  "Как делать слот? ", JumpPage, 7 )
+	Text( 1,  "Ничего... ",CloseTalk )
+
+	Talk( 2,  "Ученик кузнеца: Для вставки самоцвета в предмете должен быть сделан слот. В один слот нельзя вставлять самоцветы разного типа, также в один предмет нельзя вставлять два одинаковых самоцвета в разные слоты. Для вставки самоцвета необходимо иметь Очищающий самоцвет. Самоцветы придают предмету новые свойства. Однако стоимость вставки самоцвета очень высока. Еще что нибудь интересует?" )
+	Text( 2,  "Что такое Очищающий самоцвет? ", JumpPage, 4)
+	Text( 2,  "Что такое самоцвет? ", JumpPage, 5)
+	Text( 2,  "Какова вероятность успешности вставки самоцвета? ", JumpPage, 6)
+	
+	Talk( 3,  "Ученик кузнеца: Для объединения двух самоцветов в один более высокого уровня вам потребуется Объединяющий свиток. Единственный человек, который умеет объединять самоцветы - Бакалейщик Амос из Шайтана. " )
+	
+	Talk( 4,  "Ученик кузнеца: Очищающий самоцвет это катализатор, без которого невозможно вставить самоцвет в слот. Уровень Очищающего самоцвета должен быть равен уровню вставляемого самоцвета. Очищающий самоцвет можно получить выполняя некоторые задания или при убийстве монстров. " )
+
+	Talk( 5,  "Ученик кузнеца: Самоцветы при вставке в предмет дают ему новые свойства. Есть несколько основных типов самоцыетов: огонь - означает атаку, вода - защиту, а свет - духовный самоцвет. Самоцветы можно получить за некоторые задания или при убийстве монстров. " )
+
+	Talk( 6,  "Ученик кузнеца: Каждый уровень вставляемого самоцвета повышает уровень предмета на один. Чем выше уровень предмета, тем ниже шанс вставки самоцвета. Чтобы повысить шанс вставки используются особые катализаторы. При провале предмет теряет свой уровень и получает первоначальный. Максимально возможный уровень предмета - 27. " )
+	
+	Talk( 7,  "Ученик кузнеца: Для изготовления одного слота вам потребуется 1 Катализатор снаряжения и 1 Стабилизатор снаряжения. Их можно получить у некоторых торговцев или обменять на расписку. " )
+end
+--------------------------------------------------------------------------------------------------------------------
+--													mmm_talk (Конец)											  --
+--------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------
+--													el_talk (Начало)											  --
+--------------------------------------------------------------------------------------------------------------------
+function el_talk01()
+	Talk( 1,  "Маленькая рыбка: Вернитесь скорее, я не справлюсь с этим один... ")	
+	AddNpcMission ( 907 )
+	AddNpcMission ( 911 )
+	AddNpcMission ( 912 )
+	AddNpcMission ( 917 )
+end
+
+function el_talk02()
+	Talk( 1,  "Бабочка: Я близкий друг Цветочка... ")
+	AddNpcMission ( 908 )
+	AddNpcMission ( 909 )
+	AddNpcMission ( 910 )
+end
+
+function el_talk03()
+	Talk( 1,  "Таинственная бабуля: Я не понимаю что во мне такого таинственного... ")	
+	AddNpcMission ( 918 )
+	AddNpcMission ( 5018 )
+	AddNpcMission ( 5020 )
+	AddNpcMission ( 5021)
+	AddNpcMission ( 5022)
+end
+
+function el_talk04()
+	Talk( 1,  "Тощий рабочий: Эх... Ох... Кто бы мог помочь мне... " )
+	
+	AddNpcMission ( 919 )
+end
+
+function el_talk05()
+	Talk( 1,  "Рождественская Ель: С Новым годом тебя! Каждая добрая душа получит благословление! " )
+	Text( 1,  "Получить благословление ",JumpPage, 2  )
+	
+	Talk( 2,  "Рождественская Ель: Вы хотите получить ваше благословление? Это потребует 1 Рождественскую открытку и 1000 золота. " )
+	Text( 2,  "Я хочу получить свое благословление ",JumpPage, 3  )
+
+	Text( 3, "Я хочу получить благословление ",  GetChaName_0, 1)
+	Text( 3,  "Дальше --> ",JumpPage, 6  )
+
+	Talk( 6,  "Рождественская Ель: Да благославит вас Бог в этом году! Пусть вам улыбается удача! ")
+	Text( 6, "Я хочу получить благословление ",  GetChaName_1, 1)
+	Text( 6,  "Дальше --> ",JumpPage, 7  )
+	Text( 6,  "<-- Назад ",JumpPage, 3  )
+
+	Talk( 7,  "Рождественская Ель: Да благославит вас Бог в этом году! Пусть вам улыбается удача! ")
+	Text( 7,  "Я хочу получить благословление ",  GetChaName_2, 1)
+	Text( 7,  "Дальше --> ",JumpPage, 8  )
+	Text( 7,  "<-- Назад ",JumpPage, 6  )
+
+	Talk( 8,  "Рождественская Ель: Да благославит вас Бог в этом году! Пусть вам улыбается удача! ")
+	Text( 8,  "Я хочу получить благословление ",  GetChaName_3, 1)
+	Text( 8,  "<-- Назад ",JumpPage, 7  )
+end
+
+function el_talk07()
+	InitTrigger()
+	TriggerCondition( 1, HasMission, 1300 )
+	TriggerCondition( 1, LvCheck,  "> ", 74 )
+	TriggerCondition( 1, HasCredit,9999 )
+	TriggerCondition( 1, NoRecord, 1300 )
+	TriggerCondition( 1, NoRecord, 1301 )
+	TriggerAction( 1, JumpPage, 2 )
+	TriggerFailure( 1, CloseTalk  )
+	Talk( 1,  "Хаскинсон: Я машина смерти! Не заговаривай со мной если у тебя меньше 75 уровня и 9999 очков репутации. " )
+	Text( 1,  "Привет! ",MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 2,  "Хаскинсон: Чтобы получить фрагменты вы должны ответить на несколько вопросов! Какая из этих историй связана с поисками пропавшего мальчика? " )
+	Text( 2,  "Отравление еды ",JumpPage, 3  )
+	Text( 2,  "Пропавшие инструменты ",JumpPage, 4  )
+	Text( 2,  "Причина сумасшествия ",JumpPage, 3  )
+	Text( 2,  "Убийство грибов ",JumpPage, 32  )
+
+	Talk( 3,  "Хаскинсон: Не будьте так высокомерны! Дальше... Кто любит Эндрю? " )
+	Text( 3,  "Кодди ",JumpPage, 4  )
+	Text( 3,  "Жоу ",JumpPage, 32  )
+	Text( 3,  "Маленькая рыбка ",JumpPage,5  )
+	Text( 3,  "Ян Бин ",JumpPage, 2  )
+	Text( 3,  "Хами ",JumpPage, 4  )
+	Text( 3,  "Ли Жанг Йонг ",JumpPage, 4  )
+
+	Talk( 4,  "Хаскинсон: Что из ниже перечисленного является ингридиентом для производства?" )
+	Text( 4,  "Темная кровь выползня и Чистая вода ",JumpPage, 5  )
+	Text( 4,  "Шкура кровавого выползня и Чай-бодрячок ",JumpPage, 5  )
+	Text( 4,  "Кровь зловещего выползня и Стимулятор ",JumpPage, 2  )
+	Text( 4,  "Кровь прозрачного выползня и Чистая вода ",JumpPage, 32 )
+	Text( 4,  "Толстый хвост прозрач. выползня ",JumpPage, 6  )
+	Text( 4,  "Чай-бодрячок и Стимулятор ",JumpPage, 19  )
+	Text( 4,  "Кровь зловещего выползня ",JumpPage, 5  )
+
+	Talk( 5,  "Хаскинсон: Любовный подарок от таинственной бабушки это...? " )
+	Text( 5,  "Кристальная слеза ",JumpPage, 32  )
+	Text( 5,  "Слеза Камня правды ",JumpPage, 6  )
+	Text( 5,  "Камень Ланга ",JumpPage, 3  )
+	Text( 5,  "Янтарная слеза ",JumpPage, 22  )
+	Text( 5,  "Сад камня Кануна ",JumpPage, 7  )
+	Text( 5,  "Слеза Кары ",JumpPage, 7  )
+	Text( 5,  "Слеза первой любви ",JumpPage, 32  )
+
+	Talk( 6,  "Хаскинсон: Какие отношения между Анубисом и Ричи? " )
+	Text( 6,  "Отец и сын ",JumpPage, 4  )
+	Text( 6,  "Дед и внук ",JumpPage, 8  )
+	Text( 6,  "Братья ",JumpPage, 7  )
+	Text( 6,  "Любимые ",JumpPage, 32  )
+	Text( 6,  "Нет отношений ",JumpPage, 32  )
+	Text( 6,  "Дальние родственники ",JumpPage, 32  )
+	Text( 6,  "Кузены ",JumpPage, 7  )
+	Text( 6,  "Сестры ",JumpPage, 7  )
+
+	Talk( 7,  "Хаскинсон: Для чего используют Демонический фрукт? " )
+	Text( 7,  "Для свадьбы фей ",JumpPage, 32  )
+	Text( 7,  "Как Яблоко ",JumpPage, 8  )
+	Text( 7,  "Для демонов ",JumpPage, 9  )
+	Text( 7,  "Для управления фруктами демонов ",JumpPage, 5  )
+	Text( 7,  "Для закалки ",JumpPage, 32  )
+
+	Talk( 8,  "Хаскинсон: Кем Голди работал раньше? " )
+	Text( 8,  "Мясником ",JumpPage, 3  )
+	Text( 8,  "Звездой кино ",JumpPage, 32  )
+	Text( 8,  "Преподавателем ",JumpPage, 32  )
+	Text( 8,  "Моделью ",JumpPage, 9  )
+	Text( 8,  "ГМом ",JumpPage, 7  )
+	Text( 8,  "Директором компании ",JumpPage, 9  )
+
+	Talk( 9,  "Хаскинсон: Какое утверждение из ниже указанных верное? " )
+	Text( 9,  "Вы будете сожалеть выбрав меня ",JumpPage, 4  )
+	Text( 9,  "Хами - незаконный мын Санг Ди ",JumpPage, 10 )
+	Text( 9,  "Белди не умеет печь пироги ",JumpPage, 32  )
+	Text( 9,  "Санг Ди живет дольше Таинственной бабушки ",JumpPage, 23 )
+	Text( 9,  "Верховный жрец был раньше пиратом ",JumpPage, 6  )
+
+	Talk( 10,  "Хаскинсон: Торговец Черного рынка был обычным. Это было...  " )
+	Text( 10,  "10 лет назад ",JumpPage, 5  )
+	Text( 10,  "Полгода назад ",JumpPage, 5  )
+	Text( 10,  "Когда он торговал антиквариатом ",JumpPage, 32 )
+	Text( 10,  "Когда он только пришел в Ледынь ",JumpPage, 8  )
+	Text( 10,  "Прежде чем он влюбился в Донну ",JumpPage, 11  )
+	Text( 10,  "После того как был брошен Донной",JumpPage, 32  )
+	Text( 10,  "Когда учился в институте Торговцев Черного рынка ",JumpPage, 8  )
+
+	Talk( 11,  "Хаскинсон: Как вы думаете какой НПС Паппа? " )
+	Text( 11,  "25 летний симпатичный парень ",JumpPage, 32 )
+	Text( 11,  "Нежная девушка ",JumpPage, 30  )
+	Text( 11,  "Жестокая девочка-сорванец ",JumpPage, 13  )
+	Text( 11,  "Страшный брачный аферист ",JumpPage, 2  )
+	Text( 11,  "Счастливая симпатичная девушка ",JumpPage, 13  )
+	Text( 11,  "Очаровательный идол ",JumpPage, 32  )
+	Text( 11,  "Нет правильных ответов. ",JumpPage, 28  )
+
+	Talk( 30,  "Хаскинсон: Вы очень глубоко заблуждаетесь!"  )
+	Text( 30,  "Далее --> ",JumpPage, 32  )
+
+	Talk( 31,  "Хаскинсон: Не позволяйте ей узнать что вы выбрали этот ответ!" )
+	Text( 31,  "Далее --> ",JumpPage, 32  )
+
+	Talk( 13,  "Хаскинсон: Что из ниже сказанного неверно? " )
+	Text( 13,  "Клещи кузнеца необходимы для извлечения ",JumpPage, 5 )
+	Text( 13,  "Каждый самоцвет извлекается поочередно ",JumpPage, 3 )
+	Text( 13,  "Число слотов не изменяется после извлечения самоцвета ",JumpPage, 32 )
+	Text( 13,  "Стоимисть извлечения- уровень предмета*1000 золота ",JumpPage, 14 )
+	Text( 13,  "Вы можете начать извлекать только из 1 слота ",JumpPage, 10 )
+	Text( 13,  "Уровень извлеченного самоцвета ниже чем вставленного в слот ",JumpPage, 14 )
+	Text( 13,  "Все вышеназванное неверно ",JumpPage, 8 )
+
+	Talk( 14,  "Хаскинсон: Кто знает тайну самородной серы? " )
+	Text( 14,  "Хьюстон ",JumpPage, 4 )
+	Text( 14,  "Ланга и Таинственная бабушка ",JumpPage, 32 )
+	Text( 14,  "Морской принци и Лазурная сирена ",JumpPage, 7 )
+	Text( 14,  "Дитто и Таинственная бабушка ",JumpPage, 15 )
+	Text( 14,  "Дитто и Ланга ",JumpPage, 15 )
+	Text( 14,  "Таинственная бабушка и Морской принц ",JumpPage, 8 )
+	Text( 14,  "Хьюстон и Морской принц ",JumpPage, 12 )
+	Talk( 15,  "Хаскинсон: какая из нижеуказанных трав имеет побочный эффект? " )
+
+	Text( 15,  "Восстанавливающее зелье ",JumpPage,13 )
+	Text( 15,  "Оживляющий клевер ",JumpPage, 32 )
+	Text( 15,  "Капсула памяти ",JumpPage, 16 )
+	Text( 15,  "Отворотное зелье ",JumpPage, 5 )
+	Text( 15,  "Суп памяти ",JumpPage, 4 )
+	Text( 15,  "Волшебная костная мука ",JumpPage, 16 )
+	Text( 15,  "Защитное средство ",JumpPage, 9 )
+
+	Talk( 16,  "Хаскинсон: Что правильно? " )
+	Text( 16,  "Таинственная бабушка: Я люблю Ланга ",JumpPage, 32 )
+	Text( 16,  "Генерал Вильям: Маска Зорро не у меня. ",JumpPage, 17 )
+	Text( 16,  "Ланга: Таинственная бабуля не в моем сердце.",JumpPage, 17 )
+	Text( 16,  "Паппа: Я была красавицей прежде чем стала пингвином. ",JumpPage, 5 )
+	Text( 16,  "Санг Ди: Я знаю как говорить на языке, который не понимают люди. ",JumpPage, 10 )
+	Text( 16,  "Мордо младший: У меня родители не только Мордо ",JumpPage, 15 )
+
+	Talk( 17,  "Хаскинсон: Вы любите играть в эту игру? " )
+	Text( 17,  "Люблю ",JumpPage, 32 )
+	Text( 17,  "Я очень люблю ",JumpPage, 32 )
+	Text( 17,  "Я обожаю ",JumpPage, 32 )
+	Text( 17,  "Я люблю! ",JumpPage, 32 )
+	Text( 17,  "Я люблю!! ",JumpPage, 18 )
+	Text( 17,  "Я люблю!!! ",JumpPage, 5 )
+	Text( 17,  "Пока еще люблю... ",JumpPage, 15 )
+
+	Talk( 18,  "Хаскинсон: Какую вредную привычку имеет верховный жрец? " )
+	Text( 18,  "Плакать ",JumpPage, 5 )
+	Text( 18,  "Ковыряться в носу ",JumpPage, 14 )
+	Text( 18,  "Подглядывать ",JumpPage, 2 )
+	Text( 18,  "Пить ",JumpPage, 9 )
+	Text( 18,  "Курить ",JumpPage, 12 )
+	Text( 18,  "Играть в азартные игры ",JumpPage, 10 )
+	Text( 18,  "Ходить в туалет ",JumpPage, 12 )
+	Text( 18,  "Мыть руки ",JumpPage, 4 )
+
+	Talk( 19,  "Хаскинсон: Вы уверены насчет своего выбора? " )
+	Text( 19,  "Я уверен ",JumpPage, 21  )
+	Text( 19,  "Я выбрал неверно ",JumpPage, 20  )
+	Text( 19,  "Я должен подумать ",JumpPage, 32  )
+
+	Talk( 20,  "Хаскинсон: Пожалуйста пробуйте снова " )
+	Text( 20,  "Дальше -->",JumpPage, 3  )
+
+	Talk( 21,  "Хаскинсон: Уверенность это главное для пирата! " )
+	Text( 21,  "Подтвердить ",JumpPage, 5  )
+
+	Talk( 22,  "Хаскинсон: Вы уверены насчет своего выбора? " )
+	Text( 22,  "Я уверен ",JumpPage, 24  )
+	Text( 22,  "Я выбрал неверно ",JumpPage, 20  )
+	Text( 22,  "Я должен подумать ",JumpPage, 32  )
+
+	Talk( 23,  "Хаскинсон: Вы уверены насчет своего выбора? " )
+	Text( 23,  "Я уверен ",JumpPage, 25  )
+	Text( 23,  "Я выбрал неверно ",JumpPage, 8  )
+	Text( 23,  "Я должен подумать ",JumpPage, 32  )
+
+	Talk( 24,  "Хаскинсон: Вера - это главное чтобы стать пиратом! ")
+	Text( 24,  "Дальше -->",JumpPage, 6   )
+
+	Talk( 25,  "Хаскинсон: Пожалуйста используйте мозг. Не всегда выбирайте тот же ответ! ")
+	Text( 25,  "Дальше -->",JumpPage, 32  )
+
+	Talk( 26,  "Хаскинсон: Вы уверены насчет своего выбора? " )
+	Text( 26,  "Я уверен ",JumpPage, 28  )
+	Text( 26,  "Я выбрал неверно ",JumpPage, 27  )
+	Text( 26,  "Я должен подумать ",JumpPage, 32  )
+
+	Talk( 27,  "Хаскинсон: Это движение позволит вам сэкономить время. "   )
+	Text( 27,  "Дальше -->",JumpPage, 12  )
+
+	Talk( 28,  "Хаскинсон: Вы слишком самонадеянны. Это не достоинство пирата. "  )
+	Text( 28,  "Дальше -->",JumpPage, 32  )
+
+	InitTrigger()
+	TriggerCondition( 1, HasMission, 1300 )
+	TriggerCondition( 1, NoRecord, 1300 )
+	TriggerAction( 1, SetRecord, 1301 )
+	TriggerAction( 1, JumpPage, 29 )
+	Talk( 12,  "Хаскинсон: Я думаю эти загадки интересны. Вы хотите попробовать? "  )
+	Text( 12,  "Хочу ",MultiTrigger, GetMultiTrigger(), 1  )
+	Text( 12,  "Нет ",JumpPage, 2  )
+
+	Talk( 29,  "Хаскинсон: Поздравляю! Ваша мудрость дарует вам фрагменты! Идите и докажите свою силу. " )
+
+	Talk( 32,  "Хаскинсон: Вы так глупы? " )
+	Text( 32,  "Нет, я хочу попробовать снова! ",JumpPage, 2  )
+	Text( 32,  "Я глупец, пожалуй лучше уйду. ",CloseTalk  )
+	AddNpcMission (	6001 )
+	AddNpcMission (	6002 )
+	AddNpcMission (	5823 )
+	AddNpcMission (	5824 )	
+end 
+
+function el_talk08()
+	Talk( 1,  "Томас Туту: Организовываем тур! 3 дня и 2 ночи в Пещере демонов. Действуют скидки! " )
+
+	InitTrigger()
+	TriggerCondition( 1, HasMission, 1424 )
+	TriggerCondition( 1, HasMission, 1414 )
+	TriggerCondition( 1, NoRecord, 1424 )
+	TriggerAction( 1, JumpPage, 2 )
+	TriggerFailure( 1, JumpPage, 3 )
+	Text( 1, "Ответить на вопросы ",MultiTrigger, GetMultiTrigger(), 1 )
+
+	InitTrigger()
+	TriggerAction( 1, GoTo, 2232, 2809, "garner")
+	Talk( 2, "Как называется эта книга?")
+	Text( 2, "Несчастная любовь ",MultiTrigger, GetMultiTrigger(), 1)
+	
+	InitTrigger()
+	TriggerAction( 1, GoTo, 2232, 2809, "garner")
+	Text( 2, "Сражения Аскарона ",MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerAction( 1, JumpPage, 4)
+	Text( 2, "Возрождение моей истории ",MultiTrigger, GetMultiTrigger(), 1)		--Верно
+
+	Talk( 3, "Я читаю, не мешай мне.")
+
+	InitTrigger()
+	TriggerAction( 1, JumpPage, 5)
+	Talk( 4, "Кто автор этой книги?")
+	Text( 4, "Том Луо ",MultiTrigger, GetMultiTrigger(), 1)		--Верно
+
+	InitTrigger()
+	TriggerAction( 1, GoTo, 2232, 2809, "garner")
+	Text( 4, "Том Джек ",MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerAction( 1, GoTo, 2232, 2809, "garner")
+	Text( 4, "Старик Пачкуля ",MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerAction( 1, GoTo, 2232, 2809, "garner")
+	Talk( 5, "Сколько страниц в книге?")
+	Text( 5, "5321",MultiTrigger, GetMultiTrigger(), 1 )
+
+	InitTrigger()
+	TriggerAction( 1, SetRecord, 1429)
+	TriggerAction( 1, JumpPage, 6)
+	Text( 5, "5321",MultiTrigger, GetMultiTrigger(), 1 )
+	
+	InitTrigger()
+	TriggerAction( 1, GoTo, 2232, 2809, "garner")
+	Text( 5, "5132",MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 6, "Поздравляю, всё правильно!")
+
+	AddNpcMission ( 6095 )
+	AddNpcMission ( 6096 ) 
+	AddNpcMission (	6010 )
+	AddNpcMission (	6011 )
+	AddNpcMission (	6012 )
+	AddNpcMission (	6013 )
+	AddNpcMission (	6014 )
+end
+
+-------------------------------------------
+--                Майлада                --
+-------------------------------------------
+-- Служит для:                           --
+-- * Покупки билетов на посещение церкви --
+-- * Проведения аукционов на церковь     --
+-- * Покупки приглашений на свадьбу      --
+-------------------------------------------
+function el_talk09()
+	
+	Talk( 1, "\204\224\233\235\224\228\224: \225\238\227 \236\232\235\238\241\229\240\228\229\237. \223 \239\240\232\227\235\224\248\224\254 \242\229\225\255 \237\224 \209\226\255\242\243\254 \231\229\236\235\254 \232\236\229\237\229\236 \241\226\238\229\227\238 \227\238\241\239\238\228\232\237\224!" )
+	Text( 1, "\206 \214\229\240\234\226\232", JumpPage, 17)	
+
+	Talk( 17, "\204\224\233\235\224\228\224: \213\238\247\229\248\252 \224\240\229\237\228\238\226\224\242\252 \214\229\240\234\238\226\252? \223 \236\238\227\243 \241\228\229\235\224\242\252 \241\229\227\238\228\237\255 \241\234\232\228\234\243." )
+	Text( 17, "\202\240\224\242\234\238\229 \238\239\232\241\224\237\232\229 \246\229\240\234\226\232", JumpPage, 6)
+	Text( 17, "\214\229\240\234\238\226\237\224\255 \241\242\224\226\234\224", ListAuction)
+	Text( 17, "\202\243\239\232\242\252 \225\232\235\229\242 \226 \246\229\240\234\238\226\252", JumpPage, 2 )
+	Text( 17, "\202\243\239\232\242\252 \239\240\232\227\235\224\248\229\237\232\255", JumpPage, 5)
+
+	InitTrigger()
+	TriggerCondition( 1, HasMoney,5000 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerAction( 1, TakeMoney, 5000 )
+	TriggerAction(1, GiveItem, 3024, 1 , 4)
+	TriggerAction( 1, JumpPage, 3)
+	TriggerFailure( 1, JumpPage, 4 )
+	Talk(2, "\204\224\233\235\224\228\224: \214\229\240\234\238\226\252 \253\242\238 \236\229\241\242\238 \227\228\229 \237\224\247\232\237\224\229\242\241\255 \241\247\224\241\242\252\229, \227\228\229 \235\254\225\238\226\252 \253\242\238 \227\235\224\226\237\238\229. \207\240\232\245\238\228\232 \237\224 \253\234\241\234\243\240\241\232\254 \234\224\230\228\251\233 \239\238\237\229\228\229\235\252\237\232\234 \241 17:00 \228\238 17:10. \225\232\235\229\242 \241\242\238\232\242 \226\241\229\227\238 5000 \231\238\235\238\242\251\245.")
+	Text(2, "\207\238\228\242\226\229\240\228\232\242\252 \239\238\234\243\239\234\243",  MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk(3, "\207\240\232\227\235\224\248\224\229\236 \237\224 \253\234\241\234\243\240\241\232\254 \226\238 \226\240\229\236\229\237\232.")
+	Talk(4, "\204\224\233\235\224\228\224: \211 \242\229\225\255 \237\229\228\238\241\242\224\242\238\247\237\238 \231\238\235\238\242\224! \200\235\232 \231\224\225\235\238\234\232\240\238\226\224\237 \232\237\226\229\237\242\224\240\252. \207\238\236\237\232, \237\243\230\237\224 1 \239\243\241\242\224\255 \255\247\229\233\234\224.")
+	
+	Talk( 5, "\204\224\233\235\224\228\224: \208\224\231\240\229\248\229\237\232\229 \214\229\240\234\226\232 \236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \228\235\255 \239\238\235\243\247\229\237\232\255 \241\238\238\242\226\229\242\241\242\226\243\254\249\232\245 \239\240\232\227\235\224\241\232\242\229\235\252\237\251\245 \225\232\235\229\242\238\226. \202\224\230\228\251\229 10 \234\243\241\238\247\234\238\226 \239\240\232\227\235\224\241\232\242\229\235\252\237\238\227\238 \225\232\235\229\242\224 \241\238\241\242\224\226\235\255\254\242 \229\228\232\237\238\229 \246\229\235\238\229. 50 000 \231\238\235\238\242\251\245 \228\238\235\230\237\238 \225\251\242\252 \243\239\235\224\247\229\237\238 \231\224 1 \248\242\243\234\243. \207\240\232\227\235\224\241\232 \228\240\243\231\229\233 \237\224 \226\229\247\229\240\232\237\234\243!" )
+	Text( 5, "\207\238\228\242\226\229\240\228\232\242\252 \239\238\234\243\239\234\243", ChangeItem, 1)
+	
+	Talk( 6, "\204\224\233\235\224\228\224: \206 \247\229\236 \242\251 \245\238\247\229\248\252 \243\231\237\224\242\252?" )
+	Text( 6, "\206 \239\238\241\229\249\229\237\232\232", JumpPage, 7)
+	Text( 6, "\206 \214\229\240\234\238\226\237\238\236 \224\243\234\246\232\238\237\229", JumpPage, 8)
+	Text( 6, "\206\225 \232\241\239\238\235\252\231\238\226\224\237\232\232 \246\229\240\226\234\232", JumpPage, 9)
+	Text( 6, "\206 \208\224\231\240\229\248\229\237\232\232 \214\229\240\234\226\232", JumpPage, 10)
+
+	Talk( 7, "\204\224\233\235\224\228\224: \200\227\240\238\234\232 \234\238\242\238\240\251\229 \234\243\239\232\235\232 \225\232\235\229\242\251 \226 \246\229\240\234\238\226\252 \236\238\227\243\242 \239\238\241\229\242\232\242\252 \229\229 \241 17:00 \228\238 17:10 \234\224\230\228\251\233 \239\238\237\229\228\229\235\252\237\232\234.")
+	Text( 7, "\207\238\228\242\226\229\240\228\232\242\252", CloseTalk)
+	Text( 7, "\205\224\231\224\228", JumpPage, 6)
+
+	Talk( 8, "\204\224\233\235\224\228\224: \214\229\240\234\238\226\237\251\233 \192\243\234\246\232\238\237 \239\240\238\245\238\228\232\242 \241 18:00 \228\238 20:30 \234\224\230\228\251\233 \239\238\237\229\228\229\235\252\237\232\234. \204\232\237\232\236\224\235\252\237\251\233 \248\224\227 \224\243\234\246\232\238\237\224: \209\242\224\226\238\247\237\224\255 \234\224\240\242\238\247\234\224. \214\229\240\229\236\238\237\232\232 \239\240\238\226\238\228\255\242\241\255 \239\238 2 \234\224\230\228\251\233 \226\251\245\238\228\237\238\233.")
+	Text( 8, "\207\238\228\242\226\229\240\228\232\242\252", CloseTalk)
+	Text( 8, "\205\224\231\224\228", JumpPage, 6)
+
+	Talk( 9, "\204\224\233\235\224\228\224: \214\229\240\234\238\226\237\251\233 \192\243\234\246\232\238\237 \239\238\228\229\235\229\237 \237\224 4 \239\229\240\232\238\228\224. \207\238\225\229\228\232\242\229\235\252 \239\238\235\243\247\224\229\242 \208\224\231\240\229\248\229\237\232\229 \214\229\240\234\226\232 \232 10 \239\240\232\227\235\224\241\232\242\229\235\252\237\251\245 \225\232\235\229\242\238\226.")
+	Text( 9, "\207\238\228\242\226\229\240\228\232\242\252", CloseTalk)
+	Text( 9, "\205\224\231\224\228", JumpPage, 6)
+
+	Talk( 10, "\204\224\233\235\224\228\224: \208\224\231\240\229\248\229\237\232\229 \214\229\240\234\226\232 \239\238\231\226\238\235\232\242 \234\243\239\232\242\252 \239\240\232\227\235\224\241\232\242\229\235\252\237\251\229 \225\232\235\229\242\251, \228\226\238\233\237\238\229 \237\224\230\224\242\232\229 \239\238 \208\224\231\240\229\248\229\237\232\254 \239\229\240\229\236\229\241\242\232\242 \242\229\225\255 \226 \246\229\240\234\238\226\252. \209\239\243\241\242\255 2 \247\224\241\224 \226\241\229 \243\247\224\241\242\237\232\234\232 \225\243\228\243\242 \226\238\231\226\240\224\249\229\237\251 \226 \216\224\233\242\224\237.")
+	Text( 10, "\207\238\228\242\226\229\240\228\232\242\252", CloseTalk)
+	Text( 10, "\205\224\231\224\228", JumpPage, 6)
+	
+end 
+
+function el_talk11()
+	Talk( 1, "Лури: Добро Пожаловать в Абаддон 7! Хоть Абаддон и страшный, но тут куча возможностей. Абаддон это рай для отважных искателей приключений." )
+end 
+
+function el_talk12()
+	Talk( 1, "Анита: 15 слоев ада, чтобы многие люди которые выжили, оставили там после себя кошмар, только у сельнейшего может быть много чести." ) --Бред, но пофиг оО
+end 
+
+function el_talk13()
+	Talk( 1, "°®µВ»Є:З§ДкµДАъК·±»ЛкФВіѕ°ЈЛщВсФб,Фшѕ­НЕЅб¶шё»ИДµДјУДЙґуВЅТСІ»ёґґжФЪ.Л­»№јЗµГїЁА­Е®ЙсНтДкЗ°ОЄЛэ°®ИЛЛщБфПВµДµгµг±щАб!")
+	Text( 1, "¶Т»»ЙсЖь±¦Пд", JumpPage, 2)
+	
+	Talk( 2, "°®µВ»Є:З§Дк±щАбКЗКШОА°®ИЛµДґзґзПаЛј,ЕуУС!ИзИфДгУРРДїъМЅЕ®Йс·бё»µДѕ«ЙсКАЅз,ЗлґшЙП1ёцЗйЦ®йдєН1ёцДЙїЁ·ыКЇАґ¶Т»»ХвГФК§µДЙсЖь±¦ІШ°Й!")	
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3827, 1)
+	TriggerCondition( 1, HasItem, 3457, 1)
+	TriggerCondition(1, HasLeaveBagGrid, 1)
+	TriggerCondition(1, KitbagLock, 0 )
+	TriggerAction(1, TakeItem, 3827, 1)
+	TriggerAction(1, TakeItem, 3457, 1)
+	TriggerAction(1, GiveItem, 0145, 1, 4)
+	TriggerFailure(1, JumpPage, 3)
+	Text( 2, "Confirm to redeem", MultiTrigger, GetMultiTrigger(), 1) 	
+
+	Talk( 3, "ЕуУС,ЙсБйІ»ИЭЩфдВ,ИзИфДгЙнЙП»№ОґУРЗйЦ®йдєНДЙїЁ·ыКЇ»тКЗДгµД±і°ьёсТСВъ,Зл°ІѕІµДАлїЄ.")
+end
+
+function el_talk14()
+	Talk( 1, "µВВіїЛ:єЩєЩ,ЅьАґМЅС°ґуєЈµБНхВЮЙ­ТЕБф±¦ІШµДИЛЗчЦ®ИфрН,ИґІ»ЦЄД§·Ѕ¶юІгТюІШЧЕТ»ёцѕЄМмµДГШГЬ!ХвАпµДѕЮИЛКЧБмЙнЙПБчМКЧЕД¦¶ыїЛЧеИЛµДСЄТє,ДЗР©Т°ВщµДјТ»пФЪ·ЦБСНБµШК±,І»ЦЄґУНх№¬АпµББЛ¶аЙЩПЎХдТм±¦!")
+	
+	Text( 1, "¶Т»»°ФНх±¦Пд", JumpPage, 2)
+
+	Talk( 2, "µВВіїЛ:ЕуУС,ЕуУС!РЧГНµДД§¶ыїЛИЛГ»°СДгПЕ»µ°Й?КІГґ?ДгЛµДгУРРЕРД°СЛыЙ±ЛА?!ХжКЗЕе·юЕе·ю!ОТГГГГЧоЅьФЪСРЦЖТ»±ъ»рСжЙсЖч,ј±РиХвН·ѕЮИЛЙнЙПµД1ёцѕЮИЛКЧБмПоБґєН1ёцДЙїЁ·ыКЇЧцФ­БП!Из№ыДгДЬ°СХвБЅСщ¶«ОчХТАґ,ОТЅ«ФщУлДг:ОТГГГГЗЧКЦґёБ¶µД°ФНх±¦Пд,єЩєЩ,Ап±ЯµД±¦±ґїЙКЗГГГГ±ПЙъКХВјµДѕ«»Є!!")	
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3826, 1)
+	TriggerCondition( 1, HasItem, 3457, 1)
+	TriggerCondition(1, HasLeaveBagGrid, 1)
+	TriggerCondition(1, KitbagLock, 0 )
+	TriggerAction(1, TakeItem, 3826, 1)
+	TriggerAction(1, TakeItem, 3457, 1)
+	TriggerAction(1, GiveItem, 0146, 1, 4)
+	TriggerFailure(1, JumpPage, 3)
+	Text(2,"Confirm to redeem", MultiTrigger, GetMultiTrigger(), 1) 	
+
+	Talk( 3, "°ҐСЅ°ҐСЅ,Дгѕ№И»»№Г»КХјЇµЅѕЮИЛКЧБмПоБґєНДЙїЁ·ыКЇ»тКЗДг±і°ьМ«ВъБЛ!ДЗёПЅфМУ°Й!!!Д¦¶ыїЛЧеѕЮИЛ·ўЖр»рАґїЙКЗК®·ЦРЧє·аё!")
+end
+
+function el_talk15()
+	Talk( 1, "Д§·ЁК¦ПДМм: ОТµДЕуУСЕбГО±»Д§НхВеїЛІРИМµДЙ±є¦БЛЎЈУВёТµДХЅКї,Из№ыДгДЬ№»ОЄОТХТ»Шґъ±нОТЕуУСБй»кµДЖЯёцЧЦДёP-E-I-M-E-N-GЎЈОТЅ«»б°СОТКХІШ¶аДкµДД§·ЁєРЛНёшДгЎЈ")
+
+	AddNpcMission ( 6139 )
+	AddNpcMission ( 6161 )
+	AddNpcMission ( 6166 )
+end
+
+function el_talk16()
+	Talk( 1, "ВеїЛјТµДКШГЕИЛ: ОТКЗВеїЛґуИЛµДЦТКµјТЖН,ЛдИ»ЛыєЬІРИМ,µ«КЗХвІўІ»·Б°­ОТРАЙНЛыµДДЬБ¦єНЙнІД.")
+	Text( 1, "ОТТЄИҐјЕДЇЦ®Лю1ІгЈЎ", JumpPage, 2 )
+
+	InitTrigger()
+	TriggerCondition( 1, HasMission,1213 )
+	TriggerAction( 1, GoTo, 352, 378, "lonetower")
+	TriggerFailure( 1, JumpPage, 3 )
+	Talk( 2, "ВеїЛјТµДКШГЕИЛ:јЕДЇЦ®ЛюЦ®ЛщТФјЕДЇКЗТтОЄГ»УРјёёц»оИЛ" )
+	Text( 2, "Teleport",MultiTrigger, GetMultiTrigger(), 1 )
+
+
+	Talk( 3, "ВеїЛјТµДКШГЕИЛ:ЕуУСДг»№Г»ЅУ КШГЕИЛНёВ¶µДРЕПў ХвёцИООс°Й?" )
+
+	AddNpcMission ( 6140 )
+end
+
+function el_talk17()
+	Talk( 1, " ВеїЛјТµДДРУ¶: ЦЪЛщЦЬЦЄ,Т»ДїБЛИ»,ОТ±ИВеїЛЛ§,ОЄКІГґЛыµДЗйИЛГЗІ»ХвСщПл......")
+	Text( 1, "ОТТЄИҐКҐБЦЈЎ", JumpPage, 2 )
+
+	InitTrigger()
+	TriggerAction( 1, GoTo, 275, 1775, "garner")
+	Talk( 2, "ВеїЛјТµДДРУ¶:УРїХіЈАґНж,№В¶АµДК±єтЎўїмАЦµДК±єтєНІ»ЦЄµАКЗ·сїмАЦµДК±єт..." )
+	Text( 2, "Teleport",MultiTrigger, GetMultiTrigger(), 1 )
+
+	AddNpcMission ( 6141 )
+	AddNpcMission ( 6142 )
+	AddNpcMission ( 6143 )
+end
+
+function el_talk18()
+	Talk( 1, "ВеїЛјТµДЕ®У¶: ЧчОЄТ»ёцЕ®У¶І»ДЬІ»№ШЧўЧФјєЦчИЛµДЛЅЙъ»о,·сФтИХЧУ»бёьјУОЮБД.")
+
+	AddNpcMission ( 6144 )
+	AddNpcMission ( 6145 )
+	AddNpcMission ( 6146 )
+end
+
+function el_talk19()
+	Talk( 1, " ВеїЛјТµДРЎГШ: ОТЦЄµАОТЖЇББ,І»ТЄґ№ПСОТ.")
+
+	AddNpcMission ( 6147 )
+	AddNpcMission ( 6148 )
+	AddNpcMission ( 6149 )	
+end
+
+function el_talk20()
+	Talk( 1, "ВеїЛјТµДКШ»¤ХЯ: КШ»¤ХЯКЗУГАґЧрѕґµД.ВеїЛКІГґК±єтІЕДЬГч°ЧХвёцµААнДШ")
+
+	AddNpcMission ( 6150 )
+	AddNpcMission ( 6151 )
+	AddNpcMission ( 6152 )
+end
+
+function el_talk21()
+	Talk( 1, "ВеїЛјТµД№ЬјТ: №ЬјТ№ЬјТ,ЦчИЛІ»№ЬѕНКЗОТµДјТ.")
+
+	AddNpcMission ( 6153 )
+	AddNpcMission ( 6154 )
+	AddNpcMission ( 6155 )
+end
+
+function el_talk22()
+	Talk( 1, "Д§НхВеїЛµДЗйИЛ: ОТїЙДЬІ»КЗRockЧоГААцµДЗйИЛ,µ«Т»¶ЁКЗЧо»ЁРДµДТ»ёц.")
+
+	AddNpcMission ( 6156 )
+	AddNpcMission ( 6157 )
+	AddNpcMission ( 6158 )
+
+end
+
+function el_talk23()
+	Talk( 1, "ВеїЛјТµДНъІЖ: НфНфНфНфНфНфНф...ДгНф,ОТНф,ґујТНф!")
+
+	AddNpcMission ( 6159 )
+	AddNpcMission ( 6160 )
+end
+
+function el_talk24()
+	Talk( 1, "ЗпµєµјУОРЎЅг: ЅрЗпЧйНЕУО!»¶У­АґµЅЗпµє,ЅсМмКЗОТµЪТ»ґОµјУО,ЧЈФёДгФЪХвАп¶И№эТ»¶ООВЬ°ГАєГµДК±№в.Р»Р»!")
+
+	AddNpcMission ( 6162 )
+	AddNpcMission ( 6163 )
+	AddNpcMission ( 6164 )
+	AddNpcMission ( 6165 )
+end
+
+function el_talk25()
+	Talk( 1, "ОчГЕЗм: ОчГЕОТЖдКµКЗёцХэѕ­ИЛ,°®Т»ёцИЛУРКІГґґн?Из№ыУРАґЙъ,ОТПЈНыФЪЛщУРДРИЛЦ®З°УцµЅЛэ.")
+
+	AddNpcMission ( 6176 )
+	AddNpcMission ( 6178 )
+	AddNpcMission ( 6181 )
+	AddNpcMission ( 6183 )	
+end
+
+function el_talk26()
+	Talk( 1, " ПДµєґ«ЛНК№Ў¤°¬ГЙ: ТтОЄОТ°®ЙПВГРР,ЛщТФОТЧцБЛґ«ЛНК№,ЛН±рИЛИҐВГРР.")
+	Text( 1, "ОТТЄИҐЗпµє!", JumpPage, 2 )
+
+	InitTrigger()
+	TriggerCondition( 1, HasMoney, 500 )
+	TriggerAction( 1, TakeMoney, 500 )
+	TriggerAction( 1, GoTo, 2414,3174, "darkblue")
+	TriggerFailure( 1, JumpPage, 3 )
+	Talk( 2, "ПДµєґ«ЛНК№Ў¤°¬ГЙ:К±їМПнКЬИЛЙъµДГАѕ°..." )
+	Text( 2, "Teleport",MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 3, "ПДµєґ«ЛНК№Ў¤°¬ГЙ:ЕуУС,ДгєГґхТІґш500їйіцГЕ°Ў!·сФт±рИЛ»бИПОЄДгГ»ГжЧУ" )
+end
+
+function el_talk27()
+	Talk( 1, "ВуИр: КҐµ®їмАЦ!ФёДгµГµЅКАЙПЧоХжЦїГАєГµДЧЈёЈ.ПлТЄДГµЅЧоУХИЛµДКҐµ®АсОпВр?ИҐЙМіЗВтТ»ХЕКҐµ®»¤ЛНЧКёсЦ¤ДгѕНїЙТФФЪОТХвАпЅУИЎ»¤ЛНКҐµ®АПИЛµДИООсБЛ.")
+end
+
+function el_talk28()
+	Talk( 1, "їЛИрЛ№ДЄЛ№: КҐµ®їмАЦ!ДгМэЛµ№эКҐµ®ґеВр?ДЗКЗТ»ёцідВъїмАЦµДМмМГ.")
+end
+
+function el_talk29()
+	Talk( 1, "міР»МШ:КҐµ®їмАЦ!»ЄАцОВЬ°µДКҐµ®ЅЪФхГґїЙТФГ»УРГАО¶µДКҐµ®СзДШ?" )		
+	Text(1, "Cooking delicious turkey meat", JumpPage, 2)
+	Text(1, "Cook Christmas Dinner", JumpPage, 5)
+	
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2886, 10 )
+	TriggerCondition( 1, HasMoney, 10000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeMoney, 10000 )
+	TriggerAction( 1, TakeItem, 2886,10 )
+	TriggerAction( 1, GiveItem, 2895, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4)
+	Talk( 2, "міР»МШ:ОТРиТЄФ­ІДБП10ёц»рј¦Ив,µ±И»Дг»№ТЄЦ§ё¶ёшОТ10000єЈµБ±ТµДРБїа·С")
+	Text(2, "Confirm to cook",  MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk(3, "міР»МШ:ХвКЗОТѕ«РДЕлµчµДГАО¶»рј¦Ив,ёПїміўіў,О¶µАФхГґСщ?" )
+
+	Talk( 5, "міР»МШ:ЧцКҐµ®ґуІНа¶,ГїИЛЦ»ПЮИэґОЕ¶!")
+	Text( 5, "The first Christmas Cooking Contest",  JumpPage, 6)
+	Text( 5, "Second Set of Christmas Dinner",  JumpPage, 7)
+	Text( 5, "Third time making Christmas Dinner", JumpPage, 8)
+
+	InitTrigger()
+	TriggerCondition( 1, NoRecord, 815 )
+	TriggerCondition( 1, HasItem, 2895, 10 )
+	TriggerCondition( 1, HasItem, 2894, 1 )
+	TriggerCondition( 1, HasMoney, 10000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeMoney, 10000 )
+	TriggerAction( 1, TakeItem, 2895,10 )
+	TriggerAction( 1, TakeItem, 2894,1 )
+	TriggerAction( 1, GiveItem, 2898, 1 , 4)
+	TriggerAction( 1, SetRecord, 815 )
+	TriggerAction( 1, JumpPage, 12 )
+	TriggerFailure( 1, JumpPage, 9 )
+	Talk( 6, "To make a good Christmas Dinner is not simple. I required 10 slices of Tasty Turkey Meat and 1 Christmas Rose. Christmas Rose seems to be found in the Item Mall. Beside paying me 10000G for the troublle, you can only make the Christmas Dinner 3 times.")
+	Text( 6, "Confirm to cook",  MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasRecord, 815 )
+	TriggerCondition( 1, NoRecord, 816 )
+	TriggerCondition( 1, HasItem, 2895, 10 )
+	TriggerCondition( 1, HasItem, 2894, 1 )
+	TriggerCondition( 1, HasMoney,1000000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeMoney, 1000000 )
+	TriggerAction( 1, TakeItem, 2895,10 )
+	TriggerAction( 1, TakeItem, 2894,1 )
+	TriggerAction(1, GiveItem, 2898, 1 , 4)
+	TriggerAction( 1, SetRecord, 816 )
+	TriggerAction( 1, JumpPage, 12 )
+	TriggerFailure( 1, JumpPage, 10 )
+	Talk( 7, "Making Christmas Dinner again? I required 10 slices of Tasty Turkey Meat and 1 Christmas Rose. Christmas Rose seems to be found in the Item Mall. Beside paying me 1000000G for the troublle, you can only make the Christmas Dinner 3 times.")
+	Text( 7, "Confirm to cook",  MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasRecord, 816 )
+	TriggerCondition( 1, NoRecord, 817 )
+	TriggerCondition( 1, HasItem, 2895, 10 )
+	TriggerCondition( 1, HasItem, 2894, 1 )
+	TriggerCondition( 1, HasMoney, 10000000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeMoney, 10000000 )
+	TriggerAction( 1, TakeItem, 2895,10 )
+	TriggerAction( 1, TakeItem, 2894,1 )
+	TriggerAction( 1, GiveItem, 2898, 1 , 4)
+	TriggerAction( 1, SetRecord, 817 )
+	TriggerAction( 1, JumpPage, 12 )
+	TriggerFailure( 1, JumpPage,11 )
+	Talk( 8,  "Making Christmas Dinner again? I required 10 slices of Tasty Turkey Meat and 1 Christmas Rose. Christmas Rose seems to be found in the Item Mall. Besides paying me 10000G for the troublle, you can only make the Christmas Dinner 3 times.")
+	Text( 8,  "Confirm to cook",  MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 9,  "міР»МШ:ДъЙнЙПЛЖєхГ»УРЧг№»УГАґЕлЦЖµДОпЖ·»тЅрЗ®°Ў!ДъµД±і°ьЦБЙЩТЄУРТ»ёцїХёсЕ¶.ДгИ·¶ЁКЗµЪТ»ґОЧцКҐµ®ґуІНВр?Ц»ДЬЧц3ґО.")
+	Talk( 10, "міР»МШ:ДъЙнЙПЛЖєхГ»УРЧг№»УГАґЕлЦЖµДОпЖ·»тЅрЗ®°Ў!ДъµД±і°ьЦБЙЩТЄУРТ»ёцїХёсЕ¶.ДгИ·¶ЁКЗµЪ¶юґОЧцКҐµ®ґуІНВр?Ц»ДЬЧц3ґОЕ¶.")
+	Talk( 11, "міР»МШ:ДъЙнЙПЛЖєхГ»УРЧг№»УГАґЕлЦЖµДОпЖ·»тЅрЗ®°Ў!ДъµД±і°ьЦБЙЩТЄУРТ»ёцїХёсЕ¶.ДгИ·¶ЁКЗµЪИэґОЧцКҐµ®ґуІНВр?Ц»ДЬЧц3ґОЕ¶.")
+	Talk( 4,  "міР»МШ:ДъЙнЙПЛЖєхГ»УРЧг№»УГАґЕлЦЖµДОпЖ·»тЅрЗ®°Ў!ЗлИ·±ЈДъµД±і°ьОґЛш¶Ё,ІўЗТЦБЙЩТЄУРТ»ёцїХёсЕ¶.")
+	Talk( 12, "міР»МШ:ХвКЗОТѕ«РДЕлµчµДКҐµ®ґуІН,ёПїміўіў,О¶µАФхГґСщ?" )
+	AddNpcMission ( 6191 )
+end 
+
+function el_talk30()
+	
+	InitFuncList()
+	AddFuncList( GiveItem,	0817	,	1	,	4)
+	AddFuncList( GiveItem,	0818	,	1	,	4)
+	AddFuncList( GiveItem,	0819	,	1	,	4)
+	AddFuncList( GiveItem,	0867	,	1	,	4)
+	AddFuncList( GiveItem,	0868	,	1	,	4)
+	AddFuncList( GiveItem,	0869	,	1	,	4)
+	AddFuncList( GiveItem,	0872	,	1	,	4)
+	AddFuncList( GiveItem,	0873	,	1	,	4)
+	AddFuncList( GiveItem,	0874	,	1	,	4)
+	AddFuncList( GiveItem,	1630	,	2	,	4)
+	AddFuncList( GiveItem,	1631	,	1	,	4)
+	AddFuncList( GiveItem,	1632	,	1	,	4)
+	AddFuncList( GiveItem,	1633	,	2	,	4)
+	AddFuncList( GiveItem,	1634	,	1	,	4)
+	AddFuncList( GiveItem,	1635	,	1	,	4)
+	AddFuncList( GiveItem,	1636	,	2	,	4)
+	AddFuncList( GiveItem,	1637	,	1	,	4)
+	AddFuncList( GiveItem,	1638	,	1	,	4)
+	AddFuncList( GiveItem,	1639	,	2	,	4)
+	AddFuncList( GiveItem,	1640	,	1	,	4)
+	AddFuncList( GiveItem,	1641	,	1	,	4)
+	AddFuncList( GiveItem,	1642	,	2	,	4)
+	AddFuncList( GiveItem,	1643	,	1	,	4)
+	AddFuncList( GiveItem,	1644	,	1	,	4)
+	AddFuncList( GiveItem,	3360	,	1	,	4)
+	AddFuncList( GiveItem,	3361	,	1	,	4)
+	AddFuncList( GiveItem,	3362	,	1	,	4)
+	AddFuncList( GiveItem,	3363	,	1	,	4)
+	AddFuncList( GiveItem,	3364	,	1	,	4)
+	AddFuncList( GiveItem,	3365	,	1	,	4)
+	AddFuncList( GiveItem,	3366	,	1	,	4)
+	AddFuncList( GiveItem,	3367	,	1	,	4)
+	AddFuncList( GiveItem,	3425	,	1	,	4)
+	AddFuncList( GiveItem,	3426	,	1	,	4)
+	AddFuncList( GiveItem,	3427	,	1	,	4)
+	AddFuncList( GiveItem,	3428	,	1	,	4)
+	AddFuncList( GiveItem,	3429	,	1	,	4)
+	AddFuncList( GiveItem,	3430	,	1	,	4)
+	AddFuncList( GiveItem,	3431	,	1	,	4)
+	AddFuncList( GiveItem,	3432	,	1	,	4)
+	AddFuncList( GiveItem,	3433	,	1	,	4)
+	AddFuncList( GiveItem,	1804	,	1	,	4)
+	AddFuncList( GiveItem,	1805	,	1	,	4)
+	AddFuncList( GiveItem,	1806	,	1	,	4)
+	AddFuncList( GiveItem,	1807	,	1	,	4)
+	AddFuncList( GiveItem,	1808	,	1	,	4)
+	AddFuncList( GiveItem,	1809	,	1	,	4)
+	AddFuncList( GiveItem,	1810	,	1	,	4)
+	AddFuncList( GiveItem,	1811	,	1	,	4)
+	AddFuncList( GiveItem,	1787	,	1	,	4)
+	AddFuncList( GiveItem,	1788	,	1	,	4)
+	AddFuncList( GiveItem,	1789	,	1	,	4)
+	AddFuncList( GiveItem,	1790	,	1	,	4)
+	AddFuncList( GiveItem,	1791	,	1	,	4)
+	AddFuncList( GiveItem,	1792	,	1	,	4)
+	AddFuncList( GiveItem,	1793	,	1	,	4)
+	AddFuncList( GiveItem,	3930	,	1	,	4)
+	AddFuncList( GiveItem,	3931	,	1	,	4)
+	AddFuncList( GiveItem,	3932	,	1	,	4)
+	AddFuncList( GiveItem,	3930	,	1	,	4)
+	AddFuncList( GiveItem,	3931	,	1	,	4)
+	AddFuncList( GiveItem,	3932	,	1	,	4)
+	AddFuncList( GiveItem,	3930	,	1	,	4)
+	AddFuncList( GiveItem,	3931	,	1	,	4)
+	AddFuncList( GiveItem,	3932	,	1	,	4)
+	AddFuncList( GiveItem,	3930	,	1	,	4)
+	AddFuncList( GiveItem,	3931	,	1	,	4)
+	AddFuncList( GiveItem,	3932	,	1	,	4)
+	AddFuncList( GiveItem,	3930	,	1	,	4)
+	AddFuncList( GiveItem,	3931	,	1	,	4)
+	AddFuncList( GiveItem,	3932	,	1	,	4)
+	AddFuncList( GiveItem,	3930	,	1	,	4)
+	AddFuncList( GiveItem,	3930	,	1	,	4)
+	AddFuncList( GiveItem,	3931	,	1	,	4)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3927, 1 )
+	TriggerCondition( 1, HasMoney, 200 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeMoney, 200 )
+	TriggerAction( 1, TakeItem, 3927, 1 )
+	TriggerAction( 1, RandFunction, GetFuncList(), GetNumFunc() )
+	TriggerFailure( 1, JumpPage, 2 )
+	Talk( 1, "КҐµ®їмАЦ!ХвКЗТ»МЁ№ЕАПµДЗеПґ»ъ,ФЪХвАпїЙТФПґµУДгµДТ»ЗР,ДгРиТЄЗеПґГґ?ГїґО200G." )
+	Text( 1, "Cleanse Mud", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 1, "Cleanse Christmas Box", JumpPage, 3)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2892, 1 )
+	TriggerCondition( 1, HasMoney, 10000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeMoney, 10000 )
+	TriggerAction( 1, TakeItem, 2892, 1 )
+	TriggerAction( 1, GiveItem, 2893, 1 , 4)
+	TriggerAction( 1, JumpPage, 4)
+	TriggerFailure( 1, JumpPage, 2 )
+	Talk( 3, "Woah! What a dirty box! You need to pay 10000G to clean such a dirty box." )
+	Text( 3, "Comfirm to clean", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 4, "What a beautiful chest! Open it for some surprises" )
+	Talk( 2, "Failed to clean the item. Insufficient gold or does not possess the required item" )
+	AddNpcMission ( 6195 )
+end
+--------------------------------------------------------------------------------------------------------------------
+--													el_talk (Конец)											  	  --
+--------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------
+--													b_talk (Начало)											  	  --
+--------------------------------------------------------------------------------------------------------------------
+function b_talk25()
+	Popup( LifeSkillBegin , 3 )	
+end 
+
+function b_talk26()
+	Popup( LifeSkillBegin , 2 )	
+end 
+
+function b_talk27()
+	Popup( LifeSkillBegin , 0 )
+end 
+
+function b_talk28()
+	Popup( LifeSkillBegin , 1 )	
+end 
+--------------------------------------------------------------------------------------------------------------------
+--													b_talk (Конец)											  	  --
+--------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------
+--													leo_talk (Начало)											  --
+--------------------------------------------------------------------------------------------------------------------
+function leo_talkaa()
+	Talk( 1, "Возьмусь за любую работу! Качество гарантирую!" )
+	Text( 1, "Посмотреть ассортимент ", SendExchangeXData)
+
+	InitExchangeX()
+
+	ExchangeDataX(	3989	,	99	,	3999	,	20	,	1)
+	ExchangeDataX(	3990	,	99	,	4000	,	20	,	1)
+	ExchangeDataX(	3991	,	99	,	4001	,	20	,	1)
+	ExchangeDataX(	3992	,	99	,	4002	,	20	,	1)
+	ExchangeDataX(	3993	,	99	,	4003	,	20	,	1)
+	ExchangeDataX(	3994	,	99	,	4004	,	20	,	1)
+	ExchangeDataX(	3995	,	99	,	4005	,	20	,	1)
+	ExchangeDataX(	3996	,	99	,	4006	,	20	,	1)
+	ExchangeDataX(	3997	,	99	,	4007	,	20	,	1)
+	ExchangeDataX(	3998	,	99	,	4008	,	20	,	1)
+end
+
+function leo_talkbb()
+	Talk( 1, "Не приходи, если у тебя нет денег!" )
+	Text( 1, "У меня есть только деньги.", SendExchangeXData)
+
+	InitExchangeX()
+
+	ExchangeDataX(	4029	,	99	,	4039	,	20	,	1)
+	ExchangeDataX(	4030	,	99	,	4040	,	20	,	1)
+	ExchangeDataX(	4031	,	99	,	4041	,	20	,	1)
+	ExchangeDataX(	4032	,	99	,	4042	,	20	,	1)
+	ExchangeDataX(	4033	,	99	,	4043	,	20	,	1)
+	ExchangeDataX(	4034	,	99	,	4044	,	20	,	1)
+	ExchangeDataX(	4035	,	99	,	4045	,	20	,	1)
+	ExchangeDataX(	4036	,	99	,	4046	,	20	,	1)
+	ExchangeDataX(	4037	,	99	,	4047	,	20	,	1)
+	ExchangeDataX(	4038	,	99	,	4048	,	20	,	1)
+	ExchangeDataX(	1670	,	99	,	1671	,	20	,	1)
+	ExchangeDataX(	1668	,	99	,	3368	,	20	,	1)
+	ExchangeDataX(	1667	,	99	,	3360	,	20	,	1)
+	ExchangeDataX(	1642	,	99	,	1643	,	20	,	1)
+	ExchangeDataX(	4825	,	99	,	1638	,	20	,	1)
+	ExchangeDataX(	1633	,	99	,	1641	,	20	,	1)
+	ExchangeDataX(	1782	,	99	,	1769	,	20	,	1)
+	ExchangeDataX(	2815	,	99	,	1775	,	20	,	1)
+	ExchangeDataX(	1674	,	99	,	1767	,	20	,	1)
+	ExchangeDataX(	4832	,	99	,	2901	,	20	,	1)
+end
+
+function leo_talkcc()
+	Talk( 1,  "Не покупайте ничего у Торговца черного рынка. Он жульничает! Лучше покупайте у меня." )
+	Text( 1,  "Дайте взглянуть на ваши вещи. ", SendExchangeXData)
+	
+	InitExchangeX()
+	ExchangeDataX(	855		,	60	,	2617	,	1	,	1)
+	ExchangeDataX(	2588	,	3	,	2619	,	1	,	1)
+	ExchangeDataX(	2588	,	20	,	2622	,	1	,	1)
+	ExchangeDataX(	2589	,	5	,	2624	,	1	,	1)
+	ExchangeDataX(	2588	,	3	,	2640	,	1	,	1)
+	ExchangeDataX(	855		,	60	,	2641	,	1	,	1)
+	ExchangeDataX(	2588	,	20	,	2642	,	1	,	1)
+	ExchangeDataX(	2588	,	20	,	2643	,	1	,	1)
+	ExchangeDataX(	2588	,	50	,	2644	,	1	,	1)
+	ExchangeDataX(	2588	,	50	,	2649	,	1	,	1)
+	ExchangeDataX(	855		,	100	,	1055	,	1	,	1)
+	ExchangeDataX(	2588	,	100	,	1056	,	1	,	1)
+	ExchangeDataX(	855		,	100	,	1058	,	1	,	1)
+	ExchangeDataX(	2588	,	100	,	1059	,	1	,	1)
+	ExchangeDataX(	855		,	100	,	1061	,	1	,	1)
+	ExchangeDataX(	2588	,	100	,	1062	,	1	,	1)
+	ExchangeDataX(	855		,	100	,	1064	,	1	,	1)
+	ExchangeDataX(	2588	,	100	,	1065	,	1	,	1)
+	ExchangeDataX(	855		,	10	,	2680	,	1	,	1)
+	ExchangeDataX(	855		,	50	,	2681	,	1	,	1)
+	ExchangeDataX(	855		,	300	,	2682	,	1	,	1)
+	ExchangeDataX(	2588	,	10	,	2683	,	1	,	1)
+	ExchangeDataX(	2588	,	50	,	2684	,	1	,	1)
+	ExchangeDataX(	2588	,	300	,	2685	,	1	,	1)
+	ExchangeDataX(	855		,	10	,	2690	,	1	,	1)
+	ExchangeDataX(	855		,	50	,	2691	,	1	,	1)
+	ExchangeDataX(	855		,	300	,	2692	,	1	,	1)
+	ExchangeDataX(	2588	,	10	,	2693	,	1	,	1)
+	ExchangeDataX(	2588	,	50	,	2694	,	1	,	1)
+	ExchangeDataX(	2588	,	300	,	2695	,	1	,	1)
+	ExchangeDataX(	855		,	10	,	2700	,	1	,	1)
+	ExchangeDataX(	855		,	50	,	2701	,	1	,	1)
+	ExchangeDataX(	855		,	300	,	2702	,	1	,	1)
+	ExchangeDataX(	2588	,	10	,	2703	,	1	,	1)
+	ExchangeDataX(	2588	,	50	,	2704	,	1	,	1)
+	ExchangeDataX(	2588	,	300	,	2705	,	1	,	1)
+	ExchangeDataX(	855		,	10	,	2710	,	1	,	1)
+	ExchangeDataX(	855		,	50	,	2711	,	1	,	1)
+	ExchangeDataX(	855		,	300	,	2712	,	1	,	1)
+	ExchangeDataX(	2588	,	10	,	2713	,	1	,	1)
+	ExchangeDataX(	2588	,	50	,	2714	,	1	,	1)
+	ExchangeDataX(	2588	,	300	,	2715	,	1	,	1)
+end
+
+function Leo_talkQ()
+	Talk(1, "Представитель порядка, закона и правосудия! Я помогу вам связаться с ГМом.")
+	Text(1, "Узнать подробности ",JumpPage,2)
+	Text(1, "Задать вопрос " , OpenGMSend)
+	Text(1, "Проверить ответы " , OpenGMRecv)
+
+	Talk(2, "Я помощник ГМов. Я передаю им вопросы и возвращаю назад ответы от них. Вопрос не должен иметь больше 256 знаков или 128 слов. Одновременно вы можете задать лишь 1 вопрос. Пока вы не получите на него ответа задать другой вы не сможете. Пожалуйста задавайте вопросы только касательно игры!")
+	Text(2, "Я понял " , CloseTalk)
+end
+
+function leo_talkzz()
+	Talk( 1, "Привет! Я НПС поддержки. Я помогаю игрокам решить некоторые проблемы.")
+	Text( 1, "Неверное количество очков Хаоса ",JumpPage,2)
+	Text( 1, "Проблема с Картой перерождения ",JumpPage,3)
+
+	Talk( 3, "Привет! У вас проблема с Картой перерождения? Такое иногда случается. У меня вы можете восстановить свою карту.")
+	Text( 3, "Восстановить ",GetChaName_25, 1) 
+
+	Talk( 2, "Если у вас проблема с очками Хаоса, то я могу их сбросить до нуля.")
+	Text( 2, "Сбросьте очки Хаоса ",PKPointToZero)
+	Text( 2, "Нет, у меня все в порядке ",CloseTalk)
+end
+--------------------------------------------------------------------------------------------------------------------
+--													leo_talk (Конец)											  --
+--------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------
+--													max_talka (Начало)											  --
+--------------------------------------------------------------------------------------------------------------------
+function max_talka1()
+	Talk( 1, "Assistant - Blue: Hi, I am Assistant - Blue. I can help you with any problem encountered while using Substance Analyzation Tool. How may I help you?" )
+	Text( 1, "What is Substance Analyzation Tool?", JumpPage ,2)
+	Text( 1, "Can I use the Substance Analyzation Tool?", JumpPage ,7)
+	Text( 1, "How do Substance Analyzation Tool work?", JumpPage ,3)
+	Text( 1, "What can the Substance Analyzation Tool analyze?", JumpPage ,4)
+	Text( 1, "I have no issue. I am only passing by!", JumpPage ,6)
+
+	Talk( 2, "Assistant - Blue: Substance Analyzation Tool is a mysterious instrument of nature. It allows you to analyze and restore an item into its original state." )
+	Text( 2, "I still have other questions", JumpPage ,1)
+	Text( 2, "I see.. I don't have any more questions, thank you!", CloseTalk)
+
+	Talk( 3, "Assistant - Blue: First you need to prepare the fairy, tools and catalyst for analyzation. Access the instrument and place the items into their respective slots. During the process, you can see a 5-digit number on the left side of the display. When the number on the right side of the display is lower than that number, your analyzation is successful." )
+	Text( 3, "Will it be life-threatening if it fail?", JumpPage ,5)
+	Text( 3, "You mentioned about tool just now?", JumpPage ,9)
+	Text( 3, "I have other questions", JumpPage ,1)
+	Text( 3, "I see.. I don't have any more questions, thank you!", CloseTalk)
+
+	Talk( 4, "Assistant - Blue: Substance Analyzation Tool allows a weapon or equipment, with the correct catalyst, to breakdown into the original material. Addition of different catalyst might obtain different effect. You might be surprised!" )
+	Text( 4, "How can I get Catalyst?", JumpPage ,8)
+	Text( 4, "I still have other questions", JumpPage ,1)
+	Text( 4, "I see.. I don't have any more questions, thank you!", CloseTalk)
+
+	Talk( 5, "Assistant - Blue: Haha! Do not worry about our Substance Analyzation Tool. It is very safe and will not harm your pet. However, items and catalyst used will disppeared if Analyzation failed.")
+	Text( 5, "I have other questions", JumpPage ,1)
+	Text( 5, "I see.. I don't have any more questions, thank you!", CloseTalk)
+
+	Talk( 6, "Assistant - Blue: Hope that you pass by here happily!")
+	Text( 6, "Continute to walk pass!", CloseTalk)
+
+	Talk( 7, "Assistant - Blue: Of course you can, But first you need to buy an Analyze Guide from the Grocer's. After reading through it, you will be able to start trying.")
+	Text( 7, "I have other questions", JumpPage ,1)
+	Text( 7, "I see.. I don't have any more questions, thank you!", CloseTalk)
+
+	Talk( 8, "Assistant - Blue: You can purchase any catalyst from our Item Mall" )
+	Text( 8, "I have other questions", JumpPage ,1)
+	Text( 8, "I see.. I don't have any more questions, thank you!", CloseTalk)
+
+	Talk( 9, "Assistant - Blue: Tools are item that increases success rate. Please note that manufacturing skill of pet fairy must be higher than the level of tools to be made." )
+	Text( 9, "I have other questions", JumpPage ,1)
+	Text( 9, "I see.. I don't have any more questions, thank you!", CloseTalk)
+
+end
+
+function max_talka2()
+	Talk( 1, "Matchstick Granny: Hello young man, I'm matchstick Granny. When I was young, I was the most famous chef! Haha! What can I do for you?" )
+	Text( 1, "I would like to know where I can cook", JumpPage ,2)
+	Text( 1, "Can I learn cooking?", JumpPage ,3)
+	Text( 1, "Can you teach me how to cook?", JumpPage ,4)
+	Text( 1, "Are the things made that special?", JumpPage ,5)
+	Text( 1, "I am only passing by", JumpPage ,6)
+
+	Talk( 2, "Matchstick Granny: We should treasure the world limited resource - Fire. It can allow us to cook tasty dishes." )
+	Text( 2, "Enquire about other questions", JumpPage ,1)
+	Text( 2, "Thank you Granny, I understand now.", CloseTalk)
+
+	Talk( 3, "Matchstick Granny: Haha of course. But you need to go to the Grocers to buy a Cooking Guide that I have written. After you have understand the basic knowledge, you will be able to start." )
+	Text( 3, "I would like to enquire about other questions", JumpPage ,1)
+	Text( 3, "Thank you Granny, I understand now.", CloseTalk)
+
+	Talk( 4, "Matchstick Granny: Cooking is a great skill. You should be thankful to our God for being able to use such powers. Firstly, you need to have a fairy, cooking recipe, cooking tools and lastly, ingredients for cooking. Next you need to place the things in their respective places. Remember not to place them wrongly. Once everything is ready, you can start cooking. The fire must be controlled nicely, or the things might get burnt. Wastage of food is a sin!" )
+	Text( 4, "When will the fire be just nice?", JumpPage ,7)
+	Text( 4, "I would like to enquire about other questions", JumpPage ,1)
+	Text( 4, "Thank you Granny, I understand now.", CloseTalk)
+
+	Talk( 5, "Matchstick Granny: If the boiling water is of the right temperature, the food you cooked will be delicious. Food can not only fill up your stomach, some of them have special effect as well. It is rumored that ancient warriors eat Codfish Steamboat to gain enormous strength!" )
+	Text( 5, "I would like to enquire about other questions", JumpPage ,1)
+	Text( 5, "Thank you Granny, I understand now.", CloseTalk)
+
+	Talk( 6, "Matchstick Granny: Hope you will pass by happily! May God bless you!")
+	Text( 6, "I'm really just passing by", CloseTalk)
+
+	Talk( 7, "Matchstick Granny: It means the bottom line reaches 75%. You have no knowledge at all!")
+	Text( 7, "I would like to enquire about other questions", JumpPage ,1)
+	Text( 7, "Thank you Granny, I understand now.", CloseTalk)
+
+end
+
+function max_talka3()
+	Talk( 1, "Furnace Artificer - Mel: Hi! Looking for me?" )
+	Text( 1, "Tell me what can the Furnace do", JumpPage ,2)
+	Text( 1, "How to use the Furnace?", JumpPage ,3)
+	Text( 1, "Can tell me the secret of the Furnace?", JumpPage ,4)
+	Text( 1, "I'm just passing through.", JumpPage ,5)
+
+	Talk( 2, "Furnace Artificer - Mel: Haha want to forge your own weapon and equipments? Then this is a must. Its an inheritance from my father. Its said that my father used this to forge a whole nation's army's equipment." )
+	Text( 2, "I would like to enquire about other questions", JumpPage ,1)
+	Text( 2, "So this is it. I understand now.", CloseTalk)
+
+	Talk( 3, "Furnace Artificer - Mel: Hoho! Do you wish to use? If you can understand the 'Novice Manufacturing Guide' sold by the Groceror, I will let you try for free! Do you understand at all? Hoho!" )
+	Text( 3, "I would like to enquire about other questions", JumpPage ,1)
+	Text( 3, "So this is it. I understand now.", CloseTalk)
+
+	Talk( 4, "Furnace Artificer - Mel: You will need to have a pet fairy. After that, find a blueprint and place in the materials into the Furnace accordingly to start crafting. When you see the dices shake, you will need to guess big or small. Your guess determine the outcome of crafting." )
+	Text( 4, "How do I craft better things?", JumpPage ,7)
+	Text( 4, "So this is it. I understand now.", CloseTalk)
+
+	Talk( 7, "Furnace Artificer - Mel: During the process of manufacturing, you can add in material with magical properties. It will enhanced the product greatly. However, your pet will have to be of higher level." )
+	Text( 7, "I would like to enquire about other questions", JumpPage ,1)
+	Text( 7, "So this is it. I understand now.", CloseTalk)
+
+	Talk( 5, "Furnace Artificer - Mel: Are you Wolf? Passing by here?")
+	Text( 5, "I am only passing by", CloseTalk)
+
+end
+
+function max_talka4()
+	Talk( 1, "Graduate: Hi, is there anything I can do for you?" )
+	Text( 1, "What is it above you", JumpPage ,2)
+	Text( 1, "Can I use Substance Generator?", JumpPage ,3)
+	Text( 1, "How do Substance Generator work?", JumpPage ,4)
+	Text( 1, "What item can it generate?", JumpPage ,5)
+	Text( 1, "I'm just passing through.", JumpPage ,6)
+
+	Talk( 2, "Graduate: This is our latest invention: Substance Generator. We can now refine metals with it!" )
+	Text( 2, "I would like to enquire about other questions", JumpPage ,1)
+	Text( 2, "So this is it. I understand now.", CloseTalk)
+
+	Talk( 3, "Graduate: First, go to a Groceror to buy the Novice Manufacturing Guide. After you have read through the basics, you will be able to start trying on your own." )
+	Text( 3, "I would like to enquire about other questions", JumpPage ,1)
+	Text( 3, "So this is it. I understand now.", CloseTalk)
+
+	Talk( 4, "Graduate: To ensure that the power of Substance Generator comes under control, you will need to have a pet fairy. Place the Manufacturing Blueprint and Material into the Substance Generator accordingly and click the button to process." )
+	Text( 4, "Are there different results?", JumpPage ,7)
+	Text( 4, "I would like to enquire about other questions", JumpPage ,1)
+	Text( 4, "So this is it. I understand now.", CloseTalk)
+
+	Talk( 5, "Graduate: As it is a copy of the original smelting technique, it is not as wondrous. But if you follow strictly to the formulas, you will not be disappointed." )
+	Text( 5, "I would like to enquire about other questions", JumpPage ,1)
+	Text( 5, "So this is it. I understand now.", CloseTalk)
+
+	Talk( 6, "Graduate: Looks like you are")
+	Text( 6, "I am really only passing by", CloseTalk)
+
+	Talk( 7, "Graduate: As we are not the Almighty, what we create are not perfect. To distinguish the quality of the product we have seperate it accordingly in ascending order:                  Thank you     Abysmal                            Terrible                           Bad                                  Poor                            Mediocre                          Fair                              Good                                Great                              Superb                            Perfect .")
+	Text( 7, "I would like to enquire about other questions", JumpPage ,1)
+	Text( 7, "So this is it. I understand now.", CloseTalk)
+end
+--------------------------------------------------------------------------------------------------------------------
+--													max_talka (Конец)											  --
+--------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------
+--													amon_talk (Начало)											  --
+--------------------------------------------------------------------------------------------------------------------
+function amon_talk1()
+	Talk( 1, "ФВАП: Т»ёщємПЯ,БЅґ¦ЗйФµ.µАІ»НкИЛјдЗйКВ.")
+end
+
+function amon_talk2()
+	Talk( 1, "ЕЈАЙ: ПаѕЫ¶М,ТшєУі¤.УЖУЖИµЗЕВ·,АґИЛВ·,АлИЛВ·.")
+end
+
+function amon_talk3()
+	Talk( 1, "ЦЇЕ®: ПаѕЫ¶М,ЛјДоі¤.УЖУЖИµЗЕВ·,АлИЛВ·,АґИЛВ·.")
+end
+--------------------------------------------------------------------------------------------------------------------
+--													amon_talk (Конец)											  --
+--------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------
+--													dina_talk (Начало)											  --
+--------------------------------------------------------------------------------------------------------------------
+function dina_talk01()
+	Talk( 1, "РЈі¤АЧЕµ: КојЩТСѕ­№эИҐЈ¬БЅёцФВµДі¤јЩЦ®єуЈ¬У­АґБЛРВµДС§ЖЪЎЈ")
+
+	AddNpcMission ( 6127 )
+	AddNpcMission ( 6128 )
+	AddNpcMission ( 6129 )
+	AddNpcMission ( 6130 )
+	AddNpcMission ( 6131 )
+end
+
+function dina_talk02()
+	Talk( 1, "°єАтДИАПК¦: РВС§ЖЪЈ¬РВїЄКјЈ¬С§ОЮЦ№ѕі~")
+	
+	InitTrigger()
+	TriggerCondition( 1, HasMission, 1458)
+	TriggerCondition( 1, NoRecord, 1458)
+	TriggerCondition( 1, NoRecord, 1461)
+	TriggerCondition( 1, HasItem, 579, 1)
+	TriggerAction( 1, JumpPage, 2)
+	TriggerAction( 1, SetTestTime )
+	TriggerFailure( 1, JumpPage, 20)
+	Text( 1, "ІОјУИлС§їјКФ",MultiTrigger, GetMultiTrigger(), 1  )
+	
+	Talk( 2, "ОКМвТ»:јЩЖЪ»¶АЦФУЦѕКЗ·сїЙЅ»ТЧ?")
+
+	InitTrigger()
+	TriggerAction( 1, RenewTestTime2)
+	TriggerAction( 1, JumpPage, 3)
+	Text( 2, "їЙЅ»ТЧ",MultiTrigger, GetMultiTrigger(), 1  )
+	
+	InitTrigger()
+	TriggerAction( 1, RenewTestTime1)
+	TriggerAction( 1, JumpPage, 3)
+	Text( 2, "І»їЙЅ»ТЧ",MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 3, "ОКМв¶ю:NPCїЛА­А­ґуК¦ФЪДЗёцІ№ёшХѕ?")
+
+	InitTrigger()
+	TriggerAction( 1, JumpPage, 4)
+	TriggerAction( 1, RenewTestTime2)
+	Text( 3, "Icicle Haven",MultiTrigger, GetMultiTrigger(), 1  )
+	
+	InitTrigger()
+	TriggerAction( 1, RenewTestTime1)
+	TriggerAction( 1, JumpPage, 4)
+	Text( 3, "Icespire Haven",MultiTrigger, GetMultiTrigger(), 1  )
+
+	Talk( 4, "ОКМвИэ:АЧ±ґУлПоБґДЬІ»ДЬН¬К±Ч°±ё?")
+
+	InitTrigger()
+	TriggerAction( 1, RenewTestTime1)
+	TriggerAction( 1, JumpPage, 5)
+	Text( 4, "їЙТФ",MultiTrigger, GetMultiTrigger(), 1  )
+	
+	InitTrigger()
+	TriggerAction( 1, RenewTestTime2)
+	TriggerAction( 1, JumpPage, 5)
+	Text( 4, "І»їЙТФ",MultiTrigger, GetMultiTrigger(), 1  )
+
+	Talk( 5, "ОКМвЛД:»ГУ°ИэіЗГїМмїЄ·ЕјёґО?")
+	
+	InitTrigger()
+	TriggerAction( 1, RenewTestTime1)
+	TriggerAction( 1, JumpPage, 6)
+	Text( 5, "2ґО",MultiTrigger, GetMultiTrigger(), 1  )
+
+	InitTrigger()
+	TriggerAction( 1, RenewTestTime2)
+	TriggerAction( 1, JumpPage, 6)
+	Text( 5, "4ґО",MultiTrigger, GetMultiTrigger(), 1  )
+	
+	Talk( 6, "ОКМвОе:КҐ№вКЇїЙТФПвЗ¶ФЪР¬ЧУЙПВр?")
+
+	InitTrigger()
+	TriggerAction( 1, RenewTestTime1)
+	TriggerAction( 1, JumpPage, 7)
+	Text( 6, "їЙТФ",MultiTrigger, GetMultiTrigger(), 1  )
+
+	InitTrigger()
+	TriggerAction( 1, RenewTestTime2)
+	TriggerAction( 1, JumpPage, 7)
+	Text( 6, "І»їЙТФ",MultiTrigger, GetMultiTrigger(), 1  )
+
+	Talk( 7, "ОКМвБщ:100ј¶µДБФУҐ»¤ОАЅўµДєЅЛЩКЗ¶аЙЩ?")
+
+	InitTrigger()
+	TriggerAction( 1, RenewTestTime2)
+	TriggerAction( 1, JumpPage, 8)
+	Text( 7, "623",MultiTrigger, GetMultiTrigger(), 1  )
+
+	InitTrigger()
+	TriggerAction( 1, RenewTestTime1)
+	TriggerAction( 1, JumpPage, 8)
+	Text( 7, "632",MultiTrigger, GetMultiTrigger(), 1  )
+
+	Talk( 8, "ОКМвЖЯ:єЈµБНхµДЦ°ТµјјДЬЦРУРјёЦЦјјДЬКЗРиТЄПыєДµАѕЯІЕДЬК©Х№µД?")
+
+	InitTrigger()
+	TriggerAction( 1, RenewTestTime1)
+	TriggerAction( 1, JumpPage, 9)
+	Text( 8, "3ЦЦ",MultiTrigger, GetMultiTrigger(), 1  )
+
+	InitTrigger()
+	TriggerAction( 1, RenewTestTime2)
+	TriggerAction( 1, JumpPage, 9)
+	Text( 8, "4ЦЦ",MultiTrigger, GetMultiTrigger(), 1  )
+
+	Talk( 9, "ОКМв°Л:±щАЗ±¤Т»№ІУРјёЦ»±щµсµДАЗ?")
+
+	InitTrigger()
+	TriggerAction( 1, RenewTestTime1)
+	TriggerAction( 1, JumpPage, 12)
+	Text( 9, "9Ц»",MultiTrigger, GetMultiTrigger(), 1  )
+
+	InitTrigger()
+	TriggerAction( 1, RenewTestTime2)
+	TriggerAction( 1, JumpPage, 12)
+	Text( 9, "10Ц»",MultiTrigger, GetMultiTrigger(), 1  )
+
+	Talk( 12, "ДгИ·¶ЁДгѕНХвСщ»ШґрХвР©ОКМвВр?")
+
+	TriggerAction( 1, SetRecord, 1461)
+	TriggerAction( 1, JumpPage, 13)
+	Text( 12, "I am sure",MultiTrigger, GetMultiTrigger(), 1  )
+
+	Text( 12, "Let me think again", CloseTalk )
+	
+	Talk( 13, "»ШґрНкБЛѕНїЙТФХТОТ»№ИООсБЛЕ¶,±рНьБЛ.")
+	Text( 13, "Ok", CloseTalk )
+
+	Talk( 20, "ПлІОјУИлС§їјКФВр?ДгУРИлС§Ц¤КйВр?Г»µД»°ЧФјєИҐХТАЧЕµРЈі¤°мТ»ХЕ°Й")
+
+	AddNpcMission ( 6132 )
+	AddNpcMission ( 6133 )
+	AddNpcMission ( 6134 )
+	AddNpcMission ( 6135 )
+	AddNpcMission ( 6136 )
+end
+
+function dina_talk03()
+	Talk( 1, "ївА­НРЛ№:ОыОы,ІВІВДЗёцІЕКЗХжХэµДОТ!ІВґнБЛїЙКЗТЄ±»ОТёП»Ш°ЧТшіЗµДЕ¶.")
+
+	InitTrigger()
+	TriggerCondition( 1, HasMission, 1464)
+	TriggerCondition( 1, NoRecord, 1465)
+	TriggerAction( 1, JumpPage, 2)
+	TriggerFailure( 1, JumpPage, 3)
+	Text( 1, "ОТХТДгУРКВ",MultiTrigger, GetMultiTrigger(), 1)
+	
+	Talk( 2, "Ф­АґКЗПлХТХжХэµДївА­НРЛ№°Ў,ДЗДгИПОЄОТКЗХжХэµДївА­НРЛ№Вр?")
+	
+	InitTrigger()
+	TriggerCondition( 1, CheckRealNpc, 1)
+	TriggerAction( 1, SetRecord, 1465)
+	TriggerAction( 1, JumpPage, 4)
+	TriggerFailure( 1, GoTo, 2298, 2704, "garner")
+	Text( 2, "ОТІВДгѕНКЗХжХэµДївА­НРЛ№",MultiTrigger, GetMultiTrigger(), 1  )	
+	Text( 2, "Let me think again", CloseTalk)
+
+	Talk( 3, "ДгКЗЛ­?ОТУЦІ»ИПК¶Дг.")
+
+	Talk( 4, "°ҐСЅ,±»ДгЧҐЧЎБЛ,єГ°ЙєГ°Й,°С°єАтДИµДРЕёшОТ°Й")
+
+	AddNpcMission ( 6137 )
+
+end
+
+function dina_talk04()
+	Talk( 1, "ївА­НРЛ№:ОыОы,ІВІВДЗёцІЕКЗХжХэµДОТ!ІВґнБЛїЙКЗТЄ±»ОТёП»Ш°ЧТшіЗµДЕ¶.")
+
+	InitTrigger()
+	TriggerCondition( 1, HasMission, 1464)
+	TriggerCondition( 1, NoRecord, 1465)
+	TriggerAction( 1, JumpPage, 2)
+	TriggerFailure( 1, JumpPage, 3)
+	Text( 1, "ОТХТДгУРКВ",MultiTrigger, GetMultiTrigger(), 1)
+	
+	Talk( 2, "Ф­АґКЗПлХТХжХэµДївА­НРЛ№°Ў,ДЗДгИПОЄОТКЗХжХэµДївА­НРЛ№Вр?")
+	
+	InitTrigger()
+	TriggerCondition( 1, CheckRealNpc, 2)
+	TriggerAction( 1, SetRecord, 1465)
+	TriggerAction( 1, JumpPage, 4)
+	TriggerFailure( 1, GoTo, 2298, 2704, "garner")
+	Text( 2, "ОТІВДгѕНКЗХжХэµДївА­НРЛ№",MultiTrigger, GetMultiTrigger(), 1  )	
+	Text( 2, "Let me think again", CloseTalk)
+
+	Talk( 3, "ДгКЗЛ­?ОТУЦІ»ИПК¶Дг.")
+
+	Talk( 4, "°ҐСЅ,±»ДгЧҐЧЎБЛ,єГ°ЙєГ°Й,°С°єАтДИµДРЕёшОТ°Й")
+
+	AddNpcMission ( 6137 )
+
+end
+
+function dina_talk05()
+	Talk( 1, "ївА­НРЛ№:ОыОы,ІВІВДЗёцІЕКЗХжХэµДОТ!ІВґнБЛїЙКЗТЄ±»ОТёП»Ш°ЧТшіЗµДЕ¶.")
+
+	InitTrigger()
+	TriggerCondition( 1, HasMission, 1464)
+	TriggerCondition( 1, NoRecord, 1465)
+	TriggerAction( 1, JumpPage, 2)
+	TriggerFailure( 1, JumpPage, 3)
+	Text( 1, "ОТХТДгУРКВ",MultiTrigger, GetMultiTrigger(), 1)
+	
+	Talk( 2, "Ф­АґКЗПлХТХжХэµДївА­НРЛ№°Ў,ДЗДгИПОЄОТКЗХжХэµДївА­НРЛ№Вр?")
+	
+	InitTrigger()
+	TriggerCondition( 1, CheckRealNpc, 3)
+	TriggerAction( 1, SetRecord, 1465)
+	TriggerAction( 1, JumpPage, 4)
+	TriggerFailure( 1, GoTo, 2298, 2704, "garner")
+	Text( 2, "ОТІВДгѕНКЗХжХэµДївА­НРЛ№",MultiTrigger, GetMultiTrigger(), 1  )	
+	Text( 2, "Let me think again", CloseTalk)
+
+	Talk( 3, "ДгКЗЛ­?ОТУЦІ»ИПК¶Дг.")
+
+	Talk( 4, "°ҐСЅ,±»ДгЧҐЧЎБЛ,єГ°ЙєГ°Й,°С°єАтДИµДРЕёшОТ°Й")
+
+	AddNpcMission ( 6137 )
+end
+
+function dina_talk06()
+	Talk( 1, "ївА­НРЛ№:ОыОы,ІВІВДЗёцІЕКЗХжХэµДОТ!ІВґнБЛїЙКЗТЄ±»ОТёП»Ш°ЧТшіЗµДЕ¶.")
+
+	InitTrigger()
+	TriggerCondition( 1, HasMission, 1464)
+	TriggerCondition( 1, NoRecord, 1465)
+	TriggerAction( 1, JumpPage, 2)
+	TriggerFailure( 1, JumpPage, 3)
+	Text( 1, "ОТХТДгУРКВ",MultiTrigger, GetMultiTrigger(), 1)
+	
+	Talk( 2, "Ф­АґКЗПлХТХжХэµДївА­НРЛ№°Ў,ДЗДгИПОЄОТКЗХжХэµДївА­НРЛ№Вр?")
+	
+	InitTrigger()
+	TriggerCondition( 1, CheckRealNpc, 0)
+	TriggerAction( 1, SetRecord, 1465)
+	TriggerAction( 1, JumpPage, 4)
+	TriggerFailure( 1, GoTo, 2298, 2704, "garner")
+	Text( 2, "ОТІВДгѕНКЗХжХэµДївА­НРЛ№",MultiTrigger, GetMultiTrigger(), 1  )	
+	Text( 2, "Let me think again", CloseTalk)
+
+	Talk( 3, "ДгКЗЛ­?ОТУЦІ»ИПК¶Дг.")
+
+	Talk( 4, "°ҐСЅ,±»ДгЧҐЧЎБЛ,єГ°ЙєГ°Й,°С°єАтДИµДРЕёшОТ°Й")
+	AddNpcMission ( 6137 )
+
+end
+--------------------------------------------------------------------------------------------------------------------
+--													dina_talk (Конец)											  --
+--------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------
+--													reading_talk (Начало)										  --
+--------------------------------------------------------------------------------------------------------------------
+function reading_talk01()
+	Talk( 1 , "Tester: I am the tester in Argent City. I will assist you when taking your tests. Put your Student card in your bag before starting the tests.")
+	
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3279, 1 )
+	TriggerCondition( 1, HasItem, 3289, 1 )
+	TriggerAction( 1, checkcytime )
+	TriggerFailure( 1, JumpPage, 4 )
+	Text( 1, "Hand in the Report Card.",  MultiTrigger, GetMultiTrigger(), 1)
+
+	Text( 1, "What are requirements for taking tests?" , JumpPage , 5)
+
+	Text( 1, "What are the tests like?", JumpPage , 6)
+
+	Talk( 4, "Tester: There is no Student card and no Report card in your bag")
+
+	Talk( 5, "Tester: The requirements for taking tests are strict. You have to have a Student card in your bag.")
+
+	Talk( 6, "Tester: You have to put your student card in your bag and then start the tests. After the tests are completed, you will be given a Report card. I will reward you based on your grades.")
+
+	AddNpcMission ( 112 )
+end
+
+function reading_talk02()
+	Talk( 1, "Promotion Examination Officer: I am the Promotion Examination Officer in Icicle City. I sell test papers for the Promotion Examination.")
+
+	InitTrigger()
+	TriggerCondition( 1, CheckXSZCh )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, HasNoItem, 3280 )
+	TriggerCondition( 1, HasNoItem, 3281 )
+	TriggerCondition( 1, HasNoItem, 3282 )
+	TriggerAction( 1, AddChaItem7)
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1, "I want to take the test papers.",  MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, CheckXSZCh )
+	TriggerCondition( 1, CheckKJNum )
+	TriggerCondition( 1, HasItem, 3280, 1 )
+	TriggerCondition( 1, HasItem, 3282, 1 )
+	TriggerAction( 1 , AddChaItem8)
+	TriggerAction( 1, TakeItem, 3282, 1 )
+	TriggerFailure( 1, JumpPage, 3 )
+	Text( 1, "I have completed the tests and want my report card.",  MultiTrigger, GetMultiTrigger(),2)
+
+	InitTrigger()
+	TriggerCondition( 1, CheckXSZCh )
+	TriggerCondition( 1, HasItem, 3289, 1 )
+	TriggerCondition( 1, HasItem, 3281, 1 )
+	TriggerAction( 1, checksjtime )
+	TriggerFailure( 1, JumpPage, 4 )
+	Text( 1, "Hand in the report card and find out your test results.",  MultiTrigger, GetMultiTrigger(), 1)
+
+	Text( 1, "What are the requirements for taking the Promotion Examination?" , JumpPage , 5)
+
+	Text( 1, "What is the Promotion Examination like?", JumpPage , 6)
+	
+	Talk( 2, "Promotion Examination Officer: You failed to meet the requirements and are unable to take the test. Review the requirements before taking the exam.")
+
+	Talk( 3, "Promotion Examination Officer: You must have one test paper and one answer sheet to get your report card.")
+
+	Talk( 4, "Promotion Examination Officer: You donЎЇt have a report card.")
+
+	Talk( 5, "Promotion Examination Officer: Requirements for taking the Promotion Exam are strict. You must have one student card in your bag with full academic credits. Besides, you are not allowed to own any test papers, answer sheets or report cards.")
+
+	Talk( 6, "Promotion Examination Officer: You have to take a test paper before starting the Promotion Examination. After completing the exam, you will be given an answer sheet. Taking your test paper and answer sheet to visit me, you will get your report card. I will reward you according to your grades.")
+	
+	AddNpcMission ( 6138 )
+
+end
+--------------------------------------------------------------------------------------------------------------------
+--													reading_talk (Конец)										  --
+--------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------
+--													Xmas_talk (Начало)											  --
+--------------------------------------------------------------------------------------------------------------------
+function Xmas_talk01()
+	Talk( 1, "Leader of Xmas Commerce Chamber: Merry Christmas I've prepared lots of things for this Christmas. Do you want to have a look?")
+	Text( 1, "Let me see what you have." , JumpPage , 2 )
+	Text( 1, "Forget about it. I don't have time.", CloseTalk )
+
+	Talk( 2, "Only Christmas Coins and Fairy Coins can be used here.")
+	Text( 2, "Power of Frost", JumpPage , 3)
+	Text( 2, "Power of Thunder", JumpPage , 4)
+	Text( 2, "Power of Wind", JumpPage , 5)
+	Text( 2, "Power of Flame", JumpPage , 6)
+	Text( 2, "Potion of Lion", JumpPage , 7)
+	Text( 2, "Potion of Eagle", JumpPage , 8)
+	Text( 2, "Potion of Monkey", JumpPage , 9)
+	Text( 2, "Next Page", JumpPage , 10)
+
+	Talk( 10, "ОТХвАпµД№жѕШєН±рµДµШ·ЅїЙІ»Т»СщЕ¶,Ц»їЙТФК№УГКҐµ®УІ±ТАґ№єВт.")
+	Text( 10, "Go back a page", JumpPage , 2)
+	Text( 10, "Potion of Bull", JumpPage, 11)
+	Text( 10, "Potion of Soul", JumpPage, 12)
+	Text( 10, "28 Slot Inventory", JumpPage, 13)
+	Text( 10, "Mordo", JumpPage, 14)
+	Text( 10, "Party EXP Fruit", JumpPage, 15)
+	Text( 10, "Voodoo Puppet", JumpPage, 16)
+	Text( 10, "Next Page", JumpPage , 17)
+
+	Talk( 17, "ОТХвАпµД№жѕШєН±рµДµШ·ЅїЙІ»Т»СщЕ¶,Ц»їЙТФК№УГКҐµ®УІ±ТАґ№єВт.")
+	Text( 17, "Go back a page", JumpPage , 10)
+	Text( 17, "Novice Self Destruct", JumpPage, 18)
+	Text( 17, "Fruit of Growth", JumpPage, 19)
+	Text( 17, "КҐµ®АПИЛµДАЎФщ", JumpPage, 20)
+
+	Talk( 3, "¶Т»»±щЦ®Б¦µД»°ЧЬ№ІРиТЄГж¶о250WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 250 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 250 )
+	TriggerAction( 1, GiveItem, 270, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 3, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+	
+	Talk( 4, "¶Т»»АЧЦ®Б¦µД»°ЧЬ№ІРиТЄГж¶о250WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 250 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 250 )
+	TriggerAction( 1, GiveItem, 269, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 4, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 5, "¶Т»»·зЦ®Б¦µД»°ЧЬ№ІРиТЄГж¶о250WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 250 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 250 )
+	TriggerAction( 1, GiveItem, 268, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 5, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 6, "¶Т»»СЧЦ®Б¦µД»°ЧЬ№ІРиТЄГж¶о250WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 250 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 250 )
+	TriggerAction( 1, GiveItem, 267, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 6, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 7, "¶Т»»РЫКЁТ©јБµД»°ЧЬ№ІРиТЄГж¶о50WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 50 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 50 )
+	TriggerAction( 1, GiveItem, 897, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 7, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 8, "¶Т»»УҐСЫТ©јБµД»°ЧЬ№ІРиТЄГж¶о50WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 50 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 50 )
+	TriggerAction( 1, GiveItem, 894, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 8, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 9, "¶Т»»БйєпТ©јБµД»°ЧЬ№ІРиТЄГж¶о50WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 50 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 50 )
+	TriggerAction( 1, GiveItem, 893, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 9, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 11, "¶Т»»ВщЕЈТ©јБµД»°ЧЬ№ІРиТЄГж¶о50WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 50 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 50 )
+	TriggerAction( 1, GiveItem, 895, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 11, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 12, "¶Т»»КҐБйТ©јБµД»°ЧЬ№ІРиТЄГж¶о50WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 50 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 50 )
+	TriggerAction( 1, GiveItem, 896, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 12, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 13, "¶Т»»28ёс±і°ьµД»°ЧЬ№ІРиТЄГж¶о1000WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 1000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 1000 )
+	TriggerAction( 1, GiveItem, 3088, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 13, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 14, "¶Т»»Д¦¶№РЎЧУµД»°ЧЬ№ІРиТЄГж¶о1000WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 1000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 1000 )
+	TriggerAction( 1, GiveItem, 680, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 14, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 15, "¶Т»»Чй¶Уѕ­Сй№ыµД»°ЧЬ№ІРиТЄГж¶о80WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 80 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 80 )
+	TriggerAction( 1, GiveItem, 849, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 15, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 16, "¶Т»»МжЙн±¦±¦µД»°ЧЬ№ІРиТЄГж¶о55WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 55 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 55 )
+	TriggerAction( 1, GiveItem, 3047, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 16, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 18, "¶Т»»іхј¶ѕ«БйЧФ±¬µД»°ЧЬ№ІРиТЄГж¶о500WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 500 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 500 )
+	TriggerAction( 1, GiveItem, 610, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 18, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+	
+	Talk( 19, "¶Т»»јУЛЩіЙі¤№ыµД»°ЧЬ№ІРиТЄГж¶о20WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 20 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 20 )
+	TriggerAction( 1, GiveItem, 578, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 19, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 20, "¶Т»»КҐµ®АПИЛµДАЎФщµД»°ЧЬ№ІРиТЄГж¶о2000WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 2000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 2000 )
+	TriggerAction( 1, GiveItem, 2877, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 20, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 25, "Р»Р»ДгµД№в№Л,ЧЈДгКҐµ®Удїм!")
+
+	Talk( 26, "Дг±і°ьДЪєГПуГ»УРЧг№»µДКҐµ®УІ±ТЕ¶,ТІУРїЙДЬДгµД±і°ьГ»їХёс»т±і°ьТСЛш.")
+end
+
+function Xmas_talk02()
+	Talk( 1, "КҐµ®ФУ»хЙМ:КҐµ®ЅЪµЅА­~ОТОЄХвёцОВЬ°µДКҐµ®Чј±ёБЛєЬ¶а»хОп,УРРЛИ¤їґТ»ПВВр?ДгїП¶Ё»бПІ»¶µД!")
+	Text( 1, "ИГОТїґїґДгХвУРКІГґєГ¶«Оч°Й." , JumpPage , 2 )
+	Text( 1, "ЛгБЛЈ¬ОТГ»їХїґ", CloseTalk )
+
+	Talk( 2, "ОТХвАпµД№жѕШєН±рµДµШ·ЅїЙІ»Т»СщЕ¶,Ц»їЙТФК№УГКҐµ®УІ±ТАґ№єВт.")
+	Text( 2, "Gold Axe", JumpPage , 3)
+	Text( 2, "Gold Pickaxe", JumpPage , 4)
+	Text( 2, "Unique Necklace Voucher", JumpPage , 5)
+	Text( 2, "Unique Coral Voucher", JumpPage , 6)
+	Text( 2, "Lock of Mystic", JumpPage , 7)
+	Text( 2, "Super Rechargeable Battery", JumpPage , 8)
+	Text( 2, "ЖшЗтУОП·ИЇ", JumpPage , 9)
+	Text( 2, "Next Page", JumpPage , 10)
+
+	Talk( 10, "ОТХвАпµД№жѕШєН±рµДµШ·ЅїЙІ»Т»СщЕ¶,Ц»їЙТФК№УГКҐµ®УІ±ТАґ№єВт.")
+	Text( 10, "Go back a page", JumpPage , 2)
+	Text( 10, "єА»ЄАс»Ё", JumpPage, 11)
+	Text( 10, "ѕХРНАс»Ё", JumpPage, 12)
+	Text( 10, "»ЁЗт", JumpPage, 13)
+	Text( 10, "Golden Apple", JumpPage, 14)
+	Text( 10, "Intelligence fruit", JumpPage, 15)
+	Text( 10, "Mystic Clover", JumpPage, 16)
+	Text( 10, "Р°¶сНБЦшЗхі¤ХЩ»ЅИЇ", JumpPage , 17)
+
+	Talk( 3, "¶Т»»ёЯј¶·ҐДѕё«µД»°ЧЬ№ІРиТЄГж¶о50WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 50 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 50 )
+	TriggerAction( 1, GiveItem, 207, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 3, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 4, "¶Т»»ёЯј¶їуёдµД»°ЧЬ№ІРиТЄГж¶о50WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 50 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 50 )
+	TriggerAction( 1, GiveItem, 208, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 4, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 5, "¶Т»»ёЯј¶ПоБґ¶Т»»ИЇµД»°ЧЬ№ІРиТЄГж¶о1000WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 1000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 1000 )
+	TriggerAction( 1, GiveItem, 581, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 5, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 6, "¶Т»»ёЯј¶±ґїЗ¶Т»»ИЇµД»°ЧЬ№ІРиТЄГж¶о1000WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 1000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 1000 )
+	TriggerAction( 1, GiveItem, 582, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 6, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 7, "¶Т»»ГФЦ®ЛшµД»°ЧЬ№ІРиТЄГж¶о15WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 15 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 15 )
+	TriggerAction( 1, GiveItem, 2440, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 7, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 8, "¶Т»»ёЯј¶ідµзµзіШµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 1024, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 8, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 9, "¶Т»»ЖшЗтУОП·ИЇµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 3083, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 9, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 11, "¶Т»»єА»ЄАс»ЁµД»°ЧЬ№ІРиТЄГж¶о9WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 9 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 9 )
+	TriggerAction( 1, GiveItem, 3082, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 11, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 12, "¶Т»»ѕХРНАс»ЁµД»°ЧЬ№ІРиТЄГж¶о9WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 9 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 9 )
+	TriggerAction( 1, GiveItem, 3081, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 12, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 13, "¶Т»»»ЁЗтµД»°ЧЬ№ІРиТЄГж¶о15WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 15 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 15 )
+	TriggerAction( 1, GiveItem, 3080, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 13, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 14, "¶Т»»ЅрЖ»№ыµД»°ЧЬ№ІРиТЄГж¶о50WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 50 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 50 )
+	TriggerAction( 1, GiveItem, 3291, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 14, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 15, "¶Т»»ЦЗ»Ы№ыµД»°ЧЬ№ІРиТЄГж¶о20WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 20 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 20 )
+	TriggerAction( 1, GiveItem, 3290, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 15, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 16, "¶Т»»ЙсЛгІЭµД»°ЧЬ№ІРиТЄГж¶о100WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 100 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 100 )
+	TriggerAction( 1, GiveItem, 3336, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 16, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 17, "¶Т»»Р°¶сµДНБЦшЗхі¤ХЩ»ЅИЇµД»°ЧЬ№ІРиТЄГж¶о2000WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 2000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 2000 )
+	TriggerAction( 1, GiveItem, 3013, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 17, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 25, "Р»Р»ДгµД№в№Л,ЧЈДгКҐµ®Удїм!")
+
+	Talk( 26, "Дг±і°ьДЪєГПуГ»УРЧг№»µДКҐµ®УІ±ТЕ¶,ТІУРїЙДЬДгµД±і°ьГ»їХёс»т±і°ьТСЛш.")
+	AddNpcMission ( 6197 )
+end
+
+function Xmas_talk03()
+	Talk( 1, "КҐµ®АсЖ·ЙМ:Merry Christmas~ОТОЄХвёцГААцµДКҐµ®ЅЪЧј±ёБЛєЬ¶аµД»хОпЕ¶,ДгУРРЛИ¤ПлїґТ»ПВВр?")
+	Text( 1, "ИГОТїґїґДгХвУРКІГґєГ¶«Оч°Й." , JumpPage , 2 )
+	Text( 1, "ЛгБЛЈ¬ОТГ»їХїґ", CloseTalk )
+
+	Talk( 2, "ОТХвАпµД№жѕШєН±рµДµШ·ЅїЙІ»Т»СщЕ¶,Ц»їЙТФК№УГКҐµ®УІ±ТАґ№єВт.")
+	Text( 2, "Pirate Captain 008 Summoning Scroll", JumpPage , 3)
+	Text( 2, "Lizardman Warrior Commander Summon Scroll", JumpPage , 4)
+	Text( 2, "Party EXP Fruit", JumpPage , 5)
+	Text( 2, "Voodoo Puppet", JumpPage , 6)
+	Text( 2, "Expert Monster Covenant", JumpPage , 7)
+	Text( 2, "Standard Monster Covenant", JumpPage , 8)
+	Text( 2, "Novice Monster Covenant", JumpPage , 9)
+	Text( 2, "Next Page", JumpPage , 10)
+
+	Talk( 10, "ОТХвАпµД№жѕШєН±рµДµШ·ЅїЙІ»Т»СщЕ¶,Ц»їЙТФК№УГКҐµ®УІ±ТАґ№єВт.")
+	Text( 10, "Go back a page", JumpPage , 2)
+	Text( 10, "Stone Catalyst", JumpPage, 11)
+	Text( 10, "Liquid Catalyst", JumpPage, 12)
+	Text( 10, "Food Catalyst", JumpPage, 13)
+	Text( 10, "Special Catalyst", JumpPage, 14)
+	Text( 10, "Bone Catalyst", JumpPage, 15)
+	Text( 10, "Plant Catalyst", JumpPage, 16)
+	Text( 10, "Fur Catalyst", JumpPage , 17)
+
+	Talk( 3, "¶Т»»єЈµБґ¬і¤БгБг·ўХЩ»ЅИЇµД»°ЧЬ№ІРиТЄГж¶о2000WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 2000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 2000 )
+	TriggerAction( 1, GiveItem, 3014, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 3, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 4, "¶Т»»тбтжХЅКїНіБмХЩ»ЅИЇµД»°ЧЬ№ІРиТЄГж¶о2000WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 2000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 2000 )
+	TriggerAction( 1, GiveItem, 3012, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 4, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 5, "¶Т»»Чй¶Уѕ­Сй№ыµД»°ЧЬ№ІРиТЄГж¶о80WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 80 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 80 )
+	TriggerAction( 1, GiveItem, 849, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 5, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 6, "¶Т»»МжЙн±¦±¦µД»°ЧЬ№ІРиТЄГж¶о55WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 55 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 55 )
+	TriggerAction( 1, GiveItem, 3047, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 6, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 7, "¶Т»»ёЯј¶№ЦОпЖхФјµД»°ЧЬ№ІРиТЄГж¶о100WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 100 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 100 )
+	TriggerAction( 1, GiveItem, 2607, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 7, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 8, "¶Т»»ЦРј¶№ЦОпЖхФјµД»°ЧЬ№ІРиТЄГж¶о200WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 200 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 200 )
+	TriggerAction( 1, GiveItem, 2606, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 8, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 9, "¶Т»»іхј¶№ЦОпЖхФјµД»°ЧЬ№ІРиТЄГж¶о60WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 60 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 60 )
+	TriggerAction( 1, GiveItem, 2605, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 9, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 11, "¶Т»»КЇІДґЯ»ЇјБµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 2625, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 11, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 12, "¶Т»»ТєМеґЯ»ЇјБµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 2638, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 12, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 13, "¶Т»»КіІДґЯ»ЇјБµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 2630, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 13, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 14, "¶Т»»МШКвґЯ»ЇјБµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 2634, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 14, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 15, "¶Т»»№ЗН·ґЯ»ЇјБµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 2635, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 15, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 16, "¶Т»»ЦІОпґЯ»ЇјБµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 2636, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 16, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 17, "¶Т»»Г«Ж¤ґЯ»ЇјБµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 2637, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 17, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 25, "Р»Р»ДгµД№в№Л,ЧЈДгКҐµ®Удїм!")
+
+	Talk( 26, "Дг±і°ьДЪєГПуГ»УРЧг№»µДКҐµ®УІ±ТЕ¶,ТІУРїЙДЬДгµД±і°ьГ»їХёс»т±і°ьТСЛш.")
+end
+
+function Xmas_talk04()
+	Talk( 1, "КҐµ®ЙМИЛЎ¤ОТРРОТїб:АґАґАґ,ВтБЛОТµД¶«ОчЅсДкµДКҐµ®ЅЪДгЅ«ОЮ±ИРТёЈ,І»ТЄУМФҐАІ,АґїґПВ°Й~")
+	Text( 1, "ИГОТїґїґДгХвУРКІГґєГ¶«Оч°Й." , JumpPage , 2 )
+	Text( 1, "ЛгБЛЈ¬ОТГ»їХїґ", CloseTalk )
+
+	Talk( 2, "ОТХвАпµД№жѕШєН±рµДµШ·ЅїЙІ»Т»СщЕ¶,Ц»їЙТФК№УГКҐµ®УІ±ТАґ№єВт.")
+	Text( 2, "КҐµ®ЗйИЛСМ»Ё", JumpPage , 3)
+	Text( 2, "КҐµ®їс»¶СМ»Ё", JumpPage , 4)
+	Text( 2, "Heart Shape I", JumpPage , 5)
+	Text( 2, "Heart Shape LOVE", JumpPage , 6)
+	Text( 2, "Heart Shape U", JumpPage , 7)
+	Text( 2, "Heart Shape ОТ", JumpPage , 8)
+	Text( 2, "Heart Shape °®", JumpPage , 9)
+	Text( 2, "Next Page", JumpPage , 10)
+
+	Talk( 10, "ОТХвАпµД№жѕШєН±рµДµШ·ЅїЙІ»Т»СщЕ¶,Ц»їЙТФК№УГКҐµ®УІ±ТАґ№єВт.")
+	Text( 10, "Go back a page", JumpPage , 2)
+	Text( 10, "Heart Shape Дг", JumpPage, 11)
+	Text( 10, "Rose", JumpPage, 12)
+	Text( 10, "Devil Wings", JumpPage, 13)
+	Text( 10, "Honey Chocolate", JumpPage, 14)
+
+	Talk( 3, "¶Т»»КҐµ®ЗйИЛСМ»ЁµД»°ЧЬ№ІРиТЄГж¶о180WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 180 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 180 )
+	TriggerAction( 1, GiveItem, 2870, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 3, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 4, "¶Т»»КҐµ®їс»¶СМ»ЁµД»°ЧЬ№ІРиТЄГж¶о1000WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 1000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 1000 )
+	TriggerAction( 1, GiveItem, 2871, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 4, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 5, "¶Т»»РДРНIµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 3354, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 5, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 6, "¶Т»»РДРНLOVEµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 3355, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 6, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 7, "¶Т»»РДРНUµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 3356, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 7, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 8, "¶Т»»РДРНОТµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 3359, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 8, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 9, "¶Т»»РДРН°®µД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 3357, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 9, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 11, "¶Т»»РДРНДгµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 3358, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 11, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 12, "¶Т»»Гµ№е»ЁµД»°ЧЬ№ІРиТЄГж¶о20WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 20 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 20 )
+	TriggerAction( 1, GiveItem, 3343, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 12, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 13, "¶Т»»єЪД§іб°тµД»°ЧЬ№ІРиТЄГж¶о100WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 100 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 100 )
+	TriggerAction( 1, GiveItem, 906, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 13, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 14, "¶Т»»МрГЫЗЙїЛБ¦µД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 3077, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 14, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 25, "Р»Р»ДгµД№в№Л,ЧЈДгКҐµ®Удїм!")
+
+	Talk( 26, "Дг±і°ьДЪєГПуГ»УРЧг№»µДКҐµ®УІ±ТЕ¶,ТІУРїЙДЬДгµД±і°ьГ»їХёс»т±і°ьТСЛш.")
+	AddNpcMission ( 6199 )
+end
+
+function Xmas_talk05()
+	Talk( 1, "КҐµ®ЙМИЛЎ¤ОТїбОТРР:ДгєГСЅ,КҐµ®їмАЦ!ОТєЬїбКЗ°Й,ОТµД¶«Оч±ИОТёьїб,АґїґПВ°Й~")
+	Text( 1, "ИГОТїґїґДгХвУРКІГґєГ¶«Оч°Й." , JumpPage , 2 )
+	Text( 1, "ЛгБЛЈ¬ОТГ»їХїґ", CloseTalk )
+
+	Talk( 2, "ОТХвАпµД№жѕШєН±рµДµШ·ЅїЙІ»Т»СщЕ¶,Ц»їЙТФК№УГКҐµ®УІ±ТАґ№єВт.")
+	Text( 2, "Vampiric Wings", JumpPage , 3)
+	Text( 2, "Elven Wings", JumpPage , 4)
+	Text( 2, "Dragon Wings", JumpPage , 5)
+	Text( 2, "<јјЎ¤°ЧіХ>јјДЬКй", JumpPage , 6)
+	Text( 2, "<јјЎ¤±ЙКУ>јјДЬКй", JumpPage , 7)
+	Text( 2, "<јјЎ¤ґу±г>јјДЬКй", JumpPage , 8)
+	Text( 2, "<јјЎ¤ЅрЗ®Ук>јјДЬКй", JumpPage , 9)
+	Text( 2, "Next Page", JumpPage , 10)
+
+	Talk( 10, "ОТХвАпµД№жѕШєН±рµДµШ·ЅїЙІ»Т»СщЕ¶,Ц»їЙТФК№УГКҐµ®УІ±ТАґ№єВт.")
+	Text( 10, "Go back a page", JumpPage , 2)
+	Text( 10, "<јјЎ¤ДЪїг>јјДЬКй", JumpPage, 11)
+	Text( 10, "<јјЎ¤Ж­ЧУ>јјДЬКй", JumpPage, 12)
+	Text( 10, "<јјЎ¤ЙµЧУ>јјДЬКй", JumpPage, 13)
+	Text( 10, "<јјЎ¤РШХЦ>јјДЬКй", JumpPage, 14)
+
+	Talk( 3, "¶Т»»Затріб°тµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 904, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 3, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 4, "¶Т»»ѕ«БйЦ®ТнµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 935, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 4, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 5, "¶Т»»ємБъіб°тµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 905, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 5, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 6, "¶Т»»<јјЎ¤°ЧіХ>јјДЬКйµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 1130, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 6, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 7, "¶Т»»<јјЎ¤±ЙКУ>јјДЬКйµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 1131, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 7, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 8, "¶Т»»<јјЎ¤ґу±г>јјДЬКйµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 1037, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 8, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 9, "¶Т»»<јјЎ¤ЅрЗ®Ук>јјДЬКйµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 1129, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 9, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 11, "¶Т»»<јјЎ¤ДЪїг>јјДЬКйµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 1038, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 11, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 12, "¶Т»»<јјЎ¤Ж­ЧУ>јјДЬКйµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 1132, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 12, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 13, "¶Т»»<јјЎ¤ЙµЧУ>јјДЬКйµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 1133, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 13, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 14, "¶Т»»<јјЎ¤РШХЦ>јјДЬКйµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 1039, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 14, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 25, "Р»Р»ДгµД№в№Л,ЧЈДгКҐµ®Удїм!")
+
+	Talk( 26, "Дг±і°ьДЪєГПуГ»УРЧг№»µДКҐµ®УІ±ТЕ¶,ТІУРїЙДЬДгµД±і°ьГ»їХёс»т±і°ьТСЛш.")
+end
+
+function Xmas_talk06()
+	Talk( 1, "КҐµ®ЙМИЛЎ¤С§ХЯ:Merry Christmas~ОТОЄХвёцГААцµДКҐµ®ЅЪЧј±ёБЛєЬ¶аµД»хОпЕ¶,ДгУРРЛИ¤ПлїґТ»ПВВр?")
+	Text( 1, "ИГОТїґїґДгХвУРКІГґєГ¶«Оч°Й." , JumpPage , 2 )
+	Text( 1, "ЛгБЛЈ¬ОТГ»їХїґ", CloseTalk )
+
+	Talk( 2, "ОТХвАпµД№жѕШєН±рµДµШ·ЅїЙІ»Т»СщЕ¶,Ц»їЙТФК№УГКҐµ®УІ±ТАґ№єВт.")
+	Text( 2, "Expert Voyager Study Book", JumpPage , 3)
+	Text( 2, "Expert SealMaster Study book", JumpPage , 4)
+	Text( 2, "Expert Cleric study book", JumpPage , 5)
+	Text( 2, "Expert SharpShooter Study Book", JumpPage , 6)
+	Text( 2, "Expert Champion Study Book", JumpPage , 7)
+	Text( 2, "Crusader expert read", JumpPage , 8)
+	Text( 2, "Standard Voyager study book", JumpPage , 9)
+	Text( 2, "Next Page", JumpPage , 10)
+
+	Talk( 10, "ОТХвАпµД№жѕШєН±рµДµШ·ЅїЙІ»Т»СщЕ¶,Ц»їЙТФК№УГКҐµ®УІ±ТАґ№єВт.")
+	Text( 10, "Go back a page", JumpPage , 2)
+	Text( 10, "Standard SealMaster study book", JumpPage, 11)
+	Text( 10, "Standard Cleric study book", JumpPage, 12)
+	Text( 10, "Standard SharpShooter study book", JumpPage, 13)
+	Text( 10, "Standard Champion study book", JumpPage, 14)
+	Text( 10, "Standard Crusader Study Book", JumpPage, 15)
+	Text( 10, "Intense Magic", JumpPage, 16)
+	Text( 10, "Next Page", JumpPage , 17)
+
+	Talk( 17, "ОТХвАпµД№жѕШєН±рµДµШ·ЅїЙІ»Т»СщЕ¶,Ц»їЙТФК№УГКҐµ®УІ±ТАґ№єВт.")
+	Text( 17, "Go back a page", JumpPage , 10)
+	Text( 17, "Sea Weed Killer", JumpPage, 18)
+	Text( 17, "Icy Crystal", JumpPage, 19)
+	Text( 17, "Power Sail", JumpPage, 20)
+	Text( 17, "Crystalline Blessing", JumpPage, 21)
+	Text( 17, "Magical Clover", JumpPage, 22)
+
+	Talk( 3, "¶Т»»єЅєЈКїёЯј¶¶БОпµД»°ЧЬ№ІРиТЄГж¶о120WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 120 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 120 )
+	TriggerAction( 1, GiveItem, 3272, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 3, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 4, "¶Т»»·вУЎК¦ёЯј¶¶БОпµД»°ЧЬ№ІРиТЄГж¶о120WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 120 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 120 )
+	TriggerAction( 1, GiveItem, 3271, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 4, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 5, "¶Т»»КҐЦ°ХЯёЯј¶¶БОпµД»°ЧЬ№ІРиТЄГж¶о120WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 120 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 120 )
+	TriggerAction( 1, GiveItem, 3270, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 5, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 6, "¶Т»»ѕС»чКЦёЯј¶¶БОпµД»°ЧЬ№ІРиТЄГж¶о120WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 120 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 120 )
+	TriggerAction( 1, GiveItem, 3269, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 6, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 7, "¶Т»»ѕЮЅЈКїёЯј¶¶БОпµД»°ЧЬ№ІРиТЄГж¶о120WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 120 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 120 )
+	TriggerAction( 1, GiveItem, 3268, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 7, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 8, "¶Т»»Л«ЅЈКїёЯј¶¶БОпµД»°ЧЬ№ІРиТЄГж¶о120WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 120 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 120 )
+	TriggerAction( 1, GiveItem, 3267, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 8, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 9, "¶Т»»єЅєЈКїЦРј¶¶БОпµД»°ЧЬ№ІРиТЄГж¶о100WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 100 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 100 )
+	TriggerAction( 1, GiveItem, 3266, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 9, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 11, "¶Т»»·вУЎК¦ЦРј¶¶БОпµД»°ЧЬ№ІРиТЄГж¶о100WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 100 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 100 )
+	TriggerAction( 1, GiveItem, 3265, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 11, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 12, "¶Т»»КҐЦ°ХЯЦРј¶¶БОпµД»°ЧЬ№ІРиТЄГж¶о100WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 100 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 100 )
+	TriggerAction( 1, GiveItem, 3264, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 12, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 13, "¶Т»»ѕС»чКЦЦРј¶¶БОпµД»°ЧЬ№ІРиТЄГж¶о100WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 100 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 100 )
+	TriggerAction( 1, GiveItem, 3263, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 13, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 14, "¶Т»»ѕЮЅЈКїЦРј¶¶БОпµД»°ЧЬ№ІРиТЄГж¶о100WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 100 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 100 )
+	TriggerAction( 1, GiveItem, 3262, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 14, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 15, "¶Т»»Л«ЅЈКїЦРј¶¶БОпµД»°ЧЬ№ІРиТЄГж¶о100WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 100 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 100 )
+	TriggerAction( 1, GiveItem, 3261, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 15, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 16, "¶Т»»Д§Б¦ґЯ»ЇµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 3300, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 16, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 18, "¶Т»»єЈІЭЗеіэјБµД»°ЧЬ№ІРиТЄГж¶о25WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 25 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 25 )
+	TriggerAction( 1, GiveItem, 3114, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 18, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 19, "¶Т»»є®±щЛ®ѕ§µД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 3463, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 19, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 20, "¶Т»»¶ЇБ¦·«µД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 3046, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 20, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 21, "¶Т»»±щБй»¤УУµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 3301, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 21, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 22, "¶Т»»Д§·ЁІЭµД»°ЧЬ№ІРиТЄГж¶о10WµДКҐµ®УІ±ТЕ¶")
+	InitTrigger()
+	TriggerCondition( 1, HasXmasYB, 10 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeXmasYB, 10 )
+	TriggerAction( 1, GiveItem, 3462, 1, 4 )
+	TriggerAction( 1, JumpPage, 25 )
+	TriggerFailure( 1, JumpPage, 26 )
+	Text( 22, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 25, "Р»Р»ДгµД№в№Л,ЧЈДгКҐµ®Удїм!")
+
+	Talk( 26, "Дг±і°ьДЪєГПуГ»УРЧг№»µДКҐµ®УІ±ТЕ¶,ТІУРїЙДЬДгµД±і°ьГ»їХёс»т±і°ьТСЛш.")
+end
+
+function Xmas_talk07()
+	Talk ( 1, "ОТМЦСбХвКҐЅаС©°ЧµД¶¬Мм.ЕуУСЈ¬ОЄКІГґІ»ЕЧЖъХвР©ОЮБДµДЗмЧЈ»о¶ЇіцИҐЙ±ВѕТ»·¬ДШ?°ЧТш,±щАЗєНЙіб°іЗНвУРРн¶аµД»рј¦,чзВ№єНС©ИЛ,ИҐёЙµфЛыГЗ,И»єу°СЦ¤ѕЭґш»ШАґЈ¬ОТІ»»бїчґэДгµД.")
+	Text ( 1, "ОТПлИҐКҐµ®ѕєјјіЎ", JumpPage, 5)
+	Text ( 1, "ОЄКІГґОТГЗТЄЙ±ВѕХвР©їЙБЇµД№ЦОпДШ?", JumpPage, 10)
+
+	Talk ( 5, "ОТГЗТ»№ІУР5ёцѕєјјіЎ,ДгПлИҐДДТ»ёцДШ?")
+	Text ( 5, "КҐµ®ѕєјјіЎA", GoTosdBoss, 1 )
+	Text ( 5, "КҐµ®ѕєјјіЎB", GoTosdBoss, 2 )
+	Text ( 5, "КҐµ®ѕєјјіЎC", GoTosdBoss, 3 )
+	Text ( 5, "КҐµ®ѕєјјіЎD", GoTosdBoss, 4 )
+	Text ( 5, "КҐµ®ѕєјјіЎE", GoTosdBoss, 5 )
+
+	Talk ( 6, "ЧЈДгУРёцїмАЦµДКҐµ®")
+
+	Talk ( 7, "Дг±і°ьДЪєГПуГ»УРЧг№»µДµАѕЯЕ¶,ТІУРїЙДЬДгµД±і°ьТСЛш»тХЯ±і°ьДЪГ»УРїХёс.")
+
+	Talk ( 10, "ёжЛЯДгёцГШГЬ,Из№ыДгГЗДЬЙПЅЙЧг№»КэБїµД№©Ж·ёшОТ,ДЗГґОТѕНДЬФЪКҐµ®ѕєјјіЎЦРХЩ»Ѕіцј«ЖдЗїґуµДєЪ°µBOSS,І»№эФхГґІЕДЬ»ч°ЬЛьГЗѕНКЗДгГЗёГїјВЗµДКВАІ!")
+
+	AddNpcMission ( 6187 )
+	AddNpcMission ( 6188 )
+	AddNpcMission ( 6189 )
+	AddNpcMission ( 6193 )
+	AddNpcMission ( 6204 )
+end
+
+function Xmas_talk08()
+	Talk ( 1, "КҐµ®АПИЛ:єЗєЗ~КҐµ®їмАЦ~~ОТХвАпїЙТФОЄґујТ¶Т»»КҐµ®ґеЧЁУГµД№єОпУІ±Т,Из№ыДгПлФЪХвёцКҐµ®ґеАпShoppingµД»°ДЗѕНХТОТєГБЛ.")
+
+	Text ( 1, "ОТПл¶Т»»КҐµ®НтФЄУІ±Т", JumpPage, 2)
+	Text ( 1, "ОТПл¶Т»»КҐµ®°ЩНтФЄУІ±Т", JumpPage, 3)
+	Text ( 1, "ОТПл°СКҐµ®НтФЄУІ±Т¶Т»»»ШєЈµБ±Т", JumpPage, 4)
+	Text ( 1, "ОТПл°СКҐµ®°ЩНтФЄУІ±Т¶Т»»»ШєЈµБ±Т", JumpPage, 5)
+	Text ( 1, "ОТПл»Ш±щАЗ±¤", JumpPage, 6)
+
+	Talk ( 2, "¶Т»»Т»ёцКҐµ®НтФЄУІ±ТРиТЄ10000µДєЈµБ±Т,ДгИ·ИПТЄ¶Т»»Вр?")
+	InitTrigger()
+	TriggerCondition( 1, HasMoney, 10000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeMoney, 10000 )
+	TriggerAction( 1, GiveItem, 2962, 1, 4 )
+	TriggerAction( 1, JumpPage, 9 )
+	TriggerFailure( 1, JumpPage, 10 )
+	Text ( 2, "Confirm to redeem", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk ( 3, "¶Т»»Т»ёцКҐµ®°ЩНтФЄУІ±ТРиТЄ100WµДєЈµБ±Т,ДгИ·ИПТЄ¶Т»»Вр?")
+	InitTrigger()
+	TriggerCondition( 1, HasMoney, 1000000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeMoney, 1000000 )
+	TriggerAction( 1, GiveItem, 2963, 1, 4 )
+	TriggerAction( 1, JumpPage, 9 )
+	TriggerFailure( 1, JumpPage, 10 )
+	Text ( 3, "Confirm to redeem", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk ( 4, "ДгИ·¶ЁТЄ°СКҐµ®НтФЄУІ±Т»»іЙ10000єЈµБ±ТВр?")
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2962, 1)
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 2962,1 )
+	TriggerAction( 1, AddMoney, 10000 )
+	TriggerFailure( 1, JumpPage, 11 )
+	Text ( 4, "Confirm to redeem", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk ( 5, "ДгИ·¶ЁТЄ°СКҐµ®°ЩНтФЄУІ±Т»»іЙ100WєЈµБ±ТВр?")
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2963, 1)
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 2963,1 )
+	TriggerAction( 1, AddMoney, 1000000 )
+	TriggerFailure( 1, JumpPage, 11 )
+	Text ( 5, "Confirm to redeem", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerAction( 1, GoTo, 1318,510, "darkblue")
+	Talk( 6, "ДгИ·¶ЁТЄАлїЄХвАп»ШµЅ±щАЗ±¤Вр?")
+	Text( 6, "Teleport",MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk ( 9, "ЧЈДгУРёцїмАЦµДКҐµ®ЅЪ~")
+	Talk ( 10, "ДгµДЗ®І»№»Е¶,ТІУРїЙДЬДгµД±і°ьТСЛш¶Ё»тХЯГ»УРЧг№»µДїХёс.")
+	Talk ( 11, "ДгГ»УРґЛµАѕЯ,ТІУРїЙДЬДгµД±і°ьТСЛш¶Ё.")
+	AddNpcMission ( 6201 )
+	AddNpcMission ( 6202 )
+end
+
+function Xmas_talk09()
+	Talk ( 1, "КҐµ®уф»рФЪ»¶їмµДМш¶ЇЧЕ~")
+	AddNpcMission ( 6203 )
+end
+
+function Xmas_talk10()
+	Talk ( 1, "НБЦшїс»¶ХЯ:ОЄБЛХвГААц»¶АЦµДЅЪИХ,АґєНОТГЗТ»ЖрО§ЧЕуф»рМшОи°Й!")
+end
+
+function Xmas_talk11()
+	Talk ( 1, "НБЦшїс»¶ХЯ:С©»Ё...Оиµё...уф»р...»рј¦...С©ИЛ...КҐµ®Кч...АсОп...»№УР±ИХвёьНкГАµДКҐµ®ЅЪВр?")
+end
+
+function Xmas_talk12()
+	Talk ( 1, "НБЦшїс»¶ХЯ:»№КЗО§ЧЕуф»р±ИЅПЕЇєН°Ў!ЕуУСЈ¬ТЄІ»ТЄАґТ»Жрїѕ»б»р,МшёцОиДШ?")
+end
+
+function Xmas_talk13()
+	Talk ( 1, "НБЦшїс»¶ХЯ:ОТ»№КЗѕхµГОТµДОиЧЛІЕКЗЧо°фµДЈ¬ДгІ»ХвСщИПОЄВр?")
+end
+
+function Xmas_talk14()
+	Talk ( 1, "НБЦшїс»¶ХЯ:ЅсМмµДНнІНКЗКІГґДШ?»бУРПгЕзЕзµД»рј¦Вр?єГПлДоВиВиµДКЦТХ°Ў.")
+end
+
+function Xmas_talk15()
+	Talk ( 1, "НБЦшїс»¶ХЯ:ЛдИ»І»М«ПІ»¶Хвє®АдµДМмЖш,І»№эКҐµ®ЅЪµД·ХО§ХжєГ°Ў!єГїЄРД°Ў!")
+end
+
+function Xmas_talk16()
+	Talk ( 1, "РЎВ№°Я±И:Г»Аґ№эКҐµ®ґеГґ?ДгХжВдОй,ёжЛЯДг№ю,КҐµ®ґеЦРјдУРїГєЬґуµДКҐµ®Кч,ґ«Лµ¶ФХвКҐµ®КчРнФёКЗєЬБйСйµД.їмИҐКФКФ°Й~~~!№ю№ю,ЧЈДгКҐµ®їмАЦ!")
+end
+
+function Xmas_talk17()
+	Talk ( 1, "±щБъИш·ЖА­:±рј·ОТ°Ў!РЎРДОТ·ў»рЧбДгГЗЕ¶!")
+end
+
+function Xmas_talk18()
+	Talk ( 1, "РЎјЄГЧ:О№О№,±рµІЧЎОТВп,ОТТІПлТЄТ»·ЭАсОп!ѕНТ»·Э,їЙТФВр?")
+end
+
+function Xmas_talk19()
+	Talk ( 1, "їмАЦµДС©НЮНЮ:ІЁ¶ыПИЙъ!ДгµДїЪґьАп¶јЧ°БЛР©КІГґ°Ў?УРМрМрµДМЗ№ыВр?УРЖЇББµДНжѕЯВр?")
+end
+
+function Xmas_talk20()
+	Talk ( 1, "РЎГЁРБЛї:¶Ј¶Јµ±,¶Ј¶Јµ±,Бе¶щПм¶Јµ±~~~!№ю№ю.ЅсДкТ»¶ЁКЗёцїмАЦµДКҐµ®ЅЪ,ёжЛЯДгёцГШГЬЕ¶.ѕЭЛµКҐµ®ЅЪµ±МмОзТ№12µгµДК±єт,ЙсГШµДДжЧЄКҐµ®ґеИлїЪ»біцПЦФЪґеАп.±рНьБЛИҐїґїґЕ¶~~јЗµГ¶аґ©µг.")
+end
+
+function Xmas_talk21()
+	Talk ( 1, "·ЙРЬГЁЕЙґп:УРЗЙїЛБ¦О¶µАµДЦсЛсВр?ёшОТТ»Р©!!")
+end
+
+function Xmas_talk22()
+	Talk ( 1, "Little Louise: Christmas is coming! See, this is a brand new navy hat my mother bought for me, isn't it handsome?")
+end
+
+function Xmas_talk23()
+	Talk ( 1, "Пол: Ох, хорошо, хорошо. Я обещаю, что все получат подарок.")
+end
+
+function Xmas_talk24()
+	Talk ( 1, "Маленький Том: Anyone want to have a snowball fight with me? I will play the role of the general. I know I'll be stronger than Kuen, who is next to the fountain under the Christmas tree. Believe me I'll prove myself to be the better mark.")
+	AddNpcMission ( 6205 )
+end
+
+function Xmas_talk25()
+	Talk( 1, "С Новым Годом! Добро Пожаловать в Новогоднюю Деревню. Вы можете мне задать вопросы о Новогодней Деревне.")
+	Text( 1, "Новогодний ивент ",JumpPage, 2  )
+	Text( 1, "Что можно купить в Новогодней Деревне?",JumpPage, 3  )
+	Text( 1, "Новогодняя Арена ",JumpPage, 4 )
+
+	Talk( 2, "Is your Christmas box dirty? Find the cleaner at (83,39) to clear it for you. Do you want a turkey dinner? Go find Physhed at (220,40). Do you want to give out Christmas wishes? Go find a Christmas tree at (144,158). Do you know all about that? Then return now.")
+	Text( 2, "Return",JumpPage, 1  )
+
+	Talk( 3, "Around (132,246) is a big fair, you can buy many many, peculiar items there. Before go there you should change your Gold into Xmas Coins with Santa Claus(146,171) because the sales staff won't accept your gold. Go shopping now.")
+	Text( 3, "Return",JumpPage, 1  )
+
+	Talk( 4, "It is said that there is a horrible BOSS in Xmas Arena, but in order to summon him we need more sacrifices. You can go and find Kuen to tell him about it.")
+	Text( 4, "Return",JumpPage, 1  )
+end
+--------------------------------------------------------------------------------------------------------------------
+--													Xmas_talk (Конец)											  --
+--------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------
+--													movexmas_talk (Начало)										  --
+--------------------------------------------------------------------------------------------------------------------
+function movexmas_talk()
+	Talk ( 1, "Порталщик Новгодней Деревни: С Новым Годом! Вы хотите отправиться в Новогоднюю Деревню? Если Вы скажите мне, то я Вас телепортирую туда.")
+	Text ( 1, "Я думаю, что я хочу в Новогоднюю Деревню.", JumpPage, 2)
+	Text ( 1, "Нет, спасибо.", CloseTalk)
+
+	InitTrigger()
+	TriggerCondition( 1, LvCheck, "<", 11 )
+	TriggerAction( 1, GoTo, 144,136, "07xmas" )
+	TriggerCondition( 2, HasMoney, 500 )
+	TriggerAction( 2, TakeMoney, 500 )
+	TriggerAction( 2, GoTo, 144,136, "07xmas")
+	TriggerFailure( 2, JumpPage, 3 )
+	Talk( 2, "Новогодняя Деревня сейчас открыта. Стоимость телепорта 500 золота. Если Вы меньше 10го уровня, то я Вас телепортирую бесплатно.")
+	Text( 2, "Отправиться ",MultiTrigger, GetMultiTrigger(), 2 )
+
+	Talk( 3, "Порталщик Новгодней Деревни: У Вас не хватает денег.")
+	AddNpcMission ( 6190 )
+	AddNpcMission ( 6192 )
+	AddNpcMission ( 6194 )
+	AddNpcMission ( 6196 )
+	AddNpcMission ( 6198 )
+	AddNpcMission ( 6200 )
+end
+
+function movexmas_talk01()
+	Talk ( 1, "С Новым Годом!Вы хотите обратно в Новогоднюю Деревню? Это совершенно бесплатно!")
+	Text ( 1, "Я хочу обратно в Новогоднюю Дерверню", JumpPage, 2)
+
+	InitTrigger()
+	TriggerAction( 1, GoTo, 144,136, "07xmas")
+	Talk( 2, "Вы готовы?")
+	Text( 2, "Телепортироваться!",MultiTrigger, GetMultiTrigger(), 1 )
+end
+--------------------------------------------------------------------------------------------------------------------
+--													movexmas_talk (Конец)										  --
+--------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------
+--													peter_talk (Начало)											  --
+--------------------------------------------------------------------------------------------------------------------
+function peter_talk01()
+	Talk( 1, "Аде: Я не думаю что я глупый. Мой IQ 180!")
+end
+
+function peter_talk02()
+	Talk( 1, "Турист Эмма: I enjoy Christmas here with the others. It's the most relaxing thing for me in the whole year because during these joyous days I can forget all of the everyday chaos. I'll tell you a secret, I'll be playing Santa Claus and giving out the presents later. See whether or not you can recognize me.")
+end
+
+function peter_talk03()
+	Talk( 1, "Selin's Father: Tell your father what I've told you. Your father should give you pin money on Christmas. And tell him he should take care of his kids. Or he will lose you, just like me. I lost my boy!")
+end
+
+function peter_talk04()
+	Talk( 1, "Tourist Wednue: Hey! Merry Christmas! You come here to celebrate Christmas, right? Me too! Go to visit Xmas Merchant he owns lots of interesting items.")
+end
+
+function peter_talk05()
+	Talk( 1, "Дядя Харкен: О да! Новый Год! Ха ха ха ха...")
+end
+
+function peter_talk06()
+	Talk( 1, "Hip-Hop Fascinator: Come on! Want to be eye-catching on Christmas day? Play it cool with sun-glasses? No, no, no, let me tell you, it's really cool to have a Santa Claus costume.")
+end
+
+function peter_talk07()
+	Talk( 1, "Captain Kalimi: You don't think the children at sea can receive Christmas gifts? Don't worry, Santa Claus will send gifts to every child.")
+end
+
+function peter_talk08()
+	Talk( 1, "Sailor Aini: The captain is so kind that he permitted us to join the party. Oh, that's great!")
+end
+
+function peter_talk09()
+	Talk( 1, "Colonel Karee: Oh, cold is nothing in this great festival. I would love to play with my kids, but I'm a soldier, I have responsibilities. I hope you have a good time!")
+end
+
+function peter_talk10()
+	Talk( 1, "Seaman: I promise everyone can enjoy Christmas Day here. Why? Don't you see the baton in my hand?")
+end
+
+function peter_talk11()
+	Talk( 1, "Tourist Rolince:I love Christmas very much, and I like playing here, so many sweeties.  Do you want to give me a Xmas present?")
+end
+
+function peter_talk12()
+	Talk( 1, "Vendor Judy: If I could earn a living by touring around with my wares, then I would.  But I am also happy here; I just love to see the look on people's faces when they find the perfect gift for someone, on my stall.")
+end
+
+function peter_talk13()
+	Talk( 1, "Vendor Natcher: Have you ever been to Cupid Isle? If not, you must buy this keepsake. If you did, you should also buy it for Christmas.")
+end
+
+function peter_talk14()
+	Talk( 1, "Xmas Isle Vendor Romon: All people are willing to buy gifts in winter.")
+end
+
+function peter_talk15()
+	Talk( 1, "Xmas Isle Vendor Yeya: Hey! Merry Christmas! What about these clothes?")
+end
+
+function peter_talk16()
+	Talk( 1, "Bonfire Elder: take a look at flames. It reminds me of bonfire party when I was young. So young man, you must cherish now what you have.")
+end
+
+function peter_talk17()
+	Talk( 1, "Graybeard Noot: How old do think I am? Anyway it doesn't matter, we are all children compared with Santa Claus. You don't believe I'm a child? Why not have a snowball fight with me?")
+end
+
+function peter_talk18()
+	Talk( 1, "Granny Kela: AhAh We should help everyone who comes here to celebrate Christmas. If you don't know how to get there, you can ask me. I'll tell you.")
+end
+
+function peter_talk19()
+	Talk( 1, "Red Beard Raystom: Oh,It's been so long since I last talked with a real person!...Who are you? What do I want to ask you... ")
+end
+
+function peter_talk20()
+	Talk( 1, "Vendor Carten: Wow, Merry Christmas! You like Christmas so much then why not hold a balloon in your hand? It's said that Santa Claus will give gifts to the children who have balloons first!")
+end
+
+function peter_talk21()
+	Talk( 1, "Selina: Wooh, I want my dad, I just got a cake from Santa Claus, but where is my dad?")
+end
+
+function peter_talk22()
+	Talk( 1, "Short-tail Carsi: I have received gifts before, but this Christmas I will look for gifts. I know that the gift sent by Santa Claus is the same as the one my father bought.")
+end
+
+function peter_talk23()
+	Talk( 1, "Силвин: С Новым Годом! У Вас нет фейерверков? Почему бы Вам не сходить и купить немного на рынке, ниже центра Новогодней Деревни?.")
+end
+
+function peter_talk24()
+	Talk( 1, "Оми: A saying in the East goes, there is money and beauty in books. So I recommend that you learn a reading skill first.")
+end
+
+function peter_talk25()
+	Talk( 1, "Зое: Я скажу тебе по секрету.  Вы видите то место с воздушными шариками?  Они продают очень полезные вещи, которые могут помочь искателям приключений, как Вы!")
+end
+
+function peter_talk26()
+	Talk( 1, "Марк: Привет, я Марк, я всегда хочу тепло приветсвовать туристов.")
+end
+
+function peter_talk27()
+	Talk( 1, "Lique: Someone said that I should stay in the  kitchen. But I think this is Santa Claus's idea to make everybody around me laugh, which makes me happy. Merry Christmas. Remember, you have met short Lique in street this Christmas.")
+end
+
+function peter_talk28()
+	Talk( 1, "Вера: Я низкая? Хмм...Я лучший ассистент Деда Мороза!")
+end
+
+function peter_talk29()
+	Talk( 1, "Xmas Snowman Raygreen: I must keep silent. But I wish you Merry Christmas.")
+end
+
+function peter_talk30()
+	Talk( 1, "Xmas Snowman Kargreen: Hello! Merry Christmas! Have you heard of a captain tracked by a stone? Not yet? You should catch up with Santa Claus, he can tell you tonight.")
+end
+
+function peter_talk31()
+	Talk( 1, "Little Joy: Haven't you thought about capturing the Santa Claus and keeping him in your house? I used to do it but failed. Now I've got a good idea to capture him. I'll tell you tomorrow.")
+end
+
+function peter_talk32()
+	Talk( 1, "Молочный Мальчик: Хо! Хо! Хо! Дед Мороз подарил мне мой любимый вид кофе.")-- WTF?о_____________О ппц его зовут
+end
+
+function peter_talk33()
+	Talk( 1, "Stupid John: Merry Christmas, people always call me John, you may know my nickname, in fact, I'm no fool, I know that Little Joy will try to capture Santa Claus.")
+end
+
+function peter_talk34()
+	Talk( 1, "Milu Joker: You know, I have a companion who is good at running, once they were running so fast that they were dubbed the Express Highway.")
+end
+
+function peter_talk35()
+	Talk( 1, "Grandmother Michia: On Christmas night, you must hang your stockings on the Christmas tree for Santa to place gifts in.")
+end
+
+function peter_talk36()
+	Talk( 1, "Clergyman Illuson: If you have 10 true friends, you own the world. God bless you! My friend!")
+end
+
+function peter_talk37()
+	Talk( 1, "Carew: Don't waste your time every night. Tonight we'll have a good party. Join us, this Christmas will be the best.")
+end
+
+function peter_talk38()
+	Talk( 1, "Booggie: You know what. I have heard tell of something called the All-round Gem that can be used to make its user more powerful. You can ask Miree about it.")
+end
+
+function peter_talk39()
+	Talk( 1, "Renaldo: I have a wish: I want my boss to pay me more and I want to have payed holiday!...But please don't let my boss know what I have said.")
+end
+
+function peter_talk40()
+	Talk( 1, "Klell: Happy holiday! But we should all pay attention to safety. I don't want anyone going to hospital just because of carelessness.")
+end
+
+function peter_talk41()
+	Talk( 1, "Deekos: So much snow! How can I clear it alone? I want I can get a Snow Shifter as a Christmas gift!")
+end
+
+function peter_talk42()
+	Talk( 1, "Poolo: I realize that we should enjoy everyday we have. So I think that it's a great blessing to spend Christmas here. So merry Christmas! And enjoy your life, friend.")
+end
+
+function peter_talk43()
+	Talk( 1, "Winnie: I've dreamed of becoming a Navigator. I will sail my ship faster than Santa Claus. In that case, Santa Claus would ask me to help him deliver gifts.")
+end
+
+function peter_talk44()
+	Talk( 1, "Gafee: How do you celebrate the wonderful Christmas? I just want to sit on the sofa, watch TV and enjoy Italian spaghetti!")
+end
+
+function peter_talk45()
+	Talk( 1, "Troublesome Suosuo: Where am I from? Where do roses in Winter come from? Where are Snowman and Little Milu from? I know what the answers are. I just want to know whether you know them or not?")
+end
+
+function peter_talk46()
+	Talk( 1, "Оскар: It's the Christmas season. I must spend some time with my kids snowball fighting and enjoying our delicious turkey.")
+end
+
+function peter_talk47()
+	Talk( 1, "Кае: Это мои первые минуты Нового года. Дед Мороз,большая и красивая новогодняя ёлка. Видели Вы Деда Мороза?")
+end
+--------------------------------------------------------------------------------------------------------------------
+--													peter_talk (Конец)											  --
+--------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------
+--													church_talk (Начало)										  --
+--------------------------------------------------------------------------------------------------------------------
+function church_talk01()
+	Talk (1, "Свидетель: Привет. За 200 золотых я могу устроить для жениха с невестой грандиозный салют. Хочешь?")
+
+	InitTrigger()
+	TriggerCondition( 1, HasMoney, 200 )
+	TriggerAction( 1, TakeMoney, 200)
+	TriggerAction( 1, FireworksChurch )
+	TriggerFailure( 1, JumpPage, 3)
+
+	Text (1, "Конечно! ", MultiTrigger, GetMultiTrigger(), 1)
+	Text (1, "Нет, спасибо. ", CloseTalk)
+
+	Talk (3, "Свидетель: Извините, но у Вас нет денег. ")
+	Text (3, "До свидания. ", CloseTalk)
+end
+
+function church_talk02()
+	Talk (1, "Свидетельница: Привет. За 200 золотых я могу устроить для жениха с невестой грандиозный салют. Хочешь? ")
+
+	InitTrigger()
+	TriggerCondition( 1, HasMoney, 200 )
+	TriggerAction( 1, TakeMoney, 200)
+	TriggerAction( 1, FireworksChurch )
+	TriggerFailure( 1, JumpPage, 3)
+
+	Text (1, "Конечно! ", MultiTrigger, GetMultiTrigger(), 1)
+	Text (1, "Нет, спасибо. ", CloseTalk)
+
+	Talk (3, "Свидетельца: Извините, но у Вас нет денег. ")
+	Text (3, "До свидания. ", CloseTalk)
+end
+
+function church_talk03()
+	Talk( 1, "Первосященник: Добро пожаловть в Церковь. Давайте начнем церемонию. ")
+	Text( 1, "Начать церемонию ", JumpPage, 2)
+
+	Talk( 2, "Первосвященник: Берешь ли ты в законные жены(мужья) этого человека? Согласен(а) ли ты и в горе и в радости быть с ним? " )
+	Text( 2, "Да. Я согласен(а). ", Marry)
+	Text( 2, "Мне надо подумать... ", CloseTalk)
+end
+
+function church_talk04()
+	Talk( 1, "Прихожанка: Добрый день! А Вы на свадьбу? Не желаете сделать сюрприз молодоженам? ")
+	Text( 1, "Какой? ", JumpPage, 2)
+	Text( 1, "Нет, спасибо. ", CloseTalk)
+
+	Talk( 2, "Прихожанка: У меня есть уникальные свитки вызова. Я очень дешего их отдаю. ")
+	Text( 2, "Цветочный шар ", JumpPage, 3)
+	Text( 2, "Расписка на игру с Шариками ", JumpPage, 4)
+
+	Talk( 3, "Прихожанка: Брачный аферист очень агресивен. Если его ударить, он не отстанет от Вас. Будьте осторожны! ")
+
+	InitTrigger()
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, HasMoney, 75000 )
+	TriggerAction( 1, TakeMoney, 75000 )
+	TriggerAction( 1, GiveItem , 3080 , 1 , 4 )
+	TriggerFailure( 1, JumpPage, 5 )
+	Text( 3, "Купить за 75.000 золотых ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 3, "Назад ", JumpPage, 2)
+
+	Talk( 4, "Прихожанка: Воздушные шары... Я очень люблю украшать ими свой дом. А Вы когда-нибудь пробывали? ")
+
+	InitTrigger()
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, HasMoney, 75000 )
+	TriggerAction( 1, TakeMoney, 75000 )
+	TriggerAction( 1, GiveItem , 3083 , 1 , 4 )
+	TriggerFailure( 1, JumpPage, 5 )
+	Text( 4, "Купить за 75.000 золотых ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 4, "Назад ", JumpPage, 2)
+
+	Talk( 5, "Прихожанка: Как вы смеете обманывать? Здесь! В Церкви! ")
+	Text( 5, "Извините ", CloseTalk)
+end
+--------------------------------------------------------------------------------------------------------------------
+--													church_talk (Конец)											  --
+--------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------
+--													star_talk (Начало)											  --
+--------------------------------------------------------------------------------------------------------------------
+function star_talk02()
+
+	Talk( 1, "Очаг бессмертия: Чего пялишся? Впервые перед таким прекрасным очагом?" )
+	Text( 1, "Разъяснение функции ", JumpPage, 2)
+	Text( 1, "Набор Цилимя, набор Чёрного дракона и улучшеный главный набор ", OpenItemTiChun )
+	Text( 1, "Перезарядка коралла ", OpenItemEnergy )
+	Text( 1, "Извлечение самоцвета ", OpenGetStone )
+	Text( 1, "Ремон инструментов основных навыков ", OpenItemFix )
+
+	Talk( 2, "Очаг бессмертия: Больше я ничего не скажу. Потрудись сам!" )
+	Text( 2, "Руководство по улучшению наборов ", JumpPage, 3)
+	Text( 2, "Предисловие к зарядке кораллов ", JumpPage, 4)
+	Text( 2, "Информация об извлечении самоцветов ", JumpPage, 5)
+	Text( 2, "Про инструменты для ремонта ", JumpPage, 6)
+
+	Talk( 3, "Очаг бессмертия: Эта функция позволяет улучшать наборы Кайлин и Черного Дракона, а так же Босс-снаряжение 70 ур. до Снаряжения Смерти 75 ур.(Босс). Можно улучшить соответствующий предмет по запросу. Внешний вид изменится, но закрепленный на снаряжении самоцвет останется прежним." )
+
+	Talk( 4, "Очаг бессмертия: Используйте батарейку для пополнения энергии кораллов. Перезаряжаемая батарейка способна восстановить от 50 до 1000 очков энергии, а Перезаряжаемая супербатарея - до 1500 очков энергии. После использования батарейка исчезает!" )
+
+	Talk( 5, "Очаг бессмертия: извлекать соответственно положению самоцветов, сверху вниз. Уровень извлеченных самоцветов уменьшится на 1 при извлечении. Для каждого извлечения требуются 1 Клещи кузнеца.")
+	Text( 5, "Извлечь образец камня ", JumpPage, 7)
+
+	Talk( 6, "Очаг бессмертия: Здесь можно починить повреждённые Кристальный котёл, Кристалл чёрной дыры, Кристалл антиматерии и Кристал частиц. Необходим 1 ремонтный инструмент. Будет как новенький!")
+
+	Talk( 7, "Очаг бессмертия: Возьмём, например, Меч Дракона с 3 слотами: в первом слоте - Самоцвет Ярости 3 ур., во втором слоте Самоцвет Бешенства 2 ур., а в третьем - Глаз Чёрного Дракона 1 ур. При извлечении будет извлечен только Самоцвет Ярости 3 ур." )
+end 
+
+function star_talk03()
+	Talk( 1, "Счастливый шанс: Привет, я бы посоветовал вам оставить пустые слоты в инвентаре перед игрой. Вы можете выиграть что-то ценное!" )
+	Text( 1, "Узнать о игре ", JumpPage, 2)
+	Text( 1, "Играть ", OpenTiger )
+	Talk( 2, "Счастливый шанс: Чтобы играть вам нужно 5 монет феи. Вы можете играть несколько раз. Чем больше вы будете пытаться, тем выше ваши шансы на победу!" )
+end
+--------------------------------------------------------------------------------------------------------------------
+--													star_talk (Конец)											  --
+--------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------
+--											Одиночные_функции (Начало)											  --
+--------------------------------------------------------------------------------------------------------------------
+function n_talk13()
+	Talk (1, "Сумасшедший Прапорщик: Ха-ха-ха ~ Война... война... ~ Я люблю войну!")
+	
+	-- Мирная угроза
+	AddNpcMission(7001)
+	-- Секретная директива
+	AddNpcMission(7002)
+	-- Любовь? Война!
+	AddNpcMission(7003)
+	-- Торжество справедливости
+	AddNpcMission(7004)
+end
+
+function e_talk01()
+	Talk( 1, "Ланга: Адский фрукт определяет, какого типа будет новая фея, а тип феи определяет, какие характеристики получит игрок при использовании навыка обладания феей. После бракосочетания феи-родители теряют по 4 уровня. Хочешь узнать что-то ещё?" )
+	Text( 1, "Особенности нового поколения фей " ,JumpPage, 2)
+	Text( 1, "Условия получения нового поколения фей ", JumpPage, 3)
+	Text( 1, "Свадьба фей ", OpenEidolonMetempsychosis )
+
+	Talk( 2, "Ланга: Новое поколение фей обучится Самоуничтожению и Обладанию. Фея силы, Фея телосложения, Фея точности, Фея духа и Фея ловкости могут улучшать соответствующие параметры персонажа. Фея Удачи и Фея зла могут увеличивать вероятность нахождения трофеев и скорость получения опыта соответственно, а Мордо Младший обладает способностями как Феи Зла, так и Феи удачи, равно как и скрытыми свойствами.")	
+
+	Talk( 3, "Ланга: Уровень обычных фей сильно влияет на новорожденных фей. Я много знаю о феях. Пожалуйста, проверяйте их.")
+	Text( 3, "Условия для получения Феи Силы ", JumpPage, 4  )
+	Text( 3, "Условия для создания Феи Телосложения ", JumpPage, 5  )
+	Text( 3, "Условия для рождения Феи Меткости ", JumpPage, 6  )
+	Text( 3, "Условия для создания Феи Духа ", JumpPage, 7  )
+	Text( 3, "Условия для получения Феи Ловкости ", JumpPage, 8  )
+	Text( 3, "Условия для получения Феи Удачи ", JumpPage, 9)
+	Text( 3, "Условия для получения Феи Зла ", JumpPage, 10)
+	Text( 3, "Условия для создания Мордо Младшего ", JumpPage, 11)	
+
+	Talk( 4, "Ланга: Чтобы сотворить Фею Силы, потребуется две феи не ниже 20 ур., 1 Адский фрукт силы, 10 Обломков арабской жемчужины, 10 Трупов стенающих воинов и немного золота.")
+
+	Talk( 5, "Ланга: Чтобы вырастить Фею Телосложения понадобятся 2 феи не ниже 20 ур., 1 Адский фрукт отваги , 10 Треснутых арабских жемчужин, 10 Трупов печального лучника и немного золота.")
+
+	Talk( 6, "Ланга: Вот что нужно, чтобы вырастить Фею Точности: 2 феи не ниже 20 ур. и 1 Адский фрукт энергии. Вдобавок в твоём рюкзаке должно быть 10 Рыбьих шипов, 10 Грязных колод и немного золота.")
+
+	Talk( 7, "Ланга: Чтобы сотворить Фею Духа требуется две обычных ручных феи не ниже 20 ур., 1 Адский фрукт интеллекта, 10 Хвостов Выползня, 10 Трупов стенающих лучников и немного золота.")
+
+	Talk( 8, "Ланга: Чтобы создать Фею Ловкости, понадобится две обычных ручных феи не ниже 20 ур., 1 Адский Фрукт заблуждения, 10 Акульих плавников, 10 Болотных деревьев и немного золота.")
+
+	Talk( 9, "Ланга: Чтобы сотворить Фею Удачи требуется две обычных ручных феи не ниже 20 ур., 1 Адский Фрукт кислоты, Вкусное мясо кальмара (10), 10 Трупов Печальных воинов и немного золота.")
+
+	Talk( 10, "Ланга: Чтобы сотворить Фею Зла требуется две обычных ручных феи не ниже 20 ур., 1 Адский Фрукт тайны, 10 Частей Искрящейся арабской Жемчужины, 10 Комков грязи и немного золота.")
+
+	Talk( 11, "Ланга: Фрукт тут ни при чём. Вероятность рождения Мордо Младшего от сочетания феи Мордо с другими феями зависит от их уровня.")
+
+	AddNpcMission ( 5019 )
+	AddNpcMission ( 5032 )
+	AddNpcMission ( 5080	)
+	AddNpcMission ( 5081	)
+	AddNpcMission ( 5082	)
+	AddNpcMission ( 5083	)
+	AddNpcMission (5117 )
+	AddNpcMission (5142 )
+	AddNpcMission (5149 )
+end
+
+function k_talk001()
+	Talk( 1, "... ..." )
+end
+
+function llleo_talk01()
+	Talk( 1, "Indianna Jones: Through the Crescent Canyon till the Shrine, immortality in the name of the Goddess...I have found a secret of Demonic World. Do you wish to know?" )
+	Text( 1, "The Other Secret", JumpPage, 2)
+
+	Talk( 2, "Indianna Jones: Rumor has it that Demonic World is made up of 2 dimension, meaning that there will be 2 of you at each demension at the same moment. I found the other demension by chance and also a new way to unseal those uniques equipment from Demonic World. Those researchers do not know of this yet. If you wish to try my method, I might consider" )
+	Text( 2, "Unseal", JumpPage, 3)
+	
+	Talk( 3, "Indianna Jones: To unseal a unique equipment requires great energy consumption. Only those useless researchers will use multiple runestones to draw on their energy. I only need 1 special runestone to unseal it. Bring me 1 Morph Runestone and I will help you to unseal your equipment." )
+	Text( 3, "Staff of Enigma", JumpPage, 6)
+	Text( 3, "Mantle of the Sphinx", JumpPage, 7)
+	Text( 3, "Kris of the Sphinx", JumpPage, 8)
+	Text( 3, "Judgment of Enigma", JumpPage, 9)
+	Text( 3, "Rifle of Enigma", JumpPage, 10)
+	Text( 3, "Mantle of Enigma", JumpPage, 11)
+	Text( 3, "Robe of Enigma", JumpPage, 12)
+	Text( 3, "Next Page", JumpPage, 4)
+
+	Talk( 4, "Indianna Jones: To unseal a unique equipment requires great energy consumption. Only those useless researchers will use multiple runestones to draw on their energy. I only need 1 special runestone to unseal it. Bring me 1 Morph Runestone and I will help you to unseal your equipment." )
+	Text( 4, "Blade of Enigma", JumpPage, 13)
+	Text( 4, "Tattoo of Enigma", JumpPage, 14)
+	Text( 4, "Armor of Enigma", JumpPage, 15)
+	Text( 4, "Robe of the Sphinx", JumpPage, 16)
+	Text( 4, "Staff of the Sphinx", JumpPage, 17)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1909, 1 )
+	TriggerCondition( 1, HasItem, 1028, 1 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1909, 1 )
+	TriggerAction( 1, TakeItem, 1028, 1  )
+	TriggerAction( 1, GiveItem, 788, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 6, "Indianna Jones: To unseal the curse on Staff of Enigma, you must bring me: Ice Sealed Staff of Enigma, Morph Runestone x1 and also 800000G as fee." )
+	Text( 6, "Unseal curse on Staff of Enigma", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1927, 1 )
+	TriggerCondition( 1, HasItem, 1028, 1 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1927, 1 )
+	TriggerAction( 1, TakeItem, 1028, 1  )
+	TriggerAction( 1, GiveItem, 806, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 7, "Indianna Jones: To unseal the curse on Mantle of the Sphinx, you must bring me: Ice Sealed Mantle of the Sphinx, Morph Runestone x1 and also 800000G as fee" )
+	Text( 7, "Unseal curse on Mantle of the Sphinx", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1923, 1 )
+	TriggerCondition( 1, HasItem, 1028, 1 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1923, 1 )
+	TriggerAction( 1, TakeItem, 1028, 1  )
+	TriggerAction( 1, GiveItem, 802, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 8, "Indianna Jones: To unseal the curse on Kris of the Sphinx, you must bring me: Ice Sealed Kris of the Sphinx, Morph Runestone x1 and also 800000G as fee." )
+	Text( 8, "Unseal curse on Kris of the Sphinx", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1894, 1 )
+	TriggerCondition( 1, HasItem, 1028, 1 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1894, 1 )
+	TriggerAction( 1, TakeItem, 1028, 1  )
+	TriggerAction( 1, GiveItem, 773, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 9, "Indianna Jones: To unseal the curse on Judgment of Enigma, you must bring me: Ice Sealed Judgment of Enigma, Morph Runestone x1 and also 800000G as fee." )
+	Text( 9, "Unseal curse on Judgment of Enigma", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1905, 1 )
+	TriggerCondition( 1, HasItem, 1028, 1 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1905, 1 )
+	TriggerAction( 1, TakeItem, 1028, 1  )
+	TriggerAction( 1, GiveItem, 784, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 10, "Indianna Jones: To unseal the curse on Rifle of Enigma, you must bring me: Ice Sealed Rifle of Enigma, Morph Runestone x1 and also 800000G as fee" )
+	Text( 10, "Unseal curse on Rifle of Enigma", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1901, 1 )
+	TriggerCondition( 1, HasItem, 1028, 1 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1901, 1 )
+	TriggerAction( 1, TakeItem, 1028, 1  )
+	TriggerAction( 1, GiveItem, 780, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 11, "Indianna Jones: To unseal the curse on Mantle of Enigma, you must bring me: Ice Sealed Mantle of Enigma, Morph Runestone x1 and also 800000G as fee." )
+	Text( 11, "Unseal curse on Mantle of Enigma", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1913, 1 )
+	TriggerCondition( 1, HasItem, 1028, 1 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1913, 1 )
+	TriggerAction( 1, TakeItem, 1028, 1  )
+	TriggerAction( 1, GiveItem, 792, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 12, "Indianna Jones: To unseal the curse on Robe of Enigma, you must bring me: Ice Sealed Robe of Enigma, Morph Runestone x1 and also 800000G as fee." )
+	Text( 12, "Unseal curse on Robe of Enigma", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1897, 1 )
+	TriggerCondition( 1, HasItem, 1028, 1 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1897, 1 )
+	TriggerAction( 1, TakeItem, 1028, 1  )
+	TriggerAction( 1, GiveItem, 776, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 13, "Indianna Jones: To unseal the curse on Blade of Enigma, you must bring me: Ice Sealed Blade of Enigma, Morph Runestone x1 and also 800000G as fee." )
+	Text( 13, "Unseal curse on Blade of Enigma", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1887, 1 )
+	TriggerCondition( 1, HasItem, 1028, 1 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1887, 1 )
+	TriggerAction( 1, TakeItem, 1028, 1  )
+	TriggerAction( 1, GiveItem, 766, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 14, "Indianna Jones: To unseal the curse on Tattoo of Enigma, you must bring me: Ice Sealed Tattoo of Enigma, Morph Runestone x1 and also 800000G as fee." )
+	Text( 14, "Unseal curse on Tattoo of Enigma", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1890, 1 )
+	TriggerCondition( 1, HasItem, 1028, 1 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1890, 1 )
+	TriggerAction( 1, TakeItem, 1028, 1  )
+	TriggerAction( 1, GiveItem, 769, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 15, "Indianna Jones: To unseal the curse on Armor of Enigma, you must bring me: Ice Sealed Armor of Enigma, Morph Runestone x1 and also 800000G as fee." )
+	Text( 15, "Unseal curse on Armor of Enigma", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1919, 1 )
+	TriggerCondition( 1, HasItem, 1028, 1 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1919, 1 )
+	TriggerAction( 1, TakeItem, 1028, 1  )
+	TriggerAction( 1, GiveItem, 798, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 16, "Indianna Jones: To unseal the curse on Robe of the Sphinx, you must bring me: Ice Sealed Robe of the Sphinx, Morph Runestone x1 and also 800000G as fee." )
+	Text( 16, "Unseal curse on Robe of the Sphinx", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1916, 1 )
+	TriggerCondition( 1, HasItem, 1028, 1 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1916, 1 )
+	TriggerAction( 1, TakeItem, 1028, 1  )
+	TriggerAction( 1, GiveItem, 795, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 17, "Indianna Jones: To unseal the curse on Staff of the Sphinx, you must bring me: Ice Sealed Staff of the Sphinx, Morph Runestone x1 and also 800000G as fee." )
+	Text( 17, "Unseal curse on Staff of the Sphinx", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 30, "Indianna Jones: Sorry, you do not have the required items. I cannot unseal it for you." )
+end
+
+function kk_talk01()
+	Talk( 1,  "Администратор Хаоса: В бою выживают лишь сильнейшие, и лишь сильнейшие получают уважение. " )
+	Text( 1,  "Получить награды ", JumpPage ,7)
+	Text( 1,  "Посмотреть ТОП Хаоса ", Garner2GetWiner)
+	Text( 1,  "Войти в ТОП Хаоса ", Garner2RequestReorder)
+	Text( 1,  "Узнать о ранге Хаоса ", JumpPage ,3)
+	Text( 1,  "Узнать о Хаосе Города Счастья ", JumpPage ,13)
+	
+--	Talk( 2,  "Администратор Арены: Чтобы получить Медаль отваги вы должны быть 25 уровня и заплатить 50000 золота. Медаль отваги записывает все ваши победы и поражения в бою. После получения ее нельзя будет уничтожить. " )
+--	Text( 2,  "Получить Медаль отваги ",Change_FightingBook)
+
+	Talk( 3,  "Администратор Хаоса: Оцениваются все участники сражения, однако войти в список могут лишь пятеро сильнейших. " )
+	Text( 3,  "Узнать об очках Хаоса ",JumpPage ,4)
+	Text( 3,  "Узнать об экипировке Хаоса ",JumpPage ,6)
+
+
+	Talk( 4,  "Администратор Хаоса: Вы можете получать очки Хаоса побеждая противников примерно вашего уровня. Все очки записываются в вашу Медаль отваги. " )
+
+	Talk( 6,  "Администратор Хаоса: Набор Хаоса включает в себя Огненный камень Хаоса, Каменную руку Хаоса и Каменную ногу Хаоса. При ношении полного набора можно получить определенный бонус в зависимости от положение в ТОП Хаоса. " )
+	
+	Talk( 7,  "Администратор Хаоса: Обращайтесь ко мне, если хотите получить ценные вещи. " )
+	Text( 7,  "Получить Стандартную расписку Хаоса ",JumpPage ,8)
+	Text( 7,  "Получить Сундук Хаоса ",JumpPage ,9)
+	Text( 7,  "Обменять на Эмблему короля ринга ",JumpPage ,10)
+	Text( 7,  "Получить гайд ",SendExchangeXData)
+	Text( 7,  "Получить Символ Чести ",JumpPage ,12)
+
+	InitExchangeX()
+
+	ExchangeDataX(	2608	,	100	,	2682	,	1	,	1)
+	ExchangeDataX(	2609	,	100	,	2683	,	1	,	1)
+	ExchangeDataX(	2609	,	1000	,	2684	,	1	,	1)
+	ExchangeDataX(	2608	,	100	,	2692	,	1	,	1)
+	ExchangeDataX(	2609	,	100	,	2693	,	1	,	1)
+	ExchangeDataX(	2609	,	1000	,	2694	,	1	,	1)
+	ExchangeDataX(	2608	,	100	,	2702	,	1	,	1)
+	ExchangeDataX(	2609	,	100	,	2703	,	1	,	1)
+	ExchangeDataX(	2609	,	1000	,	2704	,	1	,	1)
+	ExchangeDataX(	2608	,	100	,	2712	,	1	,	1)
+	ExchangeDataX(	2609	,	100	,	2713	,	1	,	1)
+	ExchangeDataX(	2609	,	1000	,	2714	,	1	,	1)
+	
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1031, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 1031, 1 )
+	TriggerAction( 1, GiveItem, 2609, 1, 4 )
+	TriggerFailure( 1, JumpPage, 11 )
+	Talk( 8,  "Администратор Хаоса: Необходима 1 Святой эмблема кольца " )
+	Text( 8,  "Обменять ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1032, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 1032, 1 )
+	TriggerAction( 1, GiveItem, 1134, 1, 4 )
+	TriggerFailure( 1, JumpPage, 11 )
+	Talk( 9,  "Chaos Администратор Арены: Необходима 1 Эмблема короля ринга " )
+	Text( 9,  "Обменять ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1031, 5 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 1031, 5 )
+	TriggerAction( 1, GiveItem, 1032, 1, 4 )
+	TriggerFailure( 1, JumpPage, 11 )
+	Talk( 10,  "Администратор Хаоса: Необходимо 5 Святых эмблем кольца" )
+	Text( 10,  "Обменять ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 11,  "Администратор Хаоса: Найдите меня как соберете все необходимые предметы. Также не забудьте освободить 1 Свободное место в инвентаре. " )
+	
+	InitTrade()
+	Other(	1847	)
+	Other(	1848	)
+	Other(	1849	)
+	Other(	3143	)
+	Talk( 12,  "Администратор Хаоса: Символы Чести это Сердце Искры, Отважное сердце и Сердце великолепия. Они требуют для получения 200, 2000 и 20000 очков репутации соответственно. " )
+	Text( 12,  "Получить Сердце искры ", Change_shanyao)
+	Text( 12,  "Получить Отважное сердце ", Change_rongyao)
+	Text( 12,  "Получить Сердце великолепия ", Change_huihuang)
+
+	Talk( 13,  "Администратор Хаоса: Хаос Города Счастья позволяет игрокам проводть свободные сражения на своей территории. Чтобы войти в Хаос Города Счастья игрок должен быть как минимум 20 уровня и больше, и небольшое количество золота. " )
+end
+
+function smzh_talk()
+	Talk( 1, "Таинственный бакалейщик: Молодой человек! Не поддавайтесь иллюзиям!" )
+	Text( 1, "Торг ", BuyPage)
+	Text( 1, "Ремонт ", OpenRepair)
+
+	InitTrade()
+	Other(	1847 )
+	Other(	1848 )
+	Other(	1849 )
+	Other(	3143 )
+	Other(	637	 )
+	Other(	819	 )
+	Other(	869	 )
+	Other(	874	 )
+end 
+
+function ync_talk()
+	Talk( 1, "Коварный куст: Что ты на меня смотришь? Если не уйдешь, я тебя ударю.")
+
+	InitTrigger()
+	TriggerCondition( 1, HasMission, 1403 )
+	TriggerCondition( 1, HasRecord, 1402 )
+	TriggerCondition( 1, NoRecord, 1403 )
+	TriggerCondition( 1, NoRecord, 1404 )
+	TriggerAction( 1, JumpPage, 2 )
+	TriggerFailure( 1, JumpPage, 3 )
+	Text( 1, "Ответить на вопрос ",MultiTrigger, GetMultiTrigger(), 1 )
+
+	InitTrigger()
+	TriggerAction( 1, SetRecord, 1404 )
+	TriggerAction( 1, SetRecord, 1405 )
+	Talk( 2, "Почему... Почему нас всегда убивают? Ты знаешь, сколько месяцев мы растем? А потом приходят сборщики трав и...")
+	Text( 2, "11",MultiTrigger, GetMultiTrigger(), 1 )
+
+	InitTrigger()
+	TriggerAction( 1, SetRecord, 1404 )
+	TriggerAction( 1, SetRecord, 1406 )
+	Text( 2, "12",MultiTrigger, GetMultiTrigger(), 1  )
+
+	InitTrigger()
+	TriggerAction( 1, SetRecord, 1404 )
+	TriggerAction( 1, SetRecord, 1406 )
+	Text( 2, "13",MultiTrigger, GetMultiTrigger(), 1  )
+
+	InitTrigger()
+	TriggerAction( 1, SetRecord, 1404 )
+	TriggerAction( 1, SetRecord, 1407 )
+	Text( 2, "Мне всё равно ",MultiTrigger, GetMultiTrigger(), 1  )
+
+	Talk( 3, "Я должен отомстить!")
+
+	AddNpcMission ( 6072 )
+	AddNpcMission ( 6073 )
+	AddNpcMission ( 6074 )
+	AddNpcMission ( 6075 )
+	AddNpcMission ( 6076 )
+	AddNpcMission ( 6077 )
+end
+
+function Zs_Soldier()
+	Talk( 1, "Будьте тише и осторожней, а то эта большая ящерица проснётся!")
+
+	AddNpcMission ( 6098 )
+	AddNpcMission ( 6099 )
+end
+
+function pre_talk()
+	Talk( 1, "ДгєГ,ОТКЗАсЖ·ЕЙЛНЧЁФ±,ЧЁГЕёєФрЕЙЛНАсЖ·ёшґујТµД,ПЈНыДгГЗДЬПІ»¶.")
+	InitTrigger()
+	TriggerCondition( 1, HasNoItem,  1872 )
+	TriggerCondition(1, HasLeaveBagGrid, 1)
+	TriggerAction( 1, GiveItem, 1872, 1, 4)
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1, "БмИЎѕ«БйУІ±Т±¦Пд", MultiTrigger, GetMultiTrigger(), 1) 
+
+	InitTrigger()
+	TriggerCondition( 1, HasNoItem,  1570 )
+	TriggerCondition(1, HasLeaveBagGrid, 1)
+	TriggerAction( 1, GiveItem, 1570, 1, 4)
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1, "БмИЎѕ«Бй»ФУЎ±¦Пд", MultiTrigger, GetMultiTrigger(), 1) 
+
+	InitTrigger()
+	TriggerCondition( 1, HasNoItem,  1571 )
+	TriggerCondition(1, HasLeaveBagGrid, 1)
+	TriggerAction( 1, GiveItem, 1571, 1, 4)
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1, "БмИЎѕ«БйНх»ФУЎ±¦Пд", MultiTrigger, GetMultiTrigger(), 1) 
+
+	Talk( 2, "Дг±і°ьДЪТСѕ­УРёГЦЦАаРНµД±¦ПдБЛ,І»РиТЄФЩБмИЎ,ТІУРїЙДЬДгµД±і°ьГ»їХёсБЛ.")
+end
+
+function BT_NpcSale001()
 	Talk( 1,  "Бабушка Нилла: Добрый вечер! У меня для Вас в продаже лучшие вещи! Надеюсь Вам понравится! " )
 	Text( 1,  "Торг ", BuyPage )
 
@@ -665,909 +10108,156 @@ function equip()
 	AddNpcMission ( 705 )	
 end
 
-
-function help_kuz()
-	Talk( 1,  "Могу предложить тебе: " )
-	Text( 1,  "Улучшение экипировки ", OpenItemTiChun)
-	Text( 1,  "Комбинация самоцветов ", OpenUnite)
-	Text( 1,  "Вытащить самоцвет ", OpenGetStone)
-	Text( 1,  "Комбинирование рефов ", JumpPage, 2)
-	Talk( 2, "Я могу скомбинировать твои очищающие самоцветы при условии, что:_1. Ты имеешь 8,16 или 32шт самоцветов;_2. У тебя есть 8,30 или 100кк золота! ")
-	Text( 2,  "Реф 4 уровня ", FastCombiner, 885, 4)
-	Text( 2,  "Реф 5 уровня ", FastCombiner, 885, 5)
-	Text( 2,  "Реф 6 уровня ", FastCombiner, 885, 6)
-end
-
-function fairy ()
-	
-	
-	Talk( 1, "Гомо: Привет! У меня можешь приобрести фей и все для них. " )
-	Text( 1, "Торг ", BuyPage )
-	Text( 1, "Рассмотреть обмен ", JumpPage, 2)
-	Text( 1, "Свадьба фей ", OpenEidolonMetempsychosis )
-	
-	Talk( 2, "Привет, выбери, что ты хочешь обменять: " )
-	Text( 2, "Монеты фей ", JumpPage, 3)
-	Text( 2, "Эльф. печати ", JumpPage, 4)
-	Text( 2, "Золотые эльф. печати ", JumpPage, 5)
-
-	Talk( 3, "МФ - монета феи. Выбери обмен: " )
-	InitTrigger()
-	TriggerCondition( 1, HasItem,855,400 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 855,400 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 247,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 3, "Стандартный берсерк - 400МФ ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,855,400 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 855,400 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 244,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 3, "Стандартный защита - 400МФ ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,855,400 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 855,400 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 250,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 3, "Стандартный магия - 400МФ ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,855,400 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 855,400 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 253,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 3, "Стандартное восстановление - 400МФ ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,855,400 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 855,400 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 260,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 3, "Стандартная медитация - 400МФ ", MultiTrigger, GetMultiTrigger(), 1)
-	Text( 3, "Уйти. ", CloseTalk)
-	
-	Talk( 4, "ЭП - эльфийская печать. Выбери обмен: " )
-	InitTrigger()
-	TriggerCondition( 1, HasItem,2588,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 2588,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 578,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 4, "Фрукт роста феи 1шт - 1 ЭП ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,2588,5 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 2588,5 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 578,5,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 4, "Фрукт роста феи 5шт - 5 ЭП ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,2588,10 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 2588,10 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 578,10,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 4, "Фрукт роста феи 10шт - 10 ЭП ", MultiTrigger, GetMultiTrigger(), 1)
-	Text( 4, "Уйти. ", CloseTalk)
-	
-	Talk( 5, "ЭКП - эльфийская королевская печать. Выбери обмен: ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,2589,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 2589,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, AddMoney, 100000, 100000 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 5, "100.000 золота - 1 ЭКП ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,2589,5 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 2589,5 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, AddMoney, 500000, 500000 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 5, "500.000 золота - 5 ЭКП ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,2589,10 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 2589,10 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, AddMoney, 1000000, 1000000 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 5, "1.000.000 золота - 10 ЭКП ", MultiTrigger, GetMultiTrigger(), 1)
-	
-	Talk( 10, "Вам не хватает лута. ")
-	Text( 10, "Уйти ", CloseTalk)
-
-    Weapon(	0679	)		--Яйцо мордо
-	Weapon(	2312	)
-	Weapon(	0183	)
-	Weapon(	0184	)
-	Weapon(	0185	)
-	Weapon(	0186	)
-	Weapon(	0187	)
-	Weapon(	0188	)
-	Weapon(	0189	)
-	Weapon(	0190	)
-	Defence(	5343	)
-	Defence(	5344	)
-	Defence(	5345	)
-	Defence(	5346	)
-	Defence(	5347	)
-	Defence(	5348	)
-	Defence(	5349	)
-	Defence(	5350	)
-	Defence(	5351	)
-	Defence(	5352	)
-	
-
-end 
-
-function Skills()
-    Talk( 1,  "Мастер умений: Привет,я помогу постичь не постижимое.А если у тебя не хватит очков навыков,ты всегда можешь вернутся позже " )
-    --Text( 1,  "Автоматическое изучение(50к) ", AddSkillNPC)
-    Text( 1,  "Купить книги ", BuyPage)
-	InitTrigger()
-	Weapon(   3297   )
-   	Weapon(   3298   )
-   	Weapon(   3164   )
-   	Weapon(   3160   )
-   	Weapon(   3161   )
-   	Weapon(   3165   )
-   	Weapon(   3238   )
-   	Weapon(   3170   )
-   	Weapon(   3293   )
-   	Weapon(   3174   )
-   	Weapon(   3163   )
-   	Weapon(   3176   )
-   	Weapon(   3180   )
-   	Weapon(   3179   )
-   	Weapon(   3177   )
-   	Weapon(   3168   )
-   	Weapon(   3162   )
-   	Weapon(   3166   )
-   	Weapon(   3167   )
-   	Weapon(   3172   )
-   	Weapon(   3173   )
-   	Weapon(   3227   )
-   	Weapon(   3231   )
-   	Weapon(   3228   )
-   	Weapon(   3229   )
-   	Weapon(   3230   )
-   	Weapon(   3232   )
-   	Weapon(   3233   )
-   	Weapon(   3234   )
-   	Weapon(   3235   )
-   	Weapon(   3236   )
-   	Weapon(   3237   )
-	
-   	Defence(   3187   )
-   	Defence(   3188   )
-   	Defence(   3190   )
-   	Defence(   3239   )
-   	Defence(   3197   )
-   	Defence(   3193   )
-   	Defence(   3241   )
-   	Defence(   3192   )
-   	Defence(   3198   )
-   	Defence(   3202   )
-   	Defence(   3203   )
-   	Defence(   3204   )
-	
-   	Other(   3206   )
-   	Other(   3208   )
-   	Other(   3205   )
-   	Other(   3242   )
-   	Other(   3210   )
-   	Other(   3207   )
-   	Other(   3211   )
-   	Other(   3215   )
-   	Other(   3212   )
-   	Other(   3209   )
-   	Other(   3220   )
-   	Other(   3222   )
-   	Other(   3219   )
-   	Other(   3218   )
-   	Other(   3216   )
-   	Other(   3223   )
-   	Other(   3217   )
-   	Other(   3224   )
-   	Other(   3225   )
-   	Other(   3226   )
-   	Other(   3294   )
-   	Other(   3295   )
-   	Other(   3296   )
-	Other(	3299	)
-	Other(	3300	)
-	Other(	3301	)
-	Other(	3462	)
-	Other(	3463	)
-	Other(	3143	)
-	
-    Text( 1,  "В другой раз ", CloseTalk )
-end
-
-function Skills_New()
-	Talk( 1, "Приветствую тебя, упырь! Я могу обменять лут с Зимы на Новые скиллы! Выбирай: " )
-	Text( 1, "Инвиз БК ",JumpPage, 2)
-	Text( 1, "Огненный шар БК ",JumpPage, 3)
-	Text( 1, "Вой для круза ",JumpPage, 4)
-	Text( 1, "Уйти ", CloseTalk )
-	
-	InitTrigger()
-	Talk( 2, "Инвиз для БК - 5000 плам.баксов")
-	TriggerCondition( 1, HasItem,3458,5000 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3458,5000 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 3583, 1, 4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 5 )
-	Text( 2,  "Дарю Инвиз для БК ", MultiTrigger, GetMultiTrigger(), 1)
-	Talk( 3, "Огненный шар для БК - 7500 плам.баксов")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3458,7500 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3458,7500 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 3584, 1, 4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 5 )
-	Text( 3,  "Дарю огненный шар для БК ", MultiTrigger, GetMultiTrigger(), 1)
-	Talk( 4, "Вой для Круза  - 3000 плам.баксов")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3458,3000 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3458,3000 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 3585, 1, 4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 5 )
-	Text( 4,  "Дарю Вой для Круза ", MultiTrigger, GetMultiTrigger(), 1)
-	
-	Talk( 5, "У вас не хватает Пламенных баксов! ")
-	Text( 5, "Уйти. ", CloseTalk)
-end
-
-
-function Kleha()
-	Talk( 1, "Приветствую тебя, упырь! Я могу обменять лут на клещи 2 и 3 слота!_Выбирай: " )
-	Text( 1, "2 слот ",JumpPage, 2)
-	Text( 1, "3 слот ",JumpPage, 3)
-	Text( 1, "Уйти ", CloseTalk )
-	Talk( 2, "Клещи для 2 слота - 50 плам.баксов и 20к голдишка")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3458,50 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1,HasMoney,20000,20000)
-	TriggerAction( 1, TakeItem, 3458,50 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeMoney, 20000,20000 )
-	TriggerAction( 1, GiveItem, 4274, 1, 4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 1 )
-	Text( 2,  "Дарю Клещи для 2 слота ", MultiTrigger, GetMultiTrigger(), 1)
-	Talk( 3, "Клещи для 3 слота - 50 плам.баксов и 20к голдишка")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3458,50 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1,HasMoney,20000,20000)
-	TriggerAction( 1, TakeItem, 3458,50 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeMoney, 20000,20000 )
-	TriggerAction( 1, GiveItem, 4275, 1, 4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 1 )
-	Text( 3,  "Дарю Клещи для 3 слота ", MultiTrigger, GetMultiTrigger(), 1)
-end
-
-function Buster()
-	Talk( 1, "Приветствую тебя, упырь! Я Капитан Бустеренко,помогу тебе ебашить врагов!_Выбирай: " )
-	Text( 1, "1 Маг.Бустеры ",JumpPage, 2)
-	Text( 1, "2 Физ.БУстеры ",JumpPage, 3)
-	Text( 1, "Уйти ", CloseTalk )
-	
-	Talk( 2, "Выбирай, что хочешь получить:_1. Уровень 1 - 100 плам. баксов;_2. Уровень 2 - 200 плам. баксов;_3. Уровень 3 - 300 плам. баксов;_4. Уровень 4 - 400 плам. баксов;_5. Уровень 5 - 500 плам. баксов. ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3458,100 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3458,100 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 4283, 1, 4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 2, "1 Маг.Бустеры 1 лвл - 100 плам.баксов ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3458,200 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3458,200 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 4284, 1, 4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 2, "1 Маг.Бустеры 2 лвл  - 200 плам.баксов", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3458,300 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3458,300 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 4285, 1, 4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 2, "1 Маг.Бустеры 3 лвл  - 300 плам.баксов", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3458,400 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3458,400 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 4286, 1, 4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 2, "1 Маг.Бустеры 4 лвл  - 400 плам.баксов", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3458,500 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3458,500 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 4287, 1, 4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 2, "Маг.Бустеры 5 лвл", MultiTrigger, GetMultiTrigger(), 1)
-	Text( 2, "В начало ",JumpPage, 1 )
-	
-	Talk( 3,  "Выбирай, что хочешь получить:_1. Уровень 1 - 200 плам. баксов;_2. Уровень 2 - 400 плам. баксов;_3. Уровень 3 - 600 плам. баксов;_4. Уровень 4 - 800 плам. баксов;_5. Уровень 5 - 1000 плам. баксов. ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3458,200 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3458,200 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 4276, 1, 4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 3 )
-	Text( 3, "Физ.Бустеры 1 лвл ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3458,400 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3458,400 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 4277, 1, 4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 3 )
-	Text( 3, "Физ.Бустеры 2 лвл ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3458,600 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3458,600 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 4278, 1, 4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 3 )
-	Text( 3, "Физ.Бустеры 3 лвл ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3458,800 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3458,800 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 4279, 1, 4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 3 )
-	Text( 3, "Физ.Бустеры 4 лвл ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3458,1000 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3458,1000 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 4280, 1, 4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 3 )
-	Text( 3, "Физ.Бустеры 5 лвл ", MultiTrigger, GetMultiTrigger(), 1)
-	Text( 3, "<-- Назад ",JumpPage, 1)
-end
-
-
-function bankir()
-	Talk( 1,  "Чмо: Привет! Добро пожаловать в Банк Москвы. Могу ли я чем либо помочь? " )
-	InitTrigger()
-	TriggerCondition( 1, HasMoney, 2000 )
-	TriggerAction( 1, TakeMoney, 2000 )
-	TriggerAction( 1, OpenBank )
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1,  "Хранилище (2000 золота) ", MultiTrigger, GetMultiTrigger(), 1)
-	Text( 1,  "Покупка Купюр ", BuyPage )
-	Text( 1,  "Обмен репутации ", JumpPage, 3 )
-	Talk( 2,  "Прости, но у тебя недостаточно денег на счету " )
-	
-	InitTrade()
-	Weapon(	7476	)
-	Weapon(	7491	)
-	Weapon(	7492	)
-	Weapon(	7493	)
-	Weapon(	7742	)
-
-	Talk( 3, "Выбирай, сколько репутации ты хочешь обменять на купюры: " )
-	InitTrigger()
-	TriggerCondition( 1, HasCredit, 10 )
-	TriggerAction( 1, DelRoleCredit, 10 )
-	TriggerFailure( 1, JumpPage, 4 )
-	TriggerAction( 1, GiveItem, 7625,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	Text( 3, "10 репутации ", MultiTrigger, GetMultiTrigger(), 1)
-	
-	InitTrigger()
-	TriggerCondition( 1, HasCredit, 50 )
-	TriggerAction( 1, DelRoleCredit, 50 )
-	TriggerFailure( 1, JumpPage, 4 )
-	TriggerAction( 1, GiveItem, 7622,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	Text( 3, "50 репутации ", MultiTrigger, GetMultiTrigger(), 1)
-	
-	InitTrigger()
-	TriggerCondition( 1, HasCredit, 100 )
-	TriggerAction( 1, DelRoleCredit, 100 )
-	TriggerFailure( 1, JumpPage, 4 )
-	TriggerAction( 1, GiveItem, 7623,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	Text( 3, "100 репутации ", MultiTrigger, GetMultiTrigger(), 1)
-	
-	InitTrigger()
-	TriggerCondition( 1, HasCredit, 500 )
-	TriggerAction( 1, DelRoleCredit, 500 )
-	TriggerFailure( 1, JumpPage, 4 )
-	TriggerAction( 1, GiveItem, 7624,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	Text( 3, "500 репутации ", MultiTrigger, GetMultiTrigger(), 1)
-	
-	
-	
-	Talk( 4, "Для обмена у вас не хватает репутации. ")
-	Text( 4, "Уйти. ", CloseTalk)
-end 
-
-function for_newbie()
-
-	Talk( 1, "Привет, пират! Выбирай, что ты хочешь обменять: " )
-	Text( 1, "Сет Смерти(100лвл) ", JumpPage, 2)
-	Text( 1, "Уйти. ", CloseTalk )
-	Talk( 2, "Чтобы получить Сет Смерти, принеси мне:_1.Ясеневое бревно - 100;_2.Темный камень желаний - 100;_3.Необогащённая железная руда - 100;_4.Карта Ммини-босса Москвы - 5;_5.Золото - 1.000.000. " )
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3989,100 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3905,100 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,1667,100 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8125,5 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasMoney, 1000000 )
-	TriggerAction( 1, TakeMoney, 1000000 )
-	TriggerAction( 1, TakeItem, 3989,100 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 3905,100 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 1667,100 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8125,5 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 7487,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 6 )
-	Text( 2, "Обменять Сет Смерти. ", MultiTrigger, GetMultiTrigger(), 1)
-	Text( 2, "Уйти. ", CloseTalk )
-	
-	Talk( 6, "Не пытайся меня обмануть. Собери все предметы! " )
-	Text( 6, "Уйти. ", CloseTalk )
-	
-	AddNpcMission ( 1100 )
-	AddNpcMission ( 1101 )
-end
-
-function buffer ()
-	InitTrigger()
-	TriggerAction( 1, MegaBuff )
-	Start( GetMultiTrigger(), 1 )
-end
-
-function healer ()
-
-	InitTrigger()
-	TriggerCondition( 1, HasMoney, 5000 )
-	TriggerAction( 1, TakeMoney, 5000 )
-	TriggerAction( 1, ReAll )
-	TriggerFailure( 1, JumpPage, 2 )
-	Start( GetMultiTrigger(),1 )
-	
-	Talk( 2, "Чтобы вылечиться, принеси мне 5000 золота! ")
-	Text( 2, "Убежать. ", CloseTalk )
-end
-
-function change_items()
-
-	Talk( 1, "Приветствую тебя, упырь! Я могу обменять лут с мини-боссов на золото! Выбирай: " )
-	Text( 1, "Ящик кузнеца ",JumpPage, 2)
-	Text( 1, "Руна Кэль ",JumpPage, 4)
-	Text( 1, "Уйти ", CloseTalk )
-	InitTrigger()
-	TriggerCondition( 1, HasItem,8004,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 8004,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, AddMoney, 5000, 5000 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 2,  "Ящик кузнеца 1шт - 5к ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,8004,10 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 8004,10 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, AddMoney, 50000, 50000 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 2,  "Ящик кузнеца 10шт - 50к ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,8004,100 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 8004,100 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, AddMoney, 500000, 500000 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 2,  "Ящик кузнеца 100шт - 500к ", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3457,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3457,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, AddMoney, 9000, 9000 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 4,  "Руна Кэль 1шт - 9к ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3457,10 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3457,10 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, AddMoney, 90000, 90000 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 4,  "Руна Кэль 10шт - 90к ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3457,100 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3457,100 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, AddMoney, 900000, 900000 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 4,  "Руна Кэль 100шт - 900к ", MultiTrigger, GetMultiTrigger(), 1)
-
-end
-
-function r_forsak()
-	Talk( 1, "Привет, сраный задрот! Вижу ты дорос до Затерянного очка? Тогда выбирай, чем ты хочешь получить по ебалу! ")
-	Text( 1, "Телепортироваться ", GoTo, 308, 310,  "abandonedcity" )
-	Text( 1, "Кости Храбреца на гемы 1ур. ", JumpPage, 2)
-	Text( 1, "Кости Мертвеца на гемы 1ур. ", JumpPage, 4)
-	Text( 1, "Сундуки на гемы 2ур. ", JumpPage, 3)
-	Text( 1, "Обменять вещи ", SendExchangeData)
-	Text( 1, "Уйти ",CloseTalk )
-
-	InitExchange() 
-	ExchangeData(	8041	,	1	,	3603	,	1	,	1)
-	ExchangeData(	8042	,	1	,	3604	,	1	,	1)
-	ExchangeData(	4837	,	1	,	5012	,	1	,	1)
-	
-	Talk( 2, "Чтобы получить самоцвет +4 первого уровня, принеси мне 10 костей Храбреца. Если готов, выбирай: ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,1624,10 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 1624,10 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8006,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 15 )
-	Text( 2,  "Самоцвет Силы +4 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,1624,10 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 1624,10 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8007,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 15 )
-	Text( 2,  "Самоцвет Духа +4 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,1624,10 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 1624,10 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8008,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 15 )
-	Text( 2,  "Самоцвет Точности +4 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,1624,10 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 1624,10 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8009,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 15 )
-	Text( 2,  "Самоцвет Телосложения +4 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,1624,10 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 1624,10 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8010,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 15 )
-	Text( 2,  "Самоцвет Ловкости +4 ", MultiTrigger, GetMultiTrigger(), 1)
-	
-	Talk( 3, "Чтобы получить самоцвет +4 второго уровня, принеси мне сундук брюлика +4 и 1 руну Кэль. Если готов, выбирай: ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,7925,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3457,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 7925,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 3457,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8006,1,102 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 15 )
-	Text( 3,  "Самоцвет Силы +4 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,7925,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3457,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 7925,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 3457,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8007,1,102 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 15 )
-	Text( 3,  "Самоцвет Духа +4 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,7925,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3457,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 7925,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 3457,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8008,1,102 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 15 )
-	Text( 3,  "Самоцвет Точности +4 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,7925,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3457,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 7925,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 3457,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8009,1,102 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 15 )
-	Text( 3,  "Самоцвет Телосложения +4 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,7925,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3457,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 7925,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 3457,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8010,1,102 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 15 )
-	Text( 3,  "Самоцвет Ловкости +4 ", MultiTrigger, GetMultiTrigger(), 1)
-	
-	Talk( 4, "Чтобы получить самоцвет +4 первого уровня, принеси мне 10 костей Мертвеца. Если готов, выбирай: ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,1625,10 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 1625,10 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8006,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 15 )
-	Text( 4,  "Самоцвет Силы +4 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,1625,10 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 1625,10 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8007,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 15 )
-	Text( 4,  "Самоцвет Духа +4 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,1625,10 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 1625,10 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8008,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 15 )
-	Text( 4,  "Самоцвет Точности +4 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,1625,10 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 1625,10 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8009,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 15 )
-	Text( 4,  "Самоцвет Телосложения +4 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,1625,10 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 1625,10 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8010,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 15 )
-	Text( 4,  "Самоцвет Ловкости +4 ", MultiTrigger, GetMultiTrigger(), 1)
-	
-	
-	Talk( 15, "У вас не хватает вещей! ")
-	Text( 15, "Уйти обоссанным. ", CloseTalk )
-	
-	AddNpcMission ( 1102 )
-	AddNpcMission ( 1103 )
-end
-
-function r_ds ()
-
- Talk( 1, "Приветствую. Чем могу помочь? " )
-Text( 1, "Телепортироваться ", GoTo, 302, 338,  "darkswamp" )
- Text( 1, "Узнать о костях ", JumpPage, 2)
- Text( 1, "Обмен кристалла ", JumpPage, 4)
- Text( 1, "Обмен самоцветов +7 ", JumpPage, 6)
- Text( 1, "Обмен сундуков +7 ", JumpPage, 8)
- Text( 1, "Съебаться ", CloseTalk )    
-
-	Talk( 2, "Чтобы получить Волшебную кость, нужно собрать материалы:_1.Дерево - 50шт;_2. Руда - 50шт;_3. Метеорит - 50шт._После этого получить чертеж и создать кость. " )
-	Text( 2, "Вернуться на страницу ", JumpPage, 1)
-	Text( 2, "Съебаться ", CloseTalk)
-	
-	
-	
-	Talk( 4, "Есть два способа получить кристалл. Первый это убить босса Мира Дерьма и второй обмен. Второй - 4 осколка мистического кристалла и 1500 пламенных баксов. ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,4541,4 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3458,1500 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 4541,4 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 3458,1500 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 4550,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 5 )
-	Text( 4, "Обменять кристалл ", MultiTrigger, GetMultiTrigger(), 1)
-	Text( 4, "Вернуться на страницу ", JumpPage, 1)
-	Text( 4, "Съебаться ", CloseTalk)
-	
-	Talk( 5, "Вам не хватает осколков мистического кристалла. ")
-	Text( 5, "Уйти. ", CloseTalk)
-	
-	Talk( 6, "Чтобы получить самоцвет +7 второго уровня, принеси мне 15 штук Грязи и 5 руны Кэль. Если готов, выбирай: ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3927,15 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3457,5 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3927,15 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 3457,5 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8011,1,102 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 7 )
-	Text( 6,  "Самоцвет Силы +7 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3927,15 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3457,5 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3927,15 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 3457,5 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8012,1,102 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 7 )
-	Text( 6,  "Самоцвет Духа +7 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3927,15 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3457,5 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3927,15 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 3457,5 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8013,1,102 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 7 )
-	Text( 6,  "Самоцвет Точности +7 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3927,15 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3457,5 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3927,15 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 3457,5 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8014,1,102 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 7 )
-	Text( 6,  "Самоцвет Телосложения +7 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3927,15 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3457,5 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3927,15 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 3457,5 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8015,1,102 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 7 )
-	Text( 6,  "Самоцвет Ловкости +7 ", MultiTrigger, GetMultiTrigger(), 1)
-	
-	Talk( 7, "Вам не зватает материалов, чтобы получить самоцвет. ")
-	Text( 7, "Уйти. ", CloseTalk)
-	
-	Talk( 8, "Ты можешь обменять ящик брюлика +7 и 1 руну Кэль на нужный самоцвет +7 первого уровня! ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,7926,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3457,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 7926,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 3457,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8011,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 7 )
-	Text( 8,  "Самоцвет Силы +7 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,7926,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3457,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 7926,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 3457,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8012,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 7 )
-	Text( 8,  "Самоцвет Духа +7 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,7926,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3457,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 7926,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 3457,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8013,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 7 )
-	Text( 8,  "Самоцвет Точности +7 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,7926,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3457,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 7926,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 3457,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8014,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 7 )
-	Text( 8,  "Самоцвет Телосложения +7 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,7926,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3457,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 7926,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 3457,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8015,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 7 )
-	Text( 8,  "Самоцвет Ловкости +7 ", MultiTrigger, GetMultiTrigger(), 1)
-	Text( 8, "Уйти. ", CloseTalk)
-	
-	
-	AddNpcMission ( 1104 )
-	AddNpcMission ( 1105 )
-	AddNpcMission ( 1106 )
-	AddNpcMission ( 1107 )
-	
-end
-
-function some_items()
-	Talk(1, "Привет. Я продаю разнообразные артефакты. Хочешь взглянуть? ")
-	Text(1, "Взглянуть. ", BuyPage )
-	InitTrade()
-	--Weapon()
-	--Defence()
-	Other(1847)
-	Other(1848)
-	Other(1849)
-	Other(3129)
-	Other(3130)
-	Other(3131)
-	
-	Other(8148)
-	Other(8149)
-	Other(8150)
-	Other(8151)
-	Other(8152)
-	Other(8153)
-	Other(899)
-	Other(900)
-	Other(901)
-	Other(902)
-	Other(903)
-	
-	Other(3089)
-	Other(3090)
-	Other(3091)
-	Other(3092)
-	Other(3093)
-	
-	Other(0849)
-	Other(3096)
-	Other(1128)
-	AddNpcMission ( 707 )
-end
-
-function r_ds21()
-	Talk( 1, "Привет, нубок! Я помогаю Воителям обменять мечи Аббадона на мечи Мертвеца! Принеси мне 2 меча Аббадона и Камень Мертвеца! ")	
-	InitTrigger()
-	TriggerCondition( 1, HasItem,2332,2 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8043,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 2332,2 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8043,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 5002,2,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	Text( 1,  "Обменять мечи ", MultiTrigger, GetMultiTrigger(), 1)
-end
-
-function r_ds2()
-	Talk( 1, "Привет, нубок! Хош че? ")
-	Text( 1, "Сундук Мертвеца ", JumpPage, 2)
-	Text( 1, "Бижутерия Мертвеца ", JumpPage, 3)
-	Text( 1, "Камень Мертвеца ", JumpPage, 6)
-
-	Talk( 2, "Чтобы получить Сундук Мертвеца, вам нужно:_1.Первая часть сундука Мертвеца;_2.Вторая часть сундука Мертвеца;_3.Третья часть сундука Мертвеца;_4.Четвертая часть сундука Мертвеца;_5.Кристалл;_6. Пламенный бакс - 2000шт;_7. Золото - 5.000.000. ")
-	InitTrigger()
-	TriggerCondition( 1, HasMoney, 5000000 )
-	TriggerCondition( 1, HasItem,8090,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8091,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8092,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8093,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,4550,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3458,2000 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeMoney, 5000000 )
-	TriggerAction( 1, TakeItem, 8090,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8091,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8092,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8093,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 4550,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 3458,2000 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8108,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 7 )
-	Text( 2, "Обменять  ", MultiTrigger, GetMultiTrigger(), 1)
-	Text( 2, "Вернуться на страницу ", JumpPage, 1)
-	Text( 2, "Съебаться ", CloseTalk)
-	
-	Talk( 7, "У вас недостаточно лута! ")
-	Text( 7, "Съебаться ", CloseTalk)
-	
-	Talk( 3, "Выбери, что тебя интересует: ")
-	Text( 3, "Ожерелье ", JumpPage, 4 )
-	Text( 3, "Кольцо ", JumpPage, 5 )
-	
-	Talk( 4, "Что получить Ожерелье Мертвеца принеси мне:_1. Осколков мистического кристалла - 10 шт;_2.Необогащённая железная руда - 280 шт;_3. Ожерелье Аббадона - 1шт;_4. Пламенный бакс - 700шт;_5. Золото - 3.000.000;_5. Ящик с брюликом +7 - 20шт. ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,4541,10 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,1667,280 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3604,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3458,700 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasMoney, 3000000 )
-	TriggerCondition( 1, HasItem,7926,20 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 4541,10 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 1667,280 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 3604,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 3458,700 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeMoney, 3000000 )
-	TriggerAction( 1, TakeItem, 7926,20 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 5011,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	Text( 4,  "Обменять ожерелье ", MultiTrigger, GetMultiTrigger(), 1)
-	
-	Talk( 5, "Что получить Кольцо Мертвеца принеси мне:_1. Осколков мистического кристалла - 6 шт;_2.Необогащённая железная руда - 180 шт;_3. Кольцо Аббадона - 1шт;_4. Пламенный бакс - 400шт;_5. Золото - 1.500.000;_5. Ящик с брюликом +7 - 12шт. ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,4541,6 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,1667,180 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3603,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3458,400 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasMoney, 1500000 )
-	TriggerCondition( 1, HasItem,7926,12 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 4541,6 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 1667,180 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 3603,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 3458,400 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeMoney, 1500000 )
-	TriggerAction( 1, TakeItem, 7926,12 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 5010,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	Text( 5,  "Обменять кольцо ", MultiTrigger, GetMultiTrigger(), 1)
-	
-	Talk(6, "Камень Мертвеца улучшает оружие Аббадона. Чтобы получить его, принеси мне:_1. Ящик с Брюликом +7 - 20шт;_2. Золото - 4.000.000;_3. Грязь - 150 шт;_4. Волшебная ветвь - 200 шт;_5. Ветвь с болота - 250 шт;_6. Чудо-ветвь - 50 шт;_7. Кристалл - 1шт;_8. Пламенный бакс - 3000шт. ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,7926,20 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasMoney, 4000000 )
-	TriggerCondition( 1, HasItem,3927,150 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,1593,200 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,1846,250 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,4343,50 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,4550,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3458,3000 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 7926,20 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeMoney, 4000000 )
-	TriggerAction( 1, TakeItem, 3927,150 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 1593,200 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 1846,250 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 4343,50 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 4550,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 3458,3000 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8043,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	Text( 6,  "Обменять камень ", MultiTrigger, GetMultiTrigger(), 1)
-	
-end
-
-function medal_etc()
-	Talk( 1, "Привет, пездюк! Выбирай, что тебя интересует: ")
-	Text( 1, "Медаль Отваги ", JumpPage, 2)
-	Talk( 2, "Чтобы получить Медаль Отваги, принеси мне:_1. Золото - 2.500.000;_2. Пламенный бакс - 100шт. ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3458,100 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasMoney, 2500000 )
-	TriggerAction( 1, TakeItem, 3458,100 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeMoney, 2500000 )
-	TriggerAction( 1, GiveItem, 3849, 1, 97 )
-	Text( 2,  "Получить Медаль Отваги ", MultiTrigger, GetMultiTrigger(), 1)
-end
-
 function BT_NewUser001()
+	Talk( 1,  "Сина: Привет! Я наставница Аргента! Если есть вопросы - обращайся! " )
+	Text( 1,  "Звезда Единства ", JumpPage, 31 )
+	Text( 1,  "Узнать о Аргенте ", JumpPage, 4 )
+	Text( 1,  "Узнать о классах и атрибутах ", JumpPage, 11 )
+	Text( 1,  "Узнать координаты монстров ", JumpPage, 30 )
+	Text( 1,  "Спасибо, я все понял ",  CloseTalk)
 
-	Talk( 1, "Наставница: Здравствуй, я советник новичков. Я отвечаю на вопросы всех новоприбывших путешественников. Если тебе что-то неясно, спроси меня." )
+	Talk( 4,  "Сина: Аргент это лучший торговый город. Только тут можно найти лучшие редкие товары! " )
+	Text( 4,  "Узнать об оружейном магазине ", JumpPage, 5 )
+	Text( 4,  "Узнать о магазине доспехов ", JumpPage, 7 )
+	Text( 4,  "Узнать о магазине предметов ", JumpPage, 8 )
+	Text( 4,  "Узнать о магазине портальщиках ", JumpPage, 9 )
+	Text( 4,  "Узнать о лечении ", JumpPage, 10 )
+
+	Talk( 5,  "Сина: В Аргенте оружием заведует кузнец Голди. Ищи его в северно-восточной части города. " )
+	Text( 5,  "Унать о других продавцах ", JumpPage, 4 )
+	Text( 5,  "Спасибо, я все понял ",  CloseTalk )
+
+	Talk( 7,  "Сина: Если тебе нужны доспехи, то ты найдешь их у портного в северо-западной части города. " )
+	Text( 7,  "Унать о других продавцах ", JumpPage, 4 )
+	Text( 7,  "Спасибо, я все понял ",  CloseTalk )
+
+	Talk( 8,  "Сина: Всегда самый лучший товар можно найти у Заморского купца. Он находится на нижней стороне фонтана. " )
+	Text( 8,  "Унать о других продавцах ", JumpPage, 4 )
+	Text( 8,  "Спасибо, я все понял ",  CloseTalk )
+
+	Talk( 9,  "Сина: С помощью портальщиков можно отправится в любой из существующих городов. Ищи портальщика у восточного выхода из города. " )
+	Text( 9,  "Унать о других продавцах ", JumpPage, 4 )
+	Text( 9,  "Спасибо, я все понял ",  CloseTalk )
+
+	Talk( 10,  "Сина: Если тебе нужна медсестра, то она с восточной стороны от фонтана. " )
+	Text( 10,  "Унать о других продавцах ", JumpPage, 4 )
+	Text( 10,  "Спасибо, я все понял ", CloseTalk)
+
+	
+	InitTrigger()
+	TriggerCondition( 1, NoRecord, 700 )
+	TriggerCondition( 1, HasMission, 700 )
+	TriggerCondition( 1, NoFlag, 700, 10 )
+	TriggerAction( 1, SetFlag, 700, 10)
+	TriggerAction( 1, JumpPage, 12 )
+	TriggerFailure( 1, JumpPage, 12 )
+	Talk( 11,  "Сина: Я могу тебе подробнее рассказать о классах и атрибутах. Что тебя интересует? " )
+	Text( 11,  "Узнать о классах ", JumpPage, 12)
+	Text( 11,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 11,  "Спасибо, я все понял ", JumpPage, 6 )
+
+	InitTrigger()
+	TriggerCondition( 1, NoRecord, 700 )
+	TriggerCondition( 1, HasMission, 700 )
+	TriggerCondition( 1, NoFlag, 700, 20 )
+	TriggerAction( 1, SetFlag, 700, 20)
+	TriggerAction( 1, JumpPage, 13 )
+	TriggerFailure( 1, JumpPage, 13 )
+
+	Talk( 12,  "Сина: Всего существует 4 базовых класса, у каждого из них свои особенности. Про какой класс ты хотел бы узнать? " )
+	Text( 12,  "Узнать о мечниках ", JumpPage, 14 )
+	Text( 12,  "Узнать об охотниках ", JumpPage, 15 )
+	Text( 12,  "Узнать об исследователях ", JumpPage, 17 )
+	Text( 12,  "Узнать об знахарках ", JumpPage, 18 )
+	Text( 12,  "Я все понял. Хочу узнать кое что другое. ", JumpPage, 11 )
+
+	Talk( 13,  "Сина: Всего существует 5 базовых атрибута. Каждый атрибут может иметь максимальное значение в 100. У новичка все атрибуты равны 5. Каждый уровень вам будет выдаваться еще 1 пункт атрибута и навыка. В начале игры у вас есть 5 свободных пункта, которые вы можете рас " )
+	Text( 13,  "Узнать о силе ", JumpPage, 21 )
+	Text( 13,  "Узнать о ловкости ", JumpPage, 22 )
+	Text( 13,  "Узнать о телосложении ", JumpPage, 23 )
+	Text( 13,  "Узнать о духе ", JumpPage, 24 )
+	Text( 13,  "Узнать о точности ", JumpPage, 26 )
+	Text( 13,  "Я все понял. Хочу узнать кое что другое. ", JumpPage, 11 )
+
+	Talk( 14,  "Сина: Мечники имеют самое высокое физическое сопротивление. Мечником может стать только Ланс. " )
+	Text( 14,  "Узнать о других классах ", JumpPage, 12)
+	Text( 14,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 14,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 15,  "Сина: Охотники это единственный класс, способный использовать в бою оружие с дистанционным уроном. Охотником могут стать только Ланс или Филисс. " )
+	Text( 15,  "Узнать о других классах ", JumpPage, 12)
+	Text( 15,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 15,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 17,  "Сина: Исследователь это лучший класс для исследования моря. Исследователем может стать только Филисс, Ланс или Ами. " )
+	Text( 17,  "Узнать о других классах ", JumpPage, 12)
+	Text( 17,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 17,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 18,  "Сина: Знахарки это приверженцы культа Богини Кары, за это им дарована огромная магическая сила. Стать знахаркой могут лишь Филисс или Ами. " )
+	Text( 18,  "Узнать о других классах ", JumpPage, 12)
+	Text( 18,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 18,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 21,  "Сина: Сила влияет на физический урон. " )
+	Text( 21,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 21,  "Узнать о других классах ", JumpPage, 12)
+	Text( 21,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 22,  "Сина: Ловкость влияет на уклонение и скорость атаки. " )
+	Text( 22,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 22,  "Узнать о других классах ", JumpPage, 12)
+	Text( 22,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 23,  "Сина: Телосложение влияет на количество жизни и защиту " )
+	Text( 23,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 23,  "Узнать о других классах ", JumpPage, 12)
+	Text( 23,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 24,  "Сина: Дух влияет на количество маны, магическую защиту и силу некоторых способностей. " )
+	Text( 24,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 24,  "Узнать о других классах ", JumpPage, 12)
+	Text( 24,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 26,  "Сина: Точность влияет на шанс урона и силу дистанционной атаки. " )
+	Text( 26,  "Узнать о других атрибутах ", JumpPage, 13)
+	Text( 26,  "Узнать о других классах ", JumpPage, 12)
+	Text( 26,  "Спасибо, я все понял ", JumpPage, 27)
+
+	Talk( 27,  "Сина: Хорошо, ищи меня снова если возникнут вопросы. ")
+	
+	Talk( 28,  "Сина: Поздравляю! Теперь тебе все известно об основных классах и атрибутах. Если возникнут новые вопросы - обращайся. " )
+	Text( 28,  "Узнать о Аргенте ", JumpPage, 4 )
+	Text( 28,  "Узнать о классах и атрибутах ", JumpPage, 11 )
+	Text( 28,  "Спасибо, я все понял ",  CloseTalk)
+
+	Talk( 29,  "Сина: Поздравляю! По достижении 10 уровня ты сможешь выбрать для себя првый класс. " )
+	Text( 29,  "Я бы хотел кое о чем спросить ", JumpPage, 4 )
+	Text( 29,  "Узнать о классах и атрибутах ", JumpPage, 11 )
+	Text( 29,  "Спасибо, я все понял ",  CloseTalk )
+
+	Talk( 30,  "Сина: Чтобы узнать координаты монстров обращайся к Пьянчуге Энтони в Баре Аргента. " )
+	
+	InitTrigger()
+	TriggerCondition( 1, NoItem, 1034, 1 )
+	TriggerCondition( 1, NoItem, 1033, 1 )
+	TriggerCondition( 1, BankNoItem, 1034, 1 )
+	TriggerCondition( 1, BankNoItem, 1033, 1 )
+	TriggerCondition( 1, EquipNoItem, 1034, 1 )
+	TriggerCondition( 1, EquipNoItem, 1033, 1 )
+
+	TriggerCondition( 1, LvCheck, "<", 41 )
+	TriggerAction( 1, GiveItem, 1033, 1, 4 )
+	TriggerFailure( 1, JumpPage, 6 )
+	Talk( 31,  "Сина: Звезда Единства - таинственный предмет из другого мира. Она способна накапливать опыт своего владельца, а затем при некоторых условиях отдавать весь накопленный опыт обратно. Кроме того по достижении 41 уровня вы сможете обменять Звезду Единства на экипировку своего класса на 50 уровень. " )
+	Text( 31,  "Получить Звезду Единства ",MultiTrigger, GetMultiTrigger(), 1)
+	Text( 31,  "Обменять Звезду Единства ",JumpPage, 32 )
+
+	Talk( 32,  "Сина: Спасибо за использование наших продуктов. По достижении 41 уровня вы можете обменять Звезду Единства на экипировку своего класса на 50 уровень. Вас это интересует? ")
+	Text( 32,  "Получить оружие класса ", Transfer_TeamStar, 1)
+
+	Talk( 6,  "Сина: Простите, но вы не подходите по требованию. " )
+
 	AddNpcMission ( 701  )
 	AddNpcMission ( 702  )
 	AddNpcMission ( 704  )
@@ -1583,413 +10273,150 @@ function BT_NewUser001()
 	AddNpcMission (	64	 )
 	AddNpcMission (	65	 )
 	AddNpcMission (	82	 )
-	Text( 1, "Я все понял",  CloseTalk)
+
+	MisListPage(28)
+	MisListPage(29)
 end
 
+function r_trade01()
+	Talk( 1, "Голди: Привет! У меня всегда есть первосортное оружие для тебя! " )
+	Text( 1, "Торг ", BuyPage)
+	Text( 1, "Ремонт ", OpenRepair)
+	Text( 1, "Ковка ", JumpPage, 2)
+	Text( 1, "Комбинирование ", JumpPage,3)
 
---Левый сундук
-function cm_1()
-	Talk( 1, "Привет, бро! У меня ты можешь обменять свой лут с Хаоса Москвы на что-то нужное: ")
-	Text( 1, "[1]Самоцветы +10 ", JumpPage, 2)
-	Text( 1, "[2]Самоцветы +10 ", JumpPage, 7)
-	Text( 1, "Усилитель дропа ", JumpPage, 3)
-	Text( 1, "Бижутерия Беса(300лвл) ", JumpPage, 4)
-	Text( 1, "Уйти ", CloseTalk )
+	Talk( 2, "Голди: Ковка? Этим занимается только кузнец в Шайтане.")
 	
-	Talk( 2, "Чтобы получить самоцвет +10, принеси мне:_1. Кукла Бывшей - 3шт;_2. Кукла Екатерины II - 7шт. ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,8101,3 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8099,7 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 8101,3 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8099,7 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8016,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 2, "Сила +10 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,8101,3 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8099,7 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 8101,3 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8099,7 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8017,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 2, "Дух +10 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,8101,3 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8099,7 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 8101,3 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8099,7 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8018,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 2, "Точность +10 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,8101,3 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8099,7 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 8101,3 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8099,7 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8019,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 2, "Телосложение +10 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,8101,3 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8099,7 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 8101,3 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8099,7 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8020,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 2, "Ловкость +10 ", MultiTrigger, GetMultiTrigger(), 1)
-	Text( 2, "Уйти ", CloseTalk )
+	Talk( 3, "Голди: Хочешь соединить что-нибудь? Насколько я понимаю, тебе понадобится свиток ковки со списком небходимых предметов. Собери все, что понадобится, и поговори с Бакалейщиком - Амосом из Шайтана. Только он владеет искусством соединения.")
+
+	InitTrade()
+	Weapon(	0008	)
+	Weapon(	0196	)
+	Weapon(	0197	)
+	Weapon(	0198	)
+	Weapon(	0001	)
+	Weapon(	0010	)
+	Weapon(	0002	)
+	Weapon(	0011	)
+	Weapon(	0003	)
+	Weapon(	0012	)
+	Weapon(	0013	)
+	Weapon(	0014	)
+	Weapon(	0022	)
+	Weapon(	0005	)
+	Weapon(	0023	)
+	Weapon(	1388	)
+	Weapon(	1389	)
+	Weapon(	1390	)
+	Weapon(	1391	)
+	Weapon(	1392	)
+	Weapon(	1395	)
+	Weapon(	1396	)
+	Weapon(	1397	)
+	Weapon(	1398	)
+	Weapon(	1399	)
+	Weapon(	0121	)
+	Weapon(	0122	)
+	Weapon(	0123	)
+	Weapon(	0124	)
+	Weapon(	0125	)
+	Weapon(	0126	)
+	Weapon(	0015	)
+	Weapon(	0020	)
+	Weapon(	0016	)
+	Weapon(	0021	)
+	Weapon(	0004	)
+	Weapon(	1370	)
+	Weapon(	1371	)
+	Weapon(	1372	)
+	Weapon(	1373	)
+	Weapon(	1377	)
+	Weapon(	1378	)
+	Weapon(	1379	)
+	Weapon(	1380	)
+	Weapon(	1381	)
+	Weapon(	1382	)
+	Weapon(	1386	)
+	Weapon(	1387	)
+	Weapon(	0073	)
+	Weapon(	0080	)
+	Weapon(	0074	)
+	Weapon(	0081	)
+	Weapon(	0075	)
+	Weapon(	0082	)
+	Weapon(	0076	)
+	Weapon(	0083	)
+	Weapon(	0077	)
+	Weapon(	0084	)
+	Weapon(	1415	)
+	Weapon(	1416	)
+	Weapon(	1417	)
+	Weapon(	1418	)
+	Weapon(	1419	)
+	Weapon(	1422	)
+	Weapon(	1423	)
+	Weapon(	1424	)
+	Weapon(	1425	)
+	Weapon(	1426	)
+	Weapon(	1443	)
+	Weapon(	1444	)
+	Weapon(	1445	)
+	Weapon(	1446	)
+	Weapon(	1447	)
+	Weapon(	1450	)
+	Weapon(	1451	)
+	Weapon(	1452	)
+	Weapon(	1460	)
+	Weapon(	1461	)
 	
-	Talk( 7, "Чтобы получить самоцвет +10, принеси мне:_1. Кукла Бывшей - 7шт;_2. Кукла Екатерины II - 3шт. ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,8101,7 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8099,3 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 8101,7 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8099,3 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8016,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 7, "Сила +10 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,8101,7 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8099,3 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 8101,7 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8099,3 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8017,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 7, "Дух +10 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,8101,7 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8099,3 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 8101,7 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8099,3 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8018,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 7, "Точность +10 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,8101,7 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8099,3 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 8101,7 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8099,3 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8019,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 7, "Телосложение +10 ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,8101,7 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8099,3 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 8101,7 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8099,3 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8020,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 7, "Ловкость +10 ", MultiTrigger, GetMultiTrigger(), 1)
-	Text( 7, "Уйти ", CloseTalk )
-	
-	Talk(3, "Чтобы получить усилитель выпадения вещей с множителем 3, принеси мне:_1. Камень пердуна - 5шт;_2. Камень Лоха - 5шт;_3. Кукла Бывшей - 5шт;_4. Кукла Екатерины II - 5шт. ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,508,5 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,506,5 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8101,5 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8099,5 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 508,5 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 506,5 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8101,5 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8099,5 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 3097,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 3, "Обменять х3 ", MultiTrigger, GetMultiTrigger(), 1)InitTrigger()
-	Text( 3, "Уйти ", CloseTalk )
-	
-	Talk( 4, "Выбирай, что ты хочешь получить: ")
-	Text( 4, "Ожерелье Беса", JumpPage, 5)
-	Text( 4, "Кольцо Беса", JumpPage, 6)
-	Text( 4, "Уйти", CloseTalk)
-	
-	Talk( 5, "Чтобы получить камень улучшения Бижутерии Мертвеца до Беса, принеси мне:_1. Камень Лоха - 120шт;_2. Камень Пердуна - 120шт;_3. Пламенный бакс - 4000 шт;_4. Эмблема короля кольца - 3шт. ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,508,120 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,506,120 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3458,4000 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,1032,3 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 508,120 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 506,120 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 3458,4000 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 1032,3 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8062,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 5, "Обменять ожерелье ", MultiTrigger, GetMultiTrigger(), 1)InitTrigger()
-	Text( 5, "Уйти", CloseTalk)
-	
-	Talk( 6, "Чтобы получить Кольцо Беса, принеси мне:_1. Камень Лоха - 80шт;_2. Камень Пердуна - 80шт_3. Пламенный бакс - 2500 шт;_4. Эмблема короля кольца - 1шт. ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,508,80 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,506,80 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3458,2500 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,1032,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 508,80 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 506,80 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 3458,2500 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 1032,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8063,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 6, "Обменять кольцо ", MultiTrigger, GetMultiTrigger(), 1)InitTrigger()
-	Text( 6, "Уйти", CloseTalk)
-	
-	Talk( 10, "Вам не хватает лута для обмена! ")
-	Text( 10, "Уйти. ", CloseTalk)
+	AddNpcMission ( 703  )
+	AddNpcMission (	1044 )
+	AddNpcMission (	1096 )
+	AddNpcMission (	1155 )
+	AddNpcMission (	1207 )
+	AddNpcMission (	58	 )
+	AddNpcMission (	59	 )
+	AddNpcMission (	60	 )
+	AddNpcMission (	1221 )
 end
 
---Правый сундук
-function cm_2()
-	Talk( 1, "Привет, бро! У меня ты можешь получить экипировку и оружие и бижутерию Беса. Выбирай, что тебя интересует: ")
-	Text( 1, "Камень снаряжения Беса(300лвл) ", JumpPage, 2)
-	Text( 1, "Камень оружия Беса(300лвл) ", JumpPage, 3)
-	Text( 1, "Обмен мечей Воителя ", JumpPage, 4)
-	Text( 1, "Обмен очков Умений ", JumpPage, 5)
-	Text( 1, "Уйти ", CloseTalk )
-	
-	Talk( 2, "Чтобы получить Камень Снаряжения Беса, принеси мне:_1. Часть Кремля 1 - 30шт;_2. Часть Кремля 2 - 30шт;_3. Часть Кремля 3 - 30шт;_4. Часть Кремля 4 - 30шт;_5. Камень Лоха - 10шт_6. Пламенный бакс - 10000шт;_7. Эмблема короля кольца - 7шт. ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,8095,30 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8096,30 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8097,30 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8098,30 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,506,10 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3458,10000 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,1032,7 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 8095,30 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8096,30 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8097,30 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8098,30 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 506,10 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem,3458,10000 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem,1032,7 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, GiveItem, 8044,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 2, "Получить снаряжение ", MultiTrigger, GetMultiTrigger(), 1)
-	Text( 2, "Уйти", CloseTalk)
-	
-	Talk( 3, "Чтобы получить Камень Оружия Беса, принеси мне:_1. Мощь Олега - 50шт;_2. Мощь Витька - 50шт;_3. Мощь Герыча - 50шт;_4. Мощь Мента - 50шт;_5. Камень Пердуна - 30шт;_6. Пламенный бакс - 8000шт;_7. Эмблема короля кольца - 7шт. ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,8102,50 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8103,50 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8104,50 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8105,50 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,508,30 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,3458,8000 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,1032,7 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 8102,50 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8103,50 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8104,50 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8105,50 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 508,30 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem,3458,8000 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem,1032,7 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, GiveItem, 8045,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 3, "Получить оружие ", MultiTrigger, GetMultiTrigger(), 1)
-	Text( 3, "Уйти", CloseTalk)
-	
-	Talk( 4, "Чтобы получить 2 меча Беса, принеси мне 2 меча Мертвеца и  Камень оружия Беса. ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,5002,2 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8045,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 5002,2 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8045,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 5016,2,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 4, "Обменять мечи ", MultiTrigger, GetMultiTrigger(), 1)
-	
-	Talk( 5, "Чтобы получить свиток очков умений, принеси мне:_1. Деревянная лампа - 15шт. ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem,8100,15 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 8100,15 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 7454,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 5, "Обменять свиток ", MultiTrigger, GetMultiTrigger(), 1)
-	
-	
-	Talk( 10, "Вам не хватает лута для обмена! ")
-	Text( 10, "Уйти. ", CloseTalk)
-end
+----------------------------------------------
+--                Священник                 --
+----------------------------------------------
+-- Служит для выдачи Свадебных сертификатов --
+----------------------------------------------
+function wedding_npc01()
 
---Администратора Москвы
-function cm_3()
-	Talk( 1, "Привет, бро! Что ты хочешь? ")
-	Text( 1, "Войти в ТОП ", Garner2RequestReorder)
-	Text( 1, "ТОП Хаоса Москвы ", Garner2GetWiner)
-	Text( 1, "Обмен эмблем ", JumpPage, 2)
+	Talk(1, "\209\226\255\249\229\237\237\232\234: \207\240\232\226\229\242\241\242\226\243\254, \255 \240\229\227\232\241\242\240\232\240\243\254 \225\240\224\234." )
+    Text(1, "\223 \245\238\247\243 \243\231\237\224\242\252 \242\240\229\225\238\226\224\237\232\255 \234 \225\240\224\234\243.", JumpPage, 2)
+	Text(1, "\223 \245\238\247\243 \231\224\240\229\227\232\241\242\240\232\240\238\226\224\242\252 \225\240\224\234.", JumpPage, 3)
+	Text(1, "\199\224\240\229\227\232\241\242\240\232\240\238\226\224\242\252\241\255 \239\238\231\230\229.", CloseTalk)
 	
-	Talk(2, "Дай мне 5 Святы эмблемы кольца и я дам тебе 1 Эмблема Короля кольца " )
+	
+	Talk(2, "\210\240\229\225\238\226\224\237\232\255: 1. \211 \236\238\235\238\228\238\230\229\237\238\226 \228\238\235\230\237\251 \225\251\242\252 \202\238\235\252\246\224 \209\226\255\242\238\227\238 \194\224\235\229\237\242\232\237\224. 2. \204\238\235\238\228\238\230\229\237\251 \196\238\235\230\237\251 \225\251\242\252 \226 \227\240\243\239\239\229. 3. \202\224\230\228\251\233 \228\238\235\230\229\237 \239\240\232\237\229\241\242\232 10 \236\232\235\235\232\238\237\238\226 \231\238\235\238\242\251\245. 4. \202\224\230\228\251\233 \228\238\235\230\229\237 \239\238\235\243\247\232\242\252 \232 \238\242\234\240\251\242\252 \241\226\238\232 \241\243\237\228\243\234\232 \244\229\233.")
+	Text(2, "\213\238\240\238\248\238, \255 \239\238\237\255\235. \199\224\240\229\227\232\241\242\240\232\240\243\233\242\229!", JumpPage, 3)
+	Text(2, "\196\224\233\242\229 \239\238\228\243\236\224\242\252...", CloseTalk)
+	
+	
+	Talk(3, "\209\226\255\249\229\237\237\232\234: \197\241\235\232 \242\251 \227\238\242\238\226, \239\238\230\224\235\243\233\241\242\224, \239\238\228\242\226\229\240\228\232. \207\238\241\235\229 \240\229\227\232\241\242\240\224\246\232\232 \242\251 \239\238\235\243\247\232\248\252 \209\226\224\228\229\225\237\251\233 \209\229\240\242\232\244\232\234\224\242. \209 \237\232\236 \236\238\230\237\238 \237\224\247\224\242\252 \246\229\240\229\236\238\237\232\254 \241\226\224\228\252\225\251 \243 \194\238\235\248\229\225\237\232\234\224 \215\232\242\224\237\224")
+	
 	InitTrigger()
-	TriggerCondition( 1, HasItem,1031,5 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 1031,5 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 1032,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 5 )
-	Text( 2, "Обменять ", MultiTrigger, GetMultiTrigger(), 1)
-end
+	TriggerCondition(1, GiveWeddingCertificate)
+	TriggerAction(1, JumpPage, 4)
+	TriggerFailure(1, JumpPage, 5)
+	Text(3, "\207\238\228\242\226\229\240\228\232\242\252", MultiTrigger, GetMultiTrigger(), 1)
+	Text(3, "\196\224\233\242\229 \229\249\229 \240\224\231 \239\238\228\243\236\224\242\252.", CloseTalk)
+	
+	
+	Talk(4, "\209\226\255\249\229\237\237\232\234: \207\238\231\228\240\224\226\235\255\254! \210\251 \242\238\235\252\234\238 \247\242\238 \239\238\235\243\247\232\235 \209\226\224\228\229\225\237\251\233 \241\229\240\242\232\244\232\234\224\242! \221\242\238 \241\224\236\251\233 \239\229\240\226\251\233 \248\224\227 \234 \225\240\224\234\243. \210\229\239\229\240\252 \238\247\229\240\229\228\252 \242\226\238\229\233 \239\238\235\238\226\232\237\234\232, \229\241\235\232 \243 \237\229\229 \226\241\229 \229\249\229 \237\229\242 \209\226\224\228\229\225\237\238\227\238 \241\229\240\242\232\244\232\234\224\242\224...")
+	Text(4, "\209\239\224\241\232\225\238!", CloseTalk)
+	
+	
+	Talk(5, "\209\226\255\249\229\237\237\232\234: \205\229 \226\241\229 \242\240\229\225\238\226\224\237\232\255 \241\238\225\235\254\228\229\237\251! \207\238\230\224\235\243\233\241\242\224, \238\231\237\224\234\238\236\252\241\255 \241 \242\240\229\225\238\226\224\237\232\255\236\232 \234 \225\240\224\234\243.")
+	Text(5, "\211\231\237\224\242\252 \241 \242\240\229\225\238\226\224\237\232\255\236\232 \234 \225\240\224\234\243.", JumpPage, 2)
+	Text(5, "\199\224\240\229\227\232\241\242\240\232\240\238\226\224\242\252\241\255 \239\238\231\230\229.", CloseTalk)
 
-function items_po()
-	Talk(1, "Привет, друг. Я могу помочь тебе приобрести желаемое! ")
-	Text(1, "Обменять Ящики Кузнеца! ", JumpPage, 2)
-	Text(1, "Уйти ", CloseTalk)
-	
-	Talk(2, "Могу обменять твои Ящики сундука + 1 руна Кэль на то, что вам нужно. Выбирай: " )
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3457,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8004,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3457,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8004,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 0453,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 5 )
-	Text( 2, "Свиток Плавки ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3457,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8004,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3457,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8004,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 0454,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 5 )
-	Text( 2, "Катализатор Плавки ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3457,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8004,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3457,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8004,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 0455,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 5 )
-	Text( 2, "Усиливающий свиток ", MultiTrigger, GetMultiTrigger(), 1)
-	InitTrigger()
-	TriggerCondition( 1, HasItem,3457,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerCondition( 1, HasItem,8004,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3457,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, TakeItem, 8004,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 0456,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 5 )
-	Text( 2, "Усиливающий кристалл ", MultiTrigger, GetMultiTrigger(), 1)
-	
-	Talk( 5, "У вас не хватает лута. ")
-	Text( 5, "Уйти ", CloseTalk)
 end
-
-function tickets()
-	Talk( 1, "Привет. Я продаю билеты. ")
-	Text( 1, "Купить ", BuyPage)
-	InitTrigger()
-	Other(   4602   )
-	Other(   3048   )
-	Other(   3049   )
-	Other(   3050   )
-	Other(   3051   )
-	Other(   3054   )
-end
-
-function change_medal()
-	Talk( 1, "Меняю старые медали ресета на новые! ")
-	InitTrigger()
-	TriggerCondition( 1, Check_Reset,  2 ) --Со второго ресета
-	TriggerCondition( 1, HasItem,8109,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 8109,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8110,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "1ур --> 2ур ", MultiTrigger, GetMultiTrigger(), 1)
-	
-	InitTrigger()
-	TriggerCondition( 1, Check_Reset,  3 ) --Со второго ресета
-	TriggerCondition( 1, HasItem,8110,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 8110,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8111,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "2ур --> 3ур ", MultiTrigger, GetMultiTrigger(), 1)
-	
-	InitTrigger()
-	TriggerCondition( 1, Check_Reset,  4 ) --Со второго ресета
-	TriggerCondition( 1, HasItem,8111,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 8111,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8112,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "3ур --> 4ур ", MultiTrigger, GetMultiTrigger(), 1)
-	
-	InitTrigger()
-	TriggerCondition( 1, Check_Reset,  5 ) --Со второго ресета
-	TriggerCondition( 1, HasItem,8112,1 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 8112,1 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 8113,1,4 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "4ур --> 5ур ", MultiTrigger, GetMultiTrigger(), 1)
-	
-	Talk( 2, "Чтобы обменять медаль 1 уровня на 2, вам нужно:_1. Медаль первого ресета;_2. Сделать ресет - 2ур. ")
-	Text( 2, "Уйти. ", CloseTalk )
-	
-	Talk( 3, "Чтобы обменять медаль 2 уровня на 3, вам нужно:_1. Медаль второго ресета;_2. Сделать ресет - 3ур. ")
-	Text( 3, "Уйти. ", CloseTalk )
-end
-
-function NP_telep()
-	Talk( 1, "Хочешь попасть на остров оскровищ и раскопать клад с помощью Нового Пергамента? ")
-	Text( 1, "Телепортироваться ", GoTo, 697, 1043,  "jialebi" )
-	Text( 1, "Уйти. ", CloseTalk )
-end
-
-function wing_telep()
-	Talk( 1, "Хочешь попасть на остров Смерти, чтобы заполучить легендарные крылья? ")
-	Text( 1, "Телепортироваться ", GoTo, 61, 48,  "PyramidCity" )
-	Text( 1, "Уйти. ", CloseTalk )
-end
-
-function hitdodje()
-	Talk( 1, "Привет, бро! У меня ты можешь обменять свои кели на: ")
-	Text( 1, "Удар Лока(+100 шанс попадания)", JumpPage, 2)
-	Text( 1, "Уклонение Бинга(+100 к уклонению)", JumpPage, 3)
-	
-	Text( 2, "Взять 1 Лок", JumpPage, 4)
-	Text( 2, "Взять 4 Лока ", JumpPage, 5)
-	Text( 2, "Взять 16 Локов", JumpPage, 6)
-	Text( 2, "Уйти ", CloseTalk )
-	
-	Text( 3, "Взять 1 Бинг", JumpPage, 7)
-	Text( 3, "Взять 4 Бинга ", JumpPage, 8)
-	Text( 3, "Взять 16 Бингов", JumpPage, 9)
-	Text( 3, "Уйти ", CloseTalk )
-	Talk( 4, "Чтобы получить лок, принеси мне:_10шт келей. ") -- Локи
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 3457,10 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3457,10 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 15772,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 4, "1шт Лок ", MultiTrigger, GetMultiTrigger(), 1)
-	Talk( 5, "Чтобы получить 4 лока, принеси мне:_40шт келей. ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 3457,40 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3457,40 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 15772,4,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 5, "4шт Лока ", MultiTrigger, GetMultiTrigger(), 1)
-	Talk( 6, "Чтобы получить 16 локов, принеси мне:_160шт келей. ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 3457,160 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3457,160 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 15772,16,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 6, "16шт Локов ", MultiTrigger, GetMultiTrigger(), 1)
-	Talk( 7, "Чтобы получить бинг, принеси мне:_10шт келей. ") --Бинги
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 3457,10 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3457,10 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 15773,1,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 7, "1шт Бинг ", MultiTrigger, GetMultiTrigger(), 1)
-	Talk( 8, "Чтобы получить 4 бинга, принеси мне:_40шт келей. ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 3457,40 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3457,40 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 15773,4,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 8, "4шт Бинга ", MultiTrigger, GetMultiTrigger(), 1)
-	Talk( 9, "Чтобы получить 16 бингов, принеси мне:_160шт келей. ")
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 3457,160 ) --Это функция проверки какой итем и в каком количестве должен быть в рюкзаке
-	TriggerAction( 1, TakeItem, 3457,160 ) -- Это функция "изьятия" предмета и в каком количестве
-	TriggerAction( 1, GiveItem, 15773,16,101 ) -- Это функция выдачи предмета (ID, кол-во)
-	TriggerFailure( 1, JumpPage, 10 )
-	Text( 9, "16шт Бингов ", MultiTrigger, GetMultiTrigger(), 1)
-	Talk( 10, "Вам не хватает лута для обмена! ")
-	Text( 10, "Уйти. ", CloseTalk)
-end
+--------------------------------------------------------------------------------------------------------------------
+--											Одиночные_функции (Конец)											  --
+--------------------------------------------------------------------------------------------------------------------

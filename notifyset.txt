@@ -1,4 +1,2 @@
-//scripted by skyfear919@hotmail.com
-1	Skill Learning Detection	1	Insufficient EXP, unable to learn
-2	Skill Learning Detection	1	Already possess this skill. Unable to learn
-// [Gemini.Decompiler] End of data
+1	ќпределение изучаемых навыков	1	Ќедостаточно опыта, обучение невозможно
+2	ќпределение изучаемых навыков	1	Ётот навык у теб€ уже есть. Ќельз€ изучить один и тот же навык

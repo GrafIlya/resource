@@ -1,1 +1,1 @@
-print( "Loading MissionScript08.lua" )
+print( "Загрузка MissionScript08.lua" )

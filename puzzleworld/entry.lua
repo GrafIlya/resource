@@ -1,51 +1,41 @@
---ґЛОДјюЦРЈ¬·ІКЗїЙДЬ±»¶аґОЦґРРµДєЇКэЈ¬єЇКэГы¶јТЄјУЙПµШНјГыЗ°ЧєЈ¬Изafter_destroy_entry_testpk
---ґЛОДјюГїРРЧоґуЧЦ·ыёцКэОЄ255Ј¬ИфУРТмТйЈ¬ЗлУліМРтМЅМЦ
-
 function config_entry(entry) 
-    SetMapEntryEntiID(entry, 193,1) --ЙиЦГµШНјИлїЪКµМеµД±аєЕЈЁёГ±аєЕ¶ФУ¦УЪcharacterinfo.txtµДЛчТэЈ©
-
+    SetMapEntryEntiID(entry, 193,1)
 end 
 
 function after_create_entry(entry) 
-
-
+    local copy_mgr = GetMapEntryCopyObj(entry, 0)
+	local EntryName = "Мир Демонов "
+	SetMapEntryEventName( entry, EntryName )
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry)
+	Notice("Объявление: Аскарон ["..posx..","..posy.."] появился портал ведущий в [Мир Демонов]. Следите за новостями.") 
 end
 
-function after_destroy_entry_leiting2(entry)
-
-
+function after_destroy_entry_puzzleworld(entry)
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) 
+	Notice("Объявление: Портал в [Мир Демонов] закрылся. Следите за новостями. Удачи!") 
 end
 
-function after_player_login_leiting2(entry, player_name)
-    
-
+function after_player_login_puzzleworld(entry, player_name)
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry)
+	ChaNotice(player_name, "Объявление: Аскарон ["..posx..","..posy.."] появился портал ведущий в [Мир Демонов]. Следите за новостями.")
 end
 
-
-
-
-
-
-
-
-
-
---УГУЪјмІвЅшИлМхјю
---·µ»ШЦµЈє0Ј¬І»ВъЧгЅшИлМхјюЎЈ1Ј¬іЙ№¦ЅшИлЎЈ
 function check_can_enter_puzzleworld( role, copy_mgr )
-	if Lv(role) >=100 then
-			
+	if Lv(role) >=50 then
 		return 1
-				
 	else
-		SystemNotice(role, "В Затерянный подземный мир могут войти лишь игроки 100 LvL ")
-		return 0    
+		SystemNotice(role, "Чтобы войти в портал, ваш уровень должен быть больше 50!")
+		return 0
 	end
 end
 
-function begin_enter_puzzleworld(role, copy_mgr) 
-    
-		SystemNotice(role,"Вы вошли в Затерянный подземный мир ") 
-		MoveCity(role, "Demonic World")
+function begin_enter_puzzleworld( role, copy_mgr )
+	SystemNotice( role, "Вы вошли в [Мир Демонов]" )
 
+	if ( AddonSystem["Teleport"] == 1 ) then
+		local n = math.random( 46, 49 )
+		teleport( role, n )
+	else
+		MoveCity( role, "Demonic World" )
+	end
 end

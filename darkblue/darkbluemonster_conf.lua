@@ -1,5 +1,8 @@
 SetCurMap("darkblue")
 
+AddWeatherRegion(9,  15, 40, 1100, 950 , 80, 80)
+AddWeatherRegion(11, 15, 40, 1500, 900 , 80, 80)
+
 CreateCha(464, 83974, 71277, 145, 60)
 CreateCha(464, 84061, 71320, 145, 60)
 CreateCha(464, 84097, 71179, 145, 60)

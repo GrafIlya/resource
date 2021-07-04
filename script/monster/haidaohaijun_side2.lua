@@ -371,4 +371,3 @@ SetChaSideID(di_haidaoSide_JTRole_1, 2)
 
 di_haidaoSide_JTRole_2=CreateCha(1035, 31576, 52807, 355, 20000)
 SetChaSideID(di_haidaoSide_JTRole_2, 2)
-

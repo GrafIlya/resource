@@ -1,101 +1,67 @@
-print( "Loading Help.lua" )
+----------------------------------------------
+--			Перевод DLDevTeam				--
+----------------------------------------------
+
+print( "‡ Јаг§Є  Help.lua" )
 
 ClearHelpNPC()  
-AddHelpNPC("Drunkyard - Anthony")
+AddHelpNPC("Помощник - Энтони ")
+
 dofile(GetResPath("script/help/monsterhelp.lua"))
 
-AddHelpInfo("Pirate King",   "You are lucky! You have played the best game!")
-AddHelpInfo("Conch",     "Corals are the unique weapons of Explorer and Voyager. They can be recharged by different weather regions in the sea")
-AddHelpInfo("Commerce Permit",   "With a Commerce Permit, you will gain access to many product for trade. You can obtain the Permit by doing quest.")
-AddHelpInfo("Tax Rate",     "Do commerce quest to reduce tax rate")
-AddHelpInfo("Story Quest", "Story quest is fully released. If you cannot activate it, some part of it may be bugged!")
-AddHelpInfo("Conch Merchant", "There is an NPC selling Conch near the seashore north of Argent City at (2063, 2544)")
-AddHelpInfo("Experience",   "Sailing and killing sea monsters will grant experience for your ship. When the experience reaches a certain level, you can look for a Builder NPC to level up your precious ship!")
-AddHelpInfo("Lifeskill EXP", "Completing Story quest will earns you lifeskill experience. When you accumulate enough experience, you can learn many lifeskill such as woodcutting, fishing etc.")
-AddHelpInfo("Lifeskill", "Completing Story quest will earns you lifeskill experience. When you accumulate enough experience, you can learn many lifeskill such as woodcutting, fishing etc.")
-AddHelpInfo("Weather",     "Take note of the weather notice. Different weather changes such as Typhoon, Thunderstorm or Fog will allow you to recharge the energy of your corals.")
-AddHelpInfo("Red Cola",   "According to what I know, people of Zephyr Isle prefer Red Cola to Blue Cola.")
-AddHelpInfo("Freights",     "Wood and Ores can be loaded up on your ship to trade them at any commerce trading post!")
-AddHelpInfo("Fishing",     "You can obtain Fish Meat or Sashimi from fishing. Although the prices are not much, it will accumulate to a lot!")
-AddHelpInfo("World Map",   "World map records area that you have explored. The more you explored, the more value your map has!")
-AddHelpInfo("Sashimi",   "Fishing can obtain Sashimi, but you must be patience!")
---......
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
---їЄ·ўИЛФ±БфСФЗш
-
---ПоДїГыґКЅвКН
-AddHelpInfo("mindwave",  "Specialise in Pirate King constructions!")
-AddHelpInfo("mindpower", "Graphics engine used to develop this game!")
-AddHelpInfo("Cola",      "If you commit an error, you wil need to buy cola!")
-AddHelpInfo("PaPa John's Pizza",    "If you work overtime, eat PaPa John's Pizza!")
-AddHelpInfo("World of Warcraft",  "That is really a mysterious worldЎ­.")
-AddHelpInfo("Lol" ,       "Name of Mastermind")
-
---ІЯ»®Зш
-AddHelpInfo("paco",      "Secret society leaderЎ­heard he has a wife who also belong to the secret society!")
-AddHelpInfo("robin",     "A mini bee! FlyingЎ­flying..flyingЎ­")
-AddHelpInfo("sk",        "He is a Designer,Not a Planner!")
-AddHelpInfo("aki",       "Those guys wearing flowery shirtsЎ­")
-AddHelpInfo("baby",      "Ignore me, I never wear a shirt and I am not Rob!")
-AddHelpInfo("sage",      "Nothing to say!")
-AddHelpInfo("idle",      "Nothing to say!")
-AddHelpInfo("mars",      "Sorry, the user you have searched for is not in this server. Please try again later!")
-AddHelpInfo("koyo",      "force is weak with this one!, but good pp!")
-
---іМРтЗш
-AddHelpInfo("Ryan",      "force is strong with this one!")
-AddHelpInfo("jerry",     "PK Update!")
-AddHelpInfo("claude",    "Today is Friday, he is not around in the afternoon!")
-AddHelpInfo("jacky",     "Server update, resource update!")
-AddHelpInfo("adnor",     "Smallon is strongest, don't snatch with me!")
-AddHelpInfo("arcol",     "Goldie stole my knife the other time, I have yet to look for him!")
-AddHelpInfo("knight",    "Nothing to say!")
-AddHelpInfo("michael",   "He is a good man!")
-AddHelpInfo("jack",      "Welcome to Black Jack Pirate Organisation ^_^")
-AddHelpInfo("lemon",     "Getting married!")
-
---ГАКхЗш
-AddHelpInfo("Thirteen",     "Leader of Sakura 13 Pirates!")
-AddHelpInfo("gsc",       "Throw!")
-AddHelpInfo("gooncoo",   "Cloud! Cloud!")
-AddHelpInfo("sean",      "Talking to me? Not talking to me? Wrong person! Crazy!")
-AddHelpInfo("xiaojinjin","Welcome...")
-AddHelpInfo("Bathing Wolf",   "It is Black or White! Comics are the way!")
-AddHelpInfo("potion",    "bring a chair to see other people kuso can increases rp value-potion quotation")
-AddHelpInfo("Hyperactive Little Mo", "Everything will be fine!")
-AddHelpInfo("paul",      "Friends! Listen to Paul! Lets work hard for a life of luxury!")
-AddHelpInfo("Take note",      "What! You still alive!")
-
---ГАКіЅйЙЬ
-AddHelpInfo("Delicacy", "Shanghai: LobstersЎ­High TeaЎ­PizzaЎ­Chilli CrabЎ­so delicious!")
-
---Жыіµ
-AddHelpInfo("Car", "Polo TurboЎ­Hrv Fit TurboЎ­ New racing SRV...., which do you select?")
+AddHelpInfo("Король Пиратов ",   		"Вам повезло! Вы играете в самую лучшую игру!")
+AddHelpInfo("Кораллы ",     			"Кораллы являются уникальным оружием Мореплавателя! Их можно заряжать за счёт погоды, по типу их названия.")
+AddHelpInfo("Торговое разрешение ",   	"С торговым разрешением, Вы получите доступ ко многим товарам для торговли! Вы можете получить разрешение, выполнив задание (квест).")
+AddHelpInfo("Налоговая ставка ",     	"Для разрешения торговли, нужна налоговая ставка.")
+AddHelpInfo("Исторические Задания ", 	"Исторические Задания нужно проходить каждому настоящему флибустьеру! За прохождения которых вам будут начисляться мирные навыки.")
+AddHelpInfo("Продажа кораллов ", 		"Существует спец. НПС, который продаёт кораллы. Находится он: недалеко от берега моря в Аскароне (Аргент), координаты - '2063,2544'.")
+AddHelpInfo("Опыт ",   					"Прокачка уровня корабля. Она происходит на воде, убивая водных монстров! При накопление определённого количества опыта, Вы сможете поднять уровень вашего корабля с помощью спец. НПС, находящегося в порту во всех 3 городах!")
+AddHelpInfo("Опыт жизненных навыков ", 	"При прохождении линейки заданий под названием 'Исторические Задания' Вам будет идти жизненный опыт и навыки, которые потом можно будет использовать на мирные навыки, такие как: Рубка Дерева, Рыбалка, Поставить Лоток и др.")
+AddHelpInfo("Жизненные навыки ", 		"При прохождении линейки заданий под названием 'Исторические Задания' Вам будет идти жизненный опыт и навыки, которые потом можно будет использовать на мирные навыки, такие как: Рубка Дерева, Рыбалка, Поставить Лоток и др.")
+AddHelpInfo("Погода ",     				"Просим обратить ваше внимание на Погодные условия! Различные изменения погоды, такие как 'Ураган','Гроза','Туман', позволят вам зарядить ваш Коралл.")
+AddHelpInfo("Красная Кола ",   			"Давно известно, что обитаемые монстры на о.Зефир, любят к Красной Коле добавлять Синию.")
+AddHelpInfo("Груз ",     				"Древесина, руда могут быть загружены на ваш корабль, чтобы торговать ими в любых других торговых точках!")
+AddHelpInfo("Рыбалка ",     			"Вы можете рыбачить в море! С помощью рыбалки можно получить много рыбы, которую потом можно будет продать или изготовить из неё еду!")
+AddHelpInfo("Карта мира ",   			"Помните! Что чем больше Вы будете открывать областей, тем больше карта будет раскрываться и показывать область мира Пиратии Online!")
+AddHelpInfo("Сашими ",   				"С помощью 'Рыбалки' Вы можете наловить Сащими, но для этого нужен мирный навык - 'Рыболовство'!")
+AddHelpInfo("mindwave",  				"Специализация в Пиратии Online ")
+AddHelpInfo("Сила разума ", 			"Для игры используется уникальный графический движок!")
+AddHelpInfo("Кола ",      				"Если вы совершите ошибку, вам придётся купить Колу!")
+AddHelpInfo("Пицца Папы Джона ",    	"Если вы работаете сверхурочно, то отведайте Пиццу Папы Джона!")
+AddHelpInfo("Мир Войны и Ремесла ",  	"Это действительно таинственный и опасный мир...")
+AddHelpInfo("Улыбка " ,       			"Моё имя Мастер-Улыбки ")
+AddHelpInfo("Пукка ",      				"Секретный лидер общества слышал, что у кого то есть жена, Жена относится к его клану!")
+AddHelpInfo("Робин ",     				"Я пчёлка, я люблю летать!")
+AddHelpInfo("СК ",        				"Он является конструктором, но не Планировщиком!")
+AddHelpInfo("Аке ",       				"Эти ребята носят цветные рубашки!")
+AddHelpInfo("Ребёнок ",      			"Не игнорируй меня! Я никогда не ношу цветные рубашки. И кстати я не Роб!")
+AddHelpInfo("Разговор ",      			"Мне нечего сказать!")
+AddHelpInfo("Праздник ",      			"Мне нечего сказать!")
+AddHelpInfo("Марта ",      				"Извините пользователь, но в данный момент сервер не в сети! Пожалуйста повторите попытку позже!")
+AddHelpInfo("Койо ",      				"Сила слабых с нами! Мы не обидим вас!")
+AddHelpInfo("Рэй ",      				"Сила сильных с нами! Берегись!")
+AddHelpInfo("Джерри ",     				"Арена обновлена!")
+AddHelpInfo("Клауд ",    				"Сегодня пятница, Он не поворачивается вечером!")
+AddHelpInfo("Джеки ",     				"Сервер обновлён! Обновлены все ресурсы!")
+AddHelpInfo("Аднор ",     				"Смаллон сильнее, не то-что я. Эх!")
+AddHelpInfo("Аркол ",     				"Кузнец Голди украл мой Нож! Я до сих пор его ищу!")
+AddHelpInfo("Рыцарь ",    				"Мне нечего сказать!")
+AddHelpInfo("Михаил ",   				"Он хороший человек!")
+AddHelpInfo("Джек ",      				"Добро пожаловать в пиратскую организацию 'Блек Джек' ^_^")
+AddHelpInfo("Лемон ",     				"Вступить в Брак!")
+AddHelpInfo("Давид ",     				"Будь аккуратен, хорошо?")
+AddHelpInfo("Филипп ",    				"Я маленький шарик, я тут мимоходом ")
+AddHelpInfo("Микки ",    				"Нажми 'Alt + F4' чтобы выйти из Пиратии Online.")
+AddHelpInfo("Джамп ",     				"Странник, странник, ДАЙ ДЕНЕГ!")
+AddHelpInfo("Тринадцатый ",     		"Я лидер племени пиратов Сакура 13!")
+AddHelpInfo("ГСК ",       				"Бросьте!")
+AddHelpInfo("Конопля ",   				"А-а-а облака-а-а!")
+AddHelpInfo("Игнор ",      				"Не говорите со мной? Игнорите?! Сумасшедший!")
+AddHelpInfo("xiaojinjin",				"Добро Пожаловать...")
+AddHelpInfo("Плаающий Волк ",   		"Это чёрно-белые комиксы!")
+AddHelpInfo("Зелье ",    				"Принеси-ка мне это зелье, поговорим о жизни в мире...")
+AddHelpInfo("Любимый малыш Мо", 		"Всё будет хорошо!")
+AddHelpInfo("Павел ",      				"Друзья! Слушайте Павла! Давайте жить дружно!")
+AddHelpInfo("Примечание ",      		"Что?! Ты ещё жив?!")
+AddHelpInfo("Деликатес ", 				"Шанхай: Омары вперемешку с чаем и Пиццой так вкусно!")
+AddHelpInfo("Машина ", 					"Полный вперёд! Тапку в пол! Что Вы выберите?")
