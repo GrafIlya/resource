@@ -1,29 +1,41 @@
-print( "‡ Јаг§Є  Forge.lua" )
 
---------------------------------------------------------------------
--------------------------- Комбинирование --------------------------
---------------------------------------------------------------------
+----±¦КЇєПіЙ
 
-function can_unite_item( ... )
+---јмІвКЗ·сДЬ№»єПіЙ
+function can_unite_item (...)
+--	Notice("Starts to determine")
 	if arg.n ~= 12 then
+--		Notice("parameter value illegal"..arg.n)
 		return 0
 	end
-
+	
 	local kkk = 0
+	
+--	for kkk = 2 , arg.n ,1 do
+--		SystemNotice ( arg[1] , arg[kkk])
+--	end
+	
 	local Check = 0
-	Check = can_unite_item_main( arg )
+--	SystemNotice( arg[1] , "transfer combine test main function")
+	Check = can_unite_item_main ( arg )
 	if Check == 1 then
+		
+--		SystemNotice (arg[1] , "Return 1")
 		return 1
 	else
+--		SystemNotice (arg[1] , "Return 0")
 		return 0
 	end
 end
 
-function can_unite_item_main( Table )
+--јмІвКЗ·сїЙТФєПіЙЦчєЇКэ
+
+function can_unite_item_main ( Table )
+--	SystemNotice ( Table[1] , "Entering combining main function")
 	local role = 0
-	local ItemBag = {}
-	local ItemCount = {}
-	local ItemBagCount = {}
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}										--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local Get_Count = 4
 	local ItemReadCount = 0
 	local ItemReadNow = 1
@@ -31,82 +43,109 @@ function can_unite_item_main( Table )
 	local ItemBag_Now = 0
 	local ItemCount_Now = 0
 	local ItemBagCount_Num = 0
-	role, ItemBag, ItemCount, ItemBagCount, ItemBag_Now, ItemCount_Now, ItemBagCount_Num = Read_Table( Table )
+
+--	SystemNotice( arg[1] , "start transfer parameter analysis")
+
+	
+	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Now , ItemCount_Now , ItemBagCount_Num = Read_Table ( Table )
+
+--	for kkk = 0 , 2 , 1 do
+--		SystemNotice ( role , ItemBagCount[kkk])
+--		SystemNotice ( role , ItemBag[kkk])
+--		SystemNotice ( role , ItemCount[kkk])
+--	end
+	
+--	Notice(role , "11111")
 	local i = 0
-
-	for i = 0, 2, 1 do
+	for i = 0 , 2 , 1 do							--ЕР¶ПµАѕЯ¶ФПуёцКэєНµАѕЯёцКэКЗ·сєН·Ё
 		if ItemBagCount[i] ~= 1 or ItemCount[i] ~= 1 then
-			SystemNotice( role, "Цель и пункт невозможно принять за единицу " )
+--			SystemNotice( role , "ItemBagCount[i] = "..ItemBagCount[i])
+--			SystemNotice( role , "ItemCount[i] = "..ItemCount[i])
+			SystemNotice( role , "Item target unit and item unit illegal")
 			return 0
 		end
 	end
 
-	local BagItem1 = ItemBag[0]
-	local BagItem2 = ItemBag[1]
-	local BagItem3 = ItemBag[2]
-	local Item1 = GetChaItem( role, 2, BagItem1 )
-	local Item2 = GetChaItem( role, 2, BagItem2 )
-	local Item3 = GetChaItem( role, 2, BagItem3 )
-	local ItemID1 = GetItemID( Item1 )
-	local ItemID2 = GetItemID( Item2 )
-	local ItemID3 = GetItemID( Item3 )
-	local ItemType1 = GetItemType( Item1 )
-	local ItemType2 = GetItemType( Item2 )
-	local ItemType3 = GetItemType( Item3 )
+	
+	
+	local BagItem1 = ItemBag [0]
+	local BagItem2 = ItemBag [1]
+	local BagItem3 = ItemBag [2]
 
-	if ItemType1 ~= 47 then
-		SystemNotice( role, "Это не комбинирующий свиток " )
+	local Item1 = GetChaItem ( role , 2 , BagItem1 )			--ИЎµАѕЯЦёХл
+	local Item2 = GetChaItem ( role , 2 , BagItem2 )
+	local Item3 = GetChaItem ( role , 2 , BagItem3 )
+	
+	local ItemID1 = GetItemID ( Item1 )					--ИЎµАѕЯ±аєЕ
+	local ItemID2 = GetItemID ( Item2 )
+	local ItemID3 = GetItemID ( Item3 )
+
+	local ItemType1 = GetItemType ( Item1 )
+	local ItemType2 = GetItemType ( Item2 )
+	local ItemType3 = GetItemType ( Item3 )
+
+	if ItemType1 ~= 47 then					--ЕР¶ПѕнЦбКЗ·сХэИ·
+		
+		SystemNotice( role ,"This is not a combining scroll")
 		return 0
 	end
 
-	if ItemType2 ~= 49 or ItemType3 ~= 49 then
+	if ItemType2 ~= 49 or ItemType3 ~= 49 then			--ЕР¶ПКЗ·сКЗ±¦КЇ
 		if ItemType2 ~= 50 or ItemType3 ~= 50 then
-			SystemNotice( role, "Это не самоцвет " )
+			SystemNotice( role , "This is not a Gem")
 			return 0
 		end
 	end
 
-	if ItemID2 ~= ItemID3 then
-		SystemNotice( role, "Самоцветы не совпадают " )
+	if ItemID2 ~= ItemID3 then						--ЕР¶ПБЅёц±¦КЇКЗ·сН¬Аа
+		SystemNotice(role ,"Gem mismatch")
+
 		return 0
 	end
 
-	local Item2_Lv = Get_StoneLv( Item2 )
-	local Item3_Lv = Get_StoneLv( Item3 )
-
-	if ( ItemType2 == 49 and ItemType3 == 49 ) or ( ItemType2 == 50 and ItemType3 == 50 ) then
+	local Item2_Lv = Get_StoneLv ( Item2 )					--ИЎ±¦КЇµИј¶
+	local Item3_Lv = Get_StoneLv ( Item3 )
+	
+	if ItemType2 == 49 and ItemType3 == 49 then
 		if Item2_Lv >= 9 or Item3_Lv >= 9 then
-			SystemNotice( role, "Уровень самоцвета максимален " )
+			SystemNotice ( role , "Gem Lv max")
 			return 0
 		end
 	end
 
 	if Item2_Lv ~= Item3_Lv then 
-		SystemNotice( role, "Уровень этих самоцветов разный " )
+		
+		SystemNotice(role ,"Level of 2 gems does not match")
 		return 0
 	end
-
-	local Money_Need = getunite_money_main( Table )
-	local Money_Have = GetChaAttr( role, ATTR_GD )
-
+--	SystemNotice ( role , "determination successful")
+	local Money_Need = getunite_money_main ( Table )
+	local Money_Have = GetChaAttr ( role , ATTR_GD )
 	if Money_Need > Money_Have then
-		SystemNotice( role, "Не хватает золота! Комбинирование не удалось!" )
+		SystemNotice( role ,"Insufficient gold. Unable to combine")
 		return 0
 	end
+	
 
 	return 1
 end
 
+
+--їЄКјєПіЙ
 function begin_unite_item (...)
+--	Notice("Start Combining")
+	
 	local Check_CanUnite = 0
+--	SystemNotice ( arg[1] , "transfer detect can it be combined into main function")
 	Check_CanUnite = can_unite_item_main ( arg )
 	if Check_CanUnite == 0 then
 		return 0
 	end
+	
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}										
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}										--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local Get_Count = 4
 	local ItemReadCount = 0
 	local ItemReadNow = 1
@@ -114,75 +153,115 @@ function begin_unite_item (...)
 	local ItemBag_Now = 0
 	local ItemCount_Now = 0
 	local ItemBagCount_Num = 0
+
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Now , ItemCount_Now , ItemBagCount_Num = Read_Table ( arg )
+
+	
 	local BagItem1 = ItemBag [0]
 	local BagItem2 = ItemBag [1]
 	local BagItem3 = ItemBag [2]
-	local BagItem1 = arg [3]						
+	
+	local BagItem1 = arg [3]						--ИЎµАѕЯ±і°ьО»ЦГ
 	local BagItem2 = arg [6]
 	local BagItem3 = arg [9]
-	local Item1 = GetChaItem ( role , 2 , BagItem1 )			
+
+	local Item1 = GetChaItem ( role , 2 , BagItem1 )			--ИЎµАѕЯЦёХл
 	local Item2 = GetChaItem ( role , 2 , BagItem2 )
 	local Item3 = GetChaItem ( role , 2 , BagItem3 )
-	local ItemID1 = GetItemID ( Item1 )					
+	
+	local ItemID1 = GetItemID ( Item1 )					--ИЎµАѕЯ±аєЕ
 	local ItemID2 = GetItemID ( Item2 )
 	local ItemID3 = GetItemID ( Item3 )
+
 	local ItemType2 = GetItemType ( Item2 )
-	local Item2_Lv = Get_StoneLv ( Item2 )					
+
+	local Item2_Lv = Get_StoneLv ( Item2 )					--ИЎ±¦КЇµИј¶
 	local Item3_Lv = Get_StoneLv ( Item3 )
+
 	local i = 0
 	local j = 0
-	i = RemoveChaItem ( role , ItemID1 , 1 , 2 , BagItem1 , 2 , 1 , 0)		
-	j = RemoveChaItem ( role , ItemID3 , 1 , 2 , BagItem3 , 2 , 1 , 0)		
+
+	i = RemoveChaItem ( role , ItemID1 , 1 , 2 , BagItem1 , 2 , 1 , 0)		--ТЖіэѕнЦб
+	j = RemoveChaItem ( role , ItemID3 , 1 , 2 , BagItem3 , 2 , 1 , 0)		--ТЖіэТ»їЕ±¦КЇ
+
 	if i == 0 or j == 0 then
 		LG( "Hecheng_BS" , "Delete item failed" )
 	end
+	
 	Item2_Lv =Item2_Lv + 1
+	
 	Set_StoneLv ( Item2 , Item2_Lv )
+	
 	local Money_Need = getunite_money_main ( arg )
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
+--	Notice ("Currently there are"..Money_Have.."So much gold")
+--	Notice ("Must deduct"..Money_Need.."So much gold")
 	Money_Have = Money_Have - Money_Need
 	SetCharaAttr ( Money_Have , role , ATTR_GD )
 	ALLExAttrSet( role )
+	
 	local Sklv = 1
 	local StateLv = GetChaStateLv ( role , STATE_HCGLJB )
+	
 	Sklv = Sklv + StateLv
+
+
 	local b = Check_CG_HechengBS ( Item2_Lv , ItemType2 , Sklv )
 	if b == 0 then
-		i = RemoveChaItem ( role , ItemID2 , 1 , 2 , BagItem2 , 2 , 1 , 0)		
+		i = RemoveChaItem ( role , ItemID2 , 1 , 2 , BagItem2 , 2 , 1 , 0)		--ТЖіэ±¦КЇ	
 		if i == 0 then
 			LG( "Hecheng_BS" , "Delete item failed" )
 		end
 		local cha_name = GetChaDefaultName ( role )
 		LG( "JingLian_ShiBai" , "Player"..cha_name.."Gem combining failed" )
-		SystemNotice( role , "К сожалению, комбинирование не удалось ")
+		SystemNotice( role , "Very sorry, combining has failed. Gem has vanishedЎ­")
+
 		return 2	
 	end
 	local cha_name = GetChaDefaultName ( role )
-	LG( "JingLian_ShiBai" , "Игрок "..cha_name.." скомбинировал самоцветы " ) 
+	LG( "JingLian_ShiBai" , "Player"..cha_name.."Gem combining successful" )
 	return 1
 end
-
+--јЖЛгРиТЄЅрЗ®
 function get_item_unite_money (...)
+--	SystemNotice ( arg[1] , "starts to calculate money" )
 	local Money = getunite_money_main ( arg )
+--	SystemNotice ( arg[1] , "Calculation completed"..Money )
 	return 0
 end
 
+--јЖЛгРиТЄЅрЗ®ЦчєЇКэ
+
 function getunite_money_main ( Table )
+--	SystemNotice ( Table[1] , "starts to count money" )
 	return 50000
 end
 
---------------------------------------------------------------------
------------------------------- Ковка -------------------------------
---------------------------------------------------------------------
+
+
+
+
+--ѕ«Б¶
+
+--ЕР¶ПКЗ·сДЬ№»ѕ«Б¶
 
 function can_forge_item(...)
+--	Notice ( "Determin if it can be forged")
 	if arg.n ~= 12 then
 		SystemNotice ( arg[1] , "parameter value illegal"..arg.n )
 		return 0
 	end
+
+--	local kkk = 0
+	
+--	for kkk = 2 , arg.n ,1 do
+--		SystemNotice ( arg[1] , arg[kkk])
+--	end
+
 	local Check = 0
+	
 	Check = can_forge_item_main ( arg )
+	
 	if Check == 1 then
 		return 1
 	else
@@ -190,11 +269,13 @@ function can_forge_item(...)
 	end
 end
 
+--јмІвКЗ·сїЙТФѕ«Б¶ЦчєЇКэ
+	
 function can_forge_item_main ( Table )
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}										
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}										--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local Get_Count = 4
 	local ItemReadCount = 0
 	local ItemReadNow = 1
@@ -202,68 +283,103 @@ function can_forge_item_main ( Table )
 	local ItemBag_Now = 0
 	local ItemCount_Now = 0
 	local ItemBagCount_Num = 0
+
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Now , ItemCount_Now , ItemBagCount_Num = Read_Table ( Table )
+
+
 	local ItemBagCount_Jinglian = ItemBagCount [0]
 	local ItemBag_Jinglian = ItemBag [0]
 	local ItemNum_Jinglian = ItemCount [0]
 	local Item_Jinglian = GetChaItem ( role , 2 , ItemBag_Jinglian )
 	local Check = 0
+
+	
+
 	if ItemBagCount_Jinglian ~= 1 then
+		SystemNotice( role , "Forging item related slot illegal")
 		return 0
 	end
+	
 	if ItemNum_Jinglian ~= 1 then
+		SystemNotice( role , "Forging item quantity illegal")
 		return 0
 	end
+
 	Check = CheckItem_CanJinglian ( Item_Jinglian )
+
 	if Check == 0 then
-		SystemNotice( role ,"Предмет невозможно ковать ")
+		SystemNotice( role ,"Item cannot be forged")
 		return 0
 	end
+	
+
+	
 	if ItemCount [1] ~= 1 or ItemCount [2] ~= 1 or ItemBagCount [1] ~= 1 or ItemBagCount [2] ~= 1 then
+		SystemNotice ( role ,"Illegal Gem quantity")
 		return 0
 	end
+
 	local Item_Stone1 = GetChaItem ( role , 2 , ItemBag [1] )
 	local Item_Stone2 = GetChaItem ( role , 2 , ItemBag [2] )
+
 	local Check_Hole = 0
+
 	Check_Hole = CheckItem_HaveHole ( Item_Jinglian , Item_Stone1 , Item_Stone2)
+
 	if Check_Hole == 0 then
-		SystemNotice( role ,"Нет слотов для ковки " )
+		SystemNotice( role ,"Does not have enough socket to forge" )
 		return 0
 	end
+	
+
 	local Check_Stone = 0
+
 	Check_Stone = Check_StoneLv ( Item_Jinglian , Item_Stone1 , Item_Stone2 )
+
 	if Check_Stone == 0 then
-		SystemNotice ( role , "Уровень самоцвета и очищающего самоцвета не совпадают " )
+		SystemNotice ( role , "Gem or Refining Gem level does not match" )
 		return 0
 	end
+
 	local Check_StoneItem = 0
+
 	Check_StoneItem = Check_StoneItemType ( Item_Jinglian , Item_Stone1 , Item_Stone2 )
+
 	if Check_StoneItem == 0 then
-		SystemNotice ( role , "Данный самоцвет нельзя вковать в этот предмет " )
+		SystemNotice ( role , "Gem and forging item does not match" )
 		return 0
 	end
+
+	
 	local Money_Need = getforge_money_main ( Table )
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
 	if Money_Need > Money_Have then
-		SystemNotice( role ,"У вас не хватает золота. Ковка невозможна.")
+		SystemNotice( role ,"Insufficient Gold. Unable to forge.")
 		return 0
 	end
+
+	
+--SystemNotice(role ,"determination completed ")
 	return 1
 end
 
-------------------
--- Начало ковки --
-------------------
+--їЄКјѕ«Б¶
+
 function begin_forge_item(...)
+--	Notice("Start to forge")
+
 	local Check_CanForge = 0
 	Check_CanForge = can_forge_item_main ( arg )
+
 	if Check_CanForge == 0 then
 		return 0
 	end
+
+
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}										
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}										--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local Get_Count = 4
 	local ItemReadCount = 0
 	local ItemReadNow = 1
@@ -271,62 +387,88 @@ function begin_forge_item(...)
 	local ItemBag_Num = 0
 	local ItemCount_Num = 0
 	local ItemBagCount_Num = 0
+
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Num , ItemCount_Num , ItemBagCount_Num = Read_Table ( arg )
+
 	local ItemBag_Jinglian = ItemBag [0]
 	local Item_Jinglian = GetChaItem ( role , 2 , ItemBag_Jinglian )
 	local Item_Stone1 = GetChaItem ( role , 2 , ItemBag [1] )
 	local Item_Stone2 = GetChaItem ( role , 2 , ItemBag [2] )
+
 	local Check_Jinglian_Item = 0
+
 	local Money_Need = getforge_money_main ( arg )
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
+--	Notice ("Currently there are"..Money_Have.."So much gold")
+--	Notice ("Must deduct"..Money_Need.."So much gold")
 	Money_Have = Money_Have - Money_Need
 	SetCharaAttr ( Money_Have , role , ATTR_GD )
 	ALLExAttrSet( role )
+
 	local ItemID_Jinglian = GetItemID ( Item_Jinglian )
+----------------	
 	local Jinglian_Lv_Now = GetItem_JinglianLv ( Item_Jinglian )
+----------------
 	local Num = GetItemForgeParam ( Item_Jinglian , 1 )
 	Num = TansferNum ( Num )
+
 	local Stone1Type = GetItemType ( Item_Stone1 )
 	local Stone2Type = GetItemType ( Item_Stone2 )
+
 	local Baoshi = 0
+
 	if Stone1Type == 49 then
 		Baoshi = Item_Stone1
 	elseif Stone2Type == 49 then
 		Baoshi = Item_Stone2
 	end
+	
 	local Item_Stone = {}
 	local Item_StoneLv = {}
 	local Baoshi_NeedLv = 1
+
 	Item_Stone[0] = GetNum_Part2 ( Num )
 	Item_Stone[1] = GetNum_Part4 ( Num )
 	Item_Stone[2] = GetNum_Part6 ( Num )
+	
 	Item_StoneLv[0] = GetNum_Part3 ( Num )
 	Item_StoneLv[1] = GetNum_Part5 ( Num )
 	Item_StoneLv[2] = GetNum_Part7 ( Num )
+
 	BaoshiType = GetStone_TypeID ( Baoshi )
+
 	for i = 0 , 2 ,1 do
 		if BaoshiType == Item_Stone[i] then
 			Baoshi_NeedLv = Item_StoneLv[i] + 1
 		end
 	end
+----------------
 	local Sklv = 1
 	local StateLv = GetChaStateLv ( role , STATE_JLGLJB )
+	
 	Sklv = Sklv + StateLv
+
 	local Check_A = math.max ( 0.02 , math.min ( 1 , ( 1 - Baoshi_NeedLv * 0.1 + Sklv * 0.15 - 0.3 ) ) )
 	local CheckFaild = Percentage_Random ( Check_A )
-	if Baoshi_NeedLv < 4 then		-- Уровень гема который вставляется со 100% шансом
+	
+	if Baoshi_NeedLv < 4 then
 		CheckFaild = 1
 	end
+
 	if CheckFaild == 1 then
 		Check_Jinglian_Item = Jinglian_Item ( Item_Jinglian , Item_Stone1 , Item_Stone2 )
 	else
 		local cha_name = GetChaDefaultName ( role )
 		local Item_Jinglian_name = GetItemName ( ItemID_Jinglian )
-		LG( "JingLian_ShiBai" , "Игрок "..cha_name.." не смог успешно ковать свой предмет. Снаряжение не повреждено "..Item_Jinglian_name )
-		SystemNotice ( role , "Извините, но ковка не удалась. К счастью снаряжение в целости и сохранности " )
+		LG( "JingLian_ShiBai" , "Player"..cha_name.."Forging of equipment failed. Equipment is not damaged"..Item_Jinglian_name )
+		SystemNotice ( role , "Sorry, forging has failed. Luckily equipment is not damage" )
 	end
+------------------
+
+
 	local ItemID_Stone1 = GetItemID ( Item_Stone1 )
 	local ItemID_Stone2 = GetItemID ( Item_Stone2 )
+
 	local Stone1_Lv = Get_StoneLv ( Item_Stone1 )
 	local Stone2_Lv = Get_StoneLv ( Item_Stone2 )
 	local Jinglianshi_Lv = 0
@@ -335,44 +477,69 @@ function begin_forge_item(...)
 	else
 		Jinglianshi_Lv = Stone2_Lv
 	end
+
 	local Jinglian_Lv = GetItem_JinglianLv ( Item_Jinglian )
+
 	local R1 = 0
 	local R2 = 0
-	R1 = RemoveChaItem ( role , ItemID_Stone1 , 1 , 2 , ItemBag [1] , 2 , 1 , 0 )		
-	R2 = RemoveChaItem ( role , ItemID_Stone2 , 1 , 2 , ItemBag [2] , 2 , 1 , 0 )		
+
+	R1 = RemoveChaItem ( role , ItemID_Stone1 , 1 , 2 , ItemBag [1] , 2 , 1 , 0 )		--ТЖіэ±¦КЇ1
+	R2 = RemoveChaItem ( role , ItemID_Stone2 , 1 , 2 , ItemBag [2] , 2 , 1 , 0 )		--ТЖіэ±¦КЇ2
+
 	if R1 == 0 or R2 == 0 then
+		LG( "Jinglian" , "Gem deletion failed" )
 	end
+	
 	if CheckFaild == 0 then
 		return 2
 	end
+
 	check_item_final_data ( Item_Jinglian )
+	
+
+	
+--	SystemNotice(role , "Return failed")
+	
+	
+
+
+--	local a = 0.75
 	local b = Check_CG_Jinglian ( Jinglian_Lv , Jinglianshi_Lv , Sklv )
 	if b == 0 then
-		i = RemoveChaItem ( role , ItemID_Jinglian , 1 , 2 , ItemBag [0] , 2 , 1 , 0)		
+		i = RemoveChaItem ( role , ItemID_Jinglian , 1 , 2 , ItemBag [0] , 2 , 1 , 0)		--ТЖіэ±¦КЇ	
 		if i == 0 then
+			LG( "Hecheng_BS" , "Delete item failed" )
 		end
 		local cha_name = GetChaDefaultName ( role )
 		local Item_Jinglian_name = GetItemName ( ItemID_Jinglian )
-		LG( "JingLian_ShiBai" , "Игрок "..cha_name.." не смог сковать "..Item_Jinglian_name )
-		SystemNotice( role , "Извините! Ковка прошла неудачно ")
+		LG( "JingLian_ShiBai" , "Player"..cha_name.."Forging of equipment failed"..Item_Jinglian_name )
+		SystemNotice( role , "Very sorry! Forging has failed. Item was destroyedЎ­")
 		return 2	
 	end
+
+--	Notice("Forging completed")
 	local cha_name = GetChaDefaultName ( role )
 	local Item_Jinglian_name = GetItemName ( ItemID_Jinglian )
-	LG( "JingLian_ShiBai" , "Игрок "..cha_name.." не смог сковать "..Item_Jinglian_name )
+	LG( "JingLian_ShiBai" , "Player"..cha_name.."Forging successful"..Item_Jinglian_name )
 	return 1
 end
 
+--јЖЛгѕ«Б¶·СУГ
+
 function get_item_forge_money(...)
+--	Notice("Fee calculation")
 	local Money = getforge_money_main ( arg )
 	return Money
 end
 
+
+--јЖЛгѕ«Б··СУГЦчєЇКэ
+
 function getforge_money_main ( Table )
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}										
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}										--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local Get_Count = 4
 	local ItemReadCount = 0
 	local ItemReadNow = 1
@@ -380,22 +547,35 @@ function getforge_money_main ( Table )
 	local ItemBag_Num = 0
 	local ItemCount_Num = 0
 	local ItemBagCount_Num = 0
+
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Num , ItemCount_Num , ItemBagCount_Num = Read_Table ( Table )
+
 	local ItemBag_Jinglian = ItemBag [0]
 	local Item_Jinglian = GetChaItem ( role , 2 , ItemBag_Jinglian )
 	local Jinglian_Lv = 0
+
 	Jinglian_Lv =  GetItem_JinglianLv ( Item_Jinglian )
 	Jinglian_Lv = Jinglian_Lv + 1
+
 	local Money_Need = Jinglian_Lv * 100000
+	
+--	Notice("Calculation completed")
 	return Money_Need
 end
 
-function Get_StoneLv ( Item )								
+
+
+----Па№ШєЇКэ--------------------------------------------------------------------------------------------------------
+
+
+
+function Get_StoneLv ( Item )								--¶БИЎ±¦КЇµИј¶
 	local Lv = GetItemAttr ( Item , ITEMATTR_VAL_BaoshiLV )
 	return Lv
 end
 
-function Set_StoneLv ( Item , Item_Lv )							
+
+function Set_StoneLv ( Item , Item_Lv )							--ЙиЦГ±¦КЇµИј¶
 	local i = 0
 	i = SetItemAttr ( Item , ITEMATTR_VAL_BaoshiLV , Item_Lv )
 	if i == 0 then
@@ -403,7 +583,12 @@ function Set_StoneLv ( Item , Item_Lv )
 	end
 end
 
+
+--јмІйЧ°±ёКЗ·сїЙ±»ѕ«Б¶
+
 function CheckItem_CanJinglian ( Item )
+--	Notice ("CheckItem_CanJinglian ")
+
 	local Item_Type = GetItemType ( Item )
 	local i = 0
 	for i = 0 , Item_CanJinglian_Num  , 1 do
@@ -411,88 +596,137 @@ function CheckItem_CanJinglian ( Item )
 			return 1
 		end
 	end
+	
 	return 0
+	
 end
 
+
+---јмІйКЗ·сУРЧг№»µД¶ґѕ«Б¶
+
 function CheckItem_HaveHole ( Item , Stone1 , Stone2)
+--	Notice ("CheckItem_HaveHole")
 	local Num = GetItemForgeParam ( Item , 1 )
 	Num = TansferNum ( Num )
 	local Hole = GetNum_Part1 ( Num )
 	local Item_Stone = {} 
 	local Stone1TypeID = 0
 	local Stone2TypeID = 0
+	
 	Item_Stone[0] = GetNum_Part2 ( Num )
 	Item_Stone[1] = GetNum_Part4 ( Num )
 	Item_Stone[2] = GetNum_Part6 ( Num )
+	
 	local i = 0
 	local Hole_empty = 0
+	
 	for i = 0 , 2 , 1 do
 		if Item_Stone[i] == 0 then
 			Hole_empty = Hole_empty + 1
 		end
+
 		Stone1TypeID = GetStone_TypeID ( Stone1 )
 		Stone2TypeID = GetStone_TypeID ( Stone2 )
+
+
 		if Item_Stone[i] == Stone1TypeID or Item_Stone[i] == Stone2TypeID then
+
 			return 1
 		end
 	end
+	
 	local Hole_Used = 3 - Hole_empty
+	
 	if Hole_Used >= Hole then
 		return 0
 	else
 		return 1
 	end
+
+	
 end
 
+--јмІй±¦КЇµИј¶КЗ·сЧг№»
+
 function Check_StoneLv ( Item , Stone1 , Stone2 )
+--	Notice ("Check_StoneLv")
 	local Num = GetItemForgeParam ( Item , 1 )
 	Num = TansferNum ( Num )
+--	Notice ( Num )
 	local Jinglian_Lv =  GetItem_JinglianLv ( Item )
+--	Notice ( Jinglian_Lv )
 	local Stone1Type = GetItemType ( Stone1 )
 	local Stone2Type = GetItemType ( Stone2 )
+--	Notice (Stone1Type)
+--	Notice (Stone2Type)
 	local Jinglianshi = 0
 	local Jinglianshi_Lv = 0
 	local Baoshi = 0
 	local Baoshi_Lv = 0
 	local Baoshi_NeedLv = 0
+
 	if Stone1Type == 50 then
 		Jinglianshi = Stone1
 	elseif 	Stone2Type == 50 then
 		Jinglianshi = Stone2
 	end
+	
 	if Stone1Type == 49 then
 		Baoshi = Stone1
 	elseif Stone2Type == 49 then
 		Baoshi = Stone2
 	end
+	
 	Jinglianshi_Lv = Get_StoneLv ( Jinglianshi )
 	Baoshi_Lv = Get_StoneLv ( Baoshi )
+
+--	Notice("Jinglianshi_Lv= "..Jinglianshi_Lv)
+--	Notice("Baoshi_Lv= "..Baoshi_Lv)
+
 	local Item_Stone = {}
 	local Item_StoneLv = {}
+	
 	Item_Stone[0] = GetNum_Part2 ( Num )
 	Item_Stone[1] = GetNum_Part4 ( Num )
 	Item_Stone[2] = GetNum_Part6 ( Num )
+	
 	Item_StoneLv[0] = GetNum_Part3 ( Num )
 	Item_StoneLv[1] = GetNum_Part5 ( Num )
 	Item_StoneLv[2] = GetNum_Part7 ( Num )
+
 	BaoshiType = GetStone_TypeID ( Baoshi )
+
+--	Notice("BaoshiType= "..BaoshiType)
 	local i = 0
+
 	for i = 0 , 2 ,1 do
 		if BaoshiType == Item_Stone[i] then
 			Baoshi_NeedLv = Item_StoneLv[i] + 1
 		end
 	end
+
 	local Jinglianshi_NeedLv = Baoshi_NeedLv	
+	
 	if Baoshi_Lv < Baoshi_NeedLv then
+--		Notice("Gem Lv too low")
 		return 0
 	end
+
 	if Jinglianshi_Lv < Jinglianshi_NeedLv then
+--		Notice("Refining Gem level does not match")
 		return 0
 	end
+--	Notice("Return successful")
 	return 1
+
 end
 
+
+---їЄКјѕ«Б¶
+
 function Jinglian_Item ( Item , Stone1 , Stone2 )
+--	Notice("Jinglian_Item")
+	
 	local Num = GetItemForgeParam ( Item , 1 )
 	Num = TansferNum ( Num )
 	local Jinglian_Lv =  GetItem_JinglianLv ( Item )
@@ -500,52 +734,87 @@ function Jinglian_Item ( Item , Stone1 , Stone2 )
 	local Stone2Type = GetItemType ( Stone2 )
 	local Baoshi = 0
 	local Num_New = Num
+
 	if Stone1Type == 49 then
 		Baoshi = Stone1
 	elseif Stone2Type == 49 then
 		Baoshi = Stone2
 	end
+	
+
+	
 	Num_New = SetJinglian_Lv ( Baoshi , Baoshi_Lv , Num )
+
+--	Notice(Num_New)
 	local i = 0
+	
 	i = SetItemForgeParam ( Item , 1 , Num_New )
+	
 	if i == 0 then
 		LG( "Jinglian" , "set forging content failed" )
 	end
+
 	local Item_URE_Add = 0
 	local Item_MAXURE = GetItemAttr ( Item , ITEMATTR_MAXURE )
 	if Item_MAXURE < 600 then
 		Item_MAXURE = math.min ( ( Item_MAXURE + Item_URE_Add ) , 600 )
 	end
+	
 	local j = 0
 	j = SetItemAttr ( Item , ITEMATTR_MAXURE , Item_MAXURE )
+	
 	if j == 0 then
 		LG( "Jinglian" , "Forge setting maximum durability failed")
 	end
+	
+
 	if Num_New == Num then
-	end	
+--		Notice("Set content has not been changed")
+	end
+
+		
 	return 1	
+
 end
 
+
+--ЙиЦГОдЖчЙП±¦КЇµДКфРФ
+
+
 function SetJinglian_Lv ( Baoshi , Baoshi_Lv , Num )
+	
+--	Notice ("SetJinglian_Lv")
+--	Notice (Num)
 	local Baoshi_Lv = 0
 	Baoshi_Lv = Get_StoneLv ( Baoshi )
+	
 	local Item_Stone = {}
 	local Item_StoneLv = {}
+		
 	Item_Stone[0] = GetNum_Part2 ( Num )
 	Item_Stone[1] = GetNum_Part4 ( Num )
 	Item_Stone[2] = GetNum_Part6 ( Num )
+	
 	Item_StoneLv[0] = GetNum_Part3 ( Num )
 	Item_StoneLv[1] = GetNum_Part5 ( Num )
 	Item_StoneLv[2] = GetNum_Part7 ( Num )
+
+
+
 	BaoshiType = GetStone_TypeID ( Baoshi )
+
+--	Notice("BaoshiType= "..BaoshiType)
+	
 	local i = 0
 	local Stone_Check = 0
+
 	for i = 0 , 2 , 1 do
 		if BaoshiType == Item_Stone [i] then
 			Item_StoneLv [i] = Item_StoneLv [i] + 1
 			Stone_Check = i + 1
 		end
 	end
+
 	if Stone_Check == 1 then
 		Num = SetNum_Part3 ( Num , Item_StoneLv[0] )
 	elseif Stone_Check == 2 then
@@ -559,6 +828,7 @@ function SetJinglian_Lv ( Baoshi , Baoshi_Lv , Num )
 				Check_empty = i + 1
 			end
 		end
+
 		if Check_empty == 1 then
 			Num = SetNum_Part2 ( Num , BaoshiType )
 			Num = SetNum_Part3 ( Num , 1 )
@@ -570,13 +840,21 @@ function SetJinglian_Lv ( Baoshi , Baoshi_Lv , Num )
 			Num = SetNum_Part7 ( Num , 1 )
 		end
 	end
+	
+--	Notice("SetJinglian_Lv ended")
 	return Num
 end
 
+--ИЎ±¦КЇАаРНID
+
 function GetStone_TypeID ( Stone )
+--	Notice ("GetStone_TypeID")
+
+
 	local StoneID = GetItemID ( Stone )
 	local i = 0
 	for i = 1 , StoneTpye_ID_Num , 1 do
+--		Notice ( StoneTpye_ID[i] )
 		if StoneTpye_ID[i] == StoneID then
 			return i
 		end
@@ -584,11 +862,17 @@ function GetStone_TypeID ( Stone )
 	return -1
 end
 
+
+----±дІОДЪИЭЅвОц
+
 function Read_Table ( Table )
-	local role = Table [1]										
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}										
+--	Notice("Read_Table")
+	local role = Table [1]										--ЅЗЙ«
+--	Notice(role)
+--	Notice(Table.n)
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}										--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local Get_Count = 4
 	local ItemReadCount = 0
 	local ItemReadNow = 2
@@ -598,41 +882,60 @@ function Read_Table ( Table )
 	local ItemBagCount_New = 0
 	local i = 0
 	local j = 0
+	
+
 	for i = 0 , Get_Count , 1 do
+		
 		if ItemReadNow <= Table.n then
 			ItemBagCount [i] = Table [ItemReadNow]
+--			SystemNotice ( role , "aaa  "..ItemBagCount [i] )
 			ItemBagCount_New = ItemBagCount_New + 1
+--			Notice("ItemBagCount= "..ItemBagCount [i])
 			ItemReadNow = ItemReadNow + 1
 			ItemReadNext = ItemReadNow + 2 * ( ItemBagCount [i] - 1 )
 			ItemReadCount = ItemReadNow
 			if ItemBagCount [i] ~= 0  then
 				for j = ItemReadCount , ItemReadNext , 2 do
 					ItemBag [ItemBag_Now] = Table [j]
+--					SystemNotice(role , "aaa  "..ItemBag [ItemBag_Now])
+--					Notice("ItemBag= "..ItemBag [ItemBag_Now])
 					ItemBag_Now = ItemBag_Now + 1
 					ItemCount [ItemCount_Now] = Table [ j+1 ]
+--					SystemNotice(role , "aaa  "..ItemCount[ItemCount_Now])
+--					Notice("ItemCount= "..ItemCount [ItemCount_Now])
 					ItemCount_Now = ItemCount_Now + 1
 					ItemReadNow = ItemReadNow + 2
 				end
 			end
 		else
 			ItemBagCount [i] = 0
+--			SystemNotice ( role , "aaa  "..ItemBagCount [i] )
+--			Notice(ItemBagCount [i])
 		end
 	end
+--	Notice("1111")
 	return role , ItemBag , ItemCount , ItemBagCount , ItemBag_Now , ItemCount_Now , ItemBagCount_New
 end
+
+
+--µАѕЯѕ«Б¶КфРФЦШЛг
 
 function check_item_final_data ( Item )
 	local Item_TypeCheck = GetItemType ( Item )
 	if Item_TypeCheck == 59 then
 		return
 	end
+--	Notice ("check_item_final_data")
 	local Num = GetItemForgeParam ( Item , 1 )
 	Num = TansferNum ( Num )
+--	Notice(Num)
 	local StoneInfo = {}
 	local StoneLv = {}
 	local ResetCheck = 0
 	ResetCheck = ResetItemFinalAttr( Item )
+	
 	if ResetCheck == 0 then
+--		Notice("ResetCheck Failed")
 		LG("check_item_final","ResetCheck Failed")
 		return
 	end
@@ -643,12 +946,16 @@ function check_item_final_data ( Item )
 	StoneLv[1]=0
 	StoneLv[2]=0
 	StoneInfo[0],StoneInfo[1],StoneInfo[2],StoneLv[0],StoneLv[1],StoneLv[2] = CheckStoneInfo ( Num )
+
 	local AddCheck = 0
+
 	local i = 0
 	local j = 0
 	for i = 0 , 2 , 1 do
 		if StoneInfo [i] ~= nil and StoneInfo [i] ~=0  then
+--			Notice("StoneInfo"..i.."= "..StoneInfo [i])
 			if StoneAttrType[StoneInfo [i]] == ITEMATTR_VAL_MNATK then
+--				Notice("Add Attack")
 				local Itemattr_Type1 = StoneAttrType[StoneInfo [i]]
 				local Itemattr_Type2 = Itemattr_Type1 + 1
 				local ItemAttrEff = 0
@@ -661,6 +968,14 @@ function check_item_final_data ( Item )
 					num_stone=StoneInfo [i]
 					ItemAttrEff =StoneEff [num_stone] * lv_stone
 				end
+--				local Item_attr1 = GetItemAttr ( Item , Itemattr_Type1 )
+--				local Item_attr2 = GetItemAttr ( Item , Itemattr_Type2 )
+
+--				local Item_Newattr1 = Item_attr1 + ItemAttrEff
+--				local Item_Newattr2 = Item_attr2 + ItemAttrEff
+				
+--				Notice ( "Itemattr_Type1= "..Itemattr_Type1.." Itemattr_Type2= "..Itemattr_Type2)
+--				Notice ( "ItemAttrEff= "..ItemAttrEff)
 				AddCheck = AddItemFinalAttr ( Item , Itemattr_Type1 , ItemAttrEff )
 				if AddCheck == 0 then
 					LG("check_item_final","AddCheck Failed")
@@ -681,75 +996,104 @@ function check_item_final_data ( Item )
 					num_stone=StoneInfo [i]
 					ItemAttrEff =StoneEff [num_stone] * lv_stone
 				end
-				
+				--local ItemAttrEff = StoneEff[StoneInfo [i]] * StoneLv[i]
+
+--				local Item_attr = GetItemAttr ( Item , Itemattr_Type )
+--				local Item_Newattr = Item_attr + ItemAttrEff
+
 				AddCheck = AddItemFinalAttr ( Item , Itemattr_Type , ItemAttrEff )
 				if AddCheck == 0 then
 					LG("check_item_final","AddCheck Failed")
 				end
+
 			end
 		end
 	end
 end
 
+--јмІй±¦КЇїЙѕ«Б¶µАѕЯАаРН
+
 function Check_StoneItemType ( Item , Stone1 , Stone2 )
+--	Notice ("Check_StoneItemType")
 	local Stone1Type = GetItemType ( Stone1 )
 	local Stone2Type = GetItemType ( Stone2 )
 	local Baoshi = 0
 	local ItemType = GetItemType ( Item )
+	
 	if Stone1Type == 49 then
 		Baoshi = Stone1
 	elseif Stone2Type == 49 then
 		Baoshi = Stone2
 	end
+
 	local Baoshi_ID = GetItemID ( Baoshi )
 	local i = 0
 	local Baoshi_TypeID = 0
+	
 	for i = 1 , StoneAttrType_Num , 1 do
 		if Baoshi_ID == StoneTpye_ID[i] then
 			Baoshi_TypeID = i
 		end
 	end
+
 	for i = 0 , 15 , 1 do
 		if ItemType == StoneItemType[Baoshi_TypeID][i] then
 			return 1
 		end
 		if StoneItemType[Baoshi_TypeID][i] == 0 then
+--			Notice ("Return failed")
 			return 0
 		end
 	end
+	
+--	Notice ("Return failed")
 	return 0
 end
 
+--ИЎѕ«Б¶µИј¶
+
 function GetItem_JinglianLv ( Item )
+--	Notice ("GetItem_JinglianLv")
 	local Num = GetItemForgeParam ( Item , 1 )
 	Num = TansferNum ( Num )
 	local Item_StoneLv = {}
 	local JinglianLv = 0
+	
 	Item_StoneLv[0] = GetNum_Part3 ( Num )
 	Item_StoneLv[1] = GetNum_Part5 ( Num )
 	Item_StoneLv[2] = GetNum_Part7 ( Num )
+
 	JinglianLv = Item_StoneLv[0] + Item_StoneLv[1] + Item_StoneLv[2]
+
 	return JinglianLv
 end
 
+
+--¶БИЎОдЖчЙП±¦КЇРЕПў
 function CheckStoneInfo( Num )
+
 	local Item_Stone = {}
-	local Item_StoneLv = {}	
+	local Item_StoneLv = {}
+		
 	Item_Stone[0] = GetNum_Part2 ( Num )
 	Item_Stone[1] = GetNum_Part4 ( Num )
 	Item_Stone[2] = GetNum_Part6 ( Num )
+	
 	Item_StoneLv[0] = GetNum_Part3 ( Num )
 	Item_StoneLv[1] = GetNum_Part5 ( Num )
 	Item_StoneLv[2] = GetNum_Part7 ( Num )
+
 	return Item_Stone[0],Item_Stone[1],Item_Stone[2],Item_StoneLv[0],Item_StoneLv[1],Item_StoneLv[2]
 end
+
+
 
 function Check_CG_HechengBS ( Item_Lv , Item_Type , Sklv )
 	local a = 0
 	local b = 0
 	Item_Lv = Item_Lv - 1
 	if Item_Type == 49 then
-		a = math.max ( 0 , math.min ( 1 , ( 1 - Item_Lv * 0.10 + Sklv * 0.10 ) ) )		-- Шанс Комбинирования
+		a = math.max ( 0 , math.min ( 1 , ( 1 - Item_Lv * 0.10 + Sklv * 0.10 ) ) )
 		b = Percentage_Random ( a )
 		if Item_Lv < 3 then
 			b = 1
@@ -766,33 +1110,46 @@ function Check_CG_HechengBS ( Item_Lv , Item_Type , Sklv )
 end
 
 function Check_CG_Jinglian ( Jinglian_Lv , Stone_Lv , Sklv )
+--	local a = 0
 	local b = 0
+
+--	a = math.max ( 0.02 , math.min ( 1 , ( 1 - Jinglian_Lv  * 0.05 + Sklv * 0.15 - 0.3 ) ) )
+--	b = Percentage_Random ( a )
+--	if Jinglian_Lv <= 8 then
 		b = 1
+--	end
 	return b
 end
 
+
+--Лж»ъ±¦КЇЦЦАаЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄ
 function Roll_DiamondId ( cha ) 
 	local a = math.random ( 1 , 8 ) 
 	local DiamondId = StoneTpye_ID [ a ] 
 	return DiamondId  
 end 
 
+
+--1ј¶±¦КЇ¶Т»»ѕнЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄ
 function Transfer_DiamondScript_Lv1 ( role )			
 	local cha = TurnToCha ( role ) 
 	local x_give = 0 
 	local y_give = 0 
-	local script_count = CheckBagItem ( cha , 3877 )					
-	local DiamondId = Roll_DiamondId ( cha )						
+	local script_count = CheckBagItem ( cha , 3877 )					--јмІй±і°ьЦР¶Т»»ИЇКэБї
+	local DiamondId = Roll_DiamondId ( cha )						--Лж»ъ¶Т»»±¦КЇµДЦЦАа
 	if script_count >= 1 then 
 		x_del = DelBagItem ( cha , 3877 , 1 ) 
 		if x_del == 1 then 
-			x_give = GiveItem ( cha , 0 , DiamondId , 1 , 101 )				
-			y_give = GiveItem ( cha , 0 , 885 , 1 , 101 )					
+			x_give = GiveItem ( cha , 0 , DiamondId , 1 , 101 )				--¶Т»»±¦КЇ
+
+			y_give = GiveItem ( cha , 0 , 885 , 1 , 101 )					--¶Т»»ѕ«Б¶КЇ
+
+
 		else 
-			SystemNotice ( cha , "Невозможно использовать расписку на самоцвет " )
+			SystemNotice ( cha , "Unable to deduct Gem Voucher" ) 
 		end 
 	else 
-		SystemNotice ( cha , "Вы должны иметь расписку на самоцвет 1-го уровня "  )
+		SystemNotice ( cha , "You need to have a Lv 1 Gem Voucher in order to redeem"  ) 
 	end 
 	if x_give == 1 and y_give ==1 then 
 		return 1 
@@ -801,235 +1158,248 @@ function Transfer_DiamondScript_Lv1 ( role )
 	end 
 end 
 
+
+--2ј¶±¦КЇ¶Т»»ѕнЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄ
 function Transfer_DiamondScript_Lv2 ( role )			
 	local cha = TurnToCha ( role ) 
 	local x_give = 0 
 	local y_give = 0 
-	local script_count = CheckBagItem ( cha , 3878 )					
-	local DiamondId = Roll_DiamondId ( cha )						
+	local script_count = CheckBagItem ( cha , 3878 )					--јмІй±і°ьЦР¶Т»»ИЇКэБї
+	local DiamondId = Roll_DiamondId ( cha )						--Лж»ъ¶Т»»±¦КЇµДЦЦАа
 	if script_count >= 1 then 
 		x_del = DelBagItem ( cha , 3878 , 1 ) 
 		if x_del == 1 then 
-			x_give = GiveItem ( cha , 0 , DiamondId , 1 , 102 )				
-			y_give = GiveItem ( cha , 0 , 885 , 1 , 102 )					
+			x_give = GiveItem ( cha , 0 , DiamondId , 1 , 102 )				--¶Т»»±¦КЇ
+
+			y_give = GiveItem ( cha , 0 , 885 , 1 , 102 )					--¶Т»»ѕ«Б¶КЇ
+
+
 		else 
-			SystemNotice ( cha , "Невозможно использовать расписку на самоцвет " )
+			SystemNotice ( cha , "Unable to deduct Gem Voucher" ) 
 		end 
 	else 
-		SystemNotice ( cha , "Вы должны иметь расписку на самоцвет 2-го уровня "  )
+		SystemNotice ( cha , "Requires Lv 2 Refining Gem Voucher to redeem"  ) 
 	end 
 	if x_give == 1 and y_give ==1 then 
 		return 1 
 	else 
 		return 0 
 	end 
-end
-
---------------------------------------------------------------------
---------------------- Рождественская открытка ----------------------
---------------------------------------------------------------------
-
+end 
+-------------------------------КҐµ®ЧЈёЈ
 function GetChaName_0 ( role,npc  )
 	local cha_name = GetChaDefaultName ( role )
 	local Money_Need = 1000
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
 	local item_num = CheckBagItem( role, 2887 )
 	if Money_Need > Money_Have or item_num <=0 then
-		SystemNotice( role ,"У вас не хватает золота или нет открытки ")
+		SystemNotice( role ,"You does not seems to bring any Christmas Greeting Cards and gold")
 	else
+
 	end
 	if Money_Have >= Money_Need and item_num >0 then
 		TakeMoney(role,nil,Money_Need)
 		TakeItem( role, 0,2887, 1 )
 		PlayEffect( npc, 361 )
-	Notice("Поздравление от "..cha_name..": Пусть богиня защитит вас в Новом году! Пусть фортуна улыбается вам! Пусть всё у вас будет прекрасно! С Новым Годом!")
+		Notice(" comes from "..cha_name.."'s blessing: May God bless you on this Christmas season! The Goddess of Mercy protect you! God of Fortune hugs you! Cupid shoots you!God of Cookery bites you!")
 	else
 	end
 end
-
+-------------------------------------------
 function GetChaName_1 ( role,npc )
 	local cha_name = GetChaDefaultName ( role )
 	local Money_Need = 1000
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
 	local item_num = CheckBagItem( role, 2887 )
 	if Money_Need > Money_Have or item_num <=0 then
-		SystemNotice( role ,"У вас не хватает золота или нет открытки ")
+		SystemNotice( role ,"You does not seems to bring any Christmas Greeting Cards and gold")
 	else
+
 	end
 	if Money_Have >= Money_Need and item_num >0 then
 		TakeMoney(role,nil,Money_Need)
 		TakeItem( role, 0,2887, 1 )
 		PlayEffect( npc, 361 )
-	Notice("Поздравление от "..cha_name..": Пусть богиня защитит вас в Новом году! Пусть фортуна улыбается вам! Пусть всё у вас будет прекрасно! С Новым Годом!")
+		Notice(" comes from "..cha_name.."'s blessing: Having realized that tons of wishes will jam the net connection after several days, I , the most intelligent and ambitious genius wish everyone...Merry Christmas!")
 	else
 	end
 end
-
+---------------------------------------
 function GetChaName_2 ( role,npc )
 	local cha_name = GetChaDefaultName ( role )
 	local Money_Need = 1000
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
 	local item_num = CheckBagItem( role, 2887 )
 	if Money_Need > Money_Have or item_num <=0 then
-		SystemNotice( role ,"У вас не хватает золота или нет открытки ")
+		SystemNotice( role ,"You does not seems to bring any Christmas Greeting Cards and gold")
 	else
+
 	end
 	if Money_Have >= Money_Need and item_num >0 then
 		TakeMoney(role,nil,Money_Need)
 		TakeItem( role, 0,2887, 1 )
 		PlayEffect( npc, 361 )
-	Notice("Поздравление от "..cha_name..": Пусть богиня защитит вас в Новом году! Пусть фортуна улыбается вам! Пусть всё у вас будет прекрасно! С Новым Годом!")
+		Notice(" comes from "..cha_name.."'s beautiful wish: To spend Christmas eve with you, holding your hands and listen to the chimes of the midnight clock. Do you wish to fulfill the wish?")
 	else
 	end
 end
-
+-----------------------------------------
 function GetChaName_3 ( role,npc )
 	local cha_name = GetChaDefaultName ( role )
 	local Money_Need = 1000
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
 	local item_num = CheckBagItem( role, 2887 )
 	if Money_Need > Money_Have or item_num <=0 then
-		SystemNotice( role ,"У вас не хватает золота или нет открытки ")
+		SystemNotice( role ,"You does not seems to bring any Christmas Greeting Cards and gold")
 	else
+
 	end
 	if Money_Have >= Money_Need and item_num >0 then
 		TakeMoney(role,nil,Money_Need)
 		TakeItem( role, 0,2887, 1 )
 		PlayEffect( npc, 361 )
-	Notice("Поздравление от "..cha_name..": Пусть богиня защитит вас в Новом году! Пусть фортуна улыбается вам! Пусть всё у вас будет прекрасно! С Новым Годом!")
+		Notice(" comes from "..cha_name.."'s well wishes: After a year has past, we once again welcome this Christmas Night. This moment is the time to be happy; to reminisce old friends; to care; and for dreams to come true... Merry Christmas!")
 		else
 	end
 end
 
+-----------------------------------------
 function GetChaName_26 ( role,npc )
 	local cha_name = GetChaDefaultName ( role )
 	local Money_Need = 1000
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
 	local item_num = CheckBagItem( role, 2887 )
 	if Money_Need > Money_Have or item_num <=0 then
-		SystemNotice( role ,"У вас не хватает золота или нет открытки ")
+		SystemNotice( role ,"ЙнЙПГ»УРКҐµ®їЁ»тЅрЗ®І»Чг")
 	else
+
 	end
 	if Money_Have >= Money_Need and item_num >0 then
 		TakeMoney(role,nil,Money_Need)
 		TakeItem( role, 0,2887, 1 )
 		PlayEffect( npc, 361 )
-	Notice("Поздравление от "..cha_name..": Пусть богиня защитит вас в Новом году! Пусть фортуна улыбается вам! Пусть всё у вас будет прекрасно! С Новым Годом!")
+		Notice(""..cha_name.."СцМмі¤МѕЈєДЬІ»ДЬФЪПВёцКҐµ®ЅЪЦ®З°±рФЩИГОТµ±ВТ¶·Ц®Нх,№¤»бХЅІ»ТЄґОґО¶јУ®,ЙПМм,ґНУиОТТ»ёцЗїѕўµД¶ФКЦ°Й,°ўГЕЎ­Ў­")
 		else
 	end
 end
 
+-----------------------------------------
 function GetChaName_27 ( role,npc )
 	local cha_name = GetChaDefaultName ( role )
 	local Money_Need = 1000
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
 	local item_num = CheckBagItem( role, 2887 )
 	if Money_Need > Money_Have or item_num <=0 then
-		SystemNotice( role ,"У вас не хватает золота или нет открытки ")
+		SystemNotice( role ,"ЙнЙПГ»УРКҐµ®їЁ»тЅрЗ®І»Чг")
 	else
+
 	end
 	if Money_Have >= Money_Need and item_num >0 then
 		TakeMoney(role,nil,Money_Need)
 		TakeItem( role, 0,2887, 1 )
 		PlayEffect( npc, 361 )
-	Notice("Поздравление от "..cha_name..": Пусть богиня защитит вас в Новом году! Пусть фортуна улыбается вам! Пусть всё у вас будет прекрасно! С Новым Годом!")
+		Notice(""..cha_name.."СцМмїсЅР:№юАпВ·СЗ,ВиВиЯдСЅ,Цч°ЎЎ­Ў­ґНОТТ»ёцж¤°Й")
 		else
 	end
 end
 
+-----------------------------------------
 function GetChaName_28 ( role,npc )
 	local cha_name = GetChaDefaultName ( role )
 	local Money_Need = 1000
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
 	local item_num = CheckBagItem( role, 2887 )
 	if Money_Need > Money_Have or item_num <=0 then
-		SystemNotice( role ,"У вас не хватает золота или нет открытки ")
+		SystemNotice( role ,"ЙнЙПГ»УРКҐµ®їЁ»тЅрЗ®І»Чг")
 	else
+
 	end
 	if Money_Have >= Money_Need and item_num >0 then
 		TakeMoney(role,nil,Money_Need)
 		TakeItem( role, 0,2887, 1 )
 		PlayEffect( npc, 361 )
-	Notice("Поздравление от "..cha_name..": Пусть богиня защитит вас в Новом году! Пусть фортуна улыбается вам! Пусть всё у вас будет прекрасно! С Новым Годом!")
+		Notice(""..cha_name.."ЧЈёЈЧФјєєГФЛМмМмЅ»Ј¬Йъ»оІЅІЅёЯЈ¬ІКЖ±ЖЪЖЪЦРЈ¬ґтЕЖґОґОУ®Ј¬їЪО¶¶Щ¶ЩєГЈ¬ИфёТ°СОТНьЈ¬РЎРД°¤№ч°ф")
 		else
 	end
 end
 
---------------------------------------------------------------------
----------------------- Обмен Звезды Единства -----------------------
---------------------------------------------------------------------
-
+---------------------------------LeoµДНЕ¶УЦ®РЗ¶Т»»
 function Transfer_TeamStar( role , level )
 	local cha = TurnToCha ( role )  
-	local script_count = CheckBagItem ( cha , 1034 )
-	local chaLV =  GetChaAttr( cha , ATTR_LV)
-	local job = GetChaAttr( role, ATTR_JOB) 
+	local script_count = CheckBagItem ( cha , 1034 )--ИЎ±і°ьКэБї			
+	local chaLV =  GetChaAttr( cha , ATTR_LV)--ИЎµИј¶
+	local job = GetChaAttr( role, ATTR_JOB) --ИЎЦ°Тµ
+
 	if script_count >= 1 then
 		if chaLV < 41 then
-			SystemNotice(role,"Ваша Звезда Единства ещё не может раскрыться. Приходите, когда ваш уровень будет выше 41.")
+			SystemNotice(role,"Your Star of Unity has not expired. Come back after Lv41.")
 		else
 			if job ~= 12 and job ~= 9 and job ~= 16 and job ~= 8 and job ~= 13 and job ~=14 then
-				SystemNotice(role,"Использовать могут только персонажи со вторым классом.")
+				SystemNotice(role,"Can only be used by rebirth characters. Please look for class trainers NPC of each city to complete your rebirth quest before redemption.")
 			else
 				local x_del = DelBagItem ( cha , 1034 , 1 ) 
 				if x_del == 1 then 
-					if job == 12 then	
+					if job == 12 then	--ѕС»ч
 						GiveItem( role , 0 , 1409  , 1 , 22 )
-					elseif job == 9	then 
+					elseif job == 9	then --Л«ЅЈ
 						GiveItem( role , 0 , 1392  , 1 , 22 )
-					elseif job == 16 then	
+					elseif job == 16 then	--єЅєЈ
 						GiveItem( role , 0 , 1419  , 1 , 22 )
-					elseif job == 8	then 
+					elseif job == 8	then --ѕЮЅЈ
 						GiveItem( role , 0 , 1382  , 1 , 22 )
-					elseif job == 13 then	
+					elseif job == 13 then	--КҐЦ°
 						GiveItem( role , 0 ,1433  , 1 , 22 )
-					elseif job == 14 then	
+					elseif job == 14 then	--·вУЎ
 						GiveItem( role , 0 , 1467  , 1 , 22 )
 					end
 				else 
-					SystemNotice ( cha , "Невозможно раскрыть Звезду Единства " ) 
+					SystemNotice ( cha , "Unable to deduct Star of Unity" ) 
 				end 
 			end
 		end
 	else 
-		SystemNotice ( cha , "Ваша Звезда Единства не заполнена "  ) 
+		SystemNotice ( cha , "Need to possess Star of Unity to receive"  ) 
 	end 
 end
 
---------------------------------------------------------------------
--------------------------- Обмен Гемов -----------------------------
---------------------------------------------------------------------
-
+--±¦КЇ¶Т»»ѕн
+--Lv1 Т»ј¶±¦КЇ¶Т»»ИЇ
+--Lv2 ¶юј¶±¦КЇ¶Т»»ИЇ
+--Lv3 ѕ«Б¶КЇ¶Т»»ИЇ
+--Lv4 ±¦КЇ¶Т»»ИЇ
 function TransferDiamond( role , level )
 	local ret = KitbagLock(role,0)
 	if ret ~= LUA_TRUE then
-		SystemNotice(role,"Инвентарь заблокирован. Разблокируйте, чтобы начать ")
+		SystemNotice(role,"Inventory is binded. Unable to redeem")
 		return
 	end
 	local retbag
+
 	if level == 1 then
 		retbag = HasLeaveBagGrid( role, 2)
 			if retbag ~= LUA_TRUE then
-				SystemNotice(role,"Необходимо 2 слота в инвентаре ")
+				SystemNotice(role,"Inventory requires at least 2 empty slots to redeem")
 				return 
 			end	
 		Transfer_DiamondScript_Lv1 ( role )
 	elseif level == 2 then 
 		retbag = HasLeaveBagGrid( role, 2)
 			if retbag ~= LUA_TRUE then
-				SystemNotice(role,"Необходимо 2 слота в инвентаре ")
+				SystemNotice(role,"Inventory requires at least 2 empty slots to redeem")
 				return 
 			end	
 		Transfer_DiamondScript_Lv2 ( role )
 	elseif level == 3 then
 		retbag = HasLeaveBagGrid( role, 1)
 			if retbag ~= LUA_TRUE then
+				SystemNotice(role,"Insufficent inventory space to redeem")
 				return 
 			end	
 		Transfer_OneStoneScript ( role )
 	elseif level == 4 then
 		retbag = HasLeaveBagGrid( role, 1)
 			if retbag ~= LUA_TRUE then
+				SystemNotice(role,"Insufficent inventory space to redeem")
 				return 
 			end	
 		Transfer_OneDiamondScript ( role )
@@ -1038,19 +1408,23 @@ function TransferDiamond( role , level )
 	end
 end
 
+--ѕ«Б¶КЇ¶Т»»ѕн
+
 function Transfer_OneStoneScript ( role )
 	local cha = TurnToCha ( role ) 
 	local y_give = 0 
-	local script_count = CheckBagItem ( cha , 3885 )					
+	
+	local script_count = CheckBagItem ( cha , 3885 )					--јмІй±і°ьЦР¶Т»»ИЇКэБї
+
 	if script_count >= 1 then 
 		x_del = DelBagItem ( cha , 3885 , 1 ) 
 		if x_del == 1 then 
-			y_give = GiveItem ( cha , 0 , 885 , 1 , 101 )					
+			y_give = GiveItem ( cha , 0 , 885 , 1 , 101 )					--¶Т»»ѕ«Б¶КЇ
 		else 
-			SystemNotice ( cha , "Невозможно использовать расписку " )
+			SystemNotice ( cha , "Unable to deduct Gem Voucher" ) 
 		end 
 	else 
-		SystemNotice ( cha , "Вы должны иметь при себе расписку на Очищающий самоцвет "  )
+		SystemNotice ( cha , "You must have Refining Gem Voucher in your inventory to redeem"  ) 
 	end 
 	if y_give ==1 then 
 		return 1 
@@ -1059,29 +1433,35 @@ function Transfer_OneStoneScript ( role )
 	end
 end
 
+--Т»ёц±¦КЇ¶Т»»ИЇ
+
 function Transfer_OneDiamondScript ( role )
 	local cha = TurnToCha ( role ) 
 	local x_give = 0 
 	local y_give = 0 
-	local script_count = CheckBagItem ( cha , 3886 )					
-	local DiamondId = Roll_DiamondId ( cha )						
+	local script_count = CheckBagItem ( cha , 3886 )					--јмІй±і°ьЦР¶Т»»ИЇКэБї
+	local DiamondId = Roll_DiamondId ( cha )						--Лж»ъ¶Т»»±¦КЇµДЦЦАа
 	if script_count >= 1 then 
 		x_del = DelBagItem ( cha , 3886 , 1 ) 
 		if x_del == 1 then 
-			x_give = GiveItem ( cha , 0 , DiamondId , 1 , 101 )				
+			x_give = GiveItem ( cha , 0 , DiamondId , 1 , 101 )				--¶Т»»±¦КЇ
+
+
 		else 
-			SystemNotice ( cha , "Невозможно использовать расписку " )
+			SystemNotice ( cha , "Unable to deduct Gem Voucher" ) 
 		end 
 	else 
-		SystemNotice ( cha , "Вам нужно иметь при себе расписку на самоцвет " )
+		SystemNotice ( cha , "You need to have a Gem Voucher in order to redeem"  ) 
 	end 
 	if x_give == 1 then 
 		return 1 
 	else 
 		return 0 
 	end 
-end
- 
+end 
+
+
+--ѕ«Б¶ДЪИЭёєЦµЧЄ»»
 function TansferNum ( Num )
 	if Num < 0 then
 		Num = Num + 4294967296
@@ -1089,29 +1469,43 @@ function TansferNum ( Num )
 	return Num
 end
 
---------------------------------------------------------------------
-------------------------- Создание Слотов --------------------------
---------------------------------------------------------------------
 
+--ґтДҐДЪИЭПа№ШЅЕ±ѕ
+
+--КЗ·сїЙТФґтДҐ
 function can_milling_item (...)
+--	Notice("Starts to determine")
 	if arg.n ~= 12 then
+--		Notice("parameter value illegal"..arg.n)
 		return 0
 	end
+	
 	local kkk = 0
+	
+--	for kkk = 2 , arg.n ,1 do
+--		SystemNotice ( arg[1] , arg[kkk])
+--	end
+	
 	local Check = 0
+--	SystemNotice( arg[1] , "transfer combine test main function")
 	Check = can_milling_item_main ( arg )
 	if Check == 1 then
+		
+--		SystemNotice (arg[1] , "Return 1")
 		return 1
 	else
+--		SystemNotice (arg[1] , "Return 0")
 		return 0
 	end
 end
 
+--КЗ·сїЙТФґтДҐЦчєЇКэ
+
 function can_milling_item_main ( Table )
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}										
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}										--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local Get_Count = 4
 	local ItemReadCount = 0
 	local ItemReadNow = 1
@@ -1119,48 +1513,69 @@ function can_milling_item_main ( Table )
 	local ItemBag_Now = 0
 	local ItemCount_Now = 0
 	local ItemBagCount_Num = 0
+
+--	SystemNotice( arg[1] , "start transfer parameter analysis")
+
+	
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Now , ItemCount_Now , ItemBagCount_Num = Read_Table ( Table )
+
 	local ItemBag_damo = ItemBag [0]
-	local Item_damo = GetChaItem ( role , 2 , ItemBag_damo )					
-	local Item_Cailiao1 = GetChaItem ( role , 2 , ItemBag [1] )					
-	local Item_Cailiao2 = GetChaItem ( role , 2 , ItemBag [2] )					
+	local Item_damo = GetChaItem ( role , 2 , ItemBag_damo )					--¶БИЎґтДҐµАѕЯµДЦёХл
+	local Item_Cailiao1 = GetChaItem ( role , 2 , ItemBag [1] )					--¶БИЎґтДҐІДБП1µДЦёХл
+	local Item_Cailiao2 = GetChaItem ( role , 2 , ItemBag [2] )					--¶БИЎґтДҐІДБП2µДЦёХл
+
 	local Check_Cailiao1 = 0
 	local Check_Cailiao2 = 0
+
 	Check_Cailiao1 = Check_Jiaguji ( Item_Cailiao1 , Item_Cailiao2 )
 	Check_Cailiao2 = Check_Cuihuafen ( Item_Cailiao1 , Item_Cailiao2 )
+
 	if Check_Cailiao1 == 0 then
-		SystemNotice ( role , "Для плавки нужен Стабилизатор снаряжения " )
+		SystemNotice ( role , "Fusion requires Equipment Stabilizer" )
 		return 0
 	end
+
 	if Check_Cailiao2 == 0 then
-		SystemNotice ( role , "Для плавки нужен Катализатор снаряжения " )
+		SystemNotice ( role , "Requires Equipment Catalyst for fusion" )
 		return 0
 	end
+
 	local Check_Hole = 0
+
 	Check_Hole = Check_HasHole ( Item_damo )
-	if Check_Hole >= 3 then											-- Максимальное количество слотов 3
-		SystemNotice ( role , "Больше слотов сделать нельзя! " )
+	
+	if Check_Hole >= 2 then
+		SystemNotice ( role , "Socket slots are max. Unable to continue Fusion" )
 		return 0
 	end
+
 	local Money_Need = get_milling_money_main ( Table )
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
 	if Money_Need > Money_Have then
-		SystemNotice( role ,"У вас не хватает золота! Плавка невозможна ")
+		SystemNotice( role ,"Insufficient gold. Unable to undergo fusion")
 		return 0
 	end
+
 	return 1
 end
 
+
+--јЖЛгґтДҐ·СУГ
+
 function get_item_milling_money(...)
+--	Notice("Fee calculation")
 	local Money = get_milling_money_main ( arg )
 	return Money
 end
 
+
+--јЖЛгґтДҐ·СУГЦчєЇКэ
+
 function get_milling_money_main ( Table )
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}										
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}										--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local Get_Count = 4
 	local ItemReadCount = 0
 	local ItemReadNow = 1
@@ -1168,27 +1583,40 @@ function get_milling_money_main ( Table )
 	local ItemBag_Num = 0
 	local ItemCount_Num = 0
 	local ItemBagCount_Num = 0
+
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Num , ItemCount_Num , ItemBagCount_Num = Read_Table ( Table )
+
 	local ItemBag_damo = ItemBag [0]
 	local Item_damo = GetChaItem ( role , 2 , ItemBag_damo )
 	local Hole_Num = 0
+
 	local Num = GetItemForgeParam ( Item_damo , 1 )
 	Num = TansferNum ( Num )
 	Hole_Num = GetNum_Part1 ( Num )
+
 	local Money_Need = ( Hole_Num + 1 ) * 50000
+	
+--	Notice("Calculation completed")
 	return Money_Need
 end
 
+--їЄКјґтДҐ
+
 function begin_milling_item (...)
+--	Notice("Start to forge")
+
 	local Check_CanMilling = 0
 	Check_CanMilling = can_milling_item_main ( arg )
+
 	if Check_CanMilling == 0 then
 		return 0
 	end
+
+
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}										
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}										--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local Get_Count = 4
 	local ItemReadCount = 0
 	local ItemReadNow = 1
@@ -1196,124 +1624,198 @@ function begin_milling_item (...)
 	local ItemBag_Num = 0
 	local ItemCount_Num = 0
 	local ItemBagCount_Num = 0
+
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Num , ItemCount_Num , ItemBagCount_Num = Read_Table ( arg )
+
 	local ItemBag_damo = ItemBag [0]
 	local Item_damo = GetChaItem ( role , 2 , ItemBag_damo )
 	local Item_cailiao1 = GetChaItem ( role , 2 , ItemBag [1] )
 	local Item_cailiao2 = GetChaItem ( role , 2 , ItemBag [2] )
+
+
 	local Money_Need = get_milling_money_main ( arg )
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
+--	Notice ("Currently there are"..Money_Have.."So much gold")
+--	Notice ("Must deduct"..Money_Need.."So much gold")
 	Money_Have = Money_Have - Money_Need
 	SetCharaAttr ( Money_Have , role , ATTR_GD )
 	ALLExAttrSet( role )
+
 	local ItemID_Cailiao1 = GetItemID ( Item_cailiao1 )
 	local ItemID_Cailiao2 = GetItemID ( Item_cailiao2 )
+
 	local R1 = 0
 	local R2 = 0
-	R1 = RemoveChaItem ( role , ItemID_Cailiao1 , 1 , 2 , ItemBag [1] , 2 , 1 , 0 )		
-	R2 = RemoveChaItem ( role , ItemID_Cailiao2 , 1 , 2 , ItemBag [2] , 2 , 1 , 0 )		
+
+	R1 = RemoveChaItem ( role , ItemID_Cailiao1 , 1 , 2 , ItemBag [1] , 2 , 1 , 0 )		--ТЖіэІДБП1
+	R2 = RemoveChaItem ( role , ItemID_Cailiao2 , 1 , 2 , ItemBag [2] , 2 , 1 , 0 )		--ТЖіэІДБП2
+
 	if R1 == 0 or R2 == 0 then
-		LG( "Damo" , "Удалить ресурс не удалось " )
+		LG( "Damo" , "Delete resource failed" )
 	end
+	
+	
 	local Sklv = 1
+	
+
 	local b = Check_CG_damo ( Item_damo , Sklv )
 	if b == 0 then
 		Damo_Shibai ( role , Item_damo )
 		return 2
 	end
+
+--	Notice("Forging completed")
+	
 	Damo_ChengGong ( role , Item_damo )
 	local cha_name = GetChaDefaultName ( role )
-	LG( "JingLian_ShiBai" , "Игрок "..cha_name.." успешно провел плавку " )
+	LG( "JingLian_ShiBai" , "Player"..cha_name.."Fusion successful" )
+
 	return 1
+
 end
 
+--ґтДҐПа№ШєЇКэ
+
+--јмІйКЗ·сУРјУ№МјБ
 function Check_Jiaguji ( Item_Cailiao1 , Item_Cailiao2 )
+
 	local ItemID_Cailiao1 = GetItemID ( Item_Cailiao1 )
 	local ItemID_Cailiao2 = GetItemID ( Item_Cailiao2 )
+
 	if ItemID_Cailiao1 == 890 then
 		return 1
 	elseif ItemID_Cailiao2 == 890 then
 		return 1
 	end
+	
 	return 0
 end
 
+--јмІйКЗ·сУРґЯ»Ї·Ы
 function Check_Cuihuafen ( Item_Cailiao1 , Item_Cailiao2 )
+
 	local ItemID_Cailiao1 = GetItemID ( Item_Cailiao1 )
 	local ItemID_Cailiao2 = GetItemID ( Item_Cailiao2 )
+
 	if ItemID_Cailiao1 == 891 then
 		return 1
 	elseif ItemID_Cailiao2 == 891 then
 		return 1
 	end
+	
 	return 0
 end
 
+--јмІйїЧКэ
+
 function  Check_HasHole ( Item_damo )
+
 	local Num = GetItemForgeParam ( Item_damo , 1 )
 	Num = TansferNum ( Num )
 	local Hole_Num = GetNum_Part1 ( Num )
 	return Hole_Num
 end
 
---------------------------
--- Шанс создания слотов --
---------------------------
+
+--ЕР¶ПґтДҐКЗ·сіЙ№¦
 
 function Check_CG_damo ( Item_damo , Sklv )
+
 	local a = 0
 	local Hole_Num = Check_HasHole ( Item_damo )
+	
 	if Hole_Num == 0 then
-		a = 1				-- 100% = 1
+		a = 1
 	end
+
 	if Hole_Num == 1 then
-		a = 0.5				-- 50% = 0.5
+		a = 1
 	end
+
 	if Hole_Num == 2 then
-		a = 0.01			-- 1% = 0.01
+		a = 0.01
 	end
+
 	local b = Percentage_Random ( a )
+	
 	return b
 end
 
+--ґтДҐК§°Ь
 function Damo_Shibai ( role , Item_damo )
+--	local Num = GetItemForgeParam ( Item_damo , 1 )
+--	local i = 0
+--	Num = TansferNum ( Num )
+--	local Hole_Num = GetNum_Part1 ( Num )
+	
+--	if Hole_Num >= 1 then
+--		local a = 0.7
+--		local b = Percentage_Random ( a )
+--		if b == 0 then
+--			SystemNotice ( role , "Fusion failed. Existing socket in equipment disappeared!" )
+--			Hole_Num = Hole_Num - 1
+--			Delete_Forge_Eff ( role , Item_damo )
+--		else
+--			SystemNotice ( role , "Fusion failed. Luckily item is still intact" )
+--		end
+
+--	else
 		local cha_name = GetChaDefaultName ( role )
-		LG( "JingLian_ShiBai" , "Игрок "..cha_name.." не смог провести плавку " )
-		SystemNotice ( role , "Плавка завершилась неудачей " )
+		LG( "JingLian_ShiBai" , "Player"..cha_name.."Fusion failed" )
+		SystemNotice ( role , "Fusion failed. Luckily item is still intact" )
+--	end
+
+--	Num = SetNum_Part1 ( Num , Hole_Num )
+	
+--	i = SetItemForgeParam ( Item_damo , 1 , Num )
+--	if i == 0 then
+--		LG( "Damo" , "set forging content failed" )
+--	end
 end
 
+--ґтДҐіЙ№¦
 function Damo_ChengGong ( role , Item_damo )
+	
 	local Num = GetItemForgeParam ( Item_damo , 1 )
 	local i = 0
 	Num = TansferNum ( Num )
 	local Hole_Num = GetNum_Part1 ( Num )
+	
 	if Hole_Num <= 2 then
-		SystemNotice ( role , "Вы сделали слот " )
+		SystemNotice ( role , "Fusion successful. Obtain new socket in equipment." )
 		Hole_Num = Hole_Num + 1
 	else
-		SystemNotice ( role , "Количество слотов максимальное." )
+		SystemNotice ( role , "Item sockets max. Unable to make new socket" )
 	end
+
 	Num = SetNum_Part1 ( Num , Hole_Num )
+	
 	i = SetItemForgeParam ( Item_damo , 1 , Num )
 	if i == 0 then
 		LG( "Damo" , "set forging content failed" )
 	end
 end
 
+--ИҐґ¦Ч°±ёЙПТ»ёцѕ«Б¶Р§№ы
 function Delete_Forge_Eff ( role , Item_damo )
 	local Jinglian_Lv = GetItem_JinglianLv ( Item_damo )
 	if Jinglian_Lv == 0 then
 		return
 	end
+	
 	local Num = GetItemForgeParam ( Item_damo , 1 )
+
 	local Item_Stone = {}
 	local Item_StoneLv = {}
+		
 	Item_Stone[0] = GetNum_Part2 ( Num )
 	Item_Stone[1] = GetNum_Part4 ( Num )
 	Item_Stone[2] = GetNum_Part6 ( Num )
+	
 	Item_StoneLv[0] = GetNum_Part3 ( Num )
 	Item_StoneLv[1] = GetNum_Part5 ( Num )
 	Item_StoneLv[2] = GetNum_Part7 ( Num )
+
 	local j = 0
 	local Del = 0
 	for j = 2 , 0 , -1 do
@@ -1325,31 +1827,47 @@ function Delete_Forge_Eff ( role , Item_damo )
 			end
 		end
 	end
+	
 	Num = SetNum_Part2( Num , Item_Stone[0] )
 	Num = SetNum_Part4( Num , Item_Stone[1] )
 	Num = SetNum_Part6( Num , Item_Stone[2] )
+
 	Num = SetNum_Part3( Num , Item_StoneLv[0] )
 	Num = SetNum_Part5( Num , Item_StoneLv[1] )
 	Num = SetNum_Part7( Num , Item_StoneLv[2] )
+
 	local i = 0
 	i = SetItemForgeParam ( Item_damo , 1 , Num )
 	if i == 0 then
 		LG( "Damo" , "set forging content failed" )
 	end
-	SystemNotice ( role , "Бонус от ковки прошел " )
+
+	SystemNotice ( role , "Forging bonus effect ended" )
 end
 
---------------------------------------------------------------------
------------------------- Вставка в Аппарель ------------------------
---------------------------------------------------------------------
+
+--ИЫєП
+
+--ЕР¶ПКЗ·сДЬ№»ИЫєПЈ¬ИЫєПєЇКэИлїЪ
 
 function can_fusion_item(...)
+
+--	Notice ( "See if it can be smelt")
 	if arg.n ~= 12 and arg.n ~= 14 then
 		SystemNotice ( arg[1] , "parameter value illegal"..arg.n )
 		return 0
 	end
+
+--	local kkk = 0
+
+--	for kkk = 2 , arg.n ,1 do
+--		SystemNotice ( arg[1] , arg[kkk])
+--	end
+
 	local Check = 0
+
 	Check = can_fusion_item_main ( arg )
+
 	if Check == 1 then
 		return 1
 	else
@@ -1357,167 +1875,243 @@ function can_fusion_item(...)
 	end
 end
 
+--јмІвКЗ·сїЙТФИЫєПЦчєЇКэ
+
 function can_fusion_item_main ( Table )
+	
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}										
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}										--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local ItemBag_Now = 0
 	local ItemCount_Now = 0
 	local ItemBagCount_Num = 0
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Now , ItemCount_Now , ItemBagCount_Num = Read_Table ( Table )
+--------µАѕЯКэБїЕР¶П
 	if ItemCount [1] ~= 1 or ItemCount [2] ~= 1 or ItemBagCount [1] ~= 1 or ItemBagCount [2] ~= 1 then
 		SystemNotice ( role ,"equipment quantity illegal ")
 		return 0
 	end
-	local Item_Juanzhou = GetChaItem ( role , 2 , ItemBag [0] )	
-	local Item_Waiguan = GetChaItem ( role , 2 , ItemBag [1] )	
-	local Item_Shuxing = GetChaItem ( role , 2 , ItemBag [2] )	
+--------ИЎіцµАѕЯЦёХл
+	local Item_Juanzhou = GetChaItem ( role , 2 , ItemBag [0] )	--ѕнЦбЦёХл
+	local Item_Waiguan = GetChaItem ( role , 2 , ItemBag [1] )	--Нв№ЫµАѕЯЦёХл
+	local Item_Shuxing = GetChaItem ( role , 2 , ItemBag [2] )	--КфРФµАѕЯЦёХл
+
+
+--------ѕнЦбАаРНЕР¶П
+
 	local  ItemType_Juanzhou = GetItemType ( Item_Juanzhou )
 	if ItemType_Juanzhou ~= 60 then
-		SystemNotice( role ,"Ошибка при использовании свитка ")
+		SystemNotice( role ,"Scroll usage error")
 		return 0
 	end
+--------Нв№ЫµАѕЯIDЕР¶П
+
         local ItemID_Waiguan = GetItemID ( Item_Waiguan )
 	if ItemID_Waiguan <= 4999 or  ItemID_Waiguan >= 6000 then
-		SystemNotice( role ,"Этот предмет нельзя вплавить ")
+		SystemNotice( role ,"Item cannot determined attribute")
 		return 0
 	end
+
+--------Нв№ЫµАѕЯДНѕГЕР¶П
   	local Item_URE = GetItemAttr ( Item_Waiguan , ITEMATTR_URE )
 	local Item_MAXENERGY = GetItemAttr ( Item_Waiguan , ITEMATTR_MAXENERGY )
 	if	Item_URE < Item_MAXENERGY then
-		SystemNotice( role ,"Ваш доспех поврежден ")
+		SystemNotice( role ,"Armors have not reach the durability limit, cannot assign attribute")
 		return 0		
 	end
+--------ЧоіхНв№ЫµАѕЯЕР¶П
   	local Item_FUSIONID_star = GetItemAttr ( Item_Shuxing , ITEMATTR_VAL_FUSIONID )
 	local ItemID_shuxing_star =  GetItemID ( Item_Shuxing )
 	if	Item_FUSIONID_star ==0  and ItemID_shuxing_star>=5000 then
-		SystemNotice( role ,"Снаряжение в правом слоте не предназначено для плавки ")
+		SystemNotice( role ,"Equipment on right slot has not attribute. Unable to fuse!")
 		return 0		
 	end
+--------КфРФµАѕЯАаРНЕР¶П
+
 	local ItemType_Shuxing = GetItemType (Item_Shuxing)
 	if  ItemType_Shuxing < 1  then
-		 SystemNotice( role ,"Характеристики данного предмета невозможно перенести ")
+		 SystemNotice( role ," Current item stats cannot be  transfer to another item")
 			return 0
 			elseif ItemType_Shuxing > 11 and  ItemType_Shuxing < 20 then
-			SystemNotice( role ,"Характеристики данного предмета невозможно перенести ")
+				SystemNotice( role ," Current item stats cannot be  transfer to another item")
 				return 0
 					elseif ItemType_Shuxing > 24  and ItemType_Shuxing ~= 27 then
-			SystemNotice( role ,"Характеристики данного предмета невозможно перенести ")
+						SystemNotice( role ," Current item stats cannot be  transfer to another item")
 						return 0
+
 	end
+--------Нв№ЫєНКфРФµАѕЯКЗ·сОЄН¬Т»АаРН
 	local ItemType_Shuxing = GetItemType ( Item_Shuxing )
 	local ItemType_Waiguan = GetItemType ( Item_Waiguan )
 	local star=0
-	if ItemType_Shuxing ~= 22 and ItemType_Shuxing ~=27 then 
+	if ItemType_Shuxing ~= 22 and ItemType_Shuxing ~=27 then ----јИІ»КЗОЖЙнТІІ»КЗТВ·ю
 	star = 1
 	end
 	if ItemType_Waiguan~=27  then
 		if ItemType_Shuxing ~= ItemType_Waiguan then
-		SystemNotice( role ,"Предметы не соответствуют " )
+		SystemNotice( role ,"Both equipment type mismatch" )
 		return 0
 		end 
 	elseif ItemType_Waiguan==27 and star == 1 then
-		SystemNotice( role ,"Предметы не соответствуют " )
+		SystemNotice( role ,"Both equipment type mismatch" )
 		return 0
 	end
+--------Нв№ЫєНКфРФµАѕЯКЗ·сОЄН¬Т»МеРНєНЦ°ТµПЮЦЖ
 	local Check_RongHe = 0
 	Check_RongHe = CheckFusionItem( Item_Waiguan , Item_Shuxing )
 	if Check_RongHe == LUA_FALSE then
-		SystemNotice( role ,"Предметы или профессия не соответствуют " )
+		SystemNotice( role ,"Both equipment type or class requirement does not match" )
 		return 0
 	end
+--------КЗ·с·ЕµДКЗґЯ»ЇјБ
 	if ItemBagCount[3] == 0 then
+
 	local Item_Waiguan_name = GetItemName ( ItemID_Waiguan )
-	LG("Ronghe_CuiHuaJi","Комбинирование доспеха и оружия ",Item_Waiguan_name," без эффекта ")
+	LG("Ronghe_CuiHuaJi","Combine armors and weapons without catalyst ",Item_Waiguan_name,"No forging effect")
 	end
 	if ItemBagCount[3] ~= 0 then
 	local Item_Cuihuaji =  GetChaItem ( role , 2 , ItemBag [3] )
 	local ItemType_Cuihuaji =  GetItemType ( Item_Cuihuaji )
 		if  ItemType_Cuihuaji ~= 61 then
-			SystemNotice( role ,"У вас проблемы с катализатором " )
+			SystemNotice( role ,"there is some problem with the catalyst, cannot be used " )
 			return 0
 		end
 	end
+
+--------ЙнЙПЅрЗ®ЕР¶П
 	local Money_Need = getfusion_money_main ( Table )
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
 	if Money_Need > Money_Have then
-		SystemNotice( role ,"У вас не хватает золота. Действие отменено ")
+		SystemNotice( role ,"Insufficient gold. Unable to undergo Fusion")
 		return 0
 	end
+--SystemNotice(role ,"determination completed ")
 	return 1
 end
 
+--їЄКјИЫєПЈ¬ИЫєПЦчіМРтИлїЪ
+
 function begin_fusion_item(...)
+--	Notice("Starts Fusion")
+--------КЗ·сїЙТФИЪєПјмІв
+	
 	local Check_Canfusion = 0
 	Check_Canfusion = can_fusion_item_main ( arg )
 	if Check_Canfusion == 0 then
 		return 0
 	end
+--------ИЎіцКэѕЭ
+
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}										
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}										--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local ItemBag_Num = 0
 	local ItemCount_Num = 0
 	local ItemBagCount_Num = 0
+
+
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Num , ItemCount_Num , ItemBagCount_Num = Read_Table ( arg )
+
 	local Item_Juanzhou = GetChaItem ( role , 2 , ItemBag [0] )
 	local Item_Waiguan = GetChaItem ( role , 2 , ItemBag [1] )
 	local Item_Shuxing = GetChaItem ( role , 2 , ItemBag [2] )
 	local ItemID_Waiguan = GetItemID ( Item_Waiguan )
+
+--------їЫіэЅрЗ®
+
 	local Money_Need = getfusion_money_main ( arg )
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
+--	Notice ("Currently there are"..Money_Have.."So much gold")
+--	Notice ("Must deduct"..Money_Need.."So much gold")
 	Money_Have = Money_Have - Money_Need
 	SetCharaAttr ( Money_Have , role , ATTR_GD )
 	ALLExAttrSet( role )
+
+--------ИЫєП№эіМ
+
 	Check_Ronghe_Item = ronghe_item ( arg )
+
 	if Check_Ronghe_Item == 0  then
-		SystemNotice ( role ,"Плавка завершилась провалом. Проверьте все компоненты ")
+		SystemNotice ( role ,"Fusion failed , please check program")
 	end
+	--check_item_final_data ( Item_Waiguan )
 	SynChaKitbag(role,13)
+
+--------Notice("Fusion has ended")
+
+
 	local cha_name = GetChaDefaultName ( role )
-	SystemNotice ( role ,"Плавка прошла успешно ")
+	SystemNotice ( role ,"Fusion successful")
 	local Item_Waiguan_name = GetItemName ( ItemID_Waiguan )
-	LG( "Ronghe_ShiBai" , "Игрок "..cha_name.." сплавил "..Item_Waiguan_name )
+	LG( "Ronghe_ShiBai" , "Player"..cha_name.."Fusion successful"..Item_Waiguan_name )
 	return 1
+
 end
 
+--јЖЛгИЫєП·СУГ
+
 function get_item_fusion_money(...)
+	
+--	Notice("Fee calculation")
 	local Money = getfusion_money_main ( arg )
 	return Money
 end
 
+
+--јЖЛгѕ«Б··СУГЦчєЇКэ
+
 function getfusion_money_main ( Table )
+	
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}									
-	local ItemBag_Num = 0									
-	local ItemCount_Num = 0									
-	local ItemBagCount_Num = 0								
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГКэЧй
+	local ItemCount = {}										--µАѕЯКэБїКэЧй
+	local ItemBagCount = {}									--µАѕЯ¶ФПуКэБїКэЧй
+	local ItemBag_Num = 0									--±і°ьО»ЦГКэЧйі¤¶И
+	local ItemCount_Num = 0									--µАѕЯКэБїКэЧйі¤¶И
+	local ItemBagCount_Num = 0								--µАѕЯ¶ФПуКэБїКэЧйі¤¶И
+
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Num , ItemCount_Num , ItemBagCount_Num = Read_Table ( Table )
+
 	local ItemBag_Shuxing = ItemBag [2]
 	local Item_Shuxing = GetChaItem ( role , 2 , ItemBag_Shuxing )
 	local Shuxing_Lv = 0
+
 	local Shuxing_Lv =  GetItemLv ( Item_Shuxing )
 	local Money_Need = Shuxing_Lv * 1000
+
+--	Notice("Calculation completed")
 	return Money_Need
 end
 
+
+
+----Па№ШєЇКэ--------------------------------------------------------------------------------------------------------
+
+
+---їЄКјИЫєП
+
 function ronghe_item ( Table )
+--	Notice("Ronghe_Item")
+	
+
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}										
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}										--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local ItemBag_Num = 0
 	local ItemCount_Num = 0
 	local ItemBagCount_Num = 0
 	local ItemID_Cuihuaji = 0
+
+
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Num , ItemCount_Num , ItemBagCount_Num = Read_Table ( Table )
+
 	local Item_Juanzhou = GetChaItem ( role , 2 , ItemBag [0] )
 	local Item_Waiguan = GetChaItem ( role , 2 , ItemBag [1] )
 	local Item_Shuxing = GetChaItem ( role , 2 , ItemBag [2] )
+
 	local ItemID_Juanzhou = GetItemID ( Item_Juanzhou )
 	local ItemID_Waiguan = GetItemID ( Item_Waiguan )
 	local ItemID_Shuxing = GetItemID ( Item_Shuxing )
@@ -1528,30 +2122,51 @@ function ronghe_item ( Table )
 		ItemID_Cuihuaji = GetItemID ( Item_Cuihuaji )
 		flg=1
 	end
+		
 	local Jinglianxinxi = GetItemForgeParam ( Item_Shuxing , 1 )
+	--------ёіУиИЫєПµАѕЯјЗВјID
 	if ItemID_Shuxing > 5000 then
+
 		ItemID_Shuxing = GetItemAttr( Item_Waiguan , ITEMATTR_VAL_FUSIONID )
+
 		SetItemAttr( Item_Waiguan , ITEMATTR_VAL_FUSIONID , ItemID_Shuxing )
 	else
 		SetItemAttr( Item_Waiguan , ITEMATTR_VAL_FUSIONID , ItemID_Shuxing )
 	end
+
+ --------ИЫєПµАѕЯ
+
 	local Check_FusionItem = FusionItem ( Item_Waiguan, Item_Shuxing )
+
+--------ёіУиИЫєПµАѕЯµИј¶
 	local star_lv=0
 	if flg==1 then
 		if ItemID_star < 5000 then 
 			star_lv=10
 		else
-			star_lv=GetItemAttr ( Item_Shuxing , ITEMATTR_VAL_LEVEL )                                     
+			star_lv=GetItemAttr ( Item_Shuxing , ITEMATTR_VAL_LEVEL )                                     -- ЙиЦГИЫєПµАѕЯµИј¶
 		end
 	else 
 		star_lv=10
 	end
-	SetItemAttr ( Item_Waiguan , ITEMATTR_VAL_LEVEL , star_lv )                                     
+	--SystemNotice( role , "star_lv="..star_lv )
+	SetItemAttr ( Item_Waiguan , ITEMATTR_VAL_LEVEL , star_lv )                                     -- ЙиЦГИЫєПµАѕЯµИј¶
+	--local i = GetItemAttr ( Item_Waiguan , ITEMATTR_VAL_LEVEL )
+	--SystemNotice( role , "Item Lv="..i )
 	local hole_num = Check_HasHole ( Item_Shuxing )
+
 	if Check_FusionItem == 0    then
-		SystemNotice( role , "Неудача при плавке ")
+		SystemNotice( role , "Fusion failed")
 		return
+	--	else 
+	--		for Check_FusionItem = 1 , 49 , 1 do
+	--			RO = GetItemAttr ( Item_Waiguan , Check_FusionItem )
+	--			SystemNotice( role , "Attribute"..Check_FusionItem.."="..RO )
+	--		end
 	end
+	--------ТЖіцµАѕЯ
+	----------------------------------
+	----------------------------------ґЛґ¦ґтLG
 	local Item_Shuxing_ENERGY  = GetItemAttr ( Item_Shuxing , ITEMATTR_ENERGY )
 	local Item_Shuxing_MAXURE  = GetItemAttr ( Item_Shuxing , ITEMATTR_MAXURE )
 	local cha_name = GetChaDefaultName ( role )
@@ -1559,6 +2174,7 @@ function ronghe_item ( Table )
 	local numAttr={}
 	local b = 0
 	local a = {}
+
 	for b=1,5,1 do
 		num [b]=0
 		numAttr [b]=0
@@ -1567,47 +2183,54 @@ function ronghe_item ( Table )
 	for i=1,47,1 do
 	    a [i]=GetItemAttr ( Item_Shuxing , i )
 		if a [i]~=0 then
+	--		SystemNotice( role , a [i] )
 				b = b + 1
 				num [b]=i
 				numAttr [b]=a[i]
 		end
 	end
+	--LG( "ZhuangBeiRH_XinXi" , cha_name , ItemID_Waiguan , ItemID_Shuxing , Item_Shuxing_ENERGY , Item_Shuxing_MAXURE , num[1],numAttr[1],num[2],numAttr[2],num[3],numAttr[3],num[4],numAttr[4],num[5],numAttr[5],Jinglianxinxi,flg)
 	LG( "ZhuangBeiRH_XinXi" , cha_name , ItemID_Waiguan , ItemID_Shuxing , Item_Shuxing_ENERGY , Item_Shuxing_MAXURE , STAR_ATTR[num[1]],numAttr[1],STAR_ATTR[num[2]],numAttr[2],STAR_ATTR[num[3]],numAttr[3],STAR_ATTR[num[4]],numAttr[4],STAR_ATTR[num[5]],numAttr[5],Jinglianxinxi,flg)
+	-----------ИЎИЪєПєуµАѕЯµДКфРФ
 	local attr1=GetItemAttr ( Item_Waiguan , num[1] )
 	local attr2=GetItemAttr ( Item_Waiguan , num[2] )
 	local attr3=GetItemAttr ( Item_Waiguan , num[3] )
 	local attr4=GetItemAttr ( Item_Waiguan , num[4] )
 	local attr5=GetItemAttr ( Item_Waiguan , num[5] )
 	LG( "RHWaiguan_XinXi" , cha_name , ItemID_Waiguan , STAR_ATTR[num[1]],attr1,STAR_ATTR[num[2]],attr2,STAR_ATTR[num[3]],attr3,STAR_ATTR[num[4]],attr4,STAR_ATTR[num[5]],attr5)
+
+	--------------------ЦШРВЙиЦГИЪєПЧ°±ёДНѕГ
 	SetItemAttr ( Item_Waiguan , ITEMATTR_MAXURE , 20000 )
 	SetItemAttr ( Item_Waiguan , ITEMATTR_URE , 20000 )
 	local R1 = 0
 	local R2 = 0
 	local R3 = 1
-	R1 = RemoveChaItem ( role , ItemID_Juanzhou , 1 , 2 , ItemBag [0] , 2 , 1 , 0 )		
-	R2 = RemoveChaItem ( role , ItemID_Shuxing , 1 , 2 , ItemBag [2] , 2 , 1 , 0 )		
+	R1 = RemoveChaItem ( role , ItemID_Juanzhou , 1 , 2 , ItemBag [0] , 2 , 1 , 0 )		--ТЖіэѕнЦбµАѕЯ
+	R2 = RemoveChaItem ( role , ItemID_Shuxing , 1 , 2 , ItemBag [2] , 2 , 1 , 0 )		--ТЖіэКфРФµАѕЯ
 	if ItemID_Cuihuaji ~= 0 then
-		R3 = RemoveChaItem ( role , ItemID_Cuihuaji , 1 , 2 , ItemBag [3] , 2 , 1 , 0 )	
+		R3 = RemoveChaItem ( role , ItemID_Cuihuaji , 1 , 2 , ItemBag [3] , 2 , 1 , 0 )	--ТЖіцґЯ»ЇјБµАѕЯ
 	end
 	if R1 == 0 or R2 == 0 or R3 == 0 then
-		SystemNotice( role , "Провал при переносе предмета ")
+		SystemNotice( role , "moved item failed ")
 		return
 	end
+
+	--------ёіУиИЫєПµАѕЯѕ«Б¶КфРФ
 	if ItemID_Cuihuaji ~= 0 then
 		local Check_SetItemForgeParam = SetItemForgeParam( Item_Waiguan , 1 , Jinglianxinxi )
 		if Check_SetItemForgeParam == 0 then
-			SystemNotice( role , "Неудача при настройке атрибутов ")
+			SystemNotice( role , "Fail to set forging attribute settings")
 			return
 		end
 	else 
-		local Part1_Jinglianxinxi = GetNum_Part1 ( Jinglianxinxi )	
+		local Part1_Jinglianxinxi = GetNum_Part1 ( Jinglianxinxi )	--Get Num Part 1 µЅ Part 7
 		local Part2_Jinglianxinxi = GetNum_Part2 ( Jinglianxinxi )	
 		local Part3_Jinglianxinxi = GetNum_Part3 ( Jinglianxinxi )
 		local Part4_Jinglianxinxi = GetNum_Part4 ( Jinglianxinxi )
 		local Part5_Jinglianxinxi = GetNum_Part5 ( Jinglianxinxi )
 		local Part6_Jinglianxinxi = GetNum_Part6 ( Jinglianxinxi )
 		local Part7_Jinglianxinxi = GetNum_Part7 ( Jinglianxinxi )
-		Jinglianxinxi = SetNum_Part1 ( Jinglianxinxi , hole_num ) 
+		Jinglianxinxi = SetNum_Part1 ( Jinglianxinxi , hole_num ) ----------¶юЧЄ±кјЗ
 		Jinglianxinxi = SetNum_Part2 ( Jinglianxinxi , 0 )
 		Jinglianxinxi = SetNum_Part3 ( Jinglianxinxi , 0 )
 		Jinglianxinxi = SetNum_Part4 ( Jinglianxinxi , 0 )
@@ -1616,35 +2239,43 @@ function ronghe_item ( Table )
 		Jinglianxinxi = SetNum_Part7 ( Jinglianxinxi , 0 )
 		local Check_SetItemForgeParam = SetItemForgeParam( Item_Waiguan , 1 , Jinglianxinxi )
 		if Check_SetItemForgeParam == 0 then
-			SystemNotice( role , "Неудача при настройке атрибутов ")
+			SystemNotice( role , "Fail to set forging attribute settings")
 			return
 		end	
 	end
 end
 
---------------------------------------------------------------------
--------------------------- Заточка Шмота ---------------------------
---------------------------------------------------------------------
-
+-------------Ч°±ёЙэј¶Ц®Зї»ЇЙэј¶Ії·Ц
+----Ч°±ёЙэј¶Ц®Зї»ЇЙэј¶
+---јмІвКЗ·сДЬ№»Зї»ЇЙэј¶
 function can_upgrade_item (...)
+
+--	Notice ( "See if it can be reinforced")
 	if arg.n ~= 12 then
 		SystemNotice ( arg[1] , "parameter value illegal"..arg.n )
 		return 0
 	end
+
 	local Check = 0
+
 	Check = can_beuplv_item_main ( arg )
+
 	if Check == 1 then
 		return 1
 	else
 		return 0
 	end
+
 end
 
+--јмІвКЗ·сїЙТФЗї»ЇЙэј¶ЦчєЇКэ
 function can_beuplv_item_main ( Table )
+
+
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}										
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}										--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local Get_Count = 4
 	local ItemReadCount = 0
 	local ItemReadNow = 1
@@ -1652,72 +2283,97 @@ function can_beuplv_item_main ( Table )
 	local ItemBag_Now = 0
 	local ItemCount_Now = 0
 	local ItemBagCount_Num = 0
+	
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Now , ItemCount_Now , ItemBagCount_Num = Read_Table ( Table )
+
 	local ItemBagCount_beuplv = ItemBagCount [1]
 	local ItemBag_beuplv = ItemBag [1]
 	local ItemNum_beuplv = ItemCount [1]
-	local Item_beuplv = GetChaItem ( role , 2 , ItemBag_beuplv ) 
-	local Item_beuplv_Type = GetItemType ( Item_beuplv )		
-	local Item_beuplv_ID = GetItemID ( Item_beuplv )		
-	local Item_ScItem = GetChaItem ( role , 2 , ItemBag [0] )	
-	local Item_YxItem = GetChaItem ( role , 2 , ItemBag [2] )	
-	local Item_ScItem_ID = GetItemID ( Item_ScItem )		
-	local Item_YxItem_ID = GetItemID ( Item_YxItem )		
-	local Item_ScItem_Type = GetItemType ( Item_ScItem )		
-	local Item_YxItem_Type = GetItemType ( Item_YxItem )		
-	local Item_beuplv_Lv =  Get_Itembeuplv_Lv ( Item_beuplv )	
-	local ItemAttr_Val_Fusionid = GetItemAttr ( Item_beuplv , ITEMATTR_VAL_FUSIONID ) 
-	if Item_beuplv_ID < 5001 or Item_beuplv_ID > 6000 then					
-		SystemNotice( role ,"Этот предмет нельзя плавить ")
+	local Item_beuplv = GetChaItem ( role , 2 , ItemBag_beuplv ) ----ИЎµАѕЯЦёХл
+
+	local Item_beuplv_Type = GetItemType ( Item_beuplv )		----ИЎИЪєПµАѕЯАаРН
+	local Item_beuplv_ID = GetItemID ( Item_beuplv )		----ИЎИЪєПµАѕЯID
+	local Item_ScItem = GetChaItem ( role , 2 , ItemBag [0] )	----Зї»ЇѕнЦбµАѕЯЦёХл
+	local Item_YxItem = GetChaItem ( role , 2 , ItemBag [2] )	----Зї»Їѕ§КЇµАѕЯЦёХл
+	local Item_ScItem_ID = GetItemID ( Item_ScItem )		----ЙМіЗµАѕЯID
+	local Item_YxItem_ID = GetItemID ( Item_YxItem )		----УОП·µАѕЯID
+	local Item_ScItem_Type = GetItemType ( Item_ScItem )		----ИЎЗї»ЇѕнЦбµАѕЯАаРН
+	local Item_YxItem_Type = GetItemType ( Item_YxItem )		----ИЎЗї»Їѕ§КЇµАѕЯАаРН
+
+
+	local Item_beuplv_Lv =  Get_Itembeuplv_Lv ( Item_beuplv )	---ИЎИЪєПЧЎЧ°±ёµИј¶
+	
+	local ItemAttr_Val_Fusionid = GetItemAttr ( Item_beuplv , ITEMATTR_VAL_FUSIONID ) -- ИЎµАѕЯЧ°±ёИЫєПРЕПўID
+
+	if Item_beuplv_ID < 5001 or Item_beuplv_ID > 6000 then					--ЕР¶ПИЪєПµАѕЯКЗ·сОЄИЪєПАаРН
+		SystemNotice( role ,"non fusion item ")
 		return 0
 	end
+-------------------------------------------                             --ОґИЪєПЧ°±ёІ»ДЬЙэј¶
 	if  ItemAttr_Val_Fusionid == 0 then
-		SystemNotice( role , "Предмет невозможно улучшить ")
+		SystemNotice( role , "Item cannot be upgraded as item has not undergo fusion")
 		return 0
 	end
-	if Item_beuplv_Lv >= 15 then					-- Максимальный уровень улучшения
-		SystemNotice( role ,"Вы достигли максимального уровня заточки ")
+
+-----------------------------------------------
+	if Item_beuplv_Lv >= 15 then					--ЕР¶ПИЪєПµАѕЯКЗ·сОЄЧоґуµИј¶		
+		SystemNotice( role ,"Item level limit max. Unable to level again")
 		return 0
 	end
-	if ItemBagCount_beuplv ~= 1 then				
-		SystemNotice( role , "Недопустимый уровень улучшения ")
+	if ItemBagCount_beuplv ~= 1 then				--µЪ¶юАё·ЕИЪєПµАѕЯ
+		SystemNotice( role , "Strengthening item level slot illegal ")
 		return 0
 	end
 	if Item_ScItem_Type ~= 62 then
-		SystemNotice( role , "У вас нет Улучшающего свитка ")
+		SystemNotice( role , "Invalid Strengthening  scroll type ")
 		return 0
 	end
 	if Item_YxItem_Type ~= 63 then
-		SystemNotice( role , "У вас нет Усиливающего кристалла ")
+		SystemNotice( role , "Strengthening gem type illegal ")
 		return 0
 	end
+
 	if ItemNum_beuplv ~= 1 then
-		SystemNotice( role , "Неверный номер улучшения ")
+		SystemNotice( role , "Illegal force item upgrade number")
 		return 0
 	end
-	if ItemCount [0] ~= 1 or ItemCount [2] ~= 1 or ItemBagCount [0] ~= 1 or ItemBagCount [2] ~= 1 then  
-		SystemNotice ( role ,"Ошибка предмета из ИМ или игрового материала ")
+
+	if ItemCount [0] ~= 1 or ItemCount [2] ~= 1 or ItemBagCount [0] ~= 1 or ItemBagCount [2] ~= 1 then  ----µЪТ»АёєНµЪИэАё·ЕЙМіЗµАѕЯєНУОП·µАѕЯ
+		SystemNotice ( role ,"Item mall items or game items error")
 		return 0
 	end
+
 	local Money_Need = getupgrade_money_main ( Table )
+
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
 	if Money_Need > Money_Have then
-		SystemNotice( role ,"У вас не хватает золота. Невозможно провести улучшение ")
+		SystemNotice( role ,"Insufficient gold. Unable to level up equipment")
 		return 0
 	end
+
+--SystemNotice(role ,"determination completed ")
 	return 1
+
 end
 
+
+
+--їЄКјЗї»ЇЙэј¶
 function begin_upgrade_item (...)
+
+
+
 	local Check_Canbeuplv = 0
 	Check_Canbeuplv = can_beuplv_item_main ( arg )
+
 	if Check_Canbeuplv == 0 then
 		return 0
 	end
+
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}										
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}										--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local Get_Count = 4
 	local ItemReadCount = 0
 	local ItemReadNow = 1
@@ -1725,82 +2381,121 @@ function begin_upgrade_item (...)
 	local ItemBag_Num = 0
 	local ItemCount_Num = 0
 	local ItemBagCount_Num = 0
+
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Num , ItemCount_Num , ItemBagCount_Num = Read_Table ( arg )
+
 	local ItemBag_beuplv = ItemBag [1]
-	local Item_beuplv = GetChaItem ( role , 2 , ItemBag_beuplv )    
-	local Item_ScItem = GetChaItem ( role , 2 , ItemBag [0] )	
-	local Item_YxItem = GetChaItem ( role , 2 , ItemBag [2] )	
-	local Item_ScItem_ID = GetItemID ( Item_ScItem )		
-	local Item_YxItem_ID = GetItemID ( Item_YxItem )		
-	local Item_beuplv_Lv =  Get_Itembeuplv_Lv ( Item_beuplv )	 
+	local Item_beuplv = GetChaItem ( role , 2 , ItemBag_beuplv )    ----ИЪєПЧ°±ёµАѕЯЦёХл
+	local Item_ScItem = GetChaItem ( role , 2 , ItemBag [0] )	----Зї»ЇѕнЦбµАѕЯЦёХл
+	local Item_YxItem = GetChaItem ( role , 2 , ItemBag [2] )	----Зї»Їѕ§КЇµАѕЯЦёХл
+	local Item_ScItem_ID = GetItemID ( Item_ScItem )		----ЙМіЗµАѕЯID
+	local Item_YxItem_ID = GetItemID ( Item_YxItem )		----УОП·µАѕЯID
+
+	local Item_beuplv_Lv =  Get_Itembeuplv_Lv ( Item_beuplv )	 ---ИЎИЪєПЧЎЧ°±ёµИј¶
+
+	--SystemNotice( role , "LVA"..Item_beuplv_Lv)
+
+
 	local R1 = 0
 	local R2 = 0
-	
-	R1 = RemoveChaItem ( role , Item_ScItem_ID , 1 , 2 , ItemBag [0] , 2 , 1 , 0 )		
-	R2 = RemoveChaItem ( role , Item_YxItem_ID , 1 , 2 , ItemBag [2] , 2 , 1 , 0 )		
+
+	R1 = RemoveChaItem ( role , Item_ScItem_ID , 1 , 2 , ItemBag [0] , 2 , 1 , 0 )		--ТЖіэЙМіЗµАѕЯ
+	R2 = RemoveChaItem ( role , Item_YxItem_ID , 1 , 2 , ItemBag [2] , 2 , 1 , 0 )		--ТЖіэУОП·µАѕЯ
+
 	if R1 == 0 or R2 == 0 then
-			LG( "beuplv" , "Удалить предмет не удалось " )
+		LG( "beuplv" , "Delete item failed" )
 	end
+
 	local Money_Need = getupgrade_money_main ( arg )
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
 	Money_Have = Money_Have - Money_Need
 	SetCharaAttr ( Money_Have , role , ATTR_GD )
-	ALLExAttrSet( role )						
-	local a = Check_CG_beuplv ( Item_beuplv_Lv )			
+	ALLExAttrSet( role )						--ёщѕЭЅЗЙ«РОМ¬·Ц±рЛўРВµ±З°КфРФ
+
+	local a = Check_CG_beuplv ( Item_beuplv_Lv )			---І»Н¬µИј¶µДіЙ№¦ёЕВК
+
 	if a == 0 then
-		R1 = RemoveChaItem ( role , Item_ScItem_ID , 1 , 2 , ItemBag [0] , 2 , 1 , 0 )		
-		R2 = RemoveChaItem ( role , Item_YxItem_ID , 1 , 2 , ItemBag [2] , 2 , 1 , 0 )		
+		R1 = RemoveChaItem ( role , Item_ScItem_ID , 1 , 2 , ItemBag [0] , 2 , 1 , 0 )		--ТЖіэЙМіЗµАѕЯ
+		R2 = RemoveChaItem ( role , Item_YxItem_ID , 1 , 2 , ItemBag [2] , 2 , 1 , 0 )		--ТЖіэУОП·µАѕЯ
 		if R1 == 0 or R2 == 0 then
-			LG( "beuplv" , "Удалить предмет не удалось " )
+			LG( "beuplv" , "Delete item failed" )
 		end
 		local cha_name = GetChaDefaultName ( role )
-		LG( "JingLian_ShiBai" , "Игрок "..cha_name.." не смог улучшить предмет " )
-		SystemNotice( role , "Извините, заточить аппарель неудалось ")
+		LG( "JingLian_ShiBai" , "Player"..cha_name.."Forced upgrade failed" )
+		SystemNotice( role , "Sorry, Strengthening has failed. Some items have disappearedЎ­")
 		return 
 	end
-	Item_beuplv_Lv = Item_beuplv_Lv + 1
-	SetChaKitbagChange( role , 1 )
-	Set_Itembeuplv_Lv ( Item_beuplv , Item_beuplv_Lv )		
-	SynChaKitbag( role, 4 )
-	local LvD = GetItemAttr( Item_beuplv , ITEMATTR_VAL_LEVEL )
-	SynChaKitbag(role,13)
-	SystemNotice( role , "Вы заточили шмотку ")
-	local cha_name = GetChaDefaultName ( role )
-	LG( "JingLian_ShiBai" , "Игрок "..cha_name.." успешно провел усиление " )
-	return 1
-end
 
-function Get_Itembeuplv_Lv ( Item )								
+
+	Item_beuplv_Lv = Item_beuplv_Lv + 1
+
+	SetChaKitbagChange( role , 1 )
+
+	--SystemNotice( role , "LVB"..Item_beuplv_Lv)
+	Set_Itembeuplv_Lv ( Item_beuplv , Item_beuplv_Lv )		-------ЙиИЪєПЧЎЧ°±ёµИј¶
+	--SystemNotice( role , "LVC"..Item_beuplv_Lv)
+
+	SynChaKitbag( role, 4 )
+
+	local LvD = GetItemAttr( Item_beuplv , ITEMATTR_VAL_LEVEL )
+
+
+	--SystemNotice( role , "LVD"..LvD)
+
+	--check_item_final_data ( Item_beuplv )				-----КфРФЦШЛг
+	SynChaKitbag(role,13)
+
+	SystemNotice( role , "Level up successful")
+	local cha_name = GetChaDefaultName ( role )
+	LG( "JingLian_ShiBai" , "Player"..cha_name.."Strengthening successful;" )
+
+	return 1
+
+end
+-------------------------------
+--function beuplv ( item )						----------ИЪєПЧ°±ёЙэј¶Р§№ы
+
+--	local can_beuplv = 0
+--	can_beuplv = can_beuplv_item(...)
+
+--	if can_beuplv == 0 then
+--		return 0
+--	end
+--end
+
+
+-------------------------------
+function Get_Itembeuplv_Lv ( Item )								--¶БИЎИЪєПЧ°±ёµИј¶
+
 	local Lv = GetItemAttr ( Item , ITEMATTR_VAL_LEVEL )
+
 	return Lv
 end
 
-function Set_Itembeuplv_Lv ( Item , Item_Lv )							
+---------------------------------
+function Set_Itembeuplv_Lv ( Item , Item_Lv )							--ЙиЦГЧ°±ёµИј¶
 	local i = 0
 	i = SetItemAttr ( Item , ITEMATTR_VAL_LEVEL , Item_Lv )
 	if i == 0 then
 		LG( "Hecheng_BS","Failed to set gem level" )
 	end
 end
-
-------------------
--- Шанс Заточки --
-------------------
-
-function Check_CG_beuplv ( Item_Lv )				
+----------------------------
+function Check_CG_beuplv ( Item_Lv )				-------І»Н¬µИј¶µДіЙ№¦ёЕВК
 	local	ran = math.random ( 1, 100 )
-	if Item_Lv <= 10 then					
-		return 1			-- 100%
+
+	if Item_Lv <= 10 then					-------10ј¶ТФПВ100%іЙ№¦
+		return 1
 	end
-	if Item_Lv>10 and Item_Lv <= 15 then			
-		if ran <= 50 then		-- 50%
+	if Item_Lv>10 and Item_Lv <= 15 then			-------10µЅ15ј¶ТФПВ50%іЙ№¦
+		if ran <= 50 then
 		return 1
 		else
 		return 0
 		end
 	end
-	if Item_Lv>15 and Item_Lv <= 20 then			
-		if ran <= 10 then		--10%
+	if Item_Lv>15 and Item_Lv <= 20 then			-------15µЅ20ј¶ТФПВ10%іЙ№¦
+		if ran <= 10 then
 		return 1
 		else
 		return 0
@@ -1809,31 +2504,42 @@ function Check_CG_beuplv ( Item_Lv )
 end
 
 function get_item_upgrade_money(...)
+--	Notice("Fee calculation")
 	local Money = getupgrade_money_main ( arg )
 	return Money
 end
 
+
+--јЖЛгѕ«Б··СУГЦчєЇКэ
+
 function getupgrade_money_main ( Table )
+
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}									
-	local ItemBag_Num = 0									
-	local ItemCount_Num = 0									
-	local ItemBagCount_Num = 0								
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГКэЧй
+	local ItemCount = {}										--µАѕЯКэБїКэЧй
+	local ItemBagCount = {}									--µАѕЯ¶ФПуКэБїКэЧй
+	local ItemBag_Num = 0									--±і°ьО»ЦГКэЧйі¤¶И
+	local ItemCount_Num = 0									--µАѕЯКэБїКэЧйі¤¶И
+	local ItemBagCount_Num = 0								--µАѕЯ¶ФПуКэБїКэЧйі¤¶И
+
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Num , ItemCount_Num , ItemBagCount_Num = Read_Table ( Table )
+
 	local ItemBag_Waiguan = ItemBag [1]
 	local Item_Waiguan = GetChaItem ( role , 2 , ItemBag_Waiguan )
 	local Waiguan_Lv = 0
+
 	local Waiguan_Lv =  Get_Itembeuplv_Lv ( Item_Waiguan )
+
 	local Money_Need = ( Waiguan_Lv + 1 )*( Waiguan_Lv + 1 )*10000
+
+--	Notice("Calculation completed")
 	return Money_Need
 end
 
---------------------------------------------------------------------
----------------------------- Спарка Фей ----------------------------
---------------------------------------------------------------------
 
+
+--ѕ«Бй¶юЧЄ
+--ЕР¶ПКЗ·сДЬ№»ЧЄЙъЈ¬ЧЄЙъєЇКэИлїЪ
 function can_jlborn_item(...)
 	if arg.n ~= 12  then
 		SystemNotice ( arg[1] , "parameter value illegal"..arg.n )
@@ -1848,50 +2554,57 @@ function can_jlborn_item(...)
 	end
 end
 
+--јмІвКЗ·сїЙТФЧЄЙъЦчєЇКэ
 function can_jlborn_item_main ( Table )
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}										
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}										--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local ItemBag_Now = 0
 	local ItemCount_Now = 0
 	local ItemBagCount_Num = 0
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Now , ItemCount_Now , ItemBagCount_Num = Read_Table ( Table )
+	---µАѕЯКэБїЕР¶П
 	if ItemCount [1] ~= 1 or ItemCount [2] ~= 1 or ItemBagCount [1] ~= 1 or ItemBagCount [2] ~= 1 then
 		SystemNotice ( role ,"equipment quantity illegal ")
 		return 0
 	end
-	local Item_EMstone = GetChaItem ( role , 2 , ItemBag [0] )	
-	local Item_JLone = GetChaItem ( role , 2 , ItemBag [1] )	
-	local Item_JLother = GetChaItem ( role , 2 , ItemBag [2] )	
-	local Item_JLone_ID = GetItemID ( Item_JLone )   
-	local Item_JLother_ID = GetItemID ( Item_JLother )   
-	local str_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_STR )		 
-	local con_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_CON )		
-	local agi_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_AGI )		
-	local dex_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_DEX )		
-	local sta_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_STA )		
-	local URE_JLone = GetItemAttr( Item_JLone ,ITEMATTR_URE )		
-	local MAXURE_JLone = GetItemAttr( Item_JLone ,ITEMATTR_MAXURE )       
-	local lv_JLone = str_JLone + con_JLone + agi_JLone + dex_JLone + sta_JLone  
-	local str_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_STR )       
-	local con_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_CON )       
-	local agi_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_AGI )       
-	local dex_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_DEX )       
-	local sta_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_STA )       
-	local URE_JLother = GetItemAttr( Item_JLother ,ITEMATTR_URE )		 
-	local MAXURE_JLother = GetItemAttr( Item_JLother ,ITEMATTR_MAXURE )       
-	local lv_JLother = str_JLother + con_JLother + agi_JLother + dex_JLother + sta_JLother 
+	----ИЎіцµАѕЯЦёХл
+	local Item_EMstone = GetChaItem ( role , 2 , ItemBag [0] )	--¶сД§±¦КЇЦёХл
+	local Item_JLone = GetChaItem ( role , 2 , ItemBag [1] )	--Т»ёцѕ«БйµАѕЯµДЦёХл
+	local Item_JLother = GetChaItem ( role , 2 , ItemBag [2] )	--БнТ»ёцѕ«БйµАѕЯµДЦёХл
+	local Item_JLone_ID = GetItemID ( Item_JLone )   --Т»ёцѕ«БйµАѕЯID
+	local Item_JLother_ID = GetItemID ( Item_JLother )   --Т»ёцѕ«БйµАѕЯID
+	---ИЎТ»ёцѕ«БйµДОеёцКфРФ
+	local str_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_STR )		 --Б¦Бї
+	local con_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_CON )		--МеЦК
+	local agi_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_AGI )		--ЧЁЧў
+	local dex_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_DEX )		--ГфЅЭ
+	local sta_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_STA )		--ѕ«Йс
+	local URE_JLone = GetItemAttr( Item_JLone ,ITEMATTR_URE )		--МеБ¦
+	local MAXURE_JLone = GetItemAttr( Item_JLone ,ITEMATTR_MAXURE )       --ЧоґуМеБ¦
+	local lv_JLone = str_JLone + con_JLone + agi_JLone + dex_JLone + sta_JLone  ----Т»ёцѕ«БйµДµИј¶
+	---ИЎБнТ»ёцѕ«БйµДОеёцКфРФ
+	local str_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_STR )       --Б¦Бї
+	local con_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_CON )       --МеЦК
+	local agi_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_AGI )       --ЧЁЧў
+	local dex_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_DEX )       --ГфЅЭ
+	local sta_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_STA )       --ѕ«Йс
+	local URE_JLother = GetItemAttr( Item_JLother ,ITEMATTR_URE )		 --МеБ¦
+	local MAXURE_JLother = GetItemAttr( Item_JLother ,ITEMATTR_MAXURE )       --ЧоґуМеБ¦
+	local lv_JLother = str_JLother + con_JLother + agi_JLother + dex_JLother + sta_JLother ----БнТ»ёцѕ«БйµДµИј¶
+	----ИЎТ»ёцѕ«БйµД7О»КэЦµ
 	local Num_JLone = GetItemForgeParam ( Item_JLone , 1 )
-	local Part1_JLone = GetNum_Part1 ( Num_JLone )	
+	local Part1_JLone = GetNum_Part1 ( Num_JLone )	--Get Num Part 1 µЅ Part 7
 	local Part2_JLone = GetNum_Part2 ( Num_JLone )	
 	local Part3_JLone = GetNum_Part3 ( Num_JLone )
 	local Part4_JLone = GetNum_Part4 ( Num_JLone )
 	local Part5_JLone = GetNum_Part5 ( Num_JLone )
 	local Part6_JLone = GetNum_Part6 ( Num_JLone )
 	local Part7_JLone= GetNum_Part7 ( Num_JLone )
+	----ИЎБнТ»ёцѕ«БйµД7О»КэЦµ
 	local Num_JLother = GetItemForgeParam ( Item_JLother , 1 )
-	local Part1_JLother = GetNum_Part1 ( Num_JLother )	
+	local Part1_JLother = GetNum_Part1 ( Num_JLother )	--Get Num Part 1 µЅ Part 7
 	local Part2_JLother = GetNum_Part2 ( Num_JLother )	
 	local Part3_JLother = GetNum_Part3 ( Num_JLother )
 	local Part4_JLother = GetNum_Part4 ( Num_JLother )
@@ -1900,214 +2613,248 @@ function can_jlborn_item_main ( Table )
 	local Part7_JLother= GetNum_Part7 ( Num_JLother )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet < 2 then
-		SystemNotice(role ,"В инвентаре должно быть минимум 2 свободных ячейки ")
+		SystemNotice(role ,"Fairy marriage requires at least 2 empty inventory slots")
 		return 0
 	end	
+	----¶сД§№ыКµЕР¶П
 	local  Item_EMstone_ID = GetItemID ( Item_EMstone )
 	if Item_EMstone_ID ~= 3918 and Item_EMstone_ID ~= 3919 and Item_EMstone_ID ~= 3920 and Item_EMstone_ID ~= 3921 and Item_EMstone_ID ~= 3922 and Item_EMstone_ID ~= 3924 and Item_EMstone_ID ~= 3925 then
-		SystemNotice( role ,"Поместите Демонический Фрукт ")
+		SystemNotice( role ,"Demonic Fruit usage error")
 		return 0
 	end
+	-----ЖХНЁµфБПјмІв
 	if Item_EMstone_ID == 3918 then
-	local i1 = CheckBagItem( role, 4530 )			
-	local i2 = CheckBagItem( role,3434 )			
+	local i1 = CheckBagItem( role, 4530 )			---ГАО¶ОЪФфИв
+	local i2 = CheckBagItem( role,3434 )			----·ПБйОдКїєЎ№З
 		if i1 < 10 or i2 < 10 then
-			SystemNotice( role ,"У тебя нету нужных предметов, для свадьбы фей ")
+			SystemNotice( role ,"Fairy marriage lack some required items")
 			return 0
 		end
 	end
+
 	if Item_EMstone_ID == 3919 then
-	local i1 = CheckBagItem( role, 4531 )			
-	local i2 = CheckBagItem( role, 3435 )			
+	local i1 = CheckBagItem( role, 4531 )			---ЖЖЛйµД°ўА­І®ХдЦй 
+	local i2 = CheckBagItem( role, 3435 )			----·ПБй№­јэКЦєЎ№З   
 		if i1 < 10 or i2 < 10 then
-			SystemNotice( role ,"У тебя нету нужных предметов, для свадьбы фей ")
+			SystemNotice( role ,"Fairy marriage lack some required items")
 			return 0
 		end
 	end
+
 	if Item_EMstone_ID == 3920 then
-	local i1 = CheckBagItem( role,1196 )			
-	local i2 = CheckBagItem( role,3436 )			
+	local i1 = CheckBagItem( role,1196 )			---°ўА­І®ХдЦйЛйЖ¬
+	local i2 = CheckBagItem( role,3436 )			----ЖьБйОдКїєЎ№З  
 		if i1 < 10 or i2 < 10 then
-			SystemNotice( role ,"У тебя нету нужных предметов, для свадьбы фей ")
+			SystemNotice( role ,"Fairy marriage lack some required items")
 			return 0
 		end
 	end
+
 	if Item_EMstone_ID == 3921 then
-	local i1 = CheckBagItem( role, 4533 )			
-	local i2 = CheckBagItem( role, 3437 )			
+	local i1 = CheckBagItem( role, 4533 )			---тттЅОІ°Н           
+	local i2 = CheckBagItem( role, 3437 )			----ЖьБй№­јэКЦєЎ№З 
 		if i1 < 10 or i2 < 10 then
-			SystemNotice( role ,"У тебя нету нужных предметов, для свадьбы фей ")
+			SystemNotice( role ,"Fairy marriage lack some required items")
 			return 0
 		end
 	end
+
 	if Item_EMstone_ID == 3922 then
-	local i1 = CheckBagItem( role,4537 )			
-	local i2 = CheckBagItem( role,3444 )			
+	local i1 = CheckBagItem( role,4537 )			---УгґМ                      
+	local i2 = CheckBagItem( role,3444 )			----ДаЅ¬їй   
 		if i1 < 10 or i2 < 10 then
-			SystemNotice( role ,"У тебя нету нужных предметов, для свадьбы фей ")
+			SystemNotice( role ,"Fairy marriage lack some required items")
 			return 0
 		end
 	end
+
 	if Item_EMstone_ID == 3924 then
-	local i1 = CheckBagItem( role, 4540 )			
-	local i2 = CheckBagItem( role, 3443 )			
+	local i1 = CheckBagItem( role, 4540 )			---циУг±ічў             
+	local i2 = CheckBagItem( role, 3443 )			----ХУФуїЭДѕ   
 		if i1 < 10 or i2 < 10 then
-			SystemNotice( role ,"У тебя нету нужных предметов, для свадьбы фей ")
+			SystemNotice( role ,"Fairy marriage lack some required items")
 			return 0
 		end
 	end
+
 	if Item_EMstone_ID == 3925 then
-	local i1 = CheckBagItem( role, 1253 )			
-	local i2 = CheckBagItem( role, 3442 )			
+	local i1 = CheckBagItem( role, 1253 )			---ЙБ№вµД°ўА­І®ХдЦйЛйЖ¬
+	local i2 = CheckBagItem( role, 3442 )			----ОЫДаїй                    
 		if i1 < 10 or i2 < 10 then
-			SystemNotice( role ,"У тебя нету нужных предметов, для свадьбы фей ")
+			SystemNotice( role ,"Fairy marriage lack some required items")
 			return 0
 		end
 	end
+	----ѕ«БйАаРНЕР¶П
 	local ItemType_JLone = GetItemType (Item_JLone)
 	local ItemType_JLother = GetItemType (Item_JLother)
 	if  ItemType_JLone ~=59 or ItemType_JLother ~=59  then
-			SystemNotice( role ,"Ты не поместил Фей ")
+			SystemNotice( role ,"You did not insert a pet fairy")
 		return 0
 	end
+	------·ЕИлµДКЗ·сКЗН¬Т»ѕ«Бй
 	if ItemBag [1]==ItemBag [2] then
-		SystemNotice( role ,"Моё дорогое дитя, я могу провести свадьбу?")
+		SystemNotice( role ,"My dear child, how can one marry oneself?")
 		return 0		
 	end
+	----КЗ·сОЄЖХНЁѕ«БйµДЕР¶П
 	if  Part1_JLone ~=0 or Part1_JLother ~=0  then
+		SystemNotice( role ,"Only normal fairy can get married at the moment")
 		return 0
 	end
+	-----ѕ«БйµИј¶ЕР¶П
 	if  lv_JLone < 20 or lv_JLother < 20   then
-		SystemNotice( role ,"Феи должны быть больше 20 уровня ")
+		SystemNotice( role ,"Pet Fairy below Lv 20 cannot get marry")
 		return 0
 	end
+	-----ѕ«БйКЗ·сВъМеБ¦ЕР¶П
 	if URE_JLone < MAXURE_JLone or URE_JLone < MAXURE_JLone then
-		SystemNotice( role ,"Свадьба фей очень утомительный процес. И фея должна иметь полную выносливость ")
+		SystemNotice( role ,"Marriage is a tedious process. Please maintain full stamina of pet fairy")
 		return 0
 	end
+	----ЙнЙПЅрЗ®ЕР¶П
 	local Money_Need = getjlborn_money_main ( Table )
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
 	if Money_Need > Money_Have then
-		SystemNotice( role ,"У вас не хватает денег ")
+		SystemNotice( role ,"Insufficient gold. Unable to reborn")
 		return 0
 	end
 	return 1
 end
 
+--їЄКјЧЄЙъЈ¬ЧЄЙъЦчіМРтИлїЪ
 function begin_jlborn_item(...)
+	-----КЗ·сїЙТФИЪєПјмІв
 	local Check_Canjlborn = 0
 	Check_Canjlborn = can_jlborn_item_main ( arg )
 	if Check_Canjlborn == 0 then
 		return 0
 	end
+	------ИЎіцКэѕЭ
 	local role = 0
-	local ItemBag = {}											
-	local ItemCount = {}											
-	local ItemBagCount = {}										
+	local ItemBag = {}											--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}											--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local ItemBag_Num = 0
 	local ItemCount_Num = 0
 	local ItemBagCount_Num = 0
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Num , ItemCount_Num , ItemBagCount_Num = Read_Table ( arg )
-	local Item_EMstone = GetChaItem ( role , 2 , ItemBag [0] )				
-	local Item_JLone = GetChaItem ( role , 2 , ItemBag [1] )					
-	local Item_JLother = GetChaItem ( role , 2 , ItemBag [2] )				
+	-----ИЎіцµАѕЯЦёХл
+	local Item_EMstone = GetChaItem ( role , 2 , ItemBag [0] )				--¶сД§±¦КЇЦёХл
+	local Item_JLone = GetChaItem ( role , 2 , ItemBag [1] )					--Т»ёцѕ«БйµАѕЯµДЦёХл
+	local Item_JLother = GetChaItem ( role , 2 , ItemBag [2] )				--БнТ»ёцѕ«БйµАѕЯµДЦёХл
+	-----їЫіэЅрЗ®
 	local Money_Need = getjlborn_money_main ( arg )
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
 	Money_Have = Money_Have - Money_Need
 	SetCharaAttr ( Money_Have , role , ATTR_GD )
 	ALLExAttrSet( role )
+	-----ЧЄЙъ№эіМ
 	Check_JLBorn_Item = jlborn_item ( arg )
 	if Check_JLBorn_Item == 0  then
-		SystemNotice ( role ,"Свадьба не возможна. Повторите попытку ")
+		SystemNotice ( role ,"Marriage has failed. Please check procedure")
 	end
 	local cha_name = GetChaDefaultName ( role )
-	SystemNotice ( role ,"Свадьба состоялась. ")
+	SystemNotice ( role ,"Marriage successful")
+	LG( "JLBorn_ShiBai" , "Player"..cha_name.."'s pet fairy has gotten married successfully" )
 	return 1
 end
 
+--јЖЛгЧЄЙъ·СУГ
 function get_item_jlborn_money(...)
 	local Money = getjlborn_money_main ( arg )
 	return Money
 end
 
+--јЖЛгЧЄЙъ·СУГЦчєЇКэ
 function getjlborn_money_main ( Table )
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}									
-	local ItemBag_Num = 0									
-	local ItemCount_Num = 0									
-	local ItemBagCount_Num = 0								
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГКэЧй
+	local ItemCount = {}										--µАѕЯКэБїКэЧй
+	local ItemBagCount = {}									--µАѕЯ¶ФПуКэБїКэЧй
+	local ItemBag_Num = 0									--±і°ьО»ЦГКэЧйі¤¶И
+	local ItemCount_Num = 0									--µАѕЯКэБїКэЧйі¤¶И
+	local ItemBagCount_Num = 0								--µАѕЯ¶ФПуКэБїКэЧйі¤¶И
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Num , ItemCount_Num , ItemBagCount_Num = Read_Table ( Table )
-	local Item_JLone = GetChaItem ( role , 2 , ItemBag [1] )				
-	local Item_JLother = GetChaItem ( role , 2 , ItemBag [2] )			
-	local str_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_STR )		  
-	local con_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_CON )		   
-	local agi_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_AGI )		  
-	local dex_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_DEX )		 
-	local sta_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_STA )		 
-	local lv_JLone = str_JLone + con_JLone + agi_JLone + dex_JLone + sta_JLone  
-	local str_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_STR )		 
-	local con_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_CON )		  
-	local agi_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_AGI )		
-	local dex_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_DEX )		  
-	local sta_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_STA )		 
-	local lv_JLother = str_JLother + con_JLother + agi_JLother + dex_JLother + sta_JLother 
+	---ИЎіцµАѕЯЦёХл
+	local Item_JLone = GetChaItem ( role , 2 , ItemBag [1] )				--Т»ёцѕ«БйµАѕЯµДЦёХл
+	local Item_JLother = GetChaItem ( role , 2 , ItemBag [2] )			--БнТ»ёцѕ«БйµАѕЯµДЦёХл
+	---ИЎТ»ёцѕ«БйµДОеёцКфРФ
+	local str_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_STR )		  --Б¦Бї
+	local con_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_CON )		   --МеЦК
+	local agi_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_AGI )		  --ЧЁЧў
+	local dex_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_DEX )		 --ГфЅЭ
+	local sta_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_STA )		 --ѕ«Йс
+	local lv_JLone = str_JLone + con_JLone + agi_JLone + dex_JLone + sta_JLone  ----Т»ёцѕ«БйµДµИј¶
+	---ИЎБнТ»ёцѕ«БйµДОеёцКфРФ
+	local str_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_STR )		 --Б¦Бї
+	local con_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_CON )		  --МеЦК
+	local agi_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_AGI )		--ЧЁЧў
+	local dex_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_DEX )		  --ГфЅЭ
+	local sta_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_STA )		 --ѕ«Йс
+	local lv_JLother = str_JLother + con_JLother + agi_JLother + dex_JLother + sta_JLother ----БнТ»ёцѕ«БйµДµИј¶
 	local  Money_Need = ( 60 - lv_JLone )*(60 - lv_JLother )*100
 	if lv_JLone>60 or lv_JLother>60 then
 		 Money_Need = 0
 	end
 	return Money_Need
 end
-
+----Па№ШєЇКэ--------------------------------------------------------------------------------------------------------
+---їЄКјЧЄЙъ
 function jlborn_item ( Table )
 	local role = 0
-	local ItemBag = {}											
-	local ItemCount = {}											
-	local ItemBagCount = {}										
+	local ItemBag = {}											--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}											--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local ItemBag_Num = 0
 	local ItemCount_Num = 0
 	local ItemBagCount_Num = 0
 	local ItemID_Cuihuaji = 0
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Num , ItemCount_Num , ItemBagCount_Num = Read_Table ( Table )
-	local Item_EMstone = GetChaItem ( role , 2 , ItemBag [0] )				
-	local Item_JLone = GetChaItem ( role , 2 , ItemBag [1] )					
-	local Item_JLother = GetChaItem ( role , 2 , ItemBag [2] )				
-	local  Item_EMstone_ID = GetItemID ( Item_EMstone )					 
-	local  Item_JLone_ID = GetItemID ( Item_JLone )						 
-	local  Item_JLother_ID = GetItemID ( Item_JLother )					 
-	local str_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_STR )			  
-	local con_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_CON )			 
-	local agi_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_AGI )			 
-	local dex_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_DEX )			  
-	local sta_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_STA )			  
-	local URE_JLone = GetItemAttr( Item_JLone ,ITEMATTR_URE )			
-	local MAXURE_JLone = GetItemAttr( Item_JLone ,ITEMATTR_MAXURE )		 
-	local lv_JLone = str_JLone + con_JLone + agi_JLone + dex_JLone + sta_JLone	
-	local str_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_STR )		
-	local con_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_CON )		  
-	local agi_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_AGI )		 
-	local dex_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_DEX )		 
-	local sta_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_STA )		 
-	local URE_JLother = GetItemAttr( Item_JLother ,ITEMATTR_URE )			    
-	local MAXURE_JLother = GetItemAttr( Item_JLother ,ITEMATTR_MAXURE )	 
-	local lv_JLother = str_JLother + con_JLother + agi_JLother + dex_JLother + sta_JLother 
+	---ИЎіцµАѕЯЦёХл
+	local Item_EMstone = GetChaItem ( role , 2 , ItemBag [0] )				--¶сД§±¦КЇЦёХл
+	local Item_JLone = GetChaItem ( role , 2 , ItemBag [1] )					--Т»ёцѕ«БйµАѕЯµДЦёХл
+	local Item_JLother = GetChaItem ( role , 2 , ItemBag [2] )				--БнТ»ёцѕ«БйµАѕЯµДЦёХл
+	local  Item_EMstone_ID = GetItemID ( Item_EMstone )					 --¶сД§№ыКµID
+	local  Item_JLone_ID = GetItemID ( Item_JLone )						 --Т»ёцѕ«БйµАѕЯID
+	local  Item_JLother_ID = GetItemID ( Item_JLother )					 --Т»ёцѕ«БйµАѕЯID
+	---ИЎТ»ёцѕ«БйµДОеёцКфРФ
+	local str_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_STR )			  --Б¦Бї 
+	local con_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_CON )			 ---МеЦК 
+	local agi_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_AGI )			 --ГфЅЭ 
+	local dex_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_DEX )			  --ЧЁЧў 
+	local sta_JLone = GetItemAttr( Item_JLone ,ITEMATTR_VAL_STA )			  --ѕ«Йс 
+	local URE_JLone = GetItemAttr( Item_JLone ,ITEMATTR_URE )			--МеБ¦ 
+	local MAXURE_JLone = GetItemAttr( Item_JLone ,ITEMATTR_MAXURE )		 --ЧоґуМеБ¦
+	local lv_JLone = str_JLone + con_JLone + agi_JLone + dex_JLone + sta_JLone	----Т»ёцѕ«БйµДµИј¶
+	---ИЎБнТ»ёцѕ«БйµДОеёцКфРФ
+	local str_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_STR )		--Б¦Бї
+	local con_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_CON )		  --МеЦК
+	local agi_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_AGI )		 --ГфЅЭ
+	local dex_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_DEX )		 --ЧЁЧў
+	local sta_JLother = GetItemAttr( Item_JLother ,ITEMATTR_VAL_STA )		 --ѕ«Йс
+	local URE_JLother = GetItemAttr( Item_JLother ,ITEMATTR_URE )			    --МеБ¦
+	local MAXURE_JLother = GetItemAttr( Item_JLother ,ITEMATTR_MAXURE )	 --ЧоґуМеБ¦
+	local lv_JLother = str_JLother + con_JLother + agi_JLother + dex_JLother + sta_JLother ----БнТ»ёцѕ«БйµДµИј¶
+	----ИЎТ»ёцѕ«БйµД7О»КэЦµ
 	local Num_JLone = GetItemForgeParam ( Item_JLone , 1 )
-	local Part1_JLone = GetNum_Part1 ( Num_JLone )	
+	local Part1_JLone = GetNum_Part1 ( Num_JLone )	--Get Num Part 1 µЅ Part 7
 	local Part2_JLone = GetNum_Part2 ( Num_JLone )	
 	local Part3_JLone = GetNum_Part3 ( Num_JLone )
 	local Part4_JLone = GetNum_Part4 ( Num_JLone )
 	local Part5_JLone = GetNum_Part5 ( Num_JLone )
 	local Part6_JLone = GetNum_Part6 ( Num_JLone )
 	local Part7_JLone= GetNum_Part7 ( Num_JLone )
+	----ИЎБнТ»ёцѕ«БйµД7О»КэЦµ
 	local Num_JLother = GetItemForgeParam ( Item_JLother , 1 )
-	local Part1_JLother = GetNum_Part1 ( Num_JLother )	
+	local Part1_JLother = GetNum_Part1 ( Num_JLother )	--Get Num Part 1 µЅ Part 7
 	local Part2_JLother = GetNum_Part2 ( Num_JLother )	
 	local Part3_JLother = GetNum_Part3 ( Num_JLother )
 	local Part4_JLother = GetNum_Part4 ( Num_JLother )
 	local Part5_JLother = GetNum_Part5 ( Num_JLother )
 	local Part6_JLother = GetNum_Part6 ( Num_JLother )
 	local Part7_JLother= GetNum_Part7 ( Num_JLother )
+	-----ёіУиРВѕ«БйµИј¶јЗВјФЪРВѕ«БйЙП
 	local new_str = math.floor ((str_JLone+str_JLother)*0.125 )
 	local new_con = math.floor ((con_JLone+con_JLother)*0.125 )
 	local new_agi = math.floor ((agi_JLone+agi_JLother)*0.125 )
@@ -2121,12 +2868,13 @@ function jlborn_item ( Table )
 	local new_MAXURE = 5000 + 1000*new_lv
 	if new_MAXURE > 32000 then
 		new_MAXURE = 32000
-	end	
-	if Item_EMstone_ID ==3918 then 
-		local j1 =TakeItem( role, 0, 4530, 10 )			
-		local j2 = TakeItem( role, 0,3434, 10  )			
+	end
+		--------¶сД§№ыКµЕР¶П
+	if Item_EMstone_ID ==3918 then ---ЗаЙ¬¶сД§№ыКµ
+		local j1 =TakeItem( role, 0, 4530, 10 )			---ГАО¶ОЪФфИв     
+		local j2 = TakeItem( role, 0,3434, 10  )			----·ПБйОдКїєЎ№З 
 		if j1==0 or j2==0 then
-			--SystemNotice ( role ,"Deletion of pet fairy reborn tools failed")
+			SystemNotice ( role ,"Deletion of pet fairy reborn tools failed")
 			return
 		end 
 		local rad = math.random ( 1, 100 )
@@ -2135,11 +2883,11 @@ function jlborn_item ( Table )
 		if Item_JLone_ID ==680 or Item_JLother_ID ==680 then
 			if Item_JLone_ID==Item_JLother_ID then
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )
-			elseif lv_JLone>=20 and lv_JLone<25 and lv_JLother >=20 and lv_JLother<25 and rad>=88 then
+			elseif lv_JLone>=20 and lv_JLone<25 and lv_JLother >=20 and lv_JLother<25 and rad>=88 then---12%ОЄД¦¶№¶юКА
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )
-			elseif lv_JLone>=25 and lv_JLone<35 and lv_JLother >=25 and lv_JLother<35 and rad>=50 then 
+			elseif lv_JLone>=25 and lv_JLone<35 and lv_JLother >=25 and lv_JLother<35 and rad>=50 then ---50%ОЄД¦¶№¶юКА
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )
-			elseif lv_JLone>=35 and lv_JLother >=35 and rad>=10 then
+			elseif lv_JLone>=35 and lv_JLother >=35 and rad>=10 then---90%
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )			
 			else
 				r1,r2 =MakeItem ( role , 231  , 1 , 4 )
@@ -2147,10 +2895,10 @@ function jlborn_item ( Table )
 		else
 			r1,r2 =MakeItem ( role , 231  , 1 , 4 )
 		end
-		local Item_newJL = GetChaItem ( role , 2 , r2 )			
+		local Item_newJL = GetChaItem ( role , 2 , r2 )			--ИЎРВѕ«БйµАѕЯЦёХл
 		local Item_newJL_ID = GetItemID ( Item_newJL )
 		local Num_newJL = GetItemForgeParam ( Item_newJL , 1 )
-		local Part1_newJL = GetNum_Part1 ( Num_newJL )	
+		local Part1_newJL = GetNum_Part1 ( Num_newJL )	--Get Num Part 1 µЅ Part 7
 		local Part2_newJL = GetNum_Part2 ( Num_newJL )	
 		local Part3_newJL = GetNum_Part3 ( Num_newJL )
 		local Part4_newJL = GetNum_Part4 ( Num_newJL )
@@ -2158,16 +2906,16 @@ function jlborn_item ( Table )
 		local Part6_newJL = GetNum_Part6 ( Num_newJL )
 		local Part7_newJL= GetNum_Part7 ( Num_newJL )			
 		if lv_JLone>=20 and lv_JLother >=20 then
-			Part2_newJL = 6					 
-			Part3_newJL = 1						
+			Part2_newJL = 6					 ---------ФЛЦ®ѕ«БйјјДЬ±аєЕ
+			Part3_newJL = 1						---------іхј¶ЅЧ¶О
 		end
 		if lv_JLone>=25 and lv_JLother >=25 then
-			Part2_newJL = 6					 
-			Part3_newJL = 2						
+			Part2_newJL = 6					 ---------ФЛЦ®ѕ«БйјјДЬ±аєЕ
+			Part3_newJL = 2						---------ЦРј¶ЅЧ¶О
 		end
 		if lv_JLone>=35 and lv_JLother >=35 then
-			Part2_newJL = 6					 
-			Part3_newJL = 3						
+			Part2_newJL = 6					 ---------ФЛЦ®ѕ«БйјјДЬ±аєЕ
+			Part3_newJL = 3						---------ёЯј¶ЅЧ¶О
 		end
 		local rad1 = math.random ( 1, 100 )
 		if Part3_newJL==3 then
@@ -2189,7 +2937,7 @@ function jlborn_item ( Table )
 				GiveItem ( role , 0 , 609  , 1 , 4 ) 
 			end
 		end
-		Num_newJL = SetNum_Part1 ( Num_newJL , 1 )	 
+		Num_newJL = SetNum_Part1 ( Num_newJL , 1 )	 ----------¶юЧЄ±кјЗ
 		Num_newJL = SetNum_Part2 ( Num_newJL , Part2_newJL )
 		Num_newJL = SetNum_Part3 ( Num_newJL , Part3_newJL )
 		Num_newJL = SetNum_Part4 ( Num_newJL , Part4_newJL )
@@ -2206,11 +2954,11 @@ function jlborn_item ( Table )
 		SetItemAttr ( Item_newJL , ITEMATTR_MAXENERGY , new_MAXENERGY ) 	
 		SetItemAttr ( Item_newJL , ITEMATTR_MAXURE , new_MAXURE ) 	
 	end
-	if Item_EMstone_ID ==3919 then 
-		local j1 = TakeItem( role, 0, 4531, 10 )			
-		local j2 = TakeItem( role, 0,3435, 10 )			
+	if Item_EMstone_ID ==3919 then ---УВХЯ¶сД§№ыКµ  МеЦ®ѕ«Бй----МеЦКјУ·АУщ
+		local j1 = TakeItem( role, 0, 4531, 10 )			---ЖЖЛйµД°ўА­І®ХдЦй  
+		local j2 = TakeItem( role, 0,3435, 10 )			----·ПБй№­јэКЦєЎ№З    
 		if j1==0 or j2==0 then
-			--SystemNotice ( role ,"Deletion of pet fairy reborn tools failed")
+			SystemNotice ( role ,"Deletion of pet fairy reborn tools failed")
 			return
 		end
 		local rad = math.random ( 1, 100 )
@@ -2219,11 +2967,11 @@ function jlborn_item ( Table )
 		if Item_JLone_ID ==680 or Item_JLother_ID ==680 then
 			if Item_JLone_ID==Item_JLother_ID then
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )
-			elseif  lv_JLone>=20 and lv_JLone<25 and lv_JLother >=20 and lv_JLother<25 and rad>=88 then
+			elseif  lv_JLone>=20 and lv_JLone<25 and lv_JLother >=20 and lv_JLother<25 and rad>=88 then---12%ОЄД¦¶№¶юКА
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )
-			elseif lv_JLone>=25 and lv_JLone<35 and lv_JLother >=25 and lv_JLother<35 and rad>=50 then 
+			elseif lv_JLone>=25 and lv_JLone<35 and lv_JLother >=25 and lv_JLother<35 and rad>=50 then ---50%ОЄД¦¶№¶юКА
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )
-			elseif lv_JLone>=35 and lv_JLother >=35 and rad>=10 then
+			elseif lv_JLone>=35 and lv_JLother >=35 and rad>=10 then---90%
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )			
 			else
 				r1,r2 =MakeItem ( role , 233  , 1 , 4 )
@@ -2231,9 +2979,9 @@ function jlborn_item ( Table )
 		else
 			r1,r2 =MakeItem ( role , 233  , 1 , 4 )
 		end
-		local Item_newJL = GetChaItem ( role , 2 , r2 )			
+		local Item_newJL = GetChaItem ( role , 2 , r2 )			--ИЎРВѕ«БйµАѕЯЦёХл
 		local Num_newJL = GetItemForgeParam ( Item_newJL , 1 )
-		local Part1_newJL = GetNum_Part1 ( Num_newJL )	
+		local Part1_newJL = GetNum_Part1 ( Num_newJL )	--Get Num Part 1 µЅ Part 7
 		local Part2_newJL = GetNum_Part2 ( Num_newJL )	
 		local Part3_newJL = GetNum_Part3 ( Num_newJL )
 		local Part4_newJL = GetNum_Part4 ( Num_newJL )
@@ -2241,16 +2989,16 @@ function jlborn_item ( Table )
 		local Part6_newJL = GetNum_Part6 ( Num_newJL )
 		local Part7_newJL= GetNum_Part7 ( Num_newJL )
 		if lv_JLone>=20 and lv_JLother >=20 then
-			Part2_newJL = 7					 
-			Part3_newJL = 1					
+			Part2_newJL = 7					 ---------МеЦ®ѕ«БйјјДЬ±аєЕ
+			Part3_newJL = 1					---------іхј¶ЅЧ¶О
 		end
 		if lv_JLone>=25 and lv_JLother >=25 then
-			Part2_newJL = 7					 
-			Part3_newJL = 2					
+			Part2_newJL = 7					 ---------МеЦ®ѕ«БйјјДЬ±аєЕ
+			Part3_newJL = 2					---------ЦРј¶ЅЧ¶О
 		end
 		if lv_JLone>=35 and lv_JLother >=35 then
-			Part2_newJL = 7					 
-			Part3_newJL = 3					
+			Part2_newJL = 7					 ---------МеЦ®ѕ«БйјјДЬ±аєЕ
+			Part3_newJL = 3					---------ёЯј¶ЅЧ¶О
 		end
 		local rad1 = math.random ( 1, 100 )
 		if Part3_newJL==3 then
@@ -2272,7 +3020,7 @@ function jlborn_item ( Table )
 				GiveItem ( role , 0 , 609  , 1 , 4 ) 
 			end
 		end
-		Num_newJL = SetNum_Part1 ( Num_newJL , 1 )	
+		Num_newJL = SetNum_Part1 ( Num_newJL , 1 )	----------¶юЧЄ±кјЗ
 		Num_newJL = SetNum_Part2 ( Num_newJL , Part2_newJL )
 		Num_newJL = SetNum_Part3 ( Num_newJL , Part3_newJL )
 		Num_newJL = SetNum_Part4 ( Num_newJL , Part4_newJL )
@@ -2280,6 +3028,7 @@ function jlborn_item ( Table )
 		Num_newJL = SetNum_Part6 ( Num_newJL , Part6_newJL )
 		Num_newJL = SetNum_Part7 ( Num_newJL , Part7_newJL )
 		SetItemForgeParam ( Item_newJL , 1 , Num_newJL )
+
 		SetItemAttr ( Item_newJL , ITEMATTR_VAL_STR , new_str )
 		SetItemAttr( Item_newJL , ITEMATTR_VAL_DEX , new_dex )	 
 		SetItemAttr ( Item_newJL , ITEMATTR_VAL_STA , new_sta )
@@ -2288,11 +3037,11 @@ function jlborn_item ( Table )
 		SetItemAttr ( Item_newJL , ITEMATTR_MAXENERGY , new_MAXENERGY ) 	
 		SetItemAttr ( Item_newJL , ITEMATTR_MAXURE , new_MAXURE ) 	
 	end
-	if Item_EMstone_ID ==3920 then 
-		local j1 =TakeItem( role, 0, 1196, 10 )			
-		local j2 = TakeItem( role, 0,3436, 10 )			
+	if Item_EMstone_ID ==3920 then ---Б¦Бї¶сД§№ыКµ Б¦Ц®ѕ«Бй----Б¦БїјУ№Ґ»ч
+		local j1 =TakeItem( role, 0, 1196, 10 )			---°ўА­І®ХдЦйЛйЖ¬  
+		local j2 = TakeItem( role, 0,3436, 10 )			----ЖьБйОдКїєЎ№З    
 		if j1==0 or j2==0 then
-			--SystemNotice ( role ,"Deletion of pet fairy reborn tools failed")
+			SystemNotice ( role ,"Deletion of pet fairy reborn tools failed")
 			return
 		end
 		local rad = math.random ( 1, 100 )
@@ -2301,11 +3050,11 @@ function jlborn_item ( Table )
 		if Item_JLone_ID ==680 or Item_JLother_ID ==680 then
 			if Item_JLone_ID==Item_JLother_ID then
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )
-			elseif  lv_JLone>=20 and lv_JLone<25 and lv_JLother >=20 and lv_JLother<25 and rad>=88 then
+			elseif  lv_JLone>=20 and lv_JLone<25 and lv_JLother >=20 and lv_JLother<25 and rad>=88 then---12%ОЄД¦¶№¶юКА
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )
-			elseif lv_JLone>=25 and lv_JLone<35 and lv_JLother >=25 and lv_JLother<35 and rad>=50 then 
+			elseif lv_JLone>=25 and lv_JLone<35 and lv_JLother >=25 and lv_JLother<35 and rad>=50 then ---50%ОЄД¦¶№¶юКА
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )
-			elseif lv_JLone>=35 and lv_JLother >=35 and rad>=10 then
+			elseif lv_JLone>=35 and lv_JLother >=35 and rad>=10 then---90%
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )			
 			else
 				r1,r2 =MakeItem ( role , 232  , 1 , 4 )
@@ -2313,9 +3062,9 @@ function jlborn_item ( Table )
 		else
 			r1,r2 =MakeItem ( role , 232  , 1 , 4 )
 		end
-		local Item_newJL = GetChaItem ( role , 2 , r2 )			
+		local Item_newJL = GetChaItem ( role , 2 , r2 )			--ИЎРВѕ«БйµАѕЯЦёХл
 		local Num_newJL = GetItemForgeParam ( Item_newJL , 1 )
-		local Part1_newJL = GetNum_Part1 ( Num_newJL )	
+		local Part1_newJL = GetNum_Part1 ( Num_newJL )	--Get Num Part 1 µЅ Part 7
 		local Part2_newJL = GetNum_Part2 ( Num_newJL )	
 		local Part3_newJL = GetNum_Part3 ( Num_newJL )
 		local Part4_newJL = GetNum_Part4 ( Num_newJL )
@@ -2323,16 +3072,16 @@ function jlborn_item ( Table )
 		local Part6_newJL = GetNum_Part6 ( Num_newJL )
 		local Part7_newJL= GetNum_Part7 ( Num_newJL )
 		if lv_JLone>=20 and lv_JLother >=20 then
-			Part2_newJL = 8													 
-			Part3_newJL = 1													
+			Part2_newJL = 8													 ---------Б¦Ц®ѕ«БйјјДЬ±аєЕ
+			Part3_newJL = 1													---------іхј¶ЅЧ¶О
 		end
 		if lv_JLone>=25 and lv_JLother >=25 then
-			Part2_newJL = 8													 
-			Part3_newJL = 2													
+			Part2_newJL = 8													 ---------Б¦Ц®ѕ«БйјјДЬ±аєЕ
+			Part3_newJL = 2													---------ЦРј¶ЅЧ¶О
 		end
 		if lv_JLone>=35 and lv_JLother >=35 then
-			Part2_newJL = 8													 
-			Part3_newJL = 3													
+			Part2_newJL = 8													 ---------Б¦Ц®ѕ«БйјјДЬ±аєЕ
+			Part3_newJL = 3													---------ёЯј¶ЅЧ¶О
 		end
 		local rad1 = math.random ( 1, 100 )
 		if Part3_newJL==3 then
@@ -2354,7 +3103,7 @@ function jlborn_item ( Table )
 				GiveItem ( role , 0 , 609  , 1 , 4 ) 
 			end
 		end
-		Num_newJL = SetNum_Part1 ( Num_newJL , 1 )	
+		Num_newJL = SetNum_Part1 ( Num_newJL , 1 )	----------¶юЧЄ±кјЗ
 		Num_newJL = SetNum_Part2 ( Num_newJL , Part2_newJL )
 		Num_newJL = SetNum_Part3 ( Num_newJL , Part3_newJL )
 		Num_newJL = SetNum_Part4 ( Num_newJL , Part4_newJL )
@@ -2362,6 +3111,7 @@ function jlborn_item ( Table )
 		Num_newJL = SetNum_Part6 ( Num_newJL , Part6_newJL )
 		Num_newJL = SetNum_Part7 ( Num_newJL , Part7_newJL )
 		SetItemForgeParam ( Item_newJL , 1 , Num_newJL )
+ 
 		SetItemAttr ( Item_newJL , ITEMATTR_VAL_STR , new_str )
 		SetItemAttr( Item_newJL , ITEMATTR_VAL_DEX , new_dex )	 
 		SetItemAttr ( Item_newJL , ITEMATTR_VAL_STA , new_sta )
@@ -2370,11 +3120,11 @@ function jlborn_item ( Table )
 		SetItemAttr ( Item_newJL , ITEMATTR_MAXENERGY , new_MAXENERGY ) 	
 		SetItemAttr ( Item_newJL , ITEMATTR_MAXURE , new_MAXURE ) 	
 	end
-	if Item_EMstone_ID ==3921 then 
-		local j1 =TakeItem( role, 0, 4533, 10 )			
-		local j2 = TakeItem( role, 0,3437, 10 )			
+	if Item_EMstone_ID ==3921 then ---ЦЗ»Ы¶сД§№ыКµ ЙсЦ®ѕ«Бй ѕ«ЙсјУ·АУщ
+		local j1 =TakeItem( role, 0, 4533, 10 )			---тттЅОІ°Н            
+		local j2 = TakeItem( role, 0,3437, 10 )			----ЖьБй№­јэКЦєЎ№З  
 		if j1==0 or j2==0 then
-			--SystemNotice ( role ,"Deletion of pet fairy reborn tools failed")
+			SystemNotice ( role ,"Deletion of pet fairy reborn tools failed")
 			return
 		end
 		local rad = math.random ( 1, 100 )
@@ -2383,11 +3133,11 @@ function jlborn_item ( Table )
 		if Item_JLone_ID ==680 or Item_JLother_ID ==680 then
 			if Item_JLone_ID==Item_JLother_ID then
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )
-			elseif  lv_JLone>=20 and lv_JLone<25 and lv_JLother >=20 and lv_JLother<25 and rad>=88 then
+			elseif  lv_JLone>=20 and lv_JLone<25 and lv_JLother >=20 and lv_JLother<25 and rad>=88 then---12%ОЄД¦¶№¶юКА
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )
-			elseif lv_JLone>=25 and lv_JLone<35 and lv_JLother >=25 and lv_JLother<35 and rad>=50 then 
+			elseif lv_JLone>=25 and lv_JLone<35 and lv_JLother >=25 and lv_JLother<35 and rad>=50 then ---50%ОЄД¦¶№¶юКА
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )
-			elseif lv_JLone>=35 and lv_JLother >=35 and rad>=10 then
+			elseif lv_JLone>=35 and lv_JLother >=35 and rad>=10 then---90%
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )			
 			else
 				r1,r2 =MakeItem ( role , 234  , 1 , 4 )
@@ -2395,9 +3145,9 @@ function jlborn_item ( Table )
 		else
 			r1,r2 =MakeItem ( role , 234  , 1 , 4 )
 		end
-		local Item_newJL = GetChaItem ( role , 2 , r2 )			
+		local Item_newJL = GetChaItem ( role , 2 , r2 )			--ИЎРВѕ«БйµАѕЯЦёХл
 		local Num_newJL = GetItemForgeParam ( Item_newJL , 1 )
-		local Part1_newJL = GetNum_Part1 ( Num_newJL )	
+		local Part1_newJL = GetNum_Part1 ( Num_newJL )	--Get Num Part 1 µЅ Part 7
 		local Part2_newJL = GetNum_Part2 ( Num_newJL )	
 		local Part3_newJL = GetNum_Part3 ( Num_newJL )
 		local Part4_newJL = GetNum_Part4 ( Num_newJL )
@@ -2405,16 +3155,16 @@ function jlborn_item ( Table )
 		local Part6_newJL = GetNum_Part6 ( Num_newJL )
 		local Part7_newJL= GetNum_Part7 ( Num_newJL )
 		if lv_JLone>=20 and lv_JLother >=20 then
-			Part2_newJL = 9													 
-			Part3_newJL = 1													
+			Part2_newJL = 9													 ---------ЙсЦ®ѕ«БйјјДЬ±аєЕ
+			Part3_newJL = 1													---------іхј¶ЅЧ¶О
 		end
 		if lv_JLone>=25 and lv_JLother >=25 then
-			Part2_newJL = 9													 
-			Part3_newJL = 2													
+			Part2_newJL = 9													 ---------ЙсЦ®ѕ«БйјјДЬ±аєЕ
+			Part3_newJL = 2													---------ЦРј¶ЅЧ¶О
 		end
 		if lv_JLone>=35 and lv_JLother >=35 then
-			Part2_newJL = 9													 
-			Part3_newJL = 3													
+			Part2_newJL = 9													 ---------ЙсЦ®ѕ«БйјјДЬ±аєЕ
+			Part3_newJL = 3													---------ёЯј¶ЅЧ¶О
 		end
 		local rad1 = math.random ( 1, 100 )
 		if Part3_newJL==3 then
@@ -2436,7 +3186,7 @@ function jlborn_item ( Table )
 				GiveItem ( role , 0 , 609  , 1 , 4 ) 
 			end
 		end
-		Num_newJL = SetNum_Part1 ( Num_newJL , 1 ) 
+		Num_newJL = SetNum_Part1 ( Num_newJL , 1 ) ----------¶юЧЄ±кјЗ
 		Num_newJL = SetNum_Part2 ( Num_newJL , Part2_newJL )
 		Num_newJL = SetNum_Part3 ( Num_newJL , Part3_newJL )
 		Num_newJL = SetNum_Part4 ( Num_newJL , Part4_newJL )
@@ -2444,6 +3194,7 @@ function jlborn_item ( Table )
 		Num_newJL = SetNum_Part6 ( Num_newJL , Part6_newJL )
 		Num_newJL = SetNum_Part7 ( Num_newJL , Part7_newJL )
 		SetItemForgeParam ( Item_newJL , 1 , Num_newJL )
+
 		SetItemAttr ( Item_newJL , ITEMATTR_VAL_STR , new_str )
 		SetItemAttr( Item_newJL , ITEMATTR_VAL_DEX , new_dex )	 
 		SetItemAttr ( Item_newJL , ITEMATTR_VAL_STA , new_sta )
@@ -2452,11 +3203,11 @@ function jlborn_item ( Table )
 		SetItemAttr ( Item_newJL , ITEMATTR_MAXENERGY , new_MAXENERGY ) 	
 		SetItemAttr ( Item_newJL , ITEMATTR_MAXURE , new_MAXURE ) 	
 	end
-	if Item_EMstone_ID ==3922 then 
-		local j1 =TakeItem( role, 0,4537, 10 )			
-		local j2 = TakeItem( role, 0,3444, 10 )			
+	if Item_EMstone_ID ==3922 then ---ДЬБї¶сД§№ыКµ ЧЁЦ®ѕ«Бй ЧЁЧўјУ№Ґ»ч
+		local j1 =TakeItem( role, 0,4537, 10 )			---УгґМ                     
+		local j2 = TakeItem( role, 0,3444, 10 )			----ДаЅ¬їм  
 		if j1==0 or j2==0 then
-			--SystemNotice ( role ,"Deletion of pet fairy reborn tools failed")
+			SystemNotice ( role ,"Deletion of pet fairy reborn tools failed")
 			return
 		end
 		local rad = math.random ( 1, 100 )
@@ -2465,11 +3216,11 @@ function jlborn_item ( Table )
 		if Item_JLone_ID ==680 or Item_JLother_ID ==680 then
 			if Item_JLone_ID==Item_JLother_ID then
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )
-			elseif  lv_JLone>=20 and lv_JLone<25 and lv_JLother >=20 and lv_JLother<25 and rad>=88 then
+			elseif  lv_JLone>=20 and lv_JLone<25 and lv_JLother >=20 and lv_JLother<25 and rad>=88 then---12%ОЄД¦¶№¶юКА
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )
-			elseif lv_JLone>=25 and lv_JLone<35 and lv_JLother >=25 and lv_JLother<35 and rad>=50 then 
+			elseif lv_JLone>=25 and lv_JLone<35 and lv_JLother >=25 and lv_JLother<35 and rad>=50 then ---50%ОЄД¦¶№¶юКА
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )
-			elseif lv_JLone>=35 and lv_JLother >=35 and rad>=10 then
+			elseif lv_JLone>=35 and lv_JLother >=35 and rad>=10 then---90%
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )			
 			else
 				r1,r2 =MakeItem ( role , 235  , 1 , 4 )
@@ -2477,9 +3228,9 @@ function jlborn_item ( Table )
 		else
 			 r1,r2 =MakeItem ( role , 235  , 1 , 4 )
 		end
-		local Item_newJL = GetChaItem ( role , 2 , r2 )			
+		local Item_newJL = GetChaItem ( role , 2 , r2 )			--ИЎРВѕ«БйµАѕЯЦёХл
 		local Num_newJL = GetItemForgeParam ( Item_newJL , 1 )
-		local Part1_newJL = GetNum_Part1 ( Num_JLother )	
+		local Part1_newJL = GetNum_Part1 ( Num_JLother )	--Get Num Part 1 µЅ Part 7
 		local Part2_newJL = GetNum_Part2 ( Num_newJL )	
 		local Part3_newJL = GetNum_Part3 ( Num_newJL )
 		local Part4_newJL = GetNum_Part4 ( Num_newJL )
@@ -2487,16 +3238,16 @@ function jlborn_item ( Table )
 		local Part6_newJL = GetNum_Part6 ( Num_newJL )
 		local Part7_newJL= GetNum_Part7 ( Num_newJL )
 		if lv_JLone>=20 and lv_JLother >=20 then
-			Part2_newJL = 10												 
-			Part3_newJL = 1													
+			Part2_newJL = 10												 ---------ЧЁЦ®ѕ«БйјјДЬ±аєЕ
+			Part3_newJL = 1													---------іхј¶ЅЧ¶О
 		end
 		if lv_JLone>=25 and lv_JLother >=25 then
-			Part2_newJL = 10												 
-			Part3_newJL = 2													
+			Part2_newJL = 10												 ---------ЧЁЦ®ѕ«БйјјДЬ±аєЕ
+			Part3_newJL = 2													---------ЦРј¶ЅЧ¶О
 		end
 		if lv_JLone>=35 and lv_JLother >=35 then
-			Part2_newJL = 10													 
-			Part3_newJL = 3													
+			Part2_newJL = 10													 ---------ЧЁЦ®ѕ«БйјјДЬ±аєЕ
+			Part3_newJL = 3													---------ёЯј¶ЅЧ¶О
 		end
 		local rad1 = math.random ( 1, 100 )
 		if Part3_newJL==3 then
@@ -2518,7 +3269,7 @@ function jlborn_item ( Table )
 				GiveItem ( role , 0 , 609  , 1 , 4 ) 
 			end
 		end
-		Num_newJL = SetNum_Part1 ( Num_newJL , 1 ) 
+		Num_newJL = SetNum_Part1 ( Num_newJL , 1 ) ----------¶юЧЄ±кјЗ
 		Num_newJL = SetNum_Part2 ( Num_newJL , Part2_newJL )
 		Num_newJL = SetNum_Part3 ( Num_newJL , Part3_newJL )
 		Num_newJL = SetNum_Part4 ( Num_newJL , Part4_newJL )
@@ -2526,6 +3277,7 @@ function jlborn_item ( Table )
 		Num_newJL = SetNum_Part6 ( Num_newJL , Part6_newJL )
 		Num_newJL = SetNum_Part7 ( Num_newJL , Part7_newJL )
 		SetItemForgeParam ( Item_newJL , 1 , Num_newJL )
+
 		SetItemAttr ( Item_newJL , ITEMATTR_VAL_STR , new_str )
 		SetItemAttr( Item_newJL , ITEMATTR_VAL_DEX , new_dex )	 
 		SetItemAttr ( Item_newJL , ITEMATTR_VAL_STA , new_sta )
@@ -2534,11 +3286,11 @@ function jlborn_item ( Table )
 		SetItemAttr ( Item_newJL , ITEMATTR_MAXENERGY , new_MAXENERGY ) 	
 		SetItemAttr ( Item_newJL , ITEMATTR_MAXURE , new_MAXURE ) 	
 	end
-	if Item_EMstone_ID ==3924 then 
-		local j1 = TakeItem( role, 0,4540, 10 )			
-		local j2 = TakeItem( role, 0,3443, 10 )			
+	if Item_EMstone_ID ==3924 then ---ЖжТм¶сД§№ыКµ ГфЦ®ѕ«Бй ГфЅЭјУ·АУщ
+		local j1 = TakeItem( role, 0,4540, 10 )			---циУг±ічў              
+		local j2 = TakeItem( role, 0,3443, 10 )			----ХУФуїЭДѕ    
 		if j1==0 or j2==0 then
-			--SystemNotice ( role ,"Deletion of pet fairy reborn tools failed")
+			SystemNotice ( role ,"Deletion of pet fairy reborn tools failed")
 			return
 		end
 		local rad = math.random ( 1, 100 )
@@ -2547,11 +3299,11 @@ function jlborn_item ( Table )
 		if Item_JLone_ID ==680 or Item_JLother_ID ==680 then
 			if Item_JLone_ID==Item_JLother_ID then
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )
-			elseif  lv_JLone>=20 and lv_JLone<25 and lv_JLother >=20 and lv_JLother<25 and rad>=88 then
+			elseif  lv_JLone>=20 and lv_JLone<25 and lv_JLother >=20 and lv_JLother<25 and rad>=88 then---12%ОЄД¦¶№¶юКА
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )
-			elseif lv_JLone>=25 and lv_JLone<35 and lv_JLother >=25 and lv_JLother<35 and rad>=50 then 
+			elseif lv_JLone>=25 and lv_JLone<35 and lv_JLother >=25 and lv_JLother<35 and rad>=50 then ---50%ОЄД¦¶№¶юКА
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )
-			elseif lv_JLone>=35 and lv_JLother >=35 and rad>=10 then
+			elseif lv_JLone>=35 and lv_JLother >=35 and rad>=10 then---90%
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )			
 			else
 				r1,r2 =MakeItem ( role , 236  , 1 , 4 )
@@ -2559,9 +3311,9 @@ function jlborn_item ( Table )
 		else
 			r1,r2 =MakeItem ( role , 236  , 1 , 4 )
 		end
-		local Item_newJL = GetChaItem ( role , 2 , r2 )			
+		local Item_newJL = GetChaItem ( role , 2 , r2 )			--ИЎРВѕ«БйµАѕЯЦёХл
 		local Num_newJL = GetItemForgeParam ( Item_newJL , 1 )
-		local Part1_newJL = GetNum_Part1 ( Num_newJL )	
+		local Part1_newJL = GetNum_Part1 ( Num_newJL )	--Get Num Part 1 µЅ Part 7
 		local Part2_newJL = GetNum_Part2 ( Num_newJL )	
 		local Part3_newJL = GetNum_Part3 ( Num_newJL )
 		local Part4_newJL = GetNum_Part4 ( Num_newJL )
@@ -2569,16 +3321,16 @@ function jlborn_item ( Table )
 		local Part6_newJL = GetNum_Part6 ( Num_newJL )
 		local Part7_newJL= GetNum_Part7 ( Num_newJL )
 		if lv_JLone>=20 and lv_JLother >=20 then
-			Part2_newJL = 11													 
-			Part3_newJL = 1													
+			Part2_newJL = 11													 ---------ГфЦ®ѕ«БйјјДЬ±аєЕ
+			Part3_newJL = 1													---------іхј¶ЅЧ¶О
 		end		
 		if lv_JLone>=25 and lv_JLother >=25 then
-			Part2_newJL = 11													 
-			Part3_newJL = 2													
+			Part2_newJL = 11													 ---------ГфЦ®ѕ«БйјјДЬ±аєЕ
+			Part3_newJL = 2													---------ЦРј¶ЅЧ¶О
 		end
 		if lv_JLone>=35 and lv_JLother >=35 then
-			Part2_newJL = 11													 
-			Part3_newJL = 3													
+			Part2_newJL = 11													 ---------ГфЦ®ѕ«БйјјДЬ±аєЕ
+			Part3_newJL = 3													---------ёЯј¶ЅЧ¶О
 		end
 		local rad1 = math.random ( 1, 100 )
 		if Part3_newJL==3 then
@@ -2600,7 +3352,7 @@ function jlborn_item ( Table )
 				GiveItem ( role , 0 , 609  , 1 , 4 ) 
 			end
 		end
-		Num_newJL = SetNum_Part1 ( Num_newJL , 1 ) 
+		Num_newJL = SetNum_Part1 ( Num_newJL , 1 ) ----------¶юЧЄ±кјЗ
 		Num_newJL = SetNum_Part2 ( Num_newJL , Part2_newJL )
 		Num_newJL = SetNum_Part3 ( Num_newJL , Part3_newJL )
 		Num_newJL = SetNum_Part4 ( Num_newJL , Part4_newJL )
@@ -2608,6 +3360,7 @@ function jlborn_item ( Table )
 		Num_newJL = SetNum_Part6 ( Num_newJL , Part6_newJL )
 		Num_newJL = SetNum_Part7 ( Num_newJL , Part7_newJL )
 		SetItemForgeParam ( Item_newJL , 1 , Num_newJL )
+
 		SetItemAttr ( Item_newJL , ITEMATTR_VAL_STR , new_str )
 		SetItemAttr( Item_newJL , ITEMATTR_VAL_DEX , new_dex )	 
 		SetItemAttr ( Item_newJL , ITEMATTR_VAL_STA , new_sta )
@@ -2616,11 +3369,11 @@ function jlborn_item ( Table )
 		SetItemAttr ( Item_newJL , ITEMATTR_MAXENERGY , new_MAXENERGY ) 	
 		SetItemAttr ( Item_newJL , ITEMATTR_MAXURE , new_MAXURE ) 	
 	end
-	if Item_EMstone_ID ==3925 then 
-		local j1 = TakeItem( role, 0,1253, 10 )			
-		local j2 = TakeItem( role, 0,3442, 10 )			
+	if Item_EMstone_ID ==3925 then ---ЙсГШ¶сД§№ыКµ Р°Ц®ѕ«Бй ѕ­СйјУіЙ
+		local j1 = TakeItem( role, 0,1253, 10 )			---ЙБ№вµД°ўА­І®ХдЦйЛйЖ¬        
+		local j2 = TakeItem( role, 0,3442, 10 )			----ОЫДаїй    
 		if j1==0 or j2==0 then
-			--SystemNotice ( role ,"Deletion of pet fairy reborn tools failed")
+			SystemNotice ( role ,"Deletion of pet fairy reborn tools failed")
 			return
 		end
 		local rad = math.random ( 1, 100 )
@@ -2629,11 +3382,11 @@ function jlborn_item ( Table )
 		if Item_JLone_ID ==680 or Item_JLother_ID ==680 then
 			if Item_JLone_ID==Item_JLother_ID then
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )
-			elseif  lv_JLone>=20 and lv_JLone<25 and lv_JLother >=20 and lv_JLother<25 and rad>=88 then
+			elseif  lv_JLone>=20 and lv_JLone<25 and lv_JLother >=20 and lv_JLother<25 and rad>=88 then---12%ОЄД¦¶№¶юКА
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )
-			elseif lv_JLone>=25 and lv_JLone<35 and lv_JLother >=25 and lv_JLother<35 and rad>=50 then 
+			elseif lv_JLone>=25 and lv_JLone<35 and lv_JLother >=25 and lv_JLother<35 and rad>=50 then ---50%ОЄД¦¶№¶юКА
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )
-			elseif lv_JLone>=35 and lv_JLother >=35 and rad>=10 then
+			elseif lv_JLone>=35 and lv_JLother >=35 and rad>=10 then---90%
 				r1,r2 =MakeItem ( role , 681  , 1 , 4 )			
 			else
 				r1,r2 =MakeItem ( role , 237  , 1 , 4 )
@@ -2641,9 +3394,9 @@ function jlborn_item ( Table )
 		else
 			r1,r2 =MakeItem ( role , 237 , 1 , 4 )
 		end
-		local Item_newJL = GetChaItem ( role , 2 , r2 )			
+		local Item_newJL = GetChaItem ( role , 2 , r2 )			--ИЎРВѕ«БйµАѕЯЦёХл
 		local Num_newJL = GetItemForgeParam ( Item_newJL , 1 )
-		local Part1_newJL = GetNum_Part1 ( Num_newJL )	
+		local Part1_newJL = GetNum_Part1 ( Num_newJL )	--Get Num Part 1 µЅ Part 7
 		local Part2_newJL = GetNum_Part2 ( Num_newJL )	
 		local Part3_newJL = GetNum_Part3 ( Num_newJL )
 		local Part4_newJL = GetNum_Part4 ( Num_newJL )
@@ -2651,16 +3404,16 @@ function jlborn_item ( Table )
 		local Part6_newJL = GetNum_Part6 ( Num_newJL )
 		local Part7_newJL= GetNum_Part7 ( Num_newJL )
 		if lv_JLone>=20 and lv_JLother >=20 then
-			Part2_newJL = 12													 
-			Part3_newJL = 1													
+			Part2_newJL = 12													 ---------Р°Ц®ѕ«БйјјДЬ±аєЕ
+			Part3_newJL = 1													---------іхј¶ЅЧ¶О
 		end
 		if lv_JLone>=25 and lv_JLother >=25 then
-			Part2_newJL = 12													 
-			Part3_newJL = 2													
+			Part2_newJL = 12													 ---------Р°Ц®ѕ«БйјјДЬ±аєЕ
+			Part3_newJL = 2													---------ЦРј¶ЅЧ¶О
 		end
 		if lv_JLone>=35 and lv_JLother >=35 then
-			Part2_newJL = 12													 
-			Part3_newJL = 3													
+			Part2_newJL = 12													 ---------Р°Ц®ѕ«БйјјДЬ±аєЕ
+			Part3_newJL = 3													---------ёЯј¶ЅЧ¶О
 		end
 		local rad1 = math.random ( 1, 100 )
 		if Part3_newJL==3 then
@@ -2682,7 +3435,7 @@ function jlborn_item ( Table )
 				GiveItem ( role , 0 , 609  , 1 , 4 ) 
 			end
 		end
-		Num_newJL = SetNum_Part1 ( Num_newJL , 1 ) 
+		Num_newJL = SetNum_Part1 ( Num_newJL , 1 ) ----------¶юЧЄ±кјЗ
 		Num_newJL = SetNum_Part2 ( Num_newJL , Part2_newJL )
 		Num_newJL = SetNum_Part3 ( Num_newJL , Part3_newJL )
 		Num_newJL = SetNum_Part4 ( Num_newJL , Part4_newJL )
@@ -2690,6 +3443,7 @@ function jlborn_item ( Table )
 		Num_newJL = SetNum_Part6 ( Num_newJL , Part6_newJL )
 		Num_newJL = SetNum_Part7 ( Num_newJL , Part7_newJL )
 		SetItemForgeParam ( Item_newJL , 1 , Num_newJL )
+
 		SetItemAttr ( Item_newJL , ITEMATTR_VAL_STR , new_str )
 		SetItemAttr( Item_newJL , ITEMATTR_VAL_DEX , new_dex )	 
 		SetItemAttr ( Item_newJL , ITEMATTR_VAL_STA , new_sta )
@@ -2698,17 +3452,22 @@ function jlborn_item ( Table )
 		SetItemAttr ( Item_newJL , ITEMATTR_MAXENERGY , new_MAXENERGY ) 	
 		SetItemAttr ( Item_newJL , ITEMATTR_MAXURE , new_MAXURE ) 	
 	end
+	--------------ѕ«БйЧЄЙъLG
 	local cha_name = GetChaDefaultName ( role )
+	--LG( "star_JLZS_lg" ,cha_name,Item_JLone_ID , lv_JLone , str_JLone , con_JLone , agi_JLone , dex_JLone , sta_JLone , Item_JLother_ID , lv_JLother  , str_JLother , con_JLother , agi_JLother , dex_JLother , sta_JLother )
 	LG( "star_JLZS_lg" ,cha_name, Item_EMstone_ID , Item_JLone_ID , lv_JLone ,  Item_JLother_ID , lv_JLother , Item_newJL_ID )
-	R1 = RemoveChaItem ( role , Item_EMstone_ID , 1 , 2 , ItemBag [0] , 2 , 1 , 0 )		
+
+	R1 = RemoveChaItem ( role , Item_EMstone_ID , 1 , 2 , ItemBag [0] , 2 , 1 , 0 )		--ТЖіэ¶сД§№ыКµ
 	if R1 == 0  then
-		--SystemNotice( role , "Deletion of Demonic Fruit failed")
+		SystemNotice( role , "Deletion of Demonic Fruit failed")
 		return
 	end
 	 Elf_Attr_cs ( role , Item_JLone , Item_JLother )	
 end
-
+--Йэј¶
+--ЕР¶ПКЗ·сДЬ№»Йэј¶Ј¬Йэј¶єЇКэИлїЪ
 function can_tichun_item(...)
+--	Notice ( "Determine if it can increase in level")
 	if arg.n ~= 10 and arg.n ~= 14 then
 		SystemNotice ( arg[1] , "parameter value illegal"..arg.n )
 		return 0
@@ -2722,173 +3481,232 @@ function can_tichun_item(...)
 	end
 end
 
+--јмІвКЗ·сїЙТФЙэј¶ЦчєЇКэ
 function can_tichun_item_main ( Table )
+	--Notice ( "Detect if main function can be upgrade")
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}										
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}										--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local ItemBag_Now = 0
 	local ItemCount_Now = 0
 	local ItemBagCount_Num = 0
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Now , ItemCount_Now , ItemBagCount_Num = Read_Table ( Table )
+	--------µАѕЯКэБїЕР¶П
 	if ItemCount [0] ~= 1 or ItemCount [1] ~= 1 or ItemBagCount [0] ~= 1 or ItemBagCount [1] ~= 1 then
-		--SystemNotice ( role ,"equipment quantity illegal ")
+		SystemNotice ( role ,"equipment quantity illegal ")
 		return 0
 	end
-	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	
-	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	
+	--------ИЎіцµАѕЯЦёХл
+	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	--ЦчЧ°±ёµАѕЯЦёХл
+	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	--ёЁЦъЧ°±ёµАѕЯЦёХл
+	--------ИЎµАѕЯАаРН	
 	local  ItemType_mainitem = GetItemType ( Item_mainitem )
 	local  ItemType_otheritem = GetItemType ( Item_otheritem )
-    local ItemID_mainitem = GetItemID ( Item_mainitem )
-    local ItemID_otheritem = GetItemID ( Item_otheritem )
+	--------ИЎµАѕЯID
+        local ItemID_mainitem = GetItemID ( Item_mainitem )
+        local ItemID_otheritem = GetItemID ( Item_otheritem )
+	--SystemNotice ( role ,"ItemID_mainitem=="..ItemID_mainitem)
+	--SystemNotice ( role ,"ItemID_otheritem=="..ItemID_otheritem)
+	--------ИЎµАѕЯµИј¶
 	local ItemID_mainitem_Lv =  GetItemLv ( Item_mainitem )
 	local ItemID_otheritem_Lv =  GetItemLv ( Item_otheritem )
+	--SystemNotice ( role ,"ItemID_mainitem_Lv=="..ItemID_mainitem_Lv)
+	--SystemNotice ( role ,"ItemID_otheritem_Lv=="..ItemID_otheritem_Lv)
 	local ItemID_main=ItemID_mainitem		
         local ItemID_other=ItemID_otheritem
+	-------Из№ыКЗИЫєП№эµДЧ°±ёФтИЎЖдФ­КјID
 	if ItemID_main > 5000 then
 		ItemID_main = GetItemAttr( Item_mainitem , ITEMATTR_VAL_FUSIONID )
 	end
+	-------КЗ·сКфУЪКфРФїЙМбЙэЧ°±ё
 	local flg=0
-	if ItemID_main==825 or ItemID_main==826 or ItemID_main==827  or ItemID_main==828 then
+	if ItemID_main==825 or ItemID_main==826 or ItemID_main==827  or ItemID_main==828 then---------ДкКЮМбЙэ
 		if ItemID_other==2403 then
 			flg=1
 		end
 	end
-	if ItemID_main==845 or ItemID_main==846 or ItemID_main==847  or ItemID_main==848 then
+	if ItemID_main==845 or ItemID_main==846 or ItemID_main==847  or ItemID_main==848 then---------єЪБъМбЙэ
 		if ItemID_other==2404 then
 			flg=1
 		end
 	end
-	if ItemID_main>=2530 and ItemID_main<=2532 then
+	if ItemID_main>=2530 and ItemID_main<=2532 then---------70ј¶ѕЮЅЈBOSSЧ°Йэј¶ПЯНЕ
 		if ItemID_other==2562 then
 			flg=1
 		end
 	end
-	if ItemID_main>=2533 and ItemID_main<=2535 then
+	if ItemID_main>=2533 and ItemID_main<=2535 then---------70ј¶Л«ЅЈBOSSЧ°Йэј¶ПЯНЕ
 		if ItemID_other==2563 then
 			flg=1
 		end
 	end
-	if ItemID_main>=2536 and ItemID_main<=2538 then
+	if ItemID_main>=2536 and ItemID_main<=2538 then---------70ј¶ѕС»чBOSSЧ°Йэј¶ПЯНЕ
 		if ItemID_other==2564 then
 			flg=1
 		end
 	end
-	if ItemID_main>=2539 and ItemID_main<=2541 then
+	if ItemID_main>=2539 and ItemID_main<=2541 then---------70ј¶єЅєЈBOSSЧ°Йэј¶ПЯНЕ
 		if ItemID_other==2565 then
 			flg=1
 		end
 	end
-	if ItemID_main>=2542 and ItemID_main<=2544 then
+	if ItemID_main>=2542 and ItemID_main<=2544 then---------70ј¶КҐЦ°BOSSЧ°Йэј¶ПЯНЕ
 		if ItemID_other==2566 then
 			flg=1
 		end
 	end
-	if ItemID_main>=2545 and ItemID_main<=2547 then
+	if ItemID_main>=2545 and ItemID_main<=2547 then---------70ј¶·вУЎBOSSЧ°Йэј¶ПЯНЕ
 		if ItemID_other==2567 then
 			flg=1
 		end
 	end
 	if flg==0 then
-		SystemNotice( role ,"Используйте нужный камень и нужное снаряжение ")
+		SystemNotice( role ,"Please use the correct equipment and upgrade stone")
 		return 0		
 	end
+	--------ЙнЙПЅрЗ®ЕР¶П
 	local Money_Need = gettichun_money_main ( Table )
+	--SystemNotice(role ,"Money_Need== "..Money_Need)
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
 	if Money_Need > Money_Have then
-		SystemNotice( role ,"У вас не хватает золота ")
+		SystemNotice( role ,"Insufficient Gold, unable to raise Level")
 		return 0
 	end
+	--SystemNotice(role ,"determination completed ")
 	return 1
 end
 
+--їЄКјЙэј¶Ј¬Йэј¶ЦчіМРтИлїЪ
 function begin_tichun_item(...)
+	--Notice("Entering Leveling up")
+	--------КЗ·сїЙТФИЪєПјмІв
 	local Check_Cantichun = 0
 	Check_Cantichun = can_tichun_item_main ( arg )
 	if Check_Cantichun == 0 then
 		return 0
 	end
+	--------ИЎіцКэѕЭ
 	local role = 0
-	local ItemBag = {}											
-	local ItemCount = {}											
-	local ItemBagCount = {}										
+	local ItemBag = {}											--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}											--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local ItemBag_Num = 0
 	local ItemCount_Num = 0
 	local ItemBagCount_Num = 0
+
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Num , ItemCount_Num , ItemBagCount_Num = Read_Table ( arg )
-	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	
-	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	
+
+	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	--ЦчЧ°±ёµАѕЯЦёХл
+	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	--ёЁЦъЧ°±ёµАѕЯЦёХл
+	
+	--------їЫіэЅрЗ®
 	local Money_Need = gettichun_money_main ( arg )
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
 	TakeMoney(role,nil,Money_Need)
+	--Money_Have = Money_Have - Money_Need
+	--SetCharaAttr ( Money_Have , role , ATTR_GD )
+	--ALLExAttrSet( role )
+
+	--------Йэј¶№эіМ
 	Check_TiChun_Item = tichun_item ( arg )
 	if Check_TiChun_Item == 0  then
-		SystemNotice ( role ,"Уровень вещи не поднят. Проверьте все компоненты ещё раз ")
+		SystemNotice ( role ,"Level up failed, please check program")
 	end
+	--?????????check_item_final_data ( Item_Waiguan )
+	--------Notice("Lv up ended")
+
 	return 1
 end
 
+--јЖЛгЙэј¶·СУГ
 function get_item_tichun_money(...)
+	--Notice("Fee calculation")
 	local Money = gettichun_money_main ( arg )
 	return Money
 end
 
+--јЖЛгЙэј¶·СУГЦчєЇКэ
 function gettichun_money_main ( Table )
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}									
-	local ItemBag_Num = 0									
-	local ItemCount_Num = 0									
-	local ItemBagCount_Num = 0								
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГКэЧй
+	local ItemCount = {}										--µАѕЯКэБїКэЧй
+	local ItemBagCount = {}									--µАѕЯ¶ФПуКэБїКэЧй
+	local ItemBag_Num = 0									--±і°ьО»ЦГКэЧйі¤¶И
+	local ItemCount_Num = 0									--µАѕЯКэБїКэЧйі¤¶И
+	local ItemBagCount_Num = 0								--µАѕЯ¶ФПуКэБїКэЧйі¤¶И
+
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Num , ItemCount_Num , ItemBagCount_Num = Read_Table ( Table )
-	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	
+
+	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	--ЦчЧ°±ёµАѕЯЦёХл
 	local Item_mainitem_Lv =  GetItemLv ( Item_mainitem )
-	local Money_Need = 1000000
+	local Money_Need = 1000000---------------10W
+	--Notice("Calculation completed")
 	return Money_Need
 end
 
+----Па№ШєЇКэ--------------------------------------------------------------------------------------------------------
+---їЄКјЙэј¶
 function tichun_item ( Table )
+	--Notice("Ronghe_Item")
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}										
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}										--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local ItemBag_Num = 0
 	local ItemCount_Num = 0
 	local ItemBagCount_Num = 0
 	local ItemID_Cuihuaji = 0
+
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Num , ItemCount_Num , ItemBagCount_Num = Read_Table ( Table )
-	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	
-	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	
+
+	--------ИЎіцµАѕЯЦёХл
+	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	--ЦчЧ°±ёµАѕЯЦёХл
+	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	--ёЁЦъЧ°±ёµАѕЯЦёХл
+	--------ИЎµАѕЯАаРН	
 	local  ItemType_mainitem = GetItemType ( Item_mainitem )
 	local  ItemType_otheritem = GetItemType ( Item_otheritem )
-    local ItemID_mainitem = GetItemID ( Item_mainitem )
-    local ItemID_otheritem = GetItemID ( Item_otheritem )
+	--------ИЎµАѕЯID
+        local ItemID_mainitem = GetItemID ( Item_mainitem )
+        local ItemID_otheritem = GetItemID ( Item_otheritem )
+	--SystemNotice ( role ,"ItemID_mainitem=="..ItemID_mainitem)
+	--SystemNotice ( role ,"ItemID_otheritem=="..ItemID_otheritem)
+	--------ИЎµАѕЯµИј¶
 	local ItemID_mainitem_Lv =  GetItemLv ( Item_mainitem )
 	local ItemID_otheritem_Lv =  GetItemLv ( Item_otheritem )
+	--SystemNotice ( role ,"ItemID_mainitem_Lv=="..ItemID_mainitem_Lv)
+	--SystemNotice ( role ,"ItemID_otheritem_Lv=="..ItemID_otheritem_Lv)
 	local ItemID_main=ItemID_mainitem		
         local ItemID_other=ItemID_otheritem
+	-------Из№ыКЗИЫєП№эµДЧ°±ёФтИЎЖдФ­КјID
 	if ItemID_main > 5000 then
 		ItemID_main = GetItemAttr( Item_mainitem , ITEMATTR_VAL_FUSIONID )
 	end
+	-------ИЎФ­Ч°±ёѕ«Б¶РЕПў
 	local Jinglianxinxi = GetItemForgeParam ( Item_mainitem , 1 )
+	--local hole_num = Check_HasHole ( Item_mainitem )
+
+	--local flg=0
 	local r1 = 0
 	local r2 = 0
+	-------ИЎЧ°±ёДЬБї
 	local item_energy = GetItemAttr(Item_mainitem,ITEMATTR_ENERGY) 
-	if ItemID_main==825  then
+	-------ДкКЮМбЙэ
+	if ItemID_main==825  then---------ДкКЮЙнМбЙэ
 		r1,r2 =MakeItem ( role , 2549  , 1 , 4 )
 	end
-	if ItemID_main==826  then
+	if ItemID_main==826  then---------ДкКЮКЦМбЙэ
 		r1,r2 =MakeItem ( role , 2550  , 1 , 4 )
 	end
-	if ItemID_main==827  then
+	if ItemID_main==827  then---------ДкКЮЅЕМбЙэ
 		r1,r2 =MakeItem ( role , 2551  , 1 , 4 )
 	end
-	if ItemID_main==828  then
+	if ItemID_main==828  then---------ДкКЮН·МбЙэ
 		r1,r2 =MakeItem ( role , 2552  , 1 , 4 )
 	end
+	-------єЪБъМбЙэ
 	local item_qulity=12
-	if ItemID_main==845 or ItemID_main==846 or ItemID_main==847  or ItemID_main==848 then
+	if ItemID_main==845 or ItemID_main==846 or ItemID_main==847  or ItemID_main==848 then---------єЪБъМбЙэ
 		if item_energy<1000 then
 			item_qulity=2
 		elseif item_energy>=1000 and item_energy<2000  then
@@ -2913,29 +3731,35 @@ function tichun_item ( Table )
 		ItemID_main=ItemID_main+1522
 		r1,r2 =MakeItem ( role , ItemID_main  , 1 , item_qulity )
 	end
-	if ItemID_main>=2530 and ItemID_main<=2547 then
+	---------70BOSSМбЙэ
+	if ItemID_main>=2530 and ItemID_main<=2547 then---------70BOSSМбЙэ
 		ItemID_main=ItemID_main+287
 		r1,r2 =MakeItem ( role , ItemID_main  , 1 , 4)
 	end
 	local R1 = 0
 	local R2 = 0
-	R1 = RemoveChaItem ( role , ItemID_mainitem , 1 , 2 , ItemBag [0] , 2 , 1 , 1 )	
-	R2 = RemoveChaItem ( role , ItemID_otheritem , 1 , 2 , ItemBag [1] , 2 , 1 , 1 )	
+	R1 = RemoveChaItem ( role , ItemID_mainitem , 1 , 2 , ItemBag [0] , 2 , 1 , 1 )	--ТЖіэµАѕЯ
+	R2 = RemoveChaItem ( role , ItemID_otheritem , 1 , 2 , ItemBag [1] , 2 , 1 , 1 )	--ТЖіэµАѕЯ
 	if R1==0 or R2==0 then
+		SystemNotice( role , "moved item failed ")
 		return
 	end
+	------------ИЎРВЧ°±ёЦёХл
 	local Item_new = GetChaItem ( role , 2 , r2 )	
 	local Check_SetItemForgeParam = SetItemForgeParam( Item_new , 1 , Jinglianxinxi )
 	if Check_SetItemForgeParam == 0 then
-		SystemNotice( role , "Неудача при поднятии уровня вещи ")
+		SystemNotice( role , "Fail to set forging attribute settings")
 		return
 	end	
+	--------------Йэј¶LG
 	local cha_name = GetChaDefaultName ( role )
 	LG( "star_HNBTICHUN_lg" ,cha_name, ItemID_mainitem , ItemID_otheritem , ItemID_main, ItemID_other, item_energy , Jinglianxinxi )
 	SynChaKitbag(role,13)
 end
-
+--±ґїЗідµз
+--ЕР¶ПКЗ·сДЬ№»±ґїЗідµзЈ¬±ґїЗідµзєЇКэИлїЪ
 function can_energy_item(...)
+--	Notice ( "Determine if its possible to recharge coral")
 	if arg.n ~= 10 and arg.n ~= 14 then
 		SystemNotice ( arg[1] , "parameter value illegal"..arg.n )
 		return 0
@@ -2949,151 +3773,203 @@ function can_energy_item(...)
 	end
 end
 
+--јмІвКЗ·сїЙТФ±ґїЗідµзЦчєЇКэ
 function can_energy_item_main ( Table )
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}										
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}										--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local ItemBag_Now = 0
 	local ItemCount_Now = 0
 	local ItemBagCount_Num = 0
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Now , ItemCount_Now , ItemBagCount_Num = Read_Table ( Table )
+	--------µАѕЯКэБїЕР¶П
 	if ItemCount [0] ~= 1 or ItemCount [1] ~= 1 or ItemBagCount [0] ~= 1 or ItemBagCount [1] ~= 1 then
 		SystemNotice ( role ,"equipment quantity illegal ")
 		return 0
 	end
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet < 1 then
-		SystemNotice(role ,"В инвентаре должен быть 1 свободный слот ")
+		SystemNotice(role ,"You need at least 1 slot in your inventory")
 		UseItemFailed ( role )
 		return
 	end
-	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	
-	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	
+	--------ИЎіцµАѕЯЦёХл
+	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	--±ґїЗµАѕЯЦёХл
+	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	--µзіШµАѕЯЦёХл
+	--------ИЎµАѕЯАаРН	
 	local  ItemType_mainitem = GetItemType ( Item_mainitem )
 	local  ItemType_otheritem = GetItemType ( Item_otheritem )
-    local ItemID_mainitem = GetItemID ( Item_mainitem )
-    local ItemID_otheritem = GetItemID ( Item_otheritem )
+
+	--------ИЎµАѕЯID
+        local ItemID_mainitem = GetItemID ( Item_mainitem )
+        local ItemID_otheritem = GetItemID ( Item_otheritem )
+	--------ИЎµАѕЯµИј¶
 	local Item_mainitem_Lv =  GetItemLv ( Item_mainitem )
-	local item_energy = GetItemAttr(Item_mainitem,ITEMATTR_ENERGY) 
-	local item_maxenergy = GetItemAttr(Item_mainitem,ITEMATTR_MAXENERGY) 
+	-------ИЎ±ґїЗДЬБї
+	local item_energy = GetItemAttr(Item_mainitem,ITEMATTR_ENERGY) ---µ±З°ДЬБї
+	local item_maxenergy = GetItemAttr(Item_mainitem,ITEMATTR_MAXENERGY) ---ЧоґуДЬБї
+
+	-------КЗ·сКфУЪ±ґїЗ
 	if ItemType_mainitem~=29 then
-		SystemNotice( role ,"Только кораллы могут быть перезаряжены ")
+		SystemNotice( role ,"Only Corals can be recharged")
 		return 0	
 	end
+	-------КЗ·сКЗµзіШ
 	if ItemID_otheritem ~= 1022 and ItemID_otheritem ~= 1024 then
-		SystemNotice( role ,"Для перезарядки нужна батарейка ")
+		SystemNotice( role ,"Need Battery to charge")
 		return 0	
 	end
+	-------ЕР¶П±ґїЗКЗ·сВъДЬБї
 	if item_energy==item_maxenergy then
-		SystemNotice( role ,"Энергию коралла невозможно определить ")
+		SystemNotice( role ,"Coral energy is not depleted")
 		return 0	
 	end
+	--------ЙнЙПЅрЗ®ЕР¶П
 	local Money_Need = get_item_energy_money ( Table )
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
 	if Money_Need > Money_Have then
-		SystemNotice( role ,"Не хватает золота. Коралл не перезаряжен ")
+		SystemNotice( role ,"Not enough Gold. Unable to charge Coral")
 		return 0
 	end
+	--SystemNotice(role ,"determination completed ")
 	return 1
 end
 
---------------------------------------------------------------------
------------------------ Перезарядка Кораллов -----------------------
---------------------------------------------------------------------
-
+--їЄКј±ґїЗідµзЈ¬±ґїЗідµзЦчіМРтИлїЪ
 function begin_energy_item(...)
+	--Notice("Coral recharging")
+	--------КЗ·сїЙТФИЪєПјмІв
 	local Check_Canenergy = 0
 	Check_Canenergy = can_energy_item_main ( arg )
 	if Check_Canenergy == 0 then
 		return 0
 	end
+	--------ИЎіцКэѕЭ
 	local role = 0
-	local ItemBag = {}											
-	local ItemCount = {}											
-	local ItemBagCount = {}										
+	local ItemBag = {}											--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}											--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local ItemBag_Num = 0
 	local ItemCount_Num = 0
 	local ItemBagCount_Num = 0
+
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Num , ItemCount_Num , ItemBagCount_Num = Read_Table ( arg )
-	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	
-	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	
+
+	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	--ЦчЧ°±ёµАѕЯЦёХл
+	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	--ёЁЦъЧ°±ёµАѕЯЦёХл
+	
+	--------їЫіэЅрЗ®
 	local Money_Need = get_item_energy_money ( arg )
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
+	--Money_Have = Money_Have - Money_Need
+	--SetCharaAttr ( Money_Have , role , ATTR_GD )
+	--ALLExAttrSet( role )
 	TakeMoney(role,nil,Money_Need)
+
+	--------±ґїЗідµз№эіМ
 	Check_Energy_Item = energy_item ( arg )
 	if Check_Energy_Item == 0  then
-		SystemNotice ( role ,"Не удалось перезарядить коралл. Проверьте правильность действий.")
+		SystemNotice ( role ,"Coral recharge fail. Please check your procedure.")
 	end
+	-------check_item_final_data ( Item_Waiguan )
+	--------Notice("Coral charging has ended")
 	return 1
 end
 
+--јЖЛг±ґїЗідµз·СУГ
 function get_item_energy_money(...)
+	--Notice("Fee calculation")
 	local Money = energy_money_main ( arg )
 	return Money
 end
 
+--јЖЛг±ґїЗідµз·СУГЦчєЇКэ
 function energy_money_main ( Table )
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}									
-	local ItemBag_Num = 0									
-	local ItemCount_Num = 0									
-	local ItemBagCount_Num = 0								
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГКэЧй
+	local ItemCount = {}										--µАѕЯКэБїКэЧй
+	local ItemBagCount = {}									--µАѕЯ¶ФПуКэБїКэЧй
+	local ItemBag_Num = 0									--±і°ьО»ЦГКэЧйі¤¶И
+	local ItemCount_Num = 0									--µАѕЯКэБїКэЧйі¤¶И
+	local ItemBagCount_Num = 0								--µАѕЯ¶ФПуКэБїКэЧйі¤¶И
+
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Num , ItemCount_Num , ItemBagCount_Num = Read_Table ( Table )
-	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	
+
+	--------ИЎіцµАѕЯЦёХл
+	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	--ёЁЦъЧ°±ёµАѕЯЦёХл
+	--------ИЎµАѕЯID
         local ItemID_otheritem = GetItemID ( Item_otheritem )
+
 	if ItemID_otheritem==1022 then
 		Money_Need=300
 	else
 		Money_Need=1000
 	end
+	--Notice("Calculation completed")
 	return Money_Need
 end
 
+----Па№ШєЇКэ--------------------------------------------------------------------------------------------------------
+---їЄКј±ґїЗідµз
 function energy_item ( Table )
+	--	Notice("Ronghe_Item")
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}										
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}										--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local ItemBag_Num = 0
 	local ItemCount_Num = 0
 	local ItemBagCount_Num = 0
 	local ItemID_Cuihuaji = 0
+
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Num , ItemCount_Num , ItemBagCount_Num = Read_Table ( Table )
-	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	
-	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	
+
+	--------ИЎіцµАѕЯЦёХл
+	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	--ЦчЧ°±ёµАѕЯЦёХл
+	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	--ёЁЦъЧ°±ёµАѕЯЦёХл
+	--------ИЎµАѕЯАаРН	
 	local  ItemType_mainitem = GetItemType ( Item_mainitem )
 	local  ItemType_otheritem = GetItemType ( Item_otheritem )
-    local ItemID_mainitem = GetItemID ( Item_mainitem )
-    local ItemID_otheritem = GetItemID ( Item_otheritem )
-	local item_energy = GetItemAttr(Item_mainitem,ITEMATTR_ENERGY) 
-	local item_maxenergy = GetItemAttr(Item_mainitem,ITEMATTR_MAXENERGY) 
+	--------ИЎµАѕЯID
+        local ItemID_mainitem = GetItemID ( Item_mainitem )
+        local ItemID_otheritem = GetItemID ( Item_otheritem )
+	-------ИЎ±ґїЗДЬБї
+	local item_energy = GetItemAttr(Item_mainitem,ITEMATTR_ENERGY) ---µ±З°ДЬБї
+		--SystemNotice( role , "Current energy=="..item_energy)
+
+	local item_maxenergy = GetItemAttr(Item_mainitem,ITEMATTR_MAXENERGY) ---ЧоґуДЬБї
+		--SystemNotice( role , "Max Energy=="..item_maxenergy)
+
 	local energy_differ=0
 	local star=math.random(1,20)
+		--SystemNotice( role , "star=="..star)
 	if ItemID_otheritem==1022 then
 		energy_differ=star*50
 	else
 		energy_differ=1500
 	end
-	item_energy=item_maxenergy	
+		--SystemNotice( role , "energy_differ=="..energy_differ)
+	item_energy=item_maxenergy--math.min( item_maxenergy , (item_energy+energy_differ) )
+		--SystemNotice( role , "item_energy=="..item_energy)
 	SetItemAttr ( Item_mainitem ,ITEMATTR_ENERGY, item_energy )
+	--------------ідµзLG
 	local cha_name = GetChaDefaultName ( role )
 	LG( "star_CHONGDIAN_lg" ,cha_name, ItemID_mainitem , ItemID_otheritem )
+
 	local R1 = 0
-	R1 = RemoveChaItem ( role , Item_otheritem , 1 , 2 , ItemBag [1] , 2 , 1 , 0 )		
+	R1 = RemoveChaItem ( role , Item_otheritem , 1 , 2 , ItemBag [1] , 2 , 1 , 0 )		--ТЖіэµзіШ
 	if R1 == 0 then
-		SystemNotice( role , "Перемещение предмета не удалось ")
+		SystemNotice( role , "moved item failed ")
 		return
 	end
 end
 
---------------------------------------------------------------------
-------------------------- Вытаскиваем Гемы -------------------------
---------------------------------------------------------------------
 
+--МбИЎ±¦КЇ
+--ЕР¶ПКЗ·сДЬ№»МбИЎ±¦КЇЈ¬МбИЎ±¦КЇєЇКэИлїЪ
 function can_getstone_item(...)
+	--Notice ( "Determine whether to extract Gem")
 	if arg.n ~= 10 and arg.n ~= 14 then
 		SystemNotice ( arg[1] , "parameter value illegal"..arg.n )
 		return 0
@@ -3107,32 +3983,40 @@ function can_getstone_item(...)
 	end
 end
 
+--јмІвКЗ·сїЙТФМбИЎ±¦КЇЦчєЇКэ
 function can_getstone_item_main( Table )
+	--Notice ( "Detect if it is possible to extract gem main function")
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}										
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}										--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local ItemBag_Now = 0
 	local ItemCount_Now = 0
 	local ItemBagCount_Num = 0
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Now , ItemCount_Now , ItemBagCount_Num = Read_Table ( Table )
+	--------µАѕЯКэБїЕР¶П
 	if ItemCount [0] ~= 1 or ItemCount [1] ~= 1 or ItemBagCount [0] ~= 1 or ItemBagCount [1] ~= 1 then
 		SystemNotice ( role ,"equipment quantity illegal ")
 		return 0
 	end
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet < 1 then
-		SystemNotice(role ,"Вы должны иметь 1 свободный слот в инвентаре ")
+		SystemNotice(role ,"You need at least 1 slot in your inventory")
 		UseItemFailed ( role )
 		return
 	end
-	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	
-	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	
+	--------ИЎіцµАѕЯЦёХл
+	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	--Ч°±ёµАѕЯЦёХл
+	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	--МъЅіµДЗЇЧУµАѕЯЦёХл
+	--------ИЎµАѕЯАаРН	
 	local  ItemType_mainitem = GetItemType ( Item_mainitem )
 	local  ItemType_otheritem = GetItemType ( Item_otheritem )
-    local ItemID_mainitem = GetItemID ( Item_mainitem )
-    local ItemID_otheritem = GetItemID ( Item_otheritem )
+	--------ИЎµАѕЯID
+        local ItemID_mainitem = GetItemID ( Item_mainitem )
+        local ItemID_otheritem = GetItemID ( Item_otheritem )
+	--------ИЎµАѕЯµИј¶
 	local Item_mainitem_Lv =  GetItemLv ( Item_mainitem )
+	------ИЎµАѕЯѕ«Б¶КфРФ
 	local Item_Stone = {}
 	local Item_StoneLv = {}
 	local Jinglianxinxi = GetItemForgeParam ( Item_mainitem , 1 )
@@ -3140,121 +4024,164 @@ function can_getstone_item_main( Table )
 	Item_Stone[0] = GetNum_Part2 ( Jinglianxinxi )
 	Item_Stone[1] = GetNum_Part4 ( Jinglianxinxi )
 	Item_Stone[2] = GetNum_Part6 ( Jinglianxinxi )
+	
 	Item_StoneLv[0] = GetNum_Part3 ( Jinglianxinxi )
 	Item_StoneLv[1] = GetNum_Part5 ( Jinglianxinxi )
 	Item_StoneLv[2] = GetNum_Part7 ( Jinglianxinxi )
+	-----КЗ·сКфУЪКфРФїЙМбЙэЧ°±ё
 	local checkstar=CheckItem_CanJinglian(Item_mainitem)
 	if checkstar==0 then
-	SystemNotice( role ,"Неверный тип предмета ")
+		SystemNotice( role ,"Item type mismatch")
 		return 0	
 	end
 	if Item_Stone[0]==0 and Item_Stone[1]==0 and Item_Stone[2]==0 then
-	SystemNotice( role ,"Предмет не ковался самоцветами ")
+		SystemNotice( role ,"Equipment is not forged with gem")
 		return 0		
 	end
 	if ItemID_otheritem ~= 1020 then
-		SystemNotice( role ,"Используйте Клещи кузнеца ")
+		SystemNotice( role ,"Please use Blacksmith's Pliers")
 		return 0			
 	end
+	--------ЙнЙПЅрЗ®ЕР¶П
 	local Money_Need = getstone_money_main ( Table )
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
 	if Money_Need > Money_Have then
-		SystemNotice( role ,"У вас не хватает золота ")
+		SystemNotice( role ,"Insufficient gold. Unable to extract gem")
 		return 0
 	end
+	--SystemNotice(role ,"determination completed ")
 	return 1
 end
 
+--їЄКјМбИЎ±¦КЇЈ¬МбИЎ±¦КЇЦчіМРтИлїЪ
 function begin_getstone_item(...)
+	--Notice("Entering gem extraction")
+	--------КЗ·сїЙТФИЪєПјмІв
 	local Check_Cangetstone = 0
 	Check_Cangetstone = can_getstone_item_main ( arg )
 	if Check_Cangetstone == 0 then
 		return 0
 	end
+	--------ИЎіцКэѕЭ
 	local role = 0
-	local ItemBag = {}											
-	local ItemCount = {}											
-	local ItemBagCount = {}										
+	local ItemBag = {}											--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}											--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local ItemBag_Num = 0
 	local ItemCount_Num = 0
 	local ItemBagCount_Num = 0
+
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Num , ItemCount_Num , ItemBagCount_Num = Read_Table ( arg )
-	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	
-	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	
+
+	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	--ЦчЧ°±ёµАѕЯЦёХл
+	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	--ёЁЦъЧ°±ёµАѕЯЦёХл
+	
+	--------їЫіэЅрЗ®
 	local Money_Need = getstone_money_main ( arg )
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
+	--Money_Have = Money_Have - Money_Need
+	--SetCharaAttr ( Money_Have , role , ATTR_GD )
+	--ALLExAttrSet( role )
 	TakeMoney(role,nil,Money_Need)
+
+	--------МбИЎ±¦КЇ№эіМ
 	Check_TiChun_Item = getstone_item ( arg )
 	if Check_TiChun_Item == 0  then
-		SystemNotice ( role ,"Не удалось вытащить самоцвет. Проверьте ход работы ")
+		SystemNotice ( role ,"Extraction of gem has failed. Please check your process")
 	end
+	--------Notice("Extraction of gem completed")
 	return 1
 end
 
+--јЖЛгМбИЎ±¦КЇ·СУГ
 function get_item_getstone_money(...)
+	--Notice("Fee calculation")
 	local Money = getstone_money_main ( arg )
 	return Money
 end
 
+--јЖЛгМбИЎ±¦КЇ·СУГЦчєЇКэ
 function getstone_money_main ( Table )
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}									
-	local ItemBag_Num = 0									
-	local ItemCount_Num = 0									
-	local ItemBagCount_Num = 0								
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГКэЧй
+	local ItemCount = {}										--µАѕЯКэБїКэЧй
+	local ItemBagCount = {}									--µАѕЯ¶ФПуКэБїКэЧй
+	local ItemBag_Num = 0									--±і°ьО»ЦГКэЧйі¤¶И
+	local ItemCount_Num = 0									--µАѕЯКэБїКэЧйі¤¶И
+	local ItemBagCount_Num = 0								--µАѕЯ¶ФПуКэБїКэЧйі¤¶И
+
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Num , ItemCount_Num , ItemBagCount_Num = Read_Table ( Table )
-	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	
+	
+	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	--ЦчЧ°±ёµАѕЯЦёХл
+	
 	local Item_StoneLv = {}
 	local Jinglianxinxi = GetItemForgeParam ( Item_mainitem , 1 )
 	Jinglianxinxi = TansferNum ( Jinglianxinxi )
+
 	Item_StoneLv[0] = GetNum_Part3 ( Jinglianxinxi )
 	Item_StoneLv[1] = GetNum_Part5 ( Jinglianxinxi )
 	Item_StoneLv[2] = GetNum_Part7 ( Jinglianxinxi )
+
 	local Money_Need = (Item_StoneLv[0]+Item_StoneLv[1]+Item_StoneLv[2])*10000
+
 	return Money_Need
 end
 
+----Па№ШєЇКэ--------------------------------------------------------------------------------------------------------
+---їЄКјМбИЎ±¦КЇ
 function getstone_item ( Table )
+	--Notice("Ronghe_Item")
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}										
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}										--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local ItemBag_Num = 0
 	local ItemCount_Num = 0
 	local ItemBagCount_Num = 0
 	local ItemID_Cuihuaji = 0
+
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Num , ItemCount_Num , ItemBagCount_Num = Read_Table ( Table )
-	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	
-	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	
+
+	--------ИЎіцµАѕЯЦёХл
+	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	--ЦчЧ°±ёµАѕЯЦёХл
+	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	--ёЁЦъЧ°±ёµАѕЯЦёХл
+	--------ИЎµАѕЯАаРН	
 	local  ItemType_mainitem = GetItemType ( Item_mainitem )
 	local  ItemType_otheritem = GetItemType ( Item_otheritem )
+	--------ИЎµАѕЯID
         local ItemID_mainitem = GetItemID ( Item_mainitem )
         local ItemID_otheritem = GetItemID ( Item_otheritem )
+	--------ИЎµАѕЯµИј¶
 	local Item_mainitem_Lv =  GetItemLv ( Item_mainitem )
 	local Item_otheritem_Lv =  GetItemLv ( Item_otheritem )
+	-------¶БИЎЧ°±ёѕ«Б¶РЕПў
 	local Num = GetItemForgeParam ( Item_mainitem , 1 )
 	Num = TansferNum ( Num )
 	local lg_Num=Num
+		--SystemNotice( role , "Num=="..Num)
 	local Item_Stone = {}
 	local Item_StoneLv = {}
 	local Item_StoneID = {}
+	-------±¦КЇАаРН       
 	Item_Stone[0] = GetNum_Part2 ( Num )
 	Item_Stone[1] = GetNum_Part4 ( Num )
 	Item_Stone[2] = GetNum_Part6 ( Num )
+	-------±¦КЇµИј¶
 	Item_StoneLv[0] = GetNum_Part3 ( Num )
 	Item_StoneLv[1] = GetNum_Part5 ( Num )
 	Item_StoneLv[2] = GetNum_Part7 ( Num )
+	--------±¦КЇID==StoneTpye_ID [±¦КЇАаРН]
 	Item_StoneID[0] = StoneTpye_ID[Item_Stone[0]]
 	Item_StoneID[1] = StoneTpye_ID[Item_Stone[1]]
 	Item_StoneID[2] = StoneTpye_ID[Item_Stone[2]]
+
 	local r1 = 0
 	local r2 = 0
 	local Item_Lv = 0
-	local item_tureID=0	
+	local item_tureID=0	---------ИЎіцµД±¦КЇµАѕЯID
 	if Item_StoneID[0]~=0 then
 		item_tureID = Item_StoneID[0]
+		--Item_Stone[0] = 0
 		Item_Lv = Item_StoneLv[0]
 		Item_StoneLv[0] = Item_StoneLv[0]-1
 		if Item_StoneLv[0]==0 then
@@ -3262,6 +4189,7 @@ function getstone_item ( Table )
 		end
 	elseif Item_StoneID[0]==0 and Item_StoneID[1]~=0 then
 		item_tureID = Item_StoneID[1]
+		--Item_Stone[1] = 0
 		Item_Lv = Item_StoneLv[1]
 		Item_StoneLv[1] = Item_StoneLv[1]-1
 		if Item_StoneLv[1]==0 then
@@ -3269,6 +4197,7 @@ function getstone_item ( Table )
 		end
 	elseif Item_StoneID[0]==0 and Item_StoneID[1]==0  and Item_StoneID[2]~=0 then
 		item_tureID = Item_StoneID[2]
+		--Item_Stone[2] = 0
 		Item_Lv = Item_StoneLv[2]
 		Item_StoneLv[2] = Item_StoneLv[2]-1
 		if Item_StoneLv[2]==0 then
@@ -3279,8 +4208,10 @@ function getstone_item ( Table )
 		return		
 	end
 	r1,r2 =MakeItem ( role , item_tureID , 1 , 2 )	
-	local Item_ture = GetChaItem ( role , 2 , r2 ) 
+	local Item_ture = GetChaItem ( role , 2 , r2 ) ---------ИЎіцµД±¦КЇЦёХл
+	---------ЙиЦГ±¦КЇµИј¶ 
 	SetItemAttr ( Item_ture , ITEMATTR_VAL_BaoshiLV , Item_Lv )
+	----------ЦШЙиЧ°±ёѕ«Б¶КфРФ
 	Num = SetNum_Part2 ( Num , Item_Stone[0] )
 	Num = SetNum_Part3 ( Num , Item_StoneLv[0] )
 	Num = SetNum_Part4 ( Num , Item_Stone[1] )
@@ -3288,24 +4219,33 @@ function getstone_item ( Table )
 	Num = SetNum_Part6 ( Num , Item_Stone[2] )
 	Num = SetNum_Part7 ( Num , Item_StoneLv[2] )
 	SetItemForgeParam ( Item_mainitem , 1 , Num )
+	--------------LG
 	local cha_name = GetChaDefaultName ( role )
 	LG( "star_tiqu_lg" ,cha_name, item_tureID , Item_Lv , lg_Num , Num )
+
 	local R1 = 0
-	R1 = RemoveChaItem ( role , ItemID_otheritem , 1 , 2 , ItemBag [1] , 2 , 1 , 0 )		
+	R1 = RemoveChaItem ( role , ItemID_otheritem , 1 , 2 , ItemBag [1] , 2 , 1 , 0 )		--ТЖіэЗЇЧУ
 	if R1 == 0 then
-		SystemNotice( role , "Переместить предмет не удалось ")
+		SystemNotice( role , "moved item failed ")
 		return
 	end
+	
 end
-
+---------------------------------------------------------------------------------------------Р°¶сµД·ЦёоПЯЈЁПВГжКЗµАѕЯЦЖЧчЅЕ±ѕЈ¬Р»Р»Ј©---------------------------------------------------
+--can_manufacture_item
+--begin_manufacture_item
+--end_manufacture_item
 function can_manufacture_item (...)
+	--Notice("Starts to determine")
 	local ItemBagCount = arg[2]
+	--Notice("Parameter unit"..ItemBagCount)
 	local Length = ItemBagCount+3
 	if arg.n ~= Length then
 		Notice("parameter value illegal"..arg.n)
 		return 0
 	end	
 	local Check = 0
+--	SystemNotice( arg[1] , "transfer combine test main function")
 	Check = can_manufacture_item_main ( arg )
 	if Check == 1 then		
 		return 1
@@ -3315,13 +4255,15 @@ function can_manufacture_item (...)
 end
 
 function can_manufacture_item_main ( Table )
+	--Notice ( "Entering combining main function")
 	local role = 0
-	local ItemBag = {}										
-	local ItemBagCount = 0										
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГ
+	local ItemBagCount = 0										--µАѕЯ¶ФПуКэБї
+	
 	role , ItemBag , ItemBagCount = Read_manufacture ( Table )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet < 1 then
-		SystemNotice(role ,"Вам нужно иметь 1 свободный слот в инвентаре ")
+		SystemNotice(role ,"You need at least 1 slot in your inventory")
 		UseItemFailed ( role )
 		return
 	end
@@ -3329,23 +4271,33 @@ function can_manufacture_item_main ( Table )
 	local Item = {}
 	local ItemID = {}
 	local ItemType = {}
-	for i = 1 , ItemBagCount , 1 do							
-		Item[i] = GetChaItem ( role , 2 , ItemBag [i] )			
-		ItemID[i] = GetItemID ( Item[i] )						
-		ItemType[i] = GetItemType ( Item[i] )					 
+	for i = 1 , ItemBagCount , 1 do							--ЕР¶ПµАѕЯёцКэКЗ·сєН·Ё
+		--if ItemBag[i] == 0  then
+		--	SystemNotice( role , "Illegal item unit")
+		--	return 0
+		--end
+		--ИЎіцµАѕЯ(1-ѕ«Бй,2-НјЦЅ,3-№¤ѕЯ,4,5,6-ІДБПA,B,C)
+		Item[i] = GetChaItem ( role , 2 , ItemBag [i] )			--ИЎµАѕЯЦёХл
+		ItemID[i] = GetItemID ( Item[i] )						--ИЎµАѕЯID
+		ItemType[i] = GetItemType ( Item[i] )					 --ИЎµАѕЯАаРН
 	end
+
+	--ЕР¶Пѕ«БйКЗ·сХэИ·
+	--SystemNotice( role ,"ItemType[1]=="..ItemType[1])
+	--SystemNotice( role ,"ItemType[2]=="..ItemType[2])
 	if ItemType[1] ~= 59 then
-		SystemNotice( role ,"Нужно поместить фею для начала ")
+		SystemNotice( role ,"Almighty: My child, please at least look for a fairy.")
 		return 0
 	end
-	local URE_JLone = GetItemAttr( Item[1] ,ITEMATTR_URE )		
+	local URE_JLone = GetItemAttr( Item[1] ,ITEMATTR_URE )		--МеБ¦
 	if URE_JLone<=0 then
-		SystemNotice( role ,"Покорми свою фею. Уж очень она голодна.")
+		SystemNotice( role ,"Almighty: This is too cruel! Please feed your pet fairy!")
 		return 0	
 	end
+	--------ЕР¶Пѕ«БйКЗ·сѕЯУРґЛЦЦЙъ»ојјДЬ
 	local Num_JL = GetItemForgeParam ( Item[1] , 1 )
 	Num_JL = TansferNum ( Num_JL )
-	local Part1_JL = GetNum_Part1 ( Num_JL )	
+	local Part1_JL = GetNum_Part1 ( Num_JL )	--Get Num Part 1 µЅ Part 7
 	local Part2_JL = GetNum_Part2 ( Num_JL )	
 	local Part3_JL = GetNum_Part3 ( Num_JL )
 	local Part4_JL = GetNum_Part4 ( Num_JL )
@@ -3355,7 +4307,7 @@ function can_manufacture_item_main ( Table )
 	local JL_jineng=0
 	local JL_jineng_lv=0
 	local life_lv = 0
-	if ItemID[2]==2300 then 
+	if ItemID[2]==2300 then ---------ЦЖФмНјЦЅ
 		if Part2_JL==13 then
 			JL_jineng=Part2_JL
 			JL_jineng_lv=Part3_JL
@@ -3366,9 +4318,9 @@ function can_manufacture_item_main ( Table )
 			JL_jineng=Part6_JL
 			JL_jineng_lv=Part7_JL
 		end
-		life_lv=GetSkillLv( role , SK_ZHIZAO )	
+		life_lv=GetSkillLv( role , SK_ZHIZAO )	-----ИЎЅЗЙ«ЦЖФмјјДЬµИј¶
 	end
-	if ItemID[2]==2301 then 
+	if ItemID[2]==2301 then ---------ЦэФмНјЦЅ
 		if Part2_JL==14 then
 			JL_jineng=Part2_JL
 			JL_jineng_lv=Part3_JL
@@ -3379,9 +4331,9 @@ function can_manufacture_item_main ( Table )
 			JL_jineng=Part6_JL
 			JL_jineng_lv=Part7_JL
 		end	
-		life_lv=GetSkillLv( role , SK_ZHUZAO )	
+		life_lv=GetSkillLv( role , SK_ZHUZAO )	-----ИЎЅЗЙ«ЦэФмјјДЬµИј¶
 	end
-	if ItemID[2]==2302 then 
+	if ItemID[2]==2302 then ---------ЕлвїНјЦЅ
 		if Part2_JL==16 then
 			JL_jineng=Part2_JL
 			JL_jineng_lv=Part3_JL
@@ -3392,127 +4344,188 @@ function can_manufacture_item_main ( Table )
 			JL_jineng=Part6_JL
 			JL_jineng_lv=Part7_JL
 		end
-		life_lv=GetSkillLv( role , SK_PENGREN )	
+		life_lv=GetSkillLv( role , SK_PENGREN )	-----ИЎЅЗЙ«ЕлвїјјДЬµИј¶
 	end
-	if ItemID[3]~=1067 and ItemID[3]~=1068 and ItemID[3]~=1069 then
-		SystemNotice( role ,"Пожалуйста используйте инструменты ")
+	if ItemID[3]~=1067 and ItemID[3]~=1068 and ItemID[3]~=1069 then---------№¤ѕЯґжФЪ
+		SystemNotice( role ,"Please use tool")
 		return 0	
 	end
-	if ItemID[3]==1067 or ItemID[3]==1068 or ItemID[3]==1069 or ItemID[3]==1070 then
+	if ItemID[3]==1067 or ItemID[3]==1068 or ItemID[3]==1069 or ItemID[3]==1070 then---------№¤ѕЯґжФЪ
 		local Gj_ure=GetItemAttr ( Item[3] , ITEMATTR_URE )
 		if Gj_ure<=0 then
 			Gj_ure=0
-		SystemNotice( role ,"Прочность инструмента низка. Используйте Вечный очаг в Веснограде, чтобы починить частицу ")
+			SystemNotice( role ,"Durability of tool is too low. I suggest you to bring along some repair tools to Furnace of Immortality at Spring Town for repairs.")
 			return 0
 		end
-		if ItemID[3]==1068 and  ItemID[2]~=2300 then
-		SystemNotice( role ,"Уровень инструмента не подходит для этого чертежа ")
+		if ItemID[3]==1068 and  ItemID[2]~=2300 then-------ЦЖФмАа№¤ѕЯ
+			SystemNotice( role ,"Tool and Blueprint mismatch")
 			return 0			
 		end
-		if ItemID[3]==1069 and  ItemID[2]~=2301 then
-		SystemNotice( role ,"Уровень инструмента не подходит для этого чертежа ")
+		if ItemID[3]==1069 and  ItemID[2]~=2301 then-------ЦэФмАа№¤ѕЯ
+			SystemNotice( role ,"Tool and Blueprint mismatch")	
 			return 0			
 		end	
-		if ItemID[3]==1067 and ItemID[2]~=2302 then
-		SystemNotice( role ,"Уровень инструмента не подходит для этого чертежа ")
+		if ItemID[3]==1067 and ItemID[2]~=2302 then-------ЕлвїАа№¤ѕЯ
+			SystemNotice( role ,"Tool and Blueprint mismatch")
 			return 0			
 		end
 		local Gj_lv=GetItemAttr ( Item[3] , ITEMATTR_VAL_STR )
 		JL_jineng_lv=3*JL_jineng_lv+1
 		if JL_jineng_lv<Gj_lv then
-		SystemNotice( role ,"Уровень феи не соответствует уровню инструмента ")
+			SystemNotice( role ,"Fairy skill level do not match tool level")
 			return 0			
 		end
 	end
+
+	--ЕР¶ПНјЦЅАаРНКЗ·сХэИ·
 	if ItemType[2] ~= 69 then
-		SystemNotice( role ,"Как вы смеете использовать поддельный чертеж!")
+		SystemNotice( role ,"Almighty: You dare to use fake blueprint?")
 		return 0
 	end
-	local paper_lv = GetItemAttr(Item[2], ITEMATTR_URE )
+		--SystemNotice( role ,"ItemBag [1]=="..ItemBag [1])
+		--SystemNotice( role ,"ItemBag [2]=="..ItemBag [2])
+		--SystemNotice( role ,"ItemBag [3]=="..ItemBag [3])
+		--SystemNotice( role ,"ItemBag [4]=="..ItemBag [4])
+		--SystemNotice( role ,"ItemBag [5]=="..ItemBag [5])
+		--SystemNotice( role ,"ItemBag [6]=="..ItemBag [6])
+
+		--SystemNotice( role ,"ItemID1=="..ItemID[4])
+		--SystemNotice( role ,"ItemID2=="..ItemID[5])
+		--SystemNotice( role ,"ItemID3=="..ItemID[6])
+
+	--ИЎНјЦЅІДБПКэѕЭЈ¬°ьАЁµАѕЯIDЈ¬ІДБП1Ј¬ІДБП2Ј¬ІДБП3Ј¬БчіМКэЈ¬»щ±ѕіЙ№¦ВКЈ¬ѕ«БйУІ±ТПыєДЈ¬НјЦЅµИј¶
+	local paper_lv = GetItemAttr(Item[2], ITEMATTR_URE )--ИЎНјЦЅµИј¶	
 	if life_lv<paper_lv then
-		SystemNotice( role ,"Уровень навыка не соответствует уровню чертежа ")
+		SystemNotice( role ,"Character skill level does not match Blueprint level")
 		return 0
 	end
-	local paper_id1=GetItemAttr(Item[2], ITEMATTR_VAL_STR )
-	local paper_id2=GetItemAttr(Item[2], ITEMATTR_VAL_CON )
-	local paper_id3=GetItemAttr(Item[2], ITEMATTR_VAL_DEX )
+	local paper_id1=GetItemAttr(Item[2], ITEMATTR_VAL_STR )--РиЗуµАѕЯ1ID
+	--SystemNotice( role ,"Required item 1ID=="..paper_id1)
+
+	local paper_id2=GetItemAttr(Item[2], ITEMATTR_VAL_CON )--РиЗуµАѕЯ2ID
+	--SystemNotice( role ,"Required item 2ID=="..paper_id2)
+
+	local paper_id3=GetItemAttr(Item[2], ITEMATTR_VAL_DEX )--РиЗуµАѕЯ3ID	
+	--SystemNotice( role ,"Required item 3ID=="..paper_id3)
+
 	if ItemID[4]~=paper_id1 or  ItemID[5]~=paper_id2 or  ItemID[6]~=paper_id3 then
-		SystemNotice( role ,"Проверьте необходимый материал в чертеже и его наличие ")
+		SystemNotice( role ,"Please check the type of Material and placement position to match that of blueprint's requirement.")
 		return 0		
 	end
-	local Num_paper = GetItemForgeParam ( Item[2] , 1 )
+	--------------јмІвОпЖ·РиЗуµДКэБїКЗ·сВъЧг
+	local Num_paper = GetItemForgeParam ( Item[2] , 1 )---------ИЎНјЦЅЦРЛщРиёчЦЦОпЖ·µДКэБї
 	Num_paper = TansferNum ( Num_paper )
-	local Part1_paper = GetNum_Part1 ( Num_paper )	
-	local Part2_paper = GetNum_Part2 ( Num_paper )	
+	local Part1_paper = GetNum_Part1 ( Num_paper )	--Get Num Part 1 µЅ Part 7
+	local Part2_paper = GetNum_Part2 ( Num_paper )	--РиЗуµАѕЯ1КэБї
+	--SystemNotice( role ,"Required Item 1 Quantity=="..Part2_paper)
+
 	local Part3_paper = GetNum_Part3 ( Num_paper )	
-	local Part4_paper = GetNum_Part4 ( Num_paper )	
+	local Part4_paper = GetNum_Part4 ( Num_paper )	--РиЗуµАѕЯ2КэБї
+	--SystemNotice( role ,"Required item 2 quantity=="..Part4_paper)
+
 	local Part5_paper = GetNum_Part5 ( Num_paper )
-	local Part6_paper = GetNum_Part6 ( Num_paper )	
+	local Part6_paper = GetNum_Part6 ( Num_paper )	--РиЗуµАѕЯ3КэБї
+	--SystemNotice( role ,"Required item 3 quantity=="..Part6_paper)
+
 	local Part7_paper = GetNum_Part7 ( Num_paper )
-	local i1 = CheckBagItem( role, ItemID[4] )			
-	local i2 = CheckBagItem( role, ItemID[5] )			
-	local i3 = CheckBagItem( role, ItemID[6] )			
+	local i1 = CheckBagItem( role, ItemID[4] )			----
+	local i2 = CheckBagItem( role, ItemID[5] )			----
+	local i3 = CheckBagItem( role, ItemID[6] )			----
+	--SystemNotice( role ,"Required item 3 quantity i1="..i1)
+	--SystemNotice( role ,"Required item 3 quantity i2=="..i2)
+	--SystemNotice( role ,"Required item 3 quantity i2=="..i2)
 	if i1 < Part2_paper or i2 < Part4_paper or i3 < Part6_paper  then
-		SystemNotice( role ,"Проверьте ингридиенты или оставшееся кол-во использования ")
+		SystemNotice( role ,"Lack of quantity for certain required item")
 		return 0
 	end
-	local paper_num=GetItemAttr(Item[2], ITEMATTR_VAL_STA )
+	local paper_num=GetItemAttr(Item[2], ITEMATTR_VAL_STA )--НјЦЅК№УГґОКэ
+		--SystemNotice( role ,"Blueprint usage count=="..paper_num)
 	if paper_num==0 then
-		SystemNotice( role ,"Чертеж невозможно использовать бесконечно. Возьмите новый чертеж ")
+		SystemNotice( role ,"Blueprint is not longer usable. Discard it")
 		return 0
 	end
-	local a1 = CheckBagItem( role, 855 )			
-	local a1_num=GetItemAttr(Item[2], ITEMATTR_MAXURE )
+	local a1 = CheckBagItem( role, 855 )			---ѕ«БйУІ±Т
+	local a1_num=GetItemAttr(Item[2], ITEMATTR_MAXURE )--ѕ«БйУІ±ТРиЗу
 	if a1< a1_num then
-		SystemNotice( role ,"У вас не хватает Монет фей ")
+		SystemNotice( role ,"Not enough Fairy Coins in backpack.")
 		return 0
 	end
+	--SystemNotice( role ,"Done")
 	return 1
 end
 
 function Read_manufacture ( Table )
-	local role = Table [1]										
-	local ItemBagCount = Table [2]								
-	local ItemBag = {}										
+
+	local role = Table [1]										--ЅЗЙ«
+	local ItemBagCount = Table [2]								--µАѕЯ¶ФПуКэБї
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГ
+--	local ItemCount = {}										--µАѕЯКэБї
 	local i = 0
+	--Notice( " Read_manufacture_ItemBagCount=="..ItemBagCount)
 	if ItemBagCount==0 then
 		return role , ItemBag , ItemBagCount
 	end
 	for i = 1 , ItemBagCount , 1 do
 		local ReadNow = i + 2
 		ItemBag [i] = Table [ReadNow]
+		--Notice( " Read_manufacture_ItemBag"..i.."=="..ItemBag [i])
+		--ItemCount [i] = Table [ReadNow+1]
 	end
+
 	return role , ItemBag , ItemBagCount
 end
 
+
 function begin_manufacture_item (...)
+	--Notice(  "Manufacturing")
+	--local check_begin = can_manufacture_item (...)
+	--if check_begin == 1 then		
+	--	return 1
+	--else
+	--	return 0
+	--end
 	local role = 0
-	local ItemBag = {}											
-	local ItemBagCount = 0										
+	local ItemBag = {}											--µАѕЯ±і°ьО»ЦГ
+	--local ItemCount = {}											--µАѕЯКэБї
+	local ItemBagCount = 0										--µАѕЯ¶ФПуКэБї
+
 	role , ItemBag , ItemBagCount = Read_manufacture ( arg )
+	
 	local Check1 = can_manufacture_item_main ( arg )
 	if Check1 ~= 1 then
 		return 0
 	end
+	
 	local i = 0
 	local j = 0
+	--local q =0
+	--for i = 1 , ItemBagCount , 1 do							--ЕР¶ПµАѕЯёцКэКЗ·сєН·Ё
+		--if ItemBag[i] == 0  then
+		--	SystemNotice( role , "Illegal item unit")
+		--	return 0
+		--end
+	--end
 	local Item = {}
 	local ItemID = {}
 	local ItemType = {}
 	for j = 1 , ItemBagCount , 1 do
-		Item[j] = GetChaItem ( role , 2 , ItemBag [j] )			
-		ItemID[j] = GetItemID ( Item[j] )						
-		ItemType[j] = GetItemType ( Item[j] )					
+		Item[j] = GetChaItem ( role , 2 , ItemBag [j] )			--ИЎµАѕЯЦёХл
+		ItemID[j] = GetItemID ( Item[j] )						--ИЎµАѕЯ±аєЕ
+		ItemType[j] = GetItemType ( Item[j] )					--ИЎµАѕЯАаРН
 	end
-	local Gj_lv= 0
-	if ItemID[3]==1068 then
+	local Gj_lv= 0-------------------№¤ѕЯµИј¶
+	if ItemID[3]==1068 then---------№¤ѕЯґжФЪ
 		Gj_lv=GetItemAttr ( Item[3] , ITEMATTR_VAL_STR )
 	end
-	local life_lv=GetSkillLv( role , SK_ZHIZAO )	
-	local paper_lv = GetItemAttr(Item[2], ITEMATTR_URE )
-	local paper_energy = GetItemAttr(Item[2], ITEMATTR_MAXENERGY )-100
+	local life_lv=GetSkillLv( role , SK_ZHIZAO )	-----ИЎЅЗЙ«ЦЖФмјјДЬµИј¶
+
+	local paper_lv = GetItemAttr(Item[2], ITEMATTR_URE )--ИЎНјЦЅµИј¶	
+
+	local paper_energy = GetItemAttr(Item[2], ITEMATTR_MAXENERGY )-100--НјЦЅЙъіЙОпЖ·ЦКБї
 	local star_good=(math.min(life_lv,paper_lv)*0.03+Gj_lv*0.05+(100-paper_energy*10)*0.01)*100
 	local star_radom = math.random ( 1, 100 )
+			--SystemNotice( role , "star_good=="..star_good)
+			--SystemNotice( role , "star_radom=="..star_radom)
 	local eleven=2
 	local a1 = star_radom+7
 	local a2 = star_radom+14
@@ -3523,6 +4536,7 @@ function begin_manufacture_item (...)
 	local a7  = star_radom+49
 	local a8  = star_radom+56
 	local a9  = star_radom+63
+
 	if star_good<star_radom then
 		eleven=1
 	elseif star_good>=98 then
@@ -3553,29 +4567,76 @@ function begin_manufacture_item (...)
 		star=64
 	end
 	local run_time = star
+	--local WORD_LIST = "AbCdE"
+	--local star1=math.random ( 1, 52 )
+	--local star2=math.random ( 1, 52 )
+	--local star3=math.random ( 1, 52 )
+	--local star4=math.random ( 1, 52 )
+	--local star5=math.random ( 1, 52 )
+	--local star6=math.random ( 1, 52 )
+	--local star7=math.random ( 1, 52 )
+	--local star8=math.random ( 1, 52 )
+
+	--local WORD_LIST1 = ""..WORD[star1]..WORD[star2]..WORD[star3]
+	--local WORD_LIST2 = ""..WORD[star1]..WORD[star2]..WORD[star3]..WORD[star4]
+	--local WORD_LIST3 =""..WORD[star1]..WORD[star2]..WORD[star3]..WORD[star4]..WORD[star5]
+	--local WORD_LIST4 = ""..WORD[star1]..WORD[star2]..WORD[star3]..WORD[star4]..WORD[star5]..WORD[star6]
+	--local WORD_LIST5 =""..WORD[star1]..WORD[star2]..WORD[star3]..WORD[star4]..WORD[star5]..WORD[star6]..WORD[star7]
+	--local WORD_LIST6 =""..WORD[star1]..WORD[star2]..WORD[star3]..WORD[star4]..WORD[star5]..WORD[star6]..WORD[star7]..WORD[star8]
+
+	--if eleven==1 then
+	--	WORD_LIST=WORD_LIST1
+	--elseif eleven==2 then
+	--	WORD_LIST=WORD_LIST2
+	--elseif eleven==3 then
+	--	WORD_LIST=WORD_LIST3
+	--elseif eleven==4 then
+	--	WORD_LIST=WORD_LIST4
+	--elseif eleven==5 then
+	--	WORD_LIST=WORD_LIST5
+	--else
+	--	WORD_LIST=WORD_LIST6
+	--end
 	return 2,run_time,eleven
 end
-
 function begin_manufacture1_item (...)
+	--Notice(  "Crafting")
 	local role = 0
-	local ItemBag = {}											
-	local ItemBagCount = 0										
+	local ItemBag = {}											--µАѕЯ±і°ьО»ЦГ
+	--local ItemCount = {}											--µАѕЯКэБї
+	local ItemBagCount = 0										--µАѕЯ¶ФПуКэБї
+
 	role , ItemBag , ItemBagCount = Read_manufacture ( arg )
+
 	local Check1 = can_manufacture_item_main ( arg )
 	if Check1 ~= 1 then
 		return 0
 	end
+
 	local i = 0
 	local j = 0
+	--local q =0
+	--for i = 1 , ItemBagCount , 1 do							--ЕР¶ПµАѕЯёцКэКЗ·сєН·Ё
+	--	if ItemBag[i] == 0  then
+	--		SystemNotice( role , "Illegal item unit")
+	--		return 0
+	--	end
+	--end
 	local Item = {}
 	local ItemID = {}
 	local ItemType = {}
+	--Notice( " Crafting_ItemBagCount=="..ItemBagCount)
 	for j = 1 , ItemBagCount , 1 do
-		Item[j] = GetChaItem ( role , 2 , ItemBag [j] )			
-		ItemID[j] = GetItemID ( Item[j] )						
-		ItemType[j] = GetItemType ( Item[j] )					
+		Item[j] = GetChaItem ( role , 2 , ItemBag [j] )			--ИЎµАѕЯЦёХл
+		ItemID[j] = GetItemID ( Item[j] )						--ИЎµАѕЯ±аєЕ
+		ItemType[j] = GetItemType ( Item[j] )					--ИЎµАѕЯАаРН
+		--Notice( " Crafting_ItemID["..j.."]=="..ItemID[j])
+		--Notice( " Crafting_ItemType["..j.."]=="..ItemType[j])
 	end
-	local paper_lv = GetItemAttr(Item[2], ITEMATTR_URE )
+
+	local paper_lv = GetItemAttr(Item[2], ITEMATTR_URE )--ИЎНјЦЅµИј¶	
+	--Notice(  "paper_lv"..paper_lv)
+
 	local star_begin=3*(1+paper_lv)
 	local star_end=5*(1+paper_lv)
 	local star=math.random ( star_begin , star_end )
@@ -3587,29 +4648,46 @@ function begin_manufacture1_item (...)
 	local WORD2 =math.random ( 1, 6 )
 	local WORD3 =math.random ( 1, 6 )
 	local str =""..WORD1..","..WORD2..","..WORD3
+	--Notice(  "Crafting_str=="..str)
 	return 2,run_time,str
 end
-
 function begin_manufacture2_item (...)
+	--Notice(  "Cooking")
 	local role = 0
-	local ItemBag = {}											
-	local ItemBagCount = 0										
+	local ItemBag = {}											--µАѕЯ±і°ьО»ЦГ
+	--local ItemCount = {}											--µАѕЯКэБї
+	local ItemBagCount = 0										--µАѕЯ¶ФПуКэБї
+
 	role , ItemBag , ItemBagCount = Read_manufacture ( arg )
+	--Notice(  "aaaaaaaaaaaa")
+
 	local Check1 = can_manufacture_item_main ( arg )
 	if Check1 ~= 1 then
 		return 0
 	end
+
 	local i = 0
 	local j = 0
+	--local q =0
+	--for i = 1 , ItemBagCount , 1 do							--ЕР¶ПµАѕЯёцКэКЗ·сєН·Ё
+	--	if ItemBag[i] == 0  then
+	--		SystemNotice( role , "Illegal item unit")
+	--		return 0
+	--	end
+	--end
 	local Item = {}
 	local ItemID = {}
 	local ItemType = {}
+	--Notice(  "bbbbbbbbbbbb")
 	for j = 1 , ItemBagCount , 1 do
-		Item[j] = GetChaItem ( role , 2 , ItemBag [j] )			
-		ItemID[j] = GetItemID ( Item[j] )						
-		ItemType[j] = GetItemType ( Item[j] )					
+		Item[j] = GetChaItem ( role , 2 , ItemBag [j] )			--ИЎµАѕЯЦёХл
+		ItemID[j] = GetItemID ( Item[j] )						--ИЎµАѕЯ±аєЕ
+		ItemType[j] = GetItemType ( Item[j] )					--ИЎµАѕЯАаРН
 	end
-	local paper_lv = GetItemAttr(Item[2], ITEMATTR_URE )
+
+	local paper_lv = GetItemAttr(Item[2], ITEMATTR_URE )--ИЎНјЦЅµИј¶	
+	--Notice(  "paper_lv"..paper_lv)
+
 	local star_begin=3*(1+paper_lv)
 	local star_end=4*(1+paper_lv)
 	local star=math.random ( star_begin , star_end )
@@ -3617,28 +4695,42 @@ function begin_manufacture2_item (...)
 		star=64
 	end
 	local run_time = star
+	
 	local star_ok = 12
+			--SystemNotice( role , "run_time==="..run_time)
+
 	return 2,run_time,star_ok
 end
-
 function begin_manufacture3_item (...)
+	--Notice(  "Analyze")
 	local role = 0
-	local ItemBag = {}											
-	local ItemBagCount = 0										
+	local ItemBag = {}											--µАѕЯ±і°ьО»ЦГ
+	--local ItemCount = {}											--µАѕЯКэБї
+	local ItemBagCount = 0										--µАѕЯ¶ФПуКэБї
+
 	role , ItemBag , ItemBagCount = Read_manufacture ( arg )
+
 	local Check1 = can_fenjie_item_main ( arg )
 	if Check1 ~= 1 then
 		return 0
 	end
+
 	local i = 0
 	local j = 0
+	--local q =0
+	--for i = 1 , ItemBagCount , 1 do							--ЕР¶ПµАѕЯёцКэКЗ·сєН·Ё
+	--	if ItemBag[i] == 0  then
+	--		SystemNotice( role , "Illegal item unit")
+	--		return 0
+	--	end
+	--end
 	local Item = {}
 	local ItemID = {}
 	local ItemType = {}
 	for j = 1 , ItemBagCount , 1 do
-		Item[j] = GetChaItem ( role , 2 , ItemBag [j] )			
-		ItemID[j] = GetItemID ( Item[j] )						
-		ItemType[j] = GetItemType ( Item[j] )					
+		Item[j] = GetChaItem ( role , 2 , ItemBag [j] )			--ИЎµАѕЯЦёХл
+		ItemID[j] = GetItemID ( Item[j] )						--ИЎµАѕЯ±аєЕ
+		ItemType[j] = GetItemType ( Item[j] )					--ИЎµАѕЯАаРН
 	end
 	local Item_Lv =  GetItemLv ( Item[3] )
 	if ItemID[3]>=5000 then
@@ -3663,9 +4755,10 @@ function begin_manufacture3_item (...)
 	end
 	local base_rad=0
 	base_rad=math.max((80-math.max(Item_Lv,10))*0.01,0.15)
+	--------------ѕ«БйµИј¶ГїМбЙэТ»ј¶+10%іЙ№¦ВК
 	local Num_JL = GetItemForgeParam ( Item[1] , 1 )
 	Num_JL = TansferNum ( Num_JL )
-	local Part1_JL = GetNum_Part1 ( Num_JL )	
+	local Part1_JL = GetNum_Part1 ( Num_JL )	--Get Num Part 1 µЅ Part 7
 	local Part2_JL = GetNum_Part2 ( Num_JL )	
 	local Part3_JL = GetNum_Part3 ( Num_JL )
 	local Part4_JL = GetNum_Part4 ( Num_JL )
@@ -3684,12 +4777,15 @@ function begin_manufacture3_item (...)
 		JL_jineng=Part6_JL
 		JL_jineng_lv=Part7_JL
 	end
+	--------------№¤ѕЯµИј¶ГїМбЙэТ»ј¶+1%іЙ№¦ВК
 	local Gj_lv=0
-	if  ItemID[2]==1070 then
+	if  ItemID[2]==1070 then---------№¤ѕЯґжФЪ
 		Gj_lv=GetItemAttr ( Item[2] , ITEMATTR_VAL_STR )
 	end
+	--------------ЅЗЙ«µИј¶ГїМбЙэТ»ј¶+5%іЙ№¦ВК
 	local life_lv = 0
-	life_lv=GetSkillLv( role , SK_FENJIE )	
+	life_lv=GetSkillLv( role , SK_FENJIE )	-----ИЎЅЗЙ«·ЦЅвјјДЬµИј¶
+	--------------»щґЎіЙ№¦ВК10%
 	local run_time = math.random ( 4, 8 )
 	local word_test = math.floor((JL_jineng_lv*0.05+life_lv*0.02+Gj_lv*0.03+base_rad)*100000)
 	if word_test>99999 then
@@ -3697,42 +4793,61 @@ function begin_manufacture3_item (...)
 	end
 	local word_radom = math.random ( 10000, 99999 )
 	local str =""..word_test..","..word_radom
+	--Notice(  "Begin - Analyze - End")
+
 	return 2,run_time,str
 end
-
 function end_manufacture_item (...)
+	--Notice(  "end_manufacture_item")
 	local role = 0
-	local ItemBag = {}											
-	local ItemBagCount = 0										
+	local ItemBag = {}											--µАѕЯ±і°ьО»ЦГ
+	--local ItemCount = {}											--µАѕЯКэБї
+	local ItemBagCount = 0										--µАѕЯ¶ФПуКэБї
+
 	role , ItemBag , ItemBagCount = Read_manufacture ( arg )
+	--Notice( "Final results arg[arg.n]=="..arg[arg.n])
+	--Notice( "Final acquisition arg.n=="..arg.n)
+
 	local i = 0
 	local j = 0
+	--local q =0
+	--for i = 1 , ItemBagCount , 1 do							--ЕР¶ПµАѕЯёцКэКЗ·сєН·Ё
+		--Notice( " end_manufacture_item_ItemBag"..i.."=="..ItemBag [i])
+	--	if ItemBag[i] == 0  then
+	--		SystemNotice( role , "Illegal item unit")
+	--		return 0
+	--	end
+	--end
 	local star_check=0 
+	--SystemNotice( role , "end_manufacture_item_star_check=="..star_check)
 	star_check=arg[arg.n] 
+	--SystemNotice( role , "Final acquisition star_check=="..star_check)
 	local Item = {}
 	local ItemID = {}
 	local ItemType = {}
 	local check = {}
 	for j = 1 , ItemBagCount , 1 do
-		Item[j] = GetChaItem ( role , 2 , ItemBag [j] )			
-		ItemID[j] = GetItemID ( Item[j] )						
-		ItemType[j] = GetItemType ( Item[j] )					
+		Item[j] = GetChaItem ( role , 2 , ItemBag [j] )			--ИЎµАѕЯЦёХл
+		ItemID[j] = GetItemID ( Item[j] )						--ИЎµАѕЯ±аєЕ
+		ItemType[j] = GetItemType ( Item[j] )					--ИЎµАѕЯАаРН
 	end
-	local paper_id1=GetItemAttr(Item[2], ITEMATTR_VAL_STR )
-	local paper_id2=GetItemAttr(Item[2], ITEMATTR_VAL_CON )
-	local paper_id3=GetItemAttr(Item[2], ITEMATTR_VAL_DEX )
-	local Num_paper = GetItemForgeParam ( Item[2] , 1 )
+	local paper_id1=GetItemAttr(Item[2], ITEMATTR_VAL_STR )--РиЗуµАѕЯ1ID
+	local paper_id2=GetItemAttr(Item[2], ITEMATTR_VAL_CON )--РиЗуµАѕЯ2ID
+	local paper_id3=GetItemAttr(Item[2], ITEMATTR_VAL_DEX )--РиЗуµАѕЯ3ID	
+	local Num_paper = GetItemForgeParam ( Item[2] , 1 )---------ИЎНјЦЅЦРЛщРиёчЦЦОпЖ·µДКэБї
 	Num_paper = TansferNum ( Num_paper )
-	local Part2_paper = GetNum_Part2 ( Num_paper )	
-	local Part4_paper = GetNum_Part4 ( Num_paper )	
-	local Part6_paper = GetNum_Part6 ( Num_paper )	
-	local life_lv = 0
-	local Gj_lv= 0
-	local paper_lv = GetItemAttr(Item[2], ITEMATTR_URE )
+	local Part2_paper = GetNum_Part2 ( Num_paper )	--РиЗуµАѕЯ1КэБї
+	local Part4_paper = GetNum_Part4 ( Num_paper )	--РиЗуµАѕЯ2КэБї
+	local Part6_paper = GetNum_Part6 ( Num_paper )	--РиЗуµАѕЯ3КэБї
+
+
+	local life_lv = 0-----------------ЅЗЙ«јјДЬµИј¶
+	local Gj_lv= 0-------------------№¤ѕЯµИј¶
+	local paper_lv = GetItemAttr(Item[2], ITEMATTR_URE )--ИЎНјЦЅµИј¶	
 	local num_x=1
 	local star_num_qulity=4
-	if ItemID[2]==2300 then 
-		life_lv=GetSkillLv( role , SK_ZHIZAO )	
+	if ItemID[2]==2300 then ---------ЦЖФмНјЦЅ
+		life_lv=GetSkillLv( role , SK_ZHIZAO )	-----ИЎЅЗЙ«ЦЖФмјјДЬµИј¶
 		if star_check==1 then
 			num_x=0
 		elseif star_check==2 or star_check==3 or star_check==4 then
@@ -3745,11 +4860,11 @@ function end_manufacture_item (...)
 			num_x=4			
 		end
 	end
-	if ItemID[2]==2301 then 
-		life_lv=GetSkillLv( role , SK_ZHUZAO )	
+	if ItemID[2]==2301 then ---------ЦэФмНјЦЅ
+		life_lv=GetSkillLv( role , SK_ZHUZAO )	-----ИЎЅЗЙ«ЦэФмјјДЬµИј¶
 	end
-	if ItemID[2]==2302 then 
-		life_lv=GetSkillLv( role , SK_PENGREN )	
+	if ItemID[2]==2302 then ---------ЕлвїНјЦЅ
+		life_lv=GetSkillLv( role , SK_PENGREN )	-----ИЎЅЗЙ«ЕлвїјјДЬµИј¶
 		local differ_check=math.abs(star_check-75)
 		if differ_check==0 then
 			num_x=5
@@ -3765,36 +4880,39 @@ function end_manufacture_item (...)
 			num_x=0
 		end
 	end
-	if ItemID[3]==1067 or ItemID[3]==1068 or ItemID[3]==1069 or ItemID[3]==1070 then
+	if ItemID[3]==1067 or ItemID[3]==1068 or ItemID[3]==1069 or ItemID[3]==1070 then---------№¤ѕЯґжФЪ
 		Gj_lv=GetItemAttr ( Item[3] , ITEMATTR_VAL_STR )
 	end
+
+	--ТЖіцІї·ЦµАѕЯ
 	local i1 = 0
 	local i2 = 0
 	local i3 = 0
-	i1 =TakeItem( role, 0, paper_id1, Part2_paper)
-	i2 =TakeItem( role, 0, paper_id2, Part4_paper)
-	i3 =TakeItem( role, 0, paper_id3, Part6_paper)
+	i1 =TakeItem( role, 0, paper_id1, Part2_paper)-- RemoveChaItem ( role , paper_id1 , Part2_paper , 2 , ItemBag [4] , 2 , 1 , 1)		--ТЖіэ
+	i2 =TakeItem( role, 0, paper_id2, Part4_paper)-- RemoveChaItem ( role , paper_id2 , Part4_paper , 2 , ItemBag [5] , 2 , 1 , 1)		--ТЖіэ
+	i3 =TakeItem( role, 0, paper_id3, Part6_paper)-- RemoveChaItem ( role , paper_id3 , Part6_paper , 2 , ItemBag [6] , 2 , 1 , 1)		--ТЖіэ
 	if i1 == 0 or  i2 == 0 or  i3 == 0 then
-		LG( "Hecheng_BS" , "Удалить предмет не удалось " )
+		LG( "Hecheng_BS" , "Delete item failed" )
 	end
-	local a1_num=GetItemAttr(Item[2], ITEMATTR_MAXURE )
+	local a1_num=GetItemAttr(Item[2], ITEMATTR_MAXURE )--ѕ«БйУІ±ТРиЗу
 	local a1=TakeItem( role, 0, 855, a1_num )			   
 	if a1==0  then
-		SystemNotice ( role ,"Не удалось удалить Монету Феи ")
+		SystemNotice ( role ,"Failed to delete Fairy's coin")
 		return
 	end 
-	local new_num = GetItemAttr(Item[2], ITEMATTR_VAL_AGI )
-	if ItemID[2]==2300 then 
+	--------ИЎіцНјЦЅёшіцОпЖ·µДID
+	local new_num = GetItemAttr(Item[2], ITEMATTR_VAL_AGI )--НјЦЅЙъіЙОпЖ·ID
+	if ItemID[2]==2300 then ---------ЦЖФмНјЦЅ
 		if new_num==1067 or  new_num==1068 or new_num==1069 or new_num==1070 or  new_num==2236 then
 			num_x=1
 		end
 	end
-	local paper_energy = GetItemAttr(Item[2], ITEMATTR_MAXENERGY )-100
+	local paper_energy = GetItemAttr(Item[2], ITEMATTR_MAXENERGY )-100--НјЦЅЙъіЙОпЖ·ЦКБї
 	local star_good=(math.min(life_lv,paper_lv)*0.03+Gj_lv*0.05+(100-paper_energy*10)*0.01)*100
 	local star_radom = math.random ( 1, 100 )
 	local m1 = -1
 	local m2 = -1	
-	if ItemID[2]==2300 then 
+	if ItemID[2]==2300 then ---------ЦЖФмНјЦЅ
 		if star_check>=2 then
 			star_good=100
 			star_radom=1
@@ -3808,96 +4926,136 @@ function end_manufacture_item (...)
 		star_check_chenggong=1
 		m1, m2 = MakeItem ( role , new_num  , num_x , star_num_qulity )
 		local Itemfinal = GetChaItem ( role , 2 , m2 )
-		if ItemID[2]==2301 and CheckItem_CanJinglian(Itemfinal)==1 then 
-			local Itemfinal_energy=GetItemAttr ( Itemfinal ,ITEMATTR_ENERGY) 
-			local itemfinal_maxenergy =GetItemAttrRange(new_num , ITEMATTR_MAXENERGY , 1 )
-			local itemfinal_minenergy = GetItemAttrRange(new_num ,ITEMATTR_MAXENERGY , 0 )
+		if ItemID[2]==2301 and CheckItem_CanJinglian(Itemfinal)==1 then ---------ЦэФмЙиЦГµАѕЯДЬБї
+			local Itemfinal_energy=GetItemAttr ( Itemfinal ,ITEMATTR_ENERGY) --------ИЎЧ°±ёДЬБї
+			local itemfinal_maxenergy =GetItemAttrRange(new_num , ITEMATTR_MAXENERGY , 1 )-------±нАпµДЧоґуЦµ ---ИЎЦчЧ°±ёµАѕЯЧоґуДЬБї
+			local itemfinal_minenergy = GetItemAttrRange(new_num ,ITEMATTR_MAXENERGY , 0 )--------±нАпµДЧоРЎЦµ ---ИЎЦчЧ°±ёµАѕЯДЬБї
+		 	--SystemNotice( role , "Itemfinal_energy=="..Itemfinal_energy)
+	 		--SystemNotice( role , "itemfinal_maxenergy=="..itemfinal_maxenergy)
+	 		--SystemNotice( role , "itemfinal_minenergy=="..itemfinal_minenergy)
 			if paper_energy>7 then
 				paper_energy=7
 			end 
-			if itemfinal_maxenergy~=itemfinal_minenergy then 
+			if itemfinal_maxenergy~=itemfinal_minenergy then ---------·ЗBOSSЧ°ЦШЙиДЬБї
 				Itemfinal_energy=math.mod(Itemfinal_energy,1000)+paper_energy*1000
 				SetItemAttr ( Itemfinal ,ITEMATTR_MAXENERGY , Itemfinal_energy)
 				SetItemAttr ( Itemfinal ,ITEMATTR_ENERGY , Itemfinal_energy)
 			end
 		end
 		local item_final_ID=GetItemID(Itemfinal)
+			--SystemNotice( role , "item_final_ID="..item_final_ID)
 		if item_final_ID==1067 or item_final_ID==1068 or item_final_ID==1069 or item_final_ID==1070 then
-			SetItemAttr(Itemfinal, ITEMATTR_VAL_STR ,1)
-			SetItemAttr(Itemfinal, ITEMATTR_MAXENERGY ,10000)
-			SetItemAttr(Itemfinal, ITEMATTR_ENERGY ,1)		
+			SetItemAttr(Itemfinal, ITEMATTR_VAL_STR ,1)--УГНјЦЅµИј¶ЙиЦГ№¤ѕЯµИј¶
+			SetItemAttr(Itemfinal, ITEMATTR_MAXENERGY ,10000)--ЙиЦГ№¤ѕЯЧоґуДЬБї
+			SetItemAttr(Itemfinal, ITEMATTR_ENERGY ,1)--ЙиЦГ№¤ѕЯµ±З°ДЬБї
+			--local a=GetItemAttr(Itemfinal, ITEMATTR_VAL_STR )--УГНјЦЅµИј¶ЙиЦГ№¤ѕЯµИј¶
+			--local b=GetItemAttr(Itemfinal, ITEMATTR_MAXENERGY)--ЙиЦГ№¤ѕЯЧоґуДЬБї
+			--local c=GetItemAttr(Itemfinal, ITEMATTR_ENERGY)--ЙиЦГ№¤ѕЯµ±З°ДЬБї
+			--SystemNotice( role , "Tool Level="..a)
+			--SystemNotice( role , "Max Energy="..b)
+			--SystemNotice( role , "Current Energy="..c)
 		end
 		if item_final_ID==2236 then
-			SetItemAttr(Itemfinal, ITEMATTR_VAL_STR ,paper_lv)
+			SetItemAttr(Itemfinal, ITEMATTR_VAL_STR ,paper_lv)--УГНјЦЅµИј¶ЙиЦГРЮІ№№¤ѕЯµИј¶
 		end
 	else
-		SystemNotice( role , "Действие завершилось неудачей. Наверное вы что-то неверно делали ")
+	 	SystemNotice( role , "Your process might have been wrong or your level is too low. Your hard work have gone to the drain and some items have disappeared.")
 	end
-	local paper_num=GetItemAttr(Item[2], ITEMATTR_VAL_STA )
+	--ЦШЙиНјЦЅґОКэ
+	local paper_num=GetItemAttr(Item[2], ITEMATTR_VAL_STA )--НјЦЅК№УГґОКэ
 	paper_num=paper_num-1
+	--SystemNotice( role , "Blueprint usage count="..paper_num)
+	--if paper_num<=0 then
+	--	local s1 = 0
+	--	s1= RemoveChaItem ( role , ItemID[2] , 1 , 2 , ItemBag [2] , 2 , 1 , 1)		--ТЖіэ
+	 --	SystemNotice( role , "Blueprint's durability has reached its limit and has disappeared")
+	--	if s1 == 0 then
+	--		LG( "TUZHI_BS" , "Delete item failed" )
+	--	end		
+	--end
+	--if paper_num>=1 then
 		SetItemAttr(Item[2], ITEMATTR_VAL_STA , paper_num )
+	--end
+	--ЦШЙи№¤ѕЯДНѕГ
 	local Gj_ure=0
-	if ItemID[3]==1067 or ItemID[3]==1068 or ItemID[3]==1069 or ItemID[3]==1070 then
+	if ItemID[3]==1067 or ItemID[3]==1068 or ItemID[3]==1069 or ItemID[3]==1070 then---------№¤ѕЯґжФЪ
 		Gj_ure=GetItemAttr ( Item[3] , ITEMATTR_URE )
 		local star_gjlv_num=GetItemAttr ( Item[3] , ITEMATTR_VAL_STR )
 		Gj_ure=Gj_ure-50*star_gjlv_num
 		if Gj_ure<=0 then
 			Gj_ure=0
 		end
-		local star_lv_num = GetItemAttr( Item[3] ,ITEMATTR_ENERGY )       
-		if star_check_chenggong==1 then
+		--if Gj_ure==0 then
+		--	local k1 = 0
+		--	k1= RemoveChaItem ( role , ItemID[3] , 1 , 2 , ItemBag [3] , 2 , 1 , 1)		--ТЖіэ
+	 	--	SystemNotice( role , "Life of tool has reached its limit.")
+		--	if k1 == 0 then
+		--		LG( "FENJIE_BS" , "Delete item failed" )
+		--	end
+		--end
+		local star_lv_num = GetItemAttr( Item[3] ,ITEMATTR_ENERGY )       --µАѕЯѕ«Б¶РЕПўУРТФјЗВј№¤ѕЯѕ­Сй
+		if star_check_chenggong==1 then-------ЦЖЧчіЙ№¦К±Ј¬№¤ѕЯі¤ѕ­Сй
 			star_lv_num=star_lv_num+paper_lv
-		else						
+		else						--------К§°ЬК±ѕ­Сйі¤1
 			star_lv_num=star_lv_num+1			
 		end
 		if star_lv_num>=10000 then
 			star_lv_num=10000
 		end
-	 	SystemNotice( role , "Ваш инструмент получил "..star_lv_num.." очков опыта ")
-		if star_lv_num>=star_gjlv_num*star_gjlv_num*100 then 
+	 	SystemNotice( role , "Your tool currently has "..star_lv_num.." point(s) of experience")
+		if star_lv_num>=star_gjlv_num*star_gjlv_num*100 then --------№¤ѕЯЙэј¶Мхјю
 			star_gjlv_num=star_gjlv_num+1
-			SetItemAttr ( Item[3] , ITEMATTR_VAL_STR ,star_gjlv_num)
-	 		SystemNotice( role , "Поздравляем, уровень вашего инструмента повышен!")
+			SetItemAttr ( Item[3] , ITEMATTR_VAL_STR ,star_gjlv_num)----------ЦШЙи№¤ѕЯµИј¶
+	 		SystemNotice( role , "Congratulations, your tool has increase in level!")
 			star_lv_num=0
 		end
 		SetItemAttr (  Item[3] , ITEMATTR_ENERGY , star_lv_num )
 		SetItemAttr ( Item[3] , ITEMATTR_URE ,Gj_ure)
 	end
+	--------------LG
 	local cha_name = GetChaDefaultName ( role )
 	LG( "star_SHENGHUO_lg" ,cha_name, star_check , ItemID[2] , paper_lv , paper_id1 , Part2_paper ,  paper_id2 , Part4_paper ,  paper_id3 , Part6_paper , ItemID[3] , Gj_lv ,  life_lv )
 	SynChaKitbag(role,13)
+	--check_item_final_data(Item[2])--------НјЦЅКфРФЦШЛг
+	--check_item_final_data(Item[3])--------№¤ѕЯКфРФЦШЛг
 	return m2
 end
-
---------------------------------------------------------------------
------------------------------- Анализ ------------------------------
---------------------------------------------------------------------
-
 function can_fenjie_item (...)
+	--Notice("Starts to determine")
 	local ItemBagCount = arg[2]
+	--Notice("Parameter unit"..ItemBagCount)
 	local Length = ItemBagCount+3
 	if arg.n ~= Length then
 		Notice("parameter value illegal"..arg.n)
 		return 0
 	end	
 	local Check = 0
+--	SystemNotice( arg[1] , "Transfer Analyze detect main function")
 	Check = can_fenjie_item_main ( arg )
 	if Check == 1 then		
 		return 1
 	else
 		return 0
 	end
+	--Notice("Start analyzing--End")
+
 end
 
 function can_fenjie_item_main ( Table )
+	--Notice ( "Entering Analyze main function")
 	local role = 0
-	local ItemBag = {}									
-	local ItemBagCount = 0								
+	local ItemBag = {}									--µАѕЯ±і°ьО»ЦГ
+	local ItemBagCount = 0								--µАѕЯ¶ФПуКэБї
+	
 	role , ItemBag , ItemBagCount = Read_manufacture ( Table )
+	--Notice( "Entering Analyzation main fuction ItemBag [1]=="..ItemBag [1])
+	--Notice( "Entering Analyzation main function ItemBag [2]=="..ItemBag [2])
+	--Notice( "Entering Analyzation main function ItemBag [3]=="..ItemBag [3])
+	--Notice( "Entering Analyzation main function ItemBag [4]=="..ItemBag [4])
 	role , ItemBag , ItemBagCount = Read_manufacture ( Table )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet < 1 then
-		SystemNotice(role ,"У вас должна быть 1 свободная ячейка в инвентаре ")
+		SystemNotice(role ,"You need at least 1 slot in your inventory")
 		UseItemFailed ( role )
 		return
 	end
@@ -3905,29 +5063,40 @@ function can_fenjie_item_main ( Table )
 	local Item = {}
 	local ItemID = {}
 	local ItemType = {}
-	for i = 1 , ItemBagCount , 1 do							
-		Item[i] = GetChaItem ( role , 2 , ItemBag [i] )			
-		ItemID[i] = GetItemID ( Item[i] )						
-		ItemType[i] = GetItemType ( Item[i] )					
+	for i = 1 , ItemBagCount , 1 do							--ЕР¶ПµАѕЯёцКэКЗ·сєН·Ё
+		--if ItemBag[i] == 0  then
+		--	SystemNotice( role , "Illegal item unit")
+		--	return 0
+		--end
+		--ИЎіцµАѕЯ(1-ѕ«Бй,2-№¤ѕЯ,3-Ф­БП,4-·ЦЅв·ЅПт)
+		Item[i] = GetChaItem ( role , 2 , ItemBag [i] )			--ИЎµАѕЯЦёХл
+		ItemID[i] = GetItemID ( Item[i] )						--ИЎµАѕЯID
+		ItemType[i] = GetItemType ( Item[i] )					--ИЎµАѕЯАаРН
+		--Notice( " Analyze_ItemID["..i.."]=="..ItemID[i])
+		--Notice( " Analyze_ItemType["..i.."]=="..ItemType[i])
 	end
+
+	--ЕР¶Пѕ«БйКЗ·сХэИ·
+
 	if ItemType[1] ~= 59 then
-		SystemNotice( role ,"Вам нужно добавить фею к процессу ")
+		SystemNotice( role ,"Almighty: My child, please at least look for a fairy.")
 		return 0
 	end
-	local URE_JLone = GetItemAttr( Item[1] ,ITEMATTR_URE )		
+	local URE_JLone = GetItemAttr( Item[1] ,ITEMATTR_URE )		--МеБ¦
 	if URE_JLone<=0 then
-		SystemNotice( role ,"Ваша фея истощена. Покормите её, чтобы повысить её выносливость ")
+		SystemNotice( role ,"Almighty: This is too cruel! Please feed your pet fairy!")
 		return 0	
 	end
 	local type_check=0
 	type_check=CheckItem_CanJinglian ( Item[3] )
 	if type_check==0 then
-		SystemNotice( role ,"Добавьте вещи для анализа ")
+		SystemNotice( role ,"Please insert a weapon or armor to analyze")
 		return 0		
 	end
+	--------ЕР¶Пѕ«БйКЗ·сѕЯУРґЛЦЦЙъ»ојјДЬ
 	local Num_JL = GetItemForgeParam ( Item[1] , 1 )
 	Num_JL = TansferNum ( Num_JL )
-	local Part1_JL = GetNum_Part1 ( Num_JL )	
+	local Part1_JL = GetNum_Part1 ( Num_JL )	--Get Num Part 1 µЅ Part 7
 	local Part2_JL = GetNum_Part2 ( Num_JL )	
 	local Part3_JL = GetNum_Part3 ( Num_JL )
 	local Part4_JL = GetNum_Part4 ( Num_JL )
@@ -3937,7 +5106,7 @@ function can_fenjie_item_main ( Table )
 	local JL_jineng=0
 	local JL_jineng_lv=0
 	local life_lv = 0
-	life_lv=GetSkillLv( role , SK_FENJIE )	
+	life_lv=GetSkillLv( role , SK_FENJIE )	-----ИЎЅЗЙ«·ЦЅвјјДЬµИј¶
 	if Part2_JL==15 then
 		JL_jineng=Part2_JL
 		JL_jineng_lv=Part3_JL
@@ -3948,51 +5117,79 @@ function can_fenjie_item_main ( Table )
 		JL_jineng=Part6_JL
 		JL_jineng_lv=Part7_JL
 	end
-	if  ItemID[2]~=1070 then
-			SystemNotice( role ,"Используйте инструмент для анализа ")
+			--SystemNotice( role ,"AnalyzingЎ­aaaaaaaaa")
+
+	if  ItemID[2]~=1070 then---------№¤ѕЯґжФЪ
+			SystemNotice( role ,"Please use Particle Crystal")
 			return 0	
 	else
 		local Gj_ure=GetItemAttr ( Item[2] , ITEMATTR_URE )
 		if Gj_ure<=0 then
 			Gj_ure=0
-			SystemNotice( role ,"Уровень инструмента низок. Используйте другую частицу ")
+			SystemNotice( role ,"Tool has been worn out. It cannot be used again.")
 			return 0
 		end
 		local Gj_lv=GetItemAttr ( Item[2] , ITEMATTR_VAL_STR )
 		JL_jineng_lv=3*JL_jineng_lv+1
 		if JL_jineng_lv<Gj_lv then
-			SystemNotice( role ,"Уровень навыка феи не совпадает с уровнем инструмента ")
+			SystemNotice( role ,"Fairy skill level do not match tool level")
 			return 0			
 		end
 	end
-	if ItemID[4] ~=2625 and ItemID[4] ~=2630 and ItemID[4] ~=2634 and ItemID[4] ~=2635 and ItemID[4] ~=2636 and ItemID[4] ~=2637 and ItemID[4] ~=2638  then	
-		SystemNotice( role ,"Добавьте к анализу катализатор ")
+
+	if ItemID[4] ~=2625 and ItemID[4] ~=2630 and ItemID[4] ~=2634 and ItemID[4] ~=2635 and ItemID[4] ~=2636 and ItemID[4] ~=2637 and ItemID[4] ~=2638  then	---ґЯ»ЇјБ
+		SystemNotice( role ,"Please insert the Analyze catalyst")
 		return 0			
 	end
+
+	--Notice ( "ЅшИл·ЦЅвЦчєЇКэ--ЅбКш")
+
 	return 1
 end
 
 function end_fenjie_item (...)
+	--Notice(  "end_fenjie_item")
 	local role = 0
-	local ItemBag = {}											
-	local ItemBagCount = 0										
+	local ItemBag = {}											--µАѕЯ±і°ьО»ЦГ
+	--local ItemCount = {}											--µАѕЯКэБї
+	local ItemBagCount = 0										--µАѕЯ¶ФПуКэБї
+
 	role , ItemBag , ItemBagCount = Read_manufacture ( arg )
+
 	local i = 0
 	local j = 0
+	--local q =0
+	--for i = 1 , ItemBagCount , 1 do							--ЕР¶ПµАѕЯёцКэКЗ·сєН·Ё
+	--	if ItemBag[i] == 0  then
+	--		Notice( "Illegal item unit")
+	--		return 0
+	--	end
+	--end
+	--Notice( "arg.n=="..arg.n)
+	--Notice( "arg[arg.n]=="..arg[arg.n])
+
 	local star_check=0 
+	--Notice( "star_check=="..star_check)
 	star_check=arg[arg.n] 
+	--Notice( "Analyze_star_check=="..star_check)
+	--SystemNotice(role ,"Analyze_star_check=="..star_check)
+	
 	local Item = {}
 	local ItemID = {}
 	local ItemType = {}
+	--local check = {}
 	for j = 1 , ItemBagCount , 1 do
-		Item[j] = GetChaItem ( role , 2 , ItemBag [j] )			
-		ItemID[j] = GetItemID ( Item[j] )						
-		ItemType[j] = GetItemType ( Item[j] )					
+		Item[j] = GetChaItem ( role , 2 , ItemBag [j] )			--ИЎµАѕЯЦёХл
+		ItemID[j] = GetItemID ( Item[j] )						--ИЎµАѕЯ±аєЕ
+		ItemType[j] = GetItemType ( Item[j] )					--ИЎµАѕЯАаРН
 	end
 	local Item_Lv =  GetItemLv ( Item[3] )
+	--Notice( "Pet Level aaaaaaaaaaaaa")
+
+	--------------ѕ«БйµИј¶ГїМбЙэТ»ј¶+10%іЙ№¦ВК
 	local Num_JL = GetItemForgeParam ( Item[1] , 1 )
 	Num_JL = TansferNum ( Num_JL )
-	local Part1_JL = GetNum_Part1 ( Num_JL )	
+	local Part1_JL = GetNum_Part1 ( Num_JL )	--Get Num Part 1 µЅ Part 7
 	local Part2_JL = GetNum_Part2 ( Num_JL )	
 	local Part3_JL = GetNum_Part3 ( Num_JL )
 	local Part4_JL = GetNum_Part4 ( Num_JL )
@@ -4011,22 +5208,30 @@ function end_fenjie_item (...)
 		JL_jineng=Part6_JL
 		JL_jineng_lv=Part7_JL
 	end
+	--Notice( "Fairy Lv bbbbbbbbbbbbbb")
+
+	--------------№¤ѕЯµИј¶ГїМбЙэТ»ј¶+1%іЙ№¦ВК
 	local Gj_lv=0
-	if  ItemID[2]==1070 then
+	if  ItemID[2]==1070 then---------№¤ѕЯґжФЪ
 		Gj_lv=GetItemAttr ( Item[2] , ITEMATTR_VAL_STR )
 	end
+	--------------ЅЗЙ«µИј¶ГїМбЙэТ»ј¶+5%іЙ№¦ВК
 	local life_lv = 0
-	life_lv=GetSkillLv( role , SK_FENJIE )	
+	life_lv=GetSkillLv( role , SK_FENJIE )	-----ИЎЅЗЙ«·ЦЅвјјДЬµИј¶
 	local num_new =math.min(math.max(1,math.floor( (JL_jineng_lv*0.1+life_lv*0.05+Gj_lv*0.05 )*10)),10)
+	--local star_good=(life_lv*0.3+Gj_lv*0.5+0.1)*100
+	--local star_radom = math.random ( 1, 100 )
+	--Notice( "Fairy level cccccccccccccccc")
+
 	local i1 = 0
 	local i2 = 0
-	i1= RemoveChaItem ( role , ItemID[3] , 1 , 2 , ItemBag [3] , 2 , 1 , 1)		
-	i2= RemoveChaItem ( role , ItemID[4] , 1 , 2 , ItemBag [4] , 2 , 1 , 1)		
+	i1= RemoveChaItem ( role , ItemID[3] , 1 , 2 , ItemBag [3] , 2 , 1 , 1)		--ТЖіэ
+	i2= RemoveChaItem ( role , ItemID[4] , 1 , 2 , ItemBag [4] , 2 , 1 , 1)		--ТЖіэ
 	if i1 == 0 or  i2 == 0 then
-		LG( "Hecheng_BS" , "Удалить предмет не удалось " )
+		LG( "Hecheng_BS" , "Delete item failed" )
 	end
 	local new_num=1346
-	if ItemID[4] ==2625 then	
+	if ItemID[4] ==2625 then	---КЇІДґЯ»ЇјБ
 		local rad1=0
 		if Item_Lv>=80 then
 			rad1=math.random ( 131, 143 )
@@ -4046,7 +5251,7 @@ function end_fenjie_item (...)
 			rad1=math.random ( 1, 12 )
 		end
 		new_num=STONE1_ID[rad1]
-	elseif ItemID[4] ==2630	 then 
+	elseif ItemID[4] ==2630	 then ---КіІДґЯ»ЇјБ
 		local rad1=0
 		if Item_Lv>=80 then
 			rad1=math.random ( 150, 151 )
@@ -4066,7 +5271,7 @@ function end_fenjie_item (...)
 			rad1=math.random ( 1, 24 )
 		end
 		new_num=FOOD_ID[rad1]
-	elseif ItemID[4] ==2634	 then 
+	elseif ItemID[4] ==2634	 then ---МШКвґЯ»ЇјБ
 		local rad1=0
 		if Item_Lv>=80 then
 			rad1=math.random ( 336, 346 )
@@ -4086,7 +5291,7 @@ function end_fenjie_item (...)
 			rad1=math.random ( 1, 18 )
 		end
 		new_num=SPECIL_ID[rad1]
-	elseif ItemID[4] ==2635	 then 
+	elseif ItemID[4] ==2635	 then ---№ЗН·ґЯ»ЇјБ
 		local rad1=0
 		if Item_Lv>=80 then
 			rad1=math.random ( 171, 176 )
@@ -4106,7 +5311,7 @@ function end_fenjie_item (...)
 			rad1=math.random ( 1, 37 )
 		end
 		new_num=BONE_ID[rad1]
-	elseif ItemID[4] ==2636	 then 
+	elseif ItemID[4] ==2636	 then ---ЦІОпґЯ»ЇјБ
 		local rad1=0
 		if Item_Lv>=70 then
 			rad1=math.random ( 57, 72 )
@@ -4122,7 +5327,7 @@ function end_fenjie_item (...)
 			rad1=math.random ( 1, 36 )
 		end
 		new_num=TREE_ID[rad1]
-	elseif ItemID[4] ==2637 then 
+	elseif ItemID[4] ==2637 then ---Г«Ж¤ґЯ»ЇјБ
 		local rad1=0
 		if Item_Lv>=70 then
 			rad1=math.random ( 77, 97 )
@@ -4140,7 +5345,7 @@ function end_fenjie_item (...)
 			rad1=math.random ( 1, 19 )
 		end
 		new_num=SKIP_ID[rad1]
-	elseif ItemID[4] ==2638 then 
+	elseif ItemID[4] ==2638 then ---ТєМеґЯ»ЇјБ
 		local rad1=0
 		if Item_Lv>=50 then
 			rad1=math.random ( 33, 37 )
@@ -4155,37 +5360,59 @@ function end_fenjie_item (...)
 		end
 		new_num=WATER_ID[rad1]
 	end
+	--Notice( "new_num======"..new_num)
+	--Notice( "num_new======"..num_new)
+
+	--------ёщѕЭ·ЦЅв·ЅПтёшіцОпЖ·
+	--if star_check~=0  and num_new~=0 then
 	GiveItem ( role , 0 , new_num  , num_new , 4  ) 
-	if ItemID[2]==1070 then
+	--else
+	-- 	SystemNotice( role , "As some of your process has gone wrong, some of the items have disappeared as a result")
+	--end
+	--ЦШЙи№¤ѕЯДНѕГ
+	if ItemID[2]==1070 then---------№¤ѕЯґжФЪ
 		local Gj_ure=GetItemAttr ( Item[2] , ITEMATTR_URE )
 		local star_gjlv_num=GetItemAttr ( Item[2] , ITEMATTR_VAL_STR )
 		Gj_ure=Gj_ure-50*star_gjlv_num
 		if Gj_ure<=0 then
 			Gj_ure=0
 		end
-		local star_lv_num = GetItemAttr( Item[2] ,ITEMATTR_ENERGY )       
-		star_lv_num=star_lv_num+1
+		--if Gj_ure==0 then
+		--	local k1 = 0
+		--	k1= RemoveChaItem ( role , ItemID[2] , 1 , 2 , ItemBag [2] , 2 , 1 , 1)		--ТЖіэ
+	 	--	SystemNotice( role , "Life of tool has reached its limit.")
+		--	if k1 == 0 then
+		--		LG( "FENJIE_BS" , "Delete item failed" )
+		--	end
+		--end
+		local star_lv_num = GetItemAttr( Item[2] ,ITEMATTR_ENERGY )       --µАѕЯѕ«Б¶РЕПўУРТФјЗВј№¤ѕЯѕ­Сй
+		star_lv_num=star_lv_num+1-------ЦЖЧчіЙ№¦К±Ј¬№¤ѕЯі¤ѕ­Сй
 		if star_lv_num>=10000 then
 			star_lv_num=10000
 		end
-	 	SystemNotice( role , "Ваш инструмент приобрел "..star_lv_num.." очков опыта ")
+	 	SystemNotice( role , "Your tool currently has "..star_lv_num.." point(s) of experience")
 		local star_gjlv_num=GetItemAttr ( Item[2] , ITEMATTR_VAL_STR )
-		if star_lv_num>=star_gjlv_num*star_gjlv_num*100 then 
+		if star_lv_num>=star_gjlv_num*star_gjlv_num*100 then --------№¤ѕЯЙэј¶Мхјю
 			star_gjlv_num=star_gjlv_num+1
-			SetItemAttr ( Item[2] , ITEMATTR_VAL_STR ,star_gjlv_num)
-	 		SystemNotice( role , "Поздравляем, уровень вашего инструмента повышен!")
+			SetItemAttr ( Item[2] , ITEMATTR_VAL_STR ,star_gjlv_num)----------ЦШЙи№¤ѕЯµИј¶
+	 		SystemNotice( role , "Congratulations, your tool has increase in level!")
 			star_lv_num=0
 		end
 		SetItemAttr (  Item[2] , ITEMATTR_ENERGY , star_lv_num )
 		SetItemAttr ( Item[2] , ITEMATTR_URE ,Gj_ure)
 	end
+	--------------LG
 	local cha_name = GetChaDefaultName ( role )
 	LG( "star_FENJIE_lg" ,cha_name, star_check, ItemID[2] , ItemID[3] , ItemID[4] , Gj_lv ,  life_lv )
+	--check_item_final_data(Item[3])--------№¤ѕЯКфРФЦШЛг
 	SynChaKitbag(role,13)
+	--Notice(  "end_fenjie_item-------End")
 	return 1
 end
-
+--РЮАнЖЖ№ш
+--ЕР¶ПКЗ·сДЬ№»РЮАнЖЖ№шЈ¬РЮАнЖЖ№шєЇКэИлїЪ
 function can_shtool_item(...)
+--	Notice ( "Determine if damaged cauldron can be fixed")
 	if arg.n ~= 10 and arg.n ~= 14 then
 		SystemNotice ( arg[1] , "parameter value illegal"..arg.n )
 		return 0
@@ -4199,131 +5426,184 @@ function can_shtool_item(...)
 	end
 end
 
+--јмІвКЗ·сїЙТФРЮАнЖЖ№шЦчєЇКэ
 function can_shtool_item_main ( Table )
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}										
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}										--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local ItemBag_Now = 0
 	local ItemCount_Now = 0
 	local ItemBagCount_Num = 0
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Now , ItemCount_Now , ItemBagCount_Num = Read_Table ( Table )
+	--------µАѕЯКэБїЕР¶П
 	if ItemCount [0] ~= 1 or ItemCount [1] ~= 1 or ItemBagCount [0] ~= 1 or ItemBagCount [1] ~= 1 then
 		SystemNotice ( role ,"equipment quantity illegal ")
 		return 0
 	end
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet < 1 then
-		SystemNotice(role ,"У вас должен быть 1 свободный слот в инвентаре ")
+		SystemNotice(role ,"You need at least 1 slot in your inventory")
 		UseItemFailed ( role )
 		return
 	end
-	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	
-	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	
+	--------ИЎіцµАѕЯЦёХл
+	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	--ЖЖ№шµАѕЯЦёХл
+	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	--озМъµАѕЯЦёХл
+	--------ИЎµАѕЯАаРН	
 	local  ItemType_mainitem = GetItemType ( Item_mainitem )
 	local  ItemType_otheritem = GetItemType ( Item_otheritem )
+
+	--------ИЎµАѕЯID
         local ItemID_mainitem = GetItemID ( Item_mainitem )
         local ItemID_otheritem = GetItemID ( Item_otheritem )
+	--------ИЎЖЖ№шµИј¶
 	local Item_mainitem_Lv =  GetItemAttr ( Item_mainitem, ITEMATTR_VAL_STR )
+	--------ИЎозМъµИј¶
 	local Item_otheritem_Lv =  GetItemAttr ( Item_otheritem , ITEMATTR_VAL_STR)
-	local item_shtool_ure = GetItemAttr(Item_mainitem,ITEMATTR_URE) 
-	local item_shtool_maxure = GetItemAttr(Item_mainitem,ITEMATTR_MAXURE) 
+	-------ИЎЖЖ№шДНѕГ
+	local item_shtool_ure = GetItemAttr(Item_mainitem,ITEMATTR_URE) ---µ±З°ДНѕГ
+	local item_shtool_maxure = GetItemAttr(Item_mainitem,ITEMATTR_MAXURE) ---ЧоґуДНѕГ
+	-------КЗ·сКфУЪЖЖ№ш
 	if ItemType_mainitem~=70 then
-		SystemNotice( role ,"Здесь можно починить поврежденные инструменты.")
+		SystemNotice( role ,"Damaged Crystal Cauldron, Black Hole Crystal, Anti Matter Crystal and Particle Crystal can be repaired here.")
 		return 0	
 	end
 	if ItemID_mainitem~=1067 and ItemID_mainitem~=1068 and ItemID_mainitem~=1069 and ItemID_mainitem~=1070 then
-		SystemNotice( role ,"Здесь можно починить поврежденные инструменты.")
+		SystemNotice( role ,"Damaged Crystal Cauldron, Black Hole Crystal, Anti Matter Crystal and Particle Crystal can be repaired here.")
 		return 0	
 	end
+	-------КЗ·сКЗозМъ
 	if ItemType_otheritem ~= 70 or ItemID_otheritem~=2236 then
-		SystemNotice( role ,"Используйте нормальный инструмент для починки.")
+		SystemNotice( role ,"Please use the correct repair tool.")
 		return 0	
 	end
+	-------ЕР¶ПЖЖ№шКЗ·сУРДНѕГДҐЛр
 	if item_shtool_ure>=item_shtool_maxure then
-		SystemNotice( role ,"Для починки нужен поврежденный инструмент ")
+		SystemNotice( role ,"Tool has not been damaged beyond repair")
 		return 0	
 	end
+	-------ЕР¶ПозМъµИј¶УлЖЖ№шµИј¶КЗ·сЖҐЕд
 	if Item_mainitem_Lv>Item_otheritem_Lv then
-		SystemNotice( role ,"Уровень починки не может быть ниже уровня сломанного предмета ")
+		SystemNotice( role ,"Repair level cannot be lower than the level of tool being repaired")
 		return 0	
 	end
+	--------ЙнЙПЅрЗ®ЕР¶П
 	local Money_Need = get_item_shtool_money ( Table )
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
 	if Money_Need > Money_Have then
-		SystemNotice( role ,"Не хватает золота. Невозможно провести ремонт ")
+		SystemNotice( role ,"Insufficient gold. Unable to repair cauldron")
 		return 0
 	end
+	--SystemNotice(role ,"determination completed ")
 	return 1
 end
 
+--їЄКјРЮАнЖЖ№шЈ¬РЮАнЖЖ№шЦчіМРтИлїЪ
 function begin_shtool_item(...)
+	--Notice("Repairing damaged pan")
+	--------КЗ·сїЙТФИЪєПјмІв
 	local Check_Canshtool = 0
 	Check_Canshtool = can_shtool_item_main ( arg )
 	if Check_Canshtool == 0 then
 		return 0
 	end
+	--------ИЎіцКэѕЭ
 	local role = 0
-	local ItemBag = {}											
-	local ItemCount = {}											
-	local ItemBagCount = {}										
+	local ItemBag = {}											--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}											--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local ItemBag_Num = 0
 	local ItemCount_Num = 0
 	local ItemBagCount_Num = 0
+
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Num , ItemCount_Num , ItemBagCount_Num = Read_Table ( arg )
-	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	
-	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	
+
+	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	--ЦчЧ°±ёµАѕЯЦёХл
+	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	--ёЁЦъЧ°±ёµАѕЯЦёХл
+	
+	--------їЫіэЅрЗ®
 	local Money_Need = get_item_shtool_money ( arg )
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
+	--Money_Have = Money_Have - Money_Need
+	--SetCharaAttr ( Money_Have , role , ATTR_GD )
+	--ALLExAttrSet( role )
 	TakeMoney(role,nil,Money_Need)
+
+	--------РЮАнЖЖ№ш№эіМ
 	Check_shtool_Item = shtool_item ( arg )
 	if Check_shtool_Item == 0  then
-		SystemNotice ( role ,"Невозможно починить инструмент. Проверьте весь процесс ")
+		SystemNotice ( role ,"Faild to repair Lifeskill tools. Please recheck process")
 	end
+	-------check_item_final_data ( Item_Waiguan )
+	--------Notice("Repair of broken pan completed")
 	return 1
 end
 
+--јЖЛгРЮАнЖЖ№ш·СУГ
 function get_item_shtool_money(...)
+	--Notice("Fee calculation")
 	local Money = shtool_money_main ( arg )
 	return Money
 end
 
+--јЖЛгРЮАнЖЖ№ш·СУГЦчєЇКэ
 function shtool_money_main ( Table )
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}									
-	local ItemBag_Num = 0									
-	local ItemCount_Num = 0									
-	local ItemBagCount_Num = 0								
-	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Num , ItemCount_Num , ItemBagCount_Num = Read_Table ( Table )   
-	local Money_Need=200
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГКэЧй
+	local ItemCount = {}										--µАѕЯКэБїКэЧй
+	local ItemBagCount = {}									--µАѕЯ¶ФПуКэБїКэЧй
+	local ItemBag_Num = 0									--±і°ьО»ЦГКэЧйі¤¶И
+	local ItemCount_Num = 0									--µАѕЯКэБїКэЧйі¤¶И
+	local ItemBagCount_Num = 0								--µАѕЯ¶ФПуКэБїКэЧйі¤¶И
+
+	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Num , ItemCount_Num , ItemBagCount_Num = Read_Table ( Table )
+
+	--------ИЎіцµАѕЯЦёХл
+	--local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	--ЖЖ№шµАѕЯЦёХл
+	--------ИЎµАѕЯID
+       -- local Item_mainitem_Lv = GetItemAttr ( Item_mainitem, ITEMATTR_VAL_STR )
+	local Money_Need=200--*Item_mainitem_Lv*Item_mainitem_Lv
+	--Notice("Calculation completed")
 	return Money_Need
 end
 
+----Па№ШєЇКэ--------------------------------------------------------------------------------------------------------		elseif funclist[id].func == PlayEffect then
+------------------------------------------------------------------------------------------------		ChaPlayEffect( npc, funclist[id].p1 )
+---їЄКјРЮАнЖЖ№ш
 function shtool_item ( Table )
+	--	Notice("Ronghe_Item")
 	local role = 0
-	local ItemBag = {}										
-	local ItemCount = {}										
-	local ItemBagCount = {}										
+	local ItemBag = {}										--µАѕЯ±і°ьО»ЦГ
+	local ItemCount = {}										--µАѕЯКэБї
+	local ItemBagCount = {}										--µАѕЯ¶ФПуКэБї
 	local ItemBag_Num = 0
 	local ItemCount_Num = 0
 	local ItemBagCount_Num = 0
 	local ItemID_Cuihuaji = 0
+
 	role , ItemBag , ItemCount , ItemBagCount , ItemBag_Num , ItemCount_Num , ItemBagCount_Num = Read_Table ( Table )
-	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	
-	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	
+
+	--------ИЎіцµАѕЯЦёХл
+	local Item_mainitem = GetChaItem ( role , 2 , ItemBag [0] )	--ЦчЧ°±ёµАѕЯЦёХл
+	local Item_otheritem = GetChaItem ( role , 2 , ItemBag [1] )	--ёЁЦъЧ°±ёµАѕЯЦёХл
+	--------ИЎµАѕЯАаРН	
 	local  ItemType_mainitem = GetItemType ( Item_mainitem )
 	local  ItemType_otheritem = GetItemType ( Item_otheritem )
-    local ItemID_mainitem = GetItemID ( Item_mainitem )
-    local ItemID_otheritem = GetItemID ( Item_otheritem )
-	local item_shtool_ure = GetItemAttr(Item_mainitem,ITEMATTR_URE) 
-	local item_shtool_maxure = GetItemAttr(Item_mainitem,ITEMATTR_MAXURE) 
+	--------ИЎµАѕЯID
+        local ItemID_mainitem = GetItemID ( Item_mainitem )
+        local ItemID_otheritem = GetItemID ( Item_otheritem )
+	-------ИЎЖЖ№шДНѕГ
+	local item_shtool_ure = GetItemAttr(Item_mainitem,ITEMATTR_URE) ---µ±З°ДНѕГ
+	local item_shtool_maxure = GetItemAttr(Item_mainitem,ITEMATTR_MAXURE) ---ЧоґуДНѕГ
+
 	SetItemAttr ( Item_mainitem ,ITEMATTR_URE, item_shtool_maxure )
+	--------------ідµзLG
 	local cha_name = GetChaDefaultName ( role )
 	LG( "star_xiuguo_lg" ,cha_name, ItemID_mainitem , ItemID_otheritem )
+
 	local R1 = 0
-	R1 = RemoveChaItem ( role , Item_otheritem , 1 , 2 , ItemBag [1] , 2 , 1 , 0 )		
+	R1 = RemoveChaItem ( role , Item_otheritem , 1 , 2 , ItemBag [1] , 2 , 1 , 0 )		--ТЖіэозМъ
 	if R1 == 0 then
 		SystemNotice( role , "moved item failed ")
 		return
@@ -4331,15 +5611,9 @@ function shtool_item ( Table )
 	SynChaKitbag(role,13)
 end
 
---------------------------------------------------------------------
---------------------------- Перерождение ---------------------------
---------------------------------------------------------------------
 
-----------------------
--- Обмен Дес - Сета --
-----------------------
-
-function GetChaName_4 ( role,npc )
+-----------------------------------------------ФЄµ©¶Т»»ИЇ1-4
+ function GetChaName_4 ( role,npc )
 	local el1= CheckBagItem( role,2242 )			
 	local el2 = CheckBagItem( role,2243 )
 	local el3 = CheckBagItem( role,2244 )
@@ -4357,41 +5631,47 @@ function GetChaName_4 ( role,npc )
 			TakeItem( role, 0,2245, 1 )
 			GiveItem ( role , 0 , 3077  , 10 , 4 )  
 		else
-			SystemNotice( role ,"У вас нет нужной расписки ")
+			SystemNotice( role ,"You do not have the suitable voucher.")
+		end
 	end
-end
-	
+
+	-------------------------------------йД№ыґ¦¶Т»»Д¦Б¦·ыКЇ
 function GetChaName_5 ( role,npc )
 	local cha_name = GetChaDefaultName ( role )
+
 	local ret = KitbagLock(role,0)
 	if ret ~= LUA_TRUE then
-		SystemNotice(role,"Инвентарь заблокирован ")
+		SystemNotice(role,"Inventory is binded. Unable to redeem")
 		return
 	end
 	local retbag = HasLeaveBagGrid( role, 1)
 	if retbag ~= LUA_TRUE then
-		SystemNotice(role,"В инвентаре не хватает свободного места ")
+		SystemNotice(role,"Insufficent inventory space to redeem")
 		return 
 	end	
 	local am1 = CheckBagItem( role, 2240 )			
 	if am1 < 1 then
-		SystemNotice( role ,"У вас нет Пиратской расписки 6 ")
+		SystemNotice( role ,"You don't seem to have Pirate Voucher 6.")
 		return
 	else
 	local am2 =TakeItem( role, 0,2240, 1 )			                   
 		if am2==0  then
-			SystemNotice ( role ,"Невозможно забрать расписку ")
+			SystemNotice ( role ,"Collection of Pirate Voucher 6 failed")
 			return
 		end
 	end
 	GiveItem( role , 0 , 1028  , 1 , 4 )
-	Notice("Поздравляем! "..cha_name.." обменял 1 Изменчивую руну ")
+	Notice("Congratulations"..cha_name.."Exchanged 1 Morph Runestone")	
 end
 
-function GetChaName_6 ( role,npc )
-		local job = GetChaAttr( role, ATTR_JOB) 
+-----------------------------------------------ЧЦДёїЁ¶Т»»
+ function GetChaName_6 ( role,npc )
+	
+				
+		local job = GetChaAttr( role, ATTR_JOB) --ИЎЦ°Тµ
+		
 		if job ~= 12 and job ~= 9 and job ~= 16 and job ~= 8 and job ~= 13 and job ~=14 then
-			SystemNotice(role,"Это могут делать только перерожденные игроки ")
+			SystemNotice(role,"Can only be used by rebirth characters. Please look for class trainers NPC of each city to complete your rebirth quest before redemption.")
 			return
 		end
 	local el_count0 = CheckBagItem ( role , 3850)
@@ -4404,8 +5684,11 @@ function GetChaName_6 ( role,npc )
 	local el_count7 = CheckBagItem ( role , 3866)
 	local el_count8 = CheckBagItem ( role , 3868)
 	local el_count9 = CheckBagItem ( role , 3870)
-	local el_count10 = CheckBagItem ( role ,3872 )
+	local el_count10 = CheckBagItem ( role ,3872 )--јмІй±і°ьЦРїЁЖ¬КэБї
+
+
 		if el_count0 >= 1 and el_count1 >= 1 and el_count2 >= 1 and el_count3 >= 2 and el_count4 >= 3 and el_count5 >= 2 and el_count6 >= 2 and el_count7 >= 1 and el_count8 >= 1 and el_count9 >= 1 and el_count10 >= 1 then 
+		
 		local x_del_0 = DelBagItem ( role , 3850 , 1 ) 
 		local x_del_1 = DelBagItem ( role , 3853 , 1 ) 
 		local x_del_2 = DelBagItem ( role , 3854 , 1 ) 
@@ -4417,8 +5700,9 @@ function GetChaName_6 ( role,npc )
 		local x_del_8 = DelBagItem ( role , 3868 , 1 ) 
 		local x_del_9 = DelBagItem ( role , 3870 , 1 ) 
 		local x_del_10 = DelBagItem ( role ,3872 , 1 ) 
+
 		else
-			SystemNotice( role ,"У вас нет Алфавитных карточек ")
+			SystemNotice( role ,"You do not have the suitable alphabet cards.")
 			return
 		end
 		local a = math.random ( 1 , 6 )
@@ -4426,42 +5710,48 @@ function GetChaName_6 ( role,npc )
 				       GiveItem( role , 0 , 2536  , 1 , 4 )
 		        elseif a == 2 then 
 					GiveItem( role , 0 , 2533  , 1 , 4 )
-		        elseif a == 3 then	
+		        elseif a == 3 then	--єЅєЈ
 					GiveItem( role , 0 , 2539  , 1 , 4 )
-			 elseif a == 4 then 
+			 elseif a == 4 then --ѕЮЅЈ
 					GiveItem( role , 0 , 2530  , 1 , 4 )
-			elseif a == 5 then	
+			elseif a == 5 then	--КҐЦ°
 					GiveItem( role , 0 ,2542  , 1 , 4 )
-			elseif a == 6 then	
+			elseif a == 6 then	--·вУЎ
 					GiveItem( role , 0 , 2545  , 1 , 4 )
+
 			end
-			if job == 12 then	
+			if job == 12 then	--ѕС»ч
 						GiveItem( role , 0 , 2536  , 1 , 4 )
-					elseif job == 9	then 
+					elseif job == 9	then --Л«ЅЈ
 						GiveItem( role , 0 , 2533  , 1 , 4 )
-					elseif job == 16 then	
+					elseif job == 16 then	--єЅєЈ
 						GiveItem( role , 0 , 2539  , 1 , 4 )
-					elseif job == 8	then 
+					elseif job == 8	then --ѕЮЅЈ
 						GiveItem( role , 0 , 2530  , 1 , 4 )
-					elseif job == 13 then	
+					elseif job == 13 then	--КҐЦ°
 						GiveItem( role , 0 ,2542  , 1 , 4 )
-					elseif job == 14 then	
+					elseif job == 14 then	--·вУЎ
 						GiveItem( role , 0 , 2545  , 1 , 4 )
+
 				end
 end
 
+
+
+--------------------------------------¶Т»»ЛАЙсµДТЕИЭ
 function GetChaName_7 ( role,npc )
 	local ret = KitbagLock(role,0)
 	if ret ~= LUA_TRUE then
-		SystemNotice(role,"Инвентарь заблокирован. Невозможно совершить действие ")
+		SystemNotice(role,"Inventory is binded. Unable to redeem")
 		return
 	end
 	local retbag = HasLeaveBagGrid( role, 1)
 	if retbag ~= LUA_TRUE then
-		SystemNotice(role,"У вас не хватает свободного места в инвентаре ")
+		SystemNotice(role,"Insufficent inventory space to redeem")
 		return 
 	end	 
 	local cha_name = GetChaDefaultName ( role )
+	--local Item_ID = GetItemID (role)
 	local am1 = CheckBagItem( role, 2846 )	
 	local am2 = CheckBagItem( role, 2847 )	
 	local am3 = CheckBagItem( role, 2848 )	
@@ -4472,7 +5762,7 @@ function GetChaName_7 ( role,npc )
 	local am8 = CheckBagItem( role, 2853 )	
 	       
 	if am1 < 1 or am2 < 1 or am3 < 1 or am4 < 1 or am5 < 1 or am6 < 1 or am7 < 1 or am8 < 1   then
-		SystemNotice( role ,"У вас нет предметов для обмена ")
+		SystemNotice( role ,"You do not seem to possess the correct item for redemption")
 		return
 	end
 	local an1 =TakeItem( role, 0,2846, 1 )
@@ -4484,33 +5774,38 @@ function GetChaName_7 ( role,npc )
 	local an7 =TakeItem( role, 0,2852, 1 )
 	local an8 =TakeItem( role, 0,2853, 1 )
 	if an1==0 or an2==0 or an3==0 or an4==0  or an5==0 or an6==0 or an7==0 or an8==0  then
-		SystemNotice ( role ,"Невозможно забрать предмет ")
+		SystemNotice ( role ,"Collection of redemption item failed")
 	else
 	GiveItem ( role , 0 , 2934  , 1 , 4 ) 
 	LG( "SSYRDH" ,cha_name,"Melancholy of Phantom Baron"..am1.." ","Melancholy of Demon Flame"..am2.." ","Melancholy of Evil Beast"..am3.." ","Melancholy of Tyran"..am4.." ","Melancholy of Phoenix"..am5.." ","Melancholy of Despair"..am6.." ","Melancholy of Drakan"..am7.." ","Melancholy of Tidal"..am8.." ")
-	Notice("Поздравляем! "..cha_name.." обменял 1 Силуэт смерти ")
+	Notice("Congratulations"..cha_name.."Successful exchanged for 1 Silhouette of Death")
 	end
 end
+
+
+----------------------------------¶Т»»№юµПЛ№µДЧзЦд
 
 function GetChaName_8 ( role,npc )
 	local ret = KitbagLock(role,0)
 	if ret ~= LUA_TRUE then
-		SystemNotice(role,"Инвентарь заблокирован. Невозможно совершить действие ")
+		SystemNotice(role,"Inventory is binded. Unable to redeem")
 		return
 	end
 	local retbag = HasLeaveBagGrid( role, 1)
 	if retbag ~= LUA_TRUE then
-		SystemNotice(role,"У вас не хватает свободного места в инвентаре ")
+		SystemNotice(role,"Insufficent inventory space to redeem")
 		return 
 	end	 
 	local cha_name = GetChaDefaultName ( role )
+	--local Item_ID = GetItemID (role)
 	local am1 = CheckBagItem( role, 2854 )	
 	local am2 = CheckBagItem( role, 2855 )	
 	local am3 = CheckBagItem( role, 2856 )	
 	local am4 = CheckBagItem( role, 2857 )	
 	local am5 = CheckBagItem( role, 2927 )	
+	
 	if am1 < 1 or am2 < 1 or am3 < 1 or am4 < 1 or am5 < 1  then
-		SystemNotice( role ,"У вас нет предметов для обмена ")
+		SystemNotice( role ,"You do not seem to possess the correct item for redemption")
 		return
 	end
 	local an1 =TakeItem( role, 0,2854, 1 )
@@ -4518,34 +5813,40 @@ function GetChaName_8 ( role,npc )
 	local an3 =TakeItem( role, 0,2856, 1 )
 	local an4 =TakeItem( role, 0,2857, 1 )
 	local an5 =TakeItem( role, 0,2927, 1 )
+	
 	if an1==0 or an2==0 or an3==0 or an4==0  or an5==0 then
-		SystemNotice ( role ,"Невозможно забрать предмет ")
+		SystemNotice ( role ,"Collection of redemption item failed")
 	else
 	GiveItem ( role , 0 , 2935  , 1 , 4 ) 
 	LG( "HDSZZDH" ,cha_name,"Hair of Death"..am1.." ","Tooth of Death"..am2.." ","Eye of Death"..am3.." ","Heart of Death"..am4.." ","Sealed Soul of Hardin"..am5.." ")
-	Notice("Поздравляем! "..cha_name.." обменял 1 Проклятие Хардина ")
+	Notice("Congratulations"..cha_name.."Successfully exchanged for 1 Curse of Hardin")
 	end
 end
+
+
+----------------------------------¶Т»»єЪ°µµДЧзЦд
 
 function GetChaName_9 ( role,npc )
 	local ret = KitbagLock(role,0)
 	if ret ~= LUA_TRUE then
-		SystemNotice(role,"Инвентарь заблокирован. Невозможно совершить действие ")
+		SystemNotice(role,"Inventory is binded. Unable to redeem")
 		return
 	end
 	local retbag = HasLeaveBagGrid( role, 1)
 	if retbag ~= LUA_TRUE then
-		SystemNotice(role,"У вас не хватает свободного места в инвентаре ")
+		SystemNotice(role,"Insufficent inventory space to redeem")
 		return 
 	end	 
 	local cha_name = GetChaDefaultName ( role )
+	--local Item_ID = GetItemID (role)
 	local am1 = CheckBagItem( role, 2854 )	
 	local am2 = CheckBagItem( role, 2855 )	
 	local am3 = CheckBagItem( role, 2856 )	
 	local am4 = CheckBagItem( role, 2857 )	
 	local am5 = CheckBagItem( role, 2928 )	
+	
 	if am1 < 1 or am2 < 1 or am3 < 1 or am4 < 1 or am5 < 1  then
-		SystemNotice( role ,"У вас нет предметов для обмена ")
+		SystemNotice( role ,"You do not seem to possess the correct item for redemption")
 		return
 	end
 	local an1 =TakeItem( role, 0,2854, 1 )
@@ -4553,34 +5854,40 @@ function GetChaName_9 ( role,npc )
 	local an3 =TakeItem( role, 0,2856, 1 )
 	local an4 =TakeItem( role, 0,2857, 1 )
 	local an5 =TakeItem( role, 0,2928, 1 )
+	
 	if an1==0 or an2==0 or an3==0 or an4==0  or an5==0 then
-		SystemNotice ( role ,"Невозможно забрать предмет ")
+		SystemNotice ( role ,"Collection of redemption item failed")
 	else
 	GiveItem ( role , 0 , 2936  , 1 , 4 )
 	LG( "HAZZDH" ,cha_name,"Hair of Death"..am1.." ","Tooth of Death"..am2.." ","Eye of Death"..am3.." ","Heart of Death"..am4.." ","Sealed Soul of Darkness"..am5.." ")
-	Notice("Поздравляем! "..cha_name.." обменял 1 Проклятие Тьмы ")
+	Notice("Congratulations"..cha_name..": Successfully exchanged for 1 Curse of Darkness")
 	end
 end
+
+
+----------------------------------¶Т»»µШУьµДЧзЦд
 
 function GetChaName_10 ( role,npc )
 	local ret = KitbagLock(role,0)
 	if ret ~= LUA_TRUE then
-		SystemNotice(role,"Инвентарь заблокирован. Невозможно совершить действие ")
+		SystemNotice(role,"Inventory is binded. Unable to redeem")
 		return
 	end
 	local retbag = HasLeaveBagGrid( role, 1)
 	if retbag ~= LUA_TRUE then
-		SystemNotice(role,"У вас не хватает свободного места в инвентаре ")
+		SystemNotice(role,"Insufficent inventory space to redeem")
 		return 
 	end	 
 	local cha_name = GetChaDefaultName ( role )
+	--local Item_ID = GetItemID (role)
 	local am1 = CheckBagItem( role, 2854 )	
 	local am2 = CheckBagItem( role, 2855 )	
 	local am3 = CheckBagItem( role, 2856 )	
 	local am4 = CheckBagItem( role, 2857 )	
 	local am5 = CheckBagItem( role, 2929 )	
+	
 	if am1 < 1 or am2 < 1 or am3 < 1 or am4 < 1 or am5 < 1  then
-		SystemNotice( role ,"У вас нет предметов для обмена ")
+		SystemNotice( role ,"You do not seem to possess the correct item for redemption")
 		return
 	end
 	local an1 =TakeItem( role, 0,2854, 1 )
@@ -4588,8 +5895,9 @@ function GetChaName_10 ( role,npc )
 	local an3 =TakeItem( role, 0,2856, 1 )
 	local an4 =TakeItem( role, 0,2857, 1 )
 	local an5 =TakeItem( role, 0,2929, 1 )
+	
 	if an1==0 or an2==0 or an3==0 or an4==0  or an5==0 then
-		SystemNotice ( role ,"Невозможно забрать предмет ")
+		SystemNotice ( role ,"Collection of redemption item failed")
 	else
 	GiveItem ( role , 0 , 2937  , 1 , 4 ) 
 	LG( "DYZZDH" ,cha_name,"Hair of Death"..am1.." ","Tooth of Death"..am2.." ","Eye of Death"..am3.." ","Heart of Death"..am4.." ","Sealed Soul of Abaddon"..am5.." ")
@@ -4597,25 +5905,30 @@ function GetChaName_10 ( role,npc )
 	end
 end
 
+
+----------------------------------¶Т»»УДЪ¤µДЧзЦд
+
 function GetChaName_11  ( role,npc )
 	local ret = KitbagLock(role,0)
 	if ret ~= LUA_TRUE then
-		SystemNotice(role,"Инвентарь заблокирован. Невозможно совершить действие ")
+		SystemNotice(role,"Inventory is binded. Unable to redeem")
 		return
 	end
 	local retbag = HasLeaveBagGrid( role, 1)
 	if retbag ~= LUA_TRUE then
-		SystemNotice(role,"У вас не хватает свободного места в инвентаре ")
+		SystemNotice(role,"Insufficent inventory space to redeem")
 		return 
 	end	 
 	local cha_name = GetChaDefaultName ( role )
+	--local Item_ID = GetItemID (role)
 	local am1 = CheckBagItem( role, 2854 )	
 	local am2 = CheckBagItem( role, 2855 )	
 	local am3 = CheckBagItem( role, 2856 )	
 	local am4 = CheckBagItem( role, 2857 )	
 	local am5 = CheckBagItem( role, 2931 )	
+	
 	if am1 < 1 or am2 < 1 or am3 < 1 or am4 < 1 or am5 < 1  then
-		SystemNotice( role ,"У вас нет предметов для обмена ")
+		SystemNotice( role ,"You do not seem to possess the correct item for redemption")
 		return
 	end
 	local an1 =TakeItem( role, 0,2854, 1 )
@@ -4623,34 +5936,40 @@ function GetChaName_11  ( role,npc )
 	local an3 =TakeItem( role, 0,2856, 1 )
 	local an4 =TakeItem( role, 0,2857, 1 )
 	local an5 =TakeItem( role, 0,2931, 1 )
+	
 	if an1==0 or an2==0 or an3==0 or an4==0  or an5==0 then
-		SystemNotice ( role ,"Невозможно забрать предмет ")
+		SystemNotice ( role ,"Collection of redemption item failed")
 	else
 	GiveItem ( role , 0 , 2939  , 1 , 4 )
 	LG( "YMZZDH" ,cha_name,"Hair of Death"..am1.." ","Tooth of Death"..am2.." ","Eye of Death"..am3.." ","Heart of Death"..am4.." ","Sealed Soul of Abyss"..am5.." ")
-	Notice("Поздравляем! "..cha_name.." обменял 1 Проклятие Бездны ")
+	Notice("Congratulations"..cha_name.."Successfully exchanged for 1 Curse of Abyss")
 	end
 end
+
+
+----------------------------------¶Т»»Ъ¤єУµДЧзЦд
 
 function GetChaName_12 ( role,npc )
 	local ret = KitbagLock(role,0)
 	if ret ~= LUA_TRUE then
-		SystemNotice(role,"Инвентарь заблокирован. Невозможно совершить действие ")
+		SystemNotice(role,"Inventory is binded. Unable to redeem")
 		return
 	end
 	local retbag = HasLeaveBagGrid( role, 1)
 	if retbag ~= LUA_TRUE then
-		SystemNotice(role,"У вас не хватает свободного места в инвентаре ")
+		SystemNotice(role,"Insufficent inventory space to redeem")
 		return 
 	end	 
 	local cha_name = GetChaDefaultName ( role )
+	--local Item_ID = GetItemID (role)
 	local am1 = CheckBagItem( role, 2854 )	
 	local am2 = CheckBagItem( role, 2855 )	
 	local am3 = CheckBagItem( role, 2856 )	
 	local am4 = CheckBagItem( role, 2857 )	
 	local am5 = CheckBagItem( role, 2932 )	
+	
 	if am1 < 1 or am2 < 1 or am3 < 1 or am4 < 1 or am5 < 1  then
-		SystemNotice( role ,"У вас нет предметов для обмена ")
+		SystemNotice( role ,"You do not seem to possess the correct item for redemption")
 		return
 	end
 	local an1 =TakeItem( role, 0,2854, 1 )
@@ -4658,34 +5977,40 @@ function GetChaName_12 ( role,npc )
 	local an3 =TakeItem( role, 0,2856, 1 )
 	local an4 =TakeItem( role, 0,2857, 1 )
 	local an5 =TakeItem( role, 0,2932, 1 )
+	
 	if an1==0 or an2==0 or an3==0 or an4==0  or an5==0 then
-		SystemNotice ( role ,"Невозможно забрать предмет ")
+		SystemNotice ( role ,"Collection of redemption item failed")
 	else
 	GiveItem ( role , 0 , 2940  , 1 , 4 ) 
 	LG( "MHZZDH" ,cha_name,"Hair of Death"..am1.." ","Tooth of Death"..am2.." ","Eye of Death"..am3.." ","Heart of Death"..am4.." ","Sealed Soul of Styx"..am5.." ")
-	Notice("Поздравляем! "..cha_name.." обменял 1 Проклятие Стикса ")
+	Notice("Congratulations"..cha_name..": Sucessfully exchanged for 1 Curse of Styx")
 	end
 end
+
+
+----------------------------------¶Т»»РЮВЮµДЧзЦд
 
 function GetChaName_13 ( role,npc )
 	local ret = KitbagLock(role,0)
 	if ret ~= LUA_TRUE then
-		SystemNotice(role,"Инвентарь заблокирован. Невозможно совершить действие ")
+		SystemNotice(role,"Inventory is binded. Unable to redeem")
 		return
 	end
 	local retbag = HasLeaveBagGrid( role, 1)
 	if retbag ~= LUA_TRUE then
-		SystemNotice(role,"У вас не хватает свободного места в инвентаре ")
+		SystemNotice(role,"Insufficent inventory space to redeem")
 		return 
 	end	 
 	local cha_name = GetChaDefaultName ( role )
+	--local Item_ID = GetItemID (role)
 	local am1 = CheckBagItem( role, 2854 )	
 	local am2 = CheckBagItem( role, 2855 )	
 	local am3 = CheckBagItem( role, 2856 )	
 	local am4 = CheckBagItem( role, 2857 )	
 	local am5 = CheckBagItem( role, 2930 )	
+	
 	if am1 < 1 or am2 < 1 or am3 < 1 or am4 < 1 or am5 < 1  then
-		SystemNotice( role ,"У вас нет предметов для обмена ")
+		SystemNotice( role ,"You do not seem to possess the correct item for redemption")
 		return
 	end
 	local an1 =TakeItem( role, 0,2854, 1 )
@@ -4693,201 +6018,240 @@ function GetChaName_13 ( role,npc )
 	local an3 =TakeItem( role, 0,2856, 1 )
 	local an4 =TakeItem( role, 0,2857, 1 )
 	local an5 =TakeItem( role, 0,2930, 1 )
+	
 	if an1==0 or an2==0 or an3==0 or an4==0  or an5==0 then
-		SystemNotice ( role ,"Невозможно забрать предмет ")
+		SystemNotice ( role ,"Collection of redemption item failed")
 	else
 	GiveItem ( role , 0 , 2938  , 1 , 4 )
 	LG( "XLZZDH" ,cha_name,"Hair of Death"..am1.." ","Tooth of Death"..am2.." ","Eye of Death"..am3.." ","Heart of Death"..am4.." ","Sealed Soul of Asura"..am5.." ")
-	Notice("Поздравляем! "..cha_name.." обменял 1 Проклятие Асуры ")
+	Notice("Congratulations"..cha_name.."Successfully exchanged for 1 Curse of Asura")
 	end
 end
+
+
+----------------------------------¶Т»»№юµПЛ№µД»кЖЗ
 
 function GetChaName_14 ( role,npc )
 	local ret = KitbagLock(role,0)
 	if ret ~= LUA_TRUE then
-		SystemNotice(role,"Инвентарь заблокирован. Невозможно совершить действие ")
+		SystemNotice(role,"Inventory is binded. Unable to redeem")
 		return
 	end
 	local retbag = HasLeaveBagGrid( role, 1)
 	if retbag ~= LUA_TRUE then
-		SystemNotice(role,"У вас не хватает свободного места в инвентаре ")
+		SystemNotice(role,"Insufficent inventory space to redeem")
 		return 
 	end	 
 	local cha_name = GetChaDefaultName ( role )
+	--local Item_ID = GetItemID (role)
 	local am1 = CheckBagItem( role, 2934 )	
 	local am2 = CheckBagItem( role, 2935 )	
+	
 	if am1 < 1 or am2 < 1 then
-		--SystemNotice( role ,"You do not seem to possess the correct item for redemption")
+		SystemNotice( role ,"You do not seem to possess the correct item for redemption")
 		return
 	end
 	local an1 =TakeItem( role, 0,2934, 1 )
 	local an2 =TakeItem( role, 0,2935, 1 )
+	
 	if an1==0 or an2==0 then
 		SystemNotice ( role ,"Collection of redemption item failed")
 	else
 	GiveItem ( role , 0 , 2562  , 1 , 4 ) 
 	LG( "HDSHPDH" ,cha_name,"Silhouette of Death"..am1.." ","Curse of Hardin"..am2.." ")
-	Notice("Поздравляем! "..cha_name.." обменял 1 Душу Хардина ")
+	Notice("Congratulations"..cha_name.."Successful exchanged for 1 Soul of Hardin")
 	end
 end
+
+
+----------------------------------¶Т»»єЪ°µµД»кЖЗ
 
 function GetChaName_15 ( role,npc )
 	local ret = KitbagLock(role,0)
 	if ret ~= LUA_TRUE then
-		SystemNotice(role,"Инвентарь заблокирован. Невозможно совершить действие ")
+		SystemNotice(role,"Inventory is binded. Unable to redeem")
 		return
 	end
 	local retbag = HasLeaveBagGrid( role, 1)
 	if retbag ~= LUA_TRUE then
-		SystemNotice(role,"У вас не хватает свободного места в инвентаре ")
+		SystemNotice(role,"Insufficent inventory space to redeem")
 		return 
 	end	 
 	local cha_name = GetChaDefaultName ( role )
+	--local Item_ID = GetItemID (role)
 	local am1 = CheckBagItem( role, 2934 )	
 	local am2 = CheckBagItem( role, 2936 )	
+	
 	if am1 < 1 or am2 < 1 then
-		--SystemNotice( role ,"You do not seem to possess the correct item for redemption")
+		SystemNotice( role ,"You do not seem to possess the correct item for redemption")
 		return
 	end
 	local an1 =TakeItem( role, 0,2934, 1 )
 	local an2 =TakeItem( role, 0,2936, 1 )
+	
 	if an1==0 or an2==0 then
 		SystemNotice ( role ,"Collection of redemption item failed")
 	else
 	GiveItem ( role , 0 , 2563  , 1 , 4 ) 
 	LG( "HAHPDH" ,cha_name,"Silhouette of Death"..am1.." ","Curse of Darkness"..am2.." ")
-	Notice("Поздравляем! "..cha_name.." обменял 1 Душу Тьмы ")
+	Notice("Congratulations"..cha_name.."Successfully exchanged 1 Soul of Darkness")
 	end
 end
+
+
+----------------------------------¶Т»»µШУьµД»кЖЗ
 
 function GetChaName_16 ( role,npc )
 	local ret = KitbagLock(role,0)
 	if ret ~= LUA_TRUE then
-		SystemNotice(role,"Инвентарь заблокирован. Невозможно совершить действие ")
+		SystemNotice(role,"Inventory is binded. Unable to redeem")
 		return
 	end
 	local retbag = HasLeaveBagGrid( role, 1)
 	if retbag ~= LUA_TRUE then
-		SystemNotice(role,"У вас не хватает свободного места в инвентаре ")
+		SystemNotice(role,"Insufficent inventory space to redeem")
 		return 
 	end	 
 	local cha_name = GetChaDefaultName ( role )
+	--local Item_ID = GetItemID (role)
 	local am1 = CheckBagItem( role, 2934 )	
 	local am2 = CheckBagItem( role, 2937 )	
+	
 	if am1 < 1 or am2 < 1 then
-		SystemNotice( role ,"У вас нет предметов для обмена ")
+		SystemNotice( role ,"You do not seem to possess the correct item for redemption")
 		return
 	end
 	local an1 =TakeItem( role, 0,2934, 1 )
 	local an2 =TakeItem( role, 0,2937, 1 )
+	
 	if an1==0 or an2==0 then
-		SystemNotice ( role ,"Невозможно забрать предмет ")
+		SystemNotice ( role ,"Collection of redemption item failed")
 	else
 	GiveItem ( role , 0 , 2564  , 1 , 4 )
 	LG( "DYHPDH" ,cha_name,"Silhouette of Death"..am1.." ","Curse of Abaddon"..am2.." ")
-	Notice("Поздравляем! "..cha_name.." обменял 1 Душу Абаддона ")
+	Notice("Congratulations"..cha_name.."Successfully exchanged for 1 Soul of Abaddon")
 	end
 end
+
+
+----------------------------------¶Т»»УДЪ¤µД»кЖЗ
 
 function GetChaName_17 ( role,npc )
 	local ret = KitbagLock(role,0)
 	if ret ~= LUA_TRUE then
-		SystemNotice(role,"Инвентарь заблокирован. Невозможно совершить действие ")
+		SystemNotice(role,"Inventory is binded. Unable to redeem")
 		return
 	end
 	local retbag = HasLeaveBagGrid( role, 1)
 	if retbag ~= LUA_TRUE then
-		SystemNotice(role,"У вас не хватает свободного места в инвентаре ")
+		SystemNotice(role,"Insufficent inventory space to redeem")
 		return 
 	end	 
 	local cha_name = GetChaDefaultName ( role )
+	--local Item_ID = GetItemID (role)
 	local am1 = CheckBagItem( role, 2934 )	
 	local am2 = CheckBagItem( role, 2939 )	
+	
 	if am1 < 1 or am2 < 1 then
-		SystemNotice( role ,"У вас нет предметов для обмена ")
+		SystemNotice( role ,"You do not seem to possess the correct item for redemption")
 		return
 	end
 	local an1 =TakeItem( role, 0,2934, 1 )
 	local an2 =TakeItem( role, 0,2939, 1 )
+	
 	if an1==0 or an2==0 then
-		SystemNotice ( role ,"Невозможно забрать предмет ")
+		SystemNotice ( role ,"Collection of redemption item failed")
 	else
 	GiveItem ( role , 0 , 2566  , 1 , 4 )
 	LG( "YMHPDH" ,cha_name,"Silhouette of Death"..am1.." ","Curse of Abyss"..am2.." ")
-	Notice("Поздравляем! "..cha_name.." обменял 1 Душу Бездны ")
+	Notice("Congratulations"..cha_name..": Sucessfully exchanged for 1 Soul of Abyss")
 	end
 end
+
+
+----------------------------------¶Т»»Ъ¤єУµД»кЖЗ
 
 function GetChaName_18 ( role,npc )
 	local ret = KitbagLock(role,0)
 	if ret ~= LUA_TRUE then
-		SystemNotice(role,"Инвентарь заблокирован. Невозможно совершить действие ")
+		SystemNotice(role,"Inventory is binded. Unable to redeem")
 		return
 	end
 	local retbag = HasLeaveBagGrid( role, 1)
 	if retbag ~= LUA_TRUE then
-		SystemNotice(role,"У вас не хватает свободного места в инвентаре ")
+		SystemNotice(role,"Insufficent inventory space to redeem")
 		return 
 	end	 
 	local cha_name = GetChaDefaultName ( role )
+	--local Item_ID = GetItemID (role)
 	local am1 = CheckBagItem( role, 2934 )	
 	local am2 = CheckBagItem( role, 2940 )	
+	
 	if am1 < 1 or am2 < 1 then
-		SystemNotice( role ,"У вас нет предметов для обмена ")
+		SystemNotice( role ,"You do not seem to possess the correct item for redemption")
 		return
 	end
 	local an1 =TakeItem( role, 0,2934, 1 )
 	local an2 =TakeItem( role, 0,2940, 1 )
+	
 	if an1==0 or an2==0 then
-		SystemNotice ( role ,"Невозможно забрать предмет ")
+		SystemNotice ( role ,"Collection of redemption item failed")
 	else
 	GiveItem ( role , 0 , 2567  , 1 , 4 )
 	LG( "MHHPDH" ,cha_name,"Silhouette of Death"..am1.." ","Curse of Styx"..am2.." ")
-	Notice("Поздравляем! "..cha_name.." обменял 1 Душу Стикса ")
+	Notice("Congratulations"..cha_name.."Successfully exchanged 1 Soul of Styx")
 	end
 end
+
+
+----------------------------------¶Т»»РЮВЮµД»кЖЗ
 
 function GetChaName_19 ( role,npc )
 	local ret = KitbagLock(role,0)
 	if ret ~= LUA_TRUE then
-		SystemNotice(role,"Инвентарь заблокирован. Невозможно совершить действие ")
+		SystemNotice(role,"Inventory is binded. Unable to redeem")
 		return
 	end
 	local retbag = HasLeaveBagGrid( role, 1)
 	if retbag ~= LUA_TRUE then
-		SystemNotice(role,"У вас не хватает свободного места в инвентаре ")
+		SystemNotice(role,"Insufficent inventory space to redeem")
 		return 
 	end	 
 	local cha_name = GetChaDefaultName ( role )
+	--local Item_ID = GetItemID (role)
 	local am1 = CheckBagItem( role, 2934 )	
 	local am2 = CheckBagItem( role, 2938 )	
+	
 	if am1 < 1 or am2 < 1 then
-		SystemNotice( role ,"У вас нет предметов для обмена ")
+		SystemNotice( role ,"You do not seem to possess the correct item for redemption")
 		return
 	end
 	local an1 =TakeItem( role, 0,2934, 1 )
 	local an2 =TakeItem( role, 0,2938, 1 )
+	
 	if an1==0 or an2==0 then
-		SystemNotice ( role ,"Невозможно забрать предмет ")
+		SystemNotice ( role ,"Collection of redemption item failed")
 	else
 	GiveItem ( role , 0 , 2565  , 1 , 4 )
 	LG( "XLHPDH" ,cha_name,"Silhouette of Death"..am1.." ","Curse of Asura"..am2.." ")
-	Notice("Поздравляем! "..cha_name.." обменял 1 Душу Асуры ")
+	Notice("Congratulations"..cha_name..": Successfully exchanged for 1 Soul of Asura")
 	end
 end
 
+--------------------------------------¶Т»»єЪБъµД»кЖЗ
 function GetChaName_20 ( role,npc )
 	local ret = KitbagLock(role,0)
 	if ret ~= LUA_TRUE then
-		SystemNotice(role,"Инвентарь заблокирован. Невозможно совершить действие ")
+		SystemNotice(role,"Inventory is binded. Unable to redeem")
 		return
 	end
 	local retbag = HasLeaveBagGrid( role, 1)
 	if retbag ~= LUA_TRUE then
-		SystemNotice(role,"У вас не хватает свободного места в инвентаре ")
+		SystemNotice(role,"Insufficent inventory space to redeem")
 		return 
 	end	 
 	local cha_name = GetChaDefaultName ( role )
+	--local Item_ID = GetItemID (role)
 	local am1 = CheckBagItem( role, 2562 )	
 	local am2 = CheckBagItem( role, 2563 )	
 	local am3 = CheckBagItem( role, 2564 )	
@@ -4898,7 +6262,7 @@ function GetChaName_20 ( role,npc )
 	local am8 = CheckBagItem( role, 2934 )	
 	       
 	if am1 < 1 or am2 < 1 or am3 < 1 or am4 < 1 or am5 < 1 or am6 < 1 or am7 < 1 or am8 < 1   then
-		SystemNotice( role ,"У вас нет предметов для обмена ")
+		SystemNotice( role ,"You do not seem to possess the correct item for redemption")
 		return
 	end
 	local an1 =TakeItem( role, 0,2562, 1 )
@@ -4910,15 +6274,16 @@ function GetChaName_20 ( role,npc )
 	local an7 =TakeItem( role, 0,2933, 1 )
 	local an8 =TakeItem( role, 0,2934, 1 )
 	if an1==0 or an2==0 or an3==0 or an4==0  or an5==0 or an6==0 or an7==0 or an8==0  then
-		SystemNotice ( role ,"Невозможно забрать предмет ")
+		SystemNotice ( role ,"Collection of redemption item failed")
 	else
 	GiveItem ( role , 0 , 2404  , 1 , 4 ) 
 	LG( "HLHPDH" ,cha_name,"Soul of Darkness"..am1.." ","Soul of Asura"..am2.." ","Soul of Hardin"..am3.." ","Soul of Abaddon"..am4.." ","Soul of Abyss"..am5.." ","Soul of Styx"..am6.." ","Silhouette of Death"..am7.." ","Titter of Black Dragon"..am8.." ")
-	Notice("Поздравляем! "..cha_name.." обменял 1 Душу Черного Дракона ")
+	Notice("Congratulations"..cha_name..": Successfully exchanged for 1 Soul of Black Dragon")
 	end
 end
-
+-------------------------------------АПДМДМґ¦¶Т»»Хж°®µДЦЦЧУ1ёц
 function GetChaName_21 ( role,npc )
+
 	local Now_Day = os.date("%d")
 	local Now_Month = os.date("%m")
 	local Now_Time = os.date("%H")
@@ -4926,20 +6291,22 @@ function GetChaName_21 ( role,npc )
 	local NowDayNum = tonumber(Now_Day)
 	local NowMonthNum = tonumber(Now_Month)
 	local CheckDateNum = NowMonthNum * 10000 + NowDayNum * 100 + NowTimeNum
+	
 	if CheckDateNum > 31421 then
-		SystemNotice ( role , "Сейчас это нельзя сделать. Попробуйте в следующем году ")
+		SystemNotice ( role , "Redemption timing is over. You will have to wait till next year" )
 		UseItemFailed ( role )
 		return
 	end
+	
 	local cha_name = GetChaDefaultName ( role )
 	local ret = KitbagLock(role,0)
 	if ret ~= LUA_TRUE then
-		SystemNotice(role,"Инвентарь заблокирован. Невозможно совершить действие ")
+		SystemNotice(role,"Inventory is binded. Unable to redeem")
 		return
 	end
 	local retbag = HasLeaveBagGrid( role, 1)
 	if retbag ~= LUA_TRUE then
-		SystemNotice(role,"У вас не хватает свободного места в инвентаре ")
+		SystemNotice(role,"Insufficent inventory space to redeem")
 		return 
 	end	
 	local am1 = CheckBagItem( role, 1649 )	
@@ -4947,7 +6314,7 @@ function GetChaName_21 ( role,npc )
 	       am3 = CheckBagItem( role, 1641 )
 	       am4 = CheckBagItem( role, 4418 )
 	if am1 < 1 or am2<1 or am3<1 or am4<1 then
-		SystemNotice( role ,"У вас нет предметов для обмена ")
+		SystemNotice( role ,"You do not seem to have enough items for redemption")
 		return
 	else
 	local am5 =TakeItem( role, 0,1649, 1)
@@ -4955,15 +6322,19 @@ function GetChaName_21 ( role,npc )
 	       am7 =TakeItem( role, 0,1641, 1)
 	       am8 =TakeItem( role, 0,4418, 1)
 		if am5==0 or am6==0 or am7==0 or am8==0 then
-		SystemNotice ( role ,"Невозможно забрать предмет ")
+			SystemNotice ( role ,"Collection of required item for redemption failed")
 			return
 		end
 	end
 	GiveItem( role , 0 , 1074  , 1 , 4 )
-	LG( "ZAZZ" , "Игрок "..cha_name.." получил 1 Зернышко Любви " )
+	LG( "ZAZZ" , "Player"..cha_name.."Redeem 1 Seed of Love" )
 end
 
+
+
+-------------------------------------АПДМДМґ¦¶Т»»МрГЫЗЙїЛБ¦1ёц
 function GetChaName_22 ( role,npc )
+		
 	local Now_Day = os.date("%d")
 	local Now_Month = os.date("%m")
 	local Now_Time = os.date("%H")
@@ -4971,41 +6342,48 @@ function GetChaName_22 ( role,npc )
 	local NowDayNum = tonumber(Now_Day)
 	local NowMonthNum = tonumber(Now_Month)
 	local CheckDateNum = NowMonthNum * 10000 + NowDayNum * 100 + NowTimeNum
+	
+	
 	if CheckDateNum < 31420  then
-		SystemNotice ( role , "Не переживай. Ты сможешь произвести обмен 14 марта в 8-10 часов вечера " )
+		SystemNotice ( role , "Do not worry, love needs time. Please exchange it on 14th March itself between 2000 hrs to 2200 hrs" )
 		UseItemFailed ( role )
 		return
 	end
+	
 	if CheckDateNum > 31421 then
-		SystemNotice ( role , "Сейчас это нельзя сделать. Попробуйте в следующем году " )
+		SystemNotice ( role , "Redemption timing is over. You will have to wait till next year" )
 		UseItemFailed ( role )
 		return
 	end
+
 	local cha_name = GetChaDefaultName ( role )
+
 	local ret = KitbagLock(role,0)
 	if ret ~= LUA_TRUE then
-		SystemNotice(role,"Инвентарь заблокирован. Невозможно совершить действие ")
+		SystemNotice(role,"Inventory is binded. Unable to redeem")
 		return
 	end
 	local retbag = HasLeaveBagGrid( role, 1)
 	if retbag ~= LUA_TRUE then
-		SystemNotice(role,"У вас не хватает свободного места в инвентаре ")
+		SystemNotice(role,"Insufficent inventory space to redeem")
 		return 
 	end	
 	local am1 = CheckBagItem( role, 1074 )			
 	if am1 < 10 then
-		SystemNotice( role ,"У вас нет Зернышка любви ")
+		SystemNotice( role ,"You do not seems to have sufficient Seeds of Love")
 		return
 	else
 	local am2 =TakeItem( role, 0,1074, 10)			                   
 		if am2==0  then
-			SystemNotice ( role ,"Невозможно забрать 10 Зернышек любви ")
+			SystemNotice ( role ,"Collection of 10 Seeds of Love failed")
 			return
 		end
 	end
 	GiveItem( role , 0 , 3077  , 1 , 4 )
 end
 
+
+-------------------------------------АПДМДМґ¦¶Т»»Е¬Б¦Фц·щЖч3ёц
 function GetChaName_23 ( role,npc )
 	local Now_Day = os.date("%d")
 	local Now_Month = os.date("%m")
@@ -5014,41 +6392,46 @@ function GetChaName_23 ( role,npc )
 	local NowDayNum = tonumber(Now_Day)
 	local NowMonthNum = tonumber(Now_Month)
 	local CheckDateNum = NowMonthNum * 10000 + NowDayNum * 100 + NowTimeNum
+	
 	if CheckDateNum < 31420  then
-		SystemNotice ( role , "Не переживай. Ты сможешь произвести обмен 14 марта в 8-10 часов вечера " )
+		SystemNotice ( role , "Do not worry, love needs time. Please exchange it on 14th March itself between 2000 hrs to 2200 hrs" )
 		UseItemFailed ( role )
 		return
 	end
+	
 	if CheckDateNum > 31421 then
-		SystemNotice ( role , "Сейчас это нельзя сделать. Попробуйте в следующем году " )
+		SystemNotice ( role , "Redemption timing is over. You will have to wait till next year" )
 		UseItemFailed ( role )
 		return
 	end
+
 	local cha_name = GetChaDefaultName ( role )
 	local ret = KitbagLock(role,0)
 	if ret ~= LUA_TRUE then
-		SystemNotice(role,"Инвентарь заблокирован. Невозможно совершить действие ")
+		SystemNotice(role,"Inventory is binded. Unable to redeem")
 		return
 	end
 	local retbag = HasLeaveBagGrid( role, 1)
 	if retbag ~= LUA_TRUE then
-		SystemNotice(role,"У вас не хватает свободного места в инвентаре ")
+		SystemNotice(role,"Insufficent inventory space to redeem")
 		return 
 	end	
 	local am1 = CheckBagItem( role, 1074 )			
 	if am1 < 100 then
-		SystemNotice( role ,"У вас нет Зернышка любви ")
+		SystemNotice( role ,"You do not seems to have sufficient Seeds of Love")
 		return
 	else
 	local am2 =TakeItem( role, 0,1074, 100)			                   
 		if am2==0  then
-		SystemNotice ( role ,"Невозможно забрать 100 Зернышек любви ")
+			SystemNotice ( role ,"Collection of 100 Seeds of Love failed")
 			return
 		end
 	end
 	GiveItem( role , 0 , 3094  , 3 , 4 )
 end
 
+
+-------------------------------------АПДМДМґ¦¶Т»»µШУь4Іг»ъЖ±1ХЕ
 function GetChaName_24 ( role,npc )
 	local Now_Day = os.date("%d")
 	local Now_Month = os.date("%m")
@@ -5057,93 +6440,109 @@ function GetChaName_24 ( role,npc )
 	local NowDayNum = tonumber(Now_Day)
 	local NowMonthNum = tonumber(Now_Month)
 	local CheckDateNum = NowMonthNum * 10000 + NowDayNum * 100 + NowTimeNum
+	
 	if CheckDateNum < 31420  then
-		SystemNotice ( role , "Не переживай. Ты сможешь произвести обмен 14 марта в 8-10 часов вечера " )
+		SystemNotice ( role , "Do not worry, love needs time. Please exchange it on 14th March itself between 2000 hrs to 2200 hrs" )
 		UseItemFailed ( role )
 		return
 	end
+	
 	if CheckDateNum > 31421 then
-		SystemNotice ( role , "Сейчас это нельзя сделать. Попробуйте в следующем году " )
+		SystemNotice ( role , "Redemption timing is over. You will have to wait till next year" )
 		UseItemFailed ( role )
 		return
 	end
+
 	local cha_name = GetChaDefaultName ( role )
 	local ret = KitbagLock(role,0)
 	if ret ~= LUA_TRUE then
-		SystemNotice(role,"Инвентарь заблокирован. Невозможно совершить действие ")
+		SystemNotice(role,"Inventory is binded. Unable to redeem")
 		return
 	end
 	local retbag = HasLeaveBagGrid( role, 1)
 	if retbag ~= LUA_TRUE then
-		SystemNotice(role,"У вас не хватает свободного места в инвентаре ")
+		SystemNotice(role,"Insufficent inventory space to redeem")
 		return 
 	end	
 	local am1 = CheckBagItem( role, 1074 )			
 	if am1 < 1000 then
-		SystemNotice( role ,"У вас нет Зернышка любви ")
+		SystemNotice( role ,"You do not seems to have sufficient Seeds of Love")
 		return
 	else
 	local am2 =TakeItem( role, 0,1074, 1000)			                   
 		if am2==0  then
-		SystemNotice ( role ,"Невозможно забрать 1000 Зернышек любви ")
+			SystemNotice ( role ,"Collection of 1000 Seeds of Love failed")
 			return
 		end
 	end
 	GiveItem( role , 0 , 2844  , 1 , 4 )
 end
 
+----------------------------------¶Т»»ЧЄЙъїЁ
+
 function GetChaName_25 ( role,npc )
 	local ret = KitbagLock(role,0)
 	if ret ~= LUA_TRUE then
-		SystemNotice(role,"Инвентарь заблокирован. Невозможно совершить действие ")
+		SystemNotice(role,"Inventory is binded. Unable to redeem")
 		return
 	end
 	local retbag = HasLeaveBagGrid( role, 1)
 	if retbag ~= LUA_TRUE then
-		SystemNotice(role,"У вас не хватает свободного места в инвентаре ")
+		SystemNotice(role,"Insufficent inventory space to redeem")
 		return 
 	end	 
 	local cha_name = GetChaDefaultName ( role )
 	local am1 = CheckBagItem( role, 2235 )	
+	
+	
 	if am1 < 1  then
-		SystemNotice( role ,"У вас уже есть Камень перерождения ")
+		SystemNotice( role ,"You do not seem to have any Rebirth Stone")
 		return
 	end
 	local an1 =TakeItem( role, 0,2235, 1 )
+	
+	
 	if an1==0  then
-		SystemNotice ( role ,"Невозможно забрать предмет ")
+		SystemNotice ( role ,"Collection of redemption item failed")
 	else
 	GiveItem ( role , 0 , 2941  , 1 , 4 )
 	LG( "ZSK" ,cha_name,"Rebirth Stone"..am1.." ")
 	end
 end
 
---------------------------------------------------------------------
----------------- Священная Война(Война Гильдий) --------------------
---------------------------------------------------------------------
 
-function GetChaName1_guildwar( role,npc )
+---------------------------------------------------
+------КҐХЅєЈѕьИООсІї·Ц--Roico
+---------------------------------------------------
+
+function GetChaName1_guildwar( role,npc )-------------Лж»ъ»сµГДЬБ¦КфРФ
     local num_count = CheckBagItem(role, 2859)
     if num_count >=20 then
         TakeItem( role, 0,2859, 20 )
 	local a = math.random ( 1 , 4 )
         if a == 1 then
-        AddState ( role , role , STATE_QINGZ , 10 , 300 )
+	--AddState ( role , role , STATE_JRQKL , 10 , 180 )
+        AddState ( role , role , STATE_QINGZ , 10 , 300 )---5·ЦЦУ15%ЛЩ¶ИМбЙэ
 	elseif a ==2 then
-	AddState ( role , role , STATE_YS , 10 , 300 )
+	--AddState ( role , role , STATE_JRQKL , 10 , 180 )
+	AddState ( role , role , STATE_YS , 10 , 300 )---5·ЦЦУЗ±РР
 	elseif a ==3 then
-	AddState ( role , role , STATE_HFZQ , 10 , 10 )
+	--AddState ( role , role , STATE_JRQKL , 10 , 180 )
+	AddState ( role , role , STATE_HFZQ , 10 , 10 )---10ГлДЪhpєНspИ«Въ
 	else
-	AddState ( role , role , STATE_JRQKL , 10 , 180 )
+	AddState ( role , role , STATE_JRQKL , 10 , 180 )---3·ЦЦУѕЮИЛЗЙїЛБ¦Р§№ы
 	end
     end
     if num_count < 20 then
-   SystemNotice( role ,"Вам не хватает Глазных повязок ")
+    SystemNotice( role ,"You do not have enough eye patch!")
     end
 end
 
-function GetChaName2_guildwar( role,npc )
+
+function GetChaName2_guildwar( role,npc )------МбЙэєЈѕьµсПс·АУщ
+
  local map_name_role = GetChaMapName ( role )
+
  if  map_name_role == "guildwar" then
      local bs_def = Def(haijunSide_BaseRole)
      local bs_reseist = Resist(haijunSide_BaseRole)
@@ -5151,16 +6550,19 @@ function GetChaName2_guildwar( role,npc )
      local pedf_1 = 1
      local bs_def_after = bs_def + def_20
      local bs_reseist_after = bs_reseist + pedf_1
+    
+  
      local num_count = CheckBagItem(role, 4546)
       if num_count >=30 then
          TakeItem( role, 0,4546, 30 )
 	 SetChaAttrI( haijunSide_BaseRole , ATTR_DEF ,bs_def_after )
 	 SetChaAttrI( haijunSide_BaseRole , ATTR_PDEF, bs_reseist_after )
-	 SystemNotice( role ,"Прекрасно! Флотская статуя укреплена!")
+	 SystemNotice( role ,"Great! Navy Statue defense rose!")
       end
       if num_count < 30 then
-     SystemNotice( role ,"У вас не хватает кристаллов руды ")
+      SystemNotice( role ,"You haven't collect enough crystal ore")
       end
+     
  elseif map_name_role == "guildwar2" then
      local bs_def = Def(di_haijunSide_BaseRole)
      local bs_reseist = Resist(di_haijunSide_BaseRole)
@@ -5168,53 +6570,61 @@ function GetChaName2_guildwar( role,npc )
      local pedf_1 = 1
      local bs_def_after = bs_def + def_20
      local bs_reseist_after = bs_reseist + pedf_1
+
      local num_count = CheckBagItem(role, 4546)
       if num_count >=30 then
          TakeItem( role, 0,4546, 30 )
 	 SetChaAttrI( di_haijunSide_BaseRole , ATTR_DEF ,bs_def_after )
 	 SetChaAttrI( di_haijunSide_BaseRole , ATTR_PDEF, bs_reseist_after )
-	 SystemNotice( role ,"Прекрасно! Флотская статуя укреплена!")
+	 SystemNotice( role ,"Great! Navy Statue defense rose!")
       end
       if num_count < 30 then
-     SystemNotice( role ,"У вас не хватает кристаллов руды ")
+      SystemNotice( role ,"You haven't collect enough crystal ore")
       end
     end
+     
 end
+	
 
-function GetChaName3_guildwar( role,npc )
+function GetChaName3_guildwar( role,npc )------єЈѕьµсПс»сµГОЮµРBUFF
+    
  local map_name_role = GetChaMapName ( role )
  if map_name_role == "guildwar" then
     
-    local num_count_1 = CheckBagItem(role, 1684)
-    local num_count_2 = CheckBagItem(role, 4012)
+    local num_count_1 = CheckBagItem(role, 1684)---јбУІ№кјЧ
+    local num_count_2 = CheckBagItem(role, 4012)---ФВОІзІч­
     if num_count_1 >= 4 and num_count_2 >= 9 then
        TakeItem( role, 0,1684, 4 )
        TakeItem( role, 0,4012, 9 )
        AddState ( haijunSide_BaseRole , haijunSide_BaseRole , STATE_PKWD , 10 , 180 )
-       SystemNotice( role ,"Хаха! Статуя будет находится в невидимости 3 минуты!")
+       SystemNotice( role ,"Haha! Statue is now invincible for 3 minutes!")
     else
-   SystemNotice( role ,"У вас не хватает ресурсов!")
+    SystemNotice( role ,"You havcen't collect enough resources!")
     end
  end
  if map_name_role == "guildwar2" then
-  local num_count_1 = CheckBagItem(role, 1684)
-    local num_count_2 = CheckBagItem(role, 4012)
+  local num_count_1 = CheckBagItem(role, 1684)---јбУІ№кјЧ
+    local num_count_2 = CheckBagItem(role, 4012)---ФВОІзІч­
     if num_count_1 >= 4 and num_count_2 >= 9 then
        TakeItem( role, 0,1684, 4 )
        TakeItem( role, 0,4012, 9 )
        AddState ( di_haijunSide_BaseRole , di_haijunSide_BaseRole , STATE_PKWD , 10 , 180 )
-       SystemNotice( role ,"Хаха! Статуя будет находится в невидимости 3 минуты!")
+       SystemNotice( role ,"Haha! Statue is now invincible for 3 minutes!")
     else
-   SystemNotice( role ,"У вас не хватает ресурсов!")
+    SystemNotice( role ,"You havcen't collect enough resources!")
     end
    end
+  
 end
 
-function GetChaName4_guildwar( role,npc )
+
+
+function GetChaName4_guildwar( role,npc )-------МбЙэєЈѕьјэЛю№Ґ»ч
     local map_name_role = GetChaMapName ( role )
  if map_name_role == "guildwar" then
-    local num_count_1 = CheckBagItem(role, 4011)
-    local num_count_2 = CheckBagItem(role, 1720)
+
+    local num_count_1 = CheckBagItem(role, 4011)---ЙдЛ®
+    local num_count_2 = CheckBagItem(role, 1720)---Уг№ЗН·
    if num_count_1 >= 12 and num_count_2 >= 12 then
        TakeItem( role, 0,4011, 12 )
        TakeItem( role, 0,1720, 12 )
@@ -5231,14 +6641,16 @@ function GetChaName4_guildwar( role,npc )
           SetChaAttrI( haijunSide_JTRole_1 , ATTR_MXATK ,max_atk_after )
           SetChaAttrI( haijunSide_JTRole_2 , ATTR_MNATK ,min_atk_after )
           SetChaAttrI( haijunSide_JTRole_2 , ATTR_MXATK ,max_atk_after )
-         SystemNotice( role ,"Прекрасно! Башня укреплена!")
+          SystemNotice( role ,"Great ! Arrow Tower attack has rose!")
     elseif num_count_1 < 12 and num_count_2 < 12 then
-   SystemNotice( role ,"У вас не хватает ресурсов!")
+          SystemNotice( role ,"You havcen't collect enough resources!")
     end
   end
+  
+
  if map_name_role == "guildwar2" then
-    local num_count_1 = CheckBagItem(role, 4011)
-    local num_count_2 = CheckBagItem(role, 1720)
+    local num_count_1 = CheckBagItem(role, 4011)---ЙдЛ®
+    local num_count_2 = CheckBagItem(role, 1720)---Уг№ЗН·
     if num_count_1 >= 12 and num_count_2 >= 12 then
        TakeItem( role, 0,4011, 12 )
        TakeItem( role, 0,1720, 12 )
@@ -5255,542 +6667,727 @@ function GetChaName4_guildwar( role,npc )
 	       SetChaAttrI( di_haijunSide_JTRole_1 , ATTR_MXATK ,max_atk_after )
 	       SetChaAttrI( di_haijunSide_JTRole_2 , ATTR_MNATK ,min_atk_after )
 	       SetChaAttrI( di_haijunSide_JTRole_2 , ATTR_MXATK ,max_atk_after )
-         SystemNotice( role ,"Прекрасно! Башня укреплена!")   
+	       SystemNotice( role ,"Great ! Arrow Tower attack has rose!")
+     
       elseif num_count_1 < 12 and num_count_2 < 12 then
-      SystemNotice( role ,"У вас не хватает ресурсов!")
+             SystemNotice( role ,"You havcen't collect enough resources!")
      end 
-   end  
-end
- 
-function GetChaName5_guildwar(role)
+    end  
+ end
+
+
+
+function GetChaName5_guildwar(role)-------К№УГ15ёцєЈѕьБо
      local num_count_1 = CheckBagItem(role, 2964)
      local map_name_cha = GetChaMapName ( role )
     if num_count_1 >= 15 and map_name_cha == "guildwar" then
         TakeItem( role, 0,2964, 15 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 999 , 30641 , 51702 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 999 , 30841 , 51702 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 999 , 30941 , 51702 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+
+        SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
+--    end
    elseif num_count_1 >= 15 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,2964, 15 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1025 , 30641 , 51702 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1025 , 30841 , 51702 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1025 , 30941 , 51702 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+
+        SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"Вам не хватает флотских знаков ")
+     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
     end
+
 end
 
-function GetChaName6_guildwar(role)
+
+function GetChaName6_guildwar(role)-------К№УГ15ёцєЈѕьБо
      local num_count_1 = CheckBagItem(role, 2964)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 15 and map_name_cha == "guildwar" then
         TakeItem( role, 0,2964, 15 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 999 , 11900 , 52100 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 999 , 12141 , 52102 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 999 , 11941 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
+--     end
     elseif num_count_1 >= 15 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,2964, 15 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1025 , 11900 , 52100 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1025 , 12141 , 52102 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1025 , 11941 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"Вам не хватает флотских знаков ")
+     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
     end
+
 end
 
-function GetChaName7_guildwar(role)
+
+function GetChaName7_guildwar(role)-------К№УГ15ёцєЈѕьБо
      local num_count_1 = CheckBagItem(role, 2964)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 15 and map_name_cha == "guildwar" then
         TakeItem( role, 0,2964, 15 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 999 , 52300 , 52500 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 999 , 52241 , 52502 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 999 , 52341 , 52402 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+        SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
+--     end
     elseif num_count_1 >= 15 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,2964, 15 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1025 , 52300 , 52500 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1025 , 52241 , 52502 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1025 , 52341 , 52402 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+        SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"Вам не хватает флотских знаков ")
+     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
      end
+    
 end
 
-function GetChaName8_guildwar(role)
+function GetChaName8_guildwar(role)-------К№УГ15ёцєЈѕьБо
      local num_count_1 = CheckBagItem(role, 2964)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 15 and map_name_cha == "guildwar" then
         TakeItem( role, 0,2964, 15 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 999 , 30700 , 10700 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 999 , 30841 , 10702 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 999 , 30741 , 10802 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
+--     end
     elseif num_count_1 >= 15 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,2964, 15 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1025 , 30700 , 10700 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1025 , 30841 , 10702 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1025 , 30741 , 10802 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"Вам не хватает флотских знаков ")
+     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
     end
 end
 
-function GetChaName9_guildwar(role)
+function GetChaName9_guildwar(role)-------К№УГ15ёцєЈѕьБо
      local num_count_1 = CheckBagItem(role, 2964)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 15 and map_name_cha == "guildwar" then
         TakeItem( role, 0,2964, 15 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 999 , 51200 , 9800 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 999 , 51341 , 9802 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 999 , 51341 , 9902 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
+--     end
     elseif num_count_1 >= 15 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,2964, 15 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1025 , 51200 , 9800 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1025 , 51341 , 9802 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1025 , 51341 , 9902 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"Вам не хватает флотских знаков ")
+     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
      end
 end
 
-function GetChaName10_guildwar(role)
+function GetChaName10_guildwar(role)-------К№УГ15ёцєЈѕьБо
      local num_count_1 = CheckBagItem(role, 2964)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 15 and map_name_cha == "guildwar" then
         TakeItem( role, 0,2964, 15 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 999 , 11300 , 11700 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 999 , 11341 , 11602 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 999 , 11241 , 11702 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
+--     end
     elseif num_count_1 >= 15 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,2964, 15 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1025 , 11300 , 11700 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1025 , 11341 , 11602 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1025 , 11241 , 11702 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"Вам не хватает флотских знаков ")
+     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
      end
 end
 
-function GetChaName11_guildwar(role)
+--function GetChaName11_guildwar(role)-------К№УГ15ёцєЈѕьБоЈЁЦРВ·Ј©
+--     local num_count_1 = CheckBagItem(role, 176)----ІРИ±µД№ьК¬Іј
+--     local map_name_cha = GetChaMapName ( role )
+--     if num_count_1 >= 15 and map_name_cha == "guildwar" then
+--        TakeItem( role, 0,176, 15 )
+--        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
+--	local Monster1 =CreateChaX( 999 , 30500 , 30800 , 145 , 310,role )
+--	SetChaLifeTime( Monster1, 300 )
+--	SetChaSideID(Monster1, 1)
+--	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
+--	local Monster2 =CreateChaX( 999 , 30641 , 30802 , 145 , 310,role )
+--	SetChaLifeTime( Monster2, 300 )
+--	SetChaSideID(Monster2, 1)
+--	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
+--	local Monster3 =CreateChaX( 999 , 30541 , 30702 , 145 , 310,role )
+--	SetChaLifeTime( Monster3, 300 )
+--	SetChaSideID(Monster3, 1)
+--	
+--        SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
+--     end
+--end
+
+function GetChaName11_guildwar(role)-------К№УГ30ёцєЈѕьБо
      local num_count_1 = CheckBagItem(role, 2964)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 30 and map_name_cha == "guildwar" then
         TakeItem( role, 0,2964, 30 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 999 , 30700 , 51500 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 999 , 30641 , 51502 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 999 , 30541 , 51602 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
 	local Monster4 =CreateChaX( 999 , 30500 , 51400 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster5 =CreateChaX( 999 , 30741 , 51402 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster6 =CreateChaX( 999 , 30541 , 51502 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 1)
 	local Monster7 =CreateChaX( 999 , 30541 , 51502 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
+--     end
     elseif num_count_1 >= 30 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,2964, 30 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1025 , 30700 , 51500 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1025 , 30641 , 51502 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1025 , 30541 , 51602 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
 	local Monster4 =CreateChaX( 1025 , 30500 , 51400 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster5 =CreateChaX( 1025 , 30741 , 51402 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster6 =CreateChaX( 1025 , 30541 , 51502 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 1)
 	local Monster7 =CreateChaX( 1025 , 30541 , 51502 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"Вам не хватает флотских знаков ")
+     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
      end
 end
 
-function GetChaName12_guildwar(role)
+function GetChaName12_guildwar(role)-------К№УГ30ёцєЈѕьБо
      local num_count_1 = CheckBagItem(role, 2964)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 30 and map_name_cha == "guildwar" then
         TakeItem( role, 0,2964, 30 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 999 , 11900 , 52100 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 999 , 12141 , 52102 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 999 , 11941 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
 	local Monster4 =CreateChaX( 999 , 12000 , 52000 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster5 =CreateChaX( 999 , 12141 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster6 =CreateChaX( 999 , 11841 , 52102 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 1)
 	local Monster7 =CreateChaX( 999 , 11841 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
+--     end
     elseif num_count_1 >= 30 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,2964, 30 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1025 , 11900 , 52100 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1025 , 12141 , 52102 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1025 , 11941 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
 	local Monster4 =CreateChaX( 1025 , 12000 , 52000 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster5 =CreateChaX( 1025 , 12141 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster6 =CreateChaX( 1025 , 11841 , 52102 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 1)
 	local Monster7 =CreateChaX( 1025 , 11841 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"Вам не хватает флотских знаков ")
+     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
      end
 end
 
-function GetChaName13_guildwar(role)
+function GetChaName13_guildwar(role)-------К№УГ30ёцєЈѕьБо
      local num_count_1 = CheckBagItem(role, 2964)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 30 and map_name_cha == "guildwar" then
         TakeItem( role, 0,2964, 30 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 999 , 52300 , 52500 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 999 , 52241 , 52502 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 999 , 52341 , 52402 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
 	local Monster4 =CreateChaX( 999 , 52000 , 52500 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster5 =CreateChaX( 999 , 52141 , 52502 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster6 =CreateChaX( 999 , 52241 , 52402 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 1)
 	local Monster7 =CreateChaX( 999 , 52241 , 52602 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
+--     end
     elseif num_count_1 >= 30 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,2964, 30 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1025 , 52300 , 52500 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1025 , 52241 , 52502 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1025 , 52341 , 52402 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
 	local Monster4 =CreateChaX( 1025 , 52000 , 52500 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster5 =CreateChaX( 1025 , 52141 , 52502 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster6 =CreateChaX( 1025 , 52241 , 52402 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 1)
 	local Monster7 =CreateChaX( 1025 , 52241 , 52602 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"Вам не хватает флотских знаков ")
+     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
      end
 end
 
-function GetChaName14_guildwar(role)
+
+function GetChaName14_guildwar(role)-------К№УГ30ёцєЈѕьБо
      local num_count_1 = CheckBagItem(role, 2964)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 30 and map_name_cha == "guildwar" then
         TakeItem( role, 0,2964, 30 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 999 , 30700 , 10700 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 999 , 30841 , 10702 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 999 , 30741 , 10802 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
 	local Monster4 =CreateChaX( 999 , 30700 , 10900 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster5 =CreateChaX( 999 , 30841 , 10902 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster6 =CreateChaX( 999 , 30741 , 11102 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 1)
 	local Monster7 =CreateChaX( 999 , 30741 , 11002 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
+--     end
     elseif num_count_1 >= 30 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,2964, 30 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1025 , 30700 , 10700 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1025 , 30841 , 10702 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1025 , 30741 , 10802 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
 	local Monster4 =CreateChaX( 1025 , 30700 , 10900 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster5 =CreateChaX( 1025 , 30841 , 10902 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster6 =CreateChaX( 1025 , 30741 , 11102 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 1)
 	local Monster7 =CreateChaX( 1025 , 30741 , 11002 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"Вам не хватает флотских знаков ")
+     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
      end
 end
 
-function GetChaName15_guildwar(role)
+function GetChaName15_guildwar(role)-------К№УГ30ёцєЈѕьБо
      local num_count_1 = CheckBagItem(role, 2964)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 30 and map_name_cha == "guildwar" then
         TakeItem( role, 0,2964, 30 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 999 , 51200 , 9800 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 999 , 51341 , 9802 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 999 , 51341 , 9902 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
 	local Monster4 =CreateChaX( 999 , 51200 , 10000 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster5 =CreateChaX( 999 , 51241 , 10102 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster6 =CreateChaX( 999 , 51341 , 10002 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 1)
 	local Monster7 =CreateChaX( 999 , 51441 , 10102 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
+--     end
     elseif num_count_1 >= 30 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,2964, 30 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1025 , 51200 , 9800 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1025 , 51341 , 9802 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1025 , 51341 , 9902 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
 	local Monster4 =CreateChaX( 1025 , 51200 , 10000 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster5 =CreateChaX( 1025 , 51241 , 10102 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster6 =CreateChaX( 1025 , 51341 , 10002 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 1)
 	local Monster7 =CreateChaX( 1025 , 51441 , 10102 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"Вам не хватает флотских знаков ")
+     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
      end
 end
 
-function GetChaName16_guildwar(role)
+function GetChaName16_guildwar(role)-------К№УГ30ёцєЈѕьБо
      local num_count_1 = CheckBagItem(role, 2964)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 30 and map_name_cha == "guildwar" then
         TakeItem( role, 0,2964, 30 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 999 , 11100 , 11700 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 999 , 11041 , 11702 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 999 , 11141 , 11902 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
 	local Monster4 =CreateChaX( 999 , 11100 , 11800 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster5 =CreateChaX( 999 , 11241 , 11902 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster6 =CreateChaX( 999 , 11241 , 11602 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 1)
 	local Monster7 =CreateChaX( 999 , 11341 , 11602 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
+--     end
      elseif num_count_1 >= 30 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,2964, 30 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1025 , 11100 , 11700 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1025 , 11341 , 11602 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1025 , 11141 , 11502 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
 	local Monster4 =CreateChaX( 1025 , 11100 , 11900 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 1)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster5 =CreateChaX( 1025 , 11241 , 11802 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 1)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster6 =CreateChaX( 1025 , 11241 , 11502 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 1)
 	local Monster7 =CreateChaX( 1025 , 11341 , 11602 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"Вам не хватает флотских знаков ")
+     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
      end
 end
 
-function GetChaName17_guildwar(role)
+function GetChaName17_guildwar(role)-------К№УГ45ёцєЈѕьБо
      local num_count_1 = CheckBagItem(role, 2964)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 45 and map_name_cha == "guildwar" then
@@ -5828,7 +7425,10 @@ function GetChaName17_guildwar(role)
 	local Monster11 =CreateChaX( 999 , 30741 , 51202 , 145 , 310,role )
 	SetChaLifeTime( Monster11, 300000 )
 	SetChaSideID(Monster11, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
+--     end
     elseif num_count_1 >= 45 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,2964, 45 )
         local Monster1 =CreateChaX( 1025 , 30700 , 51500 , 145 , 310,role )
@@ -5864,13 +7464,13 @@ function GetChaName17_guildwar(role)
 	local Monster11 =CreateChaX( 1025 , 30741 , 51202 , 145 , 310,role )
 	SetChaLifeTime( Monster11, 300000 )
 	SetChaSideID(Monster11, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"Вам не хватает флотских знаков ")
+     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
      end
 end
 
-function GetChaName18_guildwar(role)
+function GetChaName18_guildwar(role)-------К№УГ45ёцєЈѕьБо
      local num_count_1 = CheckBagItem(role, 2964)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 45 and map_name_cha == "guildwar" then
@@ -5878,24 +7478,29 @@ function GetChaName18_guildwar(role)
        local Monster1 =CreateChaX( 999 , 11900 , 52100 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	
 	local Monster2 =CreateChaX( 999 , 12141 , 52102 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	
 	local Monster3 =CreateChaX( 999 , 11941 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
 	local Monster4 =CreateChaX( 999 , 12000 , 52000 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 1)
+	
 	local Monster5 =CreateChaX( 999 , 12141 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 1)
+	
 	local Monster6 =CreateChaX( 999 , 11841 , 52102 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 1)
 	local Monster7 =CreateChaX( 999 , 11841 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 1)
+
 	local Monster8 =CreateChaX( 999 , 12041 , 51702 , 145 , 310,role )
 	SetChaLifeTime( Monster8, 300000 )
 	SetChaSideID(Monster8, 1)
@@ -5908,30 +7513,38 @@ function GetChaName18_guildwar(role)
 	local Monster11 =CreateChaX( 999 , 12641 , 52202 , 145 , 310,role )
 	SetChaLifeTime( Monster11, 300000 )
 	SetChaSideID(Monster11, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
+--     end
     elseif num_count_1 >= 45 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,2964, 45 )
        local Monster1 =CreateChaX( 1025 , 11900 , 52100 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	
 	local Monster2 =CreateChaX( 1025 , 12141 , 52102 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	
 	local Monster3 =CreateChaX( 1025 , 11941 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
 	local Monster4 =CreateChaX( 1025 , 12000 , 52000 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 1)
+	
 	local Monster5 =CreateChaX( 1025 , 12141 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 1)
+	
 	local Monster6 =CreateChaX( 1025 , 11841 , 52102 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 1)
 	local Monster7 =CreateChaX( 1025 , 11841 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 1)
+
 	local Monster8 =CreateChaX( 1025 , 12041 , 51702 , 145 , 310,role )
 	SetChaLifeTime( Monster8, 300000 )
 	SetChaSideID(Monster8, 1)
@@ -5944,13 +7557,13 @@ function GetChaName18_guildwar(role)
 	local Monster11 =CreateChaX( 1025 , 12641 , 52202 , 145 , 310,role )
 	SetChaLifeTime( Monster11, 300000 )
 	SetChaSideID(Monster11, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"Вам не хватает флотских знаков ")
+     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
      end
 end
 
-function GetChaName19_guildwar(role)
+function GetChaName19_guildwar(role)-------К№УГ45ёцєЈѕьБо
      local num_count_1 = CheckBagItem(role, 2964)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 45 and map_name_cha == "guildwar" then
@@ -5958,24 +7571,29 @@ function GetChaName19_guildwar(role)
        local Monster1 =CreateChaX( 999 , 52300 , 52500 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	
 	local Monster2 =CreateChaX( 999 , 52241 , 52502 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	
 	local Monster3 =CreateChaX( 999 , 52341 , 52402 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
 	local Monster4 =CreateChaX( 999 , 52000 , 52500 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 1)
+	
 	local Monster5 =CreateChaX( 999 , 52141 , 52502 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 1)
+	
 	local Monster6 =CreateChaX( 999 , 52241 , 52402 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 1)
 	local Monster7 =CreateChaX( 999 , 52241 , 52602 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 1)
+
 	local Monster8 =CreateChaX( 999 , 52441 , 52502 , 145 , 310,role )
 	SetChaLifeTime( Monster8, 300000 )
 	SetChaSideID(Monster8, 1)
@@ -5988,30 +7606,38 @@ function GetChaName19_guildwar(role)
 	local Monster11 =CreateChaX( 999 , 52641 , 52302 , 145 , 310,role )
 	SetChaLifeTime( Monster11, 300000 )
 	SetChaSideID(Monster11, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
+--     end
     elseif num_count_1 >= 45 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,2964, 45 )
        local Monster1 =CreateChaX( 1025 , 52300 , 52500 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	
 	local Monster2 =CreateChaX( 1025 , 52241 , 52502 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	
 	local Monster3 =CreateChaX( 1025 , 52341 , 52402 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
 	local Monster4 =CreateChaX( 1025 , 52000 , 52500 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 1)
+	
 	local Monster5 =CreateChaX( 1025 , 52141 , 52502 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 1)
+	
 	local Monster6 =CreateChaX( 1025 , 52241 , 52402 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 1)
 	local Monster7 =CreateChaX( 1025 , 52241 , 52602 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 1)
+
 	local Monster8 =CreateChaX( 1025 , 52441 , 52502 , 145 , 310,role )
 	SetChaLifeTime( Monster8, 300000 )
 	SetChaSideID(Monster8, 1)
@@ -6024,13 +7650,13 @@ function GetChaName19_guildwar(role)
 	local Monster11 =CreateChaX( 1025 , 52641 , 52302 , 145 , 310,role )
 	SetChaLifeTime( Monster11, 300000 )
 	SetChaSideID(Monster11, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"Вам не хватает флотских знаков ")
+     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
      end
 end
 
-function GetChaName20_guildwar(role)
+function GetChaName20_guildwar(role)-------К№УГ45ёцєЈѕьБо
      local num_count_1 = CheckBagItem(role, 2964)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 45 and map_name_cha == "guildwar" then
@@ -6038,24 +7664,29 @@ function GetChaName20_guildwar(role)
        local Monster1 =CreateChaX( 999 , 30700 , 10700 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	
 	local Monster2 =CreateChaX( 999 , 30841 , 10702 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	
 	local Monster3 =CreateChaX( 999 , 30741 , 10802 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
 	local Monster4 =CreateChaX( 999 , 30700 , 10900 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 1)
+	
 	local Monster5 =CreateChaX( 999 , 30841 , 10902 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 1)
+	
 	local Monster6 =CreateChaX( 999 , 30741 , 11102 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 1)
 	local Monster7 =CreateChaX( 999 , 30741 , 11002 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 1)
+
 	local Monster8 =CreateChaX( 999 , 30841 , 11102 , 145 , 310,role )
 	SetChaLifeTime( Monster8, 300000 )
 	SetChaSideID(Monster8, 1)
@@ -6068,30 +7699,38 @@ function GetChaName20_guildwar(role)
 	local Monster11 =CreateChaX( 999 , 30441 , 10702 , 145 , 310,role )
 	SetChaLifeTime( Monster11, 300000 )
 	SetChaSideID(Monster11, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
+--     end
     elseif num_count_1 >= 45 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,2964, 45 )
        local Monster1 =CreateChaX( 1025 , 30700 , 10700 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	
 	local Monster2 =CreateChaX( 1025 , 30841 , 10702 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	
 	local Monster3 =CreateChaX( 1025 , 30741 , 10802 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
 	local Monster4 =CreateChaX( 1025 , 30700 , 10900 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 1)
+	
 	local Monster5 =CreateChaX( 1025 , 30841 , 10902 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 1)
+	
 	local Monster6 =CreateChaX( 1025 , 30741 , 11102 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 1)
 	local Monster7 =CreateChaX( 1025 , 30741 , 11002 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 1)
+
 	local Monster8 =CreateChaX( 1025 , 30841 , 11102 , 145 , 310,role )
 	SetChaLifeTime( Monster8, 300000 )
 	SetChaSideID(Monster8, 1)
@@ -6104,13 +7743,13 @@ function GetChaName20_guildwar(role)
 	local Monster11 =CreateChaX( 1025 , 30441 , 10702 , 145 , 310,role )
 	SetChaLifeTime( Monster11, 300000 )
 	SetChaSideID(Monster11, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"Вам не хватает флотских знаков ")
+     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
      end
 end
 
-function GetChaName21_guildwar(role)
+function GetChaName21_guildwar(role)-------К№УГ45ёцєЈѕьБо
      local num_count_1 = CheckBagItem(role, 2964)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 45 and map_name_cha == "guildwar" then
@@ -6118,24 +7757,29 @@ function GetChaName21_guildwar(role)
       local Monster1 =CreateChaX( 999 , 51200 , 9800 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	
 	local Monster2 =CreateChaX( 999 , 51341 , 9802 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	
 	local Monster3 =CreateChaX( 999 , 51341 , 9902 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
 	local Monster4 =CreateChaX( 999 , 51200 , 10000 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 1)
+	
 	local Monster5 =CreateChaX( 999 , 51241 , 10102 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 1)
+	
 	local Monster6 =CreateChaX( 999 , 51341 , 10002 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 1)
 	local Monster7 =CreateChaX( 999 , 51441 , 10102 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 1)
+
 	local Monster8 =CreateChaX( 999 , 51241 , 10002 , 145 , 310,role )
 	SetChaLifeTime( Monster8, 300000 )
 	SetChaSideID(Monster8, 1)
@@ -6148,30 +7792,38 @@ function GetChaName21_guildwar(role)
 	local Monster11 =CreateChaX( 999 , 51141 , 9902 , 145 , 310,role )
 	SetChaLifeTime( Monster11, 300000 )
 	SetChaSideID(Monster11, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
+--     end
     elseif num_count_1 >= 45 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,2964, 45 )
       local Monster1 =CreateChaX( 1025 , 51200 , 9800 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	
 	local Monster2 =CreateChaX( 1025 , 51341 , 9802 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	
 	local Monster3 =CreateChaX( 1025 , 51341 , 9902 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
 	local Monster4 =CreateChaX( 1025 , 51200 , 10000 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 1)
+	
 	local Monster5 =CreateChaX( 1025 , 51241 , 10102 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 1)
+	
 	local Monster6 =CreateChaX( 1025 , 51341 , 10002 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 1)
 	local Monster7 =CreateChaX( 1025 , 51441 , 10102 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 1)
+
 	local Monster8 =CreateChaX( 1025 , 51241 , 10002 , 145 , 310,role )
 	SetChaLifeTime( Monster8, 300000 )
 	SetChaSideID(Monster8, 1)
@@ -6184,13 +7836,13 @@ function GetChaName21_guildwar(role)
 	local Monster11 =CreateChaX( 1025 , 51141 , 9902 , 145 , 310,role )
 	SetChaLifeTime( Monster11, 300000 )
 	SetChaSideID(Monster11, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"Вам не хватает флотских знаков ")
+     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
      end
 end
 
-function GetChaName22_guildwar(role)
+function GetChaName22_guildwar(role)-------К№УГ45ёцєЈѕьБо
      local num_count_1 = CheckBagItem(role, 2964)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 45 and map_name_cha == "guildwar" then
@@ -6198,24 +7850,29 @@ function GetChaName22_guildwar(role)
         local Monster1 =CreateChaX( 999 , 11100 , 11700 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	
 	local Monster2 =CreateChaX( 999 , 11041 , 11502 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	
 	local Monster3 =CreateChaX( 999 , 11141 , 11402 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
 	local Monster4 =CreateChaX( 999 , 11100 , 11500 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 1)
+	
 	local Monster5 =CreateChaX( 999 , 11241 , 11502 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 1)
+	
 	local Monster6 =CreateChaX( 999 , 11241 , 11602 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 1)
 	local Monster7 =CreateChaX( 999 , 11341 , 11602 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 1)
+
 	local Monster8 =CreateChaX( 999 , 11141 , 11902 , 145 , 310,role )
 	SetChaLifeTime( Monster8, 300000 )
 	SetChaSideID(Monster8, 1)
@@ -6228,30 +7885,38 @@ function GetChaName22_guildwar(role)
 	local Monster11 =CreateChaX( 999 , 10941 , 11802 , 145 , 310,role )
 	SetChaLifeTime( Monster11, 300000 )
 	SetChaSideID(Monster11, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
+--     end
     elseif num_count_1 >= 45 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,2964, 45 )
         local Monster1 =CreateChaX( 1025 , 11100 , 11700 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 1)
+	
 	local Monster2 =CreateChaX( 1025 , 11041 , 11502 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 1)
+	
 	local Monster3 =CreateChaX( 1025 , 11141 , 11402 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 1)
 	local Monster4 =CreateChaX( 1025 , 11100 , 11500 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 1)
+	
 	local Monster5 =CreateChaX( 1025 , 11241 , 11502 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 1)
+	
 	local Monster6 =CreateChaX( 1025 , 11241 , 11602 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 1)
 	local Monster7 =CreateChaX( 1025 , 11341 , 11602 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 1)
+
 	local Monster8 =CreateChaX( 1025 , 11141 , 11902 , 145 , 310,role )
 	SetChaLifeTime( Monster8, 300000 )
 	SetChaSideID(Monster8, 1)
@@ -6264,104 +7929,123 @@ function GetChaName22_guildwar(role)
 	local Monster11 =CreateChaX( 1025 , 10941 , 11802 , 145 , 310,role )
 	SetChaLifeTime( Monster11, 300000 )
 	SetChaSideID(Monster11, 1)
-		SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"Вам не хватает флотских знаков ")
+     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
      end
 end
 
-function GetChaName23_guildwar( role,npc )
+
+
+---------------------------------------------------
+------КҐХЅєЈµБИООсІї·Ц--Roico
+---------------------------------------------------
+
+function GetChaName23_guildwar( role,npc )-------------Лж»ъ»сµГДЬБ¦КфРФ
     local num_count = CheckBagItem(role, 2858)
     if num_count >=20 then
         TakeItem( role, 0,2858, 20 )
 	local a = math.random ( 1 , 4 )
         if a == 1 then
-        AddState ( role , role , STATE_QINGZ , 10 , 300 )
+	--AddState ( role , role , STATE_JRQKL , 10 , 180 )
+        AddState ( role , role , STATE_QINGZ , 10 , 300 )---5·ЦЦУ15%ЛЩ¶ИМбЙэ
 	elseif a ==2 then
-	AddState ( role , role , STATE_YS , 10 , 300 )
+	--AddState ( role , role , STATE_JRQKL , 10 , 180 )
+	AddState ( role , role , STATE_YS , 10 , 300 )---5·ЦЦУЗ±РР
 	elseif a ==3 then
-	AddState ( role , role , STATE_HFZQ , 10 , 10 )
+	--AddState ( role , role , STATE_JRQKL , 10 , 180 )
+	AddState ( role , role , STATE_HFZQ , 10 , 10 )---10ГлДЪhpєНspИ«Въ
 	else
-	AddState ( role , role , STATE_JRQKL , 10 , 180 )
+	AddState ( role , role , STATE_JRQKL , 10 , 180 )---3·ЦЦУѕЮИЛЗЙїЛБ¦Р§№ы
 	end
     end
     if num_count < 20 then
-   SystemNotice( role ,"У вас не хватает Глазных повязок ")
+    SystemNotice( role ,"You do not have enough eye patch!")
     end
 end
 
-function GetChaName24_guildwar( role,npc )
+
+function GetChaName24_guildwar( role,npc )------МбЙэєЈµБµсПс·АУщ
+
      local map_name_role = GetChaMapName ( role )
+
   if map_name_role == "guildwar" then
      local bs_def = Def(haidaoSide_BaseRole)
      local bs_reseist = Resist(haidaoSide_BaseRole)
-     local def_20 = 20 
-     local pedf_1 = 1 
+     local def_20 = 20 ------20·АУщ
+     local pedf_1 = 1 -------1Опї№
      local bs_def_after = bs_def + def_20
      local bs_reseist_after = bs_reseist + pedf_1
      local num_count = CheckBagItem(role, 4546)
       if num_count >=30 then
          TakeItem( role, 0,4546, 30 )
 	 SetChaAttrI( haidaoSide_BaseRole , ATTR_DEF ,bs_def_after )
+	 --AddState( haijunSide_BaseRole , haijunSide_BaseRole , STATE_PKLC, 10 , 10800 )
 	 SetChaAttrI( haidaoSide_BaseRole , ATTR_PDEF, bs_reseist_after )
-	 SystemNotice( role ,"Прекрасно! Защита Пиратской статуи повышена!")
+	 SystemNotice( role ,"Great! Pirate Status defense power has raised!")
       end
       if num_count < 30 then
-      SystemNotice( role ,"У вас не хватает кристаллов руды ")
+      SystemNotice( role ,"You haven't collect enough crystal ore")
       end
    elseif map_name_role == "guildwar2" then
      local bs_def = Def(di_haidaoSide_BaseRole)
      local bs_reseist = Resist(di_haidaoSide_BaseRole)
-     local def_20 = 20 
-     local pedf_1 = 1 
+     local def_20 = 20 ------20·АУщ
+     local pedf_1 = 1 -------1Опї№
      local bs_def_after = bs_def + def_20
      local bs_reseist_after = bs_reseist + pedf_1
      local num_count = CheckBagItem(role, 4546)
       if num_count >=30 then
          TakeItem( role, 0,4546, 30 )
-	 SetChaAttrI( di_haidaoSide_BaseRole , ATTR_DEF ,bs_def_after ) 
+	 SetChaAttrI( di_haidaoSide_BaseRole , ATTR_DEF ,bs_def_after )
+	 --AddState( haijunSide_BaseRole , haijunSide_BaseRole , STATE_PKLC, 10 , 10800 )
 	 SetChaAttrI( di_haidaoSide_BaseRole , ATTR_PDEF, bs_reseist_after )
-	 SystemNotice( role ,"Прекрасно! Защита Пиратской статуи повышена!")
+	 SystemNotice( role ,"Great! Pirate Status defense power has raised!")
       end
       if num_count < 30 then
-      SystemNotice( role ,"У вас не хватает кристаллов руды ")
+      SystemNotice( role ,"You haven't collect enough crystal ore")
       end
     end
 end
+	
 
-function GetChaName25_guildwar( role,npc )
+function GetChaName25_guildwar( role,npc )------єЈµБµсПс»сµГОЮµРBUFF
+
      local map_name_role = GetChaMapName ( role )
  if map_name_role == "guildwar" then
-    local num_count_1 = CheckBagItem(role, 4013)
-    local num_count_2 = CheckBagItem(role, 1683)
+    local num_count_1 = CheckBagItem(role, 4013)---єЈМІЗ±Л®±ґ
+    local num_count_2 = CheckBagItem(role, 1683)---№кјЧЛйЖ¬
     if num_count_1 >= 4 and num_count_2 >= 9 then
        TakeItem( role, 0,4013, 4 )
        TakeItem( role, 0,1683, 9 )
        AddState ( haidaoSide_BaseRole , haidaoSide_BaseRole , STATE_PKWD , 10 , 180 )
-       SystemNotice( role ,"Хаха! Статуя временно будет находится в невидимости!")
+       SystemNotice( role ,"Haha ! Statue is now temporary invincible!")
     else
-       SystemNotice( role ,"У вас не хватает ресурсов!")
+    SystemNotice( role ,"You havcen't collect enough resources!")
     end
   end
  if map_name_role == "guildwar2" then
-    local num_count_1 = CheckBagItem(role, 4013)
-    local num_count_2 = CheckBagItem(role, 1683)
+    local num_count_1 = CheckBagItem(role, 4013)---єЈМІЗ±Л®±ґ
+    local num_count_2 = CheckBagItem(role, 1683)---№кјЧЛйЖ¬
     if num_count_1 >= 4 and num_count_2 >= 9 then
        TakeItem( role, 0,4013, 4 )
        TakeItem( role, 0,1683, 9 )
        AddState ( di_haidaoSide_BaseRole , di_haidaoSide_BaseRole , STATE_PKWD , 10 , 180 )
-       SystemNotice( role ,"Хаха! Статуя временно будет находится в невидимости!")
+       SystemNotice( role ,"Haha ! Statue is now temporary invincible!")
     else
-       SystemNotice( role ,"У вас не хватает ресурсов!")
+    SystemNotice( role ,"You havcen't collect enough resources!")
     end
  end
 end
 
-function GetChaName26_guildwar( role,npc )
+
+
+function GetChaName26_guildwar( role,npc )-------МбЙэєЈµБјэЛю№Ґ»ч
+
      local map_name_role = GetChaMapName ( role )
  if map_name_role == "guildwar" then
-     local num_count_1 = CheckBagItem(role, 4011)
-     local num_count_2 = CheckBagItem(role, 1720)
+     local num_count_1 = CheckBagItem(role, 4011)---ЙдЛ®
+     local num_count_2 = CheckBagItem(role, 1720)---Уг№ЗН·
     if num_count_1 >= 12 and num_count_2 >= 12 then
        TakeItem( role, 0,4011, 12 )
        TakeItem( role, 0,1720, 12 )
@@ -6377,14 +8061,14 @@ function GetChaName26_guildwar( role,npc )
        SetChaAttrI( haidaoSide_JTRole_1 , ATTR_MXATK ,max_atk_after )
        SetChaAttrI( haidaoSide_JTRole_2 , ATTR_MNATK ,min_atk_after )
        SetChaAttrI( haidaoSide_JTRole_2 , ATTR_MXATK ,max_atk_after )
-      SystemNotice( role ,"Прекрасно! Башня укреплена ")
+       SystemNotice( role ,"Great ! Arrow Tower attack has rose!")
    elseif num_count_1 < 12 and num_count_2 < 12 then
-       SystemNotice( role ,"У вас не хватает ресурсов!")
+       SystemNotice( role ,"You havcen't collect enough resources!")
    end
 end
   if map_name_role == "guildwar2" then
-     local num_count_1 = CheckBagItem(role, 4011)
-     local num_count_2 = CheckBagItem(role, 1720)
+     local num_count_1 = CheckBagItem(role, 4011)---ЙдЛ®
+     local num_count_2 = CheckBagItem(role, 1720)---Уг№ЗН·
     if num_count_1 >= 12 and num_count_2 >= 12 then
 	       TakeItem( role, 0,4011, 12 )
 	       TakeItem( role, 0,1720, 12 )
@@ -6400,542 +8084,729 @@ end
 	       SetChaAttrI( di_haidaoSide_JTRole_1 , ATTR_MXATK ,max_atk_after )
 	       SetChaAttrI( di_haidaoSide_JTRole_2 , ATTR_MNATK ,min_atk_after )
 	       SetChaAttrI( di_haidaoSide_JTRole_2 , ATTR_MXATK ,max_atk_after )
-      SystemNotice( role ,"Прекрасно! Башня укреплена ")
+	       SystemNotice( role ,"Great ! Arrow Tower attack has rose!")
+     
+    
      elseif num_count_1 < 12 and num_count_2 < 12 then
-       SystemNotice( role ,"У вас не хватает ресурсов!")
+               SystemNotice( role ,"You havcen't collect enough resources!")
      end
    end
 end
 
-function GetChaName27_guildwar(role)
+
+
+function GetChaName27_guildwar(role)-------К№УГ15ёцєЈµББо
      local num_count_1 = CheckBagItem(role, 3001)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 15 and map_name_cha == "guildwar" then
         TakeItem( role, 0,3001, 15 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1000 , 30741 , 10702 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1000 , 30841 , 10702 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1000 , 30941 , 10702 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+
+        SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
+--     end
     elseif num_count_1 >= 15 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,3001, 15 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1026 , 30741 , 10702 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1026 , 30841 , 10702 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1026 , 30941 , 10702 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+
+        SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"У вас не хватает пиратских знаков ")
+     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
      end
 end
 
-function GetChaName28_guildwar(role)
+
+function GetChaName28_guildwar(role)-------К№УГ15ёцєЈµББо
      local num_count_1 = CheckBagItem(role, 3001)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 15 and map_name_cha == "guildwar" then
         TakeItem( role, 0,3001, 15 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1000 , 51200 , 9800 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1000 , 51141 , 9802 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1000 , 51341 , 9902 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
+--     end
     elseif num_count_1 >= 15 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,3001, 15 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1026 , 51200 , 9800 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1026 , 51141 , 9802 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1026 , 51341 , 9902 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"У вас не хватает пиратских знаков ")
+     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
      end
 end
 
-function GetChaName29_guildwar(role)
+
+function GetChaName29_guildwar(role)-------К№УГ15ёцєЈµББо
      local num_count_1 = CheckBagItem(role, 3001)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 15 and map_name_cha == "guildwar" then
         TakeItem( role, 0,3001, 15 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1000 , 11300 , 11700 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1000 , 11241 , 11802 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1000 , 11141 , 11802 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
+--     end
     elseif num_count_1 >= 15 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,3001, 15 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1026 , 11300 , 11700 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1026 , 11241 , 11802 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1026 , 11141 , 11802 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"У вас не хватает пиратских знаков ")
+     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
      end
 end
 
-function GetChaName30_guildwar(role)
+function GetChaName30_guildwar(role)-------К№УГ15ёцєЈµББо
      local num_count_1 = CheckBagItem(role, 3001)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 15 and map_name_cha == "guildwar" then
         TakeItem( role, 0,3001, 15 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1000 , 30700 , 51700 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1000 , 30841 , 51602 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1000 , 30941 , 51702 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
+--     end
     elseif num_count_1 >= 15 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,3001, 15 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1026 , 30700 , 51770 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1026 , 30841 , 51670 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1026 , 30941 , 51702 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"У вас не хватает пиратских знаков ")
+     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
      end
 end
 
-function GetChaName31_guildwar(role)
+function GetChaName31_guildwar(role)-------К№УГ15ёцєЈµББо
      local num_count_1 = CheckBagItem(role, 3001)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 15 and map_name_cha == "guildwar" then
         TakeItem( role, 0,3001, 15 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1000 , 11900 , 52100 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1000 , 12141 , 52102 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1000 , 11941 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
+--     end
     elseif num_count_1 >= 15 and map_name_cha == "guildwar2" then
-        TakeItem( role, 0,3001, 15 )       
+        TakeItem( role, 0,3001, 15 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1026 , 11900 , 52100 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1026 , 12000 , 52100 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1026 , 11900 , 52000 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"У вас не хватает пиратских знаков ")
+     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
      end
 end
 
-function GetChaName32_guildwar(role)
+function GetChaName32_guildwar(role)-------К№УГ15ёцєЈµББо
      local num_count_1 = CheckBagItem(role, 3001)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 15 and map_name_cha == "guildwar" then
         TakeItem( role, 0,3001, 15 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1000 , 52300 , 52100 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1000 , 52441 , 52102 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1000 , 52541 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
+--     end
     elseif num_count_1 >= 15 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,3001, 15 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1026 , 52300 , 52100 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1026 , 52200 , 52000 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1026 , 52100 , 52100 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"У вас не хватает пиратских знаков ")
+     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
      end
 end
 
-function GetChaName33_guildwar(role)
+--function GetChaName11_guildwar(role)-------К№УГ15ёцєЈѕьБоЈЁЦРВ·Ј©
+--     local num_count_1 = CheckBagItem(role, 176)----ІРИ±µД№ьК¬Іј
+--     local map_name_cha = GetChaMapName ( role )
+--     if num_count_1 >= 15 and map_name_cha == "guildwar" then
+--        TakeItem( role, 0,176, 15 )
+--        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
+--	local Monster1 =CreateChaX( 999 , 30500 , 30800 , 145 , 310,role )
+--	SetChaLifeTime( Monster1, 300 )
+--	SetChaSideID(Monster1, 2)
+--	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
+--	local Monster2 =CreateChaX( 999 , 30641 , 30802 , 145 , 310,role )
+--	SetChaLifeTime( Monster2, 300 )
+--	SetChaSideID(Monster2, 2)
+--	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
+--	local Monster3 =CreateChaX( 999 , 30541 , 30702 , 145 , 310,role )
+--	SetChaLifeTime( Monster3, 300 )
+--	SetChaSideID(Monster3, 2)
+--	
+--        SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough [Navy Token] ЈЎ")
+--     end
+--end
+
+function GetChaName33_guildwar(role)-------К№УГ30ёцєЈµББо
      local num_count_1 = CheckBagItem(role, 3001)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 30 and map_name_cha == "guildwar" then
         TakeItem( role, 0,3001, 30 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1000 , 30600 , 10200 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1000 , 30641 , 10302 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1000 , 30541 , 10102 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
 	local Monster4 =CreateChaX( 1000 , 30500 , 10400 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster5 =CreateChaX( 1000 , 30741 , 10202 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster6 =CreateChaX( 1000 , 30741 , 10202 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 2)
 	local Monster7 =CreateChaX( 1000 , 30541 , 10002 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
+--     end
     elseif num_count_1 >= 30 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,3001, 30 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1026 , 30600 , 10200 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1026 , 30641 , 10302 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1026 , 30541 , 10102 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
 	local Monster4 =CreateChaX( 1026 , 30500 , 10400 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster5 =CreateChaX( 1026 , 30741 , 10202 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster6 =CreateChaX( 1026 , 30741 , 10202 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 2)
 	local Monster7 =CreateChaX( 1026 , 30541 , 10002 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"У вас не хватает пиратских знаков ")
+     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
      end
 end
 
-function GetChaName34_guildwar(role)
+function GetChaName34_guildwar(role)-------К№УГ30ёцєЈµББо
      local num_count_1 = CheckBagItem(role, 3001)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 30 and map_name_cha == "guildwar" then
         TakeItem( role, 0,3001, 30 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1000 , 51200 , 10900 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1000 , 51141 , 10802 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1000 , 51241 , 10902 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
 	local Monster4 =CreateChaX( 1000 , 51000 , 10900 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster5 =CreateChaX( 1000 , 51141 , 10702 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster6 =CreateChaX( 1000 , 51341 , 10902 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 2)
 	local Monster7 =CreateChaX( 1000 , 51041 , 10802 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
+--     end
     elseif num_count_1 >= 30 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,3001, 30 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1026 , 51200 , 10900 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1026 , 51141 , 10802 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1026 , 51241 , 10902 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
 	local Monster4 =CreateChaX( 1026 , 51000 , 10900 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster5 =CreateChaX( 1026 , 51141 , 10702 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster6 =CreateChaX( 1026 , 51341 , 10902 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 2)
 	local Monster7 =CreateChaX( 1026 , 51041 , 10802 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"У вас не хватает пиратских знаков ")
+     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
      end
 end
 
-function GetChaName35_guildwar(role)
+function GetChaName35_guildwar(role)-------К№УГ30ёцєЈµББо
      local num_count_1 = CheckBagItem(role, 3001)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 30 and map_name_cha == "guildwar" then
         TakeItem( role, 0,3001, 30 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1000 , 11400 , 11600 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1000 , 11541 , 11602 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1000 , 11541 , 11702 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
 	local Monster4 =CreateChaX( 1000 , 11400 , 11700 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster5 =CreateChaX( 1000 , 11341 , 11802 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster6 =CreateChaX( 1000 , 11341 , 11702 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 2)
 	local Monster7 =CreateChaX( 1000 , 11441 , 11802 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
+--     end
     elseif num_count_1 >= 30 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,3001, 30 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1026 , 11400 , 11600 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1026 , 11541 , 11602 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1026 , 11541 , 11702 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
 	local Monster4 =CreateChaX( 1026 , 11400 , 11700 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster5 =CreateChaX( 1026 , 11341 , 11802 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster6 =CreateChaX( 1026 , 11341 , 11702 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 2)
 	local Monster7 =CreateChaX( 1026 , 11441 , 11802 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"У вас не хватает пиратских знаков ")
+     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
      end
 end
 
-function GetChaName36_guildwar(role)
+
+function GetChaName36_guildwar(role)-------К№УГ30ёцєЈµББо
      local num_count_1 = CheckBagItem(role, 3001)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 30 and map_name_cha == "guildwar" then
         TakeItem( role, 0,3001, 30 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1000 , 30700 , 51500 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1000 , 30641 , 51502 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1000 , 30541 , 51602 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
 	local Monster4 =CreateChaX( 1000 , 30500 , 51400 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster5 =CreateChaX( 1000 , 30741 , 51402 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster6 =CreateChaX( 1000 , 30541 , 51502 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 2)
 	local Monster7 =CreateChaX( 1000 , 30541 , 51502 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
+--     end
     elseif num_count_1 >= 30 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,3001, 30 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1026 , 30700 , 51500 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1026 , 30841 , 51600 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1026 , 30741 , 51600 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
 	local Monster4 =CreateChaX( 1026 , 30700 , 51400 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster5 =CreateChaX( 1026 , 30641 , 51500 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster6 =CreateChaX( 1026 , 30741 , 51400 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 2)
 	local Monster7 =CreateChaX( 1026 , 30741 , 51300 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"У вас не хватает пиратских знаков ")
+     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
      end
 end
 
-function GetChaName37_guildwar(role)
+function GetChaName37_guildwar(role)-------К№УГ30ёцєЈµББо
      local num_count_1 = CheckBagItem(role, 3001)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 30 and map_name_cha == "guildwar" then
         TakeItem( role, 0,3001, 30 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1000 , 11900 , 52100 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1000 , 12141 , 52102 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1000 , 11941 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
 	local Monster4 =CreateChaX( 1000 , 12000 , 52000 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster5 =CreateChaX( 1000 , 12141 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster6 =CreateChaX( 1000 , 11841 , 52102 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 2)
 	local Monster7 =CreateChaX( 1000 , 11841 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
+--     end
      elseif num_count_1 >= 30 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,3001, 30 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1026 , 11900 , 52100 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1026 , 12141 , 52102 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1026 , 11941 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
 	local Monster4 =CreateChaX( 1026 ,12000 , 52000 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster5 =CreateChaX( 1026 , 12141 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster6 =CreateChaX( 1026 , 11841 , 52102 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 2)
 	local Monster7 =CreateChaX( 1026 , 11841 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"У вас не хватает пиратских знаков ")
+     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
      end
 end
 
-function GetChaName38_guildwar(role)
+function GetChaName38_guildwar(role)-------К№УГ30ёцєЈµББо
      local num_count_1 = CheckBagItem(role, 3001)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 30 and map_name_cha == "guildwar" then
         TakeItem( role, 0,3001, 30 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1000 , 52100 , 52200 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1000 , 52241 , 52302 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1000 , 52041 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
 	local Monster4 =CreateChaX( 1000 , 52400 , 52100 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster5 =CreateChaX( 1000 , 51941 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster6 =CreateChaX( 1000 , 51941 , 52102 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 2)
 	local Monster7 =CreateChaX( 1000 , 52341 , 52402 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
+--     end
      elseif num_count_1 >= 30 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,3001, 30 )
+        --local Monster1 = CreateChaEx(999, 30641, 51702, 237, 60)
 	local Monster1 =CreateChaX( 1026 , 52100 , 52200 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster2 =CreateChaX( 1026 , 52241 , 52302 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster3 =CreateChaX( 1026 , 52041 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
 	local Monster4 =CreateChaX( 1026 , 52400 , 52100 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 2)
+	--local Monster2 = CreateChaEx(999, 30841, 51702, 237, 60)
 	local Monster5 =CreateChaX( 1026 , 51941 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 2)
+	--local Monster3 = CreateChaEx(999, 30941, 51702, 237, 60)
 	local Monster6 =CreateChaX( 1026 , 51941 , 52102 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 2)
 	local Monster7 =CreateChaX( 1026 , 52341 , 52402 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	
+        SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"У вас не хватает пиратских знаков ")
+     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
      end
 end
 
-function GetChaName39_guildwar(role)
+function GetChaName39_guildwar(role)-------К№УГ45ёцєЈµББо
      local num_count_1 = CheckBagItem(role, 3001)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 45 and map_name_cha == "guildwar" then
@@ -6973,7 +8844,10 @@ function GetChaName39_guildwar(role)
 	local Monster11 =CreateChaX( 1000 , 30641 , 10502 , 145 , 310,role )
 	SetChaLifeTime( Monster11, 300000 )
 	SetChaSideID(Monster11, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
+--     end
      elseif num_count_1 >= 45 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,3001, 45 )
         local Monster1 =CreateChaX( 1026 , 30700 , 10500 , 145 , 310,role )
@@ -7009,13 +8883,13 @@ function GetChaName39_guildwar(role)
 	local Monster11 =CreateChaX( 1026 , 30641 , 10502 , 145 , 310,role )
 	SetChaLifeTime( Monster11, 300000 )
 	SetChaSideID(Monster11, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"У вас не хватает пиратских знаков ")
+     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
      end
 end
 
-function GetChaName40_guildwar(role)
+function GetChaName40_guildwar(role)-------К№УГ45ёцєЈµББо
      local num_count_1 = CheckBagItem(role, 3001)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 45 and map_name_cha == "guildwar" then
@@ -7023,24 +8897,29 @@ function GetChaName40_guildwar(role)
        local Monster1 =CreateChaX( 1000 , 52100 , 10700 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	
 	local Monster2 =CreateChaX( 1000 , 52241 , 10802 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	
 	local Monster3 =CreateChaX( 1000 , 52141 , 10802 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
 	local Monster4 =CreateChaX( 1000 , 52200 , 10700 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 2)
+	
 	local Monster5 =CreateChaX( 1000 , 52041 , 10702 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 2)
+	
 	local Monster6 =CreateChaX( 1000 , 52141 , 10602 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 2)
 	local Monster7 =CreateChaX( 1000 , 52341 , 10602 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 2)
+
 	local Monster8 =CreateChaX( 1000 , 52341 , 10502 , 145 , 310,role )
 	SetChaLifeTime( Monster8, 300000 )
 	SetChaSideID(Monster8, 2)
@@ -7053,30 +8932,38 @@ function GetChaName40_guildwar(role)
 	local Monster11 =CreateChaX( 1000 , 52341 , 10702 , 145 , 310,role )
 	SetChaLifeTime( Monster11, 300000 )
 	SetChaSideID(Monster11, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
+--     end
      elseif num_count_1 >= 45 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,3001, 45 )
        local Monster1 =CreateChaX( 1026 , 52100 , 10700 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	
 	local Monster2 =CreateChaX( 1026 , 52241 , 10802 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	
 	local Monster3 =CreateChaX( 1026 , 52141 , 10802 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
 	local Monster4 =CreateChaX( 1026 , 52200 , 10700 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 2)
+	
 	local Monster5 =CreateChaX( 1026 , 52041 , 10702 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 2)
+	
 	local Monster6 =CreateChaX( 1026 , 52141 , 10602 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 2)
 	local Monster7 =CreateChaX( 1026 , 52341 , 10602 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 2)
+
 	local Monster8 =CreateChaX( 1026 , 52341 , 10502 , 145 , 310,role )
 	SetChaLifeTime( Monster8, 300000 )
 	SetChaSideID(Monster8, 2)
@@ -7089,13 +8976,13 @@ function GetChaName40_guildwar(role)
 	local Monster11 =CreateChaX( 1026 , 52341 , 10702 , 145 , 310,role )
 	SetChaLifeTime( Monster11, 300000 )
 	SetChaSideID(Monster11, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"У вас не хватает пиратских знаков ")
+     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
      end
 end
 
-function GetChaName41_guildwar(role)
+function GetChaName41_guildwar(role)-------К№УГ45ёцєЈµББо
      local num_count_1 = CheckBagItem(role, 3001)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 45 and map_name_cha == "guildwar" then
@@ -7103,24 +8990,29 @@ function GetChaName41_guildwar(role)
        local Monster1 =CreateChaX( 1000 , 11500 , 11600 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	
 	local Monster2 =CreateChaX( 1000 , 11441 , 11602 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	
 	local Monster3 =CreateChaX( 1000 , 11541 , 11702 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
 	local Monster4 =CreateChaX( 1000 , 11400 , 11500 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 2)
+	
 	local Monster5 =CreateChaX( 1000 , 11541 , 11502 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 2)
+	
 	local Monster6 =CreateChaX( 1000 , 11541 , 11402 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 2)
 	local Monster7 =CreateChaX( 1000 , 11641 , 11402 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 2)
+
 	local Monster8 =CreateChaX( 1000 , 11641 , 11502 , 145 , 310,role )
 	SetChaLifeTime( Monster8, 300000 )
 	SetChaSideID(Monster8, 2)
@@ -7133,30 +9025,38 @@ function GetChaName41_guildwar(role)
 	local Monster11 =CreateChaX( 1000 , 11641 , 11702 , 145 , 310,role )
 	SetChaLifeTime( Monster11, 300000 )
 	SetChaSideID(Monster11, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
+--     end
     elseif num_count_1 >= 45 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,3001, 45 )
         local Monster1 =CreateChaX( 1026 , 11500 , 11600 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	
 	local Monster2 =CreateChaX( 1026 , 11441 , 11602 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	
 	local Monster3 =CreateChaX( 1026 , 11541 , 11702 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
 	local Monster4 =CreateChaX( 1026 , 11400 , 11500 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 2)
+	
 	local Monster5 =CreateChaX( 1026 , 11541 , 11502 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 2)
+	
 	local Monster6 =CreateChaX( 1026 , 11541 , 11402 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 2)
 	local Monster7 =CreateChaX( 1026 , 11641 , 11402 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 2)
+
 	local Monster8 =CreateChaX( 1026 , 11641 , 11502 , 145 , 310,role )
 	SetChaLifeTime( Monster8, 300000 )
 	SetChaSideID(Monster8, 2)
@@ -7169,13 +9069,13 @@ function GetChaName41_guildwar(role)
 	local Monster11 =CreateChaX( 1026 , 11641 , 11702 , 145 , 310,role )
 	SetChaLifeTime( Monster11, 300000 )
 	SetChaSideID(Monster11, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"У вас не хватает пиратских знаков ")
+     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
      end
 end
 
-function GetChaName42_guildwar(role)
+function GetChaName42_guildwar(role)-------К№УГ45ёцєЈµББо
      local num_count_1 = CheckBagItem(role, 3001)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 45 and map_name_cha == "guildwar" then
@@ -7213,7 +9113,10 @@ function GetChaName42_guildwar(role)
 	local Monster11 =CreateChaX( 1000 , 30741 , 51202 , 145 , 310,role )
 	SetChaLifeTime( Monster11, 300000 )
 	SetChaSideID(Monster11, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
+--     end
      elseif num_count_1 >= 45 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,3001, 45 )
         local Monster1 =CreateChaX( 1026 , 30700 , 51500 , 145 , 310,role )
@@ -7249,13 +9152,13 @@ function GetChaName42_guildwar(role)
 	local Monster11 =CreateChaX( 1026 , 30741 , 51202 , 145 , 310,role )
 	SetChaLifeTime( Monster11, 300000 )
 	SetChaSideID(Monster11, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"У вас не хватает пиратских знаков ")
+     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
      end
 end
 
-function GetChaName43_guildwar(role)
+function GetChaName43_guildwar(role)-------К№УГ45ёцєЈµББо
      local num_count_1 = CheckBagItem(role, 3001)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 45 and map_name_cha == "guildwar" then
@@ -7263,24 +9166,29 @@ function GetChaName43_guildwar(role)
       local Monster1 =CreateChaX( 1000 , 11900 , 52100 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	
 	local Monster2 =CreateChaX( 1000 , 12141 , 52102 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	
 	local Monster3 =CreateChaX( 1000 , 11941 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
 	local Monster4 =CreateChaX( 1000 , 12000 , 52000 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 2)
+	
 	local Monster5 =CreateChaX( 1000 , 12141 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 2)
+	
 	local Monster6 =CreateChaX( 1000 , 11841 , 52102 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 2)
 	local Monster7 =CreateChaX( 1000 , 11841 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 2)
+
 	local Monster8 =CreateChaX( 1000 , 12041 , 51702 , 145 , 310,role )
 	SetChaLifeTime( Monster8, 300000 )
 	SetChaSideID(Monster8, 2)
@@ -7293,30 +9201,38 @@ function GetChaName43_guildwar(role)
 	local Monster11 =CreateChaX( 1000 , 12641 , 52202 , 145 , 310,role )
 	SetChaLifeTime( Monster11, 300000 )
 	SetChaSideID(Monster11, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
+--     end
     elseif num_count_1 >= 45 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,3001, 45 )
       local Monster1 =CreateChaX( 1000 , 11900 , 52100 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	
 	local Monster2 =CreateChaX( 1026 , 12141 , 52102 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	
 	local Monster3 =CreateChaX( 1026 , 11941 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
 	local Monster4 =CreateChaX( 1026 , 12000 , 52000 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 2)
+	
 	local Monster5 =CreateChaX( 1026 , 12141 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 2)
+	
 	local Monster6 =CreateChaX( 1026 , 11841 , 52102 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 2)
 	local Monster7 =CreateChaX( 1026 , 11841 , 52002 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 2)
+
 	local Monster8 =CreateChaX( 1026 , 12041 , 51702 , 145 , 310,role )
 	SetChaLifeTime( Monster8, 300000 )
 	SetChaSideID(Monster8, 2)
@@ -7329,13 +9245,13 @@ function GetChaName43_guildwar(role)
 	local Monster11 =CreateChaX( 1026 , 12641 , 52202 , 145 , 310,role )
 	SetChaLifeTime( Monster11, 300000 )
 	SetChaSideID(Monster11, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"У вас не хватает пиратских знаков ")
+     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
      end
 end
 
-function GetChaName44_guildwar(role)
+function GetChaName44_guildwar(role)-------К№УГ45ёцєЈµББо
      local num_count_1 = CheckBagItem(role, 3001)
      local map_name_cha = GetChaMapName ( role )
      if num_count_1 >= 45 and map_name_cha == "guildwar" then
@@ -7343,24 +9259,29 @@ function GetChaName44_guildwar(role)
        local Monster1 =CreateChaX( 1000 , 52300 , 52500 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	
 	local Monster2 =CreateChaX( 1000 , 52241 , 52502 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	
 	local Monster3 =CreateChaX( 1000 , 52341 , 52402 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
 	local Monster4 =CreateChaX( 1000 , 52000 , 52500 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 2)
+	
 	local Monster5 =CreateChaX( 1000 , 52141 , 52502 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 2)
+	
 	local Monster6 =CreateChaX( 1000 , 52241 , 52402 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 2)
 	local Monster7 =CreateChaX( 1000 , 52241 , 52602 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 2)
+
 	local Monster8 =CreateChaX( 1000 , 52441 , 52502 , 145 , 310,role )
 	SetChaLifeTime( Monster8, 300000 )
 	SetChaSideID(Monster8, 2)
@@ -7373,30 +9294,38 @@ function GetChaName44_guildwar(role)
 	local Monster11 =CreateChaX( 1000 , 52641 , 52302 , 145 , 310,role )
 	SetChaLifeTime( Monster11, 300000 )
 	SetChaSideID(Monster11, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
+--     else
+--     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
+--     end
     elseif num_count_1 >= 45 and map_name_cha == "guildwar2" then
         TakeItem( role, 0,3001, 45 )
           local Monster1 =CreateChaX( 1000 , 52300 , 52500 , 145 , 310,role )
 	SetChaLifeTime( Monster1, 300000 )
 	SetChaSideID(Monster1, 2)
+	
 	local Monster2 =CreateChaX( 1026 , 52241 , 52502 , 145 , 310,role )
 	SetChaLifeTime( Monster2, 300000 )
 	SetChaSideID(Monster2, 2)
+	
 	local Monster3 =CreateChaX( 1026 , 52341 , 52402 , 145 , 310,role )
 	SetChaLifeTime( Monster3, 300000 )
 	SetChaSideID(Monster3, 2)
 	local Monster4 =CreateChaX( 1026 , 52000 , 52500 , 145 , 310,role )
 	SetChaLifeTime( Monster4, 300000 )
 	SetChaSideID(Monster4, 2)
+	
 	local Monster5 =CreateChaX( 1026 , 52141 , 52502 , 145 , 310,role )
 	SetChaLifeTime( Monster5, 300000 )
 	SetChaSideID(Monster5, 2)
+	
 	local Monster6 =CreateChaX( 1026 , 52241 , 52402 , 145 , 310,role )
 	SetChaLifeTime( Monster6, 300000 )
 	SetChaSideID(Monster6, 2)
 	local Monster7 =CreateChaX( 1026 , 52241 , 52602 , 145 , 310,role )
 	SetChaLifeTime( Monster7, 300000 )
 	SetChaSideID(Monster7, 2)
+
 	local Monster8 =CreateChaX( 1026 , 52441 , 52502 , 145 , 310,role )
 	SetChaLifeTime( Monster8, 300000 )
 	SetChaSideID(Monster8, 2)
@@ -7409,36 +9338,332 @@ function GetChaName44_guildwar(role)
 	local Monster11 =CreateChaX( 1026 , 52641 , 52302 , 145 , 310,role )
 	SetChaLifeTime( Monster11, 300000 )
 	SetChaSideID(Monster11, 2)
-		 SystemNotice( role ,"Засада подготовлена ")
+	SystemNotice( role ,"Succuessfully launched ambush!")
      else
-     SystemNotice( role ,"У вас не хватает пиратских знаков ")
+     SystemNotice( role ,"You do not have enough <<Pirate Token>> !")
      end
 end
 
 function GetChaName45_guildwar(character,npc)
+
 		local i= CheckBagItem( character, 3849 )
+		
 		if i~=1 then
-			SystemNotice( character , "Убедитесь, что у вас есть Медаль Отваги ")
+			SystemNotice( character , "Please ensure that you have a Medal of Honor")
 			return 0
 		end
+
 		local s= CheckBagItem( character, 2382 )
 		if s >=1 then
-		SystemNotice( character , "Вы можете использовать Знак жизни и смерти только один раз ")
+		SystemNotice( character , "You can only carry one Life and Death token at one time")
 			return 0
 		end
+
 		local retbag = HasLeaveBagGrid( character, 1)
 	        if retbag ~= LUA_TRUE then
-		SystemNotice(role,"У вас не хватает свободного места в инвентаре ")
+		SystemNotice(character,"Insufficent inventory space to redeem")
 		return 
 	end	 
 		local role_RY = GetChaItem2 ( character , 2 , 3849 )
                 local HonorPoint = GetItemAttr ( role_RY , ITEMATTR_VAL_STR)
                 local HonorPoint_now = HonorPoint - 15
 	if HonorPoint < 15 then
-		SystemNotice ( character , "У вас нет очков Чести для обмена " )
+		SystemNotice ( character , "You do not have enough honor points to exchange!" )
 		return 0
-	else               
+	else
+               
 	        SetItemAttr( role_RY , ITEMATTR_VAL_STR , HonorPoint_now )
 		GiveItem ( character , 0 , 2382  , 1 , 4 )
-	end	
+
+	end
+		
+end
+
+-------------------------------ЧЄЙъОЄЛ«ЅЈ
+function GetChaName1_born ( role,npc )
+	-----------------ИЎЅЗЙ«µДМеРН
+        local cha_type = GetChaTypeID ( role )
+	if cha_type~=1 then
+		SystemNotice( role ,"Only Lance can change into Crusader")
+		return
+	end
+	local check=GetChaName_born ( role )
+	if check==0 then
+		SystemNotice( role ,"Rebirth requirements not met")
+		return
+	end
+	-----------------ЦШЦГЅЗЙ«Ц°Тµ
+	local cha_job = GetChaAttr( role , ATTR_JOB )
+	SetChaAttr(role, ATTR_JOB ,9 ) 	
+	GiveItem_chibang ( role  )				--іб°т
+	GiveItem_zsbook ( role )
+	RefreshCha ( role )
+end
+-------------------------------ЧЄЙъОЄѕЮЅЈ
+function GetChaName2_born ( role,npc )
+	-----------------ИЎЅЗЙ«µДМеРН
+        local cha_type = GetChaTypeID ( role )
+	if cha_type~=2 then
+		SystemNotice( role ,"Only Carsise can become Champion")
+		return
+	end
+	local check=GetChaName_born ( role )
+	if check==0 then
+		SystemNotice( role ,"Rebirth requirements not met")
+		return
+	end
+	-----------------ЦШЦГЅЗЙ«Ц°Тµ
+	local cha_job = GetChaAttr( role , ATTR_JOB )
+	SetChaAttr(role, ATTR_JOB ,8 )
+	GiveItem_chibang ( role  )				--іб°т
+	GiveItem_zsbook ( role )
+	RefreshCha ( role )
+end
+-------------------------------ЧЄЙъОЄєЅєЈКї
+function GetChaName3_born ( role,npc )
+	-----------------ИЎЅЗЙ«µДМеРН
+        local cha_type = GetChaTypeID ( role )
+	if cha_type~=1 and cha_type~=3 and cha_type~=4 then
+		SystemNotice( role ,"Only Lance, Phyllis or Ami can be voyager")
+		return
+	end
+	local check=GetChaName_born ( role )
+	if check==0 then
+		SystemNotice( role ,"Rebirth requirements not met")
+		return
+	end
+	-----------------ЦШЦГЅЗЙ«Ц°Тµ
+	local cha_job = GetChaAttr( role , ATTR_JOB )
+	SetChaAttr(role, ATTR_JOB ,16 ) 	
+	GiveItem_chibang ( role  )				--іб°т
+	GiveItem_zsbook ( role )
+	RefreshCha ( role )
+end
+-------------------------------ЧЄЙъОЄѕС»чКЦ
+function GetChaName4_born ( role,npc )
+	-----------------ИЎЅЗЙ«µДМеРН
+        local cha_type = GetChaTypeID ( role )
+	if cha_type~=1 and cha_type~=3 then
+		SystemNotice( role ,"Only Lance, Phyllis can become SharpShooter")
+		return
+	end
+	local check=GetChaName_born ( role )
+	if check==0 then
+		SystemNotice( role ,"Rebirth requirements not met")
+		return
+	end
+	-----------------ЦШЦГЅЗЙ«Ц°Тµ
+	local cha_job = GetChaAttr( role , ATTR_JOB )
+	SetChaAttr(role, ATTR_JOB ,12 ) 	
+	GiveItem_chibang ( role  )				--іб°т
+	GiveItem_zsbook ( role )
+	RefreshCha ( role )
+end
+-------------------------------ЧЄЙъОЄКҐЦ°ХЯ
+function GetChaName5_born ( role,npc )
+	-----------------ИЎЅЗЙ«µДМеРН
+        local cha_type = GetChaTypeID ( role )
+	if cha_type~=3 and cha_type~=4 then
+		SystemNotice( role ,"Only Phyllis and Ami can become Cleric")
+		return
+	end
+	local check=GetChaName_born ( role )
+	if check==0 then
+		SystemNotice( role ,"Rebirth requirements not met")
+		return
+	end
+	-----------------ЦШЦГЅЗЙ«Ц°Тµ
+	local cha_job = GetChaAttr( role , ATTR_JOB )
+	SetChaAttr(role, ATTR_JOB ,13 ) 	
+	GiveItem_chibang ( role  )				--іб°т
+	GiveItem_zsbook ( role )
+	RefreshCha ( role )
+end
+-------------------------------ЧЄЙъОЄ·вУЎК¦
+function GetChaName6_born ( role,npc )
+	-----------------ИЎЅЗЙ«µДМеРН
+        local cha_type = GetChaTypeID ( role )
+	if cha_type~=3 and cha_type~=4 then
+		SystemNotice( role ,"Only Phyllis and Ami can become SealMaster")
+		return
+	end
+	local check=GetChaName_born ( role )
+	if check==0 then
+		SystemNotice( role ,"Rebirth requirements not met")
+		return
+	end
+	-----------------ЦШЦГЅЗЙ«Ц°Тµ
+	local cha_job = GetChaAttr( role , ATTR_JOB )
+	SetChaAttr(role, ATTR_JOB ,14 ) 	
+	GiveItem_chibang ( role  )				--іб°т
+	GiveItem_zsbook ( role )
+	RefreshCha ( role )
+end
+function GiveItem_chibang ( role  )
+        local cha_type = GetChaTypeID ( role )	
+	if cha_type==1 then
+		GiveItem( role , 0 , 134  , 1 , 4 )
+	elseif cha_type==2 then
+		GiveItem( role , 0 , 138  , 1 , 4 )
+	elseif cha_type==3 then
+		GiveItem( role , 0 , 128  , 1 , 4 )
+	elseif cha_type==4 then
+		GiveItem( role , 0 , 131  , 1 , 4 )
+	end
+end
+
+function GiveItem_zsbook ( role )
+	local cha_job = GetChaAttr(role, ATTR_JOB)
+	---SystemNotice( role ,""..cha_job )
+	if cha_job == 8 then
+		GiveItem( role , 0 , 2957 , 1 , 4 )
+	elseif cha_job == 9 then
+		GiveItem( role , 0 , 2956 , 1 , 4 )
+	elseif cha_job == 12 then
+		GiveItem( role , 0 , 2961 , 1 , 4 )
+	elseif cha_job == 13 then
+		GiveItem( role , 0 , 2959 , 1 , 4 )
+	elseif cha_job == 14 then
+		GiveItem( role , 0 , 2958 , 1 , 4 )
+	elseif cha_job == 16 then
+		GiveItem( role , 0 , 2960 , 1 , 4 )
+	end
+end
+
+-------------------------------ЧЄЙъ
+function GetChaName_born ( role )
+	---SystemNotice(role ,"GetChaName_born")
+	-----------------ИЎЅЗЙ«µДГыЧЦ
+	local cha_name = GetChaDefaultName ( role )
+	-----------------ИЎЅЗЙ«µДµИј¶
+	local cha_lv = GetChaAttr(role, ATTR_LV) 
+	-----------------ИЎЅЗЙ«µДЦ°Тµ
+	local cha_job = GetChaAttr(role, ATTR_JOB)
+	-----------------ЕР¶ПЅЗЙ«±і°ьАпКЗ·сѕЯУРЧЄЙъЦ¤Гч
+	local i = CheckBagItem( role, 2235 )    
+	if i < 1 then
+		SystemNotice( role ,"Please show your proof of rebirth")
+		return 0
+	end
+	-----------------ЕР¶ПЅЗЙ«Ч°±ёАёКЗ·сТСЗеїХ
+	local item_empty=IsEquip(role)
+	if item_empty==LUA_TRUE then
+		SystemNotice(role,"Please place the item from character's equipment slot into the inventory")
+		return 0	
+	end
+	-----------------ЕР¶ПЅЗЙ«±і°ьЦРКЗ·сУРїХёс
+	local Item_CanGet = GetChaFreeBagGridNum ( role )	
+	if Item_CanGet < 5 then
+		SystemNotice(role ,"Inventory needs to have at least 5 slots")
+		UseItemFailed ( role )
+		return 0
+	end
+	local zs1 =TakeItem( role, 0,2235, 1 )
+	if zs1==0 then
+		SystemNotice ( role ,"Gather Rebirth Stone failed")
+		return 0
+	end
+	------------------ЕР¶ПЅЗЙ«КЗ·сТСѕ­ЧЄЙъ№э
+	local Zs_Exp = GetChaAttr ( role , ATTR_CSAILEXP )
+	if Zs_Exp > 0 then
+		SystemNotice(role ,"You've already rebirth")
+		return 0
+	end
+	-----------------ИЎРиЗуµДЅрЗ®
+	-----------------ЗеїХЅЗЙ«јјДЬ
+	local cha_skill_num=GetChaAttr(role, ATTR_TP  )
+	-----SystemNotice(role ,"Skill points left=="..cha_skill_num)
+	local clear_skill_num=ClearFightSkill(role)
+	-----SystemNotice(role ,"clear_skill_num=="..clear_skill_num)
+	-----------------·µ»№ЅЗЙ«јјДЬµг
+	cha_skill_num=cha_skill_num+clear_skill_num
+	SetChaAttr(role, ATTR_TP ,cha_skill_num ) 
+	-----------------ПґЅЗЙ«КфРФµг
+	local ap = GetChaAttr( role , ATTR_AP )
+	-----SystemNotice(role ,"Stat Point Remaining=="..ap)
+	local cha_str = GetChaAttr(role, ATTR_BSTR  ) 
+	local cha_dex = GetChaAttr(role, ATTR_BDEX  ) 
+	local cha_agi = GetChaAttr(role, ATTR_BAGI  ) 
+	local cha_con = GetChaAttr(role, ATTR_BCON ) 
+	local cha_sta = GetChaAttr(role, ATTR_BSTA )
+	ap=ap+cha_str+cha_dex+cha_agi+cha_con+cha_sta-25
+	SetChaAttr(role, ATTR_BSTR ,5 ) 
+	SyncChar(role,4)
+	SetChaAttr(role, ATTR_BDEX ,5 ) 
+	SyncChar(role,4)
+	SetChaAttr(role, ATTR_BAGI ,5 ) 
+	SyncChar(role,4)
+	SetChaAttr(role, ATTR_BCON,5 ) 
+	SyncChar(role,4)
+	SetChaAttr(role, ATTR_BSTA,5 ) 
+	SyncChar(role,4)
+	SetChaAttr(role , ATTR_AP,ap  )
+	SyncChar(role,4)
+	AddSailExp(role, npc , 1 , 1 )
+	local sk_add = SK_ZSSL
+	AddChaSkill ( role , sk_add , 1 , 1 , 0 )
+
+	---PlayEffect( npc, 361 )
+	Notice("Extreme celebration"..cha_name.."Rebirth successful. Blessing from the whole server"..cha_name.."Hope you have a safe journey and everything goes your way!")
+	return 1
+--	end
+end
+
+-------------------------------УГЅММГЦ¤КйВт¶ФУ¦Злјн---------forge
+function ChangeItem (character,npc)
+
+	local Item_CanGet = GetChaFreeBagGridNum ( character )
+	if Item_CanGet <1 then
+		SystemNotice(character ,"Please make sure you have one space left")
+		return 0
+	end
+
+	local am1 = CheckBagItem( character, 3066 )			
+	if am1 < 1 then
+		SystemNotice( character ,"ДъєГПсГ»УРґшЅММГК№УГЦ¤КйАґЕ¶")
+		return 0
+	end
+	local Money_Need = 50000
+	local Money_Have = GetChaAttr ( character , ATTR_GD )
+	if Money_Need > Money_Have  then
+		SystemNotice( character ,"ДъµДЅрЗ®І»ЧгЈ¬І»ДЬ№єВтЗлјн")
+		return 0
+	else
+		TakeMoney(character,nil,Money_Need)
+	end
+
+	local r1=0
+	local r2=0
+	r1,r2 =MakeItem ( character , 3666  , 10 , 4 )
+	local Item_el = GetChaItem ( character , 2 , r2 )
+
+	local item_old = GetChaItem2 ( character , 2 , 3066 )
+	---------ИЎЦ¤КйµДК±јд	
+	local old_month = GetItemAttr(item_old, ITEMATTR_VAL_STA)		-------------ФВ 	
+	local old_day = GetItemAttr(item_old, ITEMATTR_VAL_STR)			-------------ИХ  
+	local old_hour = GetItemAttr(item_old, ITEMATTR_VAL_CON)			-------------К±   
+	local old_miniute = GetItemAttr(item_old, ITEMATTR_VAL_DEX)		-------------·Ц   
+	
+	--SystemNotice ( character , "old_month=="..old_month )
+	--SystemNotice ( character , "old_day=="..old_day )       
+	--SystemNotice ( character , "old_hour=="..old_hour )    
+	--SystemNotice ( character , "old_miniute=="..old_miniute)
+
+	SetItemAttr(Item_el, ITEMATTR_VAL_STA, old_month )	-------------ФВ 	
+	SetItemAttr(Item_el, ITEMATTR_VAL_STR, old_day )		-------------ИХ  
+	SetItemAttr(Item_el, ITEMATTR_VAL_CON, old_hour )		-------------К± 
+	SetItemAttr(Item_el, ITEMATTR_VAL_DEX, old_miniute )	-------------·Ц
+
+	local old_month2 = GetItemAttr(Item_el, ITEMATTR_VAL_STA)		-------------ФВ 	
+	local old_day2 = GetItemAttr(Item_el, ITEMATTR_VAL_STR)			-------------ИХ  
+	local old_hour2 = GetItemAttr(Item_el, ITEMATTR_VAL_CON)			-------------К±   
+	local old_miniute2 = GetItemAttr(Item_el, ITEMATTR_VAL_DEX)		-------------·Ц 
+
+	--SystemNotice ( character , "old_month2=="..old_month2 )
+	--SystemNotice ( character , "old_day2=="..old_day2 )       
+	--SystemNotice ( character , "old_hour2=="..old_hour2 )    
+	--SystemNotice ( character , "old_miniute2=="..old_miniute2)
+
+	SynChaKitbag(character,13)
+	
 end

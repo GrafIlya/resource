@@ -1,76 +1,100 @@
-print( "‡ Јаг§Є  Ctrl.lua" )
+--ґЛОДјюЦРЈ¬·ІКЗїЙДЬ±»¶аґОЦґРРµДєЇКэЈ¬єЇКэГы¶јТЄјУЙПµШНјГыЗ°Чє
 
 function config(map)
-	MapCanSavePos(map, 0)
-	MapCanPK(map, 1)
-	MapCopyNum(map, 1)
-	MapCopyStartType(map, 1)
-	SingleMapCopyPlyNum(map, 300)
-	MapCanTeam(map , 1)
-	MapType ( map , 4 )
+    MapCanSavePos(map, 0) --ЙиЦГµШНјКЗ·с±ЈґжЅЗЙ«О»ЦГЈЁµШНјЈ¬Чш±кЈ¬·ЅПтЈ©Ј¬ґЛЙиЦГУ°ПмёГµШНјµДЛщУРё±±ѕ
+    MapCanPK(map, 1) --ЙиЦГµШНјКЗ·сїЙТФPKЈ¬ґЛЙиЦГУ°ПмёГµШНјµДЛщУРё±±ѕ
+    MapCopyNum(map, 1) --ЙиЦГµШНјµДё±±ѕКэДїЈ¬Из№ыІ»µчУГёГУпѕдЈ¬ФтК№УГД¬ИПЦµ1
+    MapCopyStartType(map, 1) --ЙиЦГµШНјБўјґїЄКј
+    SingleMapCopyPlyNum(map, 300)   --ЙиЦГТ»ёцё±±ѕµДНжјТКэ
+    MapCanTeam(map , 1)
+    MapType ( map , 4 )
 end
 
-function get_map_entry_pos_hell()
+
+function get_map_entry_pos_hell()   --ЙиЦГИлїЪµДО»ЦГµДЧш±кЈЁЧш±кЈЁГЧЈ©Ј©
+
 	local POS_X=199
 	local POS_Y=941
 	return POS_X , POS_Y
+
 end
 
 function init_entry(map)
-	SetMapEntryMapName(map, "jialebi") 
-	SetMapEntryTime(map, "2007/1/19/21/0", "1/0/0", "0/1/0", "0/6/0") 
+    SetMapEntryMapName(map, "jialebi") --ЙиЦГИлїЪµДО»ЦГЈЁµШНјГыЈ¬Чш±кЈЁГЧЈ©Ј©
+    SetMapEntryTime(map, "2007/1/19/21/0", "1/0/0", "0/1/0", "0/6/0") --ЙиЦГИлїЪµДК±јдЈ¬µШНј¶ФПуЈ¬КЧґОїЄЖфК±јдЈЁДк/ФВ/ИХ/К±/·ЦЈ©Ј¬ТФєуФЩґОїЄЖфµДјдёфЈЁИХ/К±/·ЦЈ¬И«Ј°±нКѕЦ»УРКЧґОїЄЖфЈ©Ј¬ГїґОїЄЖфµЅИлїЪПыК§µДјдёфЈЁИХ/К±/·ЦЈ¬И«Ј°±нКѕУАІ»ПыК§Ј©Ј¬ГїґОїЄЖфµЅµШНј№Ш±ХµДјдёфЈЁИХ/К±/·ЦЈ¬И«Ј°±нКѕУАІ»№Ш±ХЈ©ЎЈЎЈ
+
 end
 
-function after_enter_hell( role, map_copy )
-	local cha_name = GetChaDefaultName( role )
-	SystemNotice( role, "Таинственный голос: Вы вторглись во владения смерти... "..cha_name..", мои слуги безжалостно разорвут тебя в клочья!" )
+function after_enter_hell( role , map_copy )
+
+local cha_name=GetChaDefaultName(role)
+
+	SystemNotice ( role, "Mysterious Voice: Intruders of Death Realm<"..cha_name..">Ah, my pets will rip you apart mercilessly!" ) 
+
 end
 
-function before_leave_hell( role )
+function before_leave_hell ( role )
+
+end
+
+function map_copy_first_run_hell( map_copy )
+
 end
 
 function map_copy_run_hell( map_copy )
+
+
 		if CheckMonsterDead ( AZRAEL[5] ) == 1 then
 			if CRY[5]==0 then
-				local Notice_all = "Саро: Это чувство...чувство побежденности, слабости...отчаяния. Скоро я восстановлюсь и отправлю вас дальше отчаяния!"
+				local Notice_all = "Saro: This feeling of suffering is the power of Despair. I'll revive and you all will fall into depths more deeper than despair!!!"
 				MapCopyNotice ( map_copy , Notice_all )
 				CRY[5]=1
 			end
 		end
+		
 		if CheckMonsterDead ( AZRAEL[6] ) == 1 then
 			if CRY[6]==0 then
-				local Notice_all = "Кару: Нет, даже не смейте думать о том, что вы сильнее..."
+				local Notice_all = "Karu: You might have passed this stage, but prepare for the worst!"
 				MapCopyNotice ( map_copy , Notice_all )
 				CRY[6]=1
 			end
 		end
+
 		if CheckMonsterDead ( AZRAEL[7] ) == 1 then
 			if CRY[7]==0 then
-				local Notice_all = "Аратур: Я побежден...мой повелитель будет в ярости..."
+				local Notice_all = "Aruthur: I...I was defeated...Please let me off my lord! I do not want to return to damnation!"
 				MapCopyNotice ( map_copy , Notice_all )
 				CRY[7]=1
 			end
 		end
+
 		if CheckMonsterDead ( AZRAEL[8] ) == 1 then
 			if CRY[8]==0 then
-				local Notice_all = "Сакруа: Глупые смертные, Кара даровала нам бессмертие...мы отомстим вам!"
+				local Notice_all = "Sacrois: Foolish humans, Death has bestowed upon us the gift of immortality. We will meet again! Haha! Haha!"
 				MapCopyNotice ( map_copy , Notice_all )
 				CRY[8]=1
 			end
-		end	
-	if CRY[5]==1 and CRY[6]==1 and CRY[7]==1 and CRY[8]==1 then
-		if HELLCLOSETIME==300 then
-			Notice ( "Таинственный голос: Даже не думайте, что смерть четырех моих слуг были напрасны. Земля из-под ваших ног исчезнет через 5 минут!")
 		end
+
+
+				
+	if CRY[5]==1 and CRY[6]==1 and CRY[7]==1 and CRY[8]==1 then
+		
+		if HELLCLOSETIME==300 then
+			Notice ( "Mysterious Voice: Do not let the defeat of my 4 pets get to your head. Their sacrifice will not be in vain! Prepare as the earth beneath your feet will vanished in 5 minutes!")
+		end
+
 		local closetime = HELLCLOSETIME
 		for i = 1 , MAXNOTICE , 1 do
 			if closetime ==NOTICETIME[i] then
-				local Notice_all = "Внимание! Обрушение Абаддона 5 -8 через "..closetime.." секунд. Всем людям рекомендуется найти укрытие!"
+				local Notice_all = "Warning! Collapse of Abaddon 5 to Abaddon 8 left "..closetime.." sec(s)! All adventurer prepare to hide"
 				MapCopyNotice ( map_copy ,Notice_all )
 			end
 		end
 		HELLCLOSETIME = HELLCLOSETIME-1
+
 		if HELLCLOSETIME == 0 then
+
 			HELLCLOSETIME = 300
 			CRY[5]=0
 			CRY[6]=0
@@ -78,22 +102,37 @@ function map_copy_run_hell( map_copy )
 			CRY[8]=0
 			CloseMapEntry ( "hell" )
 			CloseMapCopy ( "hell" )
+
 		end
 	end
 end
 
-function map_copy_close_hell ( map_copy )
-	HELLCLOSETIME = 300
-	CRY[5]=0
-	CRY[6]=0
-	CRY[7]=0
-	CRY[8]=0
+--Гї5ГлЦґРРТ»ґОµД
+function map_run_hell( map )
+
 end
-	
+
+--µШНј№Ш±ХК±ЦґРР
+function map_copy_close_hell ( map_copy )
+
+			HELLCLOSETIME = 300
+			CRY[5]=0
+			CRY[6]=0
+			CRY[7]=0
+			CRY[8]=0
+
+end
+		
+--µШНјїЄ№ШЕР¶ПЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄ
+
 function can_open_entry_hell( map ) 
+
+--	local time = GetTickCount ( ) 
 	local Now_Week = GetNowWeek()
 	if Now_Week >=5 and Now_Week < 7 then
 		return 1
 	end
+
 		return 0
+
 end 

@@ -1,39 +1,52 @@
-print( "‡ Јаг§Є  NPCScript03.lua")
+-------------------------------------------------------------------
+--									--
+--									--
+--NPCScript03.lua Created by Robin 2005.6.1.				--
+--									--
+--									--
+--------------------------------------------------------------------------
+print( "loading NPCScript03.lua" )
 
---------------------------
---	Список сокращений	--
---------------------------
-jp				= JumpPage
-amp				= AutoMissionPage
-ct				= CloseTalk
-am				= AddMission
-MissionCheck 	= HasFlag
-mc				= MissionCheck
+jp= JumpPage
+amp=AutoMissionPage
+ct=CloseTalk
+am=AddMission
+MissionCheck = HasFlag
+mc=MissionCheck
 
---------------------------------------------------------------------------------------------------------------------
---													r_talk (Начало)												  --
---------------------------------------------------------------------------------------------------------------------
-function r_talk10()
-	Talk( 1, "Чироро: Привет! Я оператор порта. Чем могу помочь?  ")
+
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[Ѕ»ТЧФ±Ў¤єВВеё¦]			--
+--							--
+--		225538,280188				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk10 ()
+	
+	
+	Talk( 1, "Chiroro: Hi! I am the Harbor Operator. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 1 )
 	TriggerAction( 1, TradeBerthList, 1 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Торг грузом  ", MultiTrigger, GetMultiTrigger(), 1 )
-	Text( 1, "Узнать о повышении уровня торговой лицензии  ",JumpPage, 3)
+	Text( 1, "Cargo Trade", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Regarding High Lv Commerce Permit",JumpPage, 3)
 	
-	Talk( 2, "Чироро: У вас нет никаких кораблей в порту Аргента. Я не могу торговать! ")
+	Talk( 2, "Chiroro: Sorry, you do not have any ships docked in Argent Harbor . Unable to trade." )
 	
-	Talk( 3, "Привет! Если вы хотите торговать, то вы нуждаетесь в торговой лицензии. Узнать о торговой лицензии можно у купца Шайтана.  ")
-	Text( 3, "Узнать о налоге ",JumpPage, 7)
-	Text( 3, "Лицензия низкого уровня ",JumpPage, 4)
-	Text( 3, "Лицензия стандартного уровня ",JumpPage, 5)
-	Text( 3, "Лицензия высшего уровня ",JumpPage, 6)
+	Talk( 3, "Hi! If you want to get rich, then you will need a \"Commerce Permit!\" With it you can have more products for commerce trade and also reduce your capital to maximize your profits! Currently, players can only obtain Commerce Permit from Shaitan Trading Post.")
+	Text( 3, "Regarding Tax Rate",JumpPage, 7)
+	Text( 3, "Low Lv Commerce Permit",JumpPage, 4)
+	Text( 3, "Mid Lv Commerce Permit",JumpPage, 5)
+	Text( 3, "High Lv Commerce Permit",JumpPage, 6)
+	
 
-	Talk( 4, "Лицензию низкого уровня получить несложно. Для этого вам надо быть не менее 20 уровня и найти купца Шайтана. ")
-	Talk( 5, "Чтобы получить лицензию стандартного уровня вы должны быть не менее 40 уровня и иметь не больше 20% налога ")
-	Talk( 6, "Чтобы получить лицензию высшего уровня вы должны быть не менее 60 уровня и иметь не больше 10% налога ")
-	Talk( 7, "Текущий уровень налога вы можете увидеть на вашей торговой лицензии. Он влияет на стоимость покупки и продажи товара торговцам. ")
+	Talk( 4, "Low Lv Commerce Permit is easy to obtain. When you reaches Lv 20, go to the trading post in Shaitan and complete a simple task to have one.")
+	Talk( 5, "When you reaches Lv 40 and reduces your tax rate to 20%, you can go to Shaitan Trading Post and obtain a Mid Lv Commerce Permit.")
+	Talk( 6, "When you have reached level 60 and possess a Commerce Permit with 10% tax, you can activate the quest for High Lv Commerce.")
+	Talk( 7, "Check your Commerce Permit to see the current Tax Rate imposed on your product when you sell it to any trader. Complete some quest at Shaitan Trading Post to reduce the Tax Rate.")
 
 	InitGoods(1)
 	SaleGoodsData(	0	,	4573	,	900	,	279	,	62	)
@@ -82,30 +95,47 @@ function r_talk10()
 	AddNpcMission	(1132)
 	AddNpcMission	(1183)
 	AddNpcMission(	1226	)
+	
 end 
 
-function r_talk27()
-	Talk( 1, "Санджай: Привет! Я отвечаю тут за торговлю! ")
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Ѕ»ТЧФ±Ў¤єВВеё¦
+
+
+
+----------------------------------------------------------
+--							--
+--							--
+--		АЧцЄ±¤[Ѕ»ТЧФ±Ў¤ЙЈјЄ]			--
+--							--
+--		103877,127848				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk27 ()
+	
+	
+	Talk( 1, " Sanjay: Hi, Baby! I am in charge of the trade hereЎ­and girls too." )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 2 )
 	TriggerAction( 1, TradeBerthList, 2 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Торг грузом  ", MultiTrigger, GetMultiTrigger(), 1 ) 
-	Text( 1, "Узнать о повышении уровня торговой лицензии ",JumpPage, 3)
+	Text( 1, "Cargo Trade", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Regarding High Lv Commerce Permit",JumpPage, 3)
 	
-	Talk( 2, "Санджай: У вас нет корабля в порте Громограда! ")	
+	Talk( 2, "Sanjay: Sorry! Your ship is not docked in Thundoria Harbor. Unable to trade." )	
 	
-	Talk( 3, "Привет! Если вы хотите торговать, то вы нуждаетесь в торговой лицензии. Узнать о торговой лицензии можно у купца Шайтана. ")
-	Text( 3, "Узнать о налоге ",JumpPage, 7)
-	Text( 3, "Лицензия низкого уровня ",JumpPage, 4)
-	Text( 3, "Лицензия стандартного уровня ",JumpPage, 5)
-	Text( 3, "Лицензия высшего уровня ",JumpPage, 6)
+	Talk( 3, "Hi! If you want to get rich, then you will need a \"Commerce Permit!\" With it you can have more products for commerce trade and also reduce your capital to maximize your profits! Currently, players can only obtain Commerce Permit from Shaitan Trading Post.")
+	Text( 3, "Regarding Tax Rate",JumpPage, 7)
+	Text( 3, "Low Lv Commerce Permit",JumpPage, 4)
+	Text( 3, "Mid Lv Commerce Permit",JumpPage, 5)
+	Text( 3, "High Lv Commerce Permit",JumpPage, 6)
 
-	Talk( 4, "Лицензию низкого уровня получить несложно. Для этого вам надо быть не менее 20 уровня и найти купца Шайтана. ")
-	Talk( 5, "Чтобы получить лицензию стандартного уровня вы должны быть не менее 40 уровня и иметь не больше 20% налога ")
-	Talk( 6, "Чтобы получить лицензию высшего уровня вы должны быть не менее 60 уровня и иметь не больше 10% налога ")
-	Talk( 7, "Текущий уровень налога вы можете увидеть на вашей торговой лицензии. Он влияет на стоимость покупки и продажи товара торговцам. ")
-
+	Talk( 4, "Low Lv Commerce Permit is easy to obtain. When you reaches Lv 20, go to the trading post in Shaitan and complete a simple task to have one.")
+	Talk( 5, "When you reaches Lv 40 and reduces your tax rate to 20%, you can go to Shaitan Trading Post and obtain a Mid Lv Commerce Permit.")
+	Talk( 6, "When you have reached level 60 and possess a Commerce Permit with 10% tax, you can activate the quest for High Lv Commerce.")
+	Talk( 7, "Check your Commerce Permit to see the current Tax Rate imposed on your product when you sell it to any trader. Complete some quest at Shaitan Trading Post to reduce the Tax Rate.")
+	
+	
+	
 	InitGoods( 2)
 	SaleGoodsData(	1	,	4597	,	480	,	436	,	97	)
 	SaleGoodsData(	2	,	4598	,	300	,	472	,	105	)
@@ -150,442 +180,610 @@ function r_talk27()
 	AddNpcMission	(1077)
 	AddNpcMission	(1133)
 	AddNpcMission	(1184)
+----------Ѕ»ТЧФ±Ў¤ЙЈјЄ-------Л«ЧУ	--------------03
+	AddNpcMission	(5728)
+	AddNpcMission	(5729)
 end 
 
-function r_talk60()
-	Talk( 1, "Корабельщик: Привет! Интересуют лучшие судна? ")
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[ґ¬№¤Ў¤ёҐАјїЛ]			--
+--							--
+--		90391,366735				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk60 ()
+	
+	Talk( 1, "Franklin: Hi! I learnt my ship building skill in Argent City. You can call me Franklin." )
 	InitTrigger()
 	TriggerCondition( 1, IsBoatFull )
-	TriggerAction( 1, SystemNotice, "Достигнуто максимальное количество кораблей. Нельзя больше построить корабль. ")
+	TriggerAction( 1, SystemNotice, "Ships limit reached. Unable to build more ship" )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Построить корабль ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Build Ship", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 3 )
 	TriggerAction( 1, BoatLevelBerthList, 3 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Улучшить корабль ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Upgrade ship", MultiTrigger, GetMultiTrigger(), 1 )
 	
-	Talk( 2, "Корабельщик: какой корабль желаете построить? ")
+	Talk( 2, "Franklin: Yo! Want to set sail? Then you will need a good ship! Look at my ships and see if there is any to your liking. To level up your ship, come back when it has gained enough experience from sailing or killing monsters out in the sea." )
 	InitTrigger()
 	TriggerCondition( 1, BoatBuildCheck, 1 )
 	TriggerAction( 1, CreateBoat, 1, 3 )
-	Text( 2, "Построить Гуппи ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 2, "Build Guppy", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
-	TriggerCondition( 1, BoatBuildCheck, 2 )
-	TriggerAction( 1, CreateBoat, 2, 3 )
-	Text( 2, "Построить Транспортер ", MultiTrigger, GetMultiTrigger(), 1 )
-	InitTrigger()
-	TriggerCondition( 1, BoatBuildCheck, 3 )
-	TriggerAction( 1, CreateBoat, 3, 3 )
-	Text( 2, "Построить Летучую рыбу ", MultiTrigger, GetMultiTrigger(), 1 )
+	TriggerCondition( 1, BoatBuildCheck, 5 )
+	TriggerAction( 1, CreateBoat, 5, 3 )
+	Text( 2, "Build Windseeker", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, BoatBuildCheck, 6 )
 	TriggerAction( 1, CreateBoat, 6, 3 )
-	Text( 2, "Построить Рыбу-меч ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 2, "Build Swordfish", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
-	TriggerCondition( 1, BoatBuildCheck, 6 )
-	TriggerAction( 1, CreateBoat, 12, 3 )
-	Text( 2, "Построить Метеор ", MultiTrigger, GetMultiTrigger(), 1 )
+	TriggerCondition( 1, BoatBuildCheck, 4 )
+	TriggerAction( 1, CreateBoat, 4, 3 )
+	Text( 2, "Build Turtle", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
-	TriggerCondition( 1, BoatBuildCheck, 13 )
-	TriggerAction( 1, CreateBoat, 13, 3 )
-	Text( 2, "Построить Акулу ", MultiTrigger, GetMultiTrigger(), 1 )
+	TriggerCondition( 1, BoatBuildCheck, 14 )
+	TriggerAction( 1, CreateBoat, 14, 3 )
+	Text( 2, "Build Torrent", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
-	TriggerCondition( 1, BoatBuildCheck, 16 )
-	TriggerAction( 1, CreateBoat, 16, 3 )
-	Text( 2, "Построить Орел ", MultiTrigger, GetMultiTrigger(), 1 )
+	TriggerCondition( 1, BoatBuildCheck, 15 )
+	TriggerAction( 1, CreateBoat, 15, 3 )
+	Text( 2, "Build Goddess", MultiTrigger, GetMultiTrigger(), 1 )
 
-	Talk( 3, "Корабельщик: Чтобы улучшить судно вы должны поставить его в эту гавань. Кроме того у вас должно быть необходимое количество опыта корабля. Опыт можно заработать убивая морских монстров. ")
+	Talk( 3, "Franklin: You need to have your ship docked at my harbor in order to level it. Ships get better as they level up. To level up your ship, come back when it has gained enough experience from sailing or killing monsters out in the sea." )
 
 	AddNpcMission	(1116)
 	AddNpcMission	(158)
 	AddNpcMission	(159)
 	AddNpcMission	(160)
+	
+	
 end 
 
-function r_talk150()
-	Talk( 1, "Алена: Привет! Я Морской советник. Чем могу помочь? ")
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ґ¬і§№¤ИЛЎ¤ёҐАјїЛ
 
+------------------------------------------------------------
+-- °ЧТшіЗ-----єЈКВЛщЦъАнЎ¤ВЮА­ДИ
+--           2247,2857
+------------------------------------------------------------
+
+function r_talk150()
+
+	Talk( 1, "Alena: Hi! I am the Maritime Assistant. Can I help you?" )
+
+	--Text( 1, "ОВЗйѕЮР·№¬(ЦХј«12№¬ЧЁУГИООс)", JumpPage,2 )
+
+	Talk( 2, "єЈКВЛщЦъАнЎ¤ВЮА­ДИ:ЗлСЎФсДгТЄґі№ШµДДС¶И,ґУЛ®КЦµЅґ¬і¤ДС¶ИТАґОјУґу,µ±И»БЛДС¶ИФЅёЯЅ±АшФЅ·бєс.ДгПлєГБЛВр?Ц»ДЬСЎФсТ»ґО,І»їЙТФєу»ЪЕ¶" )
+
+	InitTrigger()
+	TriggerCondition( 1, NoRecord,1467 )
+	TriggerCondition( 1, NoRecord,1468 )
+	TriggerCondition( 1, HasItem, 1866, 1 )---------ѕЮР·ГЕЖ±
+	TriggerAction( 1, TakeItem, 1866, 1 )----------ѕЮР·ГЕЖ±
+	TriggerAction( 1, SetRecord, 1466 )
+	TriggerAction( 1, SetRecord, 1469 )
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Text( 2, "Sailor",MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, NoRecord,1466 )
+	TriggerCondition( 1, NoRecord,1468 )
+	TriggerCondition( 1, HasItem, 1866, 1 )---------ѕЮР·ГЕЖ±
+	TriggerAction( 1, TakeItem, 1866, 1 )----------ѕЮР·ГЕЖ±
+	TriggerAction( 1, SetRecord, 1467 )
+	TriggerAction( 1, SetRecord, 1469 )
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Text( 2, "Pirate",MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, NoRecord,1466 )
+	TriggerCondition( 1, NoRecord,1467 )
+	TriggerCondition( 1, HasItem, 1866, 1 )--------ѕЮР·ГЕЖ±
+	TriggerAction( 1, TakeItem, 1866, 1 )----------ѕЮР·ГЕЖ±
+	TriggerAction( 1, SetRecord, 1468 )
+	TriggerAction( 1, SetRecord, 1469 )
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Text( 2, "Captain",MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk(3, "єЈКВЛщЦъАнЎ¤ВЮА­ДИ:ПЈНыДъДЬ№»јб¶ЁЧФјєµДСЎФсЈ¬І»ТЄ·ЕЖъЕ¶ЈЎОТФЪХвАпЧЈёЈДъ..." )
+	Talk( 4, "єЈКВЛщЦъАнЎ¤ВЮА­ДИ:МфХЅѕЮР·№¬µДК±єт,ДС¶ИЦ»ДЬСЎФсТ»ґО.ІўИ·±ЈДъµД±і°ьАпУРѕЮР·№¬ГЕЖ±.")
+	
 	AddNpcMission 	(437)
 	AddNpcMission 	(439)
 	AddNpcMission 	(441)
+
+------------ВЮА­ДИ
+-----------------------ѕЮР·Чщ
+	AddNpcMission 	(5800)
+	AddNpcMission 	(5801)
+	AddNpcMission 	(5802)
+	AddNpcMission 	(5803)
+	AddNpcMission 	(5804)
+	AddNpcMission 	(5805)
+	AddNpcMission 	(5806)
+	AddNpcMission 	(5807)
+	AddNpcMission 	(5808)
+	AddNpcMission 	(5809)
+	AddNpcMission 	(5810)
+	AddNpcMission 	(5811)
+	AddNpcMission 	(5812)
+	AddNpcMission 	(5813)
+	AddNpcMission 	(5814)
+	AddNpcMission 	(5815)
+	AddNpcMission 	(5816)
+	AddNpcMission 	(5857)
+	AddNpcMission 	(5858)
+	AddNpcMission 	(5862)
+	AddNpcMission 	(5863)
+	AddNpcMission 	(5864)
+
 end
 
-function r_talk151()
-	Talk( 1, "Синдбад: Привет! Я отвечаю здесь за потройку кораблей! ")
+------------------------------------------------------------
+-- °ЧТшіЗ-----ґ¬№¤Ў¤Л№°НїЛ
+------------------------------------------------------------
+function r_talk151 ()
+		
+	Talk( 1, "Sinbad: Yo! Want to get out to the sea? How can you do so without a good ship? I offer the best ship around here. Come have a look!" )
 	InitTrigger()
 	TriggerCondition( 1, IsBoatFull )
-	TriggerAction( 1, SystemNotice, "Достигнуто максимальное количество кораблей. Нельзя больше построить корабль. ")
+	TriggerAction( 1, SystemNotice, "Ships limit reached. Unable to build more ship" )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Построить корабль ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Build Ship", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 1 )
 	TriggerAction( 1, BoatLevelBerthList, 1 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Улучшить корабль ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Upgrade ship", MultiTrigger, GetMultiTrigger(), 1 )
 	
-	Talk( 2, "Синдбад: какой корабль желаете построить? ")
+	Talk( 2, "Sinbad: What type of ships you wish to build? I have a few varieties. Please have a look." )
 	InitTrigger()
 	TriggerCondition( 1, BoatBuildCheck, 1 )
 	TriggerAction( 1, CreateBoat, 1, 1 )
-	Text( 2, "Построить Гуппи ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 2, "Build Guppy", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, BoatBuildCheck, 2 )
 	TriggerAction( 1, CreateBoat, 2, 1 )
-	Text( 2, "Построить Транспортер ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 2, "Build Transporter", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, BoatBuildCheck, 3 )
 	TriggerAction( 1, CreateBoat, 3, 1 )
-	Text( 2, "Построить Летучую рыбу ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 2, "Build Flying Fish", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, BoatBuildCheck, 6 )
 	TriggerAction( 1, CreateBoat, 6, 1 )
-	Text( 2, "Построить Рыбу-меч ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 2, "Build Swordfish", MultiTrigger, GetMultiTrigger(), 1 )
 
-	Talk( 3, "Синдбад: Чтобы улучшить судно вы должны поставить его в эту гавань. Кроме того у вас должно быть необходимое количество опыта корабля. Опыт можно заработать убивая морских монстров. ")
+	Talk( 3, "Sinbad: I guess your ship is not docked here. You need to dock here to upgrade the level when it has gained enough experience from sailing or killing monsters out in the sea." )
 end 
 
+------------------------------------------------------------
+-- °ЧТшіЗ-----єЈёЫЦё»УЎ¤С©Ат
+------------------------------------------------------------
+
 function r_talk152()
-	Talk( 1, "Ширли: Привет! Я оператор флота. Что желаете? ")
+
+	Talk( 1, " Shirley: Hi! I am the Harbor Operator for Argent. I am in charge of all ships that is docked in this harbor. Look for me if you want to set sail." )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 1 )
+	--TriggerAction( 1, RemoveYS )
 	TriggerAction( 1, LuanchBerthList, 1, 2260,2829, 177 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в путь ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerCondition( 2, HasBoatInBerth, 1 )
 	TriggerAction( 2, RepairBerthList, 1 )
 	TriggerFailure( 2, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerCondition( 2, HasBoatInBerth, 1 )
 	TriggerAction( 2, SupplyBerthList, 1 )
 	TriggerFailure( 2, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasDeadBoatInBerth, 1 )
 	TriggerAction( 1, SalvageBerthList, 1 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Text( 1, "Восстановить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Salvage Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 3, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 4, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 5, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 6, "Простите, но вы можете восстановить судно лишь в том порту, где оно приписано! ")
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	Talk( 4, "Sorry! I only repair ships docked in this harbor. Please pay 1000G." )
+	Talk( 5, "Sorry, you need to dock your ship in our harbor in order to refuel. Please pay 200G" )
+	Talk( 6, "Sorry! We only salvage ships docked in our harbor. You have to pay a fee of 1000G." )
 
 	AddNpcMission ( 289 )
 	AddNpcMission ( 290 )
+
+
 end
 
+------------------------------------------------------------
+-- Йіб°іЗ-----єЈёЫЦё»УЎ¤ВнїЛ
+------------------------------------------------------------
+
 function r_talk153()
-	Talk( 1, "Марк: Привет! Я оператор флота. Чем я могу помочь? ")
+
+	Talk( 1, "Mark: Hi! I am the Harbor Operator for Shaitan Harbor. Look for me if you want to set sail." )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 3 )
 	TriggerAction( 1, LuanchBerthList, 3, 832, 3698, 180 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в путь ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerCondition( 2, HasBoatInBerth, 3 )
 	TriggerAction( 2, RepairBerthList, 3 )
 	TriggerFailure( 2, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerCondition( 2, HasBoatInBerth, 3 )
 	TriggerAction( 2, SupplyBerthList, 3 )
 	TriggerFailure( 2, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasDeadBoatInBerth, 3 )
 	TriggerAction( 1, SalvageBerthList, 3 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Text( 1, "Восстановить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Salvage Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 	
-	Talk( 3, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 4, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 5, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 6, "Простите, но вы можете восстановить судно лишь в том порту, где оно приписано! ")
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	Talk( 4, "Sorry! I only repair ships docked in this harbor. Please pay 1000G." )
+	Talk( 5, "Sorry, you need to dock your ship in our harbor in order to refuel. Please pay 200G" )
+	Talk( 6, "Sorry! We only salvage ships docked in our harbor. You have to pay a fee of 1000G." )
+
+
+
 end
 
-function r_talk155()
-	Talk( 1, "Джордж: Привет! Я отвечаю здесь за постройку кораблей. Чем я могу помочь? ")
+------------------------------------------------------------
+--±щАЗ±¤-----ґ¬№¤Ў¤ЗЗЦО
+------------------------------------------------------------
+function r_talk155 ()
+		
+	Talk( 1, "George: Hey you! Want to go sailing? How can you do so without a good ship! Come have a look at what I have!" )
 	InitTrigger()
 	TriggerCondition( 1, IsBoatFull )
-	TriggerAction( 1, SystemNotice, "Достигнуто максимальное количество кораблей. Нельзя больше построить корабль. ")
+	TriggerAction( 1, SystemNotice, "Ships limit reached. Unable to build more ship" )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Построить корабль ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Build Ship", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 4 )
 	TriggerAction( 1, BoatLevelBerthList, 4 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Улучшить корабль ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Upgrade ship", MultiTrigger, GetMultiTrigger(), 1 )
 	
-	Talk( 2, "Джордж: Какой корабль желаете построить? ")
+	Talk( 2, "George: What type of ship you wish to build? I have a few models for you to choose from. I have some discount for you if you are interested." )
 	InitTrigger()
 	TriggerCondition( 1, BoatBuildCheck, 2 )
 	TriggerAction( 1, CreateBoat, 2, 4 )
-	Text( 2, "Построить Транспортер ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 2, "Build Transporter", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, BoatBuildCheck, 5 )
 	TriggerAction( 1, CreateBoat, 5, 4 )
-	Text( 2, "Построить Ветролов ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 2, "Build Windseeker", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, BoatBuildCheck, 3 )
 	TriggerAction( 1, CreateBoat, 3, 4 )
-	Text( 2, "Построить Летучую рыбу ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 2, "Build Flying Fish", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, BoatBuildCheck, 4 )
 	TriggerAction( 1, CreateBoat, 4, 4 )
-	Text( 2, "Построить Черепаху ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 2, "Build Turtle", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, BoatBuildCheck, 16 )
 	TriggerAction( 1, CreateBoat, 16, 4 )
-	Text( 2, "Построить Орел ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 2, "Build Eagle", MultiTrigger, GetMultiTrigger(), 1 )
 
-	Talk( 3, "Джордж: Чтобы улучшить судно вы должны поставить его в эту гавань. Кроме того у вас должно быть необходимое количество опыта корабля. Опыт можно заработать убивая морских монстров. ")
+	Talk( 3, "George: You need to have your ship docked at my harbor in order to level it. Ships get better as they level up. To level up your ship, come back when it has gained enough experience from sailing or killing monsters out in the sea." )
+		
 end 
 
+------------------------------------------------------------
+-- ±щАЗ±¤-----єЈёЫЦё»УЎ¤ПЇБЦ
+------------------------------------------------------------
+
 function r_talk154()
-	Talk( 1, "Силион: Привет! Я местный оператор флота! Чем я могу помочь? ")
+
+	Talk( 1, "Silion: Hi! Hi, I am the Harbor Operator for Icicle City. All procedure must come through me. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 4 )
 	TriggerAction( 1, LuanchBerthList, 4, 1196,673, 177 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в путь ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerCondition( 2, HasBoatInBerth, 4 )
 	TriggerAction( 2, RepairBerthList, 4 )
 	TriggerFailure( 2, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerCondition( 2, HasBoatInBerth, 4 )
 	TriggerAction( 2, SupplyBerthList, 4 )
 	TriggerFailure( 2, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasDeadBoatInBerth, 4 )
 	TriggerAction( 1, SalvageBerthList, 4 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Text( 1, "Восстановить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Salvage Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 
 
-	Talk( 3, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 4, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 5, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 6, "Простите, но вы можете восстановить судно лишь в том порту, где оно приписано! ")
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	Talk( 4, "Sorry! I only repair ships docked in this harbor. Please pay 1000G." )
+	Talk( 5, "Sorry, you need to dock your ship in our harbor in order to refuel. Please pay 200G" )
+	Talk( 6, "Sorry! We only salvage ships docked in our harbor. You have to pay a fee of 1000G." )
 
 	AddNpcMission ( 294 )
 	AddNpcMission ( 295 )
+
 end
 
+
+------------------------------------------------------------
+-- єЈ·зµє-----єЈёЫЦё»УЎ¤В··І
+------------------------------------------------------------
+
 function r_talk178()
-	Talk( 1, "Люфан: Привет! Я местный оператор флота! Чем я могу помочь? ")
+
+	Talk( 1, "Lufan: Hi! I am the Harbor Operator. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 5 )
 	TriggerAction( 1, LuanchBerthList, 5, 3240, 3314, 0 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в путь ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerCondition( 2, HasBoatInBerth, 5 )
 	TriggerAction( 2, RepairBerthList, 5 )
 	TriggerFailure( 2, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerCondition( 2, HasBoatInBerth, 5 )
 	TriggerAction( 2, SupplyBerthList, 5 )
 	TriggerFailure( 2, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasDeadBoatInBerth, 5 )
 	TriggerAction( 1, SalvageBerthList, 5 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Text( 1, "Восстановить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Salvage Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 3, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 4, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 5, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 6, "Простите, но вы можете восстановить судно лишь в том порту, где оно приписано! ")
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	Talk( 4, "Sorry! I only repair ships docked in this harbor. Please pay 1000G." )
+	Talk( 5, "Sorry, you need to dock your ship in our harbor in order to refuel. Please pay 200G" )
+	Talk( 6, "Sorry! We only salvage ships docked in our harbor. You have to pay a fee of 1000G." )
+	
 end
 
+------------------------------------------------------------
+-- Лй±щµє-----єЈёЫЦё»УЎ¤Еµ¶ыВЮµВ
+------------------------------------------------------------
+
 function r_talk179()
-	Talk( 1, "Ноэль: Привет! Я местный оператор флота! Чем я могу помочь? ")
+
+	Talk( 1, "Noel: Hi! I am the Harbor Operator around here. Anything I can help you with?" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 6 )
 	TriggerAction( 1, LuanchBerthList, 6, 2301, 1144, 0 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в путь ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerCondition( 2, HasBoatInBerth, 6 )
 	TriggerAction( 2, RepairBerthList, 6 )
 	TriggerFailure( 2, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerCondition( 2, HasBoatInBerth, 6 )
 	TriggerAction( 2, SupplyBerthList, 6 )
 	TriggerFailure( 2, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasDeadBoatInBerth, 6 )
 	TriggerAction( 1, SalvageBerthList, 6 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Text( 1, "Восстановить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Salvage Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 	
-	Talk( 3, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 4, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 5, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 6, "Простите, но вы можете восстановить судно лишь в том порту, где оно приписано! ")
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	Talk( 4, "Sorry! I only repair ships docked in this harbor. Please pay 1000G." )
+	Talk( 5, "Sorry, you need to dock your ship in our harbor in order to refuel. Please pay 200G" )
+	Talk( 6, "Sorry! We only salvage ships docked in our harbor. You have to pay a fee of 1000G." )
+
 end
 
+------------------------------------------------------------
+-- С©Ффµє-----єЈёЫЦё»УЎ¤ВіЧИВіТБ
+------------------------------------------------------------
+
 function r_talk180()
-	Talk( 1, "Лючи: Привет! Я местный оператор флота! Чем я могу помочь? ")
+
+	Talk( 1, "Lucci: Hi! I am the Harbor Operator. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 7 )
 	TriggerAction( 1, LuanchBerthList, 7, 3628, 770, 0 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в путь ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerCondition( 2, HasBoatInBerth, 7 )
 	TriggerAction( 2, RepairBerthList, 7 )
 	TriggerFailure( 2, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerCondition( 2, HasBoatInBerth, 7 )
 	TriggerAction( 2, SupplyBerthList, 7 )
 	TriggerFailure( 2, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasDeadBoatInBerth, 7 )
 	TriggerAction( 1, SalvageBerthList, 7 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Text( 1, "Восстановить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Salvage Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 3, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 4, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 5, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 6, "Простите, но вы можете восстановить судно лишь в том порту, где оно приписано! ")
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	Talk( 4, "Sorry! I only repair ships docked in this harbor. Please pay 1000G." )
+	Talk( 5, "Sorry, you need to dock your ship in our harbor in order to refuel. Please pay 200G" )
+	Talk( 6, "Sorry! We only salvage ships docked in our harbor. You have to pay a fee of 1000G." )
+
 end
 
+------------------------------------------------------------
+-- ИшА­І№ёшХѕ-----єЈёЫЦё»УЎ¤ОВСЗЛю
+------------------------------------------------------------
+
 function r_talk181()
-	Talk( 1, "Уитни: Привет! Я местный оператор флота! Чем я могу помочь? ")
+
+	Talk( 1, "Whitney: Hi! I am in charge of the ship refuel here. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerFailure( 1, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerFailure( 1, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 1 ) 
 	
-	Talk( 4, "Простите, но ремонт стоит 1000 золота! ")
-	Talk( 5, "Простите, но заправка стоит 200 золота!")
+	Talk( 4, "Sorry! Repair need 1000G" )
+	Talk( 5, "Sorry! Refuel needs a fee of 200G" )
+
 
 	AddNpcMission	(763)
 	AddNpcMission(	1742	)
 	AddNpcMission (	1938	)
 	AddNpcMission (	1953	)
+----------------јЄДбЛ№---єЈёЫЦё»УЎ¤ОВСЗЛю--03
 	AddNpcMission	(5511)
 	AddNpcMission	(5512)
+	
+
 end
 
+------------------------------------------------------------
+-- °ў¶ыІ№ёшХѕ-----єЈёЫЦё»УЎ¤ґпТ®ґп
+------------------------------------------------------------
+
 function r_talk182()
-	Talk( 1, "Дарука: Привет! Я местный оператор флота! Чем я могу помочь? ")
+
+	Talk( 1, "Daruka: Hi! I am in charge of the ship refuel here. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerFailure( 1, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerFailure( 1, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 1 ) 
 
 
-	Talk( 4, "Простите, но ремонт стоит 1000 золота! ")
-	Talk( 5, "Простите, но заправка стоит 200 золота!")
+	Talk( 4, "Sorry! Repair need 1000G" )
+	Talk( 5, "Sorry! Refuel needs a fee of 200G" )
 
 	AddNpcMission	(379)
 	AddNpcMission	(380)
+----------------јЄДбЛ№---єЈёЫЦё»УЎ¤ґпТ®ґп--03
 	AddNpcMission (5533 )
 	AddNpcMission (5534 )
 end
 
+------------------------------------------------------------
+-- №ю¶ыІ№ёшХѕ-----єЈёЫЦё»УЎ¤НЯАЧГЧ
+------------------------------------------------------------
+
 function r_talk183()
-	Talk( 1, "Уиткомб: Привет! Я местный оператор флота! Чем я могу помочь? ")
+
+	Talk( 1, "Whitcombe: Hi! I am in charge of the ship refuel here. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerFailure( 1, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerFailure( 1, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
-	Text( 1, "Получить Душу феи ", JumpPage, 6 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 1 ) 
+--Text( 1, "Obtained Fairy Soul", JumpPage, 6 ) 
 	
-	Talk( 4, "Простите, но ремонт стоит 1000 золота! ")
-	Talk( 5, "Простите, но заправка стоит 200 золота!")
+	Talk( 4, "Sorry! Repair need 1000G" )
+	Talk( 5, "Sorry! Refuel needs a fee of 200G" )
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3116, 50 )
 	TriggerAction( 1, TakeItem, 3116, 50 )
 	TriggerAction( 1, GiveItem, 3337, 1, 4 )
 	TriggerFailure( 1, JumpPage, 7 )
-	Talk( 6, "Уиткомб: Чтобы получить Душу феи необходимо 50 Эльфийских фруктов. ")
-	Text( 6, "У меня есть Эльфийские фрукты ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Talk( 6, "Whitcombe: Hi! You wish to have a Fairy Soul? Then you must bring me 50 Elven Fruits." )
+	Text( 6, "I have enough Elven Fruits", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 7, "Уиткомб: У вас нет всего необходимого! ")
+	Talk( 7, "Whitcombe: Hey! I said before. You must give me 50 Elven Fruits." )
+
 
 	AddNpcMission(	1740	)
 	AddNpcMission (	1936	)
 	AddNpcMission (	1951	)
 	AddNpcMission (	381	)
 	AddNpcMission (	382	)
+----------------јЄДбЛ№---єЈёЫЦё»УЎ¤НЯАЧГЧ--03
 	AddNpcMission (5531 )
 	AddNpcMission (5532 )
+	-----------------єЈёЫЦё»УЎ¤НЯАЧГЧ---------ЅрЕЈ
+	AddNpcMission	(5655)
+	AddNpcMission	(5656)
+
+	-----------------єЈёЫЦё»УЎ¤НЯАЧГЧ---------ѕЮР·
+	AddNpcMission	(5861)
+
 end
 
+------------------------------------------------------------
+-- ёҐАп¶ШІ№ёшХѕ-----єЈёЫЦё»УЎ¤·ЁµЪ¶ы
+------------------------------------------------------------
+
 function r_talk184()
-	Talk( 1, "Фардель: Привет! Я местный оператор флота! Чем я могу помочь? ")
+
+	Talk( 1, "Fardell: Hi! I am in charge of the ship refuel here. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerFailure( 1, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerFailure( 1, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 4, "Простите, но ремонт стоит 1000 золота! ")
-	Talk( 5, "Простите, но заправка стоит 200 золота!")
+	Talk( 4, "Sorry! Repair need 1000G" )
+	Talk( 5, "Sorry! Refuel needs a fee of 200G" )
 
 
 	AddNpcMission(	1739	)
@@ -594,31 +792,41 @@ function r_talk184()
 	AddNpcMission (	383	)
 	AddNpcMission (	384	)
 	AddNpcMission (	385	)
+
+	----------------јЄДбЛ№---єЈёЫЦё»УЎ¤·ЁµЪ¶ы--03
 	AddNpcMission (5529 )
 	AddNpcMission (5530 )
+
+
+
 end
 
+------------------------------------------------------------
+-- єЈ·зµє-----Ѕ»ТЧФ±Ў¤Іј¶ыЧИ
+------------------------------------------------------------
+
 function r_talk185()
-	Talk( 1, "Бургес: Привет! Я местный купец! Чем я могу помочь? ")
+
+	Talk( 1, "Burgess: Hi! I am in charge of the trade here. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 5 )
 	TriggerAction( 1, TradeBerthList, 5 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Торг грузом  ", MultiTrigger, GetMultiTrigger(), 1 ) 
-	Text( 1, "Узнать о повышении уровня торговой лицензии ",JumpPage, 3)	
+	Text( 1, "Cargo Trade", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Regarding High Lv Commerce Permit",JumpPage, 3)	
 
-	Talk( 2, "Бургес: Простите, но у вас нет корабля в местном порту! ")	
+	Talk( 2, "Burgess: Sorry! You ship is not docked in Zephyr Harbor. Unable to trade." )	
 
-	Talk( 3, "Привет! Если вы хотите торговать, то вы нуждаетесь в торговой лицензии. Узнать о торговой лицензии можно у купца Шайтана. ")
-	Text( 3, "Узнать о налоге ",JumpPage, 7)
-	Text( 3, "Лицензия низкого уровня ",JumpPage, 4)
-	Text( 3, "Лицензия стандартного уровня ",JumpPage, 5)
-	Text( 3, "Лицензия высшего уровня ",JumpPage, 6)
+	Talk( 3, "Hi! If you want to get rich, then you will need a \"Commerce Permit!\" With it you can have more products for commerce trade and also reduce your capital to maximize your profits! Currently, players can only obtain Commerce Permit from Shaitan Trading Post.")
+	Text( 3, "Regarding Tax Rate",JumpPage, 7)
+	Text( 3, "Low Lv Commerce Permit",JumpPage, 4)
+	Text( 3, "Mid Lv Commerce Permit",JumpPage, 5)
+	Text( 3, "High Lv Commerce Permit",JumpPage, 6)
 
-	Talk( 4, "Лицензию низкого уровня получить несложно. Для этого вам надо быть не менее 20 уровня и найти купца Шайтана. ")
-	Talk( 5, "Чтобы получить лицензию стандартного уровня вы должны быть не менее 40 уровня и иметь не больше 20% налога ")
-	Talk( 6, "Чтобы получить лицензию высшего уровня вы должны быть не менее 60 уровня и иметь не больше 10% налога ")
-	Talk( 7, "Текущий уровень налога вы можете увидеть на вашей торговой лицензии. Он влияет на стоимость покупки и продажи товара торговцам. ")
+	Talk( 4, "Low Lv Commerce Permit is easy to obtain. When you reaches Lv 20, go to the trading post in Shaitan and complete a simple task to have one.")
+	Talk( 5, "When you reaches Lv 40 and reduces your tax rate to 20%, you can go to Shaitan Trading Post and obtain a Mid Lv Commerce Permit.")
+	Talk( 6, "When you have reached level 60 and possess a Commerce Permit with 10% tax, you can activate the quest for High Lv Commerce.")
+	Talk( 7, "Check your Commerce Permit to see the current Tax Rate imposed on your product when you sell it to any trader. Complete some quest at Shaitan Trading Post to reduce the Tax Rate.")
 
 	InitGoods(5)
 	SaleGoodsData(	0	,	4552	,	800	,	315	,	70	)
@@ -650,31 +858,38 @@ function r_talk185()
 	SetNpcTrigger( GetTrigger( 1 ) )
 	SetNpcActive()
 
-	AddNpcMission	(760)
 
+
+	AddNpcMission	(760)
+		
 end
 
+------------------------------------------------------------
+-- Лй±щµє-----Ѕ»ТЧФ±Ў¤ИьЙЄДб
+------------------------------------------------------------
+
 function r_talk186()
-	Talk( 1, "Саценис: Привет! Я местный купец! Чем я могу помочь? ")
+
+	Talk( 1, "Sacenis: Hi! I am in charge of the trade here. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 6 )
 	TriggerAction( 1, TradeBerthList, 6 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Торг грузом  ", MultiTrigger, GetMultiTrigger(), 1 ) 
-	Text( 1, "Узнать о повышении уровня торговой лицензии ",JumpPage, 3)
+	Text( 1, "Cargo Trade", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Regarding High Lv Commerce Permit",JumpPage, 3)
 
-	Talk( 2, "Саценис: Простите, но у вас нет корабля в местном порту! ")
+	Talk( 2, "Sacenis: Sorry, you do not have any ships docked in Glacier Harbor. Unable to trade." )
 	
-	Talk( 3, "Привет! Если вы хотите торговать, то вы нуждаетесь в торговой лицензии. Узнать о торговой лицензии можно у купца Шайтана. ")
-	Text( 3, "Узнать о налоге ",JumpPage, 7)
-	Text( 3, "Лицензия низкого уровня ",JumpPage, 4)
-	Text( 3, "Лицензия стандартного уровня ",JumpPage, 5)
-	Text( 3, "Лицензия высшего уровня ",JumpPage, 6)
+	Talk( 3, "Hi! If you want to get rich, then you will need a \"Commerce Permit!\" With it you can have more products for commerce trade and also reduce your capital to maximize your profits! Currently, players can only obtain Commerce Permit from Shaitan Trading Post.")
+	Text( 3, "Regarding Tax Rate",JumpPage, 7)
+	Text( 3, "Low Lv Commerce Permit",JumpPage, 4)
+	Text( 3, "Mid Lv Commerce Permit",JumpPage, 5)
+	Text( 3, "High Lv Commerce Permit",JumpPage, 6)
 
-	Talk( 4, "Лицензию низкого уровня получить несложно. Для этого вам надо быть не менее 20 уровня и найти купца Шайтана. ")
-	Talk( 5, "Чтобы получить лицензию стандартного уровня вы должны быть не менее 40 уровня и иметь не больше 20% налога ")
-	Talk( 6, "Чтобы получить лицензию высшего уровня вы должны быть не менее 60 уровня и иметь не больше 10% налога ")
-	Talk( 7, "Текущий уровень налога вы можете увидеть на вашей торговой лицензии. Он влияет на стоимость покупки и продажи товара торговцам. ")
+	Talk( 4, "Low Lv Commerce Permit is easy to obtain. When you reaches Lv 20, go to the trading post in Shaitan and complete a simple task to have one.")
+	Talk( 5, "When you reaches Lv 40 and reduces your tax rate to 20%, you can go to Shaitan Trading Post and obtain a Mid Lv Commerce Permit.")
+	Talk( 6, "When you have reached level 60 and possess a Commerce Permit with 10% tax, you can activate the quest for High Lv Commerce.")
+	Talk( 7, "Check your Commerce Permit to see the current Tax Rate imposed on your product when you sell it to any trader. Complete some quest at Shaitan Trading Post to reduce the Tax Rate.")
 
 	InitGoods(6)
 	SaleGoodsData(	1	,	4555	,	480	,	405	,	90	)
@@ -706,31 +921,40 @@ function r_talk186()
 	TriggerAction( 1, AddNpcTrigger, 51, TE_GAMETIME, TT_CYCLETIME, 30, 0 )
 	SetNpcTrigger( GetTrigger( 1 ) )
 	SetNpcActive()
-
+		
 	AddNpcMission	(761)
+
+	-----------------Ѕ»ТЧФ±Ў¤ИьЙЄДб---------ЅрЕЈ
+	AddNpcMission	(5643)
+	AddNpcMission	(5644)
 end
 
+------------------------------------------------------------
+-- С©Ффµє-----Ѕ»ТЧФ±Ў¤·КѕЁµВА­µВ
+------------------------------------------------------------
+
 function r_talk187()
-	Talk( 1, "Дилади: Привет! Я местный купец! Чем я могу помочь? ")
+
+	Talk( 1, "Dilady: Hi, I am the Harbor Operator. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 7 )
 	TriggerAction( 1, TradeBerthList, 7 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Торг грузом  ", MultiTrigger, GetMultiTrigger(), 1 ) 
-	Text( 1, "Узнать о повышении уровня торговой лицензии ",JumpPage, 3)
+	Text( 1, "Cargo Trade", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Regarding High Lv Commerce Permit",JumpPage, 3)
 
-	Talk( 2, "Дилади: Простите, но у вас нет корабля в местном порту! ")	
+	Talk( 2, "Dilady: Sorry, you do not have any ships docked in Outlaw Harbor. Unable to trade." )	
 
-	Talk( 3, "Привет! Если вы хотите торговать, то вы нуждаетесь в торговой лицензии. Узнать о торговой лицензии можно у купца Шайтана. ")
-	Text( 3, "Узнать о налоге ",JumpPage, 7)
-	Text( 3, "Лицензия низкого уровня ",JumpPage, 4)
-	Text( 3, "Лицензия стандартного уровня ",JumpPage, 5)
-	Text( 3, "Лицензия высшего уровня ",JumpPage, 6)
+	Talk( 3, "Hi! If you want to get rich, then you will need a \"Commerce Permit!\" With it you can have more products for commerce trade and also reduce your capital to maximize your profits! Currently, players can only obtain Commerce Permit from Shaitan Trading Post.")
+	Text( 3, "Regarding Tax Rate",JumpPage, 7)
+	Text( 3, "Low Lv Commerce Permit",JumpPage, 4)
+	Text( 3, "Mid Lv Commerce Permit",JumpPage, 5)
+	Text( 3, "High Lv Commerce Permit",JumpPage, 6)
 
-	Talk( 4, "Лицензию низкого уровня получить несложно. Для этого вам надо быть не менее 20 уровня и найти купца Шайтана. ")
-	Talk( 5, "Чтобы получить лицензию стандартного уровня вы должны быть не менее 40 уровня и иметь не больше 20% налога ")
-	Talk( 6, "Чтобы получить лицензию высшего уровня вы должны быть не менее 60 уровня и иметь не больше 10% налога ")
-	Talk( 7, "Текущий уровень налога вы можете увидеть на вашей торговой лицензии. Он влияет на стоимость покупки и продажи товара торговцам. ")
+	Talk( 4, "Low Lv Commerce Permit is easy to obtain. When you reaches Lv 20, go to the trading post in Shaitan and complete a simple task to have one.")
+	Talk( 5, "When you reaches Lv 40 and reduces your tax rate to 20%, you can go to Shaitan Trading Post and obtain a Mid Lv Commerce Permit.")
+	Talk( 6, "When you have reached level 60 and possess a Commerce Permit with 10% tax, you can activate the quest for High Lv Commerce.")
+	Talk( 7, "Check your Commerce Permit to see the current Tax Rate imposed on your product when you sell it to any trader. Complete some quest at Shaitan Trading Post to reduce the Tax Rate.")
 
 
 	InitGoods(7)
@@ -758,147 +982,179 @@ function r_talk187()
 	BuyGoodsData(0,	4569	,	-1	,	1089	,	243	)
 	BuyGoodsData(0,	4572	,	-1	,	924	,	205	)
 
+
+
 	InitTrigger()
 	TriggerAction( 1, AddNpcTrigger, 51, TE_GAMETIME, TT_CYCLETIME, 30, 0 )
 	SetNpcTrigger( GetTrigger( 1 ) )
 	SetNpcActive()
 
+
 	AddNpcMission	(762)	
 end
 
+------------------------------------------------------------
+-- ±щС©µє-----єЈёЫЦё»УЎ¤ІЁ¶ы
+------------------------------------------------------------
+
 function r_talk188()
-	Talk( 1, "Пауль: Привет! Я местный оператор порта! Чем я могу помочь? ")
+
+	Talk( 1, "Paul: Hi! I am the Harbor Operator. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 8 )
 	TriggerAction( 1, LuanchBerthList, 8, 2351, 767, 0 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в путь ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerCondition( 2, HasBoatInBerth, 8 )
 	TriggerAction( 2, RepairBerthList, 8 )
 	TriggerFailure( 2, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerCondition( 2, HasBoatInBerth, 8 )
 	TriggerAction( 2, SupplyBerthList, 8 )
 	TriggerFailure( 2, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasDeadBoatInBerth, 8 )
 	TriggerAction( 1, SalvageBerthList, 8 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Text( 1, "Восстановить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Salvage Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 3, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 4, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 5, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 6, "Простите, но вы можете восстановить судно лишь в том порту, где оно приписано! ")
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	Talk( 4, "Sorry! I only repair ships docked in this harbor. Please pay 1000G." )
+	Talk( 5, "Sorry, you need to dock your ship in our harbor in order to refuel. Please pay 200G" )
+	Talk( 6, "Sorry! We only salvage ships docked in our harbor. You have to pay a fee of 1000G." )
+	----------єЈёЫЦё»УЎ¤ІЁ¶ы-------Л«ЧУ--------03
+	AddNpcMission	(5704)
+	AddNpcMission	(5705)
 end
 
+------------------------------------------------------------
+-- ГщЙіµє-----єЈёЫЦё»УЎ¤НРВк
+------------------------------------------------------------
+
 function r_talk189()
-	Talk( 1, "Томас: Привет! Я местный оператор порта! Чем я могу помочь? ")
+
+	Talk( 1, "Tomas: Hi, I am the harbor operator. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 9 )
 	TriggerAction( 1, LuanchBerthList, 9, 1769, 3788, 0 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в путь ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerCondition( 2, HasBoatInBerth, 9 )
 	TriggerAction( 2, RepairBerthList, 9 )
 	TriggerFailure( 2, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerCondition( 2, HasBoatInBerth, 9 )
 	TriggerAction( 2, SupplyBerthList, 9 )
 	TriggerFailure( 2, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasDeadBoatInBerth, 9 )
 	TriggerAction( 1, SalvageBerthList, 9 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Text( 1, "Восстановить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Salvage Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 3, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 4, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 5, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 6, "Простите, но вы можете восстановить судно лишь в том порту, где оно приписано! ")
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	Talk( 4, "Sorry! I only repair ships docked in this harbor. Please pay 1000G." )
+	Talk( 5, "Sorry, you need to dock your ship in our harbor in order to refuel. Please pay 200G" )
+	Talk( 6, "Sorry! We only salvage ships docked in our harbor. You have to pay a fee of 1000G." )
+	
 end
 
+------------------------------------------------------------
+-- Хж°®µє-----єЈёЫЦё»УЎ¤ПДµВАы
+------------------------------------------------------------
 function r_talk190()
-	Talk( 1, "Ксад: Привет! Я местный оператор порта! Чем я могу помочь? ")
+
+	Talk( 1, "Xad: Hi, I am the Harbor Operator. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 10 )
 	TriggerAction( 1, LuanchBerthList, 10, 2527, 2358, 0 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в путь ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerCondition( 2, HasBoatInBerth, 10 )
 	TriggerAction( 2, RepairBerthList, 10 )
 	TriggerFailure( 2, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerCondition( 2, HasBoatInBerth, 10 )
 	TriggerAction( 2, SupplyBerthList, 10 )
 	TriggerFailure( 2, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasDeadBoatInBerth, 10 )
 	TriggerAction( 1, SalvageBerthList, 10 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Text( 1, "Восстановить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Salvage Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 3, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 4, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 5, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 6, "Простите, но вы можете восстановить судно лишь в том порту, где оно приписано! ")
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	Talk( 4, "Sorry! I only repair ships docked in this harbor. Please pay 1000G." )
+	Talk( 5, "Sorry, you need to dock your ship in our harbor in order to refuel. Please pay 200G" )
+	Talk( 6, "Sorry! We only salvage ships docked in our harbor. You have to pay a fee of 1000G." )
 end
 
+------------------------------------------------------------
+-- ЛХёЫІ№ёшХѕ-----єЈёЫЦё»УЎ¤ВіОч
+------------------------------------------------------------
 function r_talk191()
-	Talk( 1, "Луиджи: Привет! Я местный оператор порта! Чем я могу помочь? ")
+
+	Talk( 1, "Luigi: Hi! I am in charge of the ship refuel here. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerFailure( 1, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerFailure( 1, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 4, "Простите, но ремонт стоит 1000 золота! ")
-	Talk( 5, "Простите, но заправка стоит 200 золота!")
+	Talk( 4, "Sorry! Repair need 1000G" )
+	Talk( 5, "Sorry! Refuel needs a fee of 200G" )
+	 -------------јЄДбЛ№--ЛХёЫІ№ёшХѕ,єЈёЫЦё»УЎ¤ВіОч(464,468)--03
 	AddNpcMission (5527 )
 	AddNpcMission (5528 )
+
+
 end
 
+------------------------------------------------------------
+-- °ЈёҐАпІ№ёшХѕ-----єЈёЫЦё»УЎ¤ІјЕ¦
+------------------------------------------------------------
 function r_talk192()
-	Talk( 1, "Буни: Привет! Я местный оператор порта! Чем я могу помочь? ")
+
+	Talk( 1, "Buni: Hi, I am the harbor operator. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerFailure( 1, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerFailure( 1, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 4, "Простите, но ремонт стоит 1000 золота! ")
-	Talk( 5, "Простите, но заправка стоит 200 золота!")
+	Talk( 4, "Sorry! Repair need 1000G" )
+	Talk( 5, "Sorry! Refuel needs a fee of 200G" )
 
 	AddNpcMission ( 304 )
 	AddNpcMission ( 305 )
@@ -907,155 +1163,201 @@ function r_talk192()
 	AddNpcMission (	1954	)
 	AddNpcMission (	386	)
 	AddNpcMission (	387	)
+
+	----------------јЄДбЛ№---єЈёЫЦё»УЎ¤ІјЕ¦--03
 	AddNpcMission (5525 )
 	AddNpcMission (5526 )
+	
 end
 
+
+------------------------------------------------------------
+-- А­№ЕІ№ёшХѕ-----єЈёЫЦё»УЎ¤¶аБ®ґп
+------------------------------------------------------------
 function r_talk193()
-	Talk( 1, "Домору: Привет! Я местный оператор порта! Чем я могу помочь? ")
+
+	Talk( 1, "Domoru: Hi! I am in charge of the ship refuel here. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerFailure( 1, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerFailure( 1, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 4, "Простите, но ремонт стоит 1000 золота! ")
-	Talk( 5, "Простите, но заправка стоит 200 золота!")
+	Talk( 4, "Sorry! Repair need 1000G" )
+	Talk( 5, "Sorry! Refuel needs a fee of 200G" )
 
 	AddNpcMission(	1441	)
 	AddNpcMission (	1931	)
 
+	----------------јЄДбЛ№---єЈёЫЦё»УЎ¤¶аБ®ґп--03
 	AddNpcMission (5523 )
 	AddNpcMission (5524 )
+
+
 end
 
+------------------------------------------------------------
+-- ЖдЛчµҐІ№ёшХѕ-----єЈёЫЦё»УЎ¤МШ°НЖл¶ы
+------------------------------------------------------------
 function r_talk194()
-	Talk( 1, "Теба: Привет! Я местный оператор порта! Чем я могу помочь? ")
+
+	Talk( 1, "Teba: Hi! I am in charge of the ship refuel here. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerFailure( 1, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerFailure( 1, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 4, "Простите, но ремонт стоит 1000 золота! ")
-	Talk( 5, "Простите, но заправка стоит 200 золота!")
+	Talk( 4, "Sorry! Repair need 1000G" )
+	Talk( 5, "Sorry! Refuel needs a fee of 200G" )
+
 end
 
+------------------------------------------------------------
+-- ДВДВ¶ыІ№ёшХѕ-----єЈёЫЦё»УЎ¤°Н°В
+------------------------------------------------------------
 function r_talk195()
-	Talk( 1, "Барос: Привет! Я местный оператор порта! Чем я могу помочь? ")
+
+	Talk( 1, "Baros: Hi! I am in charge of the ship refuel here. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerFailure( 1, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerFailure( 1, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 4, "Простите, но ремонт стоит 1000 золота! ")
-	Talk( 5, "Простите, но заправка стоит 200 золота!")
+	Talk( 4, "Sorry! Repair need 1000G" )
+	Talk( 5, "Sorry! Refuel needs a fee of 200G" )
 
 	AddNpcMission ( 291 )
 	AddNpcMission ( 292 )
 	AddNpcMission ( 293 )
 	AddNpcMission(	1443	)
 	AddNpcMission (	1932	)
+
+	
+
+
 end
 
+------------------------------------------------------------
+-- РЎїПІ№ёшХѕ-----єЈёЫЦё»УЎ¤µПµПИш
+------------------------------------------------------------
 function r_talk196()
-	Talk( 1, "Дидан: Привет! Я местный оператор порта! Чем я могу помочь? ")
+
+	Talk( 1, "Didane: Hi! I am in charge of the ship refuel here. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerFailure( 1, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerFailure( 1, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 4, "Простите, но ремонт стоит 1000 золота! ")
-	Talk( 5, "Простите, но заправка стоит 200 золота!")
+	Talk( 4, "Sorry! Repair need 1000G" )
+	Talk( 5, "Sorry! Refuel needs a fee of 200G" )
+	----------------јЄДбЛ№---єЈёЫЦё»УЎ¤µПµПИш--03
 	AddNpcMission (5515 )
 	AddNpcMission (5516 )
 end
 
+------------------------------------------------------------
+-- Р¤·РІ№ёшХѕ-----єЈёЫЦё»УЎ¤µ¤ДбЛ№
+------------------------------------------------------------
 function r_talk197()
-	Talk( 1, "Даннис: Привет! Я местный оператор порта! Чем я могу помочь? ")
+
+	Talk( 1, "Dannis: Hi! I am in charge of the ship refuel here. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerFailure( 1, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerFailure( 1, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 4, "Простите, но ремонт стоит 1000 золота! ")
-	Talk( 5, "Простите, но заправка стоит 200 золота!")
+	Talk( 4, "Sorry! Repair need 1000G" )
+	Talk( 5, "Sorry! Refuel needs a fee of 200G" )
 
+	----------------1.7
 	AddNpcMission (5133 )
 	AddNpcMission (5134 )
 	AddNpcMission (5135 )
+
+	----------------јЄДбЛ№---єЈёЫЦё»УЎ¤µ¤ДбЛ№--03
 	AddNpcMission (5513 )
 	AddNpcMission (5514 )
 end
 
+------------------------------------------------------------
+-- °ЈЖ¤¶ЕІ№ёшХѕ-----єЈёЫЦё»УЎ¤Лч¶ы
+------------------------------------------------------------
 function r_talk198()
-	Talk( 1, "Сок: Привет! Я местный оператор порта! Чем я могу помочь? ")
+
+	Talk( 1, "Soc: Hi! I am in charge of the ship refuel here. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerFailure( 1, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerFailure( 1, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 4, "Простите, но ремонт стоит 1000 золота! ")
-	Talk( 5, "Простите, но заправка стоит 200 золота!")
+	Talk( 4, "Sorry! Repair need 1000G" )
+	Talk( 5, "Sorry! Refuel needs a fee of 200G" )
+	----------------јЄДбЛ№---єЈёЫЦё»УЎ¤Лч¶ы--03
 	AddNpcMission (5517 )
 	AddNpcMission (5518 )
 end
 
+------------------------------------------------------------
+-- ±щС©µє-----Ѕ»ТЧФ±Ў¤Оч¶ы°а
+------------------------------------------------------------
+
 function r_talk199()
-	Talk( 1, "Сибун: Привет! Я местный купец! Чем я могу помочь? ")
+
+	Talk( 1, "Sibun: Hi! I am in charge of the trade here. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 8 )
 	TriggerAction( 1, TradeBerthList, 8 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Торг грузом  ", MultiTrigger, GetMultiTrigger(), 1 ) 
-	Text( 1, "Узнать о повышении уровня торговой лицензии ",JumpPage, 3)
+	Text( 1, "Cargo Trade", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Regarding High Lv Commerce Permit",JumpPage, 3)
 
-	Talk( 2, "Сибун: Простите, но у вас нет корабля в местном порту! ")	
+	Talk( 2, "Sibun: Sorry! You do not have any ships docked in Harbor of Chill. Unable to trade" )	
 
-	Talk( 3, "Привет! Если вы хотите торговать, то вы нуждаетесь в торговой лицензии. Узнать о торговой лицензии можно у купца Шайтана. ")
-	Text( 3, "Узнать о налоге ",JumpPage, 7)
-	Text( 3, "Лицензия низкого уровня ",JumpPage, 4)
-	Text( 3, "Лицензия стандартного уровня ",JumpPage, 5)
-	Text( 3, "Лицензия высшего уровня ",JumpPage, 6)
+	Talk( 3, "Hi! If you want to get rich, then you will need a \"Commerce Permit!\" With it you can have more products for commerce trade and also reduce your capital to maximize your profits! Currently, players can only obtain Commerce Permit from Shaitan Trading Post.")
+	Text( 3, "Regarding Tax Rate",JumpPage, 7)
+	Text( 3, "Low Lv Commerce Permit",JumpPage, 4)
+	Text( 3, "Mid Lv Commerce Permit",JumpPage, 5)
+	Text( 3, "High Lv Commerce Permit",JumpPage, 6)
 
-	Talk( 4, "Лицензию низкого уровня получить несложно. Для этого вам надо быть не менее 20 уровня и найти купца Шайтана. ")
-	Talk( 5, "Чтобы получить лицензию стандартного уровня вы должны быть не менее 40 уровня и иметь не больше 20% налога ")
-	Talk( 6, "Чтобы получить лицензию высшего уровня вы должны быть не менее 60 уровня и иметь не больше 10% налога ")
-	Talk( 7, "Текущий уровень налога вы можете увидеть на вашей торговой лицензии. Он влияет на стоимость покупки и продажи товара торговцам. ")
+	Talk( 4, "Low Lv Commerce Permit is easy to obtain. When you reaches Lv 20, go to the trading post in Shaitan and complete a simple task to have one.")
+	Talk( 5, "When you reaches Lv 40 and reduces your tax rate to 20%, you can go to Shaitan Trading Post and obtain a Mid Lv Commerce Permit.")
+	Talk( 6, "When you have reached level 60 and possess a Commerce Permit with 10% tax, you can activate the quest for High Lv Commerce.")
+	Talk( 7, "Check your Commerce Permit to see the current Tax Rate imposed on your product when you sell it to any trader. Complete some quest at Shaitan Trading Post to reduce the Tax Rate.")
 
 	InitGoods(8)
 	SaleGoodsData(	1	,	4561	,	480	,	400	,	89	)
@@ -1082,33 +1384,42 @@ function r_talk199()
 	BuyGoodsData(0,	4569	,	-1	,	1052	,	233	)
 	BuyGoodsData(0,	4572	,	-1	,	872	,	193	)
 
+
 	InitTrigger()
 	TriggerAction( 1, AddNpcTrigger, 51, TE_GAMETIME, TT_CYCLETIME, 30, 0 )
 	SetNpcTrigger( GetTrigger( 1 ) )
 	SetNpcActive()
+
+
+	
 end
 
+------------------------------------------------------------
+-- ГщЙіµє-----Ѕ»ТЧФ±Ў¤ГЧЛчСЗЛ№
+------------------------------------------------------------
+
 function r_talk200()
-	Talk( 1, "Микки: Привет! Я местный купец! Чем я могу помочь? ")
+
+	Talk( 1, "Mickey: Hi! I am in charge of the trade here. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 9 )
 	TriggerAction( 1, TradeBerthList, 9 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Торг грузом  ", MultiTrigger, GetMultiTrigger(), 1 ) 
-	Text( 1, "Узнать о повышении уровня торговой лицензии ",JumpPage, 3)
+	Text( 1, "Cargo Trade", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Regarding High Lv Commerce Permit",JumpPage, 3)
 
-	Talk( 2, "Микки: Простите, но у вас нет корабля в местном порту! ")	
+	Talk( 2, "Mickey: Sorry! You do not have any ship docked at Canary Harbor. Unable to trade." )	
 	
-	Talk( 3, "Привет! Если вы хотите торговать, то вы нуждаетесь в торговой лицензии. Узнать о торговой лицензии можно у купца Шайтана. ")
-	Text( 3, "Узнать о налоге ",JumpPage, 7)
-	Text( 3, "Лицензия низкого уровня ",JumpPage, 4)
-	Text( 3, "Лицензия стандартного уровня ",JumpPage, 5)
-	Text( 3, "Лицензия высшего уровня ",JumpPage, 6)
+	Talk( 3, "Hi! If you want to get rich, then you will need a \"Commerce Permit!\" With it you can have more products for commerce trade and also reduce your capital to maximize your profits! Currently, players can only obtain Commerce Permit from Shaitan Trading Post.")
+	Text( 3, "Regarding Tax Rate",JumpPage, 7)
+	Text( 3, "Low Lv Commerce Permit",JumpPage, 4)
+	Text( 3, "Mid Lv Commerce Permit",JumpPage, 5)
+	Text( 3, "High Lv Commerce Permit",JumpPage, 6)
 
-	Talk( 4, "Лицензию низкого уровня получить несложно. Для этого вам надо быть не менее 20 уровня и найти купца Шайтана. ")
-	Talk( 5, "Чтобы получить лицензию стандартного уровня вы должны быть не менее 40 уровня и иметь не больше 20% налога ")
-	Talk( 6, "Чтобы получить лицензию высшего уровня вы должны быть не менее 60 уровня и иметь не больше 10% налога ")
-	Talk( 7, "Текущий уровень налога вы можете увидеть на вашей торговой лицензии. Он влияет на стоимость покупки и продажи товара торговцам. ")
+	Talk( 4, "Low Lv Commerce Permit is easy to obtain. When you reaches Lv 20, go to the trading post in Shaitan and complete a simple task to have one.")
+	Talk( 5, "When you reaches Lv 40 and reduces your tax rate to 20%, you can go to Shaitan Trading Post and obtain a Mid Lv Commerce Permit.")
+	Talk( 6, "When you have reached level 60 and possess a Commerce Permit with 10% tax, you can activate the quest for High Lv Commerce.")
+	Talk( 7, "Check your Commerce Permit to see the current Tax Rate imposed on your product when you sell it to any trader. Complete some quest at Shaitan Trading Post to reduce the Tax Rate.")
 
 	InitGoods(9)
 	SaleGoodsData(	0	,	4564	,	800	,	283	,	63	)
@@ -1135,33 +1446,46 @@ function r_talk200()
 	BuyGoodsData(0,	4569	,	-1	,	960	,	213	)
 	BuyGoodsData(0,	4572	,	-1	,	872	,	193	)
 
+
+
+
 	InitTrigger()
 	TriggerAction( 1, AddNpcTrigger, 51, TE_GAMETIME, TT_CYCLETIME, 30, 0 )
 	SetNpcTrigger( GetTrigger( 1 ) )
 	SetNpcActive()
+
+
+----------Ѕ»ТЧФ±Ў¤ГЧЛчСЗЛ№-------Л«ЧУ---03
+	AddNpcMission	(5710)
+	AddNpcMission	(5711)
 end
 
+------------------------------------------------------------
+-- Хж°®µє-----Ѕ»ТЧФ±Ў¤УИїЁ
+------------------------------------------------------------
+
 function r_talk201()
-	Talk( 1, "Юка: Привет! Я местный купец! Чем я могу помочь? ")
+
+	Talk( 1, "Yuka: Hi! I am in charge of the trade here. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 10 )
 	TriggerAction( 1, TradeBerthList, 10 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Торг грузом  ", MultiTrigger, GetMultiTrigger(), 1 ) 
-	Text( 1, "Узнать о повышении уровня торговой лицензии ",JumpPage, 3)
+	Text( 1, "Cargo Trade", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Regarding High Lv Commerce Permit",JumpPage, 3)
+	
+	Talk( 2, "Yuka: Sorry! You do not have any ships docked in Cupid Harbor. Unable to trade" )	
 
-	Talk( 2, "Юка: Простите, но у вас нет корабля в местном порту! ")	
+	Talk( 3, "Hi! If you want to get rich, then you will need a \"Commerce Permit!\" With it you can have more products for commerce trade and also reduce your capital to maximize your profits! Currently, players can only obtain Commerce Permit from Shaitan Trading Post.")
+	Text( 3, "Regarding Tax Rate",JumpPage, 7)
+	Text( 3, "Low Lv Commerce Permit",JumpPage, 4)
+	Text( 3, "Mid Lv Commerce Permit",JumpPage, 5)
+	Text( 3, "High Lv Commerce Permit",JumpPage, 6)
 
-	Talk( 3, "Привет! Если вы хотите торговать, то вы нуждаетесь в торговой лицензии. Узнать о торговой лицензии можно у купца Шайтана. ")
-	Text( 3, "Узнать о налоге ",JumpPage, 7)
-	Text( 3, "Лицензия низкого уровня ",JumpPage, 4)
-	Text( 3, "Лицензия стандартного уровня ",JumpPage, 5)
-	Text( 3, "Лицензия высшего уровня ",JumpPage, 6)
-
-	Talk( 4, "Лицензию низкого уровня получить несложно. Для этого вам надо быть не менее 20 уровня и найти купца Шайтана. ")
-	Talk( 5, "Чтобы получить лицензию стандартного уровня вы должны быть не менее 40 уровня и иметь не больше 20% налога ")
-	Talk( 6, "Чтобы получить лицензию высшего уровня вы должны быть не менее 60 уровня и иметь не больше 10% налога ")
-	Talk( 7, "Текущий уровень налога вы можете увидеть на вашей торговой лицензии. Он влияет на стоимость покупки и продажи товара торговцам. ")
+	Talk( 4, "Low Lv Commerce Permit is easy to obtain. When you reaches Lv 20, go to the trading post in Shaitan and complete a simple task to have one.")
+	Talk( 5, "When you reaches Lv 40 and reduces your tax rate to 20%, you can go to Shaitan Trading Post and obtain a Mid Lv Commerce Permit.")
+	Talk( 6, "When you have reached level 60 and possess a Commerce Permit with 10% tax, you can activate the quest for High Lv Commerce.")
+	Talk( 7, "Check your Commerce Permit to see the current Tax Rate imposed on your product when you sell it to any trader. Complete some quest at Shaitan Trading Post to reduce the Tax Rate.")
 
 	InitGoods(10)
 	SaleGoodsData(	1	,	4567	,	600	,	360	,	80	)
@@ -1188,66 +1512,88 @@ function r_talk201()
 	BuyGoodsData(0,	4570	,	-1	,	550	,	123	)
 	BuyGoodsData(0,	4571	,	-1	,	842	,	187	)
 
+
+
+
+
+	
 	InitTrigger()
 	TriggerAction( 1, AddNpcTrigger, 51, TE_GAMETIME, TT_CYCLETIME, 30, 0 )
 	SetNpcTrigger( GetTrigger( 1 ) )
 	SetNpcActive()
+
+-----------------Ѕ»ТЧФ±Ў¤УИїЁ---------ЅрЕЈ
+	AddNpcMission	(5633)
+	AddNpcMission	(5634)
+----------Ѕ»ТЧФ±Ў¤УИїЁ-------Л«ЧУ---------------------03
+	AddNpcMission	(5716)
+	AddNpcMission	(5717)
 end
 
+------------------------------------------------------------
+-- єГФЛµє-----єЈёЫЦё»УЎ¤В¬їЛ
+------------------------------------------------------------
 function r_talk202()
-	Talk( 1, "Хукс: Привет! Я местный оператор порта! Чем я могу помочь? ")
+
+	Talk( 1, "Hux: Hi! I am the Harbor Operator. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 11 )
 	TriggerAction( 1, LuanchBerthList, 11, 1642, 2005, 0 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в путь ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerCondition( 2, HasBoatInBerth, 11 )
 	TriggerAction( 2, RepairBerthList, 11 )
 	TriggerFailure( 2, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerCondition( 2, HasBoatInBerth, 11 )
 	TriggerAction( 2, SupplyBerthList, 11 )
 	TriggerFailure( 2, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasDeadBoatInBerth, 11 )
 	TriggerAction( 1, SalvageBerthList, 11 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Text( 1, "Восстановить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Salvage Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 3, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 4, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 5, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 6, "Простите, но вы можете восстановить судно лишь в том порту, где оно приписано! ")
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	Talk( 4, "Sorry! I only repair ships docked in this harbor. Please pay 1000G." )
+	Talk( 5, "Sorry, you need to dock your ship in our harbor in order to refuel. Please pay 200G" )
+	Talk( 6, "Sorry! We only salvage ships docked in our harbor. You have to pay a fee of 1000G." )
 end
 
+------------------------------------------------------------
+-- ИшµПАХІ№ёшХѕ-----єЈёЫЦё»УЎ¤ЗЗ¶ыЗЗДб
+------------------------------------------------------------
 function r_talk203()
-	Talk( 1, "Грегори: Привет! Я местный оператор порта! Чем я могу помочь? ")
+
+	Talk( 1, "Gregory: Hi! I am in charge of ship refuel. Is there anything you need?" )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerFailure( 1, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerFailure( 1, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 4, "Простите, но ремонт стоит 1000 золота! ")
-	Talk( 5, "Простите, но заправка стоит 200 золота!")
+	Talk( 4, "Sorry! Repair need 1000G" )
+	Talk( 5, "Sorry! Refuel needs a fee of 200G" )
 
 	AddNpcMission(	1741	)
 	AddNpcMission (	1937	)
 	AddNpcMission (	1952	)
+	------------------eleven
 	AddNpcMission (	5063 )
 	AddNpcMission (	5071 )
+--------------------1.7
 	AddNpcMission ( 5075	)
 	AddNpcMission(	5091 )
 	AddNpcMission (5105 )
@@ -1255,153 +1601,192 @@ function r_talk203()
 	AddNpcMission (5107 )
 	AddNpcMission (5108 )
 	AddNpcMission (5115 )
+	----------------јЄДбЛ№---єЈёЫЦё»УЎ¤ЗЗ¶ыЗЗДб--03
 	AddNpcMission (5521 )
 	AddNpcMission (5522 )
 end
 
+------------------------------------------------------------
+-- їЁВнИьІ№ёшХѕ-----єЈёЫЦё»УЎ¤°ВµЗ
+------------------------------------------------------------
 function r_talk204()
-	Talk( 1, "Оди: Привет! Я местный оператор порта! Чем я могу помочь? ")
+
+	Talk( 1, "Odie: Hi, I am the harbor operator. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerFailure( 1, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerFailure( 1, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 4, "Простите, но ремонт стоит 1000 золота! ")
-	Talk( 5, "Простите, но заправка стоит 200 золота!")
+	Talk( 4, "Sorry! Repair need 1000G" )
+	Talk( 5, "Sorry! Refuel needs a fee of 200G" )
+	----------------јЄДбЛ№---єЈёЫЦё»УЎ¤°ВµЗ--03
 	AddNpcMission (5519 )
 	AddNpcMission (5520 )
+	-----------------єЈёЫЦё»УЎ¤°ВµЗ---------ЅрЕЈ
+	AddNpcMission	(5635)
+	AddNpcMission	(5636)
 end
 
+------------------------------------------------------------
+-- ЛјЛјЛчІ№ёшХѕ-----єЈёЫЦё»УЎ¤А­ГЧРЮ
+------------------------------------------------------------
 function r_talk205()
-	Talk( 1, "Рамус: Привет! Я местный оператор порта! Чем я могу помочь? ")
+
+	Talk( 1, "Ramus: Hi! I am in charge of the ship refuel here. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerFailure( 1, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerFailure( 1, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 4, "Простите, но ремонт стоит 1000 золота! ")
-	Talk( 5, "Простите, но заправка стоит 200 золота!")
+	Talk( 4, "Sorry! Repair need 1000G" )
+	Talk( 5, "Sorry! Refuel needs a fee of 200G" )
+
+	-----------------єЈёЫЦё»УЎ¤А­ГЧРЮ---------ЅрЕЈ
+	AddNpcMission	(5659)
+	AddNpcMission	(5660)
+	----------єЈёЫЦё»УЎ¤А­ГЧРЮ-------Л«ЧУ--------------03
+	AddNpcMission	(5724)
+	AddNpcMission	(5725)
 end
 
+------------------------------------------------------------
+-- єГФЛµє-----Ѕ»ТЧФ±Ў¤ЕБµВБрЛ№
+------------------------------------------------------------
+
 function r_talk206()
-	Talk( 1, "Боуи: Привет! Я местный купец! Чем я могу помочь? ")
+
+	Talk( 1, "Bowey: Hi! I am in charge of the trade here. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 11 )
 	TriggerAction( 1, TradeBerthList, 11 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Торг грузом  ", MultiTrigger, GetMultiTrigger(), 1 ) 
-	Text( 1, "Узнать о повышении уровня торговой лицензии ",JumpPage, 3)
+	Text( 1, "Cargo Trade", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Regarding High Lv Commerce Permit",JumpPage, 3)
 
-	Talk( 2, "Боуи: Простите, но у вас нет корабля в местном порту! ")	
+	Talk( 2, "Bowey: Sorry, you do not have any ships docked in Harbor of Fortune. Unable to trade." )	
 
-	Talk( 3, "Привет! Если вы хотите торговать, то вы нуждаетесь в торговой лицензии. Узнать о торговой лицензии можно у купца Шайтана. ")
-	Text( 3, "Узнать о налоге ",JumpPage, 7)
-	Text( 3, "Лицензия низкого уровня ",JumpPage, 4)
-	Text( 3, "Лицензия стандартного уровня ",JumpPage, 5)
-	Text( 3, "Лицензия высшего уровня ",JumpPage, 6)
+	Talk( 3, "Hi! If you want to get rich, then you will need a \"Commerce Permit!\" With it you can have more products for commerce trade and also reduce your capital to maximize your profits! Currently, players can only obtain Commerce Permit from Shaitan Trading Post.")
+	Text( 3, "Regarding Tax Rate",JumpPage, 7)
+	Text( 3, "Low Lv Commerce Permit",JumpPage, 4)
+	Text( 3, "Mid Lv Commerce Permit",JumpPage, 5)
+	Text( 3, "High Lv Commerce Permit",JumpPage, 6)
 
-	Talk( 4, "Лицензию низкого уровня получить несложно. Для этого вам надо быть не менее 20 уровня и найти купца Шайтана. ")
-	Talk( 5, "Чтобы получить лицензию стандартного уровня вы должны быть не менее 40 уровня и иметь не больше 20% налога ")
-	Talk( 6, "Чтобы получить лицензию высшего уровня вы должны быть не менее 60 уровня и иметь не больше 10% налога ")
-	Talk( 7, "Текущий уровень налога вы можете увидеть на вашей торговой лицензии. Он влияет на стоимость покупки и продажи товара торговцам. ")
+	Talk( 4, "Low Lv Commerce Permit is easy to obtain. When you reaches Lv 20, go to the trading post in Shaitan and complete a simple task to have one.")
+	Talk( 5, "When you reaches Lv 40 and reduces your tax rate to 20%, you can go to Shaitan Trading Post and obtain a Mid Lv Commerce Permit.")
+	Talk( 6, "When you have reached level 60 and possess a Commerce Permit with 10% tax, you can activate the quest for High Lv Commerce.")
+	Talk( 7, "Check your Commerce Permit to see the current Tax Rate imposed on your product when you sell it to any trader. Complete some quest at Shaitan Trading Post to reduce the Tax Rate.")
 
 	InitGoods(11)
 	SaleGoodsData(	1	,	4570	,	560	,	270	,	60	)
 	SaleGoodsData(	1	,	4571	,	360	,	405	,	90	)
 	SaleGoodsData(	2	,	4572	,	200	,	432	,	96	)
 
-	BuyGoodsData( 0,	4577,	-1,	1059	,	235	)
-	BuyGoodsData( 0,	4578,	-1,	1089	,	243	)
-	BuyGoodsData( 0,	4579,	-1,	1049	,	699	)
-	BuyGoodsData( 0,	4583,	-1,	740	,	165	)
-	BuyGoodsData( 0,	4584,	-1,	866	,	193	)
-	BuyGoodsData( 0,	4589,	-1,	537	,	119	)
-	BuyGoodsData( 0,	4591,	-1,	807	,	179	)
-	BuyGoodsData( 0,	4592,	-1,	909	,	202	)
-	BuyGoodsData( 0,	4597,	-1,	986	,	219	)
-	BuyGoodsData( 0,	4599,	-1,	1061	,	235	)
-	BuyGoodsData( 0,	4600,	-1,	1017	,	678	)
-	BuyGoodsData( 0,	4554,	-1,	1106	,	245	)
-	BuyGoodsData( 0,	4557,	-1,	1089	,	243	)
-	BuyGoodsData( 0,	4560,	-1,	1220	,	271	)
-	BuyGoodsData( 0,	4562,	-1,	881	,	195	)
-	BuyGoodsData( 0,	4563,	-1,	909	,	202	)
-	BuyGoodsData( 0,	4566,	-1,	808	,	179	)
-	BuyGoodsData( 0,	4568,	-1,	879	,	195	)
-	BuyGoodsData( 0,	4569,	-1,	981	,	218	)
+	BuyGoodsData(0,	4577	,	-1	,	1059	,	235	)
+	BuyGoodsData(0,	4578	,	-1	,	1089	,	243	)
+	BuyGoodsData(0,	4579	,	-1	,	1049	,	699	)
+	BuyGoodsData(0,	4583	,	-1	,	740	,	165	)
+	BuyGoodsData(0,	4584	,	-1	,	866	,	193	)
+	BuyGoodsData(0,	4589	,	-1	,	537	,	119	)
+	BuyGoodsData(0,	4591	,	-1	,	807	,	179	)
+	BuyGoodsData(0,	4592	,	-1	,	909	,	202	)
+	BuyGoodsData(0,	4597	,	-1	,	986	,	219	)
+	BuyGoodsData(0,	4599	,	-1	,	1061	,	235	)
+	BuyGoodsData(0,	4600	,	-1	,	1017	,	678	)
+	BuyGoodsData(0,	4554	,	-1	,	1106	,	245	)
+	BuyGoodsData(0,	4557	,	-1	,	1089	,	243	)
+	BuyGoodsData(0,	4560	,	-1	,	1220	,	271	)
+	BuyGoodsData(0,	4562	,	-1	,	881	,	195	)
+	BuyGoodsData(0,	4563	,	-1	,	909	,	202	)
+	BuyGoodsData(0,	4566	,	-1	,	808	,	179	)
+	BuyGoodsData(0,	4568	,	-1	,	879	,	195	)
+	BuyGoodsData(0,	4569	,	-1	,	981	,	218	)
+
 
 	InitTrigger()
 	TriggerAction( 1, AddNpcTrigger, 51, TE_GAMETIME, TT_CYCLETIME, 30, 0 )
 	SetNpcTrigger( GetTrigger( 1 ) )
-	SetNpcActive()
+	SetNpcActive()	
+
+
+	
+
 end
 
+------------------------------------------------------------
+-- АЧцЄ±¤ѕьёЫ-----єЈёЫЦё»УЎ¤ІйїЙ·тЦРОѕ
+------------------------------------------------------------
 function r_talk207()
-	Talk( 1, "Лт. Уэйн: Привет! Я местный оператор порта! Чем я могу помочь? ")
+
+	Talk( 1, "Lt. Wayne: Hi! I am the Harbor Operator. Can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 2 )
 	TriggerAction( 1, LuanchBerthList, 2, 1064, 1324, 0 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в путь ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerCondition( 2, HasBoatInBerth, 2 )
 	TriggerAction( 2, RepairBerthList, 2 )
 	TriggerFailure( 2, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerCondition( 2, HasBoatInBerth, 2 )
 	TriggerAction( 2, SupplyBerthList, 2 )
 	TriggerFailure( 2, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasDeadBoatInBerth, 2 )
 	TriggerAction( 1, SalvageBerthList, 2 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Text( 1, "Восстановить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Salvage Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 3, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 4, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 5, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 6, "Простите, но вы можете восстановить судно лишь в том порту, где оно приписано! ")
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	Talk( 4, "Sorry! I only repair ships docked in this harbor. Please pay 1000G." )
+	Talk( 5, "Sorry, you need to dock your ship in our harbor in order to refuel. Please pay 200G" )
+	Talk( 6, "Sorry! We only salvage ships docked in our harbor. You have to pay a fee of 1000G." )
 end
 
+------------------------------------------------------------
+-- Йіб°РВіЗ-----Ѕ»ТЧФ±Ў¤Оч¶а·т
+------------------------------------------------------------
+
 function r_talk208()
-	Talk( 1, "Сидор: Привет! Я местный купец! Чем я могу помочь? ")
+
+	Talk( 1, "Sidorf: Hi! I am in charge of the trade here. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 3 )
 	TriggerAction( 1, TradeBerthList, 3 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Торг грузом  ", MultiTrigger, GetMultiTrigger(), 1 ) 
-	Text( 1, "Узнать о повышении уровня торговой лицензии ",JumpPage, 3)
+	Text( 1, "Cargo Trade", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Regarding High Lv Commerce Permit",JumpPage, 3)
 
-	Talk( 2, "Сидор: простите но у вас нет корабля в местном порту! ")
+	Talk( 2, "Sidorf: Sorry! You do not have any ships docked in Shaitan Harbor. Unable to trade." )
 
-	Talk( 3, "Привет! Если вы хотите торговать, то вы нуждаетесь в торговой лицензии. Узнать о торговой лицензии можно у купца Шайтана. ")
-	Text( 3, "Узнать о налоге ",JumpPage, 7)
-	Text( 3, "Лицензия низкого уровня ",JumpPage, 4)
-	Text( 3, "Лицензия стандартного уровня ",JumpPage, 5)
-	Text( 3, "Лицензия высшего уровня ",JumpPage, 6)
+	Talk( 3, "Hi! If you want to get rich, then you will need a \"Commerce Permit!\" With it you can have more products for commerce trade and also reduce your capital to maximize your profits! Currently, players can only obtain Commerce Permit from Shaitan Trading Post.")
+	Text( 3, "Regarding Tax Rate",JumpPage, 7)
+	Text( 3, "Low Lv Commerce Permit",JumpPage, 4)
+	Text( 3, "Mid Lv Commerce Permit",JumpPage, 5)
+	Text( 3, "High Lv Commerce Permit",JumpPage, 6)
 
-	Talk( 4, "Лицензию низкого уровня получить несложно. Для этого вам надо быть не менее 20 уровня и найти купца Шайтана. ")
-	Talk( 5, "Чтобы получить лицензию стандартного уровня вы должны быть не менее 40 уровня и иметь не больше 20% налога ")
-	Talk( 6, "Чтобы получить лицензию высшего уровня вы должны быть не менее 60 уровня и иметь не больше 10% налога ")
-	Talk( 7, "Текущий уровень налога вы можете увидеть на вашей торговой лицензии. Он влияет на стоимость покупки и продажи товара торговцам. ")
+	Talk( 4, "Low Lv Commerce Permit is easy to obtain. When you reaches Lv 20, go to the trading post in Shaitan and complete a simple task to have one.")
+	Talk( 5, "When you reaches Lv 40 and reduces your tax rate to 20%, you can go to Shaitan Trading Post and obtain a Mid Lv Commerce Permit.")
+	Talk( 6, "When you have reached level 60 and possess a Commerce Permit with 10% tax, you can activate the quest for High Lv Commerce.")
+	Talk( 7, "Check your Commerce Permit to see the current Tax Rate imposed on your product when you sell it to any trader. Complete some quest at Shaitan Trading Post to reduce the Tax Rate.")
 
 	InitGoods(3)
 	SaleGoodsData(	0	,	4581	,	900	,	270	,	60	)
@@ -1451,27 +1836,32 @@ function r_talk208()
 
 end
 
+------------------------------------------------------------
+-- ±щАЗ±¤-----Ѕ»ТЧФ±Ў¤ЕеВіЕµ
+------------------------------------------------------------
+
 function r_talk209()
-	Talk( 1, "Пахниро: Привет! Я местный купец! Чем я могу помочь? ")
+
+	Talk( 1, "Pahniro: Hi! I am in charge of the trade here. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 4 )
 	TriggerAction( 1, TradeBerthList, 4 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Торг грузом  ", MultiTrigger, GetMultiTrigger(), 1 ) 
-	Text( 1, "Узнать о повышении уровня торговой лицензии ",JumpPage, 3)
+	Text( 1, "Cargo Trade", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Regarding High Lv Commerce Permit",JumpPage, 3)
 	
-	Talk( 2, "Пахниро: Простите но у вас нет корабля в местном порту! ")	
+	Talk( 2, "Pahniro: Sorry, you do not have any ships docked in Icicle Harbor. Unable to trade." )	
 
-	Talk( 3, "Привет! Если вы хотите торговать, то вы нуждаетесь в торговой лицензии. Узнать о торговой лицензии можно у купца Шайтана. ")
-	Text( 3, "Узнать о налоге ",JumpPage, 7)
-	Text( 3, "Лицензия низкого уровня ",JumpPage, 4)
-	Text( 3, "Лицензия стандартного уровня ",JumpPage, 5)
-	Text( 3, "Лицензия высшего уровня ",JumpPage, 6)
+	Talk( 3, "Hi! If you want to get rich, then you will need a \"Commerce Permit!\" With it you can have more products for commerce trade and also reduce your capital to maximize your profits! Currently, players can only obtain Commerce Permit from Shaitan Trading Post.")
+	Text( 3, "Regarding Tax Rate",JumpPage, 7)
+	Text( 3, "Low Lv Commerce Permit",JumpPage, 4)
+	Text( 3, "Mid Lv Commerce Permit",JumpPage, 5)
+	Text( 3, "High Lv Commerce Permit",JumpPage, 6)
 
-	Talk( 4, "Лицензию низкого уровня получить несложно. Для этого вам надо быть не менее 20 уровня и найти купца Шайтана. ")
-	Talk( 5, "Чтобы получить лицензию стандартного уровня вы должны быть не менее 40 уровня и иметь не больше 20% налога ")
-	Talk( 6, "Чтобы получить лицензию высшего уровня вы должны быть не менее 60 уровня и иметь не больше 10% налога ")
-	Talk( 7, "Текущий уровень налога вы можете увидеть на вашей торговой лицензии. Он влияет на стоимость покупки и продажи товара торговцам. ")
+	Talk( 4, "Low Lv Commerce Permit is easy to obtain. When you reaches Lv 20, go to the trading post in Shaitan and complete a simple task to have one.")
+	Talk( 5, "When you reaches Lv 40 and reduces your tax rate to 20%, you can go to Shaitan Trading Post and obtain a Mid Lv Commerce Permit.")
+	Talk( 6, "When you have reached level 60 and possess a Commerce Permit with 10% tax, you can activate the quest for High Lv Commerce.")
+	Talk( 7, "Check your Commerce Permit to see the current Tax Rate imposed on your product when you sell it to any trader. Complete some quest at Shaitan Trading Post to reduce the Tax Rate.")
 
 	InitGoods(4)
 	SaleGoodsData(	0	,	4589	,	900	,	161	,	57	)
@@ -1510,52 +1900,63 @@ function r_talk209()
 	TriggerAction( 1, AddNpcTrigger, 51, TE_GAMETIME, TT_CYCLETIME, 30, 0 )
 	SetNpcTrigger( GetTrigger( 1 ) )
 	SetNpcActive()
+
+
 end
 
-function r_talk210()
-	Talk( 1, "Аттан: Привет! Я заведую здесь постройкой кораблей! Могу я вам чем то помочь? ")
+------------------------------------------------------------
+-- АЧцЄ±¤ѕьёЫ-----ґ¬№¤Ў¤°ўє©
+------------------------------------------------------------
+function r_talk210 ()
+		
+	Talk( 1, "Attan: Yo! Want to set sail? Then you will need a good ship! Look at my ships and see if there is any to your liking." )
 	InitTrigger()
 	TriggerCondition( 1, IsBoatFull )
-	TriggerAction( 1, SystemNotice, "Достигнуто максимальное количество кораблей. Нельзя больше построить корабль. ")
+	TriggerAction( 1, SystemNotice, "Ships limit reached. Unable to build more ship" )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Построить корабль ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Build Ship", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 2 )
 	TriggerAction( 1, BoatLevelBerthList, 2 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Улучшить корабль ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Upgrade ship", MultiTrigger, GetMultiTrigger(), 1 )
 	
-	Talk( 2, "Attan: What type of ships do you wish to have? I have a few variety for you to chose from. But you must select one of your level if not you will not be able to navigate it. ")
+	Talk( 2, "Attan: What type of ships do you wish to have? I have a few variety for you to chose from. But you must select one of your level if not you will not be able to navigate it." )
 	InitTrigger()
 	TriggerCondition( 1, BoatBuildCheck, 3 )
 	TriggerAction( 1, CreateBoat, 3, 2 )
-	Text( 2, "Построить Летучую рыбу ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 2, "Build Flying Fish", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, BoatBuildCheck, 4 )
 	TriggerAction( 1, CreateBoat, 4, 2 )
-	Text( 2, "Построить Черепаху ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 2, "Build Turtle", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, BoatBuildCheck, 6 )
 	TriggerAction( 1, CreateBoat, 6, 2 )
-	Text( 2, "Построить Рыбу-меч ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 2, "Build Swordfish", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, BoatBuildCheck, 11 )
 	TriggerAction( 1, CreateBoat, 11, 2 )
-	Text( 2, "Построить Фантом ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 2, "Build Phantom", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, BoatBuildCheck, 12 )
 	TriggerAction( 1, CreateBoat, 12, 2 )
-	Text( 2, "Построить Серебрянный дельфин ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 2, "Build Silver Dolphin", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, BoatBuildCheck, 13 )
 	TriggerAction( 1, CreateBoat, 13, 2 )
-	Text( 2, "Построить Акулу ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 2, "Build Great White Shark", MultiTrigger, GetMultiTrigger(), 1 )
 
-	Talk( 3, "Аттан: Чтобы улучшить судно вы должны поставить его в эту гавань. Кроме того у вас должно быть необходимое количество опыта корабля. Опыт можно заработать убивая морских монстров. ")
+	Talk( 3, "Attan: I guess your ship is not docked here. You need to dock here to upgrade the level when it has gained enough experience from sailing or killing monsters out in the sea." )
 end 
 
+------------------------------------------------------------
+-- °ЧТшіЗ-----єЈµБЗй±ЁФ±Ў¤ёкНЯИц
+------------------------------------------------------------
+
 function r_talk211()
-	Talk( 1, "Гевас: Привет! Мне известны все пиратские организации в мире! Хотите присмотреть местечко для себя? ")
+
+	Talk( 1, "Gewas: Hey! Want to know the world most notorious pirates? Want to join the pirates on their treasure hunt?" )
 	InitTrigger()
 	TriggerCondition( 1, IsGuildType, 1 )
 	TriggerAction( 1, ListAllGuild, 1 )
@@ -1564,17 +1965,23 @@ function r_talk211()
 	TriggerCondition( 3, NoGuild )
 	TriggerAction( 3, ListAllGuild, 1 )
 	TriggerFailure( 3, JumpPage, 3 )
-	Text( 1, "Посмотреть пиратские гильдии ", MultiTrigger, GetMultiTrigger(), 3)
-
-	Text( 1, "Прощайте ", CloseTalk)
+	Text( 1, "Check Pirates Organisation", MultiTrigger, GetMultiTrigger(), 3)
+	Text( 1, "Leave", CloseTalk)
 	
-	Talk( 2, "Гевас: Эй, да вы из флота! Я не буду говорить ни с кем из флота! ")
+	Talk( 2, "Gewas: Hey! Are you from the Navy? We do not talk to anybody from the Navy." )
 
-	Talk( 3, "Гевас: Хотите узнать кто самый известный пират? Я этого не скажу. ")
+	Talk( 3, "Gewas: Hey! Want to know who is the most notorious pirate? Hehe! Not telling you now!" )
+
+		
 end
 
+------------------------------------------------------------
+-- °ЧТшіЗ-----єЈѕьЗй±ЁФ±Ў¤ґпВЎµ¤
+------------------------------------------------------------
+
 function r_talk212()
-	Talk( 1, "Далонгдан: привет! Я осведомитель флота. У меня есть полный списко всех флотских гильдий! ")
+
+	Talk( 1, "Dalongdan: Hi, I am the famous Navy informer. You can check out all Navy division status here. You are also welcome to join us!" )
 	InitTrigger()
 	TriggerCondition( 1, IsGuildType, 0 )
 	TriggerAction( 1, ListAllGuild, 0 )
@@ -1585,16 +1992,23 @@ function r_talk212()
 	TriggerAction( 3, TakeItem, 4110, 1 )
 	TriggerAction( 3, ListAllGuild, 0 )
 	TriggerFailure( 3, JumpPage, 2 )
-	Text( 1, "Посмотреть список гильдий ", MultiTrigger, GetMultiTrigger(), 3)
-	Text( 1, "До свидания ", CloseTalk)
+	Text( 1, "Navy Division Enquiry", MultiTrigger, GetMultiTrigger(), 3)
+	Text( 1, "Leave", CloseTalk)
 	
-	Talk( 2, "Далонгдан: Вы не можете посмотреть списки гильдий не имея при себе рекомендательного письма! ")
+	Talk( 2, "Dalongdan: You cannot check the status of the Navy if you do not have a recommendation letter" )
 
-	Talk( 3, "Далонгдан: Вы не принадлежите к флоту. Я не буду давать вам никакую информацию! ")
+	Talk( 3, "Dalongdan: You do not belong to the Navy. I will not give you any information regarding the Navy!" )
+
+		
 end
 
+------------------------------------------------------------
+-- °ЧТшіЗ-----єЈѕьДј±шРЎЅгЎ¤АЩзІ¶ы
+------------------------------------------------------------
+
 function r_talk213()
-	Talk( 1, "Рэйчел: Привет! Флот ищет вас! Если вы считаете что нужны флоту, то возьмите рекомендательное письмо и отнесите в ближайший пункт вербовки! ")
+
+	Talk( 1, "Rachel: Hi! The Navy wants you! If you think you have the capability, bring this recommendation letter to the nearby recruitment post in Argent Harbor!" )
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 4110, 1 )
 	TriggerAction( 1, JumpPage, 2 )
@@ -1606,339 +2020,470 @@ function r_talk213()
 	TriggerCondition( 4, NoGuild )
 	TriggerAction( 4, GiveItem, 4110, 1, 4 )
 	TriggerFailure( 4, JumpPage, 3 )
-	Text( 1, "Дайте рекомендательное письмо ",MultiTrigger, GetMultiTrigger(), 4 )
-	Text( 1, "Может позже. Прощайте! ", CloseTalk)
+	Text( 1, "Ok, a recommendation letter please.",MultiTrigger, GetMultiTrigger(), 4 )
+	Text( 1, "Maybe not now. Bye!", CloseTalk)
 
-	Talk( 2, "Рэйчел: У вас уже есть рекомендательное письмо! ")
+	Talk( 2, "Rachel: You still have a recommendation letterЎ­" )
 
-	Talk( 3, "Рэйчел: Вы не присоединились к флоту? Проверьте свой инвентарь и убедитесь что он не полон! ")
+	Talk( 3, "Rachel: You have joined any guild? Check your inventory. Make sure it is not full or I will not be able to give you a recommendation letter." )
 
-	Talk( 4, "Рэйчел: Вы уже состоите во флоте! Зачем вам рекомендательное письмо? ")
+	Talk( 4, "Rachel: You are already in the Navy! Why do you need the recommendation letter for? Talk to the person in charge if you want to check the status of the Navy Division." )
 
-	Talk( 5, "Рэйчел: Похоже вы плохой человек. Я не могу вам вручить рекомендательное письмо! ")
+	Talk( 5, "Rachel: Looks like you are a bad person. I cannot hand this to you. Its for the honor of the Navy!" )
+
+		
 end
 
+------------------------------------------------------------
+-- ·ПїуІ№ёшХѕ-----ґт°ьИЛЎ¤єхАХґп
+------------------------------------------------------------
+
 function r_talk214()
-	Talk( 1, "Хурадар: Привет! Я местный фрахтовщик. Я могу загрузить товар на ваше судно если оно находится  местном порту. ")
+
+	Talk( 1, "Huradar: Hi! I am the Freights NPC here. I can help you load the products up your ship if it is docked in Argent Harbor." )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 1)
 	TriggerAction( 1, PackBagList, 1, RES_MINE, 3 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Загрузить кристаллы ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Load Crystal", MultiTrigger, GetMultiTrigger(), 1 )
 
-	Talk( 2, "Хурадар: У вас нет корабля в местном порту! ")
+	Talk( 2, "Huradar: Hi! Your ship is not docked in Argent Harbor" )
+	----------ґт°ьИЛЎ¤єхАХґп-------Л«ЧУ-------------03
+	AddNpcMission	(5720)
+	AddNpcMission	(5721)	
 end
 
+------------------------------------------------------------
+-- АЧцЄ±¤ѕьёЫ-----ґт°ьИЛЎ¤·СµВЛчА­
+------------------------------------------------------------
+
 function r_talk215()
-	Talk( 1, "Фернандо: Привет! Я местный фрахтовщик. Я могу загрузить товар на ваше судно если оно находится  местном порту. ")
+
+	Talk( 1, "Fernando: Hi! I am the Freights NPC here. I can help you load the products up your ship if it is docked in Thundoria Harbor." )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 2)
 	TriggerAction( 1, PackBagList, 2, RES_WOOD, 1 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Загрузить древесину ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Load Wood", MultiTrigger, GetMultiTrigger(), 1 )
 
-	Talk( 2, "Фернандо: У вас нет корабля в местном порту! ")
+	Talk( 2, "Fernando: Hey there! You do not have any ships docked at Thundoria Harbor" )
+		
 end
 
+------------------------------------------------------------
+-- °ЧТшБЦЗш-----ґт°ьИЛЎ¤Д¦ёщ
+------------------------------------------------------------
+
 function r_talk216()
-	Talk( 1, "Мокен: Привет! Я местный фрахтовщик. Я могу загрузить товар на ваше судно если оно находится  местном порту. ")
+
+	Talk( 1, "Moken: Yo! I am the Freights NPC. I will load your products for trading up your ship if it is docked in Argent Harbor" )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 1)
 	TriggerAction( 1, PackBagList, 1, RES_WOOD, 1 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Загрузить древесину ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Load Wood", MultiTrigger, GetMultiTrigger(), 1 )
 
-	Talk( 2, "Мокен: У вас нет корабля в местном порту! ")
+	Talk( 2, "Moken: Hey there! You do not have any ships docked at Argent Harbor" )
 
 	AddNpcMission(	1436	)
 	AddNpcMission (	1930	)
+		
 end
 
+------------------------------------------------------------
+-- ±щС©µє-----ґт°ьИЛЎ¤°ўАпОчЛ№
+------------------------------------------------------------
+
 function r_talk217()
-	Talk( 1, "Алексис: Привет! Я местный фрахтовщик. Я могу загрузить товар на ваше судно если оно находится  местном порту. ")
+
+	Talk( 1, "Alexis: Yo! I am the Freights NPC. I will load your products for trading up your ship if it is docked in Harbor of Chill" )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 8)
 	TriggerAction( 1, PackBagList, 8, RES_WOOD, 1 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Загрузить древесину ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Load Wood", MultiTrigger, GetMultiTrigger(), 1 )
 
-	Talk( 2, "Алексис: У вас нет корабля в местном порту! ")
+	Talk( 2, "Alexis: Hi! You do not have any ships docked in Harbor of Chill." )
+		
 end
 
+------------------------------------------------------------
+-- ГщЙіµє-----ґт°ьИЛЎ¤ТБјУїЁ°а
+------------------------------------------------------------
+
 function r_talk218()
-	Talk( 1, "Евгений: Привет! Я местный фрахтовщик. Я могу загрузить товар на ваше судно если оно находится  местном порту. ")
+
+	Talk( 1, "Yevgeni: Yo! I am the Freights NPC. I will load your products for trading up your ship if it is docked in Canary Harbor." )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 9)
 	TriggerAction( 1, PackBagList, 9, RES_WOOD, 1 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Загрузить древесину ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Load Wood", MultiTrigger, GetMultiTrigger(), 1 )
 
-	Talk( 2, "Евгений: У вас нет корабля в местном порту! ")
+	Talk( 2, "Yevgeni: Hi! You do not have any ships docked in Canary Harbor." )
+		
 end
 
+------------------------------------------------------------
+-- Йіб°РВіЗ-----ґт°ьИЛЎ¤°І°ННЯ¶ш
+------------------------------------------------------------
+
 function r_talk219()
-	Talk( 1, "Амбер: Привет! Я местный фрахтовщик. Я могу загрузить товар на ваше судно если оно находится  местном порту. ")
+
+	Talk( 1, "Amber: Hi! I am the Freights NPC here. I can help you load the products up your ship if it is docked in Shaitan Harbor." )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 3)
 	TriggerAction( 1, PackBagList, 3, RES_MINE, 1 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Загрузить энергоруду ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Load Energy Ore", MultiTrigger, GetMultiTrigger(), 1 )
 	
-	Talk( 2, "Амбер: У вас нет корабля в местном порту! ")
+	Talk( 2, "Amber: Hi friend. You do not have any ships docked in Shaitan Harbor." )
+		
 end
 
+------------------------------------------------------------
+-- °ўАј±ИЛ№І№ёшХѕ-----ґт°ьИЛЎ¤°ўјУ¶чІјАµµГ
+------------------------------------------------------------
+
 function r_talk220()
-	Talk( 1, "Алкинс: Привет! Я местный фрахтовщик. Я могу загрузить товар на ваше судно если оно находится  местном порту. ")
+
+	Talk( 1, "Alkins: Hi! I am the Freights NPC here. I can help you load the products up your ship if it is docked in Icicle Harbor" )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 4)
 	TriggerAction( 1, PackBagList, 4, RES_MINE, 2 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Загрузить руду ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Load Iron Ore", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 4)
 	TriggerAction( 1, PackBagList, 4, RES_WOOD, 1 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Загрузить древесину ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Load Wood", MultiTrigger, GetMultiTrigger(), 1 )
 
-	Talk( 2, "Алкинс: У вас нет корабля в местном порту! ")
+	Talk( 2, "Alkins: Hi! You do not have any ships docked in Icicle Harbor" )
 
 	AddNpcMission(	1581	)
 	AddNpcMission (	1933	)
+
+	
 end
 
+
+------------------------------------------------------------
+-- їЁ¶ыјУµВС©Ф­-----ґт°ьИЛЎ¤їІ±ґ¶ы
+------------------------------------------------------------
+
 function r_talk243()
-	Talk( 1, "Канари: Привет! Я местный фрахтовщик. Я могу загрузить товар на ваше судно если оно находится  местном порту. ")
+
+	Talk( 1, "Canari: Hi! I am the Freights NPC here. I can help you load the products up your ship if it is docked in Thundoria Harbor." )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 2)
 	TriggerAction( 1, PackBagList, 2, RES_WOOD, 1 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Загрузить древесину ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Load Wood", MultiTrigger, GetMultiTrigger(), 1 )
 
-	Talk( 2, "Канари: У вас нет корабля в местном порту! ")
+	Talk( 2, "Canari: Hi! You do not have any ships docked in Thundoria Harbor" )
+		
 end
 
-function r_talk244()
-	Talk( 1, "Солярис: Привет! Я местный фрахтовщик. Я могу загрузить товар на ваше судно если оно находится  местном порту. ")
-	--Text( 1, "Торг ", BuyPage )
-	
-	InitTrade()
-	Other(	3989	)
-	Other(	3990	)
-	Other(	3991	)
-	Other(	3992	)
-	Other(	3993	)
-	Other(	3994	)
-	Other(	3995	)
-	Other(	3996	)
-	Other(	3997	)
-	Other(	3998	)
+------------------------------------------------------------
+-- µВ¶ыО¬ЖЅФ­-----ґт°ьИЛЎ¤ЛчА­Л№
+------------------------------------------------------------
 
+function r_talk244()
+
+	Talk( 1, "Soraris: Yo! I am the Freights NPC. I will load your products for trading up your ship if it is docked in Argent Harbor" )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 1)
 	TriggerAction( 1, PackBagList, 1, RES_WOOD, 1 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Загрузить древесину ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Load Wood", MultiTrigger, GetMultiTrigger(), 1 )
 
-	Talk( 2, "Солярис: У вас нет корабля в местном порту! ")
+	Talk( 2, "Soraris: Hey, you do not have any ships docked in Argent Harbor." )
+
 end
 
+
+
+------------------------------------------------------------
+-- ЕБїЛ»ДД®-----ґт°ьИЛЎ¤°ІИыА­
+------------------------------------------------------------
+
 function r_talk245()
-	Talk( 1, "Ансто: Привет! Я местный фрахтовщик. Я могу загрузить товар на ваше судно если оно находится  местном порту. ")
+
+	Talk( 1, "Ansto: Yo! I am the Freights NPC. I will load your products for trading up your ship if it is docked in Shaitan Harbor." )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 3)
 	TriggerAction( 1, PackBagList, 3, RES_WOOD, 1 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Загрузить древесину ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Load Wood", MultiTrigger, GetMultiTrigger(), 1 )
 
-	Talk( 2, "Ансто: У вас нет корабля в местном порту! ")
+	Talk( 2, "Ansto: Hi! You do not have any ship docked at Shaitan Harbor" )
+		
 end
 
+
+------------------------------------------------------------
+-- ±щј«-----ґт°ьИЛЎ¤°ўјУОч
+------------------------------------------------------------
+
 function r_talk246()
-	Talk( 1, "Джас: Привет! Я местный фрахтовщик. Я могу загрузить товар на ваше судно если оно находится  местном порту. ")
+
+	Talk( 1, "Jas: Yo! I am the Freights NPC. I will load your products for trading up your ship if it is docked in Icicle Harbor" )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 4)
 	TriggerAction( 1, PackBagList, 4, RES_WOOD, 1 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Загрузить древесину ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Load Wood", MultiTrigger, GetMultiTrigger(), 1 )
 
-	Talk( 2, "Джас: У вас нет корабля в местном порту! ")
+	Talk( 2, "Jas: Hi friend! You do not have any ships docked here in Icicle Harbor" )
+	
 end
 
+------------------------------------------------------------
+-- ГФЦ®ёЫїЪ-----ёЫїЪЦё»УЎтГФ
+------------------------------------------------------------
 function r_talk247()
-	Talk( 1, "Мист: Привет! Я диспетчер таинственных портов! Чем я могу помочь? ")
+
+	Talk( 1, "Mist: Hi, I can help you salvage any sunken ships in this mysterious land. Do you need any help?" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 12 )
 	TriggerAction( 1, LuanchBerthList, 12, 1341, 3257, 0 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в путь ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerCondition( 2, HasBoatInBerth, 12 )
 	TriggerAction( 2, RepairBerthList, 12 )
 	TriggerFailure( 2, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerCondition( 2, HasBoatInBerth, 12 )
 	TriggerAction( 2, SupplyBerthList, 12 )
 	TriggerFailure( 2, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasDeadBoatInBerth, 12 )
 	TriggerAction( 1, SalvageBerthList, 12 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Text( 1, "Восстановить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Salvage Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 3, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 4, "Чтобы починить судно в таинственном порту необходимо 1000 золота ")
-	Talk( 5, "Чтобы заправить судно в таинственном порту необходимо 200 золота ")
-	Talk( 6, "Я могу восстановить лишь судно, оставленное в таинственном порту. Стоимость 1000 золота ")
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	Talk( 4, "Sorry I only repair ships docked at Mystery Harbor. Please pay 1000G" )
+	Talk( 5, "Sorry! I only refuel ships docked at Maze Harbor. Please pay 200G as repair fee." )
+	Talk( 6, "Sorry, I only salvage sunken ship docked in Maze Harbor. Please pay 1000G" )
+
 end
 
+------------------------------------------------------------
+-- ГФЦ®ёЫїЪ-----РЎ»ЁФ°±±ІїЙМµкєЈёЫЦё»У
+------------------------------------------------------------
 function r_talk248()
-	Talk( 1, "Привет! Я местный оператор флота! Чем я могу помочь? ")
+
+	Talk( 1, "Operator: Hi! Do you wish to go sailing? Maybe I can help you" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 12 )
 	TriggerAction( 1, LuanchBerthList, 12, 116, 51, 0 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в путь ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
+	
+	
 
-	Talk( 3, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	
+
 end
 
+------------------------------------------------------------
+-- ГФЦ®ёЫїЪ-----РЎ»ЁФ°±±ІїЦРСлєЈёЫЦё»У
+------------------------------------------------------------
 function r_talk249()
-	Talk( 1, "Привет! Я местный оператор флота! Чем я могу помочь? ")
+
+	Talk( 1, "Operator: Hi! Do you wish to go sailing? Maybe I can help you" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 12 )
 	TriggerAction( 1, LuanchBerthList, 12, 235, 123, 0 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в путь ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
+	
 
-	Talk( 3, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	
+
 end
 
+
+------------------------------------------------------------
+-- ГФЦ®ёЫїЪ-----РЎ»ЁФ°¶«ІїєЈёЫЦё»У
+------------------------------------------------------------
 function r_talk250()
-	Talk( 1, "Привет! Я местный оператор флота! Чем я могу помочь? ")
+
+	Talk( 1, "Operator: Hi! Do you wish to go sailing? Maybe I can help you" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 12 )
 	TriggerAction( 1, LuanchBerthList, 12, 248, 352, 0 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в путь ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
+	
 
-	Talk( 3, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	
+
 end
 
+------------------------------------------------------------
+-- ГФЦ®ёЫїЪ-----РЎ»ЁФ°ДПІїЙМµкєЈёЫЦё»У
+------------------------------------------------------------
 function r_talk251()
-	Talk( 1, "Привет! Я местный оператор флота! Чем я могу помочь? ")
+
+	Talk( 1, "Operator: Hi! Do you wish to go sailing? Maybe I can help you" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 12 )
 	TriggerAction( 1, LuanchBerthList, 12, 353, 428, 0 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в путь ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
+	
 
-	Talk( 3, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+
+
 end
 
+------------------------------------------------------------
+-- ГФЦ®ёЫїЪ-----РЎ»ЁФ°±±ІїПВєЈєЈёЫЦё»У
+------------------------------------------------------------
 function r_talk257()
-	Talk( 1, "Привет! Я местный оператор флота! Чем я могу помочь? ")
+
+	Talk( 1, "Operator: Hi! Do you wish to go sailing? Maybe I can help you" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 12 )
 	TriggerAction( 1, LuanchBerthList, 12, 231,211, 0 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в путь ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
+	
 
-	Talk( 3, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+
+
 end
 
+------------------------------------------------------------
+-- ГФЦ®ёЫїЪ-----РЎ»ЁФ°ДПІїПВєЈєЈёЫЦё»У
+------------------------------------------------------------
 function r_talk258()
-	Talk( 1, "Привет! Я местный оператор флота! Чем я могу помочь? ")
+
+	Talk( 1, "Operator: Hi! Do you wish to go sailing? Maybe I can help you" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 12 )
 	TriggerAction( 1, LuanchBerthList, 12, 231,256, 0 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в путь ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
+	
 
-	Talk( 3, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+
+
 end
 
+
+------------------------------------------------------------
+-- ГФЦ®ёЫїЪ-----Тх°µХУФуєЈёЫЦё»У
+------------------------------------------------------------
 function r_talk261()
-	Talk( 1, "Привет! Я местный оператор флота! Чем я могу помочь? ")
+
+	Talk( 1, "Operator: Hi! Do you wish to go sailing? Maybe I can help you" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 12 )
 	TriggerAction( 1, LuanchBerthList, 12, 295, 352, 0 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в путь ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerCondition( 2, HasBoatInBerth, 12 )
 	TriggerAction( 2, RepairBerthList, 12 )
 	TriggerFailure( 2, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerCondition( 2, HasBoatInBerth, 12 )
 	TriggerAction( 2, SupplyBerthList, 12 )
 	TriggerFailure( 2, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasDeadBoatInBerth, 12 )
 	TriggerAction( 1, SalvageBerthList, 12 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Text( 1, "Восстановить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Salvage Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 3, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 4, "Чтобы починить судно оставленное в таинственном порту необходимо 1000 золота ")
-	Talk( 5, "Чтобы заправить судно оставленное в таинственном порту необходимо 200 золота. ")
-	Talk( 6, "Чтобы восстановить судно числящееся в таинственном порту необходимо 1000 золота! ")
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	Talk( 4, "Sorry I only repair ships docked at Mystery Harbor. Please pay 1000G" )
+	Talk( 5, "Sorry! I only refuel ships docked at Maze Harbor. Please pay 200G as repair fee." )
+	Talk( 6, "Sorry, I only salvage sunken ship docked in Maze Harbor. Please pay 1000G" )
+
 end
 
+------------------------------------------------------------
+-- ГФЦ®ёЫїЪ-----·ПБйЦ®¶јєЈёЫЦё»У
+------------------------------------------------------------
 function r_talk262()
-	Talk( 1, "Привет! Я местный оператор флота! Чем я могу помочь? ")
+
+	Talk( 1, "Operator: Hi! Do you wish to go sailing? Maybe I can help you" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 12 )
 	TriggerAction( 1, LuanchBerthList, 12, 299, 321, 0 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в путь ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerCondition( 2, HasBoatInBerth, 12 )
 	TriggerAction( 2, RepairBerthList, 12 )
 	TriggerFailure( 2, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerCondition( 2, HasBoatInBerth, 12 )
 	TriggerAction( 2, SupplyBerthList, 12 )
 	TriggerFailure( 2, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasDeadBoatInBerth, 12 )
 	TriggerAction( 1, SalvageBerthList, 12 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Text( 1, "Восстановить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Salvage Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 3, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 4, "Чтобы починить судно оставленное в таинственном порту необходимо 1000 золота ")
-	Talk( 5, "Чтобы заправить судно оставленное в таинственном порту необходимо 200 золота. ")
-	Talk( 6, "Чтобы восстановить судно числящееся в таинственном порту необходимо 1000 золота! ")
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	Talk( 4, "Sorry I only repair ships docked at Mystery Harbor. Please pay 1000G" )
+	Talk( 5, "Sorry! I only refuel ships docked at Maze Harbor. Please pay 200G as repair fee." )
+	Talk( 6, "Sorry, I only salvage sunken ship docked in Maze Harbor. Please pay 1000G" )
+
 end
 
-function r_talk259()
-	Talk( 1, "Таинственный торговец: Привет! У меня есть некоторый товар для вас. Хотите взглянуть? ")
+----------------------------------------------------------
+--							--
+--							--
+--		ѕєјј»ЁФ°[ЙсГШЙМИЛ]			--
+--							--
+--		225538,280188				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk259 ()
+	
+	
+	Talk( 1, "Mystery Merchant: Hi! I have some great stuff here! Want to have a look?" )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 12 )
 	TriggerAction( 1, TradeBerthList, 12 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Торг ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Trade", MultiTrigger, GetMultiTrigger(), 1 )
 
 	
-	Talk( 2, "Таинственный торговец: Простите, но у вас нет корабля в этом порту. Торг невозможен! ")
+	Talk( 2, "Mystery Merchant: Sorry, you do not have any ships docked in Mystery Harbor. Unable to trade." )
 	
 	InitGoods(12)
 	SaleGoodsData(	0	,	1861	,	500	,	5000	,	5000	)
@@ -1956,61 +2501,81 @@ function r_talk259()
 	AddNpcMission	(1132)
 	AddNpcMission	(1183)
 	AddNpcMission(	1226	)
+	
 end 
 
+
+
+------------------------------------------------------------
+-- РЎ»ЁФ°-----Т©ІЭЙМИЛ
+------------------------------------------------------------
+
 function r_talk260()
-	Talk( 1, "Целитель: Взгляните на мой ассортимент лечебных трав! ")
-	Text( 1, "Торг ", BuyPage )
-	Text( 1, "Ничего, я просто оглядываюсь ",CloseTalk )
+
+	Talk( 1, "Physician: Hi, I have a variety of rare herbs, do you need any?" )
+	Text( 1, "Trade", BuyPage )
+	Text( 1, "Nothing, I am just looking around",CloseTalk )
 
 	InitTrade()
 	Other(	3460	)
 	Other(	3461	)
+
 end
 
+------------------------------------------------------------
+-- Йіб°РВіЗ-----ЙсГШєЈёЫЦё»У
+------------------------------------------------------------
 function r_talk263()
-	Talk( 1, "Таинственный оператор: Привет! Я оператор таинственных портов. Я могу восстановить ваш корабль если он числится в таинственном порту. ")
+
+	Talk( 1, "Obscure Harbor Operator: Hi! I can salvage boats docked at Mysterious Harbor. No matter Santuary Maze or Garden of Edel, I will be able to locate your ship. Do you need my help?" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 12 )
 	TriggerAction( 1, LuanchBerthList, 12, 832, 3698, 0 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Отправиться в путь ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerCondition( 2, HasBoatInBerth, 12 )
 	TriggerAction( 2, RepairBerthList, 12 )
 	TriggerFailure( 2, JumpPage, 3 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerCondition( 2, HasBoatInBerth, 12 )
 	TriggerAction( 2, SupplyBerthList, 12 )
 	TriggerFailure( 2, JumpPage, 4 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasDeadBoatInBerth, 12 )
 	TriggerAction( 1, SalvageBerthList, 12 )
 	TriggerFailure( 1, JumpPage, 5 )
-	Text( 1, "Восстановить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Salvage Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 2, "Простите. У вас нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить. ")
-	Talk( 3, "Чтобы починить судно оставленное в таинственном порту необходимо 1000 золота ")
-	Talk( 4, "Чтобы заправить судно оставленное в таинственном порту необходимо 200 золота. ")
-	Talk( 5, "Чтобы восстановить судно числящееся в таинственном порту необходимо 1000 золота! ")
+	Talk( 2, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	Talk( 3, "Sorry I only repair ships docked at Mystery Harbor. Please pay 1000G" )
+	Talk( 4, "Sorry! I only refuel ships docked at Maze Harbor. Please pay 200G as repair fee." )
+	Talk( 5, "Sorry, I only salvage sunken ship docked in Maze Harbor. Please pay 1000G" )
+
 end
 
+----------------------------------------------------
+--АЮЦч№«»бМШКвГіТЧЖ·
+----------------------------------------------------
+--ѕь»рЙМ
+
+
 function r_talk264()
-	Talk( 1, "Торговец оружием: Привет! Я торговец ценным оружием. Однако я доверяю лишь членам гильдии занимающей первое место. ")
+	Talk( 1, "Arms Dealer: Hi, I am the Arms Dealer who supply most of Thundoria's arsenal. I have a new batch of firearms to ship to Thundoria. It will fetch a good price at the trader there. However, I only trust members of the first placing guild to deliever for me!" )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 3 )
 	TriggerCondition( 1, HasGuildLevel, 1 )
 	TriggerAction( 1, TradeBerthList, 3 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Торг ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Purchase", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 2, "Торговец оружием: Я доверяю лишь членам гильдии занимающей певое место! Кроме того у вас должен быть корабль в порту Шайтана. ")
+	Talk( 2, "Arms Dealer: Only the members from the first placing guild may purchase from me provided your ship is docked in Shaitan Harbor." )
 
 	InitGoods(3)
 	SaleGoodsData(	0	,	3914	,	150	,	990	,	220	)
@@ -2019,38 +2584,53 @@ function r_talk264()
 	TriggerAction( 1, AddNpcTrigger, 51, TE_GAMETIME, TT_CYCLETIME, 30, 0 )
 	SetNpcTrigger( GetTrigger( 1 ) )
 	SetNpcActive()
+
+
+
 end
 
+--ѕ«ГЬТЗЖч№©У¦ЙМ	
+
 function r_talk265()
-	Talk( 1, "Торговец редкими материалами: Привет! Я торгую редкими материалами. Однако я доверяю лишь членам гильдии занимающей второе место! ")
+	Talk( 1, "Rare Material Supplier: Hi, I am the Rare Material Supplier who supply most of Thundoria's material for construction. I have a new batch of material to ship to Thundoria. It will fetch a good price at the trader there. However, I only trust members of the second placing guild to deliever for me!" )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 3 )
 	TriggerCondition( 1, HasGuildLevel, 2 )
 	TriggerAction( 1, TradeBerthList, 3 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Торг грузом  ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Cargo Trade", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 2, "Торговец редкими материалами: Я доверяю лишь членам гильдии занимающей второе место! Кроме того у вас должен быть корабль в порту Шайтана. ")
+	Talk( 2, "Rare Material Supplier: Only members from the second placing guild may purchase if they have a ship docked in Shaitan Harbor." )
+
 
 	InitGoods(3)
 	SaleGoodsData(	0	,	3912	,	200	,	855	,	190	)
+	
+
 
 	InitTrigger()
 	TriggerAction( 1, AddNpcTrigger, 51, TE_GAMETIME, TT_CYCLETIME, 30, 0 )
 	SetNpcTrigger( GetTrigger( 1 ) )
 	SetNpcActive()
+
+
+
 end
 
+
+--ПЎУРЅрКф№©У¦ЙМ
+
 function r_talk266()
-	Talk( 1, "Торговец редкими металлами: Привет! Я продаю редкие металлы! Однако я доверяю лишь членам гильдии занимающей третье место! ")
+	Talk( 1, "Rare Metal Supplier: Hi, I am the Rare Metal Supplier who supply most of Thundoria's metal for construction. I have a new batch of metal to ship to Thundoria. It will fetch a good price at the trader there. However, I only trust members of the third placing guild to deliever for me!" )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 3 )
 	TriggerCondition( 1, HasGuildLevel, 3 )
 	TriggerAction( 1, TradeBerthList, 3 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Торг грузом  ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Cargo Trade", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 2, "Торговец редкими металлами: Я доверяю лишь членам гильдии занимающей третье место! Кроме того у вас должен быть корабль в порту Шайтана. ")
+	Talk( 2, "Rare Metal Supplier: Only members from the third placing guild can purchase items from here. Also, your ship must be docked in Shaitan Harbor." )
+
 
 	InitGoods(3)
 	SaleGoodsData(	0	,	3913	,	250	,	765	,	170	)
@@ -2059,737 +2639,136 @@ function r_talk266()
 	TriggerAction( 1, AddNpcTrigger, 51, TE_GAMETIME, TT_CYCLETIME, 30, 0 )
 	SetNpcTrigger( GetTrigger( 1 ) )
 	SetNpcActive()
+
+
+
 end
---------------------------------------------------------------------------------------------------------------------
---													r_talk (Конец)												  --
---------------------------------------------------------------------------------------------------------------------
 
 
---------------------------------------------------------------------------------------------------------------------
---													b_talk (Начало)												  --
---------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------
+-- Йіб°РВіЗ-----ґт°ьИЛЎ¤°ўАпЖЯЖЯ
+------------------------------------------------------------
+
+function m_talk001()
+
+	Talk( 1, "Ali Q: Yo! I am the Freights NPC. I will load your products for trading up your ship if it is docked in Shaitan Harbor" )
+	InitTrigger()
+	TriggerCondition( 1, HasBoatInBerth, 3)
+	TriggerAction( 1, PackBagList, 3, RES_WOOD, 1 )
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1, "Load Wood", MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 2, "Ali Q: Hi! You do not have any ships docked in Shaitan Harbor." )
+		
+end
+
+
+------------------------------------------------------------
+-- ПДµє±±ёЫ-----єЈёЫЦё»УЎ¤ПДЗа
+------------------------------------------------------------
 function b_talk19()
-	Talk( 1, "Квинг: Привет! Я местный оператор флота! Чем я могу помочь?")
 
+	Talk( 1, "Operator: Hi! Do you wish to go sailing? Maybe I can help you" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 14 )
 	TriggerAction( 1, LuanchBerthList, 14, 3662, 2645, 0 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в путь ", MultiTrigger, GetMultiTrigger(), 1 )
-
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerCondition( 2, HasBoatInBerth, 14 )
 	TriggerAction( 2, RepairBerthList, 14 )
 	TriggerFailure( 2, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 2 )
-
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerCondition( 2, HasBoatInBerth, 14 )
 	TriggerAction( 2, SupplyBerthList, 14 )
 	TriggerFailure( 2, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 2 )
-
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasDeadBoatInBerth, 14 )
 	TriggerAction( 1, SalvageBerthList, 14 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Text( 1, "Восстановить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Salvage Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 3, "Квинг: Простите. У тебя нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить.")
-	Talk( 4, "Квинг: Простите, но чтобы починить судно стоящее в порте острова Лета необходимо 1000 золота!")
-	Talk( 5, "Квинг: Простите, но чтобы заправить судно стоящее в порте острова Лета необходимо 200 золота!")
-	Talk( 6, "Квинг: Простите, но чтобы восстановить судно стоящее в порте острова Лета необходимо 1000 золота!")
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	Talk( 4, "Sorry I only repair ships docked at Summer Island northern harbor. Please pay 1000G" )
+	Talk( 5, "Sorry! I only refuel ships docked at Summer Island Harbor. Please pay 200G" )
+	Talk( 6, "Sorry! I only salvage sunken ships docked in northern Summer Island. Please pay 1000G." )
 
-	AddNpcMission (	5853 )
-	AddNpcMission (	5854 )
+
+	------------- єЈёЫЦё»УЎ¤ПДЗа-------ѕЮР·
+	AddNpcMission	(5853)
+	AddNpcMission	(5854)
+
+
 end
 
-function b_talk20()
-	Talk( 1, "Юнь: Привет! Я местный оператор флота! Чем я могу помочь?")
 
+------------------------------------------------------------
+-- ПДµєДПёЫ-----єЈёЫЦё»УЎ¤ПДФЖ
+------------------------------------------------------------
+function b_talk20()
+
+	Talk( 1, "Operator: Hi! Do you wish to go sailing? Maybe I can help you" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 15 )
 	TriggerAction( 1, LuanchBerthList, 15, 3324, 3541, 0 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в путь ", MultiTrigger, GetMultiTrigger(), 1 )
-
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerCondition( 2, HasBoatInBerth, 15 )
 	TriggerAction( 2, RepairBerthList, 15 )
 	TriggerFailure( 2, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 2 )
-
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerCondition( 2, HasBoatInBerth, 15 )
 	TriggerAction( 2, SupplyBerthList, 15 )
 	TriggerFailure( 2, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 2 )
-
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasDeadBoatInBerth, 15 )
 	TriggerAction( 1, SalvageBerthList, 15 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Text( 1, "Восстановить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Salvage Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 
-	Talk( 3, "Юнь: Простите. У тебя нет судна в этом порту. Если судно утонуло, то вам необходимо его восстановить.")
-	Talk( 4, "Юнь: Простите, но чтобы починить судно стоящее в порте острова Лета необходимо 1000 золота!")
-	Talk( 5, "Юнь: Простите, но чтобы заправить судно стоящее в порте острова Лета необходимо 200 золота!")
-	Talk( 6, "Юнь: Простите, но чтобы восстановить судно стоящее в порте острова Лета необходимо 1000 золота!")
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	Talk( 4, "Sorry! I only repair ships docked at southern Summer Island. Please pay 1000G as repair fee." )
+	Talk( 5, "Sorry, I only refuel ships docked at Summer Island southern harbor. Please pay 200G" )
+	Talk( 6, "Sorry! I only salvage ships docked in Summer Island. Please pay 1000G." )
 
-	AddNpcMission (	5855 )
-	AddNpcMission (	5856 )
-end
---------------------------------------------------------------------------------------------------------------------
---													b_talk (Конец)												  --
---------------------------------------------------------------------------------------------------------------------
+	------------- єЈёЫЦё»УЎ¤ПДФЖ-------ѕЮР·
+	AddNpcMission	(5855)
+	AddNpcMission	(5856)
 
-
---------------------------------------------------------------------------------------------------------------------
---													star_talk (Начало)											  --
---------------------------------------------------------------------------------------------------------------------
-function star_talk001()
-
-	Talk( 1, "Оператор порта: Привет! Я оператор порта Священной войны. У меня есть данные о всех лодках. Что вы хотите?" )
-
-	InitTrigger()
-	TriggerCondition( 1, HasAllBoatInBerth, 3 )
-	TriggerAction( 1, LuanchBerthList, 3, 148 , 154, 180 )
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Отправиться в плавание ", MultiTrigger, GetMultiTrigger(), 1 )
-
-	Talk( 2, "Простите, но у тебя нет лодки пришвартованной в нашей гавани." )
 
 end
 
-function star_talk002()
-
-	Talk( 1, "Оператор порта: Привет! Я оператор порта Священной войны. У меня есть данные о всех лодках. Что вы хотите?" )
-
-	InitTrigger()
-	TriggerCondition( 1, HasAllBoatInBerth, 3 )
-	TriggerAction( 1, LuanchBerthList, 3, 169 , 176, 180 )
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Отправиться в плавание ", MultiTrigger, GetMultiTrigger(), 1 )
-
-	Talk( 2, "Простите, но у тебя нет лодки пришвартованной в нашей гавани." )
-end
-
-function star_talk003()
-	Talk( 1, "Оператор порта: Привет! Я оператор порта Священной войны. У меня есть данные о всех лодках. Что вы хотите?" )
-
-	InitTrigger()
-	TriggerCondition( 1, HasAllBoatInBerth, 3 )
-	TriggerAction( 1, LuanchBerthList, 3, 168 , 111, 180 )
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Отправиться в плавание ", MultiTrigger, GetMultiTrigger(), 1 )
-
-	Talk( 2, "Простите, но у тебя нет лодки пришвартованной в нашей гавани." )
-end
-
-function star_talk004()
-	Talk( 1, "Оператор порта: Привет! Я оператор порта Священной войны. У меня есть данные о всех лодках. Что вы хотите?" )
-
-	InitTrigger()
-	TriggerCondition( 1, HasAllBoatInBerth, 3 )
-	TriggerAction( 1, LuanchBerthList, 3, 452 , 135, 180 )
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Отправиться в плавание ", MultiTrigger, GetMultiTrigger(), 1 )
-
-	Talk( 2, "Простите, но у тебя нет лодки пришвартованной в нашей гавани." )
-end
-
-function star_talk005()
-	Talk( 1, "Оператор порта: Привет! Я оператор порта Священной войны. У меня есть данные о всех лодках. Что вы хотите?" )
-
-	InitTrigger()
-	TriggerCondition( 1, HasAllBoatInBerth, 3 )
-	TriggerAction( 1, LuanchBerthList, 3, 496 , 164, 180 )
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Отправиться в плавание ", MultiTrigger, GetMultiTrigger(), 1 )
-
-	Talk( 2, "Простите, но у тебя нет лодки пришвартованной в нашей гавани." )
-end
-
-function star_talk006()
-	Talk( 1, "Оператор порта: Привет! Я оператор порта Священной войны. У меня есть данные о всех лодках. Что вы хотите?" )
-
-	InitTrigger()
-	TriggerCondition( 1, HasAllBoatInBerth, 3 )
-	TriggerAction( 1, LuanchBerthList, 3, 453 , 175, 180 )
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Отправиться в плавание ", MultiTrigger, GetMultiTrigger(), 1 )
-
-	Talk( 2, "Простите, но у тебя нет лодки пришвартованной в нашей гавани." )
-end
-
-function star_talk007()
-	Talk( 1, "Оператор порта: Привет! Я оператор порта Священной войны. У меня есть данные о всех лодках. Что вы хотите?" )
-
-	InitTrigger()
-	TriggerCondition( 1, HasAllBoatInBerth, 3 )
-	TriggerAction( 1, LuanchBerthList, 3 , 262 , 181, 180 )
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Отправиться в плавание ", MultiTrigger, GetMultiTrigger(), 1 )
-
-	Talk( 2, "Простите, но у тебя нет лодки пришвартованной в нашей гавани." )
-end
-
-function star_talk008()
-	Talk( 1, "Оператор порта: Привет! Я оператор порта Священной войны. У меня есть данные о всех лодках. Что вы хотите?" )
-
-	InitTrigger()
-	TriggerCondition( 1, HasAllBoatInBerth, 3 )
-	TriggerAction( 1, LuanchBerthList, 3, 348 , 175, 180 )
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Отправиться в плавание ", MultiTrigger, GetMultiTrigger(), 1 )
-
-	Talk( 2, "Простите, но у тебя нет лодки пришвартованной в нашей гавани." )
-end
-
-function star_talk009()
-	Talk( 1, "Оператор порта: Привет! Я оператор порта Священной войны. У меня есть данные о всех лодках. Что вы хотите?" )
-
-	InitTrigger()
-	TriggerCondition( 1, HasAllBoatInBerth, 3 )
-	TriggerAction( 1, LuanchBerthList, 3, 110 , 460, 180 )
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Отправиться в плавание ", MultiTrigger, GetMultiTrigger(), 1 )
-
-	Talk( 2, "Простите, но у тебя нет лодки пришвартованной в нашей гавани." )
-end
-
-function star_talk010()
-	Talk( 1, "Оператор порта: Привет! Я оператор порта Священной войны. У меня есть данные о всех лодках. Что вы хотите?" )
-
-	InitTrigger()
-	TriggerCondition( 1, HasAllBoatInBerth, 3 )
-	TriggerAction( 1, LuanchBerthList, 3, 169 , 493, 180 )
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Отправиться в плавание ", MultiTrigger, GetMultiTrigger(), 1 )
-
-	Talk( 2, "Простите, но у тебя нет лодки пришвартованной в нашей гавани." )
-end
-
-function star_talk011()
-	Talk( 1, "Оператор порта: Привет! Я оператор порта Священной войны. У меня есть данные о всех лодках. Что вы хотите?" )
-
-	InitTrigger()
-	TriggerCondition( 1, HasAllBoatInBerth, 3 )
-	TriggerAction( 1, LuanchBerthList, 3, 82 , 456, 180 )
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Отправиться в плавание ", MultiTrigger, GetMultiTrigger(), 1 )
-
-	Talk( 2, "Простите, но у тебя нет лодки пришвартованной в нашей гавани." )
-end
-
-function star_talk012()
-	Talk( 1, "Оператор порта: Привет! Я оператор порта Священной войны. У меня есть данные о всех лодках. Что вы хотите?" )
-
-	InitTrigger()
-	TriggerCondition( 1, HasAllBoatInBerth, 3 )
-	TriggerAction( 1, LuanchBerthList, 3, 463 , 453, 180 )
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Отправиться в плавание ", MultiTrigger, GetMultiTrigger(), 1 )
-
-	Talk( 2, "Простите, но у тебя нет лодки пришвартованной в нашей гавани." )
-end
-
-function star_talk013()
-	Talk( 1, "Оператор порта: Привет! Я оператор порта Священной войны. У меня есть данные о всех лодках. Что вы хотите?" )
-
-	InitTrigger()
-	TriggerCondition( 1, HasAllBoatInBerth, 3 )
-	TriggerAction( 1, LuanchBerthList, 3, 492 , 460, 180 )
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Отправиться в плавание ", MultiTrigger, GetMultiTrigger(), 1 )
-
-	Talk( 2, "Простите, но у тебя нет лодки пришвартованной в нашей гавани." )
-end
-
-function star_talk014()
-	Talk( 1, "Оператор порта: Привет! Я оператор порта Священной войны. У меня есть данные о всех лодках. Что вы хотите?" )
-
-	InitTrigger()
-	TriggerCondition( 1, HasAllBoatInBerth, 3 )
-	TriggerAction( 1, LuanchBerthList, 3, 453 , 506, 180 )
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Отправиться в плавание ", MultiTrigger, GetMultiTrigger(), 1 )
-
-	Talk( 2, "Простите, но у тебя нет лодки пришвартованной в нашей гавани." )
-end
-
-function star_talk015()
-	Talk( 1, "Оператор порта: Привет! Я оператор порта Священной войны. У меня есть данные о всех лодках. Что вы хотите?" )
-
-	InitTrigger()
-	TriggerCondition( 1, HasAllBoatInBerth, 3 )
-	TriggerAction( 1, LuanchBerthList, 3, 357 , 450, 180 )
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Отправиться в плавание ", MultiTrigger, GetMultiTrigger(), 1 )
-
-	Talk( 2, "Простите, но у тебя нет лодки пришвартованной в нашей гавани." )
-end
-
-function star_talk016()
-	Talk( 1, "Оператор порта: Привет! Я оператор порта Священной войны. У меня есть данные о всех лодках. Что вы хотите?" )
-
-	InitTrigger()
-	TriggerCondition( 1, HasAllBoatInBerth, 3 )
-	TriggerAction( 1, LuanchBerthList, 3, 256 , 450, 180 )
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Отправиться в плавание ", MultiTrigger, GetMultiTrigger(), 1 )
-
-	Talk( 2, "Простите, но у тебя нет лодки пришвартованной в нашей гавани." )
-end
---------------------------------------------------------------------------------------------------------------------
---													star_talk (Конец)											  --
---------------------------------------------------------------------------------------------------------------------
-
---------------------------------------------------------------------------------------------------------------------
---													roico_talk (Начало)												  --
---------------------------------------------------------------------------------------------------------------------
-function roico_talk001()
-	Talk( 1, "Битва началась! Здесь каждый герой должен иметь в сердце веру! Уметь работать в команде, чтобы напасть на врага и победить. Удачи герой!" )
-	Text( 1, "Боевые цели." ,JumpPage, 2)
-	Text( 1, "Обменять боевой материал.", JumpPage, 3)
-	Text( 1, "Пожертвовать материал для улучшения.", JumpPage, 4)
-	Text( 1, "Жетоны флота.", JumpPage, 13)
-
-	Talk( 2, "Боевые цели: Уничтожить вражескую статую. Чтобы значительно ослабить их силы, вы можете разрушить их Оружейные Склады. Вы можете собирать ресурсы, чтобы улучшить оборону наших объектов или для обмена на полезные вещи. Использовав определенные материалы вы можете призвать подкрепление.")
-
-	Talk( 3, "Пусть противник удивится и никогда больше не забудет нашу силу.")
-	Text( 3, "Получить Билет к Статуе." ,JumpPage, 6)
-	Text( 3, "Получить случайный атрибут." ,JumpPage, 7)
-
-	Talk( 4, "Вы можете безвозмездно пожертвовать материалы дял улучшения нашей Базы.")
-	Text( 4, "Увеличение защиты Статуи на 20 и физического сопротивления на 1 " ,JumpPage, 8)
-	Text( 4, "Увеличение атка оборонных башен на 25 " ,JumpPage, 9)
-	Text( 4, "Неуязвимость Статуи на 3 минуты " ,JumpPage, 10)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2859, 25 )
-	TriggerCondition( 1, HasLeaveBagGrid, 1 )
-	TriggerAction( 1, TakeItem, 2859,25 )
-	TriggerAction( 1, GiveItem, 2986, 1 , 4)
-	TriggerAction( 1, JumpPage, 11 )
-	TriggerFailure( 1, JumpPage, 12)
-	Talk( 6, "Я обменяю 25 повязок на Билет к Статуе!")
-	Text( 6, "Вот 25 повязок ",  MultiTrigger, GetMultiTrigger(), 1)
-	Talk( 11, "Используй Билет к Статуе когда она будет в опасности, чтобы помочь отбить атаку врага." )
-	Talk( 12, "У тебя нет необходимого количества предметов или твой инвентарь полон.")
-
-	Talk( 7, "Я обменяю 20 повязок на случайный атрибут.")
-	Text( 7, "Вот 20 повязок.", GetChaName1_guildwar, 1)
-
-	Talk( 8, "Для увеличения защиты Статуи вам нужно собрать 30 Кристальной руды.")
-	Text( 8, "Вот необходимый материал.", GetChaName2_guildwar, 1)
-
-	Talk( 9, "Для увеличения атаки Оборонной башни, вам нужно собрать 12 рыбья кость и 12 Реактивная рыба!")
-	Text( 9, "Вот необходимый материал.", GetChaName4_guildwar, 1)
-
-	Talk( 10, "Для неуязвимости Статуи вам нужно собрать 4 жестких Черепаха Щита и 9 Лунохвостого Угоря!")
-	Text( 10, "Вот необходимый материал.", GetChaName3_guildwar, 1)
-
-	Talk( 13, "Чтобы вызвать подкрепление тебе необходимо собрать определенное количество жетонов.")
-	Text( 13, "15 Жетонов флота ", JumpPage, 14)
-	Text( 13, "30 Жетонов флота ", JumpPage, 15)
-	Text( 13, "45 Жетонов флота ", JumpPage, 16)
-
-	Talk( 14, "За 15 Жетонов флота, я позову 3 флота Эмиссаров, чтобы помочь нам в любом выбранном месте!")
-	Text( 14, "Возле Статуи врага ", GetChaName5_guildwar, 1)
-	Text( 14, "Возле Оружейных складов врага ", GetChaName6_guildwar, 1)
-	Text( 14, "Возле вражеского Продовольственного Амбара ", GetChaName7_guildwar, 1)
-	Text( 14, "Возле нашей Статуи ", GetChaName8_guildwar, 1)
-	Text( 14, "Возле наших Оружейных складов ", GetChaName9_guildwar, 1)
-	Text( 14, "Возле нашего Продовольственного Амбара ", GetChaName10_guildwar, 1)
-
-	Talk( 15, "За 30 Жетонов флота, я позову 7 флота Эмиссаров, чтобы помочь нам в любом выбранном месте!")
-	Text( 15, "Возле Статуи врага ", GetChaName11_guildwar, 1)
-	Text( 15, "Возле Оружейных складов врага ", GetChaName12_guildwar, 1)
-	Text( 15, "Возле вражеского Продовольственного Амбара ", GetChaName13_guildwar, 1)
-	Text( 15, "Возле нашей Статуи ", GetChaName14_guildwar, 1)
-	Text( 15, "Возле наших Оружейных складов ", GetChaName15_guildwar, 1)
-	Text( 15, "Возле нашего Продовольственного Амбара ", GetChaName16_guildwar, 1)
-
-	Talk( 16, "За 45 Жетонов флота, я позову 11 флота Эмиссаров, чтобы помочь нам в любом выбранном месте!")
-	Text( 16, "Возле Статуи врага ", GetChaName17_guildwar, 1)
-	Text( 16, "Возле Оружейных складов врага ", GetChaName18_guildwar, 1)
-	Text( 16, "Возле вражеского Продовольственного Амбара ", GetChaName19_guildwar, 1)
-	Text( 16, "Возле нашей Статуи ", GetChaName20_guildwar, 1)
-	Text( 16, "Возле наших Оружейных складов ", GetChaName21_guildwar, 1)
-	Text( 16, "Возле нашего Продовольственного Амбара ", GetChaName22_guildwar, 1)
-end
-
-function roico_talk002()
-	Talk( 1, "Разбой, грабежи, убийства! Нас ничто не остановит! Пусть враг узнает истинный смысл страха." )
-	Text( 1, "Боевые цели " ,JumpPage, 2)
-	Text( 1, "Обменять добытый материал ", JumpPage, 3)
-	Text( 1, "Пожертвовать добытые ресурсы ", JumpPage, 4)
-	Text( 1, "Пиратские жетоны ", JumpPage, 13)
-
-	Talk( 2, "Боевые цели: Уничтожить вражескую статую. Чтобы значительно ослабить их силы, вы можете разрушить их Оружейные Склады. Вы можете собирать ресурсы, чтобы улучшить оборону наших объектов или для обмена на полезные вещи. Использовав определенные материалы вы можете призвать подкрепление.")
-
-	Talk( 3, "Пусть враг узнает нашу истенную силу!")
-	Text( 3, "Получить Билет к Статуе " ,JumpPage, 6)
-	Text( 3, "Получить случайный атрибут " ,JumpPage, 7)
-
-	Talk( 4, "Вы можете безвозмездно пожертвовать некоторые ресурсы, чтобы усилить нашу Базу.")
-	Text( 4, "Увеличение защиты Статуи на 20 и физического сопротивления на 1 " ,JumpPage, 8)
-	Text( 4, "Увеличение атка оборонных башен на 25 " ,JumpPage, 9)
-	Text( 4, "Неуязвимость Статуи на 3 минуты " ,JumpPage, 10)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2858, 25 )
-	TriggerCondition( 1, HasLeaveBagGrid, 1 )
-	TriggerAction( 1, TakeItem, 2858,25 )
-	TriggerAction( 1, GiveItem, 2986, 1 , 4)
-	TriggerAction( 1, JumpPage, 11 )
-	TriggerFailure( 1, JumpPage, 12)
-	Talk( 6, "Я обменяю 25 Табака на Билет к Статуе!")
-	Text( 6, "Вот 25 Табака ",  MultiTrigger, GetMultiTrigger(), 1)
-	Talk( 11, "Используй Билет к Статуе когда она будет в опасности, чтобы помочь отбить атаку врага." )
-	Talk( 12, "У тебя нет необходимого количества предметов или твой инвентарь полон.")
-
-	Talk( 7, "Я обменяю 20 Табака на случайный атрибут.")
-	Text( 7, "Вот 20 Табака.", GetChaName23_guildwar, 1)
-
-	Talk( 8, "Для увеличения защиты Статуи вам нужно собрать 30 Кристальной руды.")
-	Text( 8, "Вот необходимый материал.", GetChaName24_guildwar, 1)
-
-	Talk( 9, "Для увеличения атаки Оборонной башни, вам нужно собрать 12 рыбья кость и 12 Реактивная рыба!")
-	Text( 9, "Вот необходимый материал.", GetChaName26_guildwar, 1)
-
-	Talk( 10, "Для неуязвимости Статуи вам нужно собрать 4 жестких Черепаха Щита и 9 Лунохвостого Угоря!")
-	Text( 10, "Вот необходимый материал.", GetChaName25_guildwar, 1)
-
-	Talk( 13, "Чтобы вызвать подкрепление тебе необходимо собрать определенное количество жетонов.")
-	Text( 13, "15 Пиратских Жетонов.", JumpPage, 14)
-	Text( 13, "30 Пиратских Жетонов.", JumpPage, 15)
-	Text( 13, "45 Пиратских Жетонов.", JumpPage, 16)
-
-	Talk( 14, "За 15 Жетонов флота, я позову 3 Пиратских Эмиссаров, чтобы помочь нам в любом выбранном месте!")
-	Text( 14, "Возле Статуи врага ", GetChaName27_guildwar, 1)
-	Text( 14, "Возле Оружейных складов врага ", GetChaName28_guildwar, 1)
-	Text( 14, "Возле вражеского Продовольственного Амбара ", GetChaName29_guildwar, 1)
-	Text( 14, "Возле нашей Статуи ", GetChaName30_guildwar, 1)
-	Text( 14, "Возле наших Оружейных складов ", GetChaName31_guildwar, 1)
-	Text( 14, "Возле нашего Продовольственного Амбара ", GetChaName32_guildwar, 1)
-
-	Talk( 15, "За 30 Жетонов флота, я позову 7 Пиратских Эмиссаров, чтобы помочь нам в любом выбранном месте!")
-	Text( 15, "Возле Статуи врага ", GetChaName33_guildwar, 1)
-	Text( 15, "Возле Оружейных складов врага ", GetChaName34_guildwar, 1)
-	Text( 15, "Возле вражеского Продовольственного Амбара ", GetChaName35_guildwar, 1)
-	Text( 15, "Возле нашей Статуи ", GetChaName36_guildwar, 1)
-	Text( 15, "Возле наших Оружейных складов ", GetChaName37_guildwar, 1)
-	Text( 15, "Возле нашего Продовольственного Амбара ", GetChaName38_guildwar, 1)
-
-	Talk( 16, "За 45 Жетонов флота, я позову 11 Пиратских Эмиссаров, чтобы помочь нам в любом выбранном месте!")
-	Text( 16, "Возле Статуи врага ", GetChaName39_guildwar, 1)
-	Text( 16, "Возле Оружейных складов врага ", GetChaName40_guildwar, 1)
-	Text( 16, "Возле вражеского Продовольственного Амбара ", GetChaName41_guildwar, 1)
-	Text( 16, "Возле нашей Статуи ", GetChaName42_guildwar, 1)
-	Text( 16, "Возле наших Оружейных складов ", GetChaName43_guildwar, 1)
-	Text( 16, "Возле нашего Продовольственного Амбара ", GetChaName44_guildwar, 1)
-end
-
-function roico_talk()
-	Talk( 1, "Управляющий Священной войной: Чтобы вступить в Священную Войну, возьми, пожалуйста, у меня Знак жизни и смерти - это символ твоей устремленности и крепости духа! У меня есть и другая вещь, которая, возможно, тебя заинтересует, но достаётся она лишь героям войны!" )
-	Text( 1, "Обменять на Снаряжение Босса 70 уровня ",JumpPage, 2 )
-	Text( 1, "Выменять Звание ",JumpPage, 16 )
-	Text( 1, "Обменять Знак Кровавой клятвы ",JumpPage, 28 )
-	Text( 1, "Обменять очки чести на Знак жизни и смерти ",JumpPage, 29 )
-
-	Talk( 2, "Управляющий Священной войной: Выбери экипировку " )
-	Text( 2, "Каменная нога Гефеста (Чемпион)", JumpPage, 3)
-	Text( 2, "Каменная нога Гермеса (Воитель)", JumpPage, 4)
-	Text( 2, "Каменная нога Аполлона (Стрелок)", JumpPage, 5)
-	Text( 2, "Каменная нога Посейдона (Покоритель морей)", JumpPage, 6)
-	Text( 2, "Каменная нога Гестии (Цилительница)", JumpPage, 7)
-	Text( 2, "Каменная нога Афины (Колдунья)", JumpPage, 8)
-	Text( 2, "Слудующая страница ", JumpPage, 9)
-
-	Talk( 9, "Управляющий Священной войной: Выбери экипировку" )
-	Text( 9, "Каменная рука Гефеста (Чемпион)", JumpPage, 10)
-	Text( 9, "Каменная рука Гермеса (Воитель)", JumpPage, 11)
-	Text( 9, "Каменная рука Аполлона (Стрелок)", JumpPage, 12)
-	Text( 9, "Каменная рука Посейдона (Покоритель морей)", JumpPage, 13)
-	Text( 9, "Каменная рука Гестии (Цилительница)", JumpPage, 14)
-	Text( 9, "Каменная рука Афины (Колдунья)", JumpPage, 15)
-	Text( 9, "Предыдущая страница ", JumpPage, 2) 
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2383, 300 )
-	TriggerCondition( 1, LvCheck, ">", 64 )
-	TriggerAction( 1, TakeItem, 2383, 300 )
-	TriggerAction( 1, GiveItem, 2532, 1, 4 )
-	TriggerFailure( 1, JumpPage, 27 )
-	Talk( 3, "Управляющий Священной войной: Если твой уровень выше 65 то ты принясешь мне 300 кровавых конрактов, я дам тебе этот камень." )
-	Text( 3, "Получить каменную ногу Гефеста ", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2383, 300 )
-	TriggerCondition( 1, LvCheck, ">", 64 )
-	TriggerAction( 1, TakeItem, 2383, 300 )
-	TriggerAction( 1, GiveItem, 2535, 1, 4 )
-	TriggerFailure( 1, JumpPage, 27 )
-	Talk( 4, "Управляющий Священной войной: Если твой уровень выше 65 то ты принясешь мне 300 кровавых конрактов, я дам тебе этот камень." )
-	Text( 4, "Получить каменную ногу Гермеса ", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2383, 300 )
-	TriggerCondition( 1, LvCheck,">", 64 )
-	TriggerAction( 1, TakeItem, 2383, 300 )
-	TriggerAction( 1, GiveItem, 2538, 1, 4 )
-	TriggerFailure( 1, JumpPage, 27 )
-	Talk( 5, "Управляющий Священной войной: Если твой уровень выше 65 то ты принясешь мне 300 кровавых конрактов, я дам тебе этот камень." )
-	Text( 5, "Получить каменную ногу Аполлона ", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2383, 300 )
-	TriggerCondition( 1, LvCheck, ">", 64 )
-	TriggerAction( 1, TakeItem, 2383, 300 )
-	TriggerAction( 1, GiveItem, 2541, 1, 4 )
-	TriggerFailure( 1, JumpPage, 27 )
-	Talk( 6, "Управляющий Священной войной: Если твой уровень выше 65 то ты принясешь мне 300 кровавых конрактов, я дам тебе этот камень." )
-	Text( 6, "Получить каменную ногу Посейдона ", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2383, 300 )
-	TriggerCondition( 1, LvCheck, ">", 64 )
-	TriggerAction( 1, TakeItem, 2383, 300 )
-	TriggerAction( 1, GiveItem, 2544, 1, 4 )
-	TriggerFailure( 1, JumpPage, 27 )
-	Talk( 7, "Управляющий Священной войной: Если твой уровень выше 65 то ты принясешь мне 300 кровавых конрактов, я дам тебе этот камень." )
-	Text( 7, "Получить каменную ногу Гестии ", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2383, 300 )
-	TriggerCondition( 1, LvCheck, ">", 64 )
-	TriggerAction( 1, TakeItem, 2383, 300 )
-	TriggerAction( 1, GiveItem, 2547, 1, 4 )
-	TriggerFailure( 1, JumpPage, 27 )
-	Talk( 8, "Управляющий Священной войной: Если твой уровень выше 65 то ты принясешь мне 300 кровавых конрактов, я дам тебе этот камень." )
-	Text( 8, "Получить каменную ногу Афины ", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2383, 300 )
-	TriggerCondition( 1, LvCheck, ">", 64 )
-	TriggerAction( 1, TakeItem, 2383, 300 )
-	TriggerAction( 1, GiveItem, 2531, 1, 4 )
-	TriggerFailure( 1, JumpPage, 27 )
-	Talk( 10, "Управляющий Священной войной: Если твой уровень выше 65 то ты принясешь мне 300 кровавых конрактов, я дам тебе этот камень." )
-	Text( 10, "Получить каменную руку Гефеста ", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2383, 300 )
-	TriggerCondition( 1, LvCheck, ">", 64 )
-	TriggerAction( 1, TakeItem, 2383, 300 )
-	TriggerAction( 1, GiveItem, 2534, 1, 4 )
-	TriggerFailure( 1, JumpPage, 27 )
-	Talk( 11, "Управляющий Священной войной: Если твой уровень выше 65 то ты принясешь мне 300 кровавых конрактов, я дам тебе этот камень." )
-	Text( 11, "Получить каменную руку Гермеса ", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2383, 300 )
-	TriggerCondition( 1, LvCheck, ">", 64 )
-	TriggerAction( 1, TakeItem, 2383, 300 )
-	TriggerAction( 1, GiveItem, 2537, 1, 4 )
-	TriggerFailure( 1, JumpPage, 27 )
-	Talk( 12, "Управляющий Священной войной: Если твой уровень выше 65 то ты принясешь мне 300 кровавых конрактов, я дам тебе этот камень." )
-	Text( 12, "Получить каменную руку Аполлона ", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2383, 300 )
-	TriggerCondition( 1, LvCheck, ">", 64 )
-	TriggerAction( 1, TakeItem, 2383, 300 )
-	TriggerAction( 1, GiveItem, 2540, 1, 4 )
-	TriggerFailure( 1, JumpPage, 27 )
-	Talk( 13, "Управляющий Священной войной: Если твой уровень выше 65 то ты принясешь мне 300 кровавых конрактов, я дам тебе этот камень." )
-	Text( 13, "Получить каменную руку Посейдона ", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2383, 300 )
-	TriggerCondition( 1, LvCheck, ">", 64 )
-	TriggerAction( 1, TakeItem, 2383, 300 )
-	TriggerAction( 1, GiveItem, 2543, 1, 4 )
-	TriggerFailure( 1, JumpPage, 27 )
-	Talk( 14, "Управляющий Священной войной: Если твой уровень выше 65 то ты принясешь мне 300 кровавых конрактов, я дам тебе этот камень." )
-	Text( 14, "Получить каменную руку Гестии ", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2383, 300 )
-	TriggerCondition( 1, LvCheck, ">", 64 )
-	TriggerAction( 1, TakeItem, 2383, 300 )
-	TriggerAction( 1, GiveItem, 2546, 1, 4 )
-	TriggerFailure( 1, JumpPage, 27 )
-	Talk( 15, "Управляющий Священной войной: Если твой уровень выше 65 то ты принясешь мне 300 кровавых конрактов, я дам тебе этот камень." )
-	Text( 15, "Получить каменную руку Афины ", MultiTrigger, GetMultiTrigger(), 1)
-
-	Talk( 16, "Управляющий Священной войной: Пожалуйста выбери нужное тебе звание!" )
-    Text( 16, "Матрос ", JumpPage, 17)
-	Text( 16, "Старшина ", JumpPage, 18)
-	Text( 16, "Мичман ", JumpPage, 19)
-	Text( 16, "Лейтенант ", JumpPage, 20)
-	Text( 16, "Капитан 3 ранга ", JumpPage, 21)
-	Text( 16, "Следующая страница ", JumpPage, 30)
-
-	Talk( 30, "Управляющий Священной войной: Пожалуйста выбери нужное тебе звание!" )
-	Text( 30, "Капитан 2 ранга ", JumpPage, 22)
-	Text( 30, "Капитан 1 ранга ", JumpPage, 23)
-	Text( 30, "Контр-Адмирал ", JumpPage, 24)
-	Text( 30, "Адмирал флота ", JumpPage, 25)
-	Text( 30, "Главнокомандующий ", JumpPage, 26)
-	Text( 30, "Предыдущая страница ", JumpPage, 16)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2383, 20 )
-	TriggerCondition( 1, HasLeaveBagGrid, 1 )
-	TriggerAction( 1, TakeItem, 2383, 20 )
-	TriggerAction( 1, GiveItem, 5331, 1, 4 )
-	TriggerFailure( 1, JumpPage, 27 )
-	Talk( 17, "Управляющий Священной войной: Если дашь мне 20 кровавых контрактов, то я выдам тебе новую медаль." )
-	Text( 17, "Получить Эмблему ", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2383, 50 )
-	TriggerCondition( 1, HasItem, 5331, 1 )
-	TriggerAction( 1, TakeItem, 2383, 50 )
-	TriggerAction( 1, TakeItem, 5331, 1 )
-	TriggerAction( 1, GiveItem, 5332, 1, 4 )
-	TriggerFailure( 1, JumpPage, 27 )
-	Talk( 18, "Управляющий Священной войной: Если дашь мне 50 кровавых контрактов и Медаль 1 ранга, то я выдам тебе новую медаль." )
-	Text( 18, "Получить Эмблему ", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2383, 100 )
-	TriggerCondition( 1, HasItem, 5332, 1 )
-	TriggerAction( 1, TakeItem, 2383, 100 )
-	TriggerAction( 1, TakeItem, 5332, 1 )
-	TriggerAction( 1, GiveItem, 5333, 1, 4 )
-	TriggerFailure( 1, JumpPage, 27 )
-	Talk( 19, "Управляющий Священной войной: Если дашь мне 100 кровавых контрактов и Медаль 2 ранга, то я выдам тебе новую медаль." )
-	Text( 19, "Получить Эмблему ", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2383, 250 )
-	TriggerCondition( 1, HasItem, 5333, 1 )
-	TriggerAction( 1, TakeItem, 2383, 250 )
-	TriggerAction( 1, TakeItem, 5333, 1 )
-	TriggerAction( 1, GiveItem, 5334, 1, 4 )
-	TriggerFailure( 1, JumpPage, 27 )
-	Talk( 20, "Управляющий Священной войной: Если дашь мне 250 кровавых контрактов и Медаль 3 ранга, то я выдам тебе новую медаль." )
-	Text( 20, "Получить Эмблему ", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2383, 400 )
-	TriggerCondition( 1, HasItem, 5334, 1 )
-	TriggerAction( 1, TakeItem, 2383, 400 )
-	TriggerAction( 1, TakeItem, 5334, 1 )
-	TriggerAction( 1, GiveItem, 5335, 1, 4 )
-	TriggerFailure( 1, JumpPage, 27 )
-	Talk( 21, "Управляющий Священной войной: Если дашь мне 400 кровавых контрактов и Медаль 4 ранга, то я выдам тебе новую медаль." )
-	Text( 21, "Получить Эмблему ", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2383, 650 )
-	TriggerCondition( 1, HasItem, 5335, 1 )
-	TriggerAction( 1, TakeItem, 2383, 650 )
-	TriggerAction( 1, TakeItem, 5335, 1 )
-	TriggerAction( 1, GiveItem, 5336, 1, 4 )
-	TriggerFailure( 1, JumpPage, 27 )
-	Talk( 22, "Управляющий Священной войной: Если дашь мне 650 кровавых контрактов и Медаль 5 ранга, то я выдам тебе новую медаль." )
-	Text( 22, "Получить Эмблему ", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2865, 55 )
-	TriggerCondition( 1, HasItem, 5336, 1 )
-	TriggerAction( 1, TakeItem, 2865, 55 )
-	TriggerAction( 1, TakeItem, 5336, 1 )
-	TriggerAction( 1, GiveItem, 5337, 1, 4 )
-	TriggerFailure( 1, JumpPage, 27 )
-	Talk( 23, "Управляющий Священной войной: Если дашь мне 55 Знаков Кровавой клятвы и Медаль 6 ранга, то я выдам тебе новую медаль." )
-	Text( 23, "Получить Эмблему ", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2865, 80 )
-    TriggerCondition( 1, HasItem, 5337, 1)
-	TriggerAction( 1, TakeItem, 2865, 80 )
-	TriggerAction( 1, TakeItem, 5337, 1 )
-	TriggerAction( 1, GiveItem, 5338, 1, 4 )
-	TriggerFailure( 1, JumpPage, 27 )
-	Talk( 24, "Управляющий Священной войной: Если дашь мне 80 Знаков Кровавой клятвы и Медаль 7 ранга, то я выдам тебе новую медаль." )
-	Text( 24, "Получить Эмблему ", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2865, 110 )
-	TriggerCondition( 1, HasItem, 5338, 1)
-	TriggerAction( 1, TakeItem, 2865, 110 )
-	TriggerAction( 1, TakeItem, 5338, 1 )
-	TriggerAction( 1, GiveItem, 5339, 1, 4 )
-	TriggerFailure( 1, JumpPage, 27 )
-	Talk( 25, "Управляющий Священной войной: Если дашь мне 110 Знаков Кровавой клятвы и Медаль 8 ранга, то я выдам тебе новую медаль." )
-	Text( 25, "Получить Эмблему ", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2865, 155 )
-	TriggerCondition( 1, HasItem, 5339, 1)
-	TriggerAction( 1, TakeItem, 2865, 155 )
-	TriggerAction( 1, TakeItem, 5339, 1 )
-	TriggerAction( 1, GiveItem, 5340, 1, 4 )
-	TriggerFailure( 1, JumpPage, 27 )
-	Talk( 26, "Управляющий Священной войной: Если дашь мне 155 Знаков Кровавой клятвы и Медаль 9 ранга, то я выдам тебе новую медаль." )
-	Text( 26, "Получить Эмблему ", MultiTrigger, GetMultiTrigger(), 1)
-
-	Text( 27, "Управляющий Священной войной: Я не могу произвести обмен! Проверьте, пожалуйста, достаточно ли у тебя свободного места в рюкзаке и есть ли у тебя все необходимые вещи.")
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2383, 20 )
-	TriggerCondition( 1, HasLeaveBagGrid, 1 )
-	TriggerAction( 1, TakeItem, 2383, 20 )
-	TriggerAction( 1, GiveItem, 2865, 1, 4 )
-	TriggerFailure( 1, JumpPage, 27 )
-	Talk( 28, "Управляющий Священной войной: 20 кровавых конрактов можно обменять на 1 Знак Кровавой клятвы!" )
-	Text( 28, "Подтвердить ", MultiTrigger, GetMultiTrigger(), 1)
-
-	Talk( 29, "Управляющий Священной войной: 15 очков чести можно обменять на 1 Знак жизни и смерти. Этот знак исчезнит только если ты умрёшь на священой войне!")
-	Text( 29, "Подтвердить ", GetChaName45_guildwar, 1)
-end
---------------------------------------------------------------------------------------------------------------------
---													roico_talk (Конец)												  --
---------------------------------------------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------------------------------------------
---											Одиночные_функции (Начало)											  --
---------------------------------------------------------------------------------------------------------------------
-function m_talk001()
-	Talk( 1, "Али Кью: Привет! Я местный фрахтовщик. Могу я чем то помочь? ")
-	InitTrigger()
-	TriggerCondition( 1, HasBoatInBerth, 3)
-	TriggerAction( 1, PackBagList, 3, RES_WOOD, 1 )
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Загрузить древесину ", MultiTrigger, GetMultiTrigger(), 1 )
-
-	Talk( 2, "Али Кью: У вас нет корабля в местном порту! ")	
-end
-
+-----------єЪКРЙМИЛ
 function leo_talk10()	
-	Talk( 1, "Торговец на черном рынке: Хо-хо, так это ты меня ищещь? Хо-хо, что тебе нужно?")
-	Text( 1, "Особенные вещи ", JumpPage, 2 )
-	Text( 1, "Посмотреть ассортимент ", BuyPage)
 
-	Talk( 2, " Торговец чёрного рынка: Да вы очень даже осведомлены...")
-	Text( 2, " Позволь мне сначала взглянуть на твой товар ", SendExchangeData )
+	Talk(1, "Black Market Merchant: Hoho, you must be somebody to locate me. Hoho, what do you need?")
+	Text( 1, "Something special", JumpPage, 2 )
+	Text( 1, "Buy.", BuyPage)
+	
 
+	Talk(2,"Black Market Merchant: Hoho, you are well-informed indeed...How you wish to exchange?")
+	Text(2,"Let me take a look at your things first", SendExchangeData )
+
+	--¶Т»»ЛщРиОпЖ· IDЈ¬КэБїЈ¬¶Т»»ЛщµГОпЖ·КэБїЈ¬ёіУиµДЦµ
 	InitExchange()
+
+	--јУФШ8ёцµАѕЯРЕПўЈ¬ФЪScriptSDKАп
+
+
 
 	DoExchange()
 
@@ -2809,7 +2788,7 @@ function leo_talk10()
 	SetNpcActive()
 end
 
-function rand()
+function rand()	--єЪКРЛж»ъЧ°±ёБР±н
 	local tabunknow = {}
 	tabunknow[	1	] =	0088
 	tabunknow[	2	] =	0089
@@ -2849,6 +2828,663 @@ function rand()
 
 	return tabunknow[math.floor(math.random(1,35))]
 end
---------------------------------------------------------------------------------------------------------------------
---											Одиночные_функции (Конец)											  --
---------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------
+-- КҐХЅ-----єЈёЫЦё»УЎ¤БгБгБг
+------------------------------------------------------------
+function star_talk001()
+	Talk( 1, "Harbour Operator: Hi! I'm the Harbour Operator for this Sacred War. I have records of all boats docked at Shaitan Harbour. Please register with me before you set sail, else you will be disallowed." )
+	InitTrigger()
+	TriggerCondition( 1, HasAllBoatInBerth, 3 )
+	TriggerAction( 1, LuanchBerthList, 3, 148 , 154, 180 )
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 2, "Sorry, your boat is not docked at this harbor." )
+end
+------------------------------------------------------------
+-- КҐХЅ-----єЈёЫЦё»УЎ¤БгБгТ»
+------------------------------------------------------------
+function star_talk002()
+	Talk( 1, "Harbour Operator: Hi! I'm the Harbour Operator for this Sacred War. I have records of all boats docked at Shaitan Harbour. Please register with me before you set sail, else you will be disallowed." )
+	InitTrigger()
+	TriggerCondition( 1, HasAllBoatInBerth, 3 )
+	TriggerAction( 1, LuanchBerthList, 3, 169 , 176, 180 )
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 2, "Sorry, your boat is not docked at this harbor." )
+end
+------------------------------------------------------------
+-- КҐХЅ-----єЈёЫЦё»УЎ¤БгБг¶ю
+------------------------------------------------------------
+function star_talk003()
+	Talk( 1, "Harbour Operator: Hi! I'm the Harbour Operator for this Sacred War. I have records of all boats docked at Shaitan Harbour. Please register with me before you set sail, else you will be disallowed." )
+	InitTrigger()
+	TriggerCondition( 1, HasAllBoatInBerth, 3 )
+	TriggerAction( 1, LuanchBerthList, 3, 168 , 111, 180 )
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 2, "Sorry, your boat is not docked at this harbor." )
+end
+------------------------------------------------------------
+-- КҐХЅ-----єЈёЫЦё»УЎ¤БгБгИэ
+------------------------------------------------------------
+function star_talk004()
+	Talk( 1, "Harbour Operator: Hi! I'm the Harbour Operator for this Sacred War. I have records of all boats docked at Shaitan Harbour. Please register with me before you set sail, else you will be disallowed." )
+	InitTrigger()
+	TriggerCondition( 1, HasAllBoatInBerth, 3 )
+	TriggerAction( 1, LuanchBerthList, 3, 452 , 135, 180 )
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 2, "Sorry, your boat is not docked at this harbor." )
+end
+------------------------------------------------------------
+-- КҐХЅ-----єЈёЫЦё»УЎ¤БгБгЛД
+------------------------------------------------------------
+function star_talk005()
+	Talk( 1, "Harbour Operator: Hi! I'm the Harbour Operator for this Sacred War. I have records of all boats docked at Shaitan Harbour. Please register with me before you set sail, else you will be disallowed." )
+	InitTrigger()
+	TriggerCondition( 1, HasAllBoatInBerth, 3 )
+	TriggerAction( 1, LuanchBerthList, 3, 496 , 164, 180 )
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 2, "Sorry, your boat is not docked at this harbor." )
+end
+------------------------------------------------------------
+-- КҐХЅ-----єЈёЫЦё»УЎ¤БгБгОе
+------------------------------------------------------------
+function star_talk006()
+	Talk( 1, "Harbour Operator: Hi! I'm the Harbour Operator for this Sacred War. I have records of all boats docked at Shaitan Harbour. Please register with me before you set sail, else you will be disallowed." )
+	InitTrigger()
+	TriggerCondition( 1, HasAllBoatInBerth, 3 )
+	TriggerAction( 1, LuanchBerthList, 3, 453 , 175, 180 )
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 2, "Sorry, your boat is not docked at this harbor." )
+end
+------------------------------------------------------------
+-- КҐХЅ-----єЈёЫЦё»УЎ¤БгБгБщ
+------------------------------------------------------------
+function star_talk007()
+	Talk( 1, "Harbour Operator: Hi! I'm the Harbour Operator for this Sacred War. I have records of all boats docked at Shaitan Harbour. Please register with me before you set sail, else you will be disallowed." )
+	InitTrigger()
+	TriggerCondition( 1, HasAllBoatInBerth, 3 )
+	TriggerAction( 1, LuanchBerthList, 3 , 262 , 181, 180 )
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 2, "Sorry, your boat is not docked at this harbor." )
+end
+------------------------------------------------------------
+-- КҐХЅ-----єЈёЫЦё»УЎ¤БгБгЖЯ
+------------------------------------------------------------
+function star_talk008()
+	Talk( 1, "Harbour Operator: Hi! I'm the Harbour Operator for this Sacred War. I have records of all boats docked at Shaitan Harbour. Please register with me before you set sail, else you will be disallowed." )
+	InitTrigger()
+	TriggerCondition( 1, HasAllBoatInBerth, 3 )
+	TriggerAction( 1, LuanchBerthList, 3, 348 , 175, 180 )
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 2, "Sorry, your boat is not docked at this harbor." )
+end
+------------------------------------------------------------
+-- КҐХЅ-----єЈёЫЦё»УЎ¤зЫзЫБг
+------------------------------------------------------------
+function star_talk009()
+	Talk( 1, "Harbour Operator: Hi! I'm the Harbour Operator for this Sacred War. I have records of all boats docked at Shaitan Harbour. Please register with me before you set sail, else you will be disallowed." )
+	InitTrigger()
+	TriggerCondition( 1, HasAllBoatInBerth, 3 )
+	TriggerAction( 1, LuanchBerthList, 3, 110 , 460, 180 )
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 2, "Sorry, your boat is not docked at this harbor." )
+end
+
+------------------------------------------------------------
+-- КҐХЅ-----єЈёЫЦё»УЎ¤зЫзЫТ»
+------------------------------------------------------------
+function star_talk010()
+	Talk( 1, "Harbour Operator: Hi! I'm the Harbour Operator for this Sacred War. I have records of all boats docked at Shaitan Harbour. Please register with me before you set sail, else you will be disallowed." )
+	InitTrigger()
+	TriggerCondition( 1, HasAllBoatInBerth, 3 )
+	TriggerAction( 1, LuanchBerthList, 3, 169 , 493, 180 )
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 2, "Sorry, your boat is not docked at this harbor." )
+end
+------------------------------------------------------------
+-- КҐХЅ-----єЈёЫЦё»УЎ¤зЫзЫ¶ю
+------------------------------------------------------------
+function star_talk011()
+	Talk( 1, "Harbour Operator: Hi! I'm the Harbour Operator for this Sacred War. I have records of all boats docked at Shaitan Harbour. Please register with me before you set sail, else you will be disallowed." )
+	InitTrigger()
+	TriggerCondition( 1, HasAllBoatInBerth, 3 )
+	TriggerAction( 1, LuanchBerthList, 3, 82 , 456, 180 )
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 2, "Sorry, your boat is not docked at this harbor." )
+end
+------------------------------------------------------------
+-- КҐХЅ-----єЈёЫЦё»УЎ¤зЫзЫИэ
+------------------------------------------------------------
+function star_talk012()
+	Talk( 1, "Harbour Operator: Hi! I'm the Harbour Operator for this Sacred War. I have records of all boats docked at Shaitan Harbour. Please register with me before you set sail, else you will be disallowed." )
+	InitTrigger()
+	TriggerCondition( 1, HasAllBoatInBerth, 3 )
+	TriggerAction( 1, LuanchBerthList, 3, 463 , 453, 180 )
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 2, "Sorry, your boat is not docked at this harbor." )
+end
+------------------------------------------------------------
+-- КҐХЅ-----єЈёЫЦё»УЎ¤зЫзЫЛД
+------------------------------------------------------------
+function star_talk013()
+	Talk( 1, "Harbour Operator: Hi! I'm the Harbour Operator for this Sacred War. I have records of all boats docked at Shaitan Harbour. Please register with me before you set sail, else you will be disallowed." )
+	InitTrigger()
+	TriggerCondition( 1, HasAllBoatInBerth, 3 )
+	TriggerAction( 1, LuanchBerthList, 3, 492 , 460, 180 )
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 2, "Sorry, your boat is not docked at this harbor." )
+end
+------------------------------------------------------------
+-- КҐХЅ-----єЈёЫЦё»УЎ¤зЫзЫОе
+------------------------------------------------------------
+function star_talk014()
+	Talk( 1, "Harbour Operator: Hi! I'm the Harbour Operator for this Sacred War. I have records of all boats docked at Shaitan Harbour. Please register with me before you set sail, else you will be disallowed." )
+	InitTrigger()
+	TriggerCondition( 1, HasAllBoatInBerth, 3 )
+	TriggerAction( 1, LuanchBerthList, 3, 453 , 506, 180 )
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 2, "Sorry, your boat is not docked at this harbor." )
+end
+------------------------------------------------------------
+-- КҐХЅ-----єЈёЫЦё»УЎ¤зЫзЫБщ
+------------------------------------------------------------
+function star_talk015()
+	Talk( 1, "Harbour Operator: Hi! I'm the Harbour Operator for this Sacred War. I have records of all boats docked at Shaitan Harbour. Please register with me before you set sail, else you will be disallowed." )
+	InitTrigger()
+	TriggerCondition( 1, HasAllBoatInBerth, 3 )
+	TriggerAction( 1, LuanchBerthList, 3, 357 , 450, 180 )
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 2, "Sorry, your boat is not docked at this harbor." )
+end
+------------------------------------------------------------
+-- КҐХЅ-----єЈёЫЦё»УЎ¤зЫзЫЖЯ
+------------------------------------------------------------
+function star_talk016()
+	Talk( 1, "Harbour Operator: Hi! I'm the Harbour Operator for this Sacred War. I have records of all boats docked at Shaitan Harbour. Please register with me before you set sail, else you will be disallowed." )
+	InitTrigger()
+	TriggerCondition( 1, HasAllBoatInBerth, 3 )
+	TriggerAction( 1, LuanchBerthList, 3, 256 , 450, 180 )
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 2, "Sorry, your boat is not docked at this harbor." )
+end
+
+
+------------------------------------------------------------
+-- КҐХЅ----єЈѕьЗ°ПЯЦё»У№Щ--Roico
+------------------------------------------------------------
+function roico_talk001()
+  Talk( 1, "Navy Frontline Commander: The battle has begun, everyone is a hero, remember what you strive for and work in teams to defeat the enemies! This is the only way to victory!" )
+  Text( 1, "Battle Instructor" ,JumpPage, 2)
+  --Text( 1, "set Sacred war revival point", SetSpawnPos, "Sacred War")
+  Text( 1, "Exchange battle resources", JumpPage, 3)
+  Text( 1, "Donate building resources", JumpPage, 4)
+  Text( 1, "Use Navy Token", JumpPage, 13)
+  --Text( 1, "continue battling", JumpPage, 5)
+  Talk( 2, "Target: Destroy enemy base Statue. If you destroy their Ammo warehouse or Granary first, it'll sharply decrease their power. Gathering resources will raise own base defense or exchange for battle materials. Please use the Navy Token wisely to ambush on enemies.")
+  Talk( 3, "Navy Frontline Commander: You can salvage useful things from enemies!")
+  Text( 3, "Guardian statue boost" ,JumpPage, 6)
+  Text( 3, "Random stats boost" ,JumpPage, 7)
+  Talk( 4, "Navy Frontline Commander: Donate battle materials can raise statue and defense tower stats, enabling our side to have more power.")
+  Text( 4, "Add 20 def and 1 phy resist to Statue" ,JumpPage, 8)
+  Text( 4, "Add 25 dmg to Expert Guard Tower" ,JumpPage, 9)
+  Text( 4, "SAdd invincibility to Statue for 3 minutes" ,JumpPage, 10)
+
+
+
+
+
+ InitTrigger()
+	TriggerCondition( 1, HasItem, 2859, 25 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerAction( 1, TakeItem, 2859,25 )
+	TriggerAction( 1, GiveItem, 2986, 1 , 4)
+	TriggerAction( 1, JumpPage, 11 )
+	TriggerFailure( 1, JumpPage, 12)
+	Talk( 6, "Navy Frontline Commander: Give me 25 Eye Patch and I'll give you a ticket that teleports directly back to the Statue!")
+	Text( 6, "Confirm to exchange",  MultiTrigger, GetMultiTrigger(), 1)
+        Talk(11, "Navy Frontline Commander: When the statue is in danger, you can use the ticket to come back!" )
+	Talk( 12, "Navy Frontline Commander: You don't seem to have the item on you, and you need at least one inventory space.")
+
+-- InitTrigger()
+--	TriggerCondition( 1, HasItem, 3117, 20 )
+--	TriggerAction( 1, TakeItem, 3117,20 )
+--	TriggerAction( 1, GetChaName1_guildwar, 1 )
+--	TriggerAction( 1, JumpPage, 13 )
+--	TriggerFailure( 1, JumpPage, 14)
+	Talk( 7, "Navy Frontline Commander: Give me 20 Eye Patch and I'll randomly give you power of a specific stat!")
+	Text( 7, "Confirm to exchange", GetChaName1_guildwar, 1)
+	Talk( 8, "Navy Frontline Commander: 30 Crystal Ore is needed to raise the statue defense, you can find very rich resource areas on the 2 sides of the island!")
+	Text( 8, "I have 30 Crystal Ore", GetChaName2_guildwar, 1)
+	Talk( 9, "Pirate Frontline Commander: Statue has no attack of its own and relays on Arrow Tower's protection. You can search the surrounding sea areas and find me 12 Squirting Fish and 12 Fish Bone to raise the Arrow Tower attack by 25 points. ")
+	Text( 9, "I have enough materials", GetChaName4_guildwar, 1)
+	Talk( 10, "Navy Frontline Commander: I only need 4 Hard Tortoise Shell and 9 Moon Tail Eel (Try looking for the resources around the enemy base) and I can make the Statue invincible for 3 minutes!")
+	Text( 10, "I have enough materials", GetChaName3_guildwar, 1)
+	Talk( 13, " Pirate Frontline Commander: When you have collected enough [Navy Token], you'll be able to summon monsters to ambush your enemy once, use it wisely!")
+	Text( 13, "Use 15 tokens", JumpPage, 14)
+	Text( 13, "Use 30 tokens", JumpPage, 15)
+	Text( 13, "Use 45 tokens", JumpPage, 16)
+	Talk( 14, "Navy Frontline Commander: Use 15 <<Navy Token>>, arrange 3 Navy Ambush members, please select Ambush area!")
+	Text( 14, "Enemy Statue surrounding", GetChaName5_guildwar, 1)
+	Text( 14, "Enemy armoury surroundings", GetChaName6_guildwar, 1)
+	Text( 14, "Enemy Granary surroundings", GetChaName7_guildwar, 1)
+	Text( 14, "Own fraction statue surrounding", GetChaName8_guildwar, 1)
+	Text( 14, "Own side Ammo Warehouse surroundings", GetChaName9_guildwar, 1)
+	Text( 14, "Own side Granary surroundings", GetChaName10_guildwar, 1)
+	--Text( 14, "Middle section of the battle field", GetChaName11_guildwar, 1)
+	Talk( 15, "Navy Frontline Commander: Use 30 <<Navy Token>>, arrange 7 Navy Ambush members, please select Ambush area! ")
+	Text( 15, "Enemy Statue surrounding", GetChaName11_guildwar, 1)
+	Text( 15, "Enemy armoury surroundings", GetChaName12_guildwar, 1)
+	Text( 15, "Enemy Granary surroundings", GetChaName13_guildwar, 1)
+	Text( 15, "Own fraction statue surrounding", GetChaName14_guildwar, 1)
+	Text( 15, "Own side Ammo Warehouse surroundings", GetChaName15_guildwar, 1)
+	Text( 15, "Own side Granary surroundings", GetChaName16_guildwar, 1)
+	--Text( 15, "Middle section of the battle field", GetChaName18_guildwar, 1)
+	Talk( 16, "Navy Frontline Commander: Use 45 <<Navy Token>>, arrange 11 Navy Ambush members, please select ambush area!")
+	Text( 16, "Enemy Statue surrounding", GetChaName17_guildwar, 1)
+	Text( 16, "Enemy armoury surroundings", GetChaName18_guildwar, 1)
+	Text( 16, "Enemy Granary surroundings", GetChaName19_guildwar, 1)
+	Text( 16, "Own fraction statue surrounding", GetChaName20_guildwar, 1)
+	Text( 16, "Own side Ammo Warehouse surroundings", GetChaName21_guildwar, 1)
+	Text( 16, "Own side Granary surroundings", GetChaName22_guildwar, 1)
+
+end
+------------------------------------------------------------
+-- КҐХЅ----єЈµБЗ°ПЯЦё»У№Щ--Roico
+------------------------------------------------------------
+function roico_talk002()
+Talk( 1, "Pirate Frontline Commander: Destroy, plunder, kill, nothing can stop us, show the enemy what real fear is!" )
+  Text( 1, "Battle Instructor" ,JumpPage, 2)
+  --Text( 1, "set Sacred war revival point", SetSpawnPos, "Sacred War")
+  Text( 1, "Exchange battle resources", JumpPage, 3)
+  Text( 1, "Donate building resources", JumpPage, 4)
+  Text( 1, "Use Pirate Token", JumpPage, 13)
+  --Text( 1, "continue battling", JumpPage, 5)
+  Talk( 2, "Target: Destroy the Statue in the enemy's base. If you destroy their armoury and granary first, it will greatly decrease their strength. Minerals obtained from mining can increase the defence attributes of your facilities or exchange for combat items. Using the Pirate Token at the right timing can let the enemy suffer a surprise attack.")
+  Talk( 3, "Pirate Frontline Commander: You can search for useful things from your enemies!")
+  Text( 3, "Guardian statue boost" ,JumpPage, 6)
+  Text( 3, "Random stats boost" ,JumpPage, 7)
+  Talk( 4, "Pirate Frontline commander: Donating battle materials can raise the statue and Defense Tower stats, enabling our side to have more power.")
+  Text( 4, "Add 20 def and 1 phy resist to Statue" ,JumpPage, 8)
+  Text( 4, "Add 25 dmg to Expert Guard Tower" ,JumpPage, 9)
+  Text( 4, "Add invincibility to Statue for 3 minutes" ,JumpPage, 10)
+
+
+
+
+
+ InitTrigger()
+	TriggerCondition( 1, HasItem, 2858, 25 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerAction( 1, TakeItem, 2858,25 )
+	TriggerAction( 1, GiveItem, 2986, 1 , 4)
+	TriggerAction( 1, JumpPage, 11 )
+	TriggerFailure( 1, JumpPage, 12)
+	Talk( 6, "Pirate Frontline Commander: Give me 25 snuff and I'll give you a ticket that teleports you directly back to the statue!")
+	Text( 6, "Confirm to exchange",  MultiTrigger, GetMultiTrigger(), 1)
+        Talk(11, "Pirate Frontline Commander: When the statue is in danger, you can come back using this ticket!" )
+	Talk( 12, "Pirate Frontline Commander: You don't seem to have the item on you. You also need to have at least one space inside your inventory!")
+
+-- InitTrigger()
+--	TriggerCondition( 1, HasItem, 3117, 20 )
+--	TriggerAction( 1, TakeItem, 3117,20 )
+--	TriggerAction( 1, GetChaName1_guildwar, 1 )
+--	TriggerAction( 1, JumpPage, 13 )
+--	TriggerFailure( 1, JumpPage, 14)
+	Talk( 7, "Pirate Frontline Commander: Give me 20 snuff and I will randomly grant you a specific stat power!")
+	Text( 7, "Confirm to exchange", GetChaName23_guildwar, 1)
+	Talk( 8, "Pirate Frontline Commander: To raise the Statue defense I need 30 Crystal ore. You can find rich resources at both sides of the island!")
+	Text( 8, "I have 30 Crystal Ore", GetChaName24_guildwar, 1)
+	Talk( 9, "Pirate Frontline Commander: Statue has no attack and relays on Arrow Tower's protection. If you can find 12 Squirting Fish and 12 Fish Bone for me, I can raise the Arrow Tower attack by 25 points!")
+	Text( 9, "I have enough materials", GetChaName26_guildwar, 1)
+	Talk( 10, "Pirate Frontline Commander: I only need 4 Diving Clam and 9 Tortoise Shell Fragment (Try finding it near the enemy base) to make the Statue invincible for 3 minutes!")
+	Text( 10, "I have enough materials", GetChaName25_guildwar, 1)
+	Talk( 13, "Pirate Frontline Commander: When you have collected enough [Pirate Tokens], you'll be able to summon monsters to ambush your enemy once, use it wisely!")
+	Text( 13, "Use 15 tokens", JumpPage, 14)
+	Text( 13, "Use 30 tokens", JumpPage, 15)
+	Text( 13, "Use 45 tokens", JumpPage, 16)
+	Talk( 14, "Pirate Frontline Commander: Use 15 <<Pirate Token>>, arrange 3 Pirate Ambush members, please select ambush area!")
+	Text( 14, "Enemy Statue surrounding", GetChaName27_guildwar, 1)
+	Text( 14, "Enemy armoury surroundings", GetChaName28_guildwar, 1)
+	Text( 14, "Enemy Granary surroundings", GetChaName29_guildwar, 1)
+	Text( 14, "Own fraction statue surrounding", GetChaName30_guildwar, 1)
+	Text( 14, "Own side Ammo Warehouse surroundings", GetChaName31_guildwar, 1)
+	Text( 14, "Own side Granary surroundings", GetChaName32_guildwar, 1)
+	--Text( 14, "Middle section of the battle field", GetChaName11_guildwar, 1)
+	Talk( 15, "Pirate Frontline Commander: Use 30 <<Pirate Token>>, arrange 7 Pirate Ambush Members, please select ambush area!")
+	Text( 15, "Enemy Statue surrounding", GetChaName33_guildwar, 1)
+	Text( 15, "Enemy armoury surroundings", GetChaName34_guildwar, 1)
+	Text( 15, "Enemy Granary surroundings", GetChaName35_guildwar, 1)
+	Text( 15, "Own fraction statue surrounding", GetChaName36_guildwar, 1)
+	Text( 15, "Own side Ammo Warehouse surroundings", GetChaName37_guildwar, 1)
+	Text( 15, "Own side Granary surroundings", GetChaName38_guildwar, 1)
+	--Text( 15, "Middle section of the battle field", GetChaName18_guildwar, 1)
+	Talk( 16, "Pirate Frontline Commander: Use 45 <<Pirate Token>>, arrange 11 Pirate Ambush Members, please select ambush area!")
+	Text( 16, "Enemy Statue surrounding", GetChaName39_guildwar, 1)
+	Text( 16, "Enemy armoury surroundings", GetChaName40_guildwar, 1)
+	Text( 16, "Enemy Granary surroundings", GetChaName41_guildwar, 1)
+	Text( 16, "Own fraction statue surrounding", GetChaName42_guildwar, 1)
+	Text( 16, "Own side Ammo Warehouse surroundings", GetChaName43_guildwar, 1)
+	Text( 16, "Own side Granary surroundings", GetChaName44_guildwar, 1)
+end
+
+function roico_talk()
+        Talk( 1, "Holy War Administrator: To enter the Holy War, please obtain the [Life and Death Token] from me, it represents your determination and spirit! Next I have some item you might be interested in, but I'll only give them to heroes of the war!" )
+        Text( 1, "Exchange Level 70 boss equipment",JumpPage, 2 )
+	Text( 1, "Exchange for Title Medal",JumpPage, 16 )
+	Text( 1, "Exchange Blood Pledge Token",JumpPage, 28 )
+	Text( 1, "Use Honor points to exchange into Life and Death token",JumpPage, 29 )
+
+	Talk( 2, "Select the Boss stone of your choice" )
+        Text( 2, "Hephaestus Pawstone (Champion)", JumpPage, 3)
+	Text( 2, "Hermes Pawstone (Crusader)", JumpPage, 4)
+	Text( 2, "Apollo Pawstone (SharpShooter)", JumpPage, 5)
+	Text( 2, "Poseidon Pawstone (Voyager)", JumpPage, 6)
+	Text( 2, "Hestia Pawstone (Cleric)", JumpPage, 7)
+	Text( 2, "Athena Pawstone (SealMaster)", JumpPage, 8)
+	Text( 2, "Next Page", JumpPage, 9)
+	Talk( 9, "Select the Boss stone of your choice" )
+	Text( 9, "Hephaestus Clawstone (Champion)", JumpPage, 10)
+	Text( 9, "Hermes Clawstone (Crusader)", JumpPage, 11)
+	Text( 9, "Apollo Clawstone (SharpShooter)", JumpPage, 12)
+	Text( 9, "Poseidon Clawstone (Voyager)", JumpPage, 13)
+	Text( 9, "Hestia Clawstone (Cleric)", JumpPage, 14)
+	Text( 9, "Athena Clawstone (Sealed)", JumpPage, 15)
+	Text( 9, "Go back a page", JumpPage, 2) 
+
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2383, 300 )
+	TriggerCondition( 1, LvCheck, ">", 64 )
+	TriggerAction( 1, TakeItem, 2383, 300 )
+	TriggerAction( 1, GiveItem, 2532, 1, 4 )
+	TriggerFailure( 1, JumpPage, 27 )
+	Talk( 3, "Sacred War Administrator: If your level is above 65 and if you bring me 300 blood contract, I can give you this stone." )
+	Text( 3, "Obtained Hephaestus Pawstone", MultiTrigger, GetMultiTrigger(), 1)
+
+
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2383, 300 )
+	TriggerCondition( 1, LvCheck, ">", 64 )
+	TriggerAction( 1, TakeItem, 2383, 300 )
+	TriggerAction( 1, GiveItem, 2535, 1, 4 )
+	TriggerFailure( 1, JumpPage, 27 )
+	Talk( 4, "Sacred War Administrator: If your level is above 65 and if you bring me 300 blood contract, I can give you this stone." )
+	Text( 4, "Obtained Hermes Pawstone", MultiTrigger, GetMultiTrigger(), 1)
+
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2383, 300 )
+	TriggerCondition( 1, LvCheck, ">", 64 )
+	TriggerAction( 1, TakeItem, 2383, 300 )
+	TriggerAction( 1, GiveItem, 2538, 1, 4 )
+	TriggerFailure( 1, JumpPage, 27 )
+	Talk( 5, "Sacred War Administrator: If your level is above 65 and if you bring me 300 blood contract, I can give you this stone." )
+	Text( 5, "Obtained Apollo Pawstone", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2383, 300 )
+	TriggerCondition( 1, LvCheck, ">", 64 )
+	TriggerAction( 1, TakeItem, 2383, 300 )
+	TriggerAction( 1, GiveItem, 2541, 1, 4 )
+	TriggerFailure( 1, JumpPage, 27 )
+	Talk( 6, "Sacred War Administrator: If your level is above 65 and if you bring me 300 blood contract, I can give you this stone." )
+	Text( 6, "Obtained Poseidon Pawstone", MultiTrigger, GetMultiTrigger(), 1)
+
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2383, 300 )
+	TriggerCondition( 1, LvCheck, ">", 64 )
+	TriggerAction( 1, TakeItem, 2383, 300 )
+	TriggerAction( 1, GiveItem, 2544, 1, 4 )
+	TriggerFailure( 1, JumpPage, 27 )
+	Talk( 7, "Sacred War Administrator: If your level is above 65 and if you bring me 300 blood contract, I can give you this stone." )
+	Text( 7, "Obtained Hestia Pawstone", MultiTrigger, GetMultiTrigger(), 1)
+
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2383, 300 )
+	TriggerCondition( 1, LvCheck, ">", 64 )
+	TriggerAction( 1, TakeItem, 2383, 300 )
+	TriggerAction( 1, GiveItem, 2547, 1, 4 )
+	TriggerFailure( 1, JumpPage, 27 )
+	Talk( 8, "Sacred War Administrator: If your level is above 65 and if you bring me 300 blood contract, I can give you this stone." )
+	Text( 8, "Obtained Athena Pawstone", MultiTrigger, GetMultiTrigger(), 1)
+
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2383, 300 )
+	TriggerCondition( 1, LvCheck, ">", 64 )
+	TriggerAction( 1, TakeItem, 2383, 300 )
+	TriggerAction( 1, GiveItem, 2531, 1, 4 )
+	TriggerFailure( 1, JumpPage, 27 )
+	Talk( 10, "Sacred War Administrator: If your level is above 65 and if you bring me 300 blood contract, I can give you this stone." )
+	Text( 10, "Obtained Hephaestus Clawstone", MultiTrigger, GetMultiTrigger(), 1)
+
+
+
+	
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2383, 300 )
+	TriggerCondition( 1, LvCheck, ">", 64 )
+	TriggerAction( 1, TakeItem, 2383, 300 )
+	TriggerAction( 1, GiveItem, 2534, 1, 4 )
+	TriggerFailure( 1, JumpPage, 27 )
+	Talk( 11, "Sacred War Administrator: If your level is above 65 and if you bring me 300 blood contract, I can give you this stone." )
+	Text( 11, "Obtained Hermes Clawstone", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2383, 300 )
+	TriggerCondition( 1, LvCheck, ">", 64 )
+	TriggerAction( 1, TakeItem, 2383, 300 )
+	TriggerAction( 1, GiveItem, 2537, 1, 4 )
+	TriggerFailure( 1, JumpPage, 27 )
+	Talk( 12, "Sacred War Administrator: If your level is above 65 and if you bring me 300 blood contract, I can give you this stone." )
+	Text( 12, "Obtained Apollo Clawstone", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2383, 300 )
+	TriggerCondition( 1, LvCheck, ">", 64 )
+	TriggerAction( 1, TakeItem, 2383, 300 )
+	TriggerAction( 1, GiveItem, 2540, 1, 4 )
+	TriggerFailure( 1, JumpPage, 27 )
+	Talk( 13, "Sacred War Administrator: If your level is above 65 and if you bring me 300 blood contract, I can give you this stone." )
+	Text( 13, "Obtained Poseidon Clawstone", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2383, 300 )
+	TriggerCondition( 1, LvCheck, ">", 64 )
+	TriggerAction( 1, TakeItem, 2383, 300 )
+	TriggerAction( 1, GiveItem, 2543, 1, 4 )
+	TriggerFailure( 1, JumpPage, 27 )
+	Talk( 14, "Sacred War Administrator: If your level is above 65 and if you bring me 300 blood contract, I can give you this stone." )
+	Text( 14, "Obtained Hestia Clawstone", MultiTrigger, GetMultiTrigger(), 1)
+
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2383, 300 )
+	TriggerCondition( 1, LvCheck, ">", 64 )
+	TriggerAction( 1, TakeItem, 2383, 300 )
+	TriggerAction( 1, GiveItem, 2546, 1, 4 )
+	TriggerFailure( 1, JumpPage, 27 )
+	Talk( 15, "Sacred War Administrator: If your level is above 65 and if you bring me 300 blood contract, I can give you this stone." )
+	Text( 15, "Obtained Athena Clawstone", MultiTrigger, GetMultiTrigger(), 1)
+
+
+	Talk( 16, "Sacred War Administrator: Please select the Title Accessories that you want!" )
+        Text( 16, "Scout", JumpPage, 17)
+	Text( 16, "3rd Rank Special Attack Force", JumpPage, 18)
+	Text( 16, "Vice-Cap", JumpPage, 19)
+	Text( 16, "Major General", JumpPage, 20)
+	Text( 16, "Master Chief", JumpPage, 21)
+	Text( 16, "Next Page", JumpPage, 30)
+
+	Talk( 30, "Sacred War Administrator: Please select the Title Accessories that you want!" )
+	Text( 30, "Iron blood commander", JumpPage, 22)
+	Text( 30, "Argent lieutenant commander", JumpPage, 23)
+	Text( 30, " Golden Colonel General", JumpPage, 24)
+	Text( 30, "Gold General", JumpPage, 25)
+	Text( 30, "General Godslayer", JumpPage, 26)
+	Text( 30, "Go back a page", JumpPage, 16)
+
+
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2383, 20 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerAction( 1, TakeItem, 2383, 20 )
+	TriggerAction( 1, GiveItem, 5331, 1, 4 )
+	TriggerFailure( 1, JumpPage, 27 )
+	Talk( 17, "Sacred War Administrator: If you can give me 20 blood contract, I can give you this level of Medal." )
+	Text( 17, "Obtained Emblem", MultiTrigger, GetMultiTrigger(), 1)
+
+
+
+	
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2383, 50 )
+	TriggerCondition( 1, HasItem, 5331, 1 )
+	TriggerAction( 1, TakeItem, 2383, 50 )
+	TriggerAction( 1, TakeItem, 5331, 1 )
+	TriggerAction( 1, GiveItem, 5332, 1, 4 )
+	TriggerFailure( 1, JumpPage, 27 )
+	Talk( 18, "Sacred War Administrator: If you can give me 50 Blood Contract and 1st Rank Medal, I'll give you the medal of this rank." )
+	Text( 18, "Obtained Emblem", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2383, 100 )
+	TriggerCondition( 1, HasItem, 5332, 1 )
+	TriggerAction( 1, TakeItem, 2383, 100 )
+	TriggerAction( 1, TakeItem, 5332, 1 )
+	TriggerAction( 1, GiveItem, 5333, 1, 4 )
+	TriggerFailure( 1, JumpPage, 27 )
+	Talk( 19, "Sacred War Administrator: If you can give me 100 Blood Contract and 2nd rank Medal, I'll give you the Medal of this rank." )
+	Text( 19, "Obtained Emblem", MultiTrigger, GetMultiTrigger(), 1)
+
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2383, 250 )
+	TriggerCondition( 1, HasItem, 5333, 1 )
+	TriggerAction( 1, TakeItem, 2383, 250 )
+	TriggerAction( 1, TakeItem, 5333, 1 )
+	TriggerAction( 1, GiveItem, 5334, 1, 4 )
+	TriggerFailure( 1, JumpPage, 27 )
+	Talk( 20, "Sacred war Administrator: If you can give me 250 Blood Contract and Medal of the 3rd rank, I'll then give you the Medal of this rank." )
+	Text( 20, "Obtained Emblem", MultiTrigger, GetMultiTrigger(), 1)
+
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2383, 400 )
+	TriggerCondition( 1, HasItem, 5334, 1 )
+	TriggerAction( 1, TakeItem, 2383, 400 )
+	TriggerAction( 1, TakeItem, 5334, 1 )
+	TriggerAction( 1, GiveItem, 5335, 1, 4 )
+	TriggerFailure( 1, JumpPage, 27 )
+	Talk( 21, "Sacred war Administrator: If you can give me 400 Blood Contract and Medal of the 4th rank, I'll then give you the Medal of this rank." )
+	Text( 21, "Obtained Emblem", MultiTrigger, GetMultiTrigger(), 1)
+
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2383, 650 )
+	TriggerCondition( 1, HasItem, 5335, 1 )
+	TriggerAction( 1, TakeItem, 2383, 650 )
+	TriggerAction( 1, TakeItem, 5335, 1 )
+	TriggerAction( 1, GiveItem, 5336, 1, 4 )
+	TriggerFailure( 1, JumpPage, 27 )
+	Talk( 22, "Sacred War Administrator: If you can give me 650 Blood Contract and 5th Rank Medal, I will give you the medal of this rank." )
+	Text( 22, "Obtained Emblem", MultiTrigger, GetMultiTrigger(), 1)
+
+
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2865, 55 )
+	TriggerCondition( 1, HasItem, 5336, 1 )
+	TriggerAction( 1, TakeItem, 2865, 55 )
+	TriggerAction( 1, TakeItem, 5336, 1 )
+	TriggerAction( 1, GiveItem, 5337, 1, 4 )
+	TriggerFailure( 1, JumpPage, 27 )
+	Talk( 23, "Sacred War Administrator: If you can give me 55 Blood Pledge Token and 6th Rank Medal, I will give you the medal of this rank." )
+	Text( 23, "Obtained Emblem", MultiTrigger, GetMultiTrigger(), 1)
+
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2865, 80 )
+        TriggerCondition( 1, HasItem, 5337, 1)
+	TriggerAction( 1, TakeItem, 2865, 80 )
+	TriggerAction( 1, TakeItem, 5337, 1 )
+	TriggerAction( 1, GiveItem, 5338, 1, 4 )
+	TriggerFailure( 1, JumpPage, 27 )
+	Talk( 24, "Sacred war Administrator: If you can give me 80 Blood pledge token and Medal of the 7th rank, I'll then give you the Medal of this rank. " )
+	Text( 24, "Obtained Emblem", MultiTrigger, GetMultiTrigger(), 1)
+
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2865, 110 )
+	TriggerCondition( 1, HasItem, 5338, 1)
+	TriggerAction( 1, TakeItem, 2865, 110 )
+	TriggerAction( 1, TakeItem, 5338, 1 )
+	TriggerAction( 1, GiveItem, 5339, 1, 4 )
+	TriggerFailure( 1, JumpPage, 27 )
+	Talk( 25, "Sacred war Administrator: If you can give me110 Blood pledge token and Medal of the 8th rank, I'll then give you the Medal of this rank. " )
+	Text( 25, "Obtained Emblem", MultiTrigger, GetMultiTrigger(), 1)
+
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2865, 155 )
+	TriggerCondition( 1, HasItem, 5339, 1)
+	TriggerAction( 1, TakeItem, 2865, 155 )
+	TriggerAction( 1, TakeItem, 5339, 1 )
+	TriggerAction( 1, GiveItem, 5340, 1, 4 )
+	TriggerFailure( 1, JumpPage, 27 )
+	Talk( 26, "Sacred War Administrator: If you can give me 155 Blood Bledge Token and 9th rank Medal, then I will give you the medal of this rank." )
+	Text( 26, "Obtained Emblem", MultiTrigger, GetMultiTrigger(), 1)
+        Talk( 27, "Sacred War Administrator: Please check if your inventory has enough space or you may not have all the items needed. I cannot exchange with you!" )
+
+
+
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2383, 20 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerAction( 1, TakeItem, 2383, 20 )
+	TriggerAction( 1, GiveItem, 2865, 1, 4 )
+	TriggerFailure( 1, JumpPage, 27 )
+	Talk( 28, "Sacred War Administrator: 20 Blood Covenant can be exchanged into 1 Token of Blood Alliance!" )
+	Text( 28, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+
+	
+	Talk( 29, "Sacred War Administrator: 15 honor points can be exchanged into one Life and Death Token. Life and Death Token will only disappear if you died inside Sacred War!")
+	Text( 29, "Confirm to exchange", GetChaName45_guildwar, 1)
+
+end

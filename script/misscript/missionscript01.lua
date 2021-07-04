@@ -1,7 +1,11 @@
-print( "------------------------------------" )
-print( "‡ Јаг§Є  Mission Files:" )
-print( "------------------------------------" )
-print( "‡ Јаг§Є  MissionScript01.lua" )
+--------------------------------------------------------------------------
+--									--
+--									--
+--MissionScript01.lua Created by Robin 2004.12.27.	--
+--									--
+--									--
+--------------------------------------------------------------------------
+print( "loading MissionScript01.lua" )
 
 jp= JumpPage
 amp=AutoMissionPage
@@ -10,13 +14,21 @@ am=AddMission
 MissionCheck = HasFlag
 mc=MissionCheck
 
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[Т©ІЭЙМИЛЎЄЎЄµЫД·]			--
+--							--
+--		224575,277025				--
+----------------------------------------------------------
 function RobinMission003()
 
-	DefineMission( 707, "Приветствие Врача ", 703, COMPLETE_SHOW)
+-----------------------------------Т©Ж·µкµДОКєт
+	DefineMission( 707, "Physician's Greetings", 703, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 		
-	MisResultTalk("<t>Я вижу вы здесь новенький? Добро пожаловать! Возьмите эти <rЯблоки>, я их сам делал! Я думаю они вам прегодятся.<n><t>А сейчас возвращайтесь к Сенне (2223, 2785).<n><t>(Дито дал вам несколько яблок. Перетащите их на кнопки F1 - F8 для быстрого использования.)")
+	MisResultTalk("<t>You say you're new around here? Welcome! Take these <rApples>, they're on the house! I'm sure they'll come in handy to you.<n><t>Now return to Senna at (2223, 2785).<n><t>(Ditto has given you some \"Apples\". Drag to F1 - F8 hotkey slot to use as a shortcut.)")
 	MisResultCondition(NoRecord, 703)
 	MisResultCondition(HasMission, 703)
 	MisResultCondition(NoFlag, 703, 10)
@@ -27,9 +39,10 @@ function RobinMission003()
 	MisResultAction(GiveItem, 1847, 10, 4)
 	MisResultBagNeed(1)
 
-	DefineMission( 733, "Коллекция листьев ", 721 )
+--------------------------Т¶ЧУКХјЇ
+	DefineMission( 733, "Leaves Collection", 721 )
 
-	MisBeginTalk( "<t>Привет! Вам нужно собрать для меня нкоторые травы. Мне нужно несколько типов лситьев. Собери 10 <rПожухлый лист> и 5 <rЗеленый лист>, которые можно выбить с Волшебного куста или Волшебного цветка." )
+	MisBeginTalk( "<t>Hi! You will need to help me collect some herbs. I need a few types of leaves. They are 10 <rShriveled Leaf> and 5 <rGreen Leaf> and can be found on Mystic Shrub and Mystic Flower." )
 	MisBeginCondition(NoMission, 721)
 	MisBeginCondition(LvCheck, ">", 4 )
 	MisBeginCondition(LvCheck, "<", 7 )
@@ -45,8 +58,8 @@ function RobinMission003()
 	MisPrize(MIS_PRIZE_MONEY, 100, 1)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Замечательно! Я могу продолжить мои исследования дальше!")
-	MisHelpTalk("<t>Разве ты не собрал листья?")
+	MisResultTalk("<t>This is great! I can continue my herbal research once again!")
+	MisHelpTalk("<t>Have you not collected all the leaves?")
 	MisResultCondition(HasMission, 721)
 	MisResultCondition(HasItem, 1573, 10 )
 	MisResultCondition(HasItem, 1574, 3 )
@@ -64,9 +77,10 @@ function RobinMission003()
 	TriggerAction( 1, AddNextFlag, 721, 20, 3 )
 	RegCurTrigger( 7212 )
 
-	DefineMission( 738, "Рецепт Отвара ", 726 )
+--------------------------БйёРЕд·Ѕ
+	DefineMission( 738, "Decoction Recipe", 726 )
 
-	MisBeginTalk( "<t>Уеня появилось вдохновление, чтобы создать новый вид медицины. Извините, что я вас побеспокоил, но не могли бы вы мне помочь собрать 2 <rСтакана>, 2 <rЦветочные почки> and 5 <rЧернил спрута>. Ингридиенты можно добыть из Лесного духа, Мистического цветка и креветочки. Я награжу тебя. Иди прямо сейчас!" )
+	MisBeginTalk( "<t>I have got an inspiration to make a new kind of medicine. Sorry to trouble you but could you help me to collect 2 <rGlass>, 2 <rFlower Bud> and 5 <rOctopus Ink>. You can get them from Forest Spirit, Mystic Flower and Octopus. I will reward you. Go now!" )
 	MisBeginCondition(NoMission, 726)
 	MisBeginCondition(LvCheck, ">", 6 )
 	MisBeginCondition(LvCheck, "<", 8 )
@@ -84,8 +98,8 @@ function RobinMission003()
 	MisPrize(MIS_PRIZE_MONEY, 200, 1)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Очень хорошо. Так как вы собрали необходимые ингридиенты, я могу начать иследования нового зелья.")
-	MisHelpTalk("<t>Что? Поспеши собрать все ингридиенты пока у меня не прошло вдохновение...")
+	MisResultTalk("<t>Very well. Since you have collected the nessaccery items, I can begin my research for a new potion.")
+	MisHelpTalk("<t>What? Hurry up and collect those ingredients before I lose my inspirationЎ­")
 	MisResultCondition(HasMission, 726)
 	MisResultCondition(HasItem, 1777, 2 )
 	MisResultCondition(HasItem, 1579, 2 )
@@ -109,9 +123,10 @@ function RobinMission003()
 	TriggerAction( 1, AddNextFlag, 726, 30, 5 )
 	RegCurTrigger( 7263 )
 
-	DefineMission( 739, "Грибы Грибы ", 727 )
+--------------------------Дў№ЅДў№Ѕ
+	DefineMission( 739, "Mushroom Mushroom", 727 )
 
-	MisBeginTalk( "<t>Говоря о том,в прошлом,я привык собирать <bГриб жадовец> недалеко от Аргента. Недавно я был занят експерементом,с рецептом,но забыл полностью где это место.Мне кажется что сейчас хорошее время,чтобы придать их хорошему использованию. Можешь пожалуйста мне принести 10 <rЯдовитых грибов> и 5 <rГрибов>?<n><t>Ммм...Скажу о том, что этот Гриб-жадобец весьма агрессивен,так что лучше захвати с собой, некоторые лечебные изделия. Гриб можно найти по координатам (2220, 2564). Обрати внимание,возможно сейчас лучшее время для урожая!" )
+	MisBeginTalk( "<t>Speaking about it, in the past, I used to raise several <bGreedy Shrooms> outside Argent City. Recently I have been busy experimenting with the recipe so I totally forgotten all about them, seems to me now is a good time to put them to good use. Can you please retrieve 10 <rPoison Mushroom> and 5 <rMushroom>?<n><t>Err...Speaking about it, these Greedy Shroom are quite aggressive so its better to bring some healing items just in case. Other than that, these Greedy Shrooms can be found at (2220, 2564). Have a look, it might be the best time for harvest, everything is in your hands now!" )
 	MisBeginCondition(NoMission, 727)
 	MisBeginCondition(LvCheck, ">", 7 )
 	MisBeginCondition(LvCheck, "<", 9 )
@@ -127,8 +142,8 @@ function RobinMission003()
 	MisPrize(MIS_PRIZE_MONEY, 300, 1)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Восхетительно! Ты собрал все! Спасибо!")
-	MisHelpTalk("<t>В чем дело? Разве гриб-жадовец испугал вас?")
+	MisResultTalk("<t>This is great! You have collected all the stuff! Thanks!")
+	MisHelpTalk("<t>What's the matter? Did the Greedy Shrooms frighten you?")
 	MisResultCondition(HasMission, 727)
 	MisResultCondition(HasItem, 3118, 5 )
 	MisResultCondition(HasItem, 1725, 10 )
@@ -148,13 +163,22 @@ function RobinMission003()
 
 
 end
-RobinMission003()
+RobinMission003() --¶ЁТеИООсєуЅбКшК±±ШРлµчУГёГєЇКэ
 
+
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[РЎЙЅіµ]				--
+--							--
+--		219350,273050				--
+----------------------------------------------------------
 function RobinMission004()
 
-	DefineMission( 748, "Компас выживания ", 736 )
+-----------------------------------ЙъґжЦёДП
+	DefineMission( 748, "Survival Compass", 736 )
 	
-	MisBeginTalk( "<t>Ты здесь,чтобы стать Исследователем? Исследователям часто приходиться сталкиваться с различными опасностями,и им нужно заниматься собой. Без необходимых знаний, ты не сможешь существовать в этом жестоком мире, как Исследователь. Чтобы получить <rКомпас выживания>, тебе нужно будет подойти к <pОкраинам Аргента>, убить 5 <bБолтных духов> (К северу от шахт), 10 <bМорских улиток> (На побережье) и собрать 5 шт. <bЧерепашьей крови> (Травяная черепаха).<n><t>Когда ты выполнишь задание, я вручу тебе <bКомпас выжывания>.<n><t>Когда станешь 10 уровнем приходи, я сделаю тебя исследователем." )
+	MisBeginTalk( "<t>Are you here to become an Explorer? Explorer often encounter many dangers and have to persevere on their own. Without any proper knowledge, you will not surive in this harsh world as an Explorer. To obtain the <rSurvival Compass>, you will need to go to the <pOutskirt of Argent City>, defeat 5 <bMarsh Spirits> (North of Mine), 10 <bSea Snails> (Seaside) and collect 5 <bTortoise Blood> (Grassland Tortoise).<n><t>If you can complete these task, I will give you the <bSurvival Compass>.<n><t>When you have reached level 10, you can come back to become a full fledge Explorer." )
 	MisBeginCondition(NoMission, 736)
 	MisBeginCondition(LvCheck, ">", 8 )
 	MisBeginCondition(PfEqual, 0 )
@@ -173,8 +197,8 @@ function RobinMission004()
 	MisPrize(MIS_PRIZE_ITEM, 3962, 1, 4)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Четко выполнил, я горжусь тобой!<n><t>Ты прошел это испытание. Вот тебе <rКомпас выживания> это то, что тебе понравиться. <n><t>Сохрани его и принеси мне, когда достигнешь <p10 уровня>.")
-	MisHelpTalk("<t>Ты не выполнил задание. Воспользуйся Руководством выживания.Иди работай,иначе никогда не станешь Исследователем!")
+	MisResultTalk("<t>Quite a nice performance I must say!<n><t>You have passed the test I had set. This <rSurvival Compass> is what all new Explorer requires. <n><t>Keep it safe and come back to me when you are <pLv10>.")
+	MisHelpTalk("<t>You have reached the requirement to complete this trial. It is not that easy to obtain the Survival Manual.")
 	MisResultCondition(HasMission, 736)
 	MisResultCondition(HasFlag, 736, 14 )
 	MisResultCondition(HasFlag, 736, 29 )
@@ -199,9 +223,10 @@ function RobinMission004()
 	RegCurTrigger( 7363 )
 
 
-	DefineMission( 758, "Путешествие Покорителя морей ", 742 )
+-----------------------------------єЅєЈКїЧЄЦ°ИООс
+	DefineMission( 758, "Journey of the Voyager", 742 )
 	
-	MisBeginTalk( "<t>Если вы выбирете профессию <bПокоритель морей>, вы должны будете придти ко мне.<n><t>Когда я был молод,я относился по-дружески к каждому моряку. Сейчас, они плавают в гаванях многих частей света.<n><t>Возьми моё рекомендательное письмо,чтобы они знали,что ты от меня. <n><t>Они стоят у пристани: <pОстрова Зефира>'s <b Портальщица Аргента>, <pЛедниковый остров>'s <b Остров Удачи>, <Остров Отверженных>'s <b Остров Купидона> и <pБухта Сары>'s <b Остров Канареек>.Короче говоря побегай по островам..." )
+	MisBeginTalk( "<t>Since you chosen to be a <bVoyager>, you must be prepared for what is to come.<n><t>I have befriend some sailors when I was young. Now, they are incharge of harbors in some part of the world.<n><t>Take my recommendation letter to them and they will know what to do. <n><t>They are <pZephyr Isle>'s <b Burgess>, <pGlacier Isle>'s <b Sacenis>, <pOutlaw Isle>'s <b Dilady> and <pSara Haven>'s <b Whitney>." )
 	MisBeginCondition(NoRecord, 742)
 	MisBeginCondition(NoMission, 742)
 	MisBeginCondition(LvCheck, ">", 39 )
@@ -215,8 +240,8 @@ function RobinMission004()
 	MisNeed(MIS_NEED_DESP, "Talk to Dilady at (3595, 739)")
 	MisNeed(MIS_NEED_DESP, "Talk to Whitney at (3097, 3530)")
 	
-	MisResultTalk("<t>О,ты вернулся! Теперь ты стал <bМореплавателем>.<n><t>Пойди в море под парусами и стань легендой!")
-	MisHelpTalk("<t>Беги быстрее! Ты что не слышишь зов океана? Тогда ты не готов быть моряком!")
+	MisResultTalk("<t>Oh you are back! You are now a full fledged <bVoyager>.<n><t>Sail the sea and make your legends today!")
+	MisHelpTalk("<t>Go now! Have you not hear the call of the ocean?")
 	MisResultCondition(HasMission, 742)
 	MisResultCondition(HasFlag, 742, 20 )
 	MisResultCondition(HasFlag, 742, 30 )
@@ -228,42 +253,46 @@ function RobinMission004()
 
 
 
-	DefineMission( 760, "Путешествие Покорителя морей ", 742, COMPLETE_SHOW)
+-----------------------------------єЅєЈКїЧЄЦ°ИООс
+	DefineMission( 760, "Journey of the Voyager", 742, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 		
-	MisResultTalk("<t>Хохо! Хочешь стать покорителем морей?  Тогда ты должен больше работать! Это будет светлое будущее для вас, если вы станете покорителем морей!")
+	MisResultTalk("<t>Hoho! You wish to become a Voyager?  Then you must work harder! It will be a promising future for you if you become a Voyager!")
 	MisResultCondition(NoRecord, 742)
 	MisResultCondition(HasMission, 742)
 	MisResultCondition(NoFlag, 742, 20)
 	MisResultAction(SetFlag, 742, 20)
 
 
-	DefineMission( 761, "Путешествие Покорителя морей ", 742, COMPLETE_SHOW)
+-----------------------------------єЅєЈКїЧЄЦ°ИООс
+	DefineMission( 761, "Journey of the Voyager", 742, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 		
-	MisResultTalk("<t>Проклятый Маленький Даниэль. Одна мысль только после того,как я попрощался!")
+	MisResultTalk("<t>Damn Little DanielЎ­Only thought of me after so longЎ­!")
 	MisResultCondition(NoRecord, 742)
 	MisResultCondition(HasMission, 742)
 	MisResultCondition(NoFlag, 742, 30)
 	MisResultAction(SetFlag, 742, 30)
 
-	DefineMission( 762, "Путешествие Покорителя морей ", 742, COMPLETE_SHOW)
+-----------------------------------єЅєЈКїЧЄЦ°ИООс
+	DefineMission( 762, "Journey of the Voyager", 742, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 		
-	MisResultTalk("<t>Ох, новый покоритель морей, Добро пожаловать!<n><t>Незабудь,он должен тебе 50000G...уже 5 лет...")
+	MisResultTalk("<t>Oh, a new Voyager, welcome!<n><t>Remember to help me remind Little Daniel that he owe me 50000G...for 5 years already...")
 	MisResultCondition(NoRecord, 742)
 	MisResultCondition(HasMission, 742)
 	MisResultCondition(NoFlag, 742, 40)
 	MisResultAction(SetFlag, 742, 40)
 
-	DefineMission( 763, "Путешествие Покорителя морей ", 742, COMPLETE_SHOW)
+-----------------------------------єЅєЈКїЧЄЦ°ИООс
+	DefineMission( 763, "Journey of the Voyager", 742, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 		
-	MisResultTalk("<t>Плавание в море очень опасно. Обращайся ко мне,если будет необходимость. Малыш Даниэль помогал всегда и будет помогать.")
+	MisResultTalk("<t>Sailing the sea is perilous. Talk to me if you have any needs. Little Daniel used to help me a lot in the past.")
 	MisResultCondition(NoRecord, 742)
 	MisResultCondition(HasMission, 742)
 	MisResultCondition(NoFlag, 742, 50)
@@ -272,13 +301,22 @@ function RobinMission004()
 end
 RobinMission004()
 
+
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[РЎЅрЅр]				--
+--							--
+--		224575,277025				--
+----------------------------------------------------------
 function RobinMission007()
 
-	DefineMission( 703, "Приветствие Кузнеца ", 701, COMPLETE_SHOW)
+-----------------------------------МъЅіµДОКєт
+	DefineMission( 703, "Blacksmith's Greetings", 701, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 		
-	MisResultTalk("<t>Я смотрю вы здесь новичок? Меня зовут <bГолди>, Я кузнец города <pАргент>. Я кую оружие, вставляю в них самоцветы, придаю им красивый вид, могу делать слота в вещах, а также могу вынимать самоцветы из твоих вещей и т.д... Я действительно занятой в эти дни, но сделаю исключение, чтобы помочь тебе, так как я вижу что у тебя есть Рекомендательное письмо от Наставницы Сенны.<n><t>Не забудь поговорить с <bСенной> по координатам (2223, 2785) я длеаю это все только ради нее, ахаха!<n><t>(Голди дал тебе Нож новичка. Открой инвентарь и двойным щелчком нажми на него.)")
+	MisResultTalk("<t>You're new here? People call me <bGoldie>, I'm the Blacksmith of <pArgent City>. I mainly forge swords but I do make quite a bit of sales off other weapons as well. I'm really busy these days but I'll make an exception to help you out since you have beautiful Senna's recommendation.<n><t>Don't forget to return to tell <bSenna> at (2223, 2785) that I'm doing all this for her sake, haha!<n><t>(Goldie has given you a pair of \"Newbie Knife\". Open your inventory and double click on it to equip.)")
 	MisResultCondition(NoRecord, 701)
 	MisResultCondition(HasMission, 701)
 	MisResultCondition(NoFlag, 701, 10)
@@ -291,11 +329,20 @@ function RobinMission007()
 end
 RobinMission007()
 
+
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[ґуЙс№ЩЎ¤ёКµШО¬А­]			--
+--							--
+--		239185,277025				--
+----------------------------------------------------------
 function RobinMission017()
 
-	DefineMission( 719, "Патент о благочестии ", 711 )
+-----------------------------------тЇіПµ»ОД
+	DefineMission( 719, "Righteous Document", 711 )
 	
-	MisBeginTalk( "<t>Зачем тебе понадобился  <rПатент о благочестии>? Раньше многие пробовали быть Знахаркой,чтобы зарабатывать деньги. Тебе прийдется доказать мне,сможешь ли ты соответствовать своей квалификации.<n><t>Потом я смогу тебе дать <rПатент о благочестии><t>Пойди и отвари мне 1 чашку <rСок Эльфйского фрукта> и принеси мне 2 <rЦелебные травы>. TЭто часть твоего обучения относительно микстур обновления. Найди <bOuya> в <pШайтане> если тебе будет нужна помощь.<n><t>Иди по координатам <r(1184, 3557)> и убей 10 <bБольших скорпионов> " )
+	MisBeginTalk( "<t>Why do you want to the <rRighteous Document>? Recently, many have tried to be a herbalist just to earn money. You have to prove to me whether you can meet the qualifications of being one.<n><t>Then I will pass you the <rRighteous Document>.<n><t>Go and decoct 1 cup of <rElven Fruit Juice> and bring me 2 <rMedicated Grass>. This is part of your training regarding recovery potions. Look for <bOuya> in <pShaitan> if you need help.<n><t>Go to <r(1184, 3557)> and kill 10 <bBig Scorpions> too." )
 	MisBeginCondition(NoMission, 711)
 	MisBeginCondition(LvCheck, ">", 8 )
 	MisBeginCondition(CheckConvertProfession, MIS_DOCTOR )
@@ -313,8 +360,8 @@ function RobinMission017()
 	MisPrize(MIS_PRIZE_ITEM, 3954, 1, 4)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Ты хорошо научился!<n><t>С тех пор,как ты прошел моё испытание, это и есть <rПатент о благочестии> Требуемый для Знахарки.<n><t>Возвращайся ко мне,когда достигнешь <p10 уровня>. ")
-	MisHelpTalk("<t>Ты не выполнил моего поручения. Ты не готов стать Знахаркой.")
+	MisResultTalk("<t>You have done well!<n><t>Since you have passed my test, this is the <rRighteous Document> required to become a Herbalist.<n><t>Keep it well and return here after you are <pLv 10>. ")
+	MisHelpTalk("<t>You have not met my requirement. Its not that easy to become a Herbalist.")
 	MisResultCondition(HasMission, 711)
 	MisResultCondition(HasItem, 3122, 1 )
 	MisResultCondition(HasItem, 3129, 2 )
@@ -339,9 +386,10 @@ function RobinMission017()
 	TriggerAction( 1, AddNextFlag, 711, 30, 10 )
 	RegCurTrigger( 7113 )
 
-	DefineMission( 751, "Аллея Целителя ", 739 )
+-----------------------------------КҐЦ°ХЯЧЄЦ°ИООс
+	DefineMission( 751, "Walk of the Cleric", 739 )
 	
-	MisBeginTalk( "<t>Чтобы стать <bЦелителем, нужно иметь веру. Я надеюсь, что ты не забудешь об этом. Я дам тебе простенькую задачу.<n><t>Собери всего лишь 2 <yЛепестка многоцвета>, 4 <yПанацеи> и 6  банок <yСока эльфийского Фрукта>.<n><t>Передай половину <bДедушке Донгу> в Ледяном шипе и <bДоктору - Чиво> в Халдейском оплоте. Ты должен передать 3 банки Сока эльфийского фрукта, 2 Панацеи и 1 Лепесток многоцвета." )
+	MisBeginTalk( "<t>To become a <bCleric>, you must have faith. I hope that you will remember this. I will give you a simple task.<n><t>Collect a total of 2 <yFancy Petals>, 4 <yPanaceas> and 6 bottles of <yElven Fruit Juice>.<n><t>Pass half of each to <bGranny Dong> in Icicle Haven and <bDoctor - Chivo> in Chaldea Haven. Each must receive 3 bottles of Elven Fruit Juice, 2 Panaceas and 1 Fancy Petal." )
 	MisBeginCondition(NoRecord, 739)
 	MisBeginCondition(NoMission, 740)
 	MisBeginCondition(NoMission, 739)
@@ -351,11 +399,11 @@ function RobinMission017()
 	MisBeginAction(AddMission, 739)
 	MisCancelAction(ClearMission, 739)
 
-	MisNeed(MIS_NEED_DESP, "Принесите 3 сока эльфийского фрукта, 2 панацеи и 1 Лепесток многоцвета <bДедушке Донгу> В Ледяном шипе (795, 363)")
-	MisNeed(MIS_NEED_DESP, "Принесите 3 сока эльфийского фрукта, 2 панацеи и 1 Лепесток многоцвета <bДоктору Чиво> В Халдейском оплоте (630, 2091)")
+	MisNeed(MIS_NEED_DESP, "Bring 3 Elven Fruit Juice, 2 Panacea and 1 Fancy Petal to <bGranny Dong> in Icicle Haven at (795, 363)")
+	MisNeed(MIS_NEED_DESP, "Bring 3 cups of Elven Fruit Juice, 2 Panacea and 1 Fancy Petal to <bDoctor Chivo> in Chaldea Haven at (630, 2091)")
 	
-	MisResultTalk("<t>Поздравляю!<n><t>Теперь ты <bЦельтельница>!<n><t>Пусть Богиня Кара будет с тобой.")
-	MisHelpTalk("<t>По какой причине ты не смог выполнить моё поручение? Не забывай! Терпение и целеустремление - ключ к успеху!")
+	MisResultTalk("<t>Congratulations!<n><t>You are now a qualifed <bCleric>!<n><t>May Goddess Kara be with you.")
+	MisHelpTalk("<t>What is the reason that is stopping you? Remember! Patience and determination is the key to success!")
 	MisResultCondition(HasMission, 739)
 	MisResultCondition(HasFlag, 739, 10 )
 	MisResultCondition(HasFlag, 739, 20 )
@@ -363,11 +411,12 @@ function RobinMission017()
 	MisResultAction(SetRecord, 739)
 	MisResultAction(SetProfession, 13)
 	
-	DefineMission( 752, "Аллея Целителя ", 739, COMPLETE_SHOW)
+-----------------------------------КҐЦ°ХЯЧЄЦ°ИООс
+	DefineMission( 752, "Walk of the Cleric", 739, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 		
-	MisResultTalk("Это подарок для меня? Вы очень добры. Я сообщю высшему целителю об этом.")
+	MisResultTalk("This is a gift for me? You are so kind. I will tell the High Priest about it.")
 	MisResultCondition(NoRecord, 739)
 	MisResultCondition(HasMission, 739)
 	MisResultCondition(NoFlag, 739, 10)
@@ -379,11 +428,12 @@ function RobinMission017()
 	MisResultAction(TakeItem, 3130, 1)
 	MisResultAction(SetFlag, 739, 10)
 
-	DefineMission( 753, "Путь Клерика ", 739, COMPLETE_SHOW)
+-----------------------------------КҐЦ°ХЯЧЄЦ°ИООс
+	DefineMission( 753, "Walk of the Cleric", 739, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 		
-	MisResultTalk("Так,высший целитель послал вас. Я ощущаю недостаток некоторых важных трав и ты доберись до истины. Я сообщю высшему целителю относительно этого вещества.")
+	MisResultTalk("So the high priest sent you. I lack some important herbs and you come at the right moment. I will report back to the high priest regarding this matter.")
 	MisResultCondition(NoRecord, 739)
 	MisResultCondition(HasMission, 739)
 	MisResultCondition(NoFlag, 739, 20)
@@ -396,9 +446,11 @@ function RobinMission017()
 	MisResultAction(SetFlag, 739, 20)
 
 
-	DefineMission( 755, "Пути Колдуньи ", 740 )
+
+-----------------------------------·вУЎК¦ЧЄЦ°ИООс
+	DefineMission( 755, "Ways of the Seal", 740 )
 	
-	MisBeginTalk( "<t>Чтобы стать <bКолдуньей>, ты должен иметь баланс добра и зла. Чтобы проверить твою способность, мне нужно сделать что-нибудь:<n><t>Собери 3 <yОвечьих колокольчика> с <rБезумной овцы>, 10 <yОчень острый клюв> с <rЖалоклюв> и 3 <yНепорочных сердец> со <rСнежного духа>. Отнеси это <bСвященной жрице - Аде> в <pСтарый город Шайтана> и скажи ей,чтобы очистила <yПорочное сердце>. <n><t>Ищи <rОчень острый клюв> в Андийском лесе в <pАскароне> и остальное может быть найдено в <pВеликий Синий океан>" )
+	MisBeginTalk( "<t>To become a <bSeal Master>, you must have a balance of good and evil. To test your ability, I need to do something:<n><t>Collect 3 <yDingle Bells> from <rCrazy Sheep>, 10 <yDangerous Sharp Claws> from <rStinging Beak> and 3 <yHearts of Purity> from <rSnow Spirit>. Bring these to <bHoly Priestess - Ada> at <pOld Shaitan City> and ask her to cleanse them with <ySoul of Purity>. <n><t>Look for <rStinging Beak> in the deep forest in <pAscaron> and the rest of monsters can be found near <pIcicle Castle>" )
 	MisBeginCondition(NoRecord, 740)
 	MisBeginCondition(NoMission, 740)
 	MisBeginCondition(NoMission, 739)
@@ -408,21 +460,22 @@ function RobinMission017()
 	MisBeginAction(AddMission, 740)
 	MisCancelAction(ClearMission, 740)
 
-	MisNeed(MIS_NEED_DESP, "Принеси 3 предмета и <yПорочное сердце> к <bСвященной жрице Аде> в <pСтарый город Шайтана> по координатам (862, 3303). Очисти там <yПорочное сердце>.")
+	MisNeed(MIS_NEED_DESP, "Bring the required 3 items and <yHeart of Purity> to <bHoly Priestess Ada> in <pOld Shaitan City> at (862, 3303). Let her purify it with the <ySoul of Purity>.")
 	
-	MisResultTalk("<t>Поздравляю, теперь ты <bКолдунья>.<n><t>Пусть Богиня Кара благославит тебя!")
-	MisHelpTalk("<t>Иди сейчас! Верь в себя и выполни задание!")
+	MisResultTalk("<t>Congratulations, you are now a qualified <bSeal Master>.<n><t>May the Goddess bless you!")
+	MisHelpTalk("<t>Go now! Have faith in yourself!")
 	MisResultCondition(HasMission, 740)
 	MisResultCondition(HasFlag, 740, 10 )
 	MisResultAction(ClearMission, 740)
 	MisResultAction(SetRecord, 740)
 	MisResultAction(SetProfession, 14)
 
-	DefineMission( 756, "Пути Колдуньи ", 740, COMPLETE_SHOW)
+-----------------------------------·вУЎК¦ЧЄЦ°ИООс
+	DefineMission( 756, "Ways of the Seal", 740, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 		
-	MisResultTalk("<t>Да Благославит тебя Богиня Кара.<n><t>Так...Ты принес материалы,которые очищают. Очень хорошо. Я сделаю своё очищение в этом храме.<n><t>Ты можешь вернуться к Gannon в Шайтане. Я предпочитаю находится здесь один.<n><t>Да благославит тебя Богиня Кара.")
+	MisResultTalk("<t>May the Goddess bless you.<n><t>So you have brought these stuffs to be purified. Very well. I will do my utmost for you in this sacred temple.<n><t>You can go back to Gannon in Shaitan. I prefer to be alone here.<n><t>May the Goddess bless you.")
 	MisResultCondition(NoRecord, 740)
 	MisResultCondition(HasMission, 740)
 	MisResultCondition(NoFlag, 740, 10)
@@ -438,13 +491,21 @@ function RobinMission017()
 end
 RobinMission017()
 
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[МъЅіЎ¤Н­Н­№Д]			--
+--							--
+--		239185,277025				--
+----------------------------------------------------------
 function RobinMission022()
 
-	DefineMission( 713, "Приветствие кузнеца ", 707, COMPLETE_SHOW)
+---------------------------------------РВКЦИООсЛНРЎµ¶
+	DefineMission( 713, "Blacksmith's Greetings", 707, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 		
-	MisResultTalk("Ты здесь новенький?<n><t>Меня зовут <bСмити>, Я кузнец города <pШайтан>. Я кую оружие, вставляю в них самоцветы, придаю им красивый вид, могу делать слоты в вещах, а также могу вынимать самоцветы из твоих вещей и т.д... Я был очень занят в эти дни.<n><t>Незабудь вернуться и поговорить с  <bНаставницей Реслин> по координатам (876, 3572), я делю это все ради нее, Ухаха!<n><t>(Смити дал тебе Нож новичка. Открой инвентарь,дважды кликни и он оденется.)")
+	MisResultTalk("You're new here?<n><t>People call me <bSmithy>, I'm the Blacksmith of <pShaitan City>. I forge swords and also make quite a bit of sales off other weapons as well. I'm really busy<n><t>Don't forget to return to tell <bResline> at (876, 3572) that I'm doing all this for her sake, haha!<n><t>(Smithy has given you a pair of \"Newbie Knife\". Open your inventory and double click on it to equip.)")
 	MisResultCondition(NoRecord, 707)
 	MisResultCondition(HasMission, 707)
 	MisResultCondition(NoFlag, 707, 10)
@@ -456,25 +517,35 @@ function RobinMission022()
 end
 RobinMission022()
 
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[РВКЦЦёµјЎ¤ЙЄ°І]			--
+--							--
+--		239185,277025				--
+----------------------------------------------------------
 function RobinMission024()
 
-	DefineMission( 701, "Добро Пожаловать!", 1, COMPLETE_SHOW)
+-----------------------------------РВИЛ±ЁµА
+	DefineMission( 701, "Welcome", 1, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 	
-	MisResultTalk("<t> Добро Пожаловать!<n><t>Приходи ко мне, если у тебя есть вопросы относительно классов персонажей. И обдумывай свой выбор по мнению кем быть.<n><t>Ещё я хочу тебе поведать где продаётся неплохое оружие в <pАргенте>.<n><t>Теперь когды ты поднимаешь драгоценные уровни нажимай клавиши Ctrl + A, для того чтобы зайти в окно своих характеристик. Каждый поднятый тобой уровень даёт тебе очки характеристик. <n><t>У тебя в расположении имеется 5 видов антрибутов, таких как: Сила ,которая увеличивает твою атаку в ближнем бою; Ловкость, которая увеличивает твою скорость боя и уворот; Точность, которая увеличивает твоё шанс на попадение и усиливает твою мощь; Дух, который увеличивает твой максимальноый запас маны и магический урон;И Телесложение, которое увеличивает твой запас жизни и Брони.")
-	MisHelpTalk("<t>Привет! Я наставница этого города. Навещай меня когда тебе будет нужна помощь в игре.<n><t>Без моей помощи тебе будет очень трудно.")
+	MisResultTalk("<t> Welcome!<n><t>Come to me if you have any questions regarding Classes and Attribute related issue.<n><t>Next I am going to tell you where to buy good weapons in <pArgent City>.<n><t>Since you have leveled up,  you can press the yellow button below your portrait (Alt + A) to open your character page to distribute your stats. Every time you level up, you will received more points for your own allocation. <n><t>You have 5 basic attributes that can be added: Strength which affects your melee attack power; Agility which increases your Attack Speed and Dodge rate; Accuracy which increases your Hit Rate and range attack power; Spirit which increases your Max SP and magical damage; Constitution which increases your defense and Max HP.")
+	MisHelpTalk("<t>Hi! I am the only Newbie Guide in this city. Look for me when you feel the need to understand the basic of this game.<n><t>It will be harsh for you to survive without any help.")
 	MisResultCondition(NoRecord, 1)
 	MisResultCondition(HasMission, 1)
-
+	--MisResultCondition(HasFlag, 700, 10)
+	--MisResultCondition(HasFlag, 700, 20)
 	MisResultAction(ClearMission, 1)
 	MisResultAction(SetRecord, 1)
 	MisResultAction(AddExp, 6, 6)
 
 
-	DefineMission( 702, "Приветствие Кузнеца ", 701 )
+-----------------------------------МъЅіµДОКєт
+	DefineMission( 702, "Blacksmith's Greetings", 701 )
 	
-	MisBeginTalk( "<t>Ты не сможешь выжить в этом жесточайшем мире,если у тебя нет оружия.<n><t>Отнеси это письмо в <pАргент> кузнецу, <bГолди> по координатам (2193, 2706). Я думаю он тебе поможет, если прийдешь к нему с этим письмом.<n><t>Ты можешь использовать радар (Alt + R) что бы найти его." )
+	MisBeginTalk( "<t>You will not be able to survive in this harsh world if you are going around unarmed.<n><t>Take this letter to <pArgent City>'s Blacksmith, <bGoldie> at (2193, 2706). I believe he can be of help to you.<n><t>You can use the Radar (Alt + R) to locate him." )
 	MisBeginCondition(HasRecord, 1)
 	MisBeginCondition(NoRecord, 701)
 	MisBeginCondition(NoMission, 701)
@@ -484,10 +555,10 @@ function RobinMission024()
 	MisCancelAction(ClearMission, 701 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправть письмо <bКузнецу - Голди> в <pАргенте> по координатам (2193, 2706). И вернись к Наставнице - Сенне (2223, 2785)")
+	MisNeed(MIS_NEED_DESP, "Send the letter to <bBlacksmith - Goldie> in <pArgent City> at (2193, 2706). Return to look for Newbie Guide Senna at (2223, 2785)")
 		
-	MisResultTalk("<t>Я смотрю ты уже встретился с <bГолди>. Он тебе всегда дешего и выгодно отдаст любое оружие.")
-	MisHelpTalk("<t>Не забудь вручить письмо для Голди лично. Он стоит всегда в левом углу Аргента по координатам (2193, 2706).<n><t> Используй радар(Alt + R) для того,чтобы его найти.")
+	MisResultTalk("<t>I see, so you've met <bGoldie>. He's the guy to look for when you have made enough money to get a good weapon.")
+	MisHelpTalk("<t>Remember to hand the letter to Goldie personally. He is at the left corner of Argent City at (2193, 2706).<n><t> You can use the Radar(Alt + R) to locate him.")
 	MisResultCondition(NoRecord, 701)
 	MisResultCondition(HasMission, 701)
 	MisResultCondition(HasFlag, 701, 10)
@@ -496,22 +567,24 @@ function RobinMission024()
 	MisResultAction(AddExp, 9, 9 )
 
 
-	DefineMission( 704, "Приветсвие Портного ", 702 )
+-----------------------------------·юЧ°µкµДОКєт
+	DefineMission( 704, "Tailor's Greetings", 702 )
 	
-	MisBeginTalk( "<t>Это второе рекамендательное письмо. Отнеси его в <pAргент> <bБабушке - Ниле> по координатам (2266, 2705)." )
+	MisBeginTalk( "<t>This is the second recommendation letter. Pass it to <pArgent City> <bGranny Nila> at (2266, 2705)." )
 	MisBeginCondition(HasRecord, 701)
 	MisBeginCondition(NoRecord, 702)
 	MisBeginCondition(NoMission, 702)
 	MisBeginAction(AddMission, 702)
 	MisBeginAction(SetFlag, 702, 1)
 	MisBeginAction(GiveItem, 3951, 1, 4)
-	MisCancelAction(SystemNotice, "Это задание не может быть остановленно." )
+	MisCancelAction(SystemNotice, "This quest cannot be abandoned" )
+	--MisCancelAction(ClearMission, 702 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Передайте письмо <bПортнихе - Бабушке - Ниле> в <pAргенте> по координатам (2267, 2704) и вернитесь к Наставнице - Сенне (2223, 2785)")
+	MisNeed(MIS_NEED_DESP, "Hand the letter to <bTailor - Granny Nila> in <pArgent City> at (2267, 2704) and return to Newbie Guide Senna at (2223, 2785)")
 		
-	MisResultTalk("<t>Вау! Неужели <bБабушка Нила> сделала для тебя перчатки персонально? Они идеальные! Я надеюсь,что ты будешь за ними ухаживать.")
-	MisHelpTalk("<t>Неужели ты не нашел бабушку Нилу? Я тебе помогу,она на северной части Аргента по координатам (2267, 2704). Используй радар,для нахождения цели.")
+	MisResultTalk("<t>Wow! You mean <bGranny Nila> specially custom made these gloves for you? It looks perfect! I hope you take good care of it.")
+	MisHelpTalk("<t>Have you met Granny Nila? She is north of Argent CIty at (2267, 2704). Use the radar to locate her.")
 	MisResultCondition(NoRecord, 702)
 	MisResultCondition(HasMission, 702)
 	MisResultCondition(HasFlag, 702, 10)
@@ -519,22 +592,24 @@ function RobinMission024()
 	MisResultAction(SetRecord, 702)
 	MisResultAction(AddExp, 21, 21 )
 
-	DefineMission( 706, "Приветствие врача ", 703 )
+-----------------------------------Т©Ж·µкµДОКєт
+	DefineMission( 706, "Physician's Greetings", 703 )
 	
-	MisBeginTalk( "<t>Теперь, отнеси мое последнее письмо <bВрачу Дито> (2250, 2770). Я уверен он поможет тебе в игре." )
+	MisBeginTalk( "<t>Now, give this final letter to <bPhysican Ditto> (2250, 2770). I am quite sure he will be able to render his assistance to you." )
 	MisBeginCondition(HasRecord, 702)
 	MisBeginCondition(NoRecord, 703)
 	MisBeginCondition(NoMission, 703)
 	MisBeginAction(AddMission, 703)
 	MisBeginAction(SetFlag, 703, 1)
 	MisBeginAction(GiveItem, 3952, 1, 4)
-	MisCancelAction(SystemNotice, "Задание не может быть остановленно." )
+	MisCancelAction(SystemNotice, "This quest cannot be abandoned" )
+	--MisCancelAction(ClearMission, 703 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправьте письмо <bВрачу - Дито> в <pАргенте> по координатам (2250, 2770). И вернитесь к Наставнице - Сенне (2223, 2785).")
+	MisNeed(MIS_NEED_DESP, "Send the letter to <bPhysican - Ditto> in <pArgent City> at (2250, 2770). Return to look for Newbie Guide Senna at (2223, 2785).")
 		
-	MisResultTalk("<t><bДито> Дал тебе несколько <rЯблок>.Яблоки можно купить у него! Они востонавливают некоторое количество HP.")
-	MisHelpTalk("<t>Дито находиться справа от фонтана Аргента. Его координаты (2250, 2770). Ты можешь найти его с помощью радара.")
+	MisResultTalk("<t>OhЎ­So <bDitto> gave you some <rApples>. An <rApple> a day keeps the doctor away! It can also recover a bit of HP.")
+	MisHelpTalk("<t>Ditto is at the right side of the fountain in Argent City. His coordinates is (2250, 2770). You can locate him by using the radar.")
 	MisResultCondition(NoRecord, 703)
 	MisResultCondition(HasMission, 703)
 	MisResultCondition(HasFlag, 703, 10)
@@ -543,9 +618,10 @@ function RobinMission024()
 	MisResultAction(AddExp, 66, 66 )
 
 
-	DefineMission( 708, "Боевая тренировка ", 704 )
+-----------------------------------ХЅ¶·їјєЛ
+	DefineMission( 708, "Battle training", 704 )
 	
-	MisBeginTalk( "<t>Хмм, неплохо, теперь ты подготовлен к жизни. Пускай будет твоим испытанием жизнь, бегай по миру, воюй. Только не забегай слишком далеко.<n><t>Выйти из города ты можешь через левый выход или через верхний.<n><t>Убей 5 Лесных духов и принеси пару крыльев.<n><t>Лесных духов ты можешь найти в окраинах Аргента. Заверши миссию,и я дам тебе хорошую награду.<n><t>(Начать драться ты можешь выйдя из города. Просто кликни левой кнопкой миши на монстра." )
+	MisBeginTalk( "<t>Hmm, not bad, now that your preparations are ready. Then go ahead and leave the comforts of the city and try some fighting but of course do not travel too far, you may take this as the last test I have for you.<n><t>From this side, head left and your on the right track to exit the city.<n><t>Defeat 5 Forest Spirits and bring back a pair of Wings.<n><t>The forest spirits can be found just outside the city gates while the pair of wing can be found on any forest spirit. Complete the mission and I will give you some nice reward.<n><t>(You can enter combat by just left clicking on the enemy target, however combat cannot be initiated in the city. To pick items, left click on the items or you can use CTRL + A for quick looting." )
 	MisBeginCondition(HasRecord, 703)
 	MisBeginCondition(NoRecord, 704)
 	MisBeginCondition(NoMission, 704)
@@ -563,8 +639,8 @@ function RobinMission024()
 	MisPrize(MIS_PRIZE_MONEY, 100, 1)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Очень хорошо, ты справилься, а также доказал, что можешь идти воевать.<n><t> Если борьба это твоя страсть, то иди к Маркусу по координатам (2065, 2732). Другой человек, который вам может немного помочь - это Доктор Дито (2250, 2770). Он ищет работника, который сможет поставлять ему много ингридиентов.<n><t>Удачи!")
-	MisHelpTalk("<t>Не будь озабоченым, Возвращайся после того, как убьешь 5 <bЛесных духов> и получишь 1 из <rКрыльев>.")
+	MisResultTalk("<t>Well done, it looks like you now have a good grasp at basic combat and also a good idea on how item drops work.<n><t>Since there is nothing much left, why don't you go and look for my friends? If fighting is your cup of tea, seek out Marcusa at (2065, 2732). Another person you may like to meet would be Physician Ditto at (2250, 2770). Lately, he has been looking for helpers to help her collect more ingredients.<n><t>Good luck!")
+	MisHelpTalk("<t>Don't be anxious, come back after you've kill 5 <bForest Spirits> and obtained 1 of their <rWing>.")
 	MisResultCondition(NoRecord, 704)
 	MisResultCondition(HasMission, 704)
 	MisResultCondition(HasItem, 1620, 1)
@@ -587,13 +663,22 @@ function RobinMission024()
 end
 RobinMission024()
 
+
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[·юЧ°µкЦчЎ¤ДбИшЖЕЖЕ]			--
+--							--
+--		239185,277025				--
+----------------------------------------------------------
 function RobinMission025()
 
-	DefineMission( 705, "Приветствие портного ", 702, COMPLETE_SHOW)
+-----------------------------------·юЧ°µкµДОКєт
+	DefineMission( 705, "Tailor's Greetings", 702, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 		
-	MisResultTalk("<t>Это было интересно. Я видела тебя, когда ты тут пробегал. Я <bБабушка Нила>, Портная города <pАргент>. С тех пор, как наставница Сенна зарекомендовала тебя, я хочу подарить тебе вот эти <Перчатки новичка> сделанные специально для тебя.<n><t>Теперь вернись к Наставнице - Сенне (2223, 2785).<n><t>(Нила дала тебе Перчатки новичка. Открой инвентарь и дважды кликни на них,чтобы одеть.)")
+	MisResultTalk("<t>My my, this is interesting. I haven't seen you around here before. I am <bGranny Nila>, owner of the tailor shop in <pArgent City>. Since Senna has recommended you, I shall have these pair of <rNewbie Gloves> custom-made for you. Do drop by more often in your free time and perhaps we can have a chat.<n><t>Now return to Senna at (2223, 2785).<n><t>(Nila has given you a pair of \"Newbie Gloves\". Open your inventory and double click on it to equip.)")
 	MisResultCondition(NoRecord, 702)
 	MisResultCondition(HasMission, 702)
 	MisResultCondition(NoFlag, 702, 10)
@@ -607,11 +692,19 @@ function RobinMission025()
 end
 RobinMission025()
 
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[КШОАЎ¤±ИМШ]			--
+--							--
+--		239185,277025				--
+----------------------------------------------------------
 function RobinMission026()
 
-	DefineMission( 709, "Сертификат Мужества ", 705 )
+-----------------------------------УВЖшЦ¤Кй
+	DefineMission( 709, "Courage Certificate", 705 )
 	
-	MisBeginTalk( "<t>У тебя есть Сертификат мужества? <n><t>Чтобы его получить недостаточно только храбрости  ты должен доказать, что ты имеешь требуемую способность и интеллект.<n><t>Иди к <pОкраинам Аргента> и убей 10 <bМилых овечек> по координатам (2057, 2638), 10 <bПузырчатых моллюсков> возле северного побережья, 10 <bСвинокрылов> и возвращайся ко мне.<n><t>Когда всё сделаешь подходи ко мне и я вручу тебе  <bСертификат мужества>." )
+	MisBeginTalk( "<t>Are you here for the Courage Certificate? You have some guts.<n><t>However courage alone is not enough, to aquire the <rCourage Certificate>, you must prove that you have the required ability and intellect.<n><t>Go to the <pOutskirt of Argent City> and defeat 10 <bCuddly Lambs> at (2057, 2638), 10 <bBubble Clams> near the northern coast, 10 <bPiglets> and then return to me.<n><t>If you are able to complete these task, I will consider you as a qualifed warrior and give you the <bCourage Certificate>." )
 	MisBeginCondition(NoMission, 705)
 	MisBeginCondition(LvCheck, ">", 8 )
 	MisBeginCondition(PfEqual, 0 )
@@ -630,8 +723,8 @@ function RobinMission026()
 	MisPrize(MIS_PRIZE_ITEM, 3953, 1, 4)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Дружище! Ты хорошо обучился! Вот тебе <rСертификат мужества>.<n><t>Сохрани это и когда станешь <p10 уровнем> приходи чтобы стать мечником.")
-	MisHelpTalk("<t>Ты не выполнил моего поручения. Иди выполняй,иначе никогда не станешь мечником.")
+	MisResultTalk("<t>Friend! You have done well! This is the required <rCourage Certificate>.<n><t>Keep it well and look for me with it when you reached <pLv 10> to become a full fledged Swordsman.")
+	MisHelpTalk("<t>You have not fulfilled my requirement. It is not easy to attain.")
 	MisResultCondition(HasMission, 705)
 	MisResultCondition(HasFlag, 705, 19 )
 	MisResultCondition(HasFlag, 705, 29 )
@@ -655,9 +748,10 @@ function RobinMission026()
 	RegCurTrigger( 7053 )
 	
 
-	DefineMission( 749, "Кодекс Воителя ", 737 )
+-----------------------------------Л«ЅЈКїЧЄЦ°ИООс
+	DefineMission( 749, "Code of the Crusader", 737 )
 	
-	MisBeginTalk( "<t>Похоже, вы стали отличным мечником. Так как Вы хотите быть более сильными, Вы должны продвинуться, чтобы стать <bВоителем>. Мне нужно вас испытать.<n><t>В лесу к западу от <pSolace Haven>, есть <rТолстокожие Ящеры>. Добудь 5 <yСкользкая шкура ящера> здесь и идите на <pОстров скелетов> к востоку от Ледыни, убейте 10 <rСкелетов - Войнов> и получите 3 <yСерфитиката война>. И наконец купите <yПластинчатый Доспех> и вернитесь ко мне." )
+	MisBeginTalk( "<t>Looks like you have become an excellent Swordsman. Since you want to be stronger, you should advance to become a <bCrusader>. I will need to test you accordingly.<n><t>In the forest west of <pSolace Haven>, there are some <rThickskin Lizards>. Get 5 <yGreasy Lizard Skins> from them and go to <pSkeleton Haven> east of Icicle City, defeat 10 <rSkeletal Warriors> and get 3 <yWarrior Certificates>. Lastly, buy a set of <yBreast Plate> and return to me." )
 	MisBeginCondition(NoRecord, 737)
 	MisBeginCondition(NoMission, 737)
 	MisBeginCondition(LvCheck, ">", 39 )
@@ -675,8 +769,8 @@ function RobinMission026()
 	MisNeed(MIS_NEED_ITEM, 4456, 3, 40, 3)
 	MisNeed(MIS_NEED_ITEM, 295, 1, 50, 1)
 	
-	MisResultTalk("<t>Поздравляю!<n><t>Ты выполнил все требования для профессии <bВоителя>!<n><t>Желаю тебе удачных путешествий в дальнейшем!")
-	MisHelpTalk("<t>Пошол вон!Раз ты не можешь выполнить моё элементарное задание, ты не достоин быть воителем!")
+	MisResultTalk("<t>Congratulations!<n><t>You are now a full fledged <bCrusader>!<n><t>More challenges awaits you from now on!")
+	MisHelpTalk("<t>Although the requirements are tough, but I am sure you can do it.")
 	MisResultCondition(HasMission, 737)
 	MisResultCondition(HasFlag, 737, 29 )
 	MisResultCondition(HasItem, 4474, 5 )
@@ -706,9 +800,10 @@ function RobinMission026()
 	TriggerAction( 1, AddNextFlag, 737, 30, 1 )
 	RegCurTrigger( 7375 )
 
-	DefineMission( 750, "Сила Чемпиона ", 738 )
+-----------------------------------ѕЮЅЈКїЧЄЦ°ИООс
+	DefineMission( 750, "Champion's Valor", 738 )
 	
-	MisBeginTalk( "<t>Хочешь стать <bЧемпионом>? Хорошо!<n><t>Тогда ты должен принести мне некоторые вещи: <n><t>У тебя должно быть оружие чемпиона, иди и купи <yКрисс Меч>. Принеси мне 5 <yМасок ниндзя> с <rКрот-ниндзя>. 5 <rБольшой медведь>'s <yБольшой медвежий клык> и 5 <yСкользкая скала> с <rКамянный голем>.<n><t>Принеси мне всё это для того, чтобы стать истинным чемпионом.<n><t>Смотри <rКроты-ниндзя> находятся в <pЗаброшенных шахтах>, <rКамянный голем> в <pАндийском лесу> и <rПолярный медведь> недалеко от Ледыни." )
+	MisBeginTalk( "<t>Want to become a <bChampion>? Good!<n><t>However, you must bring the following items before you return: <n><t>You must have a suitable weapon of a Champion, go and buy a <yCriss Sword>. Bring me 5 <yNinja Masks> from <rNinja Mole>. 5 <rPolar Bear>'s <yGreat Bear Tooth> and 5 <ySolid Rock> from <rRock Golem>.<n><t>This way, you can prove that you have the capability to become a great Champion.<n><t>Look for <rNinja Mole> in <pAbandoned Mine>, <rRock Golem> in <pAndes Forest> and <rPolar Bear> can be found east of Icicle City" )
 	MisBeginCondition(NoRecord, 738)
 	MisBeginCondition(NoMission, 738)
 	MisBeginCondition(LvCheck, ">", 39 )
@@ -726,8 +821,8 @@ function RobinMission026()
 	MisNeed(MIS_NEED_ITEM, 4453, 5, 30, 5)
 	MisNeed(MIS_NEED_ITEM, 4368, 5, 40, 5)
 	
-	MisResultTalk("<t>Поздравляю! Ты завершил все мои требования для того чтобы стать <bЧемпионом>!<n><t>Множество захватывающих путешествий ожидает тебя!")
-	MisHelpTalk("<t>У тебя есть вопросы!? Я ведь тебе уже все обьяснил как это все сделать!")
+	MisResultTalk("<t>Congratulations! You have successfully become a qualified <bChampion>!<n><t>More challenges awaits you!")
+	MisHelpTalk("<t>Any questions? <rNinja Mole> can be found in <pAbandon Mine>, <rRock Golem> in <pAndes Forest> and <rPolar Bears> at the east of <pIcicle Castle>")
 	MisResultCondition(HasMission, 738)
 	MisResultCondition(HasItem, 15, 1 )
 	MisResultCondition(HasItem, 4454, 1 )
@@ -763,26 +858,39 @@ function RobinMission026()
 end
 RobinMission026()
 
+
+
+
+
+----------------------------------------------------------
+--							--
+--		Йіб°іЗ[РВКЦЦёµјЎ¤А­Лї±М]			--
+--							--
+--		239185,277025				--
+----------------------------------------------------------
 function RobinMission027()
 
-	DefineMission( 711, "Добро пожаловать!", 2, COMPLETE_SHOW)
+-----------------------------------РВИЛ±ЁµА
+	DefineMission( 711, "Welcome", 2, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
 		
-	MisResultTalk("<t>Ахх!<n><t>Очередной новичек, Добро пожаловать! Я могу ответить тебе на множество вопросов,если нужно - то обращайся.<n><t>Дальше купи себе хорошее оружие в <pШайтане>.<n><t>Когда поднимешь уровень, нажми (Alt + A) чтобы открыть страницу характеристик. Каждый уровень ты получаешь характеристики а также магические навыки.<n><t>У тебя в расположении имеется 5 видов аттрибутов, таких как: Сила, которая увеличивает твою атаку в ближнем бою; Ловкость, которая увеличивает твою скорость боя и уворот; Точность, которая увеличивает твоё шанс на попадение и усиливает твою мощь; Дух, который увеличивает твой максимальноый запас маны и магический урон;И Телосложение, которое увеличивает твой запас жизни и Брони.")
-	MisHelpTalk("<t>Если у тебя будут какие то вопросы, обращайся, я тебя никогда в беде не брошу.")
+	MisResultTalk("<t>Ah!<n><t>Another newcomer, welcome! You can come to me if you have any questions regarding Classes and Attribute related issue.<n><t>Next I am going to tell you where to buy good weapons in <pShaitan City>.<n><t>Since you have leveled up,  you can press the yellow button below your protrait (Alt + A) to open your character page to distribute your stats. Every time you level up, you will received more points for your own allocation.<n><t>You have 5 basic attributes that can be added: Strength which affects your melee attack power; Agility which increases your attack speed and dodge rate; Accuracy which increases your hit rate and range attack power; Spirit which increases your max SP and magical damage; Constitution which increases your defense and max HP.")
+	MisHelpTalk("<t>If you don't accept my assistance, you will find that you may encounter various problems along the way that you cannot solve.")
 	MisResultCondition(NoRecord, 2)
 	MisResultCondition(HasMission, 2)
-
+	--MisResultCondition(HasFlag, 706, 10)
+	--MisResultCondition(HasFlag, 706, 20)
 	MisResultAction(ClearMission, 2)
 	MisResultAction(SetRecord, 2)
 	MisResultAction(AddExp, 6, 6)
 
 
-	DefineMission( 712, "Приветствие кузнеца ", 707 )
+-----------------------------------МъЅіµДОКєт
+	DefineMission( 712, "Blacksmith's Greetings", 707 )
 	
-	MisBeginTalk( "<t>В этом мире тебе не выжить без хорошего обмундирования. Отнеси это письмо <bКузнецу Смити> по координатам (902, 3495).<n><t>У него есть множество видов оружия для тебя.<n><t>Используй радар(Alt + R) для его местонахождения." )
+	MisBeginTalk( "<t>You will not be able to survive in this harsh world if you are going around unarmed. Take this letter to <bBlacksmith Smithy> at (902, 3495).<n><t>Check to see if there is any suitable weapon for you.<n><t>You can use the Radar(Alt + R) to locate him." )
 	MisBeginCondition(HasRecord, 2)
 	MisBeginCondition(NoRecord, 707)
 	MisBeginCondition(NoMission, 707)
@@ -792,10 +900,10 @@ function RobinMission027()
 	MisCancelAction(ClearMission, 707 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправь письмо <bКузнецу Смити> в <pШайтан> at (902, 3495) и вернись к наставнице Реслин (876, 3572)")
+	MisNeed(MIS_NEED_DESP, "Hand the letter to <bBlacksmith - Smithy> in <pShaitan City> at (902, 3495) and return to Newbie Guide Resline (876, 3572)")
 		
-	MisResultTalk("<t>Ты уже навещал кузнеца <bСмити>? Он всегда тебе продаст хорошее оружие практически даром.")
-	MisHelpTalk("<t>Не забудь отдать это письмо кузнецу <bСмити>. Его ты можешь найти в правом верхнем углу <pШайтана> по координатам (902, 3495).<n><t>Используй мини-карту для нахождения его.")
+	MisResultTalk("<t>You have seen <bSmithy>? Look for him for better weapons when you have earned enough.")
+	MisHelpTalk("<t>Remember to give this letter to <bSmithy>. He can be found towards the north-eastern corner of <pShaitan City> at (902, 3495).<n><t>You may also try using the mini-map to help you.")
 	MisResultCondition(NoRecord, 707)
 	MisResultCondition(HasMission, 707)
 	MisResultCondition(HasFlag, 707, 10)
@@ -804,22 +912,24 @@ function RobinMission027()
 	MisResultAction(AddExp, 9, 9 )
 
 
-	DefineMission( 714, "Приветствие портного ", 708 )
+-----------------------------------·юЧ°µкµДОКєт
+	DefineMission( 714, "Tailor's Greetings", 708 )
 	
-	MisBeginTalk( "<t>Хорошо, теперь найди портного. Отнеси это письмо в <pШайтан> <bПортной - Мойе> по координатам (894,3602)" )
+	MisBeginTalk( "<t>Ok, look for the tailor next. You need to send the letter over to <pShaitan City> <bTailor - Moya> at (894,3602)" )
 	MisBeginCondition(HasRecord, 707)
 	MisBeginCondition(NoRecord, 708)
 	MisBeginCondition(NoMission, 708)
 	MisBeginAction(AddMission, 708)
 	MisBeginAction(SetFlag, 708, 1)
 	MisBeginAction(GiveItem, 3957, 1, 4)
-	MisCancelAction(SystemNotice, "Задание невозможно удалить." )
+	--MisCancelAction(ClearMission, 708 )
+	MisCancelAction(SystemNotice, "This quest cannot be abandoned" )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправь это письмо <bПортной - Мойе> в <pШайтан> по координатам (894, 3602) и вернись к наставнице Реслин (876, 3572)")
+	MisNeed(MIS_NEED_DESP, "Hand the letter to <bTailor Moya> in <pShaitan City> at (894, 3602) and return to Newbie Guide Resline at (876, 3572)")
 		
-	MisResultTalk("<t>Ах? Неужели <bМойа> дала тебе эти перчатки? Они великолепные. Сохрани их как память.")
-	MisHelpTalk("<t>Ты не смог отнести письмо Мойе.<n><t>Она находиться по координатам (894, 3602). Используй радар.")
+	MisResultTalk("<t>Oh? So this is the gloves <bMoya> give you? It looks good. You must treasure it well.")
+	MisHelpTalk("<t>You must hand the letter to Moya.<n><t>He is at (894, 3602). Locate him with the radar.")
 	MisResultCondition(NoRecord, 708)
 	MisResultCondition(HasMission, 708)
 	MisResultCondition(HasFlag, 708, 10)
@@ -827,22 +937,24 @@ function RobinMission027()
 	MisResultAction(SetRecord, 708)
 	MisResultAction(AddExp, 21, 21 )
 
-	DefineMission( 716, "Приветствие врача ", 709 )
+-----------------------------------Т©ІДµкµДОКєт
+	DefineMission( 716, "Physician's Greetings", 709 )
 	
-	MisBeginTalk( "<t>Окей, время навестить <bврача - Шалу> по координатам (903, 3646). Это последнее письмо, так что разделайся с ним как можно быстрее." )
+	MisBeginTalk( "<t>Okay, time for you to visit <bPhysician - Shala> at (903, 3646). This is the last letter, so hurry up and go quickly." )
 	MisBeginCondition(HasRecord, 708)
 	MisBeginCondition(NoRecord, 709)
 	MisBeginCondition(NoMission, 709)
 	MisBeginAction(AddMission, 709)
 	MisBeginAction(SetFlag, 709, 1)
 	MisBeginAction(GiveItem, 3958, 1, 4)
-	MisCancelAction(SystemNotice, "Задание невозможно удалить." )
+	MisCancelAction(SystemNotice, "This quest cannot be abandoned" )
+	--MisCancelAction(ClearMission, 709 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отнеси письмо <bврачу Шала> в <pШайтане> по координатам (903, 3646) И вернись к Реслин (876, 3572)")
+	MisNeed(MIS_NEED_DESP, "Hand the letter to <bPhysician - Shala> in <pShaitan City> at (903, 3646) and return to Newbie Guide Resline at (876, 3572)")
 		
-	MisResultTalk("<t>Вот тебе <rЯблоки> возьми их от <bШалы> они не только хорошо исцеляют, но и очень полезные.")
-	MisHelpTalk("<t>Найди врача Шалу. Он находится по координатам (903, 3646).<n><t>Пользуйся радаром.")
+	MisResultTalk("<t>These <rApples> given to you by <bShala> are not only good for health, they have healing properties and will allow you to regain a bit of HP.")
+	MisHelpTalk("<t>The Physician, Shala, is not too far away from here. She can be located around the fountain area (903, 3646).<n><t>You may also try using the mini-map locate her.")
 	MisResultCondition(NoRecord, 709)
 	MisResultCondition(HasMission, 709)
 	MisResultCondition(HasFlag, 709, 10)
@@ -851,9 +963,10 @@ function RobinMission027()
 	MisResultAction(AddExp, 66, 66 )
 
 
-	DefineMission( 718, "Боевая тренировка ", 710 )
+-----------------------------------ХЅ¶·СµБ·
+	DefineMission( 718, "Battle training", 710 )
 	
-	MisBeginTalk( "Хорошо,вполне неплохо! Теперь когда ты неплохо одет,ты можешь пойти и проверить свои силы.<n><t>Убей 5 <bСкорпионов> Недалеко от восточного выхода из города. Убей 1 <rКактуса> от борьбы <bДыни> а также. Разумеется, что ты всегда должен атаковать первым!<n><t>(Ты можешь атаковать нажав левой кнопкой мышки на монстра, но в городе воевать нельзя. Не забывай переодеватся кликнув CTRL + Е для быстрого просмотра своего инвентаря." )
+	MisBeginTalk( "Well well, not bad at all! Now that you are sufficiently equipped, you are fit to venture out of town to test out your fighting skills.<n><t>Kill 5 <bBaby Scorpions> outside the eastern side of the city. While you're at it, please collect 1 <rCactus Hairball> from fighting <bMelons> as well. Of course, always remember that safety comes first!<n><t>(You can enter combat by just left clicking on the enemy target, however combat cannot be initiated in the city. To pick items, left click on the items or you can use CTRL + A for quick looting." )
 	MisBeginCondition(HasRecord, 709)
 	MisBeginCondition(NoRecord, 710)
 	MisBeginCondition(NoMission, 710)
@@ -871,8 +984,8 @@ function RobinMission027()
 	MisPrize(MIS_PRIZE_MONEY, 100, 1)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Великолепно работаешь!<n><t>Почему бы тебе не найти в этой игре друзей? Если борьба - твоя чашка чая, найди <bМайкла>. Он патрулирует по координатам (2085, 2742). Другая персона, с которой ты должен встретится доктор <bШала> по координатам (2250, 2770). Он ищет помошников,для сбора разных трав.")
-	MisHelpTalk("<t>Не выходит? Вернись и убей 5 <bСкорпионов> и получи 1 <rCactus Hairballs>.")
+	MisResultTalk("<t>Well done, it looks like you now have a good grasp at basic combat and also a good idea on how item drops work.<n><t>Since there is nothing much left, why don't you go and look for my friends? If fighting is your cup of tea, seek out <bMichael>. He's a patroller and is often seen patrolling about the outskirts of this city at (2085, 2742). Another person you may like to meet would be Physician <bShala> at (2250, 2770). Lately, she has been looking for helpers to help him collect more ingredients for his medicine.")
+	MisHelpTalk("<t>Don't have to be anxious, come back after you've slain 5 <bBaby Scorpions> and obtained 1 <rCactus Hairballs>.")
 	MisResultCondition(NoRecord, 710)
 	MisResultCondition(HasMission, 710)
 	MisResultCondition(HasItem, 1691, 1)
@@ -895,13 +1008,24 @@ function RobinMission027()
 end
 RobinMission027()
 
+
+
+
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[·юЧ°µкЦчЎ¤ДЄСЗ]			--
+--							--
+--		239185,277025				--
+----------------------------------------------------------
 function RobinMission028()
 
-	DefineMission( 715, "Приветствие портного ", 708, COMPLETE_SHOW)
+-----------------------------------·юЧ°µкµДОКєт
+	DefineMission( 715, "Tailor's Greetings", 708, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 		
-	MisResultTalk("<t>Кеке!<n><t>Это рекомендательное письмо от Реслин. <n><t>Хорошо, эти перчатки для тебя.<n><t>Теперь пойди в магазин и купи себе посох.<n><t>Теперь вернись к Реслин по координатам (876, 3572). Она тебя познакомит с другими<n><t>(Портниха дала тебе перчатки новичка, нажми на инвентарь,для того чтобы одеть их).")
+	MisResultTalk("<t>Keke!<n><t>Its Resline's recommendation letter <n><t>Ok, as usual, this pair of gloves is my gift to you.<n><t>The next time round, I will charge you cheaper when you come to the shop to buy your stuff.<n><t For now, return to Resline at (876, 3572). She will introduce you to others.<n><t>(Moya has given you a \"Newbie Glove\", you can select it from your inventory and equip it).")
 	MisResultCondition(NoRecord, 708)
 	MisResultCondition(HasMission, 708)
 	MisResultCondition(NoFlag, 708, 10)
@@ -914,24 +1038,36 @@ function RobinMission028()
 end
 RobinMission028()
 
+
+
+----------------------------------------------------------
+--							--
+--		±щАЗ±¤[РВКЦЦёµјЎ¤°ІзчВ¶СЗ]		--
+--							--
+--		239185,277025				--
+----------------------------------------------------------
 function RobinMission030()
 
-	DefineMission( 721, "Добро пожаловать!", 3, COMPLETE_SHOW)
+-----------------------------------РВИЛ±ЁµА
+	DefineMission( 721, "Welcome", 3, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 		
-	MisResultTalk("<t>Ах!<n><t>Очередной новичек, Добро пожаловать! Я могу ответить тебе на множество вопросов, если нужно - то обращайся.<n><t>Купи себе хорошее оружие в <pЛедыни>.<n><t>Когда поднимешь уровень, нажми (Alt + A) чтобы открыть страницу характеристик. Каждый уровень ты получаешь характеристики а также магические навыки.<n><t>У тебя в расположении имеется 5 видов аттрибутов, таких как: Сила, которая увеличивает твою атаку в ближнем бою; Ловкость, которая увеличивает твою скорость боя и уворот; Точность, которая увеличивает твоё шанс на попадение и усиливает твою мощь; Дух, который увеличивает твой максимальноый запас маны и магический урон; И Телосложение, которое увеличивает твой запас жизни и Брони.")
-	MisHelpTalk("<t>Привет! Если у тебя будут какие то вопросы, обращайся, я тебя никогда в беде не брошу.")
+	MisResultTalk("<t>Ah!<n><t>Another newcomer, welcome! You can come to me if you have any questions regarding Classes and Attribute related issue.<n><t>Next I am going to tell you where to buy good weapons in <pIcicle City>.<n><t>Since you have leveled up, you can press the yellow button below your protrait (Alt + A) to open your character page to distribute your stats. Every time you level up, you will received more points for your own allocation.<n><t>You have 5 basic attributes that can be added: Strength which affects your melee attack power; Agility which increases your attack speed and dodge rate; Accuracy which increases your hit rate and range attack power; Spirit which increases your max SP and magical damage; Constitution which increases your defense and max HP.")
+	MisHelpTalk("<t>Hi! I am the only Newbie Guide in this city. Look for me when you feel the need to understand the basic of this game.<n><t>It will be harsh for you to survive without any help.")
 	MisResultCondition(NoRecord, 3)
 	MisResultCondition(HasMission, 3)
+	--MisResultCondition(HasFlag, 712, 10)
+	--MisResultCondition(HasFlag, 712, 20)
 	MisResultAction(ClearMission, 3)
 	MisResultAction(SetRecord, 3)
 	MisResultAction(AddExp, 6, 6)
 
 
-	DefineMission( 722, "Приветстсвие кузнеца ", 713 )
+-----------------------------------МъЅіµДОКєт
+	DefineMission( 722, "Blacksmith's Greetings", 713 )
 	
-	MisBeginTalk( "<t>В этом мире тебе не выжить без хорошего обмундирования. Отнеси это письмо <bКузнецу Голди> по координатам (902, 3495).<n><t>У него есть множество видов оружия для тебя.<n><t>Используй радар(Alt + R) для нахождение его. " )
+	MisBeginTalk( "<t>You will not be able to survive in this harsh world if you are going around unarmed. Take this letter to <pArgent City>'s Blacksmith <bGoldie> at (2193, 2706). I believe he can be of help to you.<n><t>You can use the Radar (Alt + R) to locate him. " )
 	MisBeginCondition(HasRecord, 3)
 	MisBeginCondition(NoRecord, 713)
 	MisBeginCondition(NoMission, 713)
@@ -941,10 +1077,10 @@ function RobinMission030()
 	MisCancelAction(ClearMission, 713 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отнеси это письмо <bКузнецу Башу> в <pЛедыни> по координатам (1344, 529). И вернись к Наставнице Анжеле по координатам (1315, 507).")
+	MisNeed(MIS_NEED_DESP, "Bring the letter to <bBlacksmith - Bash> in <pIcicle City> at (1344, 529). Return to Newbie Guide Angela at (1315, 507) after that.")
 		
-	MisResultTalk("<t>Ты уже встретился с <bБашем> ? Он попросил тебя найти ему девушку,т.к. он холостой ")
-	MisHelpTalk("<t>Отнеси это письмо <bБашу>. Он находится в юго-восточном углу  <pЛедыни> по координатам (1344, 529).<n><t>Пользуйся радар.")
+	MisResultTalk("<t>Have you met <bBash> yet? Did he ask you to introduce a girlfriend to him because he's still single?")
+	MisHelpTalk("<t>Remember to give this letter to <bBash>. He can be found towards the south-eastern corner of <pIcicle Castle> (1344, 529).<n><t>You may also try using the mini-map to help you.")
 	MisResultCondition(NoRecord, 713)
 	MisResultCondition(HasMission, 713)
 	MisResultCondition(HasFlag, 713, 10)
@@ -953,22 +1089,24 @@ function RobinMission030()
 	MisResultAction(AddExp, 9, 9 )
 
 
-	DefineMission( 724, "Приветствие портного ", 714 )
+-----------------------------------·юЧ°µкµДОКєт
+	DefineMission( 724, "Tailor's Greetings", 714 )
 	
-	MisBeginTalk( "<t>Вот тебе другое письмо. Пожалуйста отдай его <pХанаху> по координатам (1349, 539), нашему портному ледыни. Она тебе немного поможет." )
+	MisBeginTalk( "<t>Here's another letter. Please give it <pHannah> (1349, 539), owner of the tailor shop in Icicle Castle. She'll definitely be glad to help you out." )
 	MisBeginCondition(HasRecord, 713)
 	MisBeginCondition(NoRecord, 714)
 	MisBeginCondition(NoMission, 714)
 	MisBeginAction(AddMission, 714)
 	MisBeginAction(SetFlag, 714, 1)
 	MisBeginAction(GiveItem, 3960, 1, 4)
-	MisCancelAction(SystemNotice, "Задание невозможно удалить." )
+	MisCancelAction(SystemNotice, "This quest cannot be abandoned" )
+	--MisCancelAction(ClearMission, 714 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отнеси это письмо <bПортному - Ханах> в <pЛедыни> по координатам (1349, 539). И вернись к Наставнице Анжеле (1315, 507)")
+	MisNeed(MIS_NEED_DESP, "Send the letter to <bTailor - Hannah> in <pIcicle City> at (1349, 539). Return to look for Newbie Guide Angela at (1315, 507)")
 		
-	MisResultTalk("<t>Что <b Ханах> сделала для тебя перчатки? Они чудесные. Сохрани их,как память.")
-	MisHelpTalk("<t>Отнеси это письмо <bХанах>.<n><t>Она находится  к юго-востоку от фонтана <pЛедыни> по координатам (1349, 530). Ты можешь использовать мини-карту для поиска.")
+	MisResultTalk("<t>So <b Hannah> made you a new glove? It looks good on you. Treasure it well.")
+	MisHelpTalk("<t>This letter has to reach <bHannah> by today.<n><t>She can be found south-east of the fountain in <pIcicle Castle> at (1349, 530). You may also try using the mini-map to help you.")
 	MisResultCondition(NoRecord, 714)
 	MisResultCondition(HasMission, 714)
 	MisResultCondition(HasFlag, 714, 10)
@@ -976,22 +1114,24 @@ function RobinMission030()
 	MisResultAction(SetRecord, 714)
 	MisResultAction(AddExp, 21, 21 )
 
-	DefineMission( 726, "Приветствие врача ", 715 )
+-----------------------------------Т©Ж·µкµДОКєт
+	DefineMission( 726, "Physician's Greetings", 715 )
 	
-	MisBeginTalk( "<t>И наконец, помните! Зелья очень важны в любой битве. Чтобы начать работу, доставьте это письмо <bВрачу - Дайше> в <pЛедыни> по координатам (1352, 499)." )
+	MisBeginTalk( "<t>Lastly, remember! Potions are very important for any battle. To get started, bring this letter to <pIcicle City>'s <bPhysican - Daisha> at (1352, 499)." )
 	MisBeginCondition(HasRecord, 714)
 	MisBeginCondition(NoRecord, 715)
 	MisBeginCondition(NoMission, 715)
 	MisBeginAction(AddMission, 715)
 	MisBeginAction(SetFlag, 715, 1)
 	MisBeginAction(GiveItem, 3961, 1, 4)
-	MisCancelAction(SystemNotice, "Задание невозможно удалить." )
+	MisCancelAction(SystemNotice, "This quest cannot be abandoned" )
+	--MisCancelAction(ClearMission, 715 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отнесите письмо <bВрачу - Дайше> в <pЛедыни> по коордтнатам (1352, 499). И вернитесь к Наставнице Анжеле (1315, 507).")
+	MisNeed(MIS_NEED_DESP, "Send the letter to <bPhysican - Daisha> in <pIcicle City> at (1352, 499). Return to look for Newbie Guide Angela at (1315, 507).")
 		
-	MisResultTalk("<t>Эй, эти <rЯблоки> дала тебе <bДайша.<n><t>Ешь <rЯблоки> они полезны и могут востоновить небольшое количество HP.")
-	MisHelpTalk("<t>Дайшу можно найти в <pЛедыни> по координатам (1352, 499). Вы можете использовать мини - карту для поиска.")
+	MisResultTalk("<t>Hey, these <rApples> are given to you by <bDaisha>.<n><t>Eating <rApples> are beneficial as they can recover a small amount of HP.")
+	MisHelpTalk("<t>Daisha can be found east of the fountain in <pIcicle Castle> (1352, 499). You may also try using the mini-map to help you.")
 	MisResultCondition(NoRecord, 715)
 	MisResultCondition(HasMission, 715)
 	MisResultCondition(HasFlag, 715, 10)
@@ -1000,9 +1140,10 @@ function RobinMission030()
 	MisResultAction(AddExp, 66, 66 )
 
 
-	DefineMission( 728, "Боевая тренировка ", 716 )
+-----------------------------------ХЅ¶·СµБ·
+	DefineMission( 728, "Battle training", 716 )
 	
-	MisBeginTalk( "<t>Хм, неплохо.<n><t>Теперь ты подготовлен, и можешь начать серьёзную жизнь. Недалеко от города пойди и убей 5 <Снегоплювчиков>.<n><t> The Snow Squirt ты можешь найти на юге от ледынских ворот СЕМЕЧКО можно добыть с Заснеженный волшебный куст . Когда все сделаешь вернись ко мне!<n><t>(Ты можешь атаковать нажав левой кнопкой мышки на монстра,но в городе воевать нельзя. Не забывай переодеватся кликнув CTRL + A для быстрого просмотра своего инвентаря." )
+	MisBeginTalk( "<t>Hmm, not bad.<n><t>Now that your preparations are complete, its time for the special training. Go outside the city and slay 5 <Snow Squirts>.<n><t>Oh by the way, also collect a special seed for me. The Snow Squirt can be found south of the Icicle City gates while the seed can be found on the Snowy Mystic Shrub. Look for me after you have completed your task!<n><t>(You can enter combat by just left clicking on the enemy target, however combat cannot be initiated in the city. To pick items, left click on the items or you can use CTRL + A for quick item loot." )
 	MisBeginCondition(HasRecord, 715)
 	MisBeginCondition(NoRecord, 716)
 	MisBeginCondition(NoMission, 716)
@@ -1021,8 +1162,8 @@ function RobinMission030()
 	MisPrize(MIS_PRIZE_MONEY, 100, 1)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Неплохо, Хорошо поработал, спасибо.")
-	MisHelpTalk("<t>Запомни! Убей 5 Снегоплювчиков и собери 1 Семечко ")
+	MisResultTalk("<t>Well done, it looks like you now have a good grasp at basic combat and also a good idea on how item drops work.")
+	MisHelpTalk("<t>Remember! Defeat 5 Snow Squirt and collect 1 Seed")
 	MisResultCondition(NoRecord, 716)
 	MisResultCondition(HasMission, 716)
 	MisResultCondition(HasItem, 1597, 1)
@@ -1046,13 +1187,22 @@ function RobinMission030()
 end
 RobinMission030()
 
+
+----------------------------------------------------------
+--							--
+--							--
+--		±щАЗ±¤[МъЅіЎ¤±©±щ]			--
+--							--
+--		239185,277025				--
+----------------------------------------------------------
 function RobinMission031()
 
-	DefineMission( 723, "Приветствие кузнеца ", 713, COMPLETE_SHOW)
+---------------------------------------РВКЦИООсЛНРЎµ¶
+	DefineMission( 723, "Blacksmith's Greetings", 713, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 		
-	MisResultTalk("<t>Я смотрю ты здесь новенький? Я <bБаш>, кузнец города <pЛедынь>.Я изготовляю хорошее оружие.<n><t>Вернись к Анжеле по координатам (1315, 507). Она тебя представить другому человеку.<n><t>(Баш дал тебе Меч новичка. Открой рюкзак и нажми на него 2 раза, чтобы одеть его.)")
+	MisResultTalk("<t>You are new around here? I am <bBash>, the Blacksmith of <pIcicle Castle>. I specialize in making weapons and sadly, still single.<n><t>Now return to Angela at (1315, 507). She will introduce you to other NPCs.<n><t>(Bash has given you a pair of \"Newbie Knife\". Open your inventory and double click on it to equip.)")
 	MisResultCondition(NoRecord, 713)
 	MisResultCondition(HasMission, 713)
 	MisResultCondition(NoFlag, 713, 10)
@@ -1064,13 +1214,22 @@ function RobinMission031()
 end
 RobinMission031()
 
+
+----------------------------------------------------------
+--							--
+--							--
+--		±щАЗ±¤[·юЧ°µкЦчЎ¤єІДИ]			--
+--							--
+--		239185,277025				--
+----------------------------------------------------------
 function RobinMission032()
 
-	DefineMission( 725, "Приветствие портного ", 714, COMPLETE_SHOW)
+-----------------------------------·юЧ°µкµДОКєт
+	DefineMission( 725, "Tailor's Greetings", 714, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 		
-	MisResultTalk("<t>Ты новичек здесь? Добро пожаловать в <pЛедынь>. Я портной, <bХанах>. Спасибо за письмо, Возьми пожалуйста эти перчатки,я сделал их для тебя. Не забудь вернутся к <rНаставнице><bАнжеле> по координатам (1315, 507), и скажи что я получил письмо.<n><t>(Ханах дал тебе  Перчатки новичка. Открой инвентарь и нажми на них 2 раза, чтобы их одеть.)")
+	MisResultTalk("<t>You are new around here, aren't you? Welcome to <pIcicle Castle>. I'm the owner of the tailor shop, <bHannah>. Thank you for the letter, please take these gloves, they are custom made for you. Don't forget to return to <bAngela> the <rNewbie Guide> at (1315, 507) and tell her that I've received her letter.<n><t>(Hannah has given you a pair of \"Newbie Gloves\". Open your inventory and double click on it to equip.)")
 	MisResultCondition(NoRecord, 714)
 	MisResultCondition(HasMission, 714)
 	MisResultCondition(NoFlag, 714, 10)
@@ -1083,13 +1242,22 @@ function RobinMission032()
 end
 RobinMission032()
 
+
+----------------------------------------------------------
+--							--
+--							--
+--		±щАЗ±¤[Т©ІДЙМИЛЎ¤ґпєХ]			--
+--							--
+--		239185,277025				--
+----------------------------------------------------------
 function RobinMission033()
 
-	DefineMission( 727, "Приветствие врача ", 715, COMPLETE_SHOW)
+-----------------------------------Т©ІДµкµДОКєт
+	DefineMission( 727, "Physician's Greetings", 715, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 		
-	MisResultTalk("<t> Ты новичек здесь? Добро пожаловать! Возьми эти <rЯблоки>, я их сам делал! Я думаю они тебе пригодятся.<n><t>А теперь вернись к Анжеле (1315, 507).<n><t>(Дайша дала тебе Яблоки. Помести их на F1 - F8 для быстрого использования.)")
+	MisResultTalk("<t> You say you're new around here? Welcome! Take these <rApples>, they're on the house! I'm sure they'll come in handy to you.<n><t>Now return to Angela at (1315, 507).<n><t>(Daisha has given you some \"Apples\". Drag to F1 - F8 hotkey slot to use as a shortcut.)")
 	MisResultCondition(NoRecord, 715)
 	MisResultCondition(HasMission, 715)
 	MisResultCondition(NoFlag, 715, 10)
@@ -1099,9 +1267,10 @@ function RobinMission033()
 	MisResultAction(GiveItem, 1847, 10, 4)
 	MisResultBagNeed(1)
 
-	DefineMission( 735, "Коллекционер Хэбит ", 723 )
+---------------------------------КХјЇс±	
+	DefineMission( 735, "Collector's Habit", 723 )
 
-	MisBeginTalk( "<t>В последнее время после уборки моей коллекции, я понял, что мне не хватает некоторых <rЩупалец осьминого>.<n><t>Я думаю вы сможите мне помочь найти 5 <rЩупальцев Осьминога>, которые сожно выбить с <bСнежного Снегоплювчика> ниже города." )
+	MisBeginTalk( "<t>Lately after tidying up my collection, I realized that I am missing some <rOctopus Tentacles>.<n><t>I need you to help me find 5 <rOctopus Tentacles> which can be found off the <bSnow Squirts> near the city entrance." )
 	MisBeginCondition(NoMission, 723)
 	MisBeginCondition(LvCheck, ">", 4 )
 	MisBeginCondition(LvCheck, "<", 7 )
@@ -1115,8 +1284,8 @@ function RobinMission033()
 	MisPrize(MIS_PRIZE_MONEY, 100, 1)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Хорошо! Моя в новь полная.<n><t>Спасибо!")
-	MisHelpTalk("<t>Что случчилось? Разве сложно их найти? Они просто за пределами города.")
+	MisResultTalk("<t>Good! My collection has increased again.<n><t>Thank you!")
+	MisHelpTalk("<t>What's the problem? Is it that hard to find them? They are just outside the main entrance.")
 	MisResultCondition(HasMission, 723)
 	MisResultCondition(HasItem, 1704, 5 )
 	MisResultAction(TakeItem, 1704, 5 )
@@ -1129,9 +1298,10 @@ function RobinMission033()
 	RegCurTrigger( 7231 )
 
 
-	DefineMission( 746, "Коллекционер Хэбит ", 734 )
+	---------------------------------КХјЇс±	
+	DefineMission( 746, "Collector's Habit", 734 )
 
-	MisBeginTalk( "<tЯ вычислил, что в моей коллекции нехватает ветви одной, которая завяла. Мне её очень нехватает. Можешь пожалуйста пойти по координатам (1179, 475) и выбить 5 <yУвядшая ветка> с <bСнежный кальмарчик>? Прошу тебя сделай это как можно быстрее,мне очень сильно её нехватает!" )
+	MisBeginTalk( "<t>I have just found out that there isn't any withered branch in my collection at all! Its quite a shame. Can you please go to (1179, 475) and get 5 <yWithered Branch> from the <bSnow Squidy>? Go now quickly for if I am unhappy with my collection, I won't give you any more new task!" )
 	MisBeginCondition(NoMission, 734)
 	MisBeginCondition(NoMission, 723)
 	MisBeginCondition(LvCheck, ">", 6 )
@@ -1146,8 +1316,8 @@ function RobinMission033()
 	MisPrize(MIS_PRIZE_MONEY, 200, 1)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Хохо. Наконец то я пополнил коллекцию.")
-	MisHelpTalk("<t>О я...<n><t>Это же только Увядшая ветка! Ты не в состоянии выполнить это элементарное задание? Эти <bСнежные кальмарчики> находятся у выхода из Ледыни.")
+	MisResultTalk("<t>Hoho. I have added more to my collection.")
+	MisHelpTalk("<t>Oh my...<n><t>Its only Withered Branch! Unable to complete such a simple task? Those <bSnow Squidy> just outside of Icicle Castle have it on them.")
 	MisResultCondition(HasMission, 734)
 	MisResultCondition(HasItem, 3372, 5 )
 	MisResultAction(TakeItem, 3372, 5 )
@@ -1160,9 +1330,10 @@ function RobinMission033()
 	RegCurTrigger( 7341 )
 
 
-	DefineMission( 747, "Коллекционер Хэбит ", 735 )
+---------------------------------КХјЇс±	
+	DefineMission( 747, "Collector's Habit", 735 )
 
-	MisBeginTalk( "<t>Благодаря большим дополнениям к моему собранию изделий, я имею пробег вне пространства, чтобы запомнить их! Ты можешь удолетворить мою просьбу? Пойди (1179, 371) и собери мне 5 <yФлаконов> с <bСнежный свинокрыл>. О, кстате между прочим, чтобы их найти, тебе я думаю они понадобятся, правда другие такие как яблоки, кексы, хлеб и т.д.Иди и принеси то,что я хочу." )
+	MisBeginTalk( "<t>Due to the large additions to my collection of item, I have run out of space to store them! Can you please give me a hand? Go to (1179, 371) and collect 5 <yMedicine Bottles> from <bSnowy Piglets>. Oh by the way, remember to bring more healing potions along, you will need them." )
 	MisBeginCondition(NoMission, 735)
 	MisBeginCondition(NoMission, 734)
 	MisBeginCondition(NoMission, 723)
@@ -1178,8 +1349,8 @@ function RobinMission033()
 	MisPrize(MIS_PRIZE_MONEY, 300, 1)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Хехе! <n><t>Теперь,Когда у меня есть флаконы,я могу изготовить больше лекарств. Хаха!Я реально очень счастлив сейчас!")
-	MisHelpTalk("<t>Это ведь только Флаконы, Шагом марш,без них не приходи!")
+	MisResultTalk("<t>Hehe! <n><t>Now that I have the medicine bottle, I am able to store more goods. Haha, I am really happy now!")
+	MisHelpTalk("<t>Its only a few Bbttles, go now!")
 	MisResultCondition(HasMission, 735)
 	MisResultCondition(HasItem, 1779, 5 )
 	MisResultAction(TakeItem, 1779, 5 )
@@ -1196,11 +1367,19 @@ function RobinMission033()
 end
 RobinMission033()
 
+----------------------------------------------------------
+--							--
+--							--
+--		±щАЗ±¤[±щАЗ±¤ЅЈКїЎ¤АЧЕ·]			--
+--							--
+--		239185,277025				--
+----------------------------------------------------------
 function RobinMission034()
 
-	DefineMission( 729, "Руководство Охотника ", 717 )
+-----------------------------------БФИЛКЦІб
+	DefineMission( 729, "Hunter Manual", 717 )
 	
-	MisBeginTalk( "<t>У тебя где то тут есть руководство охотника? Ты действительно храбрый.<n><t>Однако одной только храбрости недостаточно для <rРуководства охотника>, ты должен доказать, что ты имеешь требуемую проворность и ловкость.<n><t>Отправляйся в <pЛедынь> и убей 10 <bМаленьких Оленей> по координатам (1164, 305) и 10 <bМаленьких белых оленей> по координатам (1325, 305).<n><t>Еще у тебя должен быть <rСок эльфийского фрукта>.<n><t>Как охотник ты очень много времени проводишь за пределами города, поэтому тебе нужно иметь средства пополнения жизни.<n><t>Если ты завершишь это задания,я буду считать тебя квалифицированным охотником." )
+	MisBeginTalk( "<t>Are you here to aquire the Hunter Manual? You are really brave.<n><t>However bravery alone is not enough, to aquire the <rHunter Manual>, you must prove that you have the required agility and dexterity.<n><t>Go to <pIcicle City> and capture 10 <bLittle Deers> at (1164, 305) and 10 <bLittle White Deers> at (1325, 305).<n><t>In additional, you need to have <rElven Fruit Juice>.<n><t>As hunter spends a long amount of time outside hunting solidary, having items that regenerate HP is a must.<n><t>If you managed to complete these tasks, I will consider you to be a qualifed hunter." )
 	MisBeginCondition(NoMission, 717)
 	MisBeginCondition(LvCheck, ">", 6 )
 	MisBeginCondition(PfEqual, 0 )
@@ -1220,8 +1399,8 @@ function RobinMission034()
 	MisPrize(MIS_PRIZE_ITEM, 3955, 1, 4)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Друг, задание выполнено на отлично!<n><t>Ты прошел мой тест. Вот тебе <rРуководство охотника>, которое должен иметь каждый охотник.<n><t>Храни это. Когда достигнешь <p10 уровня>, приходи ко мне для того,чтобы я тебя зарегестрировал как охотник.")
-	MisHelpTalk("<t>Ты не выполнил моего поручения. Ты не станешь охотником пока не выполнишь задание так,чтобы я гордился тобой.")
+	MisResultTalk("<t>Friend, you have done well!<n><t>You have passed my test. This is the <rHunter Manual> that all hunter must have.<n><t>Keep it well. When you reached <pLv10>, come to me for class advancement.")
+	MisHelpTalk("<t>You have not met the requirements. Its not so easy to become a Hunter.")
 	MisResultCondition(HasMission, 717)
 	MisResultCondition(HasItem, 3122, 1 )
 	MisResultCondition(HasFlag, 717, 19 )
@@ -1243,9 +1422,10 @@ function RobinMission034()
 	TriggerAction( 1, AddNextFlag, 717, 30, 10 )
 	RegCurTrigger( 7173 )
 	
-	DefineMission( 757, "Классифицированный Стрелок ", 741 )
+-----------------------------------ѕС»чКЦЧЄЦ°ИООс
+	DefineMission( 757, "Sharpshooter Range", 741 )
 	
-	MisBeginTalk( "<t>Стать <bСтрелком> просто. Иди на <pОстров Скелетов>, убей 10 <rСкелетов-Лучников> и принеси мне 5 <yСтарых Колчанов>. Также, убей 10 <rКротов-Ниньдзя> в <pАскароне>, <pЗаброшенных Шахтах> и принеси мне 5 <rСломанных мечей ниндзя>." )
+	MisBeginTalk( "<t>To become a <bSharpshooter> is simple. Go to <pSkeleton Haven>, defeat 10 <rSkeletal Archers> and bring back 5 <yOld Quivers>. Also, kill 10 <rNinja Moles> in <pAscaron>'s <pAbandoned Mine> and bring back 5 <rBroken Ninja Swords>." )
 	MisBeginCondition(NoRecord, 741)
 	MisBeginCondition(NoMission, 741)
 	MisBeginCondition(LvCheck, ">", 39 )
@@ -1263,8 +1443,8 @@ function RobinMission034()
 	MisNeed(MIS_NEED_ITEM, 4362, 5, 30, 5)
 	MisNeed(MIS_NEED_ITEM, 4367, 5, 40, 5)
 	
-	MisResultTalk("<t>Поздравляю тебя! Ты удолетворил все мои просьбы,для того чтобы стать <bСтрелком>!<n><t>Не забывай! Ключ к победе - это прежде всего спокойствие и терпение в любой ситуации.")
-	MisHelpTalk("<t>Почему? У тебя не получилось?")
+	MisResultTalk("<t>Congratulations! You have successfully become a qualified <bSharpshooter>!<n><t>Remember! The key to victory is to remain calm in all circumstances.")
+	MisHelpTalk("<t>Why? No confidence in yourself?")
 	MisResultCondition(HasMission, 741)
 	MisResultCondition(HasFlag, 741, 19 )
 	MisResultCondition(HasFlag, 741, 29 )
@@ -1296,11 +1476,20 @@ function RobinMission034()
 end
 RobinMission034()
 
+
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[СІВЯ±шЎ¤Вн¶ыЛ№]			--
+--							--
+--		239185,277025				--
+----------------------------------------------------------
 function RobinMission035()
 
-	DefineMission( 730, "Опасность ", 718 )
+-----------------------------------К®Нт»рј±
+	DefineMission( 730, "Emergency", 718 )
 
-	MisBeginTalk( "<t>Вокруг тебя полно опасностей. Тебе нужно найти и уничтожить огромный рой <bПчелок>. Многие жалились, ты можешь помочь убить 10 <bПчелок>?<n><t>Я тебя вознагражу!" )
+	MisBeginTalk( "<t>It's starting to get dangerous around here. There has been reports of a huge swarm of <bMini Bees>. Many have been stung, can you help us to slay 10 <bMini Bees>?<n><t>There'll be a reward." )
 	MisBeginCondition(NoMission, 718)
 	MisBeginCondition(LvCheck, ">", 4 )
 	MisBeginCondition(LvCheck, "<", 7 )
@@ -1314,8 +1503,8 @@ function RobinMission035()
 	MisPrize(MIS_PRIZE_MONEY, 50, 1)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Очень хорошо! Ты правдо мой друг. С твоей помощью, я не буду наказан стирать носки всего батальона сного.")
-	MisHelpTalk("<t>Что случилось? Это всего лишь 10 маленьких пчелок! Попробуй еще раз! Вперед!")
+	MisResultTalk("<t>This is good! You are truly a friend. With your help, I will not get punish to wash the socks of the whole battalion againЎ­")
+	MisHelpTalk("<t>Whats wrong? Its only 10 Mini Bees. You can do it! Go now!")
 	MisResultCondition(HasMission, 718)
 	MisResultCondition(HasFlag, 718, 19 )
 	MisResultAction(AddExp, 75, 125)
@@ -1327,9 +1516,10 @@ function RobinMission035()
 	RegCurTrigger( 7181 )
 
 
-	DefineMission( 736, "Грибное население ", 724 )
+-----------------------------------Дў№Ѕ·єАД
+	DefineMission( 736, "Shroom Population", 724 )
 
-	MisBeginTalk( "<t>У меня давняя злость на <bГриб-Жадобец>. Убей их недалеко от города, а конкретнее слева от Заброшенных шахт. Хоть я и люблю грибной суп,я не люблю быть укушенным этими <bГрибами-жадобцами>.<n><t>Вкратце они находятся недалеко от (2220, 2564) ,уничтож 15 <bГриб-жадобец>. Пожалуйста не бросацй меня в столь трудный час! Ты мне очень нужен,кроме тебя мне никто не поможет." )
+	MisBeginTalk( "<t>I don't know which nuisance raise so many <bGreedy Shroom> ouside the city, now they have multiplied beyond control. Even though I love drinking mushroom soup, no one is willing to bitten by those <bGreedy Shroom>.<n><t>I am short of manpower here so I have to bother you to go to (2220, 2564) and eradicate 8 <bGreedy Shrooms>. Please help out! Moreover if this matter isn't solved, we can't carry on to clear other tasks." )
 	MisBeginCondition(NoMission, 724)
 	MisBeginCondition(NoMission, 718)
 	MisBeginCondition(LvCheck, ">", 6 )
@@ -1344,8 +1534,8 @@ function RobinMission035()
 	MisPrize(MIS_PRIZE_MONEY, 100, 1)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Это все<n><t>Ты сделал великую работу! Спасибо за помощь!")
-	MisHelpTalk("<t>Убей 15 Грибов-жадобцов!<n><t>Все надеются на тебя!")
+	MisResultTalk("<t>Is it done?<n><t>You have done a great job! My workload is now lessened thanks for your help.")
+	MisHelpTalk("<t>Its only 15 Greedy Shrooms!<n><t>All depend on you now!")
 	MisResultCondition(HasMission, 724)
 	MisResultCondition(HasFlag, 724, 24 )
 	MisResultAction(AddExp, 125, 175)
@@ -1357,9 +1547,10 @@ function RobinMission035()
 	RegCurTrigger( 7241 )
 
 
-	DefineMission( 737, "Природоохранная деятельность ", 725 )
+-----------------------------------»¤ВМРР¶Ї
+	DefineMission( 737, "Conservation Activity", 725 )
 
-	MisBeginTalk( "<t>Ты наверное заметил, что растительность Аргента резко вымерла. Я знаю, что весь мой драгоценный план сперла эта матерая <bТравяная черепаха>.Спорю, что она убивает его где то недалеко от Верхнего Выхода Аргента. Прошу тебя помоги мне вернуть мой план и убей 10 матерых Травяных черепах по координатам (2057, 2564).<n><t>Будь осторожен,так как эти черепахи бегают кучками. Так как эти черепахи под действием моего плана, они имеют большую защиту в бою. Однако я уверен,что ты справишся с этим заданием." )
+	MisBeginTalk( "<t>Have you noticed that the greenery surrounding Argent City has been reduced considerably. I heard from that captain that it was due to the voracious appetite of the <bGrass Tortoise> gathering near the city. Please help me kill 10 Grass Tortoise at (2057, 2564).<n><t>I will give you some reward once it is done and by the way, let me give you some warning. These grass tortoise might be slow but they do have high defence so this task is harder than the ones previously. However it should be suitable for your level." )
 	MisBeginCondition(NoMission, 725)
 	MisBeginCondition(NoMission, 724)
 	MisBeginCondition(NoMission, 718)
@@ -1375,8 +1566,8 @@ function RobinMission035()
 	MisPrize(MIS_PRIZE_MONEY, 150, 1)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Сделал?<n><t>Отлично! Не смотря на то, что черепахи беззащитны, нам нужно боротся за виживание,т.к. без плана мир не крутится...")
-	MisHelpTalk("<t>Черепахи тебя обманули? Убей 10 Черепах!<n><t>Найди их недалеко от (2057, 2564).")
+	MisResultTalk("<t>Completed?<n><t>Well done! Although the tortoise are pitiful, they need to be killed for our survival...")
+	MisHelpTalk("<t>How is it going? Its 10 Grass Tortoise!<n><t>You should be able to find them at (2057, 2564).")
 	MisResultCondition(HasMission, 725)
 	MisResultCondition(HasFlag, 725, 19 )
 	MisResultAction(AddExp, 175, 250)
@@ -1391,13 +1582,22 @@ function RobinMission035()
 end
 RobinMission035()
 
+
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[Т©ІДЙМИЛЎ¤ЙіА­А­]			--
+--							--
+--		239185,277025				--
+----------------------------------------------------------
 function RobinMission036()
 
-	DefineMission( 717, "Приветствие врача ", 709, COMPLETE_SHOW)
+-----------------------------------Т©ІДµкµДОКєт
+	DefineMission( 717, "Physician's Greetings", 709, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 		
-	MisResultTalk("<t> Я вижу ты здесь новенький? Небойся я всё расскажу тебе про Шайтан! Я доктор Шала. Возьми <rЯблоки>, кстате ты их всегда можешь купить в любое время.<n><t>Теперь вернись к Реслин она находиться (876, 3572).<n><t>(Шала дала тебе немного Яблок. Перенеси их на горячие клавиши,чтобы быстро использовать на F1-F8.)")
+	MisResultTalk("<t> You say you're new around here? No wonder I haven't seen you in Shaitan before. Welcome! I am Physician - Shala. Take these <rApples>, they're free this time but next time you'll have to buy them from me.<n><t>Now return to Resline at (876, 3572).<n><t>(Shala has given you some \"Apples\". Place in your shortcut which is labeld by F1 - F8 to use it)")
 	MisResultCondition(NoRecord, 709)
 	MisResultCondition(HasMission, 709)
 	MisResultCondition(NoFlag, 709, 10)
@@ -1408,9 +1608,10 @@ function RobinMission036()
 	MisResultBagNeed(1)
 
 
-	DefineMission( 734, "Эксперимент прививки ", 722 )
+---------------------------------јЮЅУКФСй	
+	DefineMission( 734, "Grafting Experiment", 722 )
 
-	MisBeginTalk( "<t>Хочешь увидеть как цветет кактус? Я планирую сделать експеремент, но мне нужна твоя помощь для сбора 5 <rПобегов кактуса> и 5 <rСемечек>.<n><t>Они могут быть найдены с Злободыня и Таинственный куст." )
+	MisBeginTalk( "<t>Want to see cactus bloom? I planned to carry out an experiment so I need your help in collecting 5 <rCactus Hairball> and 5 <rSeeds>.<n><t>They can be found on Melons and Mystic Shrubs." )
 	MisBeginCondition(NoMission, 722)
 	MisBeginCondition(LvCheck, ">", 4 )
 	MisBeginCondition(LvCheck, "<", 7 )
@@ -1426,8 +1627,8 @@ function RobinMission036()
 	MisPrize(MIS_PRIZE_MONEY, 100, 1)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Хорошо! Сейчас я могу начать эксперимент. Возвращайся в следующем году, чтобы увидеть мою работу.!")
-	MisHelpTalk("<t>Хмм, не можешь принести мне, то что я просил? Принеси мне 5 <rПобегов катуса> и 5 <rСемечек>.")
+	MisResultTalk("<t>Good! Now I can start my experiment. Come back next year to see my work!")
+	MisHelpTalk("<t>Hmm, still unable to get the items I needed? Its 5 <rCactus Hairballs> and 5 <rSeeds>.")
 	MisResultCondition(HasMission, 722)
 	MisResultCondition(HasItem, 1691, 5 )
 	MisResultCondition(HasItem, 1597, 5 )
@@ -1446,9 +1647,10 @@ function RobinMission036()
 	RegCurTrigger( 7222 )
 
 
-	DefineMission( 744, "Поддельный Подарок ", 732 )
+--------------------------------О±ФмАсОп	
+	DefineMission( 744, "Fake a Gift", 732 )
 
-	MisBeginTalk( "<t>Слушай, врач Ледыни собирает пот животных. Так вот, я хочу его разыграть, дав ему подделку, но для этого мне нужны ингридиенты.<n><t>Помоги мне собрать 5 бутылей <rТемной воды> и 5 <rСтаканов>. Выбей их с <bСкорпионышей> на координатах (1184, 3557). Пойди и сделай,я вознагражу!")
+	MisBeginTalk( "<t>Listen to my proposal: Lately, the physician of Icicle City has been collecting the sweat of animals. I want to play a joke on him so I need some materials to make the fakes.<n><t>Help me collect 5 vials of <rMurky Water> and 5 <rGlass>. They be found on <bBaby Scorpion> at (1184, 3557). Just take this as a special request, haha!" )
 	MisBeginCondition(NoMission, 732)
 	MisBeginCondition(NoMission, 722)
 	MisBeginCondition(LvCheck, ">", 6 )
@@ -1465,8 +1667,8 @@ function RobinMission036()
 	MisPrize(MIS_PRIZE_MONEY, 200, 1)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Хаха! Великолепно! Теперь я его надурачу.")
-	MisHelpTalk("<t>Не вышло! Не можешь найти? Пожалуйста попытайся хотябы!")
+	MisResultTalk("<t>Haha! That's great! I'll definitely be able to fool him using these.")
+	MisHelpTalk("<t>It can't be! You still haven't found anything? Please hurry!")
 	MisResultCondition(HasMission, 732)
 	MisResultCondition(HasItem, 1648, 5 )
 	MisResultCondition(HasItem, 1777, 2 )
@@ -1485,9 +1687,10 @@ function RobinMission036()
 	RegCurTrigger( 7322 )
 
 
-	DefineMission( 745, "Сбор травы ", 733 )
+	--------------------------------ЕдТ©ІДБП	
+	DefineMission( 745, "Herbs Gathering", 733 )
 
-	MisBeginTalk( "<t>В это время года я всегда собираю лечебные травы, особенно эти 2, до которых у меня катострофическая нехватка. Пожалуйста найди мне 5 <rЦветков кактуса> и 2 <rКрасных финика>. Найти ты их можешь с <bКактусов> на координатах (1031, 3556). Ты их должен победить одной левой.<n><t>Ох! Сделай это дело и вернись к доктору в Ледыни." )
+	MisBeginTalk( "<t>This time round, I need to collect several medicinal herbs, especially the following 2 which I am having an acute shortage. Please locate for me 5 <rCactus Blossoms> and 2 <rRed Dates>. They definitely can be found on <bCactus> nearby at (1031, 3556). You should be able to defeat them with ease.<n><t>Oh! Those fakes managed to deceive the physician in Icicle City, it was quite amusing." )
 	MisBeginCondition(NoMission, 733)
 	MisBeginCondition(NoMission, 732)
 	MisBeginCondition(NoMission, 722)
@@ -1505,8 +1708,8 @@ function RobinMission036()
 	MisPrize(MIS_PRIZE_MONEY, 300, 1)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Я должен сказать спасибо. Я могу наконец начать варить отвар.")
-	MisHelpTalk("<t>Я попросил мелочь! Не подведи меня!")
+	MisResultTalk("<t>I must thanks you. I can start decocting finally.")
+	MisHelpTalk("<t>I only need these as ingredient! Don't let me down!")
 	MisResultCondition(HasMission, 733)
 	MisResultCondition(HasItem, 1692, 5 )
 	MisResultCondition(HasItem, 3117, 2 )
@@ -1528,11 +1731,20 @@ function RobinMission036()
 end
 RobinMission036()
 
+
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[СІВЯ±шЎ¤ВхїЛ]			--
+--							--
+--		239185,277025				--
+----------------------------------------------------------
 function RobinMission037()
 
-	DefineMission( 731, "Вторженгие Кактусов ", 719 )
+-----------------------------------ї№»чПЙИЛХЖ
+	DefineMission( 731, "Cactus Invasion", 719 )
 
-	MisBeginTalk( "<t>Ах! Сейчас все холмы Шайтана окупированы кактусами. На моём районе их очень большое количество. Можешь мне помочь? Убей 15 <bКактусов> на координатах (1031, 3556) и мне кажется, Что ты будешь очень знаменитым если сделаешь это!" )
+	MisBeginTalk( "<t>Ah! Now the hills surrounding Shaitan city are overflowing with cactus. In my area especially, there are unusually plenty of them. Can you do me a favour? Defeat 15 <bCactus> at (1031, 3556) and seems to me you are the most suited for this task." )
 	MisBeginCondition(NoMission, 719)
 	MisBeginCondition(LvCheck, ">", 4 )
 	MisBeginCondition(LvCheck, "<", 7 )
@@ -1546,8 +1758,8 @@ function RobinMission037()
 	MisPrize(MIS_PRIZE_MONEY, 50, 1)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Слава Богу ты вернулся! Ты истребил этих матерых кактусов.")
-	MisHelpTalk("<t>Испугался? 15 Кактусов тебе не позубам?!Тогда спасибо и на этом.")
+	MisResultTalk("<t>Thank God! You've exterminated quite a lot of them.")
+	MisHelpTalk("<t>What is wrong? 15 Cactus should not pose a threat to you!")
 	MisResultCondition(HasMission, 719)
 	MisResultCondition(HasFlag, 719, 24 )
 	MisResultAction(AddExp, 75, 125)
@@ -1559,9 +1771,10 @@ function RobinMission037()
 	RegCurTrigger( 7191 )
 
 
-	DefineMission( 740, "Убийство монстра ", 728 )
+	-----------------------------------МЯИЛ№ЦКЮ
+	DefineMission( 740, "Kicking Monster", 728 )
 
-	MisBeginTalk( "<t>Много людей жалуется на монстра, который убивает людей у нас. Этот монстр ранил многих. Я провёл анализ и вычислил эту падаль, это был <bГорбатый верблюд>. Можешь наказазать этого верблюда? Убей  10 <bГорбатых Верблюдов> Пожалуйста." )
+	MisBeginTalk( "<t>A lot of people have been complaining of a monster that has been kicking people. Many have been injured by this monster. I did some investigation and found out that <bHumpy Camel> did it. Can you punish the camel for us? Defeat 10 <bHumpy Camels> please." )
 	MisBeginCondition(NoMission, 728)
 	MisBeginCondition(NoMission, 719)
 	MisBeginCondition(LvCheck, ">", 6 )
@@ -1576,8 +1789,8 @@ function RobinMission037()
 	MisPrize(MIS_PRIZE_MONEY, 100, 1)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Очень хорошо. Даже придратся не к чему.<n><t>Эти верблюды реально перегибают палку.")
-	MisHelpTalk("<t>Что? Неужели ты испугался? Попробуй ещё раз.")
+	MisResultTalk("<t>This is great. There should not be any further complaint.<n><t>Those camels are really getting out of hand.")
+	MisHelpTalk("<t>What? You're not able to teach them a lesson? Try harder.")
 	MisResultCondition(HasMission, 728)
 	MisResultCondition(HasFlag, 728, 19 )
 	MisResultAction(AddExp, 125, 175)
@@ -1588,9 +1801,10 @@ function RobinMission037()
 	TriggerAction( 1, AddNextFlag, 728, 10, 10 )
 	RegCurTrigger( 7281 )
 	
-	DefineMission( 741, "Востание скорпионов ", 729 )
+	-----------------------------------Р«ЧУОЈ»ъ
+	DefineMission( 741, "Scorpion Crisis", 729 )
 
-	MisBeginTalk( "<t>Ох! Ты вырос!<n><t>Я могу дать тебе новое задание, чтобы ты утвердил, что стал сильнее.<n><t>Верблюды ушли, но теперь пришли скорпионы! Они гораздо сильнее чем маленькие скорпионыши. Они очень больно жалят,когда чувствуют опасность. Но он трус!<n><t>Пожалуйста помоги мне убить  10 <Больших скорпионов>! Поищи их по координатам (1184, 3557) но тебе потребуется сноровка чтобы победить их, дерзай!" )
+	MisBeginTalk( "<t>Oh! You leveled up!<n><t>I can now assign you new task according to your abilities.<n><t>Although the case of Humpy Camel hurting people is uncommon now, there is a sudden influx of big scorpions. They are much more powerful than the little scorpions. To be stung by them can be a life threatening situation. Its too scary!<n><t>Please help me kill 10 <Big Scorpions>! You can easily see them at (1184, 3557) but beware of their agile movements, take care!" )
 	MisBeginCondition(NoMission, 729)
 	MisBeginCondition(NoMission, 728)
 	MisBeginCondition(NoMission, 719)
@@ -1606,8 +1820,8 @@ function RobinMission037()
 	MisPrize(MIS_PRIZE_MONEY, 150, 1)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Хохо! Я нашел правильного человека, и это ты, спасибо!")
-	MisHelpTalk("<t>Испугался? Тебя победили скорпионы?? Купи лечилок, и пойди снова.")
+	MisResultTalk("<t>Hoho! Looks like I found the right person for this job!")
+	MisHelpTalk("<t>What is wrong? You are unable to defeat those scorpions? Bring some potions then.")
 	MisResultCondition(HasMission, 729)
 	MisResultCondition(HasFlag, 729, 19 )
 	MisResultAction(AddExp, 175, 250)
@@ -1621,11 +1835,20 @@ function RobinMission037()
 end
 RobinMission037()
 
+
+----------------------------------------------------------
+--							--
+--							--
+--		±щАЗ±¤[СІВЯ±шЎ¤РЎДЄ]			--
+--							--
+--		239185,277025				--
+----------------------------------------------------------
 function RobinMission038()
 
-	DefineMission( 732, "Игриввы кальмарчики ", 720 )
+-----------------------------------НзЖ¤ЕБЕБ
+	DefineMission( 732, "Playful Squidy", 720 )
 
-	MisBeginTalk( "<t>Блин, теперь здесь снежные кальмарчики стали более наглыми. Когда я гулял по окраинам города, они мне сделали Засаду.<n><t>Пожалуйста преподай им урок убив 15 <bСнежных кальмарчиков>.<n><t>Это будет легко для тебя." )
+	MisBeginTalk( "<t>Lately, these Snow Squidys have gotten more and more mischievous. When I was out of the city, they ambushed me as a joke.<n><t>Please teach them a lesson by defeating 15 <bSnow Squidys>.<n><t>It should be easy for you." )
 	MisBeginCondition(NoMission, 720)
 	MisBeginCondition(LvCheck, ">", 4 )
 	MisBeginCondition(LvCheck, "<", 7 )
@@ -1639,8 +1862,8 @@ function RobinMission038()
 	MisPrize(MIS_PRIZE_MONEY, 50, 1)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Хорошо. Теперь я могу спокойно гулять.")
-	MisHelpTalk("<t>Что? У тебя не получилось? Иди попробуй еще разок!")
+	MisResultTalk("<t>Good. Now I can have a good rest.")
+	MisHelpTalk("<t>What? You've not done anything yet? This shouldn't be much of a problem to you.")
 	MisResultCondition(HasMission, 720)
 	MisResultCondition(HasFlag, 720, 24 )
 	MisResultAction(AddExp, 75, 125)
@@ -1651,9 +1874,10 @@ function RobinMission038()
 	TriggerAction( 1, AddNextFlag, 720, 10, 15 )
 	RegCurTrigger( 7201 )
 	
-	DefineMission( 742, "Такого никогда не бывает слишком много ", 730 )
+-----------------------------------ЦнїЪ¶бБё
+	DefineMission( 742, "There's never too much", 730 )
 
-	MisBeginTalk( "<t>У меня для тебя есть задание в городе Ледынь: <bСнежные свинокрылы> Воруют у нас огромные запасы контрабанды. Пожалуйста сходи (1179, 371) и уничтож 10 <bСнежных свинокрылов>." )
+	MisBeginTalk( "<t>It is a tough time for the people in Icicle City, so the task I need to entrust you is this: The <bSnowy Piglets> consume huge amount of food and they are getting out of control. Please go to (1179, 371) and destroy 10 <bSnowy Piglets>." )
 	MisBeginCondition(NoMission, 730)
 	MisBeginCondition(NoMission, 720)
 	MisBeginCondition(LvCheck, ">", 6 )
@@ -1668,8 +1892,8 @@ function RobinMission038()
 	MisPrize(MIS_PRIZE_MONEY, 100, 1)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Сделал? Спасибо! Те свинокрылы имеют большой аппетит. Мне кажется нужно иметь свинокрылов всегда, и резать их для выгоды!")
-	MisHelpTalk("<t>Что? Не полусилось?")
+	MisResultTalk("<t>Done? Thank you! Those piglets have a big appetiteЎ­Seems like I need to have BBQ pork every dayЎ­")
+	MisHelpTalk("<t>What? Still nothing?")
 	MisResultCondition(HasMission, 730)
 	MisResultCondition(HasFlag, 730, 19 )
 	MisResultAction(AddExp, 125, 175)
@@ -1680,9 +1904,10 @@ function RobinMission038()
 	TriggerAction( 1, AddNextFlag, 730, 10, 10 )
 	RegCurTrigger( 7301 )
 
-	DefineMission( 743, "Неверная передача ", 731 )
+	-----------------------------------ґнОуЗЁТЖ
+	DefineMission( 743, "Wrong Transfer", 731 )
 
-	MisBeginTalk( "<t>Хохо, У меня хорошие новости! Мне кажется что стадо Оленят мигрировала в Ледынь. И теперь в ледыни они считаются деликатесами, дарованными богами. Я хочу чтобы ты срочно туда направился (1164 ,305). Убей и принеси мне 12 <bОленят> может быть я сделаю банкет для тебя." )
+	MisBeginTalk( "<t>Hoho, I have good news! It seems a pack of Little Deer have mistakenly migrated near to the Icicle City. With the current situation at Icicle City, this pack of deers is like a delicacy given by the gods. I want you to travel with haste to (1164 ,305). Hunt and bring back 12 <bLittle Deers> so we can have a feast tonight." )
 	MisBeginCondition(NoMission, 731)
 	MisBeginCondition(NoMission, 720)
 	MisBeginCondition(NoMission, 730)
@@ -1698,8 +1923,8 @@ function RobinMission038()
 	MisPrize(MIS_PRIZE_MONEY, 150, 1)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Хорошо! Ты сделал это!<n><t>Какое божественное мясо!Хехе...")
-	MisHelpTalk("<t>Что случилось? Ты не можешь убить их? Иди быстрее!<n><t>Я хочу начать готовить оленину!")
+	MisResultTalk("<t>Good! You have done it!<n><t>I will put aside my duties for those delicious meat! Hehe...")
+	MisHelpTalk("<t>What's up? You can't even defeat those weak enemies? Go quickly!<n><t>I'm still waiting to start cooking!")
 	MisResultCondition(HasMission, 731)
 	MisResultCondition(HasFlag, 731, 19 )
 	MisResultAction(AddExp, 175, 250)
@@ -1713,11 +1938,20 @@ function RobinMission038()
 end
 RobinMission038()
 
+
+----------------------------------------------------------
+--							--
+--							--
+--		РВКЦИООс					--
+--							--
+--							--
+----------------------------------------------------------
 function RobinMission039()
 
-	DefineMission( 50, "Отправить письмо Маркусу ", 50 )
+-----------------------------------ЛНРЕёшВн¶ыЛ№
+	DefineMission( 50, "Send a letter to Marcusa", 50 )
 	
-	MisBeginTalk( "<t>Помоги с одним дельцем.<n><t>Отнеси письмо <bМаркусу>, он даст тебе задачу и проконтролирует тебя. Он находится в Аргенте по координатам (2065, 2732)." )
+	MisBeginTalk( "<t>There's nothing more for me to help you with.<n><t>Take this letter to <bMarcusa>, the patroller and see if he has anymore tasks for you. He can be found outside Argent City at (2065, 2732)." )
 	MisBeginCondition(HasRecord, 704)
 	MisBeginCondition(NoRecord, 50)
 	MisBeginCondition(NoMission, 50)
@@ -1726,13 +1960,14 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 50 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправте письмо Патрульному - Маркусу ")
+	MisNeed(MIS_NEED_DESP, "Send a letter to Patrol - Marcusa")
 
-	MisHelpTalk("<t>Маркус находиться (2065, 2732).")
+	MisHelpTalk("<t>Marcusa is near (2065, 2732).")
 	MisResultCondition(AlwaysFailure )
-	DefineMission( 51, "Письмо для Дито ", 51 )
+-----------------------------------ЛНРЕёшµЫД·
+	DefineMission( 51, "Letter for Ditto", 51 )
 	
-	MisBeginTalk( "<t>Если тебе нравится собирать травы и ингридиенты подходи к <bДоктору Дито> (2250, 2770). Он тебе даст задание." )
+	MisBeginTalk( "<t>If you like collecting stuff more than fighting, give this letter to the <bPhysician Ditto> (2250, 2770). He has a task for you." )
 	MisBeginCondition(HasRecord, 704)
 	MisBeginCondition(NoRecord, 51)
 	MisBeginCondition(NoMission, 51)
@@ -1741,16 +1976,17 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 51  )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправьте письмо врачу Дито ")
+	MisNeed(MIS_NEED_DESP, "Send the letter to Physician Ditto")
 
-	MisHelpTalk("<t>Почему ты не передал письмо Дито? Он находится по координатам (2250, 2770).")
+	MisHelpTalk("<t>Why haven't you passed the letter to Ditto? He is nearby at (2250, 2770).")
 	MisResultCondition(AlwaysFailure )
 
-	DefineMission( 52, "Отправить письмо Маркусу ", 50, COMPLETE_SHOW)
+-----------------------------------ЛНРЕёшВн¶ыЛ№
+	DefineMission( 52, "Send a letter to Marcusa", 50, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Я рад что ты здесь.<n><t>Ты заметил что при сражение твоя строка жизни меняется?Ты прав, эта строка показывает твой уровень жизни. Ты умрешь когда она будет на нуле. Будь осторожен!<n><t>Не забывай кушать Яблоки, Кексы или остальные лечилки, перемести их на горячие клавиши F1-F8 для быстрого использования.")
+	MisResultTalk("<t>It's good that you are here, I could use a helping hand.<n><t>Also, take note of your HP bar while in battle. That's right, the red bar shows your HP level. You will die when it reaches 0. Beware!<n><t>Beside eating \"Apples\", \"Cakes\" or other recovery potion, you can press the \"Insert\" key to increase HP/SP recovery rate.")
 	MisResultCondition(NoRecord, 50)
 	MisResultCondition(HasMission, 50)
 	MisResultCondition(HasItem, 4111, 1)
@@ -1759,9 +1995,10 @@ function RobinMission039()
 	MisResultAction(SetRecord, 50)
 	MisResultAction(AddExp, 50, 50)
 
-	DefineMission( 53, "Опасность ", 52 )
+-----------------------------------К®Нт»рј±
+	DefineMission( 53, "Emergency", 52 )
 
-	MisBeginTalk( "<t>Опасности есть на каждом шагу. Есть сообщение о местонахождении огромного роя <rПчелок>. Многие всех искусали,поэтому помоги убить 6 <rПчелок>! Я тебя вознагражу, если сделаешь." )
+	MisBeginTalk( "<t>Its starting to get dangerous around here. There has been reports of a huge swarm of <rMini Bees>. Many have been stung, can you help us to slay 6 <rMini Bees>? There will be a reward." )
 	MisBeginCondition(HasRecord, 50)
 	MisBeginCondition(NoMission, 52)
 	MisBeginCondition(NoRecord, 52)
@@ -1770,11 +2007,11 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 52)
 	
 
-	MisNeed(MIS_NEED_DESP, "Убить 6 <rПчелок> и навестить Маркуса.")
+	MisNeed(MIS_NEED_DESP, "Kill 6 <rMini Bee> and look for Marcusa")
 	MisNeed(MIS_NEED_KILL, 206, 6, 10, 6)
 	
-	MisResultTalk("<t>Отлично! Ты правдо мой друг. Благодаря твоей помощи мы уничтожили всех пчел,спасибо тебе.")
-	MisHelpTalk("<t>Что случилось? Убей всего 6 Пчелок. У тебя не должно быть с этим делом проблем. Прошу тебя попробуй снова.")
+	MisResultTalk("<t>This is good! You are truly a friend. With your help, I will not get punish to wash the socks of the whole battalion againЎ­")
+	MisHelpTalk("<t>What is the matter? It's only 6 Mini Bees. It should not pose a problem to you. Please hurry up and get rid of them.")
 	MisResultCondition(HasMission, 52)
 	MisResultCondition(HasFlag, 52, 15 )
 	MisResultAction(AddExp, 150, 150)
@@ -1786,9 +2023,10 @@ function RobinMission039()
 	TriggerAction( 1, AddNextFlag, 52, 10, 6 )
 	RegCurTrigger( 521 )
 
-	DefineMission( 54, "Письмо для Сальвиера ", 53 )
+-----------------------------------ЛНРЕёшЛ№їЛМШ
+	DefineMission( 54, "Letter for Salvier", 53 )
 	
-	MisBeginTalk( "<t>Ситуация с Пчелками улучшилась. Но вышел большой инцидент с этим. Грин Пис заступился за пчел и теперь ездит за нами.<n><t>Чтобы этого избежать, пойди к Секретарше Аргента, <bСаливеру> на координатах (2219, 2749)?" )
+	MisBeginTalk( "<t>The Mini Bees situation has gotten better. I have a report here regarding the whole incident.<n><t>Can I trust you to deliver this report to Argent's Secretary, <bSalvier> at (2219, 2749)?" )
 	MisBeginCondition(HasRecord, 52)
 	MisBeginCondition(NoRecord, 53)
 	MisBeginCondition(NoMission, 53)
@@ -1797,16 +2035,17 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 53  )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправьте письмо серетарю Аргента ")
+	MisNeed(MIS_NEED_DESP, "Send the letter to Salvier in Argent")
 
-	MisHelpTalk("<t>Почему ты не отнес письмо?<n><t>быстрее отнеси, Грин Пис рядом!Найди Саливер на координатах (2219, 2749).")
+	MisHelpTalk("<t>Why haven't you gone to the secretary?<n><t>Salvier's office can be located at (2219, 2749).")
 	MisResultCondition(AlwaysFailure )
 
-	DefineMission( 55, "Письмо для Сальвиера ", 53, COMPLETE_SHOW)
+-----------------------------------ЛНРЕёшЛ№їЛМШ
+	DefineMission( 55, "Letter for Salvier", 53, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>По словам Маркуса ты очень помог в борьбе с пчелами. Я горжусь тобой!")
+	MisResultTalk("<t>According to Marcusa's report, it states that you played a big role in ridding us of the bees. Well done!")
 	MisResultCondition(NoRecord, 53)
 	MisResultCondition(HasMission, 53)
 	MisResultCondition(HasItem, 4113, 1)
@@ -1815,9 +2054,10 @@ function RobinMission039()
 	MisResultAction(SetRecord, 53)
 	MisResultAction(AddExp, 80, 80)
 
-	DefineMission( 56, "Грибное население ", 54 )
+-----------------------------------Дў№Ѕ·єАД
+	DefineMission( 56, "Shroom Population", 54 )
 
-	MisBeginTalk( "<t>Я не знаю почему так сильно ростёт количество <bГрибов-Жадобцов> недалеко от города. Сейчас они неконтролируемые. Я очень люблю грибной суп, но нехочу быть укушенным <bГрибами-Жадобцами>.<n><t>Скажу коротко,ты мне очень нужен, пойди (2220, 2564) и убей 8 <bГрибов-жадобцов>. Прошу тебя не брось меня и принеси мне то, что я попросил." )
+	MisBeginTalk( "<t>I don't know which nuisance raise so many <bGreedy Shrooms> ouside the city. Now they have multiplied beyond control. Even though I love drinking mushroom soup, no one is willing to bitten by those <bGreedy Shrooms>.<n><t>I am short of manpower here so I have to trouble you to go to (2220, 2564) and eradicate 8 <bGreedy Shrooms>. Please help out as, if this matter isn't solved, we can't carry on to clear other tasks." )
 	MisBeginCondition(HasRecord, 53)
 	MisBeginCondition(NoMission, 54)
 	MisBeginCondition(NoRecord, 54)
@@ -1826,14 +2066,14 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 54)
 	
 
-	MisNeed(MIS_NEED_DESP, "Убей 8 <rГрибов-Жадобцев> И вернитесь к серетарю аргента.")
+	MisNeed(MIS_NEED_DESP, "Kill 8 <rGreedy Shroom> and report back to Salvier in Argent")
 	MisNeed(MIS_NEED_KILL, 184, 8, 10, 8)
 
 	MisPrize(MIS_PRIZE_ITEM, 9, 1, 4)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Ох, неужели ты всё сделал? Молодца!<n><t>Велеколепно. Благодаря тебе, теперь я наемся супа вдоволь.")
-	MisHelpTalk("<t>Как так? Всего 8 Грибочков убить не можешь!")
+	MisResultTalk("<t>Oh its done? You are great!<n><t>This is good. With your help, our jobs will be easier.")
+	MisHelpTalk("<t>How is it? Only 8 Greedy Shrooms!<n><t>Go for it!")
 	MisResultCondition(HasMission, 54)
 	MisResultCondition(HasFlag, 54, 17 )
 	MisResultAction(AddExp, 250, 250)
@@ -1846,9 +2086,10 @@ function RobinMission039()
 	TriggerAction( 1, AddNextFlag, 54, 10, 8 )
 	RegCurTrigger( 541 )
 
-	DefineMission( 57, "Письмо для Голди ", 55 )
+-----------------------------------ЛНРЕёшРЎЅрЅр
+	DefineMission( 57, "Letter for Goldie", 55 )
 	
-	MisBeginTalk( "<t>У меня есть письмо, и ты должен отправить его кузнецу <bГолди> в Аргенте.<n><t>Ты наверное знаешь его. Отправляйся (2193, 2706) и глянь что там у него." )
+	MisBeginTalk( "<t>I have an official letter here to deliver to Argent's Blacksmith <bGoldie>.<n><t>You should know him. Go to (2193, 2706) and look for him now." )
 	MisBeginCondition(HasRecord, 54)
 	MisBeginCondition(NoRecord, 55)
 	MisBeginCondition(NoMission, 55)
@@ -1857,17 +2098,18 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 55  )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправить письмо кузнецу Голди.")
+	MisNeed(MIS_NEED_DESP, "Send a letter to Blacksmith Goldie")
 
-	MisHelpTalk("<t>Почему ты не смог отправить письмо  кузнецу Голди? Он находится здесь (2193, 2706).")
+	MisHelpTalk("<t>Why haven't you given the letter to Goldie? He is at (2193, 2706).")
 	MisResultCondition(AlwaysFailure )
 
 
-	DefineMission( 58, "Письмо для Голди ", 55, COMPLETE_SHOW)
+-----------------------------------ЛНРЕёшРЎЅрЅр
+	DefineMission( 58, "Letter for Goldie", 55, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Ох, Вот тебе письмо для Сальвера.<n><t>Я ждал именно тебя для того, чтобы ты отправил ему письмо.")
+	MisResultTalk("<t>Oh, it's a letter from Salvier.<n><t>I didn't expect him to dispatch someone like you to deliver this.")
 	MisResultCondition(NoRecord, 55)
 	MisResultCondition(HasMission, 55)
 	MisResultCondition(HasItem, 4114, 1)
@@ -1876,9 +2118,10 @@ function RobinMission039()
 	MisResultAction(SetRecord, 55)
 	MisResultAction(AddExp, 120, 120)
 
-	DefineMission( 59, "Природоохранная деятельность ", 56 )
+-----------------------------------»¤ВМРР¶Ї
+	DefineMission( 59, "Conservation Activity", 56 )
 
-	MisBeginTalk( "<t>Ты не заметил что растительность Аргента резко уменьшилась? Я считаю что все сьели <bТравяные черепахи>. Пожалуйста помоги мне убить 12 Травяных черепах по коордмнатам (2057, 2564).<n><t>Я дам тебе великое вознаграждение и предупрежу, что эти черепахи забрали весь план и носятся теперь со скоростью 200км/ч. Также у них резко выросла защита, так что будь осторожен. Я уверен, что это задание тебе по силам." )
+	MisBeginTalk( "<t>Have you noticed that the greenery surrounding Argent City has been reduced considerably. I heard from that captain that it was due to the voracious appetite of the <bGrass Tortoise> gathering near the city. Please help me kill 12 Grass Tortoise at (2057, 2564).<n><t>I will give you some reward once it is done and by the way, let me give you some warning. These grass tortoise might be slow but they do have high defence so this task is harder than the ones previously. However it should be suitable for your level." )
 	MisBeginCondition(HasRecord, 55)
 	MisBeginCondition(NoMission, 56)
 	MisBeginCondition(NoRecord, 56)
@@ -1887,14 +2130,14 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 56)
 	
 
-	MisNeed(MIS_NEED_DESP, "Убей 12 <rТравяных черепах> и вернись к Голди в Аргенте.")
+	MisNeed(MIS_NEED_DESP, "Kill 12 <rGrass Tortoise> and return to Goldie in Argent")
 	MisNeed(MIS_NEED_KILL, 119, 12, 10, 12)
 
 	MisPrize(MIS_PRIZE_ITEM, 4309, 1, 4)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Закончил? Отлично! Они хоть и слабые, но с ними боротся нужно жестко, я горжусь тобой.")
-	MisHelpTalk("<t>Эй! Это всего лишь 12 черепах!<n><t>Сходи по координтам	(2057, 2564) посмотри на них, сделай и дам тебе пол мешка плана.")
+	MisResultTalk("<t>Completed? Well done! Although the tortoise are pitiful, they need to be killed for our survivalЎ­")
+	MisHelpTalk("<t>Hey! Its 12 grass tortoise!<n><t>You should be at (2057, 2564) looking for them.")
 	MisResultCondition(HasMission, 56)
 	MisResultCondition(HasFlag, 56, 21 )
 	MisResultAction(ClearMission, 56)
@@ -1908,9 +2151,10 @@ function RobinMission039()
 	RegCurTrigger( 561 )
 
 
-	DefineMission( 60, "Письмо для Сенны ", 57 )
+-----------------------------------ЛНРЕёшЙЄ°І
+	DefineMission( 60, "Letter for Senna", 57 )
 	
-	MisBeginTalk( "<t>Мне очень нужна твоя помощь.<n><t>Пожалуйста отнеси письмо <bСенне>, Наставнице новичков на координатах (2223, 2785).<n><t>После этого я дам тебе некоторые инструкции." )
+	MisBeginTalk( "<t>Although we have asked you for help with many of our things, you have also progress much.<n><t>Please take this letter to <bSenna>, the Newbie Guide at (2223, 2785).<n><t>After locating her, she'll give you some new instructions." )
 	MisBeginCondition(HasRecord, 56)
 	MisBeginCondition(NoRecord, 57)
 	MisBeginCondition(NoMission, 57)
@@ -1919,16 +2163,17 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 57  )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправить письмо Наставнице - Сенне в Аргенте.")
+	MisNeed(MIS_NEED_DESP, "Send a letter to Argent Newbie Guide - Senna")
 
-	MisHelpTalk("<t>Сенна на ходиться (2223, 2785). Иди прямо сейчас.")
+	MisHelpTalk("<t>Senna is at (2223, 2785). Go now.")
 	MisResultCondition(AlwaysFailure )
 
-	DefineMission( 61, "Письмо для Сенны ", 57, COMPLETE_SHOW)
+-----------------------------------ЛНРЕёшЙЄ°І
+	DefineMission( 61, "Letter for Senna", 57, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Спасибо за письмо...В Аргенте ты мне понравился больше всех, удачи тебе..")
+	MisResultTalk("<t>Thank you for the letter, it looks like you are quite well liked in Argent City.")
 	MisResultCondition(NoRecord, 57)
 	MisResultCondition(HasMission, 57)
 	MisResultCondition(HasItem, 4115, 1)
@@ -1938,9 +2183,10 @@ function RobinMission039()
 	MisResultAction(AddExp, 200, 200)
 
 
-	DefineMission( 62, "Продвижение Мечника ", 58 )
+-----------------------------------ЅЈКїЧЄЦ°ИООс
+	DefineMission( 62, "Swordsman Promotion", 58 )
 	
-	MisBeginTalk( "<t>Есть у тебя на данный момент время, для того чтобы определится с профессией? Если хочешь стать мечником, то пожалуйста, иди в Аргент и найди стражника, <bПитера>. Он находится по координатам (2192, 2767). Он будет тебя тренировать.<n><t>Мечник, это самый сильный земной класс. Они могут стать быстрыми и мощными Воителями и очень бронированными Чемпионами.")
+	MisBeginTalk( "<t>Its time for you to choose what you want to be. If you want to be a Swordsman, please go to Argent City and look for Castle Guard, <bPeter>. He can be found at (2192, 2767). He will test you accordingly.<n><t>Swordsman is the strongest melee class. They can advance to be an agile Crusader and a highly defensive Champion.")
 	MisBeginCondition(LvCheck, ">", 8 )
 	MisBeginCondition(PfEqual, 0 )
 	MisBeginCondition(CheckConvertProfession, MIS_FENCER )
@@ -1957,14 +2203,15 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 58  )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправить письмо Стражнику Питеру.")
+	MisNeed(MIS_NEED_DESP, "Send the letter to Peter in Argent City")
 
-	MisHelpTalk("<t>Если хочешь стать мечником,то подойди к Питеру!")
+	MisHelpTalk("<t>If you want to be a Swordsman, go and speak to Peter.")
 	MisResultCondition(AlwaysFailure )
 
-	DefineMission( 63, "Продвижение Охотника ", 59 )
+-----------------------------------БФИЛЧЄЦ°ИООс
+	DefineMission( 63, "Hunter Promotion", 59 )
 	
-	MisBeginTalk( "<t>Пришло время твоего выбора профессии. Если хочешь стать охотником , то отнеси письмо Рею в Ледынь (1365,70). Он будет тренировать тебя.<n><t>Охотники дальнобойный класс, у которых высокая атака, но мало защиты и здоровья, но тем не менее они носят Мушкеты и Луки.Охотниками могут быть как Филисы,так и Лансы." )
+	MisBeginTalk( "<t>Now it is time for you to decide a path of your choice. If you wish to be a hunter, you will have to pass this letter to Ray at Icicle City (1365,70). He will give you a trial to test your ability.<n><t>Hunter is a long ranged character class that uses either bow or firegun, suitable for Lance and Phyllis." )
 	MisBeginCondition(LvCheck, ">", 8 )
 	MisBeginCondition(PfEqual, 0 )
 	MisBeginCondition(CheckConvertProfession, MIS_HUNTER )
@@ -1981,14 +2228,15 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 59 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправьте письмо Мечники Рею в Ледыни.")
+	MisNeed(MIS_NEED_DESP, "Send the letter to Ray in Icicle City")
 
-	MisHelpTalk("<t>Если хочешь быть охотником подойди к Рею!")
+	MisHelpTalk("<t>If you want to be a Hunter, go and speak to Ray.")
 	MisResultCondition(AlwaysFailure )
 
-	DefineMission( 64, "Продвижение Знахарки ", 60 )
+-----------------------------------Т©К¦ЧЄЦ°ИООс
+	DefineMission( 64, "Herbalist Promotion", 60 )
 	
-	MisBeginTalk( "<t>Тебе пора выбирать кем хочешь стать. Если хочешь стать Знахаркой, подойди в Шайтан к <bЦелителю Ганнон>. Он находится по координатам (862, 3500). Он тебя потренерует.<n><t>Знахарки могу становится в дальнейшем Целителями и Ведьмами." )
+	MisBeginTalk( "<t>It's time for you to choose what you want to be. If you want to be a Herbalist, please go to Shaitan City and look for <bHigh Priest Gannon>. He can be found at (862, 3500). He'll trial you accordingly.<n><t>Herbalist use their ability to assist others in battle and can advance to either Cleric or Seal Master." )
 	MisBeginCondition(LvCheck, ">", 8 )
 	MisBeginCondition(PfEqual, 0 )
 	MisBeginCondition(CheckConvertProfession, MIS_DOCTOR )
@@ -2005,14 +2253,15 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 60 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отнесите это письмо Ганнон в Шайтане.")
+	MisNeed(MIS_NEED_DESP, "Bring this letter to Gannon in Shaitan City")
 
-	MisHelpTalk("<t>Если хочешь стать Знахаркой подойди к Ганнон.")
+	MisHelpTalk("<t>If you want to become a Herbalist, look for Gannon.")
 	MisResultCondition(AlwaysFailure )
 
-	DefineMission( 65, "Продвижение Исследователя ", 61 )
+-----------------------------------Г°ПХХЯЧЄЦ°ИООс
+	DefineMission( 65, "Explorer Promotion", 61 )
 	
-	MisBeginTalk( "<t>Тебе пора сделать выбор. Если хочешь стать Исследователем, тогда иди в Аргент к <bМалышу Даниэлю> по координатам (2193, 2730). Отнеси ему вот это письмо.<n><t>Исследователи пользуются кораллами, именно они дают им возможость использовать умения. В дальнейшем Исследователи становятся Покорителями морей. В море это самый грозный и мощнейший класс." )
+	MisBeginTalk( "<t>Its time for you to choose what you want to be. If you want to be an Explorer, please go to Argent City and look for <bLittle Daniel> at (2193, 2730). Bring this letter to him.<n><t>Explorer uses coral to channel their energy and can advance to Voyager. It is the strongest class in the sea." )
 	MisBeginCondition(LvCheck, ">", 8 )
 	MisBeginCondition(PfEqual, 0 )
 	MisBeginCondition(CheckConvertProfession, MIS_RISKER )
@@ -2029,17 +2278,18 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 61 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправте письмо Малышу Даниэлю в Аргенте!")
+	MisNeed(MIS_NEED_DESP, "Send a letter to Little Daniel")
 
-	MisHelpTalk("<t>Если хочешь стать Исследователем подойди к Даниэлю at (2193, 2730).")
+	MisHelpTalk("<t>To become an Explorer, look for Little Daniel at (2193, 2730).")
 	MisResultCondition(AlwaysFailure )
 
 
-	DefineMission( 66, "Продвижение Мечника ", 58, COMPLETE_SHOW)
+-----------------------------------ЅЈКїЧЄЦ°ИООс
+	DefineMission( 66, "Swordsman Promotion", 58, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Ты показал хорошие успехи. Если хочешь стать мечником, доделай задачи, которые я тебе дал.У тебя неплохо получается.")
+	MisResultTalk("<t>Since the Newbie Guide recommended you, you must have shown some potential. If you want to become a Swordsman, you'll have to finish the tasks I assign to you.")
 	MisResultCondition(NoRecord, 58)
 	MisResultCondition(HasMission, 58)
 	MisResultCondition(HasItem, 4116, 1)
@@ -2047,35 +2297,40 @@ function RobinMission039()
 	MisResultAction(ClearMission, 58)
 	MisResultAction(SetRecord, 58)
 
-	DefineMission( 67, "Продвижение Мечника ", 62 )
+-----------------------------------ЅЈКїЧЄЦ°ИООс
+	DefineMission( 67, "Swordsman Promotion", 62 )
 
-	MisBeginTalk( "<t>Хочешь стать мечником? А ты сможешь?<n><t>Однако только храбрости недостаточно, ты должен проявить свой интеллект и требуемую способность.<n><t>Отправляйся на <pПобережье Аргента> и убей 12 <bСвинокрылов> по координатам (1950, 2563) и затем вернись ко мне.<n><t>Это будет твоё первое завершенное испытание." )
+	MisBeginTalk( "<t>So you want to be a Swordsman? You have some guts.<n><t>However courage alone is not enough. To become a Swordsman, you must prove that you have the required ability and intellect.<n><t>Go now to the <pOutskirt of Argent City> and defeat 12 <bPiglets> at (1950, 2563) and then return to me.<n><t>The first test will be completed if you are able to do so." )
 	MisBeginCondition(HasRecord, 58)
 	MisBeginCondition(NoMission, 62)
 	MisBeginCondition(NoRecord, 62)
 	MisBeginAction(AddMission, 62)
 	MisBeginAction(AddTrigger, 621, TE_KILL, 237, 12 )
 	MisCancelAction(ClearMission, 62)
+	
 
-	MisNeed(MIS_NEED_DESP, "Убить 12 <bСвинокрылов> и поговорить с Питером в Аргенте ")
+	MisNeed(MIS_NEED_DESP, "Hunt 12 <bPiglets> and talk to Peter in Argent City")
 	MisNeed(MIS_NEED_KILL, 237, 12, 10, 12)
 	
-	MisResultTalk("<t>Ты отлично справился.<n><t>Ты прошел первое испытание для того, чтобы стать мечником.")
-	MisHelpTalk("<t>Ты не выполнил моего требования. Выполни его, или не станешь мечником.")
+	MisResultTalk("<t>You have done well.<n><t>You have passed the first test to becoming a Swordsman.")
+	MisHelpTalk("<t>You have not met the requirements. Its not so easy to become a Swordsman.")
 	MisResultCondition(HasMission, 62)
 	MisResultCondition(HasFlag, 62, 21 )
 	MisResultAction(ClearMission, 62)
 	MisResultAction(SetRecord, 62)
 	MisResultAction(AddExp, 300, 300)
 
+		
 	InitTrigger()
 	TriggerCondition( 1, IsMonster, 237 )	
 	TriggerAction( 1, AddNextFlag, 62, 10, 12 )
 	RegCurTrigger( 621 )
 
-	DefineMission( 68, "Продвижение Мечника ", 63 )
+
+-----------------------------------ЅЈКїЧЄЦ°ИООс
+	DefineMission( 68, "Swordsman Promotion", 63 )
 	
-	MisBeginTalk( "<t>Теперь иди к <bГенералу - Вильяму> (2277, 2831) Он даст тебе заключительное задание становления Мечником.")
+	MisBeginTalk( "<t>Now, report to <bGeneral William> (2277, 2831) with this letter to prove that you have gotten pass the first part of the trial and he will give you the final quest to become a Swordsman.")
 	MisBeginCondition(HasRecord, 62)
 	MisBeginCondition(NoRecord, 63)
 	MisBeginCondition(NoMission, 63)
@@ -2084,16 +2339,17 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 63  )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправить письмо Генералу Вильяму в Аргенте!")
+	MisNeed(MIS_NEED_DESP, "Send the letter to General William of the Navy")
 
-	MisHelpTalk("<t>Спеши,я уверен,что ты это сделаешь!")
+	MisHelpTalk("<t>Hurry up and go, you can do it!")
 	MisResultCondition(AlwaysFailure )
 
-	DefineMission( 69, "Продвижение Мечника ", 63, COMPLETE_SHOW)
+-----------------------------------ЅЈКїЧЄЦ°ИООс
+	DefineMission( 69, "Swordsman Promotion", 63, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Ох, хорошо. Ты почти мечник, молодец!.")
+	MisResultTalk("<t>Oh, good. Another person interested to become a Swordsman.")
 	MisResultCondition(NoRecord, 63)
 	MisResultCondition(HasMission, 63)
 	MisResultCondition(HasItem, 4120, 1)
@@ -2102,9 +2358,10 @@ function RobinMission039()
 	MisResultAction(SetRecord, 63)
 	MisResultAction(AddExp, 100, 100)
 
-	DefineMission( 70, "Продвижение Мечника ", 64 )
+-----------------------------------ЅЈКїЧЄЦ°ИООс
+	DefineMission( 70, "Swordsman Promotion", 64 )
 
-	MisBeginTalk( "<t>Вот тебе ещё задание<n><t>Сходи на <pПобережье Аргента> и принеси 3 <rКашемира> и вернись назад.<n><t>Как только ты это сделаешь, я тебя сделаю Мечником.<n><t>Кстате кашемир ты можешь выбить из Милой овечки по координатам (2057, 2638).")
+	MisBeginTalk( "<t>You wish to pass the test I have set?<n><t>Then go to the <pOutskirts of Argent City> and collect 3 <rCashmeres> and bring it back.<n><t>Once this task is completed, I shall admit that you are a qualifed Swordsman.<n><t>Oh by the way, the cashmere can be found on Cuddly Lambs at (2057, 2638).")
 	MisBeginCondition(HasRecord, 63)
 	MisBeginCondition(NoMission, 64)
 	MisBeginCondition(NoRecord, 64)
@@ -2112,11 +2369,11 @@ function RobinMission039()
 	MisBeginAction(AddTrigger, 641, TE_GETITEM, 1678, 3 )
 	MisCancelAction(ClearMission, 64)
 
-	MisNeed(MIS_NEED_DESP, "Собери 3 <rКашемира> и поговори м вильямом")
+	MisNeed(MIS_NEED_DESP, "Collect 3 <rCashmeres> and talk to William")
 	MisNeed(MIS_NEED_ITEM, 1678, 3, 10, 3)
 	
-	MisResultTalk("<t>Ты всё сделал! Я правда рад за тебя!")
-	MisHelpTalk("<t>3 кашемира. Это же такой пустяк,принеси мне их.")
+	MisResultTalk("<t>You succeeded! I am really happy for you!")
+	MisHelpTalk("<t>3 Cashmere. No more no less.")
 	MisResultCondition(HasMission, 64)
 	MisResultCondition(HasItem, 1678, 3 )
 	MisResultAction(TakeItem, 1678, 3)
@@ -2129,9 +2386,10 @@ function RobinMission039()
 	TriggerAction( 1, AddNextFlag, 64, 10, 3 )
 	RegCurTrigger( 641 )
 
-	DefineMission( 71, "Продвижение Мечника ", 65 )
+-----------------------------------ЅЈКїЧЄЦ°ИООс
+	DefineMission( 71, "Swordsman Promotion", 65 )
 	
-	MisBeginTalk( "<t>Ты уже показал свою стоимость, я горжусь тобой. Иди и скажи Питеру, чтобы он сделал тебя мечником. Вот тебе <rСертификат отваги> он будет служить тебе доказательством твоих подвигов.")
+	MisBeginTalk( "<t>You've already proven your worth. Go and speak to Peter and tell him that I've approved you to become a Swordsman. This <rCourage Certificate> will serve as proof.")
 	MisBeginCondition(HasRecord, 64)
 	MisBeginCondition(NoRecord, 65)
 	MisBeginCondition(NoMission, 65)
@@ -2140,17 +2398,18 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 65 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отнеси письмо  Питеру в Аргент по координатам (2192, 2767)")
+	MisNeed(MIS_NEED_DESP, "Send a letter to Peter in Argent City at (2192, 2767)")
 
-	MisHelpTalk("<t>Почему ты медлишь? Отнеси письмо Питеру,давай.")
+	MisHelpTalk("<t>Why are you hesitating? Go and look for Peter.")
 	MisResultCondition(AlwaysFailure )
 
 
-	DefineMission( 72, "Продвижение Мечника ", 65, COMPLETE_SHOW)
+-----------------------------------ЅЈКїЧЄЦ°ИООс
+	DefineMission( 72, "Swordsman Promotion", 65, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Поздравляю, ты получил Сертефикат отваги. Теперь ты оффициально Мечник!<n><t>(Ты можешь активировать свою профессию.<n><t>Также купить оружие у кузнеца Голди, одежду у портной Нилы и книги навыков у Бакалейщицы Тимберли)")
+	MisResultTalk("<t>Congratulations, you've obtained the Courage Certificate. You are now officially a Swordsman!<n><t>(You can now activate class quest at Peter.<n><t>Also, buy your weapons from Blacksmith Goldie, armor from Tailor Nila and skill books from Grocer Jimberry)")
 	MisResultCondition(NoRecord, 65)
 	MisResultCondition(HasMission, 65)
 	MisResultCondition(HasItem, 3953, 1)
@@ -2163,11 +2422,12 @@ function RobinMission039()
 	MisResultAction(GiveItem, 3164, 1, 4)
 	MisResultBagNeed(2)
 
-	DefineMission( 73, "Письмо для Дито ", 51, COMPLETE_SHOW)
+-----------------------------------ЛНРЕёшµЫД·
+	DefineMission( 73, "Letter for Ditto", 51, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Это хорошо, что вы здесь, я мог бы использовать твою руку помощи.")
+	MisResultTalk("<t>Its good that you are here, I could use a helping hand.")
 	MisResultCondition(NoRecord, 51)
 	MisResultCondition(HasMission, 51)
 	MisResultCondition(HasItem, 4112, 1)
@@ -2177,9 +2437,10 @@ function RobinMission039()
 	MisResultAction(AddExp, 50, 50)
 
 
-	DefineMission( 74, "Рецепт Отвара ", 66 )
+-----------------------------------БйёРЕд·Ѕ
+	DefineMission( 74, "Decoction Recipe", 66 )
 
-	MisBeginTalk( "<t>Мне нужна твоя помощь. Прости за беспокойство, пожалуйста принеси мне 3 баночки <rЧернил спрута>. Ты их можешь достать убив <rМаленького кальмарчика> недалеко от моря, на берегу. Моё вдохновение будет с тобой, иди давай!")
+	MisBeginTalk( "<t>I have an inspiration to make a new kind of medicine suddenly. Sorry to trouble you but could you help me to collect 3 <rOctopus Inks>? These can be found by defeating <rLittle Squidys> near the sea. My new medicine all depends on you!")
 	MisBeginCondition(HasRecord, 51)
 	MisBeginCondition(NoMission, 66)
 	MisBeginCondition(NoRecord, 66)
@@ -2187,11 +2448,11 @@ function RobinMission039()
 	MisBeginAction(AddTrigger, 661, TE_GETITEM, 1705, 3 )
 	MisCancelAction(ClearMission, 66)
 	
-	MisNeed(MIS_NEED_DESP, "Собери 3 баночки <rЧернил спрута> и вернись к врачу Дито (2250, 2770)")
+	MisNeed(MIS_NEED_DESP, "Collect 3 vials of <rOctopus Ink> and report back to Physician Ditto at (2250, 2770)")
 	MisNeed(MIS_NEED_ITEM, 1705, 3, 10, 3)
 	
-	MisResultTalk("<t>Очень хорошо. С тех пор как ты принес мне ингридиенты, у меня появилось вдохновение для нового зелья.")
-	MisHelpTalk("<t>Что? Не можешь собрать ингридиенты?Попробуй ещё разок!")
+	MisResultTalk("<t>Very well. Since you have collected the nessaccery items, I can begin my research for a new potion.")
+	MisHelpTalk("<t>What? Hurry up and collect those ingredients before I lose my inspirationЎ­")
 	MisResultCondition(HasMission, 66)
 	MisResultCondition(HasItem, 1705, 3 )
 	MisResultAction(TakeItem, 1705, 3)
@@ -2204,9 +2465,10 @@ function RobinMission039()
 	TriggerAction( 1, AddNextFlag, 66, 10, 3 )
 	RegCurTrigger( 661 )
 
-	DefineMission( 75, "Письмо для Роури ", 67 )
+-----------------------------------ЛНРЕёшВЮТБ
+	DefineMission( 75, "Letter for Rouri", 67 )
 	
-	MisBeginTalk( "<t>Я хочу продолжить свои експерименты.<n><t>Мне не обойтись без твоей помощи. Отнеси письмо моему асистенту Роури (2240, 2752), и узнай не нужна ли ей помощь.")
+	MisBeginTalk( "<t>My experiments have yet to yield any proper results.<n><t>Looks like I can't help you much. Give this letter to the chairman's assistant, Rouri (2240, 2752), and see if there's anything you can help out with.")
 	MisBeginCondition(HasRecord, 66)
 	MisBeginCondition(NoRecord, 67)
 	MisBeginCondition(NoMission, 67)
@@ -2215,16 +2477,17 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 67 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправь письмо Роури.")
+	MisNeed(MIS_NEED_DESP, "Send a letter to Rouri")
 
-	MisHelpTalk("<t>Роури ты можешь найти по координатам (2240, 2752) в Аргенте.")
+	MisHelpTalk("<t>The chairman's assistant, Rouri, can be located at (2240, 2752) in Argent City.")
 	MisResultCondition(AlwaysFailure )
 
-	DefineMission( 76, "Письмо для Роури ", 67, COMPLETE_SHOW)
+-----------------------------------ЛНРЕёшВЮТБ
+	DefineMission( 76, "Letter for Rouri", 67, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Я смотрю, ты пришел сюда по поручению Дито.")
+	MisResultTalk("<t>I see, so it was Ditto who recommended you to come here.")
 	MisResultCondition(NoRecord, 67)
 	MisResultCondition(HasMission, 67)
 	MisResultCondition(HasItem, 4121, 1)
@@ -2233,9 +2496,10 @@ function RobinMission039()
 	MisResultAction(SetRecord, 67)
 	MisResultAction(AddExp, 80, 80)
 
-	DefineMission( 77, "Грибы Грибы ", 68 )
+-----------------------------------Дў№ЅДў№Ѕ
+	DefineMission( 77, "Mushroom Mushroom", 68 )
 
-	MisBeginTalk( "<t>Мне нужны <bГрибы-жадобцы>, которые гуляют недалеко от Аргента. Сейчас идеальный сезон и мне нужны эти грибы для експерементов. Можешь пожалуйста извлечь из них 6 <rЯдовитых грибов>?<n><t>Емм...Они очень агрессивные, так что лучше возьми лечилок с собой. Грибов-жадобцов ты можешь найти по координатам (2220, 2564). Лучший сбор урожая в твоих руках,дерзай!")
+	MisBeginTalk( "<t>Speaking about it, in the past, I used to raise several <bGreedy Shrooms> outside Argent City. Recently I have been busy experimenting with the recipe so I totally forgotten all about them, seems to me now is a good time to put them to good use. Can you please retrieve 6 <rPoison Mushrooms>?<n><t>Err...Speaking about it, these Greedy Shroom are quite aggressive so its better to bring some healing items just in case. Other than that, these Greedy Shrooms can be found at (2220, 2564). Have a look, it might be the best time for harvest, everything is in your hands now!")
 	MisBeginCondition(HasRecord, 67)
 	MisBeginCondition(NoMission, 68)
 	MisBeginCondition(NoRecord, 68)
@@ -2243,14 +2507,14 @@ function RobinMission039()
 	MisBeginAction(AddTrigger, 681, TE_GETITEM, 1725, 6 )
 	MisCancelAction(ClearMission, 68)
 	
-	MisNeed(MIS_NEED_DESP, "Собери 6 <rЯдовитых грибов> и навести Роури в Аргенте по координатам (2240, 2752)")
+	MisNeed(MIS_NEED_DESP, "Collect 6 <rPoison Mushrooms> and look for Rouri in Argent City at (2240, 2752)")
 	MisNeed(MIS_NEED_ITEM, 1725, 6, 10, 6)
 
 	MisPrize(MIS_PRIZE_ITEM, 4308, 1, 4)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Прекрасно! Ты собрал абсолютно все! Спасибо тебе!")
-	MisHelpTalk("<t>Что случилось? Грибочки покусали тебя? Не ленись попробуй ещё разок.")
+	MisResultTalk("<t>This is great! You have collected all the stuff! Thanks!")
+	MisHelpTalk("<t>What's the matter? Did the Greedy Shrooms frighten you?")
 	MisResultCondition(HasMission, 68)
 	MisResultCondition(HasItem, 1725, 6 )
 	MisResultAction(TakeItem, 1725, 6)
@@ -2264,9 +2528,10 @@ function RobinMission039()
 	TriggerAction( 1, AddNextFlag, 68, 10, 6 )
 	RegCurTrigger( 681 )
 
-	DefineMission( 78, "Письмо для Коди ", 69 )
+-----------------------------------ЛНРЕёшєЈФЖ
+	DefineMission( 78, "Letter for Coddy", 69 )
 	
-	MisBeginTalk( "<t>Я смотрю ты свободен.<n><t>Отнеси письмо <bМоряку - Коди> в Гавань Аргента по координатам (2219, 2911).")
+	MisBeginTalk( "<t>Seems that you are very capable.<n><t>Take this letter to <bSailor - Cody> in Argent Harbor at (2219, 2911).")
 	MisBeginCondition(HasRecord, 68)
 	MisBeginCondition(NoRecord, 69)
 	MisBeginCondition(NoMission, 69)
@@ -2275,16 +2540,17 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 69 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправь письмо моряку Коди.")
+	MisNeed(MIS_NEED_DESP, "Send a letter to Sailor Coddy")
 
-	MisHelpTalk("<t>Что случилось? Я занят. PПожалуйста иди и навести Коди.")
+	MisHelpTalk("<t>What's the matter? I'm busy. Please go and look for Coddy.")
 	MisResultCondition(AlwaysFailure )
 
-	DefineMission( 79, "Письмо для Коди ", 69, COMPLETE_SHOW)
+-----------------------------------ЛНРЕёшєЈФЖ
+	DefineMission( 79, "Letter for Coddy", 69, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Я смотрю, это рекомендательное письмо от Дито.")
+	MisResultTalk("<t>I see, so it was Ditto who recommended you to come here.")
 	MisResultCondition(NoRecord, 69)
 	MisResultCondition(HasMission, 69)
 	MisResultCondition(HasItem, 4122, 1)
@@ -2293,9 +2559,10 @@ function RobinMission039()
 	MisResultAction(SetRecord, 69)
 	MisResultAction(AddExp, 120, 120)
 
-	DefineMission( 80, "Потерянныйе Вещи ", 70 )
+-----------------------------------ЛрК§µД»хОп
+	DefineMission( 80, "Lost Items", 70 )
 
-	MisBeginTalk( "<t>Я ответственный за партии товаров в гавани. К сожалению я потерял 2 бутылочки <rЧерепашьей крови>. У меня теперь будут неприятности.<n><t>Можешь пожалуйста мне достать 2 бутылочки черепашьей крови? Это спасёт мою жизнь и мою работу!<n><t>Черепашью кровь можешь выбить из <rТравяной Черепахи> по координатам (2057, 2564).")
+	MisBeginTalk( "<t>Previously, I was in charge of a batch of goods at the harbor. Unfortunately, I lost 2 vials of <rTortoise Blood>. This could spell some trouble for me!<n><t>Can you please locate and bring 2 vials of Tortoise Blood for me? It can turn out to be a life threatening situation!<n><t>I remember that the blood can be found on <rGrass Tortoise> at (2057, 2564).")
 	MisBeginCondition(HasRecord, 69)
 	MisBeginCondition(NoMission, 70)
 	MisBeginCondition(NoRecord, 70)
@@ -2303,14 +2570,14 @@ function RobinMission039()
 	MisBeginAction(AddTrigger, 701, TE_GETITEM, 1844, 2 )
 	MisCancelAction(ClearMission, 70)
 	
-	MisNeed(MIS_NEED_DESP, "Собери 2 бутылочки  <rЧерепашьей крови> и вернись к Коди в Аргент по координатам (2219, 2911)")
+	MisNeed(MIS_NEED_DESP, "Collect 2 vials of <rTortoise Blood> and return to Coddy in Argent City at (2219, 2911)")
 	MisNeed(MIS_NEED_ITEM, 1844, 2, 10, 2)
 	
 	MisPrize(MIS_PRIZE_ITEM, 4310, 1, 4)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Великолепно!<n><t>Ты спас меня! Спасибо тебе огромное!")
-	MisHelpTalk("<t>Попытайся ещё раз, перед тем как я буду стрелятся!")
+	MisResultTalk("<t>This is great!<n><t>You have saved me! Thank you so much!")
+	MisHelpTalk("<t>Hurry up, before I get fired!")
 	MisResultCondition(HasMission, 70)
 	MisResultCondition(HasItem, 1844, 2 )
 	MisResultAction(TakeItem, 1844, 2)
@@ -2324,9 +2591,10 @@ function RobinMission039()
 	TriggerAction( 1, AddNextFlag, 70, 10, 2 )
 	RegCurTrigger( 701 )
 
-	DefineMission( 81, "Письмо для Сенны ", 71 )
+-----------------------------------ЛНРЕёшЙЄ°І
+	DefineMission( 81, "Letter for Senna", 71 )
 	
-	MisBeginTalk( "<t>Хоть я и просил тебя уже о многих вещах, но мне снова нужна твоя помощь. Пожалуйста отнеси это письмо <bСенне>, Наставнице новчиков по координатам (2223, 2785). После этого приходи ко мне за дальнейшими инструкциями.")
+	MisBeginTalk( "<t>Although we have asked you for help with many of our things, you have also progress much. Please take this letter to <bSenna>, the Newbie Guide at (2223, 2785). After locating her, she'll give you some new instructions.")
 	MisBeginCondition(HasRecord, 70)
 	MisBeginCondition(NoRecord, 71)
 	MisBeginCondition(NoMission, 71)
@@ -2335,16 +2603,17 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 71 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отнеси письмо Наставнице Сенне.")
+	MisNeed(MIS_NEED_DESP, "Bring this letter to Argent Newbie Guide")
 
-	MisHelpTalk("<t>Сенна находится (2223, 2785). Иди сейчас.")
+	MisHelpTalk("<t>Senna is at (2223, 2785). Go now.")
 	MisResultCondition(AlwaysFailure )
 
-	DefineMission( 82, "Письмо для Сенны ", 71, COMPLETE_SHOW)
+-----------------------------------ЛНРЕёшЙЄ°І
+	DefineMission( 82, "Letter for Senna", 71, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Спасибо огромное за письмо.")
+	MisResultTalk("<t>Thank you for the letter, it looks like you are quite well liked in Argent City.")
 	MisResultCondition(NoRecord, 71)
 	MisResultCondition(HasMission, 71)
 	MisResultCondition(HasItem, 4115, 1)
@@ -2353,9 +2622,10 @@ function RobinMission039()
 	MisResultAction(SetRecord, 71)
 	MisResultAction(AddExp, 200, 200)
 
-	DefineMission( 83, "Письмо для Майкла ", 72 )
+-----------------------------------ЛНРЕёшВхїЛ
+	DefineMission( 83, "Letter for Michael", 72 )
 	
-	MisBeginTalk( "<t>Мне нужна твоя помощь ещё в одном деле.<n><t>Отнеси это письмо <bМайклу>, он патрульный, я думаю он тебе даст пару заданий для развития. Ищи его в Шайтане (958, 3549).")
+	MisBeginTalk( "<t>There's nothing more for me to help you with.<n><t>Take this letter to <bMichael>, the patroller and see if he has anymore tasks for you. He can be found outside Shaitan City (958, 3549).")
 	MisBeginCondition(HasRecord, 710)
 	MisBeginCondition(NoRecord, 72)
 	MisBeginCondition(NoMission, 72)
@@ -2364,14 +2634,15 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 72 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправь письмо Патрульному - Майклу ")
+	MisNeed(MIS_NEED_DESP, "Send the letter to Guard - Michael")
 
-	MisHelpTalk("<t>Майкла можно найти по координатам (2065, 2732).")
+	MisHelpTalk("<t>Michael can be found near (2065, 2732). Hurry up and go.")
 	MisResultCondition(AlwaysFailure )
 
-	DefineMission( 84, "Письмо для Амос ", 73 )
+-----------------------------------ЛНРЕёш°¬Д«
+	DefineMission( 84, "Letter for Amos", 73 )
 	
-	MisBeginTalk( "<t>Если ты предпочитаешь собирать различные материаллы для борьбы, то возьми и отнеси вот это письмо Бакалейщице  <bАмос> (840, 3585). Она поможет тебе.")
+	MisBeginTalk( "<t>If you prefer collecting stuff to fighting, give this letter to <bAmos> the Grocer at (840, 3585). He has a task for you.")
 	MisBeginCondition(HasRecord, 710)
 	MisBeginCondition(NoRecord, 73)
 	MisBeginCondition(NoMission, 73)
@@ -2380,17 +2651,18 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 73  )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправь письмо Амос ")
+	MisNeed(MIS_NEED_DESP, "Send the letter to Amos")
 
-	MisHelpTalk("<t>Почему ты не передал письмо Амос? Ищи её по координатам (840, 3585).")
+	MisHelpTalk("<t>Why haven't you passed the letter to Amos? He is near here at (840, 3585).")
 	MisResultCondition(AlwaysFailure )
 
 
-	DefineMission( 85, "Письмо для Майкла ", 72, COMPLETE_SHOW)
+-----------------------------------ЛНРЕёшВхїЛ
+	DefineMission( 85, "Letter for Michael", 72, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Я рад, что ты здесь, у меня есть для тебя важное поручение.<n><t>Кстате заметь, что в бою твоя полоса жизни меняется. Ты прав, она действительно изменяется. Когда она доходит до нуля, ты умираешь. Будь осторожен!<n><t>Не забывай кушать Яблоки, Кексы и другие лечилки, желательно перенеси их на горячие клавиши для собственного же удобства.")
+	MisResultTalk("<t>It's good that you are here, I could use a helping hand.<n><t>Also, take note of your HP bar while in battle. That's right, the red bar shows your HP level. You will die when it reaches 0. Beware!<n><t>Beside eating \"Apples\", \"Cakes\" or other recovery potion, you can press the \"Insert\" key to increase HP/SP recovery rate.")
 	MisResultCondition(NoRecord, 72)
 	MisResultCondition(HasMission, 72)
 	MisResultCondition(HasItem, 4123, 1)
@@ -2399,9 +2671,10 @@ function RobinMission039()
 	MisResultAction(SetRecord, 72)
 	MisResultAction(AddExp, 50, 50)
 
-	DefineMission( 86, "Вторжение кактусов ", 74 )
+-----------------------------------ї№»чПЙИЛХЖ
+	DefineMission( 86, "Cactus Invasion", 74 )
 
-	MisBeginTalk( "<t>Ах! На данный момент у нас в Шайтане эпидемия кактусов. В нашем районе их развелось катастофически много! Можешь помочь мне с этим? Если не трудно, убей 15 <bКактусов>, они находятся по координатам (1031, 3556) и мне кажется, что ты справишся с этой проблемой гораздо лучше меня.")
+	MisBeginTalk( "<t>Ah! Now the hills surrounding Shaitan city are overflowing with cactus. In my area especially, there are unusually plenty of them. Can you do me a favour? Defeat 15 <bCactus>, they can be found at (1031, 3556) and seems to me you are the most suited for this task.")
 	MisBeginCondition(HasRecord, 72)
 	MisBeginCondition(NoMission, 74)
 	MisBeginCondition(NoRecord, 74)
@@ -2409,11 +2682,11 @@ function RobinMission039()
 	MisBeginAction(AddTrigger, 741, TE_KILL, 95, 6 )
 	MisCancelAction(ClearMission, 74)
 	
-	MisNeed(MIS_NEED_DESP, "Убей 6 <rКактусов> и вернись к Майклу.")
+	MisNeed(MIS_NEED_DESP, "Kill 6 <rCactus> and return to Michael")
 	MisNeed(MIS_NEED_KILL, 95, 6, 10, 6)
 	
-	MisResultTalk("<t>Благодарю! Ты как всегда спас меня.")
-	MisHelpTalk("<t>Ты испугался 6 кактусов?")
+	MisResultTalk("<t>Thank God! You've exterminated quite a lot of them.")
+	MisHelpTalk("<t>Its only 6 Cactuses, are you scared?")
 	MisResultCondition(HasMission, 74)
 	MisResultCondition(HasFlag, 74, 15 )
 	MisResultAction(AddExp, 150, 150)
@@ -2425,9 +2698,10 @@ function RobinMission039()
 	TriggerAction( 1, AddNextFlag, 74, 10, 6 )
 	RegCurTrigger( 741 )
 
-	DefineMission( 87, "Письмо для Франко ", 75 )
+-----------------------------------ЛНРЕёшрСріІЭ
+	DefineMission( 87, "Letter for Franco", 75 )
 	
-	MisBeginTalk( "<t> Пожалуйста отнеси это письмо моему другу <bФранко> по координатам (867, 3660) в Шайтан.<n><t>Он очень интересный человек, и я думаю угодит тебе кое-как...")
+	MisBeginTalk( "<t> Please deliver this letter to my good friend <bFranco> at (867, 3660) in Shaitan City?<n><t>He's an interesting person and will be able to help you.")
 	MisBeginCondition(HasRecord, 74)
 	MisBeginCondition(NoRecord, 75)
 	MisBeginCondition(NoMission, 75)
@@ -2436,16 +2710,17 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 75  )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправь писсьмо Франко ")
+	MisNeed(MIS_NEED_DESP, "Send a letter to Franco")
 
-	MisHelpTalk("<t>Попытайся пожалуйста,кроме тебя мне не кого просить.")
+	MisHelpTalk("<t>Please hurry, I need to go patrolling.")
 	MisResultCondition(AlwaysFailure )
 
-	DefineMission( 88, "Письмо для Франко ", 75, COMPLETE_SHOW)
+-----------------------------------ЛНРЕёшрСріІЭ
+	DefineMission( 88, "Letter for Franco", 75, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Ох, Ты друг Майкла? Спасибо тебе за письмо..")
+	MisResultTalk("<t>Oh, you're Michael's friend? Thank you for the letter..")
 	MisResultCondition(NoRecord, 75)
 	MisResultCondition(HasMission, 75)
 	MisResultCondition(HasItem, 4125, 1)
@@ -2454,9 +2729,10 @@ function RobinMission039()
 	MisResultAction(SetRecord, 75)
 	MisResultAction(AddExp, 80, 80)
 
-	DefineMission( 89, "Убийство Монстра ", 76 )
+-----------------------------------МЯИЛ№ЦКЮ
+	DefineMission( 89, "Kicking Monster", 76 )
 
-	MisBeginTalk( "<t>Ты слышал о существе в пустыне, которое избивает наших путешествинников? Я провёл расследование и вычислил что это <bГорбатый верблюд>. Можешь ли ты препопадать им урок?? Убей 8 <bГорбатых верблюдов> ,я тебе буду крайне признателен.")
+	MisBeginTalk( "<t>Have you heard about a creature in the desert that kicks travelers? While on the way to this city, I was kicked and injured by a <bHumpy Camel>. Can you help me to teach them a lesson? Defeating 8 <bHumpy Camels> shouldn't be too hard for you.")
 	MisBeginCondition(HasRecord, 75)
 	MisBeginCondition(NoMission, 76)
 	MisBeginCondition(NoRecord, 76)
@@ -2464,14 +2740,14 @@ function RobinMission039()
 	MisBeginAction(AddTrigger, 761, TE_KILL, 48, 8 )
 	MisCancelAction(ClearMission, 76)
 
-	MisNeed(MIS_NEED_DESP, "Убей 8 <rГорбатых Верблюдов> и вернись к Франко в Шайтан.")
+	MisNeed(MIS_NEED_DESP, "Hunt 8 <rHumpy Camel> and report back to Franco in Shaitan")
 	MisNeed(MIS_NEED_KILL, 48, 8, 10, 8)
 
 	MisPrize(MIS_PRIZE_ITEM, 9, 1, 4)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Великолепно. Теперь они получили урок.<n><t>Эти верблюды запомнят это надолго.")
-	MisHelpTalk("<t>Что? Не смог приподать достаточно им урок? Попытайся ещё разок.")
+	MisResultTalk("<t>This is great. There should not be any further complaint.<n><t>Those camels are really getting out of hand.")
+	MisHelpTalk("<t>What? You're not able to teach them a lesson? Try harder.")
 	MisResultCondition(HasMission, 76)
 	MisResultCondition(HasFlag, 76, 17 )
 	MisResultAction(AddExp, 250, 250)
@@ -2484,9 +2760,10 @@ function RobinMission039()
 	TriggerAction( 1, AddNextFlag, 76, 10, 8 )
 	RegCurTrigger( 761 )
 
-	DefineMission( 90, "Письмо для Смити ", 77 )
+-----------------------------------ЛНРЕёшН­Н­№Д
+	DefineMission( 90, "Letter for Smithy", 77 )
 	
-	MisBeginTalk( "<t>Можешь отнести письмо <bКузнецу Смити> (902, 3495)? Он весьма интересный человек и добрый." )
+	MisBeginTalk( "<t>Can you deliver this letter to <bBlacksmith Smithy> (902, 3495). He's an interesting person and will help you." )
 	MisBeginCondition(HasRecord, 76)
 	MisBeginCondition(NoRecord, 77)
 	MisBeginCondition(NoMission, 77)
@@ -2495,17 +2772,18 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 77  )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправить письмо Кузнецу Смити.")
+	MisNeed(MIS_NEED_DESP, "Send a letter to Smithy")
 
-	MisHelpTalk("<t>Не можешь найти?Воспользуйся радаром, для упрощенного поиска.")
+	MisHelpTalk("<t>Hurry up and look for Smithy. Don't forget to tell him you're a friend of mine.")
 	MisResultCondition(AlwaysFailure )
 
 
-	DefineMission( 91, "Письмо для Смити ", 77, COMPLETE_SHOW)
+-----------------------------------ЛНРЕёшН­Н­№Д
+	DefineMission( 91, "Letter for Smithy", 77, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Ох, Франко послал тебя,чтобы ты помог мне? Это хорошо! Я - краткость человеческого ресурса.")
+	MisResultTalk("<t>Oh, Franco sent you to help? That's great! I am short of manpower now!")
 	MisResultCondition(NoRecord, 77)
 	MisResultCondition(HasMission, 77)
 	MisResultCondition(HasItem, 4126, 1)
@@ -2514,9 +2792,10 @@ function RobinMission039()
 	MisResultAction(SetRecord, 77)
 	MisResultAction(AddExp, 120, 120)
 
-	DefineMission( 92, "Боязнь Скорпиона ", 78 )
+-----------------------------------ѕеР«Ц¤
+	DefineMission( 92, "Scorpion Phobia", 78 )
 
-	MisBeginTalk( "<t>Хочу сказать тебе правду, что я очень боюсь скорпионов!<n><t>Однако я постоянно должен путешествовать за городом.<n><t>Совсем недавно появились огромные стаи скорпионов, они очень опасны, гораздо опаснее маленьких...Они могут убить с 1 укуса. Но они к счастью очень пугливые.<n><t>Пожалуйста убей 12 <Больших скорпионов>! Они блуждают недалеко от (1184, 3557), но они очень проворные, так что остерегайся!")
+	MisBeginTalk( "<t>To tell you the truth, I ain't afraid of anything but scorpions!<n><t>However my job requires me to constantly travel outside the city to collect quarry!<n><t>It seems that the many giant scorpions suddenly appeared out of nowhere and they are much more powerful than the little scorpions. To be stung by them can be a life threatening situation! Its too scary!<n><t>Please help me kill 12 <Big Scorpions>! You can easily see them at (1184, 3557) but beware of their agile movements, take care!")
 	MisBeginCondition(HasRecord, 77)
 	MisBeginCondition(NoMission, 78)
 	MisBeginCondition(NoRecord, 78)
@@ -2525,14 +2804,14 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 56)
 	
 
-	MisNeed(MIS_NEED_DESP, "Убей 12 <rБольших скорпионов> и вернись к Смити в Шайтан.")
+	MisNeed(MIS_NEED_DESP, "Kill 12 <rBig Scorpions> and report back to Smithy in Shaitan")
 	MisNeed(MIS_NEED_KILL, 247, 12, 10, 12)
 
 	MisPrize(MIS_PRIZE_ITEM, 4309, 1, 4)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Хорошо! Ты очень хороший человек и на тебя можно всегда положися. Ты все сделал молниеносно. Я реально горжусь тобой.")
-	MisHelpTalk("<t>Что то не вышло? Скорипионы тебя замучали? Возьми тогда лечилок с собой и попробуй снова.")
+	MisResultTalk("<t>Good! You are the right person for this job. You completed it so fast. That is really brave of you.")
+	MisHelpTalk("<t>What is wrong? You are unable to defeat those scorpions? Bring some potions then.")
 	MisResultCondition(HasMission, 78)
 	MisResultCondition(HasFlag, 78, 21 )
 	MisResultAction(ClearMission, 78)
@@ -2546,9 +2825,10 @@ function RobinMission039()
 	RegCurTrigger( 781 )
 
 
-	DefineMission( 93, "Письмо для Блисс ", 79 )
+-----------------------------------ЛНРЕёшА­±МЛї
+	DefineMission( 93, "Letter for Bliss", 79 )
 	
-	MisBeginTalk( "<t>Ты очень вырос за всё время путешествий в Шайтане,а также набрался колоссального колчичества опыта.Но мне нужна помощь ещё в одном деле... <n><t>Отнеси письмо <bНаставнице новичков - Реслин> по координатам (876, 3572), она даст тебе дальнейшие поручения." )
+	MisBeginTalk( "<t>Although the people of Shaitan City constantly depended on you for help, however you have grown from the experiences. <n><t>Take this letter to <bNewbie Guide - Resline> at (876, 3572), she will tell you what to do next." )
 	MisBeginCondition(HasRecord, 78)
 	MisBeginCondition(NoRecord, 79)
 	MisBeginCondition(NoMission, 79)
@@ -2557,16 +2837,17 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 79  )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправь письмо Наставнице - Реслин.")
+	MisNeed(MIS_NEED_DESP, "Send a letter to Shaitan Newbie Guide")
 
-	MisHelpTalk("<t>Реслин находиться по коордлинатам (876, 3572). Пожалуйста поспеши.")
+	MisHelpTalk("<t>Resline is at (876, 3572). Please hurry.")
 	MisResultCondition(AlwaysFailure )
 
-	DefineMission( 94, "Письмо для Блисс ", 79, COMPLETE_SHOW)
+-----------------------------------ЛНРЕёшА­±МЛї
+	DefineMission( 94, "Letter for Bliss", 79, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Спасибо тебе за письмо, я тебе очень благодарна.")
+	MisResultTalk("<t>Thank you for the letter, it looks like you are quite well liked in Shaitan City.")
 	MisResultCondition(NoRecord, 79)
 	MisResultCondition(HasMission, 79)
 	MisResultCondition(HasItem, 4127, 1)
@@ -2575,11 +2856,12 @@ function RobinMission039()
 	MisResultAction(SetRecord, 79)
 	MisResultAction(AddExp, 200, 200)
 
-	DefineMission( 95, "Продвижение Знахарки ", 60, COMPLETE_SHOW)
+-----------------------------------Т©К¦ЧЄЦ°ИООс
+	DefineMission( 95, "Herbalist Promotion", 60, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("Ты пришел ко мне с руководством новичка, для определения професии? Если ты захотел стать Знахаркой то тебе нужно пройти пару испытаний.")
+	MisResultTalk("Since the Newbie Guide recommended you, you must have shown some potential. If you want to become a Herbalist, you'll have to finish the tasks I assign to you.")
 	MisResultCondition(NoRecord, 60)
 	MisResultCondition(HasMission, 60)
 	MisResultCondition(HasItem, 4118, 1)
@@ -2587,9 +2869,10 @@ function RobinMission039()
 	MisResultAction(ClearMission, 60)
 	MisResultAction(SetRecord, 60)
 
-	DefineMission( 96, "Продвижение Знахарки ", 80 )
+-----------------------------------Т©К¦ЧЄЦ°ИООс
+	DefineMission( 96, "Herbalist Promotion", 80 )
 
-	MisBeginTalk( "<t>Почему ты захотел стать Знахаркой? Многие приходили стать Знахарками, для того чтобы только разбогатеть... Тебе прийдется доказать: соответствуешь ли ты своей квалификации.<n><t>Твои испытания начинаются прямо сейчас. Сходи по координатам (884, 3156) и убей 2 <bКактуса-Убийцы>. Когда завершишь это испытание,мы начнем следующее." )
+	MisBeginTalk( "<t>Why do you want to be a herbalist? Recently, many have tried to be a herbalist just to earn money. You have to prove to me whether you can meet the qualifications of being one.<n><t>I need to test your survivability, proceed to (884, 3156) and kill 2 <bKiller Cactus>. If you able to complete this task at hand, it is considered as passing this part of the test." )
 	MisBeginCondition(HasRecord, 60)
 	MisBeginCondition(NoMission, 80)
 	MisBeginCondition(NoRecord, 80)
@@ -2598,11 +2881,11 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 80)
 	
 
-	MisNeed(MIS_NEED_DESP, "Убить 2 <bКактуса-Убийца> и вернутся к Ганнону в Шайтан (862, 3500)")
+	MisNeed(MIS_NEED_DESP, "Kill 2 <bKiller Cactus> and report back to High Priest Gannon at (862, 3500)")
 	MisNeed(MIS_NEED_KILL, 43, 2, 10, 2)
 	
-	MisResultTalk("<t>Неужели ты все сделал... Прекрасно.")
-	MisHelpTalk("<t>У тебя возникли проблемы?")
+	MisResultTalk("<t>Looks like you have succeeded. Well done.")
+	MisHelpTalk("<t>Do you have a problem?")
 	MisResultCondition(HasMission, 80)
 	MisResultCondition(HasFlag, 80, 11 )
 	MisResultAction(ClearMission, 80)
@@ -2616,9 +2899,10 @@ function RobinMission039()
 	RegCurTrigger( 801 )
 
 
-	DefineMission( 97, "Продвижение Знахарки ", 81 )
+-----------------------------------Т©К¦ЧЄЦ°ИООс
+	DefineMission( 97, "Herbalist Promotion", 81 )
 	
-	MisBeginTalk( "<t>Пожалуйста передай это письмо  Navy HQ - Адмиралу Нику по координатам (865, 3648). Он даст тебе дальнейшие поручения.")
+	MisBeginTalk( "<t>Please pass this letter to Navy HQ - Admiral Nic at (865, 3648). She will know what to do.")
 	MisBeginCondition(HasRecord, 80)
 	MisBeginCondition(NoRecord, 81)
 	MisBeginCondition(NoMission, 81)
@@ -2627,16 +2911,17 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 81  )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отнеси письмо Navy HQ - Адмиралу Нику.")
+	MisNeed(MIS_NEED_DESP, "Send letter to Navy HQ - Admiral Nic")
 
-	MisHelpTalk("<t>Не бездельничай,будь упорнее!")
+	MisHelpTalk("<t>Hurry up and go, you can do it!")
 	MisResultCondition(AlwaysFailure )
 
-	DefineMission( 98, "Продвижение Знахарки ", 81, COMPLETE_SHOW)
+-----------------------------------Т©К¦ЧЄЦ°ИООс
+	DefineMission( 98, "Herbalist Promotion", 81, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Ты прошел свою первую часть испытания. Неплохо!")
+	MisResultTalk("<t>You've passed the first part of the trial. Not bad!")
 	MisResultCondition(NoRecord, 81)
 	MisResultCondition(HasMission, 81)
 	MisResultCondition(HasItem, 4128, 1)
@@ -2645,9 +2930,10 @@ function RobinMission039()
 	MisResultAction(SetRecord, 81)
 	MisResultAction(AddExp, 100, 100)
 
-	DefineMission( 99, "Продвижение Знахарки ", 82 )
+-----------------------------------Т©К¦ЧЄЦ°ИООс
+	DefineMission( 99, "Herbalist Promotion", 82 )
 
-	MisBeginTalk( "<t>Вот тебе вторая часть, докажи, что ты можешь стать Знахаркой. Если и здесь у тебя все получится, то ты официально станешь Знахаркой.<n><t>Вот тебе задание: Собери для меня 3 <bЦелебных травы>. Вполне это очень просто,я так считаю.<n><t>Выбей их из <rЯщеров-попрыгунов> недалеко от города по координатам (892, 3273).")
+	MisBeginTalk( "<t>Here is where you take the second part of the test to become a herbalist. If you are successful here, you are likely to become a herbalist soon.<n><t>This is the task I have set for you: Gather for me 3 <bMedicated Grass>. It is as simple as that.<n><t>You can obtain them from the <rHopping Lizards> just outside the city at (892, 3273).")
 	MisBeginCondition(HasRecord, 81)
 	MisBeginCondition(NoMission, 82)
 	MisBeginCondition(NoRecord, 82)
@@ -2655,11 +2941,11 @@ function RobinMission039()
 	MisBeginAction(AddTrigger, 821, TE_GETITEM, 3129, 3 )
 	MisCancelAction(ClearMission, 82)
 
-	MisNeed(MIS_NEED_DESP, "Соьери 3 <bЦелебных травы> и вернись к Адмиралу Нику по координатам (865, 3648)")
+	MisNeed(MIS_NEED_DESP, "Collect 3 <bMedicated Grass> and return to Admiral Nic at (865, 3648)")
 	MisNeed(MIS_NEED_ITEM, 3129, 3, 10, 3)
 	
-	MisResultTalk("<t>Хорошо. Ты сделал это испытание!")
-	MisHelpTalk("<t>Попытайся,а?Это очень просто,координаты тебе были даны.Воспользуйся Радаром.")
+	MisResultTalk("<t>Good. You have completed the task!")
+	MisHelpTalk("<t>I know that it is dangerous. However, you still have to complete it.")
 	MisResultCondition(HasMission, 82)
 	MisResultCondition(HasItem, 3129, 3 )
 	MisResultAction(TakeItem, 3129, 3)
@@ -2672,9 +2958,10 @@ function RobinMission039()
 	TriggerAction( 1, AddNextFlag, 82, 10, 3 )
 	RegCurTrigger( 821 )
 
-	DefineMission( 150, "Продвижение Знахарки ", 83 )
+-----------------------------------Т©К¦ЧЄЦ°ИООс
+	DefineMission( 150, "Herbalist Promotion", 83 )
 	
-	MisBeginTalk( "<t>Ты доказал,что достоин. Отнеси это письмо Ганнон, для того,чтобы стать Знахаркой. Вот тебе <rПодтверждающий документ> ,чтобы она тебе поверила.")
+	MisBeginTalk( "<t>You have proven that you are worthy. Take this letter to Gannon, I have approved for you to become a Herbalist. This <rRighteous Document> is proof of your success.")
 	MisBeginCondition(HasRecord, 82)
 	MisBeginCondition(NoRecord, 83)
 	MisBeginCondition(NoMission, 83)
@@ -2683,17 +2970,18 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 83 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Навести целительницу Ганнон в Шайтане по координатам (862, 3500)")
+	MisNeed(MIS_NEED_DESP, "Look for High Priest Gannon in Shaitan City at (862, 3500)")
 
-	MisHelpTalk("<t>Что случилось? Все ещё колеблешся?Иди пробуй!")
+	MisHelpTalk("<t>What are you doing? Are you still hesitating?")
 	MisResultCondition(AlwaysFailure )
 
 
-	DefineMission( 151, "Продвижение Знахарки ", 83, COMPLETE_SHOW)
+-----------------------------------Т©К¦ЧЄЦ°ИООс
+	DefineMission( 151, "Herbalist Promotion", 83, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Поздравляю дитя моё! Теперь ты Знахарка! Да прибудут с тобой Боги!<n><t>(Ты активировал свою профессию у Ганнон.<n><t>Купи оружие у кузнеца Смити, доспехи,перчатки и ботинки у Бабушки Мои и навыки у Бакалейщицы Амос)")
+	MisResultTalk("<t>Congratulation my child! Now you are a Herbalist! May the Goddess be with you!<n><t>(You can now activate class quest at Gannon.<n><t>Also, buy your weapons from Blacksmith Smithy, armor from Tailor Moya and skill books from Grocer Amos)")
 	MisResultCondition(NoRecord, 83)
 	MisResultCondition(HasMission, 83)
 	MisResultCondition(HasItem, 3954, 1)
@@ -2707,11 +2995,12 @@ function RobinMission039()
 	MisResultBagNeed(2)
 
 
-	DefineMission( 152, "Письмо для Амос ", 73, COMPLETE_SHOW)
+-----------------------------------ЛНРЕёш°¬Д«
+	DefineMission( 152, "Letter for Amos", 73, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Спасибо,ты очень добр.")
+	MisResultTalk("<t>Its good that you are here, I could use a helping hand.")
 	MisResultCondition(NoRecord, 73)
 	MisResultCondition(HasMission, 73)
 	MisResultCondition(HasItem, 4124, 1)
@@ -2721,9 +3010,10 @@ function RobinMission039()
 	MisResultAction(AddExp, 50, 50)
 
 
-	DefineMission( 153, "Анализ Прививки ", 84 )
+-----------------------------------јЮЅУКµСй
+	DefineMission( 153, "Grafting Analysis", 84 )
 
-	MisBeginTalk( "<t>Хочешь увидеть цветущий кактус? Я хочу провести эксперемент, но для этого мне потребуются: 6 <rПобегов кактуса>.<n><t>Они могут быть выбиты из <bЗлободыни> бегающей недалеко от города. Сейчас они крайне необходимы мне, будь добр принеси.")
+	MisBeginTalk( "<t>Do you wish to see flowering Cactus? I'm doing an experiment can you help me gather 6 <rCactus Hairballs>?<n><t>You will be able to find them off the <bMelons> that are outside the city. For now I only need these few but I might have to ask you to get more in future.")
 	MisBeginCondition(HasRecord, 73)
 	MisBeginCondition(NoMission, 84)
 	MisBeginCondition(NoRecord, 84)
@@ -2731,11 +3021,11 @@ function RobinMission039()
 	MisBeginAction(AddTrigger, 841, TE_GETITEM, 1691, 6 )
 	MisCancelAction(ClearMission, 84)
 	
-	MisNeed(MIS_NEED_DESP, "Собери 6 <rПобегов кактуса> и вернись к Амос в точку (840, 3585)")
+	MisNeed(MIS_NEED_DESP, "Collect 6 <rCactus Hairballs> and look for Amos at (840, 3585)")
 	MisNeed(MIS_NEED_ITEM, 1691, 6, 10, 6)
 	
-	MisResultTalk("<t>Отлчино! Теперь я могу начать свой эксперимент. Приходи через год, сделаем это вновь!")
-	MisHelpTalk("<t>Хмм, Невыходит? Поробуй еще разок!")
+	MisResultTalk("<t>Good! Now I can start my experiment. Come back next year to see my work!")
+	MisHelpTalk("<t>Hmm, still unable to get the items I need?")
 	MisResultCondition(HasMission, 84)
 	MisResultCondition(HasItem, 1691, 6 )
 	MisResultAction(TakeItem, 1691, 6)
@@ -2748,9 +3038,10 @@ function RobinMission039()
 	TriggerAction( 1, AddNextFlag, 84, 10, 6 )
 	RegCurTrigger( 841 )
 
-	DefineMission( 154, "Письмо для Лены ", 85 )
+-----------------------------------ЛНРЕёшАтДИ
+	DefineMission( 154, "Letter for Lena", 85 )
 	
-	MisBeginTalk( "<t>Я хочу продолжить свои эксперименты.<n><t>Почему бы тебе не отнести это письмо Лене в точку (883, 3520) и узнать нужна ли ей помощь?")
+	MisBeginTalk( "<t>My experiments have yet to yield any proper results.<n><t>Why not you pass this letter to Lena at (883, 3520) and see if there's anything you can help out with?")
 	MisBeginCondition(HasRecord, 84)
 	MisBeginCondition(NoRecord, 85)
 	MisBeginCondition(NoMission, 85)
@@ -2759,16 +3050,17 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 85 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправить письмо Лене в Шайтене ")
+	MisNeed(MIS_NEED_DESP, "Send the letter to Lena in Shaitan")
 
-	MisHelpTalk("<t>Отнеси письмо скорее пожалуйста.")
+	MisHelpTalk("<t>GoЎ­There is nothing much I can help you with right now.")
 	MisResultCondition(AlwaysFailure )
 
-	DefineMission( 155, "Письмо для Лены ", 85, COMPLETE_SHOW)
+-----------------------------------ЛНРЕёшАтДИ
+	DefineMission( 155, "Letter for Lena", 85, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Ты друг Амос? Привет!")
+	MisResultTalk("<t>You are a friend of Amos? Hi!")
 	MisResultCondition(NoRecord, 85)
 	MisResultCondition(HasMission, 85)
 	MisResultCondition(HasItem, 4129, 1)
@@ -2777,9 +3069,10 @@ function RobinMission039()
 	MisResultAction(SetRecord, 85)
 	MisResultAction(AddExp, 80, 80)
 
-	DefineMission( 156, "Поддельный Предмет ", 86 )
+-----------------------------------О±ФмОпЖ·
+	DefineMission( 156, "Fake Item", 86 )
 
-	MisBeginTalk( "<t>С недавних времен врач города Ледыни собирает пот животных. Я хочу развести его.<n><t>Помоги мне сборать 3 бытылки  <rТемной воды>. Ты их можешь выбить из <bСкорпионышей> в точке (1184, 3557).")
+	MisBeginTalk( "<t>Listen to my proposal: Lately, the physician of Icicle City has been collecting the sweat of animals. I want to play a joke on him so I need some materials to make the fakes.<n><t>Help me collect 3 vials of <rMurky Water>. They be found on <bBaby Scorpion> at (1184, 3557). Just take this as a special request, haha!")
 	MisBeginCondition(HasRecord, 85)
 	MisBeginCondition(NoMission, 86)
 	MisBeginCondition(NoRecord, 86)
@@ -2787,14 +3080,14 @@ function RobinMission039()
 	MisBeginAction(AddTrigger, 861, TE_GETITEM, 1648, 3 )
 	MisCancelAction(ClearMission, 86)
 	
-	MisNeed(MIS_NEED_DESP, "Собери 3 бутылки <rТемной воды> и вернись к Лене в Шайтан в точку (883, 3520)")
+	MisNeed(MIS_NEED_DESP, "Collect 3 vials of <rMurky Water> and return to Lena in Shaitan City at (883, 3520)")
 	MisNeed(MIS_NEED_ITEM, 1648, 3, 10, 3)
 
 	MisPrize(MIS_PRIZE_ITEM, 4308, 1, 4)
 	MisPrizeSelAll()
 
-	MisResultTalk("<t>Хаха! Прекрасно! Я горжусь тобой!")
-	MisHelpTalk("<t>Почему не идешь?! Попытайся хотябы!")
+	MisResultTalk("<t>Haha! That's great! I'll definitely be able to fool him using these.")
+	MisHelpTalk("<t>It can't be! You still haven't found anything? Please hurry!")
 	MisResultCondition(HasMission, 86)
 	MisResultCondition(HasItem, 1648, 3 )
 	MisResultAction(TakeItem, 1648, 3)
@@ -2808,9 +3101,10 @@ function RobinMission039()
 	TriggerAction( 1, AddNextFlag, 86, 10, 3 )
 	RegCurTrigger( 861 )
 
-	DefineMission( 157, "Письмо Франклину ", 87 )
+-----------------------------------ЛНРЕёшёҐАјїЛ
+	DefineMission( 157, "Letter for Franklin", 87 )
 	
-	MisBeginTalk( "<t>У меня есть к тебе поручение.<n><t>Передай это письмо <bФранклину> строителю. Он мой друг, и конечно же поможет тебе.<n><t>Ты можешь найти его в Шайтане по координатам (901, 3668).")
+	MisBeginTalk( "<t>I have a letter that needs to be delivered.<n><t>Could you take the trouble to give it to <bFranklin> the Builder? He is a friendly fellow and will certainly help you.<n><t>He can be found inside Shaitan City at (901, 3668).")
 	MisBeginCondition(HasRecord, 86)
 	MisBeginCondition(NoRecord, 87)
 	MisBeginCondition(NoMission, 87)
@@ -2819,16 +3113,17 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 87 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправь письмо Строителю - Франклин ")
+	MisNeed(MIS_NEED_DESP, "Send a letter to Builder Franklin")
 
-	MisHelpTalk("<t>Иди прямо сейчас! Не бойся,у тебя все получится.")
+	MisHelpTalk("<t>Go now! That helpful guy will assist you.")
 	MisResultCondition(AlwaysFailure )
 
-	DefineMission( 158, "Письмо Франклину ", 87, COMPLETE_SHOW)
+-----------------------------------ЛНРЕёшёҐАјїЛ
+	DefineMission( 158, "Letter for Franklin", 87, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Ох, письмо от Лены! Спасибо!")
+	MisResultTalk("<t>Oh, a letter from Lena! Thanks!")
 	MisResultCondition(NoRecord, 87)
 	MisResultCondition(HasMission, 87)
 	MisResultCondition(HasItem, 4130, 1)
@@ -2837,9 +3132,10 @@ function RobinMission039()
 	MisResultAction(SetRecord, 87)
 	MisResultAction(AddExp, 120, 120)
 
-	DefineMission( 159, "Лекарство от морской болезни ", 88 )
+-----------------------------------ФОґ¬Т©
+	DefineMission( 159, "Medication for Nausea", 88 )
 
-	MisBeginTalk( "<t>Для приготовления лекарства мне очень нехватает <rЦветка кактуса>. Иди в точку (1031, 3556) и собери 3 <rЦветка кактуса> ,которые падают с <bКактусов>. С твоим уровнем, у тебя не должно быть проблем с ними.<n><t>Только, никому не говори об этом рецепте лечения от морской болезни, Прошу тебя.")
+	MisBeginTalk( "<t>I need to collect some medicine that cure seasickness, especially <rCactus Flower> which I am having an acute shortage. Go to (1031, 3556) and collect 3 <rCactus Flower> for me which definitely drop from <bCactus>. At your current level, you should have no problem dealing with them.<n><t>By the way, remember not tell anyone about this recipe for curing seasickness.")
 	MisBeginCondition(HasRecord, 87)
 	MisBeginCondition(NoMission, 88)
 	MisBeginCondition(NoRecord, 88)
@@ -2847,14 +3143,14 @@ function RobinMission039()
 	MisBeginAction(AddTrigger, 881, TE_GETITEM, 1692, 3 )
 	MisCancelAction(ClearMission, 88)
 	
-	MisNeed(MIS_NEED_DESP, "Собери 3 <rЦветка кактуса> и вернись к Франклину ")
+	MisNeed(MIS_NEED_DESP, "Collect 3 <rCactus Blossom> and talk to Franklin")
 	MisNeed(MIS_NEED_ITEM, 1692, 3, 10, 3)
 
 	MisPrize(MIS_PRIZE_ITEM, 4310, 1, 4)
 	MisPrizeSelAll()	
 
-	MisResultTalk("<t>Я должен поблагодарить тебя. Я наконец то могу начать отвар ")
-	MisHelpTalk("<t>Это всего 1 ингридиент! Не позорься!")
+	MisResultTalk("<t>I must thanks you. I can start decocting finally.")
+	MisHelpTalk("<t>I only need these as ingredient! Don't let me down!")
 	MisResultCondition(HasMission, 88)
 	MisResultCondition(HasItem, 1692, 3 )
 	MisResultAction(TakeItem, 1692, 3)
@@ -2868,9 +3164,10 @@ function RobinMission039()
 	TriggerAction( 1, AddNextFlag, 88, 10, 3 )
 	RegCurTrigger( 881 )
 
-	DefineMission( 160, "Письмо для Блисс ", 89 )
+-----------------------------------ЛНРЕёшА­±МЛї
+	DefineMission( 160, "Letter for Bliss", 89 )
 	
-	MisBeginTalk( "<t>Мне опять нужна твоя помощь!<n><t>Пожалуйста передай это письмо  <bРеслин>, Наставнице новичков, которая находиться по координатам (876, 3572).<n><t>После этого она даст тебе дальнейшие инструкции.")
+	MisBeginTalk( "<t>Although we have asked you for help with many of our things, you have also progress much.<n><t>Please take this letter to <bResline>, the Newbie Guide at (876, 3572).<n><t>After locating her, she will give you some new instructions.")
 	MisBeginCondition(HasRecord, 88)
 	MisBeginCondition(NoRecord, 89)
 	MisBeginCondition(NoMission, 89)
@@ -2879,16 +3176,17 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 89 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправь письмо Наставнице - Реслин ")
+	MisNeed(MIS_NEED_DESP, "Send a letter to Shaitan Newbie Guide")
 
-	MisHelpTalk("<t>Ресли находится в точке (876, 3572). Пожалуйста поспеши.")
+	MisHelpTalk("<t>Resline is at (876, 3572). Please hurry.")
 	MisResultCondition(AlwaysFailure )
 
-	DefineMission( 161, "Письмо для Блисс ", 89, COMPLETE_SHOW)
+-----------------------------------ЛНРЕёшА­±МЛї
+	DefineMission( 161, "Letter for Bliss", 89, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Спасибо тебе за письмо, ты самый хороший человек в Шайтане.")
+	MisResultTalk("<t>Thank you for the letter, it looks like you are quite well liked in Shaitan City.")
 	MisResultCondition(NoRecord, 89)
 	MisResultCondition(HasMission, 89)
 	MisResultCondition(HasItem, 4127, 1)
@@ -2898,9 +3196,10 @@ function RobinMission039()
 	MisResultAction(AddExp, 200, 200)
 
 
-	DefineMission( 162, "Письмо для Малыша Мо ", 90 )
+---------------------------------ЛНРЕёшРЎДЄ
+	DefineMission( 162, "Letter for Little Mo", 90 )
 	
-	MisBeginTalk( "<t>Вот тебе ещё одно задание.<n><t>Отнеси письмо <bМалышу Мо>, патрульному, и спроси ненужна ли ему помощь. Ищи его в Ледыни по координатам (1237, 613).")
+	MisBeginTalk( "<t>There's nothing more for me to help you with.<n><t>Take this letter to <bLittle Mo>, the patroller and see if he has anymore tasks for you. He can be found outside Icicle Castle at (1237, 613).")
 	MisBeginCondition(HasRecord, 716)
 	MisBeginCondition(NoRecord, 90)
 	MisBeginCondition(NoMission, 90)
@@ -2909,14 +3208,15 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 90 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправь письмо Патрульному - Малышу Мо ")
+	MisNeed(MIS_NEED_DESP, "Send the letter to Patrol - Little Mo")
 
-	MisHelpTalk("<t>Малыш Мо находится в точке (1237, 613).")
+	MisHelpTalk("<t>Little Mo is around (1237, 613).")
 	MisResultCondition(AlwaysFailure )
 
-	DefineMission( 163, "Письмо для Палпина ", 91 )
+-----------------------------------ЛНРЕёшІ®Ві
+	DefineMission( 163, "Letter for Palpin", 91 )
 	
-	MisBeginTalk( "<t>Я коллекционирую посохи для битв, передай это письмо <bПалпину> бакалейщику, который находится по координатам (1356, 483). Он хочет познакомится с тобой.")
+	MisBeginTalk( "<t>If you prefer collecting stuff to fighting, give this letter to <bPalpin> the Grocer at (1356, 483). He has a task for you.")
 	MisBeginCondition(HasRecord, 716)
 	MisBeginCondition(NoRecord, 91)
 	MisBeginCondition(NoMission, 91)
@@ -2925,17 +3225,18 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 91  )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправь письмо Бакалейщику - Палпину ")
+	MisNeed(MIS_NEED_DESP, "Bring the letter to Grocer Palpin")
 
-	MisHelpTalk("<t>Почему не отнес письмо Палпину? Он находится в точке (1356, 483).")
+	MisHelpTalk("<t>Why haven't you passed the letter to Palpin? He is nearby at (1356, 483).")
 	MisResultCondition(AlwaysFailure )
 
 
-	DefineMission( 164, "Письмо для Майкла ", 90, COMPLETE_SHOW)
+-----------------------------------ЛНРЕёшВхїЛ
+	DefineMission( 164, "Letter for Michael", 90, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Это прекрасно, ты отлично постарался ранее.Я к тебе по делу...<n><t>Ты заметил, что когда ты в бою, твоя строка жизни изменяется? Правильно, строка жизни реально изменяется.")
+	MisResultTalk("<t>It's good that you are here, I could use a helping hand.<n><t>Also, take note of your HP bar while in battle. That's right, the red bar shows your HP level. You will die when it reaches 0. Beware!<n><t>Beside eating \"Apples\", \"Cakes\" or other recovery potion, you can press the \"Insert\" key to increase HP/SP recovery rate.")
 	MisResultCondition(NoRecord, 90)
 	MisResultCondition(HasMission, 90)
 	MisResultCondition(HasItem, 4131, 1)
@@ -2944,9 +3245,10 @@ function RobinMission039()
 	MisResultAction(SetRecord, 90)
 	MisResultAction(AddExp, 50, 50)
 
-	DefineMission( 165, "Игривый кальмарчики ", 92 )
+-----------------------------------НзЖ¤ЕБЕБ
+	DefineMission( 165, "Playful Squidy", 92 )
 
-	MisBeginTalk( "<t>Снежные кальмарчики стали более игривыми. Они нападают на всех кто проходит мимо. Помоги преподать им урок. Убей  6 <bСнежных кальмарчиков>.<n><t>Не покидай меня в тяжелую минуту!<n><t>Я знаю ты справишся с этим лучше , чем кто либо другой!")
+	MisBeginTalk( "<t>Lately those Snow Squidy are becoming more playful. They actually attacked me while I was taking a break at my post. Help me teach them a lesson, return after you defeat 6 <bSnow Squidy>.<n><t>Do not take this mission lightly!<n><t>I know your strengths and abilities well enough!")
 	MisBeginCondition(HasRecord, 90)
 	MisBeginCondition(NoMission, 92)
 	MisBeginCondition(NoRecord, 92)
@@ -2954,11 +3256,11 @@ function RobinMission039()
 	MisBeginAction(AddTrigger, 921, TE_KILL, 235, 6 )
 	MisCancelAction(ClearMission, 92)
 	
-	MisNeed(MIS_NEED_DESP, "Убей 6 <bСнежных кальмарчиков> и вернись к Малышу Мо ")
+	MisNeed(MIS_NEED_DESP, "Kill 6 <bSnow Squidy> and report back to Little Mo")
 	MisNeed(MIS_NEED_KILL, 235, 6, 10, 6)
 	
-	MisResultTalk("<t>Отличная работа. Теперь я могу спокойно гулять.")
-	MisHelpTalk("<t>Что? Не можешь одолеть их? Постарайся и будь упорнее,я уверен,что у тебя все получится!")
+	MisResultTalk("<t>Good. Now I can have a good rest.")
+	MisHelpTalk("<t>What? You've not done anything yet? This shouldn't be much of a problem to you.")
 	MisResultCondition(HasMission, 92)
 	MisResultCondition(HasFlag, 92, 15 )
 	MisResultAction(AddExp, 150, 150)
@@ -2970,9 +3272,10 @@ function RobinMission039()
 	TriggerAction( 1, AddNextFlag, 92, 10, 6 )
 	RegCurTrigger( 921 )
 
-	DefineMission( 166, "Письмо Рею ", 93 )
+-----------------------------------ЛНРЕёшАЧЕ·
+	DefineMission( 166, "Letter for Ray", 93 )
 	
-	MisBeginTalk( "<t>Мне нужна твоя помощь. Отнеси это письмо <bРею>, который находится по координатам (1365, 570). Он будет рад помочь тебе.")
+	MisBeginTalk( "<t>There's not much I can do for you. Take this letter and give it to <bRay> at (1365, 570). He should be able to help you.")
 	MisBeginCondition(HasRecord, 92)
 	MisBeginCondition(NoRecord, 93)
 	MisBeginCondition(NoMission, 93)
@@ -2981,16 +3284,17 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 93  )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправь письмо Мечнику - Рею в Ледыни ")
+	MisNeed(MIS_NEED_DESP, "Send the letter to Ray in Icicle City")
 
-	MisHelpTalk("<t>Рей находится в точке (1365, 570). Иди скорее!")
+	MisHelpTalk("<t>Ray is at (1365, 570). Go now!")
 	MisResultCondition(AlwaysFailure )
 
-	DefineMission( 167, "Письмо Рею ", 93, COMPLETE_SHOW)
+-----------------------------------ЛНРЕёшАЧЕ·
+	DefineMission( 167, "Letter for Ray", 93, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Ох! Малыш Мо отправил письмо мне? Великолепно!")
+	MisResultTalk("<t>Oh! Little Mo send you? Great!")
 	MisResultCondition(NoRecord, 93)
 	MisResultCondition(HasMission, 93)
 	MisResultCondition(HasItem, 4133, 1)
@@ -2999,9 +3303,10 @@ function RobinMission039()
 	MisResultAction(SetRecord, 93)
 	MisResultAction(AddExp, 80, 80)
 
-	DefineMission( 168, "Такого никогда не бывает слишком много ", 94 )
+-----------------------------------ЦнїЪ¶бБё
+	DefineMission( 168, "There's never too much", 94 )
 
-	MisBeginTalk( "<t>Моя задание заключается в том, чтобы ты мне помог с этими <bСнежными свинокрылами> ,они воруют большое количество продовольствия у нас. Иди по координатам (1179, 371) и убей 8 <bСнежных свинокрылов>.")
+	MisBeginTalk( "<t>It is a tough time for the people suffering in Icicle City, so the task I am going to entrust you is this: <bSnowy Piglet> consume huge amount of food and are getting out of control, please go to (1179, 371) and destroy 8 <bSnowy Piglets>.")
 	MisBeginCondition(HasRecord, 93)
 	MisBeginCondition(NoMission, 94)
 	MisBeginCondition(NoRecord, 94)
@@ -3009,14 +3314,14 @@ function RobinMission039()
 	MisBeginAction(AddTrigger, 941, TE_KILL, 239, 8 )
 	MisCancelAction(ClearMission, 94)
 
-	MisNeed(MIS_NEED_DESP, "Уюей 8 <bСнежных Свинокрылов> и вернись к Рею в точку (1365, 570)")
+	MisNeed(MIS_NEED_DESP, "Kill 8 <bSnowy Piglets> and return to Ray in Icicle City at (1365, 570)")
 	MisNeed(MIS_NEED_KILL, 239, 8, 10, 8)
 
 	MisPrize(MIS_PRIZE_ITEM, 9, 1, 4)
 	MisPrizeSelAll()
 
-	MisResultTalk("<t>Все? Спасибо тебе! Ты дал отпор этим свинокрылам. Я реально горжусь тобой.")
-	MisHelpTalk("<t>Что? Не получается?")
+	MisResultTalk("<t>Done? Thank you! Those piglets have a big appetiteЎ­Seems like I need to have BBQ pork every dayЎ­")
+	MisHelpTalk("<t>What? Still nothing?")
 	MisResultCondition(HasMission, 94)
 	MisResultCondition(HasFlag, 94, 17 )
 	MisResultAction(AddExp, 250, 250)
@@ -3029,9 +3334,10 @@ function RobinMission039()
 	TriggerAction( 1, AddNextFlag, 94, 10, 8 )
 	RegCurTrigger( 941 )
 
-	DefineMission( 169, "Письмо для Ханах ", 95 )
+-----------------------------------ЛНРЕёшєІДИ
+	DefineMission( 169, "Letter for Hannah", 95 )
 	
-	MisBeginTalk( "<t>О!Ты мне как раз нужен, для того, чтобы отправить письмо портной Ханнах, которая находится по координатам (1349, 539). Я думаю, что для тебя это раз плюнуть." )
+	MisBeginTalk( "<t>While I'm currently giving out food to the public, take this letter to Hannah the Tailor at (1349, 539). I think she might have a task for you." )
 	MisBeginCondition(HasRecord, 94)
 	MisBeginCondition(NoRecord, 95)
 	MisBeginCondition(NoMission, 95)
@@ -3040,16 +3346,17 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 95  )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправь письмо Потной - Ханах ")
+	MisNeed(MIS_NEED_DESP, "Send a letter to Tailor - Hannah")
 
-	MisHelpTalk("<t>Чего же ты ждешь? Поспеши!")
+	MisHelpTalk("<t>What are you waiting for? Hurry!")
 	MisResultCondition(AlwaysFailure )
 
-	DefineMission( 170, "Письмо для Ханах ", 95, COMPLETE_SHOW)
+-----------------------------------ЛНРЕёшєІДИ
+	DefineMission( 170, "Letter for Hannah", 95, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>О,дорогой! Без тебя я бы никогда не справилась!")
+	MisResultTalk("<t>Oh dear! I need your help so urgently!")
 	MisResultCondition(NoRecord, 95)
 	MisResultCondition(HasMission, 95)
 	MisResultCondition(HasItem, 4134, 1)
@@ -3058,9 +3365,10 @@ function RobinMission039()
 	MisResultAction(SetRecord, 95)
 	MisResultAction(AddExp, 120, 120)
 
-	DefineMission( 171, "Неверная передача ", 96 )
+-----------------------------------ґнОуЗЁТЖ
+	DefineMission( 171, "Wrong Transfer", 96 )
 
-	MisBeginTalk( "<t>Хохо, у меня для тебя хорошие новости! Отряд оленят мигрировал в Ледынь. Но к сожалению в Ледыни, эти олени считаются деликатесом, дарованным богами... Я хочу чтобы ты отправился в точку (1164, 305). и убил 12 <bОленят> для вечернего банкета.")
+	MisBeginTalk( "<t>Hoho, I have good news! It seems a pack of Little Deer have mistakenly migrated near to the Icicle City. With the current situation at Icicle City, this pack of deers is like a delicacy given by the gods. I want you to travel with haste to (1164, 305). Hunt and bring back 12 <bLittle Deers> so that we can have a feast tonight.")
 	MisBeginCondition(HasRecord, 95)
 	MisBeginCondition(NoMission, 96)
 	MisBeginCondition(NoRecord, 96)
@@ -3069,14 +3377,14 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 56)
 	
 
-	MisNeed(MIS_NEED_DESP, "Убей 12 <Маленьких Оленей> и вернись к Ханах в точку (1349, 539)")
+	MisNeed(MIS_NEED_DESP, "Hunt 12 <bLittle Deers> and return to Hannah at (1349, 539)")
 	MisNeed(MIS_NEED_KILL, 238, 12, 10, 12)
 
 	MisPrize(MIS_PRIZE_ITEM, 4309, 1, 4)
 	MisPrizeSelAll()
 	
-	MisResultTalk("<t>Отлично! Ты сделал это! У нас теперь есть много мяса для банкета! Хехе.")
-	MisHelpTalk("<t>Почему ты не смог убить этих оленей? Пожалуйста будь более усердным!")
+	MisResultTalk("<t>Good! You have done it! I will put aside my duties for those delicious meat! HeheЎ­")
+	MisHelpTalk("<t>Have you managed to hunt any deer yet? Please hurry up!")
 	MisResultCondition(HasMission, 96)
 	MisResultCondition(HasFlag, 96, 21 )
 	MisResultAction(ClearMission, 96)
@@ -3090,9 +3398,10 @@ function RobinMission039()
 	RegCurTrigger( 961 )
 
 
-	DefineMission( 172, "Письмо для Анжелы ", 97 )
+-----------------------------------ЛНРЕёш°ІзчВ¶СЗ
+	DefineMission( 172, "Letter for Angela", 97 )
 	
-	MisBeginTalk( "<t>Я тебя просила очень много раз о помощи. Так вот мне вновь нужна твоя помощь.<n><t>Пожалуйста отнеси это письмо <bАнжеле>, Наставнице аргента, которая находится по координатам (1315, 507).<n><t>Когда найдешь её, она даст тебе дальнейшие инструкции.")
+	MisBeginTalk( "<t>Although we have asked you for help with many of our things, you have also progress much.<n><t>Please take this letter to <bAngela>, the Newbie Guide at (1315, 507).<n><t>After locating her, she will give you some new instructions.")
 	MisBeginCondition(HasRecord, 96)
 	MisBeginCondition(NoRecord, 97)
 	MisBeginCondition(NoMission, 97)
@@ -3101,17 +3410,18 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 97  )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправь письмо Наставнице - Анжеле ")
+	MisNeed(MIS_NEED_DESP, "Send a letter to Icicle Newbie Guide")
 
-	MisHelpTalk("<t>Анжела находится а точке (1315, 507). Пожалуйста поспеши.")
+	MisHelpTalk("<t>Angela is at (1315, 507). Please hurry.")
 	MisResultCondition(AlwaysFailure )
 
 
-	DefineMission( 173, "Письмо для Анжелы ", 97, COMPLETE_SHOW)
+-----------------------------------ЛНРЕёш°ІзчВ¶СЗ
+	DefineMission( 173, "Letter for Angela", 97, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Спасибо за письмо, ты просто молодец!")
+	MisResultTalk("<t>Thank you for the letter, it looks like you are quite well liked in Icicle Castle.")
 	MisResultCondition(NoRecord, 97)
 	MisResultCondition(HasMission, 97)
 	MisResultCondition(HasItem, 4135, 1)
@@ -3120,11 +3430,12 @@ function RobinMission039()
 	MisResultAction(SetRecord, 97)
 	MisResultAction(AddExp, 200, 200)
 
-	DefineMission( 174, "Продвижение охотника ", 59, COMPLETE_SHOW)
+-----------------------------------БФИЛЧЄЦ°ИООс
+	DefineMission( 174, "Hunter Promotion", 59, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("Отлично! Я смотрю ты очень талантлив, наставница замечательно обучила тебя. Сделай парочку заданий, для того чтобы стать <rОхотником>.")
+	MisResultTalk("Great! Since the Newbie Guide recommended you, you must be talented. Complete the tasks given to you if you want to become a <rHunter>.")
 	MisResultCondition(NoRecord, 59)
 	MisResultCondition(HasMission, 59)
 	MisResultCondition(HasItem, 4117, 1)
@@ -3132,9 +3443,10 @@ function RobinMission039()
 	MisResultAction(ClearMission, 59)
 	MisResultAction(SetRecord, 59)
 
-	DefineMission( 175, "Продвижение охотника ", 98 )
+-----------------------------------БФИЛЧЄЦ°ИООс
+	DefineMission( 175, "Hunter Promotion", 98 )
 
-	MisBeginTalk( "<t>Пришел стать охотником? Это очень храбро.<n><t>Однако одной только храбрости недостаточно. Тебе нужно заработать <rРуководство охотника> и показать свою ловкость и проворность в некоторых испытаниях.<n><t>Отправляйся в <pЛедынь> и убей 12 <bБелых оленят>. Найти ты их можешь по координатам (1325, 305).<n><t>Если успешно завершишь это испытание, то считай, что первая часть твоих испытаний будет завершена.")
+	MisBeginTalk( "<t>Are you here to aquire the Hunter Manual? How brave.<n><t>However, bravery alone isn't enough. To aquire the <rHunter Manual> you are required to prove that you have the required agility and dexterity.<n><t>Go now to <pIcicle City> and capture 12 <bLittle White Deers>. They can be found at (1325, 305).<n><t>If you are able to complete the task, I will consider that you passed the first part of the test.")
 	MisBeginCondition(HasRecord, 59)
 	MisBeginCondition(NoMission, 98)
 	MisBeginCondition(NoRecord, 98)
@@ -3143,11 +3455,11 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 98)
 	
 
-	MisNeed(MIS_NEED_DESP, "Убей 12 <bБелых оленят> и вернись к Рею в Ледынь в точку (1365, 570)")
+	MisNeed(MIS_NEED_DESP, "Kill 12 <bLittle White Deers> and report back to Ray in Icicle City at (1365, 570)")
 	MisNeed(MIS_NEED_KILL, 240, 12, 10, 12)
 	
-	MisResultTalk("<t>Ты меня не подвел меня. Ты завершил свою первую часть испытаний.")
-	MisHelpTalk("<t>Как так? Иди пытайся, купи себе лечилок и в путь!")
+	MisResultTalk("<t>You have not let me down. You completed the first round of the test.")
+	MisHelpTalk("<t>How is it? Decided to give up?")
 	MisResultCondition(HasMission, 98)
 	MisResultCondition(HasFlag, 98, 21 )
 	MisResultAction(ClearMission, 98)
@@ -3161,9 +3473,10 @@ function RobinMission039()
 	RegCurTrigger( 981 )
 
 
-	DefineMission( 176, "Продвижение охотника ", 99 )
+-----------------------------------БФИЛЧЄЦ°ИООс
+	DefineMission( 176, "Hunter Promotion", 99 )
 	
-	MisBeginTalk( "<t>Итак, начнем вторую часть твоих испытаний. Отнеси это письмо Малышу Мо (1237, 613) и он скажет тебе, что требуется для завершения испытания.")
+	MisBeginTalk( "<t>The second part of the trial is simple. Give this letter to Little Mo (1237, 613) and he will tell you what to do for the final part.")
 	MisBeginCondition(HasRecord, 98)
 	MisBeginCondition(NoRecord, 99)
 	MisBeginCondition(NoMission, 99)
@@ -3172,16 +3485,17 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 99  )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправь письмо Патрульному - Малышу Мо ")
+	MisNeed(MIS_NEED_DESP, "Send a letter to Patrol - Little Mo")
 
-	MisHelpTalk("<t>Малыш Мо находится в точке (1237, 613).")
+	MisHelpTalk("<t>Little Mo is around (1237, 613).")
 	MisResultCondition(AlwaysFailure )
 
-	DefineMission( 177, "Продвижение охотника ", 99, COMPLETE_SHOW)
+-----------------------------------БФИЛЧЄЦ°ИООс
+	DefineMission( 177, "Hunter Promotion", 99, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Вау, Ты уже завершил свою первую часть. Поздравляю!")
+	MisResultTalk("<t>Wow, you've already completed the first part. Congratulations.")
 	MisResultCondition(NoRecord, 99)
 	MisResultCondition(HasMission, 99)
 	MisResultCondition(HasItem, 4136, 1)
@@ -3190,9 +3504,10 @@ function RobinMission039()
 	MisResultAction(SetRecord, 99)
 	MisResultAction(AddExp, 100, 100)
 
-	DefineMission( 178, "Продвижение охотника ", 150 )
+-----------------------------------БФИЛЧЄЦ°ИООс
+	DefineMission( 178, "Hunter Promotion", 150 )
 
-	MisBeginTalk( "<t>Итак, скажу тебе вторую часть испытаний. Ты должен собрать 3 <bФлакона> и вернутся ко мне. Эти флаконы падают со <rСнежных свинокрылов> по координатам (1179, 371).")
+	MisBeginTalk( "<t>Let me tell you about the second part of your test. You are required to collect 3 <bMedicine Bottles> and return here. These medicine drop most commonly from <rSnowy Piglets> at (1179, 371).")
 	MisBeginCondition(HasRecord, 99)
 	MisBeginCondition(NoMission, 150)
 	MisBeginCondition(NoRecord, 150)
@@ -3200,11 +3515,11 @@ function RobinMission039()
 	MisBeginAction(AddTrigger, 1501, TE_GETITEM, 1779, 3 )
 	MisCancelAction(ClearMission, 150)
 
-	MisNeed(MIS_NEED_DESP, "Собери 3 <bФлакона> и вернись к Малышу Мо ")
+	MisNeed(MIS_NEED_DESP, "Collect 3 <bBottles> and talk to Little Mo")
 	MisNeed(MIS_NEED_ITEM, 1779, 3, 10, 3)
 	
-	MisResultTalk("<t>Ты все зделал! Я реально горжусь тобой!")
-	MisHelpTalk("<t>Не выходит? Убей этих хрюшек,если хочешь действительно стать охотником!")
+	MisResultTalk("<t>You succeeded! I am really happy for you!")
+	MisHelpTalk("<t>What's the matter? Those piglets should be easy to deal with!")
 	MisResultCondition(HasMission, 150)
 	MisResultCondition(HasItem, 1779, 3 )
 	MisResultAction(TakeItem, 1779, 3)
@@ -3217,9 +3532,10 @@ function RobinMission039()
 	TriggerAction( 1, AddNextFlag, 150, 10, 3 )
 	RegCurTrigger( 1501 )
 
-	DefineMission( 179, "Продвижение охотника ", 151 )
+-----------------------------------БФИЛЧЄЦ°ИООс
+	DefineMission( 179, "Hunter Promotion", 151 )
 	
-	MisBeginTalk( "<t>Я думаю,что ты готов стать Охотником. Вот возьми <rРуководство охотника> и отнеси его Рею,чтобы он сделал тебя охотником.")
+	MisBeginTalk( "<t>I think you are now fit to become a Hunter. Take this <rHunter Manual> and give it to Ray and you'll become a qualified Hunter.")
 	MisBeginCondition(HasRecord, 150)
 	MisBeginCondition(NoRecord, 151)
 	MisBeginCondition(NoMission, 151)
@@ -3228,17 +3544,18 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 151 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Поговори с Реем в Ледыни ")
+	MisNeed(MIS_NEED_DESP, "Talk to Ray in Icicle City")
 
-	MisHelpTalk("<t>Что ты делаешь? Не получается что-ли?")
+	MisHelpTalk("<t>What are you doing? Are you still hesitating?")
 	MisResultCondition(AlwaysFailure )
 
 
-	DefineMission( 180, "Продвижение охотника ", 151, COMPLETE_SHOW)
+-----------------------------------БФИЛЧЄЦ°ИООс
+	DefineMission( 180, "Hunter Promotion", 151, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Поздравляю, теперь ты стал Охотником. Будь осторожен, так как тебе будут встречатся многочисленные опасности.<n><t>(Ты активировал свой класс у Рея.<n><t>Обязательно купи оружие у кузнеца Баша, доспехи, перчатки и ботинки у портной Ханнах и навыки у бакалейщика Паплин)")
+	MisResultTalk("<t>Congratulations, you are now a qualified Hunter. Looks like things will be more peaceful here with you around.<n><t>(You can now activate class quest at Ray.<n><t>Also, buy your weapons from Blacksmith Bash, armor from Tailor Hannah and skill books from Grocer Palpin)")
 	MisResultCondition(NoRecord, 151)
 	MisResultCondition(HasMission, 151)
 	MisResultCondition(HasItem, 3955, 1)
@@ -3253,11 +3570,12 @@ function RobinMission039()
 	MisResultBagNeed(2)
 
 
-	DefineMission( 181, "Письмо для Палпина ", 91, COMPLETE_SHOW)
+-----------------------------------ЛНРЕёшІ®Ві
+	DefineMission( 181, "Letter for Palpin", 91, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Хорошо,что ты здесь. Ты должен отнести письмо Паплину.")
+	MisResultTalk("<t>Its good that you are here, I could use a helping hand.")
 	MisResultCondition(NoRecord, 91)
 	MisResultCondition(HasMission, 91)
 	MisResultCondition(HasItem, 4132, 1)
@@ -3267,9 +3585,10 @@ function RobinMission039()
 	MisResultAction(AddExp, 50, 50)
 
 
-	DefineMission( 182, "Коллекция щупальцев ", 152 )
+-----------------------------------КХјЇґҐКЦ
+	DefineMission( 182, "Bangle Collection", 152 )
 
-	MisBeginTalk( "<t>Как видишь я коллекционер, но недавно я заметил, что в моей коллекции не хватает <rЦупальца осьминога>. Можешь пожалуйста принести мне 3 <rЩупальца осьминога>?<n><t>Выбить их можно со <bСнегоплва>, который находится по координатам (1465, 402). Они часто бегают недалеко от выхода из города.<n><t>Я думаю это задание тебе вполне по силам!")
+	MisBeginTalk( "<t>Recently I have been packing my own set of collectors item until I realised that I am missing <rFat Squid Tentacle>. Can you help get 3 <rFat Squid Tentacle>?<n><t>You can get them from <bSnow Squirt> at (1465, 402) They usually appear near the city gates.<n><t>This is the current task I want you to do!")
 	MisBeginCondition(HasRecord, 91)
 	MisBeginCondition(NoMission, 152)
 	MisBeginCondition(NoRecord, 152)
@@ -3277,11 +3596,11 @@ function RobinMission039()
 	MisBeginAction(AddTrigger, 1521, TE_GETITEM, 1704, 3 )
 	MisCancelAction(ClearMission, 152)
 	
-	MisNeed(MIS_NEED_DESP, "Собери 3 <rЩупальца осьминога> и вернись к Палпину в точку (1356, 483)")
+	MisNeed(MIS_NEED_DESP, "Collect 3 <rOctopus Tentacles> and look for Palpin at (1356, 483)")
 	MisNeed(MIS_NEED_ITEM, 1704, 3, 10, 3)
 	
-	MisResultTalk("<t>Прекрасно! Наконецто я собрал полную коллекцию.<n><t>Спасибо тебе! Ты меня выручил, и я у тебя теперь в долгу.")
-	MisHelpTalk("<t>Что? Возникли проблемы? Слишком тяжело для тебя? Они находятся недалеко от главного выхода, поищи.")
+	MisResultTalk("<t>This is great! I have more stuff to add to my collection.<n><t>Thank you! I will need your help in the future as well.")
+	MisHelpTalk("<t>What's the problem? Is it that hard to find them? They are just outside the main entrance.")
 	MisResultCondition(HasMission, 152)
 	MisResultCondition(HasItem, 1704, 3 )
 	MisResultAction(TakeItem, 1704, 3)
@@ -3294,9 +3613,10 @@ function RobinMission039()
 	TriggerAction( 1, AddNextFlag, 152, 10, 3 )
 	RegCurTrigger( 1521 )
 
-	DefineMission( 183, "Письмо для Яски ", 153 )
+-----------------------------------ЛНРЕёшФјЙЄ·т
+	DefineMission( 183, "Letter for Yaskey", 153 )
 	
-	MisBeginTalk( "<t>И снова я нуждаюсь в твоей помощи. Пожалуйста отнеси это письмо <bСидорфу>, который находится по координатам (1290, 540). Он тебе все расскажет и даже поможет чем сможет.")
+	MisBeginTalk( "<t>I need to trouble you once again. Please send this letter to <bSidorf> at (1290, 540). He can help you too.")
 	MisBeginCondition(HasRecord, 152)
 	MisBeginCondition(NoRecord, 153)
 	MisBeginCondition(NoMission, 153)
@@ -3305,16 +3625,17 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 153 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправь письмо Яски в Ледыни в точку (1290, 540).")
+	MisNeed(MIS_NEED_DESP, "Send a letter to Yaskey in Icicle City at (1290, 540).")
 
-	MisHelpTalk("<t>Пока мой друг, больше я ничем не могу помочь, помочь тебе может только Яски.")
+	MisHelpTalk("<t>Good bye my friend, there's nothing more I can do to help you for now.")
 	MisResultCondition(AlwaysFailure )
 
-	DefineMission( 184, "Письмо для Яски ", 153, COMPLETE_SHOW)
+-----------------------------------ЛНРЕёшФјЙЄ·т
+	DefineMission( 184, "Letter for Yaskey", 153, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Ох, Ты пришел от Палпин? Отлично!")
+	MisResultTalk("<t>Oh, Palpin sent you to help out? That's great!")
 	MisResultCondition(NoRecord, 153)
 	MisResultCondition(HasMission, 153)
 	MisResultCondition(HasItem, 4137, 1)
@@ -3323,9 +3644,10 @@ function RobinMission039()
 	MisResultAction(SetRecord, 153)
 	MisResultAction(AddExp, 80, 80)
 
-	DefineMission( 185, "Смесь ", 154 )
+-----------------------------------µчБПЖї
+	DefineMission( 185, "Concoction", 154 )
 
-	MisBeginTalk( "<t>Совсем недавно, всвязи с моими эксперементами, я потерял очень много флаконов...<n><t>Помоги мне пожалуйста! Отправляйся в точку (1118, 343) и выбей 2 <rФлакона> со <bСнежных свинокрылов>. Таким образом, ты меня реально спасешь от отчаяния.")
+	MisBeginTalk( "<t>Recently, there were several incident where a lot of my bottles broke due to accidents.<n><t>Give me a hand! Go to (1118, 343) and obtain 2 <rMedicine Bottles> from <bSnowy Piglets>. In this way, at least I have some replacements.")
 	MisBeginCondition(HasRecord, 153)
 	MisBeginCondition(NoMission, 154)
 	MisBeginCondition(NoRecord, 154)
@@ -3333,14 +3655,14 @@ function RobinMission039()
 	MisBeginAction(AddTrigger, 1541, TE_GETITEM, 1779, 2 )
 	MisCancelAction(ClearMission, 154)
 	
-	MisNeed(MIS_NEED_DESP, "Собери 2 <rФлакона> и вернимсь к Яски в Ледынь в точку (964, 422)")
+	MisNeed(MIS_NEED_DESP, "Collect 2 <rBottles> and return to Yaskey in Icicle City at (964, 422)")
 	MisNeed(MIS_NEED_ITEM, 1779, 2, 10, 2)
 
 	MisPrize(MIS_PRIZE_ITEM, 4308, 1, 4)
 	MisPrizeSelAll()	
 
-	MisResultTalk("<t>Хохо! Ты принес их, благодарю тебя!")
-	MisHelpTalk("<t>Это всего лишь 2 флакона! Вперед!")
+	MisResultTalk("<t>Hoho! Now I have more space for my ingredient!")
+	MisHelpTalk("<t>Its only 2 bottle! Go now.")
 	MisResultCondition(HasMission, 154)
 	MisResultCondition(HasItem, 1779, 2 )
 	MisResultAction(TakeItem, 1779, 2)
@@ -3354,9 +3676,10 @@ function RobinMission039()
 	TriggerAction( 1, AddNextFlag, 154, 10, 2 )
 	RegCurTrigger( 1541 )
 
-	DefineMission( 186, "Письмо для Белинды ", 155 )
+-----------------------------------ЛНРЕёшІјАцДИ
+	DefineMission( 186, "Letter for Belinda", 155 )
 	
-	MisBeginTalk( "<t>Пожалуйста передай это письмо <bБелинде>, Она находится по координатам (1360, 519) В Ледыни.")
+	MisBeginTalk( "<t>Please deliver this letter <bBelinda>, she can be found at (1360, 519) in Icicle Castle.")
 	MisBeginCondition(HasRecord, 154)
 	MisBeginCondition(NoRecord, 155)
 	MisBeginCondition(NoMission, 155)
@@ -3365,15 +3688,16 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 155 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправь письмо Белинде в Ледыни ")
+	MisNeed(MIS_NEED_DESP, "Send the letter to Belinda in Icicle Castle")
 
-	MisHelpTalk("<t>Хотя я тебя хорошо знаю, но тебе все еще нужно заплатить арендную плату. Однако я могу сделать тебе отличную скидку.")
+	MisHelpTalk("<t>Even though I know you but you still need to pay the rent. However I can give you a nice discount.")
 	MisResultCondition(AlwaysFailure )
-	DefineMission( 187, "Письмо для Белинды ", 155, COMPLETE_SHOW)
+-----------------------------------ЛНРЕёшІјАцДИ
+	DefineMission( 187, "Letter for Belinda", 155, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Я смотрю хозяин гостиницы порекомендовал мне тебя. Если ты освободился, то мне нужна твоя помощь.")
+	MisResultTalk("<t>I'm surprised that the Innkeeper recommended you. You must be quite capable.")
 	MisResultCondition(NoRecord, 155)
 	MisResultCondition(HasMission, 155)
 	MisResultCondition(HasItem, 4138, 1)
@@ -3382,9 +3706,10 @@ function RobinMission039()
 	MisResultAction(SetRecord, 155)
 	MisResultAction(AddExp, 120, 120)
 
-	DefineMission( 188, "Слеза ", 156 )
+-----------------------------------СЫАб
+	DefineMission( 188, "Tear", 156 )
 
-	MisBeginTalk( "<t>Мне очень нужны слёзы <bОленят> находятся в точке (1164, 305) и <bБелых оленят> находятся в точке (1325, 305) которые  плавят в драгоценности, чтобы те приносили удачу!<n><t>Можешь пожалуйста найти 1 для меня такую?")
+	MisBeginTalk( "<t>Rumors has it that the tears of <bLittle Deer> at (1164, 305) and <bLittle White Deer> at (1325, 305) can be used to make jewellery that will bring luck to those who wear it!<n><t>Can you find 1 for me?")
 	MisBeginCondition(HasRecord, 155)
 	MisBeginCondition(NoMission, 156)
 	MisBeginCondition(NoRecord, 156)
@@ -3392,14 +3717,14 @@ function RobinMission039()
 	MisBeginAction(AddTrigger, 1561, TE_GETITEM, 1681, 1 )
 	MisCancelAction(ClearMission, 156)
 	
-	MisNeed(MIS_NEED_DESP, "Собери 1 <bСлезу> и вернись к Белинде в Ледынь по координатам (1360, 519)")
+	MisNeed(MIS_NEED_DESP, "Collect 1 <bTear> and return to Belinda in Icicle City at (1360, 519)")
 	MisNeed(MIS_NEED_ITEM, 1681, 1, 10, 1)
 
 	MisPrize(MIS_PRIZE_ITEM, 4310, 1, 4)
 	MisPrizeSelAll()	
 
-	MisResultTalk("<t>Это прекрасно! Теперь я могу сделать ожирелье!")
-	MisHelpTalk("<t>Ты не можешь выбить слезу? Попытайся пожалуйста.")
+	MisResultTalk("<t>This is great! With these I can make a great necklace!")
+	MisHelpTalk("<t>You mean you cannot even find a single Tear Drop?")
 	MisResultCondition(HasMission, 156)
 	MisResultCondition(HasItem, 1681, 1 )
 	MisResultAction(TakeItem, 1681, 1)
@@ -3413,9 +3738,10 @@ function RobinMission039()
 	TriggerAction( 1, AddNextFlag, 156, 10, 1 )
 	RegCurTrigger( 1561 )
 
-	DefineMission( 189, "Письмо для Анжелы ", 157 )
+-----------------------------------ЛНРЕёш°ІзчВ¶СЗ
+	DefineMission( 189, "Letter for Angela", 157 )
 	
-	MisBeginTalk( "<t>Мне снова нужна твоя помощь в одном очень важном деле.<n><t>Пожалуйста отнеси письмо <bАнжеле>, Наставнице новичков в точку (1315, 507).<n><t>Дальше она даст тебе дальнейшие указания.")
+	MisBeginTalk( "<t>Although we have asked you for help with many of our things, you have also progress much.<n><t>Please take this letter to <bAngela>, the Newbie Guide at (1315, 507).<n><t>After locating her, she will give you some new instructions.")
 	MisBeginCondition(HasRecord, 156)
 	MisBeginCondition(NoRecord, 157)
 	MisBeginCondition(NoMission, 157)
@@ -3424,15 +3750,16 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 157 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправь письмо Наставнице - Анжеле в Ледыни ")
+	MisNeed(MIS_NEED_DESP, "Send a letter to Icicle Newbie Guide")
 
-	MisHelpTalk("<t>Анжела находится в точке (1315, 507). Пожалуйста поспеши.")
+	MisHelpTalk("<t>Angela is at (1315, 507). Please hurry.")
 	MisResultCondition(AlwaysFailure )
-	DefineMission( 190, "Письмо для Анжелы ", 157, COMPLETE_SHOW)
+-----------------------------------ЛНРЕёш°ІзчВ¶СЗ
+	DefineMission( 190, "Letter for Angela", 157, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Спасибо тебе за письмо,я крайне благодарна тебе.")
+	MisResultTalk("<t>Thank you for the letter, it looks like you are quite well liked in Icicle Castle.")
 	MisResultCondition(NoRecord, 157)
 	MisResultCondition(HasMission, 157)
 	MisResultCondition(HasItem, 4135, 1)
@@ -3442,11 +3769,12 @@ function RobinMission039()
 	MisResultAction(AddExp, 200, 200)
 
 
-	DefineMission( 191, "Продвижение исследователя ", 61, COMPLETE_SHOW)
+-----------------------------------Г°ПХХЯЧЄЦ°ИООс
+	DefineMission( 191, "Explorer Promotion", 61, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("Хорошо. Ты очень зарекомендованный человек, и я хочу тебя обучить одной важной профессией. Пройди все задания, для того чтобы стать <rИсследователем>.")
+	MisResultTalk("Good. Since you are recommended by the Newbie Guide, you should be quite capable. Complete the tasks I have for you if you want to be an <rExplorer>.")
 	MisResultCondition(NoRecord, 61)
 	MisResultCondition(HasMission, 61)
 	MisResultCondition(HasItem, 4119, 1)
@@ -3454,9 +3782,10 @@ function RobinMission039()
 	MisResultAction(ClearMission, 61)
 	MisResultAction(SetRecord, 61)
 
-	DefineMission( 192, "Продвижение исследователя ", 158 )
+-----------------------------------Г°ПХХЯЧЄЦ°ИООс
+	DefineMission( 192, "Explorer Promotion", 158 )
 
-	MisBeginTalk( "<t>Ты здесь, для того чтобы стать Исследователем? Исследователи - грозы морей, скажу тебе одно. Для того, чтобы им стать, тебе нужны базовые навыки выживания. Ты должен заработать <rСертификат выживания>, для этого сходи <На побережье Аргента> и убей 12 <bСвинокрылов> в точке (1950, 2563). Когда завершишь это испытание, я дам тебе новое.")
+	MisBeginTalk( "<t>Are you here to sign up for the training to be an Explorer? An Explorer often encounter dangers alone while in the seas. To be able to survive is a basic requirement. If you wish to obtain <rSurvival Guide>, proceed to the <Outskirts of Argent City> and defeat 12 <bPiglets> at (1950, 2563). I will tell you your next task once you complete your job.")
 	MisBeginCondition(HasRecord, 61)
 	MisBeginCondition(NoMission, 158)
 	MisBeginCondition(NoRecord, 158)
@@ -3464,11 +3793,11 @@ function RobinMission039()
 	MisBeginAction(AddTrigger, 1581, TE_KILL, 237, 12 )
 	MisCancelAction(ClearMission, 158)
 	
-	MisNeed(MIS_NEED_DESP, "Убей 12 <bСвинокрылов> и вернись в Малышу Даниэлю в точку (2193, 2730)")
+	MisNeed(MIS_NEED_DESP, "Kill 12 <bPiglets> and report back to Little Daniel in Argent City at (2193, 2730)")
 	MisNeed(MIS_NEED_KILL, 237, 12, 10, 12)
 	
-	MisResultTalk("<t>Ты все прекрасно сделал!<n><t>Первая часть твоих испытаний завершена, тебя ждет вторая!")
-	MisHelpTalk("<t>Ты не выполнил моего требования. Пока ты их не убьешь, я не дам тебе Сертификат выживания.")
+	MisResultTalk("<t>You have done well!<n><t>Since you have passed my test, go forth and take up the last part of your trial now!")
+	MisHelpTalk("<t>You have reached the requirement to complete this trial. It is not that easy to obtain the Survival Manual.")
 	MisResultCondition(HasMission, 158)
 	MisResultCondition(HasFlag, 158, 21 )
 	MisResultAction(ClearMission, 158)
@@ -3481,9 +3810,10 @@ function RobinMission039()
 	RegCurTrigger( 1581 )
 
 
-	DefineMission( 193, "Продвижение исследователя ", 159 )
+-----------------------------------Г°ПХХЯЧЄЦ°ИООс
+	DefineMission( 193, "Explorer Promotion", 159 )
 	
-	MisBeginTalk( "<t><t>Теперь иди к <bГенералу Вильяму>, он находиться по координатам (2277, 2831) с этим письмом, чтобы он дал тебе дальнейшие указания. Он даст тебе последнее испытание, для приобретения профессии.")
+	MisBeginTalk( "<t><t>Now, report to <bGeneral William> at (2277, 2831) with this letter to prove that you have gotten pass the first part of the trial. He will ask you to take on the final part of the trial and complete the whole advancement.")
 	MisBeginCondition(HasRecord, 158)
 	MisBeginCondition(NoRecord, 159)
 	MisBeginCondition(NoMission, 159)
@@ -3492,15 +3822,16 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 159  )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отправь письмо Генералу - Вильяму ")
+	MisNeed(MIS_NEED_DESP, "Send a letter to General - William")
 
-	MisHelpTalk("<t>Посппеши! Тебе осталось совсем чуть-чуть!!")
+	MisHelpTalk("<t>Hurry! I hope you can complete it!")
 	MisResultCondition(AlwaysFailure )
-	DefineMission( 194, "Продвижение исследователя ", 159, COMPLETE_SHOW)
+-----------------------------------Г°ПХХЯЧЄЦ°ИООс
+	DefineMission( 194, "Explorer Promotion", 159, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Ох, новый путешественник. Я надеюсь, что ты готов к последнему испытанию.")
+	MisResultTalk("<t>Oh, another adventurous traveler. I hope you are well prepared.")
 	MisResultCondition(NoRecord, 159)
 	MisResultCondition(HasMission, 159)
 	MisResultCondition(HasItem, 4139, 1)
@@ -3509,9 +3840,10 @@ function RobinMission039()
 	MisResultAction(SetRecord, 159)
 	MisResultAction(AddExp, 100, 100)
 
-	DefineMission( 195, "Продвижение исследователя ", 160 )
+-----------------------------------Г°ПХХЯЧЄЦ°ИООс
+	DefineMission( 195, "Explorer Promotion", 160 )
 
-	MisBeginTalk( "<t>На северо-востоке от <pСеребрянных шахт> есть болотные духи. Ты должен принести мне 2 <bОтравленных фрукта> ,которые можно выбих с них, и вернись ко мне.")
+	MisBeginTalk( "<t>Head north-east from <pSilver Mine> and obtain 2 <bPoisoned Fruits> from the <rMarsh Spirit> and you'll pass the trial.")
 	MisBeginCondition(HasRecord, 159)
 	MisBeginCondition(NoMission, 160)
 	MisBeginCondition(NoRecord, 160)
@@ -3519,11 +3851,11 @@ function RobinMission039()
 	MisBeginAction(AddTrigger, 1601, TE_GETITEM, 1595, 2 )
 	MisCancelAction(ClearMission, 160)
 
-	MisNeed(MIS_NEED_DESP, "Собери 2 <bОтравленных фрукта> и вернись к Вильяму в точку (2277, 2831)")
+	MisNeed(MIS_NEED_DESP, "Collect 2 <bPoisoned Fruits> and return to William at (2277, 2831)")
 	MisNeed(MIS_NEED_ITEM, 1595, 2, 10, 2)
 	
-	MisResultTalk("<t>Неплохо, ты все сделал!<n><t>Поздравляю! Тебя ждет опасная и загадочная жизнь, но одновременно очень интересная и захватывающая...")
-	MisHelpTalk("<t>Сделай то,что я просил,или ты никогда не станешь Исследователем.")
+	MisResultTalk("<t>Not bad, you have succeeded!<n><t>Congratulations! A journey of dangers and mystery is waiting for you, though my only hope is that you don't become a pirate...")
+	MisHelpTalk("<t>If you want to give up, talk to me directly.")
 	MisResultCondition(HasMission, 160)
 	MisResultCondition(HasItem, 1595, 2 )
 	MisResultAction(TakeItem, 1595, 2)
@@ -3536,9 +3868,10 @@ function RobinMission039()
 	TriggerAction( 1, AddNextFlag, 160, 10, 2 )
 	RegCurTrigger( 1601 )
 
-	DefineMission( 196, "Продвижение исследователя ", 161 )
+-----------------------------------Г°ПХХЯЧЄЦ°ИООс
+	DefineMission( 196, "Explorer Promotion", 161 )
 	
-	MisBeginTalk( "<t>Вот возьми <rКомпас выживания> и передай его Малышу Даниэлю, который находится по координатам (2193, 2730). Это будет твоим доказательством для того, чтобы наконец стать Исследователем.")
+	MisBeginTalk( "<t>Take this <rSurivial Compass> and pass it to Little Daniel at (2193, 2730). It will prove that you have passed all of the test to be a qualified Explorer.")
 	MisBeginCondition(HasRecord, 160)
 	MisBeginCondition(NoRecord, 161)
 	MisBeginCondition(NoMission, 161)
@@ -3547,16 +3880,17 @@ function RobinMission039()
 	MisCancelAction(ClearMission, 161 )
 	MisBeginBagNeed(1)
 
-	MisNeed(MIS_NEED_DESP, "Отнеси Компас выживания Малышу Даниэлю в Аргенте в точку (2193, 2730)")
+	MisNeed(MIS_NEED_DESP, "Bring Survival Compass to Little Daniel in Argent City at (2193, 2730)")
 
-	MisHelpTalk("<t>Поспеши. Или ты не хочешь стать Исследователем?")
+	MisHelpTalk("<t>Hurry up and go. Don't you wish to become an Explorer?")
 	MisResultCondition(AlwaysFailure )
 
-	DefineMission( 197, "Продвижение исследователя ", 161, COMPLETE_SHOW)
+-----------------------------------Г°ПХХЯЧЄЦ°ИООс
+	DefineMission( 197, "Explorer Promotion", 161, COMPLETE_SHOW)
 	
 	MisBeginCondition( AlwaysFailure )
 
-	MisResultTalk("<t>Поздравляю! Теперь ты Исследователь! Тебе предстоят очень интересные и захватывающие путешествия по миру!<n><t>(Вперед, иди к Малышу Даниэлю, чтобы стать Исследователем<n><t>А также купи оружие у кузнеца Голди, доспехи,ботинки и перчатки у портной бабушки Нилы и навыки у бакалейщика Джимберли. Только не забудь!)")
+	MisResultTalk("<t>Congratulations! You are now a qualified Explorer! Your adventuring will lead you to many places around the world, quite the person of envy I must say!<n><t>(From now on, you can accept class quests from Little Daniel.<n><t>Also, you can buy Explorer's weapon from Blacksmith Goldie, defensive items from Tailor Granny Nila and also skills books from Grocer Jimberry. Dont forget!)")
 	MisResultCondition(NoRecord, 161)
 	MisResultCondition(HasMission, 161)
 	MisResultCondition(HasItem, 3962, 1)
@@ -3569,9 +3903,11 @@ function RobinMission039()
 	MisResultAction(GiveItem, 3227, 1, 4)
 	MisResultBagNeed(2)
 
-	DefineMission( 198, "Низкое коммерческое разрешение ", 162 )
 
-	MisBeginTalk( "<t> Если хочешь получить низкое коммерческое разрешение, то тебе нужно принести мне 40 бревен.<n><t>(Получить дерево можно от игроков, либо набить его самому, но для этого нужно иметь навык Рубка Леса,который продаётся у Бакалейщика.Для него ты должен пройти несколько Исторических заданий. Одень топор и иди руби дерево. Как я уже говорил,книга навыков продаётся у любого бакалейщика<n><t>Также мирные навыки эти даются за исторический квест,запомни это. Взять его ты можешь у наставнице в Аргенте,но только с 10 уровня.)")
+-----------------------------------іхј¶ГіТЧЦ¤ИООс
+	DefineMission( 198, "Low Lv Commerce", 162 )
+
+	MisBeginTalk( "<t> If you wish to obtain the Low Lv Commerce Permit, then you'll need to bring 40 pieces of Wood to me in exchange for it.<n><t>(Obtain the woods from players or chop for it provided you have learnt woodcutting. Equip an axe to start chopping in any plantation. Woodcutting skill books are sold at all Grocer<n><t>To learn woodcutting requires at least 1 lifeskill point which can be earned by doing Story Quest. Obtain the quest from the Newbie Guide of your respective starting city once you have reached Lv 10.)")
 	MisBeginCondition(NoMission, 162)
 	MisBeginCondition(NoItem, 4605, 1)
 	MisBeginCondition(LvCheck, ">", 19 )
@@ -3579,11 +3915,11 @@ function RobinMission039()
 	MisBeginAction(AddTrigger, 1621, TE_GETITEM, 4543, 40 )
 	MisCancelAction(ClearMission, 162)
 
-	MisNeed(MIS_NEED_DESP, "Помоги торговцу Сидорфу, который находиться в точке (799, 3659) нарубить 40 дерева ")
+	MisNeed(MIS_NEED_DESP, "Help Trader Sidorf at (799, 3659) to gather 40 pieces of Wood")
 	MisNeed(MIS_NEED_ITEM, 4543, 40, 10, 40)
 	
-	MisResultTalk("<t>Хорошо! Ты выполнил мою просьбу. Я крайне благодарен тебе.")
-	MisHelpTalk("<t>Почему ты ещё даже не начал? Или ты не хочешь получить коммерческое разрешение?")
+	MisResultTalk("<t>Good! You have done what I have requested. Now this permit is yours.")
+	MisHelpTalk("<t>Why haven't you started? Don't you want this Commerce Permit?")
 	MisResultCondition(HasMission, 162)
 	MisResultCondition(HasItem, 4543, 40 )
 	MisResultAction(TakeItem, 4543, 40 )
@@ -3598,9 +3934,10 @@ function RobinMission039()
 	TriggerAction( 1, AddNextFlag, 162, 10, 40 )
 	RegCurTrigger( 1621 )
 
-	DefineMission( 199, "Среднее коммерческое разрешение ", 163 )
+-----------------------------------ЦРј¶ГіТЧЦ¤ИООс
+	DefineMission( 199, "Mid Lv Commerce", 163 )
 
-	MisBeginTalk( "<t>Если хочешь получить среднее Коммерческое разрешение то тебе нужно принести мне 40 шт. Кристаллической руды.<n><t>(Руду ты можешь приобрести у игроков либо добыть самому. Одень кирку,для того чтобы добывать руду. Навыки добычи руды ты можешь купить у любого бакалейщика<n><t>Чтобы у тебя были навыки добычи руды,или иначе любые мирные навыки,ты должен проходить Исторические задания. Возьми этот квест у наставницы ,но только с 10ур.)<n><t>Также купи себе кирку у кузнеца.")
+	MisBeginTalk( "<t>If you wish to obtain the Mid Lv Commerce Permit, then you'll need to bring 40 pieces of Crystal Ores to me in exchange for it.<n><t>(Obtain the ores from players or mine for it provided you have learnt mining. Equip a pickaxe to start mining in any ore field. Mining skill books are sold at all Grocer<n><t>To learn mining requires at least 1 lifeskill point which can be earned by doing Story Quest. Obtain the quest from the Newbie Guide of your respective starting city once you have reached Lv 10.)<n><t>You can also purchase a Gold Pickaxe from the Item Mall which allow you to gather at a faster rate.")
 	MisBeginCondition(NoMission, 163)
 	MisBeginCondition(HasItem, 4605, 1)
 	MisBeginCondition(TradeItemDataCheck, ">", 99 )
@@ -3610,11 +3947,11 @@ function RobinMission039()
 	MisBeginAction(AddTrigger, 1631, TE_GETITEM, 4546, 40 )
 	MisCancelAction(ClearMission, 163)
 
-	MisNeed(MIS_NEED_DESP, "Помоги торговцу Сидорфу в Шайтане в точке (799, 3659) добыть 40 Кристалличкой руды ")
+	MisNeed(MIS_NEED_DESP, "Help Trader Sidorf in Shaitan City at (799, 3659) to gather 40 Crystal Ores")
 	MisNeed(MIS_NEED_ITEM, 4546, 40, 10, 40)
 	
-	MisResultTalk("<t>Благодарю,теперь это Комерческое соглашение твоё!")
-	MisHelpTalk("<t>Почему ты даже не начинал? Не хочешь получить комерческое соглашение?")
+	MisResultTalk("<t>AhЎ­Since you have helped me, this Commerce Permit is yours!")
+	MisHelpTalk("<t>Why haven't you started? Don't you want this Commerce Permit?")
 	MisResultCondition(HasMission, 163)
 	MisResultCondition(HasItem, 4546, 40 )
 	MisResultCondition(HasItem, 4605, 1 )
@@ -3628,9 +3965,11 @@ function RobinMission039()
 	TriggerAction( 1, AddNextFlag, 163, 10, 40 )
 	RegCurTrigger( 1631 )
 
-	DefineMission( 149, "Высокое коммерческое разрешение ", 164 )
 
-	MisBeginTalk( "<t>У меня есть комерческое соглашение высшего уровня. Если хочешь, чтобы я его тебе дал, ты должен мне помочь. Принеси мне 40 Енергоруды, и я отдам тебе его с гордостью.")
+-----------------------------------ёЯј¶ГіТЧЦ¤ИООс
+	DefineMission( 149, "High Lv Commerce", 164 )
+
+	MisBeginTalk( "<t>I have with me a High Lv Commerce Permit. If you want it, you will have to complete some task for me. If you can get me 40 Energy Ore, I will give it to you.")
 	MisBeginCondition(NoMission, 164)
 	MisBeginCondition(HasItem, 4605, 1)
 	MisBeginCondition(TradeItemDataCheck, ">", 399 )
@@ -3640,11 +3979,11 @@ function RobinMission039()
 	MisBeginAction(AddTrigger, 1641, TE_GETITEM, 4544, 40 )
 	MisCancelAction(ClearMission, 164)
 
-	MisNeed(MIS_NEED_DESP, "Помоги добыть 40 Энергоруды торговцу Сидорфу в Шайтане в точке (799, 3659)")
+	MisNeed(MIS_NEED_DESP, "Gather 40 Energy Ores for Trader Sidorf in Shaitan City at (799, 3659)")
 	MisNeed(MIS_NEED_ITEM, 4544, 40, 10, 40)
 	
-	MisResultTalk("<t>Отлично! Теперь Комерческое соглашение высшего уровня твоё!")
-	MisHelpTalk("<t>Почему ты даже не начал? Не хочешь получить комерческое соглашение высшего уровня?")
+	MisResultTalk("<t>Great! Since you have done what I requested you, this High Lv Commerce Permit is yours!")
+	MisHelpTalk("<t>Why haven't you started? Don't you want this Commerce Permit?")
 	MisResultCondition(HasMission, 164)
 	MisResultCondition(HasItem, 4544, 40 )
 	MisResultCondition(HasItem, 4605, 1 )
@@ -3661,131 +4000,5 @@ function RobinMission039()
 end
 RobinMission039()
 
-function SnowWarQuests()
-	DefineMission( 7001, "\204\232\240\237\224\255 \243\227\240\238\231\224", 1880 )
-	MisBeginTalk( "<t>\194\238\233\237\224? \213\224\238\241? \215\242\238 \236\238\230\229\242 \225\251\242\252 \236\232\235\229\229 \241\229\240\228\246\243 \241\238\235\228\224\242\224!<t>\210\238\235\252\234\238 \226\238\233\237\224 \232 \245\224\238\241 \226 \238\228\237\238\236 \244\235\224\234\238\237\229! \205\238 \236\237\229 \236\229\248\224\254\242 \192\236\232! \202\238\227\228\224 \255 \226\232\230\243 \232\245 \237\224 \239\238\235\229 \225\238\255, \243 \236\229\237\255 \241\238\226\229\240\248\229\237\237\238 \239\240\238\239\224\228\224\229\242 \230\229\235\224\237\232\229 \226\238\229\226\224\242\252. \207\238\236\238\227\232 \236\237\229, \243\225\229\233 100 <r\239\240\232\231\240\224\234\238\226 \224\236\232-\237\238\226\232\247\234\224!>" )
-	MisBeginCondition(NoMission, 1880)
-	MisBeginCondition(LvCheck, ">", 30 )
-	
-	MisBeginAction(AddMission, 1880)
-	MisBeginAction(SetFlag, 1880, 1)
-	MisBeginAction(AddTrigger, 18801, TE_KILL, 879, 100 )
-	
-	MisCancelAction(ClearMission, 1880)
-	
-	MisNeed(MIS_NEED_DESP, "\207\238\236\238\227\232 \209\243\236\224\241\248\229\228\248\229\236\243 \207\240\224\239\238\240\249\232\234\243 - \243\225\229\233 100 <r\207\240\232\231\240\224\234\238\226 \192\236\232-\237\238\226\232\247\234\224>.")
-	MisNeed(MIS_NEED_KILL, 879, 100, 10, 100)
-	
-	MisHelpTalk("<t>\207\238\239\240\238\225\243\233 \237\224\233\242\232 \253\242\232\245 \236\238\237\241\242\240\238\226 \237\224 \234\224\240\242\224\245 \'\213\224\238\241 \192\240\227\229\237\242\224\' \232 \'\209\237\229\230\237\224\255 \226\238\233\237\224\'")
-	MisResultCondition(HasMission, 1880)
-	MisResultCondition(HasFlag, 1880, 19 )
-	MisResultCondition(HasFlag, 1880, 29 )
-	MisResultCondition(HasFlag, 1880, 39 )
-	
-	MisResultTalk("<t>\193\235\224\227\238\228\224\240\254! <n><t>\210\229\239\229\240\252 \255 \236\238\227\243 \239\238\235\237\238\241\242\252\254 \240\224\241\241\235\224\225\232\242\252\241\255 \237\224 \239\238\235\229 \225\238\255...")
-	MisResultAction(SetRecord, 1880)
-	MisResultAction(ClearMission, 1880)
-	MisResultAction(AddExp, 44000, 44000)
-
-	
-	InitTrigger()
-	TriggerCondition( 1, IsMonster, 879 )	
-	TriggerAction( 1, AddNextFlag, 1880, 10, 100 )
-	RegCurTrigger( 18801 )
-	
-	
-	DefineMission( 7002, "\209\229\234\240\229\242\237\224\255 \228\232\240\229\234\242\232\226\224", 1881 )
-	MisBeginTalk( "<t>\194\238\233\237\224? \213\224\238\241? \215\242\238 \236\238\230\229\242 \225\251\242\252 \236\232\235\229\229 \241\229\240\228\246\243 \241\238\235\228\224\242\224!<t>\210\238\235\252\234\238 \226\238\233\237\224 \232 \245\224\238\241 \226 \238\228\237\238\236 \244\235\224\234\238\237\229! \205\238 \236\237\229 \236\229\248\224\254\242 \202\224\240\246\232\231\251! \223 \232\245 \225\238... \225\238... \226 \238\225\249\229\236 \253\242\238 \241\229\234\240\229\242\237\238\229 \240\224\241\239\238\240\255\230\229\237\232\229 \234\238\236\224\237\228\238\226\224\237\232\255. \205\229 \238\225\241\243\230\228\224\229\242\241\255. \199\224\228\224\247\224 - \243\225\232\242\252 100 <r\212\224\237\242\238\236\238\226-\204\229\247\237\232\234\238\226 \202\224\240\246\232\231\238\226>. \194\251\239\238\235\237\255\242\252!" )
-	MisBeginCondition(NoMission, 1881)
-	MisBeginCondition(LvCheck, ">", 30 )
-	
-	MisBeginAction(AddMission, 1881)
-	MisBeginAction(SetFlag, 1881, 1)
-	MisBeginAction(AddTrigger, 18811, TE_KILL, 873, 100 )
-	
-	MisCancelAction(ClearMission, 1881)
-	
-	MisNeed(MIS_NEED_DESP, "\207\238\236\238\227\232 \209\243\236\224\241\248\229\228\248\229\236\243 \207\240\224\239\238\240\249\232\234\243 - \243\225\229\233 100 <r\212\224\237\242\238\236\238\226-\204\229\247\237\232\234\238\226 \202\224\240\246\232\231\238\226>.")
-	MisNeed(MIS_NEED_KILL, 873, 100, 10, 100)
-	
-	MisHelpTalk("<t>\207\238\239\240\238\225\243\233 \237\224\233\242\232 \253\242\232\245 \236\238\237\241\242\240\238\226 \237\224 \234\224\240\242\224\245 \'\213\224\238\241 \192\240\227\229\237\242\224\' \232 \'\209\237\229\230\237\224\255 \226\238\233\237\224\'")
-	MisResultCondition(HasMission, 1881)
-	MisResultCondition(HasFlag, 1881, 19 )
-	MisResultCondition(HasFlag, 1881, 29 )
-	MisResultCondition(HasFlag, 1881, 39 )
-	
-	MisResultTalk("<t>\202\238\236\224\237\228\238\226\224\237\232\229 \242\229\225\255 \237\224\227\240\224\228\232\242!")
-	MisResultAction(SetRecord, 1881)
-	MisResultAction(ClearMission, 1881)
-	MisResultAction(AddExp, 1776000, 1776000)
-
-	
-	InitTrigger()
-	TriggerCondition( 1, IsMonster, 873 )	
-	TriggerAction( 1, AddNextFlag, 1881, 10, 100 )
-	RegCurTrigger( 18811 )
-
-	
-	DefineMission( 7003, "\209\229\234\240\229\242\237\224\255 \228\232\240\229\234\242\232\226\224", 1882 )
-	MisBeginTalk( "<t>\194\238\233\237\224? \213\224\238\241? \215\242\238 \236\238\230\229\242 \225\251\242\252 \236\232\235\229\229 \241\229\240\228\246\243 \241\238\235\228\224\242\224!<t>\210\238\235\252\234\238 \226\238\233\237\224 \232 \245\224\238\241 \226 \238\228\237\238\236 \244\235\224\234\238\237\229! \202\241\242\224\242\232, \243 \236\229\237\255 \242\243\242 \228\235\255 \242\229\225\255 \231\224\228\224\237\232\229. \202\238\227\228\224 \255 \225\251\235 \254\237 \232 \227\235\243\239, \236\237\229 \234\224\231\224\235\238\241\252, \247\242\238 \235\254\225\238\226\252 \253\242\238 \241\224\236\238\229 \235\243\247\248\229\229 \237\224 \241\226\229\242\229. \205\238 \253\242\238 \229\240\243\237\228\224! \209 \242\229\245 \239\238\240 \234\224\234 \255 \253\242\238 \239\238\237\255\235 \243 \236\229\237\255 \239\240\238\241\237\243\235\224\241\252 \237\229\237\224\226\232\241\242\252 \234 \230\229\237\249\232\237\224\236. \211\225\229\233 100 <r\212\224\237\242\238\236\238\226 \212\232\235\235\232\241 \214\229\235\232\242\229\235\252\237\232\246\251>. \194\251\239\238\235\237\255\242\252!" )
-	MisBeginCondition(NoMission, 1882)
-	MisBeginCondition(LvCheck, ">", 30 )
-	
-	MisBeginAction(AddMission, 1882)
-	MisBeginAction(SetFlag, 1882, 1)
-	MisBeginAction(AddTrigger, 18821, TE_KILL, 878, 100 )
-	
-	MisCancelAction(ClearMission, 1882)
-	
-	MisNeed(MIS_NEED_DESP, "\207\238\236\238\227\232 \209\243\236\224\241\248\229\228\248\229\236\243 \207\240\224\239\238\240\249\232\234\243 - \243\225\229\233 100 <r\212\224\237\242\238\236\238\226 \212\232\235\235\232\241 \214\229\235\232\242\229\235\252\237\232\246\251>.")
-	MisNeed(MIS_NEED_KILL, 878, 100, 10, 100)
-	
-	MisHelpTalk("<t>\207\238\239\240\238\225\243\233 \237\224\233\242\232 \253\242\232\245 \236\238\237\241\242\240\238\226 \237\224 \234\224\240\242\224\245 \'\213\224\238\241 \192\240\227\229\237\242\224\' \232 \'\209\237\229\230\237\224\255 \226\238\233\237\224\'")
-	MisResultCondition(HasMission, 1882)
-	MisResultCondition(HasFlag, 1882, 19 )
-	MisResultCondition(HasFlag, 1882, 29 )
-	MisResultCondition(HasFlag, 1882, 39 )
-	
-	MisResultTalk("<t>\209\239\224\241\232\225\238! \210\251 \239\238\236\238\227 \236\237\229 \240\224\231\228\229\235\224\242\252\241\255 \241 \237\232\236\232... \213\229-\245\229-\245\229!")
-	MisResultAction(SetRecord, 1882)
-	MisResultAction(ClearMission, 1882)
-	MisResultAction(AddExp, 8000000, 8000000)
-
-	
-	InitTrigger()
-	TriggerCondition( 1, IsMonster, 878 )	
-	TriggerAction( 1, AddNextFlag, 1882, 10, 100 )
-	RegCurTrigger( 18821 )
 
 
-	DefineMission( 7004, "\210\238\240\230\229\241\242\226\238 \241\239\240\224\226\229\228\235\232\226\238\241\242\232", 1883 )
-	MisBeginTalk( "<t>\194\238\233\237\224? \213\224\238\241? \215\242\238 \236\238\230\229\242 \225\251\242\252 \236\232\235\229\229 \241\229\240\228\246\243 \241\238\235\228\224\242\224!<t>\210\238\235\252\234\238 \226\238\233\237\224 \232 \245\224\238\241 \226 \238\228\237\238\236 \244\235\224\234\238\237\229! \202\241\242\224\242\232, \247\242\238 \242\251 \228\243\236\224\229\248\252 \238 \194\238\232\242\229\235\255\245? \195\238\226\238\240\232\248\252, \238\237\232 \235\254\225\232\236\247\232\234\232? \194\238\242 \232 \255 \242\224\234 \228\243\236\224\254! \205\229\241\239\240\224\226\229\228\235\232\226\238! \206\237\232 \241\232\235\252\237\229\229 \226\241\229\245! \207\240\229\228\235\224\227\224\254 \226\238\241\241\242\224\237\238\226\232\242\252 \241\239\240\224\226\229\228\235\232\226\238\241\242\252 - \243\225\229\233 100 <r\215\229\240\237\251\245 \196\240\224\234\238\237\238\226 \203\224\237\241\238\226>. \194\251\239\238\235\237\255\242\252!" )
-	MisBeginCondition(NoMission, 1883)
-	MisBeginCondition(LvCheck, ">", 30 )
-	
-	MisBeginAction(AddMission, 1883)
-	MisBeginAction(SetFlag, 1883, 1)
-	MisBeginAction(AddTrigger, 18831, TE_KILL, 883, 100 )
-	
-	MisCancelAction(ClearMission, 1883)
-	
-	MisNeed(MIS_NEED_DESP, "\207\238\236\238\227\232 \209\243\236\224\241\248\229\228\248\229\236\243 \207\240\224\239\238\240\249\232\234\243 - \243\225\229\233 100 <r\215\229\240\237\251\245 \196\240\224\234\238\237\238\226 \203\224\237\241\238\226>.")
-	MisNeed(MIS_NEED_KILL, 883, 100, 10, 100)
-	
-	MisHelpTalk("<t>\207\238\239\240\238\225\243\233 \237\224\233\242\232 \253\242\232\245 \236\238\237\241\242\240\238\226 \237\224 \234\224\240\242\224\245 \'\213\224\238\241 \192\240\227\229\237\242\224\' \232 \'\209\237\229\230\237\224\255 \226\238\233\237\224\'")
-	MisResultCondition(HasMission, 1883)
-	MisResultCondition(HasFlag, 1883, 19 )
-	MisResultCondition(HasFlag, 1883, 29 )
-	MisResultCondition(HasFlag, 1883, 39 )
-	
-	MisResultTalk("<t>\210\229\239\229\240\252 \226\241\229 \231\237\224\254\242, \247\242\238 \194\238\232\242\229\235\232 \237\232\247\243\242\252 \237\229 \241\232\235\252\237\229\229 \238\241\242\224\235\252\237\251\245!")
-	MisResultAction(SetRecord, 1883)
-	MisResultAction(ClearMission, 1883)
-	MisResultAction(AddExp, 12400000, 12400000)
-
-	InitTrigger()
-	TriggerCondition( 1, IsMonster, 883 )	
-	TriggerAction( 1, AddNextFlag, 1883, 10, 100 )
-	RegCurTrigger( 18831 )
-end
-SnowWarQuests()

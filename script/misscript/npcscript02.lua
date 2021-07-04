@@ -1,258 +1,574 @@
-----------------------------------------------
---           Функции Телепортов				--
-----------------------------------------------
+------------------------------------------------------------
+-- NPCScript02.lua Created by BT 2004.12.29.
+--
+-- L.38 -> Line 38
+------------------------------------------------------------
+-- L.20   [ Й±№ЦИООсЈє°ЧТшОдЅ«µДЗлНР ]
+-- L.289  [ RandMapList ] L.245 [ °ЧТш ] L.362 [ Йіб° ] L.422 [ АЧцЄ ] L.482 [ ±щАЗ ] L.542 [ µєУм ] L.612 [ НЁУГ ]
+-- L.682  [ РЎЙЅіµµДЖЮЧУ ]
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+------------------------------------------------------------
+-- Й±№ЦИООсЈє°ЧТшОдЅ«µДЗлНР
+------------------------------------------------------------
 
-print( "‡ Јаг§Є  NPCScript02.lua" )
+print( "loading NPCScript02.lua" )
 
----------------------------------------
--- Телепорт между основными городами --
----------------------------------------
---------------------------------------------------------------------------------------------------------------------
--- Портальщик Аргента - Джовиал, Портальщик Шайтана - Мэй, Портальщик Ледыни - Элен, Портальщик Громограда - Сара --
---------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------
+-- НЁУГґ«ЛНЅЕ±ѕ
+------------------------------------------------------------
+
 function GoToWhere()
---Серебрянные Шахты--
-local CurMapName1 = "garner"
-	local GoTo02X = 1900
-	local GoTo02Y = 2774
-	local GoTo02M = CurMapName1
 
-	Talk( 1, " Привет, куда желаешь перейти? " )
-	Text( 1, " Отправиться в Серебрянные Шахты ", JumpPage, 2 )
-	
-	InitTrigger()
-	TriggerAction( 1, GoTo, GoTo02X, GoTo02Y, GoTo02M )
-	Talk( 2, " Джовиал: Хочешь в Шахты? - Не проблема. " )
-	Text( 2, " Телепорт ",MultiTrigger, GetMultiTrigger(), 2)
-end
+	--ИЎПыґ«ЛН·µ»ШСЎФсґ«ЛНµШµгµД¶Ф»°ДЪИЭєНТіГж±аєЕ
+	local ReSelectTalk = "I need to reconsiderЎ­"
+	local ReSelectPage = 1
 
-------------------------------
--- Телепорт между деревнями --
-------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- Халдейская Портальщица - Мэйбл, Андийский Портальщик - Венди, Портальщица - Фелиция, Портальщица - Элизабет, Портальщик - Мия, Портальщик - Мейла, Телепорт - Берлин, Телепорт - Алина, Портальщик - Софья, Портальщик - Мина, Портальщик - Артемида, Портальщик - Лили --
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function transmittal()
-	local CancelSelectTalk = "Забудь, я останусь здесь "
-	local CancelSelectPage = 27
-	
-	--[[local CurMapName1 = "garner"
+	--ИЎПыґ«ЛНєННЛіцґ«ЛНµД¶Ф»°єНТіГж±аєЕ
+	local CancelSelectTalk = "Forget itЎ­I will stay here"
+	local CancelSelectPage = 2
+
+	--µШНјГыіЖРЕПў
+	local CurMapName1 = "garner"
 	local CurMapName2 = "magicsea"
 	local CurMapName3 = "eastgoaf"
 	local CurMapName4 = "lonetower"
 	local CurMapName5 = "darkblue"
-	
-	local GoTo01X = 1903
-	local GoTo01Y = 2807
+
+	--°ЧТшЦ®іЗЧш±к
+	local GoTo01X = 2231
+	local GoTo01Y = 2788
 	local GoTo01M = CurMapName1
-	
-	local GoTo02X = 1517
-	local GoTo02Y = 3091
-	local GoTo02M = CurMapName1
-	
-	local GoTo03X = 1120
-	local GoTo03Y = 2773
+
+	--Йіб°Ц®іЗЧш±к
+	local GoTo02X = 890
+	local GoTo02Y = 3575
+	local GoTo02M = CurMapName2
+
+	--АЧцЄ±¤Чш±к
+	local GoTo03X = 735
+	local GoTo03Y = 1590
 	local GoTo03M = CurMapName1
-	
-	local GoTo04X = 535
-	local GoTo04Y = 2433
-	local GoTo04M = CurMapName1
-	
+
+	--±щАЗ±¤Чш±к
+	local GoTo04X = 1318
+	local GoTo04Y = 510
+	local GoTo04M = CurMapName5
+
+	--їЁ¶ыјУµВЧш±к
 	local GoTo05X = 633
 	local GoTo05Y = 2100
 	local GoTo05M = CurMapName1
-	
+
+	--Аµ°ІЙ­БЦЧш±к
 	local GoTo06X = 1007
 	local GoTo06Y = 2966
 	local GoTo06M = CurMapName1
+
+	--µєУм3єЕЧш±к
+	local GoTo07X = 1507
+	local GoTo07Y = 2039
+	local GoTo07M = CurMapName1
+
+	--µєУм8єЕЧш±к
+	local GoTo08X = 1711
+	local GoTo08Y = 3448
+	local GoTo08M = CurMapName1
+
+	--µєУм2єЕЧш±к
+	local GoTo09X = 2501
+	local GoTo09Y = 2997
+	local GoTo09M = CurMapName1
+
+	--µєУм5єЕЧш±к
+	local GoTo10X = 3197
+	local GoTo10Y = 1254
+	local GoTo10M = CurMapName1
+
+	Talk( 1, "Jovial: Hi! I am the Teleporter! How may I help you?" )
+	Text( 1, "Go to Shaitan City!", JumpPage, 5 )
+	--Text( 1, "Go to Thundoria Castle!", JumpPage, 6 )
+	Text( 1, "Go to Icicle City!", JumpPage, 7 )
+	Text( 1, "Record Spawn point", JumpPage, 24 )
+	--Text( 1, "Go to Forsanken City!", JumpPage, 8 )
+	--Text( 1, "I want to roam the islands!", JumpPage, 3 )
+
+	Talk( 2, "Remember to look for me if you need teleportation services", CloseTalk )
+
+--	Talk( 3, "Want to teleports to which island?" )
+--	Text( 3, "Island No. 1", JumpPage, 9 )
+--	Text( 3, "Island No. 2", JumpPage, 10 )
+--	Text( 3, "Island No. 3", JumpPage, 11 )
+--	Text( 3, "Island No. 4", JumpPage, 12 )
+--	Text( 3, "Island No. 5", JumpPage, 13 )
+--	Text( 3, "Anyone please", JumpPage, 14 )
+
 	
+	InitTrigger()
+	TriggerCondition( 1, LvCheck, "<", 11 )
+	TriggerAction( 1, GoTo, GoTo01X, GoTo01Y, GoTo01M )
+	TriggerCondition( 2, HasMoney, 500 )
+	TriggerAction( 2, TakeMoney, 500 )
+	TriggerAction( 2, GoTo, GoTo01X, GoTo01Y, GoTo01M )
+	TriggerFailure( 2, JumpPage, 23 )
+	Talk( 4, "Teleports to Argent City? No problem! Please pay 500G. Free for players Lv 10 and below!" )
+	Text( 4, "Teleport",MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 4, CancelSelectTalk, JumpPage , CancelSelectPage )
+
+
+	InitTrigger()
+	TriggerCondition( 1, LvCheck, "<", 11 )
+	TriggerAction( 1, GoTo, GoTo02X, GoTo02Y, GoTo02M )
+	TriggerCondition( 2, HasMoney, 500 )
+	TriggerAction( 2, TakeMoney, 500 )
+	TriggerAction( 2,  GoTo, GoTo02X, GoTo02Y, GoTo02M )
+	TriggerFailure( 2, JumpPage, 23 )
+	Talk( 5, "I just love Shaitan City! Please pay 500G! Players Lv 10 and below free of charge!" )
+	Text( 5, "Teleport",MultiTrigger, GetMultiTrigger(), 2)
+	Text( 5, CancelSelectTalk, JumpPage , CancelSelectPage )
+
+
+	InitTrigger()
+	TriggerCondition( 1, LvCheck, "<", 11 )
+	TriggerAction( 1, GoTo, GoTo03X, GoTo03Y, GoTo03M )
+	TriggerCondition( 2, HasMoney, 500 )
+	TriggerAction( 2, TakeMoney, 500 )
+	TriggerAction( 2,  GoTo, GoTo03X, GoTo03Y, GoTo03M )
+	TriggerFailure( 2, JumpPage, 23 )
+	Talk( 6, "Teleports to Thundoria Castle? No problem! Please pay 500G! Players Lv 10 and below free!" )
+	Text( 6, "Teleport",MultiTrigger, GetMultiTrigger(), 2 )
+	Text( 6, CancelSelectTalk, JumpPage , CancelSelectPage )
+
+	InitTrigger()
+	TriggerCondition( 1, LvCheck, "<", 11 )
+	TriggerAction( 1, GoTo, GoTo04X, GoTo04Y, GoTo04M )
+	TriggerCondition( 2, HasMoney, 500 )
+	TriggerAction( 2, TakeMoney, 500 )
+	TriggerAction( 2, GoTo, GoTo04X, GoTo04Y, GoTo04M )
+	TriggerFailure( 2, JumpPage, 23 )
+	Talk( 7, "Teleport to Icicle City? No problem! Please pay 500G! Players Lv 10 and below free!" )
+	Text( 7, "Teleport",MultiTrigger, GetMultiTrigger(), 2)
+	Text( 7, CancelSelectTalk, JumpPage , CancelSelectPage )
+
+	InitTrigger()
+	TriggerCondition( 1, LvCheck, "<", 11 )
+	TriggerAction( 1, GoTo, GoTo05X, GoTo05Y, GoTo05M )
+	TriggerCondition( 2, HasMoney, 500 )
+	TriggerAction( 2, TakeMoney, 500 )
+	TriggerAction( 2, GoTo, GoTo05X, GoTo05Y, GoTo05M )
+	TriggerFailure( 2, JumpPage, 23 )
+	Talk( 8, "Teleports to Chaldea Haven? No problem! Please pay 500G! Players Lv 10 and below free!" )
+	Text( 8, "Teleport",MultiTrigger, GetMultiTrigger(), 2)
+	Text( 8, CancelSelectTalk, JumpPage , CancelSelectPage )
+
+	InitTrigger()
+	TriggerCondition( 1, LvCheck, "<", 11 )
+	TriggerAction( 1, GoTo, GoTo06X, GoTo06Y, GoTo06M )
+	TriggerCondition( 2, HasMoney, 500 )
+	TriggerAction( 2, TakeMoney, 500 )
+	TriggerAction( 2, GoTo, GoTo06X, GoTo06Y, GoTo06M )
+	TriggerFailure( 2, JumpPage, 23 )
+	Talk( 9, "Teleport to Andes Forest Haven? No problem! Please pay 500G! Players Lv 10 and below free!" )
+	Text( 9, "Teleport",MultiTrigger, GetMultiTrigger(), 2)
+	Text( 9, CancelSelectTalk, JumpPage , CancelSelectPage )
+
+--	Talk( 10, "I heard that those islands are beautiful, enjoy!" )
+--	Text( 10, "TeleportingЎ­Free of charge temporary", GoTo, GoTo07X, GoTo07Y, GoTo07M )
+--	Text( 10, CancelSelectTalk, JumpPage , CancelSelectPage )
+--
+--	Talk( 11, "I heard that those islands are beautiful, enjoy!" )
+--	Text( 11, "TeleportingЎ­Free of charge temporary", GoTo, GoTo08X, GoTo08Y, GoTo08M )
+--	Text( 11, CancelSelectTalk, JumpPage , CancelSelectPage )
+--
+--	Talk( 12, "I heard that those islands are beautiful, enjoy!" )
+--	Text( 12, "TeleportingЎ­Free of charge temporary", GoTo, GoTo09X, GoTo09Y, GoTo09M )
+--	Text( 12, CancelSelectTalk, JumpPage , CancelSelectPage )
+----
+--	Talk( 13, "I heard that those islands are beautiful, enjoy!" )
+--	Text( 13, "TeleportingЎ­Free of charge temporary", GoTo, GoTo10X, GoTo10Y, GoTo10M )
+--	Text( 13, CancelSelectTalk, JumpPage , CancelSelectPage )
+--
+--	InitFuncList()
+--
+--	AddFuncList( GoTo, GoTo06X, GoTo06Y, GoTo06M )
+--	AddFuncList( GoTo, GoTo07X, GoTo07Y, GoTo07M )
+--	AddFuncList( GoTo, GoTo08X, GoTo08Y, GoTo08M )
+--	AddFuncList( GoTo, GoTo09X, GoTo09Y, GoTo09M )
+--	AddFuncList( GoTo, GoTo10X, GoTo10Y, GoTo10M )
+--
+--	Talk( 14, "Teleports to any island? I will send you to anyplace then." )
+--	Text( 14, "TeleportingЎ­Free of charge temporary", RandFunction, GetFuncList(), GetNumFunc() )
+--	Text( 14, CancelSelectTalk, JumpPage , CancelSelectPage )
+--
+
+	Talk( 18, "May: Hi! I am the Teleporter! How may I help you?" )
+	Text( 18, "Go to Argent City!", JumpPage, 4 )
+	--Text( 18, "Go to Thundoria Castle!", JumpPage, 6 )
+	Text( 18, "Go to Icicle City!", JumpPage, 7 )
+	Text( 18, "Record Spawn point", JumpPage, 25 )
+	--Text( 18, "Go to Forsanken City!", JumpPage, 8 )
+	--Text( 18, "I want to roam the islands!", JumpPage, 3 )
+
+	Talk( 19, "Sarah: Hi! I am Thundoria Teleporter. Where do you wish to go?" )
+	Text( 19, "Go to Argent City!", JumpPage, 4 )
+	Text( 19, "Go to Shaitan City!", JumpPage, 5 )
+	Text( 19, "Go to Icicle City!", JumpPage, 7 )
+	Text( 19, "Record Spawn point", JumpPage, 26 )
+
+	Talk( 20, "Helen: Hi! I am Icicle Teleporter. Where are you headed?" )
+	Text( 20, "Go to Argent City!", JumpPage, 4 )
+	Text( 20, "Go to Shaitan City!", JumpPage, 5 )
+	Text( 20, "Record Spawn point", JumpPage, 27 )
+
+
+	--Talk( 21, "Mabel: Hi, I am the teleporter. Do you need any help?" )
+	--Text( 21, "Go to Argent City!", JumpPage, 4 )
+	--Text( 21, "Go to Shaitan City!", JumpPage, 5 )
+	--Text( 21, "Go to Icicle City!", JumpPage, 7 )
+	--Text( 21, "Record Spawn point", JumpPage, 31 )
+
+	--Talk( 22, "Wendy: Hi! I am the teleporter of Andes Forest Haven. Where do you wish to go?" )
+	--Text( 22, "Go to Argent City!", JumpPage, 4 )
+	--Text( 22, "Go to Shaitan City!", JumpPage, 5 )
+	--Text( 22, "Go to Icicle City!", JumpPage, 7 )
+	--Text( 22, "Record Spawn point", JumpPage, 32 )
+
+	Talk( 23, "Sorry! You do not have enough gold to teleport." )
+
+	Talk( 24, "Jovial: Record in Argent City? Is that correct?" )
+	Text( 24, "Yes. Please record.", SetSpawnPos, "Argent City" )
+	Text( 24, "No, thank you",CloseTalk )
+
+	Talk( 25, "May: Record in Shaitan? Is that right?" )
+	Text( 25, "Yes. Please record.", SetSpawnPos, "Shaitan City" )
+	Text( 25, "No, thank you",CloseTalk )
+
+	Talk( 26, "Sarah: Record in Thundoria? Is that correct?" )
+	Text( 26, "Yes. Please record.", SetSpawnPos, "Thundoria Castle" )
+	Text( 26, "No, thank you",CloseTalk )
+
+	Talk( 27, "Helen: Record spawn point in Icicle Castle?" )
+	Text( 27, "Yes. Please record.", SetSpawnPos, "Icicle Castle" )
+	Text( 27, "No, thank you",CloseTalk )
+
+	Talk( 28, "Arena Administrator: Hi, I am the PK island Arena Administrator. Where do you wish to go?" )
+	Text( 28, "Return to city!", JumpPage, 29 )
+	Text( 28, "No, thank you",CloseTalk )
+	
+	InitTrigger()
+	TriggerCondition( 1, HasMoney, 2000 )
+	TriggerAction( 1, TakeMoney, 2000 )
+	--TriggerAction( 1, GoTo, GoTo01X, GoTo01Y, GoTo01M )
+	TriggerAction( 1, SetPkState, 0 )
+	TriggerAction( 1, MoveCity, "" )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 29, "You wish to return to town? There is a 2000G penalty for cowards who escaped. Do you still wish to return?" )
+	Text( 29, "Yes. I will pay 2000G. Let me go",MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 29, "No, thank you" )
+
+	Talk( 30, "Want to escape but no gold? Sorry, if you do not pay 2000G, you will have to fight till the end." )
+
+	Talk( 31, "Mabel: Record at Chaldea Haven? Is that correct?" )
+	Text( 31, "Yes. Please record.", SetSpawnPos, "Chaldea Haven" )
+	Text( 31, "No, thank you",CloseTalk )
+
+	Talk( 32, "Wendy: Want to record at Andes Forest Haven? Is that correct?" )
+	Text( 32, "Yes. Please record.", SetSpawnPos, "Andes Forest Haven" )
+	Text( 32, "No, thank you",CloseTalk )
+
+
+
+	InitTrigger()
+
+	TriggerCondition( 1, IsMapNpc, "garner", 0 )
+	TriggerAction( 1, JumpPage, 1 )
+
+	TriggerCondition( 2, IsMapNpc, "magicsea", 0 )
+	TriggerAction( 2, JumpPage, 18 )
+
+	TriggerCondition( 3, IsMapNpc, "garner", 43 )
+	TriggerAction( 3, JumpPage, 19 )
+
+	TriggerCondition( 4, IsMapNpc, "darkblue", 12 )
+	TriggerAction( 4, JumpPage, 20 )
+
+	TriggerCondition( 5, IsMapNpc, "darkblue", 15 )
+	TriggerAction( 5, JumpPage, 28 )
+
+	--TriggerCondition( 6, IsMapNpc, "garner", 55 )
+	--TriggerAction( 6, JumpPage, 21 )
+
+	--TriggerCondition( 7, IsMapNpc, "garner", 56 )
+	--TriggerAction( 7, JumpPage, 22 )
+
+	--TriggerCondition( 9, IsMapNpc, "Ascaron", 8 )
+	--TriggerAction( 9, JumpPage, 22 )
+
+	--TriggerCondition( 10, IsMapNpc, "Ascaron", 9 )
+	--TriggerAction( 10, JumpPage, 22 )
+
+	--TriggerCondition( 11, IsMapNpc, "Ascaron", 27 )
+	--TriggerAction( 11, JumpPage, 21 )
+
+	Start( GetMultiTrigger(), 5 )
+
+end
+
+
+
+
+------------------------------------------------------------
+-- І№ёшХѕґ«ЛНЅЕ±ѕ
+------------------------------------------------------------
+
+function transmittal()
+
+	--ИЎПыґ«ЛН·µ»ШСЎФсґ«ЛНµШµгµД¶Ф»°ДЪИЭєНТіГж±аєЕ
+	--local ReSelectTalk = "I need to reconsiderЎ­"
+	--local ReSelectPage = 1
+
+	--ИЎПыґ«ЛНєННЛіцґ«ЛНµД¶Ф»°єНТіГж±аєЕ
+	local CancelSelectTalk = "Forget itЎ­I will stay here"
+	local CancelSelectPage = 27
+
+	--µШНјГыіЖРЕПў
+	local CurMapName1 = "garner"
+	local CurMapName2 = "magicsea"
+	local CurMapName3 = "eastgoaf"
+	local CurMapName4 = "lonetower"
+	local CurMapName5 = "darkblue"
+
+	--·ПїуІ№ёшХѕ
+	local GoTo01X = 1903
+	local GoTo01Y = 2807
+	local GoTo01M = CurMapName1
+
+	--№ЕАпї©АыІ№ёшХѕ
+	local GoTo02X = 1517
+	local GoTo02Y = 3091
+	local GoTo02M = CurMapName1
+
+	--НЯ¶ыЕµІ№ёшХѕ
+	local GoTo03X = 1120
+	local GoTo03Y = 2773
+	local GoTo03M = CurMapName1
+
+	--ОВДЗІ№ёшХѕ
+	local GoTo04X = 535
+	local GoTo04Y = 2433
+	local GoTo04M = CurMapName1
+
+	--їЁ¶ыјУµВЧш±к
+	local GoTo05X = 633
+	local GoTo05Y = 2100
+	local GoTo05M = CurMapName1
+
+	--Аµ°ІЙ­БЦЧш±к
+	local GoTo06X = 1007
+	local GoTo06Y = 2966
+	local GoTo06M = CurMapName1
+
+	--ЙіИЄІ№ёшХѕ
 	local GoTo07X = 787
 	local GoTo07Y = 3121
 	local GoTo07M = CurMapName2
-	
+
+	--°НІјІ№ёшХѕ
 	local GoTo08X = 1214
 	local GoTo08Y = 3203
 	local GoTo08M = CurMapName2
-	
+
+	--±щ¶јІ№ёшХѕ
 	local GoTo09X = 807
 	local GoTo09Y = 360
 	local GoTo09M = CurMapName5
-	
+
+	--°ўАј±ИЛ№І№ёшХѕ
 	local GoTo10X = 1050
 	local GoTo10Y = 656
 	local GoTo10M = CurMapName5
-	
+
+	--чјчГУЄµШІ№ёшХѕ
 	local GoTo11X = 2146
 	local GoTo11Y = 542
 	local GoTo11M = CurMapName5
-	
+
+	--±щј«І№ёшХѕ
 	local GoTo12X = 2681
 	local GoTo12Y = 647
-	local GoTo12M = CurMapName5]]--
+	local GoTo12M = CurMapName5
+
+	Talk( 1, "Meiya: Hi! I am the Teleporter. How can I help you?" )
+	Text( 1, "Go to Rockery Haven!", JumpPage, 14 )
+	Text( 1, "Record Spawn point", JumpPage, 25 )		--·ПїуІ№ёшХѕ
 	
-	Talk( 1, "Мия: Привет! Я местный портальщик. Чем могу помочь? " )
-	Text( 1, "Перейти в Скалистый удел ", JumpPage, 14 )
-	Text( 1, "Записать точку возвращения ", JumpPage, 25 )
-	
-	Talk( 2, "Фелиция: Привет! Я местный портальщик. Чем могу помочь? " )
-	Text( 2, "Перейти в Заброшенную Шахту ", JumpPage, 13 )
-	Text( 2, "Перейти в Андийский Лес ", JumpPage, 18 )
-	Text( 2, "Записать точку возвращения ", JumpPage, 25 )
-	
-	Talk( 3, "Венди: Привет! Я местный портальщик. Чем могу помочь? " )
-	Text( 3, "Перейти в Валгаллу ", JumpPage, 15 )
-	Text( 3, "Перейти в Скалистый Удел ", JumpPage, 14 )
-	Text( 3, "Записать точку возвращения ", JumpPage, 25 )
-	
-	Talk( 4, "Элизабет: Привет! Я местный портальщик. Чем могу помочь? " )
-	Text( 4, "Перейти в Обитель Радости ", JumpPage, 16 )
-	Text( 4, "Перейти в Андийский Лес ", JumpPage, 18 )
-	Text( 4, "Записать точку возвращения ", JumpPage, 25 )
-	
-	Talk( 5, "Мейла: Привет! Я местный портальщик. Чем могу помочь? " )
-	Text( 5, "Перейти в Халдейский Оплот ", JumpPage, 17 )
-	Text( 5, "Перейти в Валгаллу ", JumpPage, 15 )
-	Text( 5, "Записать точку возвращения ", JumpPage, 25 )
-	
-	Talk( 6, "Мэйбел: Привет! Я местный портальщик. Чем могу помочь? " )
-	Text( 6, "Перейти в Обитель Радости ", JumpPage, 16 )
---	Text( 6, "Перейти в Громоград ", JumpPage, 29 )
-	Text( 6, "Записать точку возвращения ", JumpPage, 25 )
-	
-	Talk( 7, "Алина: Привет! Я местный портальщик. Чем могу помочь? " )
-	Text( 7, "Перейти в Рощу Акаций ", JumpPage, 20 )
-	Text( 7, "Записать точку возвращения ", JumpPage, 25 )
-	
-	Talk( 8, "Берлин: Привет! Я местный портальщик. Чем могу помочь? " )
-	Text( 8, "Перейти в Гавань Оазиса ", JumpPage, 19 )
-	Text( 8, "Записать точку возвращения ", JumpPage, 25 )
-	
-	Talk( 9, "Лили: Привет! Я местный портальщик. Чем могу помочь? " )
-	Text( 9, "Перейти в бухту Атлантис ", JumpPage, 22 )
-	Text( 9, "Записать точку возвращения ", JumpPage, 25 )
-	
-	Talk( 10, "Софья: Привет! Я местный портальщик. Чем могу помочь? " )
-	Text( 10, "Перейти на Берег Скелетов ", JumpPage, 23 )
-	Text( 10, "Перейти в Пустошь Ледыни ", JumpPage, 21 )
-	Text( 10, "Записать точку возвращения ", JumpPage, 25 )
-	
-	Talk( 11, "Мина: Привет! Я местный портальщик. Чем могу помочь? " )
-	Text( 11, "Перейти в Ледяной шип ", JumpPage, 24 )
-	Text( 11, "Перейти в бухту Атлантис ", JumpPage, 22 )
-	Text( 11, "Записать точку возвращения ", JumpPage, 25 )
-	
-	Talk( 12, "Артемида: Привет! Я местный портальщик. Чем могу помочь? " )
-	Text( 12, "Перейти на Берег Скелетов ", JumpPage, 23 )
-	Text( 12, "Записать точку возвращения ", JumpPage, 25 )
+	Talk( 2, "Felicia: Hi! I am Teleporter Felicia! How can I help you?" )
+	Text( 2, "Go to Abandon Mine Haven!", JumpPage, 13 )
+	Text( 2, "Go to Andes Forest Haven!", JumpPage, 18 )
+	Text( 2, "Record Spawn point", JumpPage, 25 )		--№ЕАпї©АыІ№ёшХѕ
+
+	Talk( 3, "Wendy: Hi! I am the teleporter! Can I help you?" )
+	Text( 3, "Go to Valhalla Haven!", JumpPage, 15 )
+	Text( 3, "Go to Rockery Haven!", JumpPage, 14 )
+	Text( 3, "Record Spawn point", JumpPage, 25 )		--Аµ°ІЙ­БЦІ№ёшХѕ
+
+	Talk( 4, "Elizabeth: Hi! I am the Teleporter! How may I help you?" )
+	Text( 4, "Go to Solace Haven!", JumpPage, 16 )
+	Text( 4, "Go to Andes Forest Haven!", JumpPage, 18 )
+	Text( 4, "Record Spawn point", JumpPage, 25 )		--НЯ¶ыЕµІ№ёшХѕ
+
+	Talk( 5, "Meila: Hi! I am the Teleporter. How can I help you?" )
+	Text( 5, "Go to Chaldea Haven!", JumpPage, 17 )
+	Text( 5, "Go to Valhalla Haven!", JumpPage, 15 )
+	Text( 5, "Record Spawn point", JumpPage, 25 )		--ОВДГІ№ёшХѕ
+
+	Talk( 6, "Mabel: Hi! I am Island Teleporter Mabel. Anything I can help you with?" )
+	Text( 6, "Go to Solace Haven!", JumpPage, 16 )
+	Text( 6, "Record Spawn point", JumpPage, 25 )		--їЁ¶ыјУµВІ№ёшХѕ
+
+	Talk( 7, "Aina: Hi! I am the Teleporter! How may I help you?" )
+	Text( 7, "Go to Babul Haven!", JumpPage, 20 )
+	Text( 7, "Record Spawn point", JumpPage, 25 )		--ЙіИЄІ№ёшХѕ
+
+	Talk( 8, "Berlin: Hi! I am Teleporter Berlin. How can I help you?" )
+	Text( 8, "Go to Oasis Haven!", JumpPage, 19 )
+	Text( 8, "Record Spawn point", JumpPage, 25 )		--°НІјІ№ёшХѕ
+
+	Talk( 9, "Lily: Hi! I am Teleporter Lily. How can I help you?" )
+	Text( 9, "Go to Atlantis Haven!", JumpPage, 22 )
+	Text( 9, "Record Spawn point", JumpPage, 25 )		--±щ¶јІ№ёшХѕ
+
+	Talk( 10, "Sofia: Hi, I am the teleporter. Do you need any help?" )
+	Text( 10, "Go to Skeleton Haven!", JumpPage, 23 )
+	Text( 10, "Go to Icicle Haven!", JumpPage, 21 )
+	Text( 10, "Record Spawn point", JumpPage, 25 )		--°ўАј±ИЛ№І№ёшХѕ
+
+	Talk( 11, "Mina: Hi, I am the teleporter. Do you need any help?" )
+	Text( 11, "Go to Icespire Haven!", JumpPage, 24 )
+	Text( 11, "Go to Atlantis Haven!", JumpPage, 22 )
+	Text( 11, "Record Spawn point", JumpPage, 25 )		--чјчГУЄµШІ№ёшХѕ
+
+	Talk( 12, "Artemis: Hi! I am the Teleporter! How may I help you?" )
+	Text( 12, "Go to Skeleton Haven!", JumpPage, 23 )
+	Text( 12, "Record Spawn point", JumpPage, 25 )		--±щј«І№ёшХѕ
 	
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 200 )
 	TriggerAction( 1, TakeMoney, 200 )
-	TriggerAction( 1, teleport, 20 )
+	TriggerAction( 1, GoTo, GoTo01X, GoTo01Y, GoTo01M )
 	TriggerFailure( 1, JumpPage, 26 )
-	Talk( 13, "Перейти в Заброшенную Шахту? Нет проблем! Стоимость 200 золотых " )
-	Text( 13, "Перейти ",MultiTrigger, GetMultiTrigger(), 1 ) 
+	Talk( 13, "Teleport to Abandon Mine Haven? No problem! Please pay 200G!" )
+	Text( 13, "Teleport",MultiTrigger, GetMultiTrigger(), 1 ) 
 	Text( 13, CancelSelectTalk, JumpPage , CancelSelectPage )
-	
+
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 200 )
 	TriggerAction( 1, TakeMoney, 200 )
-	TriggerAction( 1, teleport, 21 )
+	TriggerAction( 1, GoTo, GoTo02X, GoTo02Y, GoTo02M )
 	TriggerFailure( 1, JumpPage, 26 )
-	Talk( 14, "Перейти в Скалистый Удел? Нет проблем! Стоимость 200 золотых " )
-	Text( 14, "Перейти ",MultiTrigger, GetMultiTrigger(), 1 ) 
+	Talk( 14, "Teleport to Rockery Haven? No problem! Please pay 200G!" )
+	Text( 14, "Teleport",MultiTrigger, GetMultiTrigger(), 1 ) 
 	Text( 14, CancelSelectTalk, JumpPage , CancelSelectPage )
-	
+
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 200 )
 	TriggerAction( 1, TakeMoney, 200 )
-	TriggerAction( 1, teleport, 22 )
+	TriggerAction( 1, GoTo, GoTo03X, GoTo03Y, GoTo03M )
 	TriggerFailure( 1, JumpPage, 26 )
-	Talk( 15, "Перейти в Валгаллу? Нет проблем! Стоимость 200 золотых " )
-	Text( 15, "Перейти ",MultiTrigger, GetMultiTrigger(), 1 ) 
+	Talk( 15, "Teleports to Valhalla Haven? No problem! Please pay 200G. Thanks!" )
+	Text( 15, "Teleport",MultiTrigger, GetMultiTrigger(), 1 ) 
 	Text( 15, CancelSelectTalk, JumpPage , CancelSelectPage )
-	
+
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 200 )
 	TriggerAction( 1, TakeMoney, 200 )
-	TriggerAction( 1, teleport, 23 )
+	TriggerAction( 1, GoTo, GoTo04X, GoTo04Y, GoTo04M )
 	TriggerFailure( 1, JumpPage, 26 )
-	Talk( 16, "Перейти в Обитель Радости? Нет проблем! Стоимость 200 золотых " )
-	Text( 16, "Перейти ",MultiTrigger, GetMultiTrigger(), 1 )  
+	Talk( 16, "Teleport to Solace Haven? No problem! Please pay 200G!" )
+	Text( 16, "Teleport",MultiTrigger, GetMultiTrigger(), 1 ) 
 	Text( 16, CancelSelectTalk, JumpPage , CancelSelectPage )
-	
+
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 200 )
 	TriggerAction( 1, TakeMoney, 200 )
-	TriggerAction( 1, teleport, 18 )
+	TriggerAction( 1, GoTo, GoTo05X, GoTo05Y, GoTo05M )
 	TriggerFailure( 1, JumpPage, 26 )
-	Talk( 17, "Перейти в Халдейский Оплот? Нет проблем! Стоимость 200 золотых " )
-	Text( 17, "Перейти ",MultiTrigger, GetMultiTrigger(), 1 ) 
+	Talk( 17, "Teleports to Chaldea Haven? No problem! Please pay 200G! Thank you!" )
+	Text( 17, "Teleport",MultiTrigger, GetMultiTrigger(), 1 ) 
 	Text( 17, CancelSelectTalk, JumpPage , CancelSelectPage )
-	
+
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 200 )
 	TriggerAction( 1, TakeMoney, 200 )
-	TriggerAction( 1, teleport, 19 )
+	TriggerAction( 1, GoTo, GoTo06X, GoTo06Y, GoTo06M )
 	TriggerFailure( 1, JumpPage, 26 )
-	Talk( 18, "Перейти в Андийский Лес? Нет проблем! Стоимость 200 золотых " )
-	Text( 18, "Перейти ",MultiTrigger, GetMultiTrigger(), 1 ) 
+	Talk( 18, "Teleport to Andes Forest Haven? No problem! Please pay 200G!" )
+	Text( 18, "Teleport",MultiTrigger, GetMultiTrigger(), 1 ) 
 	Text( 18, CancelSelectTalk, JumpPage , CancelSelectPage )
-	
+
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 200 )
 	TriggerAction( 1, TakeMoney, 200 )
-	TriggerAction( 1, teleport, 24 )
+	TriggerAction( 1, GoTo, GoTo07X, GoTo07Y, GoTo07M )
 	TriggerFailure( 1, JumpPage, 26 )
-	Talk( 19, "Перейти в Гавань Оазиса? Нет проблем! Стоимость 200 золотых " )
-	Text( 19, "Перейти ",MultiTrigger, GetMultiTrigger(), 1 ) 
+	Talk( 19, "Teleports to Oasis Haven? No problem! Please pay 200G. Thanks!" )
+	Text( 19, "Teleport",MultiTrigger, GetMultiTrigger(), 1 ) 
 	Text( 19, CancelSelectTalk, JumpPage , CancelSelectPage )
-	
+
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 200 )
 	TriggerAction( 1, TakeMoney, 200 )
-	TriggerAction( 1, teleport, 25 )
+	TriggerAction( 1, GoTo, GoTo08X, GoTo08Y, GoTo08M )
 	TriggerFailure( 1, JumpPage, 26 )
-	Talk( 20, "Перейти в Рощу Акаций? Нет проблем! Стоимость 200 золотых " )
-	Text( 20, "Перейти ",MultiTrigger, GetMultiTrigger(), 1 ) 
+	Talk( 20, "Teleports to Babul Haven? No problem! Please pay 200G!" )
+	Text( 20, "Teleport",MultiTrigger, GetMultiTrigger(), 1 ) 
 	Text( 20, CancelSelectTalk, JumpPage , CancelSelectPage )
-	
+
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 200 )
 	TriggerAction( 1, TakeMoney, 200 )
-	TriggerAction( 1, teleport, 26 )
+	TriggerAction( 1, GoTo, GoTo09X, GoTo09Y, GoTo09M )
 	TriggerFailure( 1, JumpPage, 26 )
-	Talk( 21, "Перейти в Пустошь Ледыни? Нет проблем! Стоимость 200 золотых " )
-	Text( 21, "Перейти ",MultiTrigger, GetMultiTrigger(), 1 ) 
+	Talk( 21, "Teleports to Icicle Haven? No problem! Please pay 200G. Thanks!" )
+	Text( 21, "Teleport",MultiTrigger, GetMultiTrigger(), 1 ) 
 	Text( 21, CancelSelectTalk, JumpPage , CancelSelectPage )
-	
+
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 200 )
 	TriggerAction( 1, TakeMoney, 200 )
-	TriggerAction( 1, teleport, 27 )
+	TriggerAction( 1, GoTo, GoTo10X, GoTo10Y, GoTo10M )
 	TriggerFailure( 1, JumpPage, 26 )
-	Talk( 22, "Перейти в бухту Атлантис? Нет проблем! Стоимость 200 золотых " )
-	Text( 22, "Перейти ",MultiTrigger, GetMultiTrigger(), 1 ) 
+	Talk( 22, "Teleport to Atlantis Haven? No problem! Please pay 200G!" )
+	Text( 22, "Teleport",MultiTrigger, GetMultiTrigger(), 1 ) 
 	Text( 22, CancelSelectTalk, JumpPage , CancelSelectPage )
-	
+
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 200 )
 	TriggerAction( 1, TakeMoney, 200 )
-	TriggerAction( 1, teleport, 28 )
+	TriggerAction( 1, GoTo, GoTo11X, GoTo11Y, GoTo11M )
 	TriggerFailure( 1, JumpPage, 26 )
-	Talk( 23, "Перейти в Берег Скелетов? Нет проблем! Стоимость 200 золотых " )
-	Text( 23, "Перейти ",MultiTrigger, GetMultiTrigger(), 1 )  
+	Talk( 23, "Teleports to Skeleton Haven? No problem! Please pay 200G. Thanks!" )
+	Text( 23, "Teleport",MultiTrigger, GetMultiTrigger(), 1 ) 
 	Text( 23, CancelSelectTalk, JumpPage , CancelSelectPage )
-	
+
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 200 )
 	TriggerAction( 1, TakeMoney, 200 )
-	TriggerAction( 1, teleport, 29 )
+	TriggerAction( 1, GoTo, GoTo12X, GoTo12Y, GoTo12M )
 	TriggerFailure( 1, JumpPage, 26 )
-	Talk( 24, "Перейти в Ледяной Шип? Нет проблем! Стоимость 200 золотых " )
-	Text( 24, "Перейти ",MultiTrigger, GetMultiTrigger(), 1 ) 
+	Talk( 24, "Teleports to Icespire Haven? No problem! Please pay 200G. Thanks!" )
+	Text( 24, "Teleport",MultiTrigger, GetMultiTrigger(), 1 ) 
 	Text( 24, CancelSelectTalk, JumpPage , CancelSelectPage )
-	
+
 	InitTrigger()
 	TriggerCondition( 1, IsMapNpc, "garner", 96 )
 	TriggerAction( 1, SetSpawnPos, "Abandon Mine Haven")
@@ -279,15 +595,15 @@ function transmittal()
 	TriggerCondition( 12, IsMapNpc, "darkblue", 51 )
 	TriggerAction( 12, SetSpawnPos, "Icespire Haven")
 	TriggerFailure( 12, JumpPage, 28 )
-	Talk( 25, "Записать точку возвращения? " )
-	Text( 25, "Да, пожалуйста запиши ", MultiTrigger, GetMultiTrigger(), 12 )
-	Text( 25, "Нет, спасибо ",CloseTalk )
-	
-	Talk( 26, "Простите, у вас недостаточно денег для перемещения! " )
-	
-	Talk( 27, "Не забудьте найти меня если потребуется помощь ", CloseTalk )
-	
-    Talk( 28, "Невозможно записать точку сохранения! ", CloseTalk )
+	Talk( 25, "Do you wish to record here?" )
+	Text( 25, "Yes. Please record.", MultiTrigger, GetMultiTrigger(), 12 )
+	Text( 25, "No, thank you",CloseTalk )
+
+	Talk( 26, "Sorry! You do not have enough gold to teleport." )
+
+	Talk( 27, "Remember to look for me if you need teleportation services", CloseTalk )
+
+	Talk( 28, "Error, unable to record, Call Robin", CloseTalk )
 	
 	InitTrigger()
 	TriggerCondition( 1, IsMapNpc, "garner", 96 )
@@ -315,208 +631,224 @@ function transmittal()
 	TriggerCondition( 12, IsMapNpc, "darkblue", 51 )
 	TriggerAction( 12, JumpPage, 12 )
 	Start( GetMultiTrigger(), 12 )
+
 end
 
 
-------------------------------
--- Телепорт между островами --
-------------------------------
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- Островной портальщик - Сильвий, Островной портальщик - Андреа, Островной портальщик - Арсин, Островной портальщик - Шейла, Островной портальщик - Джульета, Островной Телепорщик - Джули, Островной Телепорщик  - Винни, Островной Телепорщик  - Ванда --
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------
+-- µєУмґ«ЛНЅЕ±ѕ
+------------------------------------------------------------
+
 function island()
-	local CancelSelectTalk = "Забудь, я останусь здесь "
+
+	--ИЎПыґ«ЛН·µ»ШСЎФсґ«ЛНµШµгµД¶Ф»°ДЪИЭєНТіГж±аєЕ
+	--local ReSelectTalk = "I need to reconsiderЎ­"
+	--local ReSelectPage = 1
+
+	--ИЎПыґ«ЛНєННЛіцґ«ЛНµД¶Ф»°єНТіГж±аєЕ
+	local CancelSelectTalk = "Forget itЎ­I will stay here"
 	local CancelSelectPage = 27
-	--[[local CurMapName1 = "garner"
+
+	--µШНјГыіЖРЕПў
+	local CurMapName1 = "garner"
 	local CurMapName2 = "magicsea"
 	local CurMapName3 = "eastgoaf"
 	local CurMapName4 = "lonetower"
 	local CurMapName5 = "darkblue"
-	
+
+	--єЈ·зµє
 	local GoTo01X = 3260
 	local GoTo01Y = 3280
 	local GoTo01M = CurMapName1
-	
+
+	--Лй±щµє
 	local GoTo02X = 2273
 	local GoTo02Y = 1122
 	local GoTo02M = CurMapName1
-	
+
+	--С©Ффµє
 	local GoTo03X = 3590
 	local GoTo03Y = 755
 	local GoTo03M = CurMapName1
-	
+
+	--±щС©µє
 	local GoTo04X = 2376
 	local GoTo04Y = 725
 	local GoTo04M = CurMapName2
-	
+
+	--ГщЙіµє
 	local GoTo05X = 1730
 	local GoTo05Y = 3775
 	local GoTo05M = CurMapName2
-	
+
+	--Хж°®µє
 	local GoTo06X = 2529
 	local GoTo06Y = 2406
 	local GoTo06M = CurMapName2
-	
+
+	--єГФЛµє
 	local GoTo07X = 1631
 	local GoTo07Y = 1974
 	local GoTo07M = CurMapName5
-	
+
+	--°ЧТшіЗ
 	local GoTo08X = 2231
 	local GoTo08Y = 2788
-	local GoTo08M = CurMapName1]]--
+	local GoTo08M = CurMapName1
+
+	Talk( 1, "Silvius: Hi! I am Island Teleporter Silvius. Anything I can help you with?" )
+	Text( 1, "Go to Zephyr Isle!", JumpPage, 14 )
+	Text( 1, "Go to Glacier Isle!", JumpPage, 15 )
+	Text( 1, "Go to Outlaw Isle!", JumpPage, 16 )
+	Text( 1, "Go to Isle of Chill!", JumpPage, 17 )
+	Text( 1, "Go to Canary Isle!", JumpPage, 18 )
+	Text( 1, "Go to Cupid Isle!", JumpPage, 19 )
+	Text( 1, "Go to Isle of Fortune!", JumpPage, 20 )
+	Text( 1, "Record Spawn point", JumpPage, 25 )		--°ЧТшіЗ
 	
-	Talk( 1, "Сильвий: Привет, я островной портальщик. Стоимость перемещения 2000 золотых. Куда хотите отправиться? " )
-	Text( 1, "Перейти на остров Зефира ", JumpPage, 14 )
-	Text( 1, "Перейти на Ледниковый остров ", JumpPage, 15 )
-	Text( 1, "Перейти на остров Отверженных ", JumpPage, 16 )
-	Text( 1, "Перейти на остров Стужи ", JumpPage, 17 )
-	Text( 1, "Перейти на остров Канареек ", JumpPage, 18 )
-	Text( 1, "Перейти на остров Купидона ", JumpPage, 19 )
-	Text( 1, "Перейти на остров Удачи ", JumpPage, 20 )
-	Text( 1, "Записать точку возвращения ", JumpPage, 25 )
-	
-	Talk( 2, "Андреа: Привет, я островной портальщик. Стоимость перемещения 2000 золотых. Куда хотите отправиться? " )
-	Text( 2, "Перейти в Аргент ", JumpPage, 21 )
-	Text( 2, "Перейти на Ледниковый остров ", JumpPage, 15 )
-	Text( 2, "Перейти на остров Отверженных ", JumpPage, 16 )
-	Text( 2, "Перейти на остров Стужи ", JumpPage, 17 )
-	Text( 2, "Перейти на остров Канареек ", JumpPage, 18 )
-	Text( 2, "Перейти на остров Купидона ", JumpPage, 19 )
-	Text( 2, "Перейти на остров Удачи ", JumpPage, 20 )
-	Text( 2, "Записать точку возвращения ", JumpPage, 25 )
-	
-	Talk( 3, "Арсин: Привет, я островной портальщик. Стоимость перемещения 2000 золотых. Куда хотите отправиться? " )
-	Text( 3, "Перейти в Аргент ", JumpPage, 21 )
-	Text( 3, "Перейти на остров Зефира ", JumpPage, 14 )
-	Text( 3, "Перейти на остров Отверженных ", JumpPage, 16 )
-	Text( 3, "Перейти на остров Стужи ", JumpPage, 17 )
-	Text( 3, "Перейти на остров Канареек ", JumpPage, 18 )
-	Text( 3, "Перейти на остров Купидона ", JumpPage, 19 )
-	Text( 3, "Перейти на остров Удачи ", JumpPage, 20 )
-	Text( 3, "Записать точку возвращения ", JumpPage, 25 )
-	
-	Talk( 4, "Шейла: Привет, я островной портальщик. Стоимость перемещения 2000 золотых. Куда хотите отправиться? " )
-	Text( 4, "Перейти в Аргент ", JumpPage, 21 )
-	Text( 4, "Перейти на остров Зефира ", JumpPage, 14 )
-	Text( 4, "Перейти на Ледниковый остров ", JumpPage, 15 )
-	Text( 4, "Перейти на остров Стужи ", JumpPage, 17 )
-	Text( 4, "Перейти на остров Канареек ", JumpPage, 18 )
-	Text( 4, "Перейти на остров Купидона ", JumpPage, 19 )
-	Text( 4, "Перейти на остров Удачи ", JumpPage, 20 )
-	Text( 4, "Записать точку возвращения ", JumpPage, 25 )
-	
-	Talk( 5, "Джули: Привет, я островной портальщик. Стоимость перемещения 2000 золотых. Куда хотите отправиться? " )
-	Text( 5, "Перейти в Аргент ", JumpPage, 21 )
-	Text( 5, "Перейти на остров Зефира ", JumpPage, 14 )
-	Text( 5, "Перейти на Ледниковый остров ", JumpPage, 15 )
-	Text( 5, "Перейти на остров Отверженных ", JumpPage, 16 )
-	Text( 5, "Перейти на остров Канареек ", JumpPage, 18 )
-	Text( 5, "Перейти на остров Купидона ", JumpPage, 19 )
-	Text( 5, "Перейти на остров Удачи ", JumpPage, 20 )
-	Text( 5, "Записать точку возвращения ", JumpPage, 25 )
-	
-	Talk( 6, "Винни: Привет, я островной портальщик. Стоимость перемещения 2000 золотых. Куда хотите отправиться? " )
-	Text( 6, "Перейти в Аргент ", JumpPage, 21 )
-	Text( 6, "Перейти на остров Зефира ", JumpPage, 14 )
-	Text( 6, "Перейти на Ледниковый остров ", JumpPage, 15 )
-	Text( 6, "Перейти на остров Отверженных ", JumpPage, 16 )
-	Text( 6, "Перейти на остров Стужи ", JumpPage, 17 )
-	Text( 6, "Перейти на остров Купидона ", JumpPage, 19 )
-	Text( 6, "Перейти на остров Удачи ", JumpPage, 20 )
-	Text( 6, "Записать точку возвращения ", JumpPage, 25 )
-	
-	Talk( 7, "Ванда: Привет, я островной портальщик. Стоимость перемещения 2000 золотых. Куда хотите отправиться? " )
-	Text( 7, "Перейти в Аргент ", JumpPage, 21 )
-	Text( 7, "Перейти на остров Зефира ", JumpPage, 14 )
-	Text( 7, "Перейти на Ледниковый остров ", JumpPage, 15 )
-	Text( 7, "Перейти на остров Отверженных ", JumpPage, 16 )
-	Text( 7, "Перейти на остров Стужи ", JumpPage, 17 )
-	Text( 7, "Перейти на остров Канареек ", JumpPage, 18 )
-	Text( 7, "Перейти на остров Удачи ", JumpPage, 20 )
-	Text( 7, "Записать точку возвращения ", JumpPage, 25 )
-	
-	Talk( 8, "Джульета: Привет, я островной портальщик. Стоимость перемещения 2000 золотых. Куда хотите отправиться? " )
-	Text( 8, "Перейти в Аргент ", JumpPage, 21 )
-	Text( 8, "Перейти на остров Зефира ", JumpPage, 14 )
-	Text( 8, "Перейти на Ледниковый остров ", JumpPage, 15 )
-	Text( 8, "Перейти на остров Отверженных ", JumpPage, 16 )
-	Text( 8, "Перейти на остров Стужи ", JumpPage, 17 )
-	Text( 8, "Перейти на остров Канареек ", JumpPage, 18 )
-	Text( 8, "Перейти на остров Купидона ", JumpPage, 19 )
-	Text( 8, "Записать точку возвращения ", JumpPage, 25 )
-	
+	Talk( 2, "Andrea: Hi! I am Island Teleporter Andrea. How can I help you?" )
+	Text( 2, "Go to Argent City!", JumpPage, 21 )
+	Text( 2, "Go to Glacier Isle!", JumpPage, 15 )
+	Text( 2, "Go to Outlaw Isle!", JumpPage, 16 )
+	Text( 2, "Go to Isle of Chill!", JumpPage, 17 )
+	Text( 2, "Go to Canary Isle!", JumpPage, 18 )
+	Text( 2, "Go to Cupid Isle!", JumpPage, 19 )
+	Text( 2, "Go to Isle of Fortune!", JumpPage, 20 )
+	Text( 2, "Record Spawn point", JumpPage, 25 )		--єЈ·зµє
+
+	Talk( 3, "Arsene: Hi! I am the Island Teleporter. How can I help you?" )
+	Text( 3, "Go to Argent City!", JumpPage, 21 )
+	Text( 3, "Go to Zephyr Isle!", JumpPage, 14 )
+	Text( 3, "Go to Outlaw Isle!", JumpPage, 16 )
+	Text( 3, "Go to Isle of Chill!", JumpPage, 17 )
+	Text( 3, "Go to Canary Isle!", JumpPage, 18 )
+	Text( 3, "Go to Cupid Isle!", JumpPage, 19 )
+	Text( 3, "Go to Isle of Fortune!", JumpPage, 20 )
+	Text( 3, "Record Spawn point", JumpPage, 25 )	--Лй±щµє
+
+	Talk( 4, "Shayala: Hi! I am Island Teleporter Shayala. How can I help you?" )
+	Text( 4, "Go to Argent City!", JumpPage, 21 )
+	Text( 4, "Go to Zephyr Isle!", JumpPage, 14 )
+	Text( 4, "Go to Glacier Isle!", JumpPage, 15 )
+	Text( 4, "Go to Isle of Chill!", JumpPage, 17 )
+	Text( 4, "Go to Canary Isle!", JumpPage, 18 )
+	Text( 4, "Go to Cupid Isle!", JumpPage, 19 )
+	Text( 4, "Go to Isle of Fortune!", JumpPage, 20 )
+	Text( 4, "Record Spawn point", JumpPage, 25 )          ---С©Ффµє
+
+	Talk( 5, "Julie: Hi, I am the island teleporter! How can I help you?" )
+	Text( 5, "Go to Argent City!", JumpPage, 21 )
+	Text( 5, "Go to Zephyr Isle!", JumpPage, 14 )
+	Text( 5, "Go to Glacier Isle!", JumpPage, 15 )
+	Text( 5, "Go to Outlaw Isle!", JumpPage, 16 )
+	Text( 5, "Go to Canary Isle!", JumpPage, 18 )
+	Text( 5, "Go to Cupid Isle!", JumpPage, 19 )
+	Text( 5, "Go to Isle of Fortune!", JumpPage, 20 )
+	Text( 5, "Record Spawn point", JumpPage, 25 )          ---±щС©µє
+
+	Talk( 6, "Winnie: Hi! I am the Island Teleporter. How can I help you?" )
+	Text( 6, "Go to Argent City!", JumpPage, 21 )
+	Text( 6, "Go to Zephyr Isle!", JumpPage, 14 )
+	Text( 6, "Go to Glacier Isle!", JumpPage, 15 )
+	Text( 6, "Go to Outlaw Isle!", JumpPage, 16 )
+	Text( 6, "Go to Isle of Chill!", JumpPage, 17 )
+	Text( 6, "Go to Cupid Isle!", JumpPage, 19 )
+	Text( 6, "Go to Isle of Fortune!", JumpPage, 20 )
+	Text( 6, "Record Spawn point", JumpPage, 25 )          ---ГщЙіµє
+
+	Talk( 7, "Wanda: Hi! I am Island Teleporter Wanda. How can I help you?" )
+	Text( 7, "Go to Argent City!", JumpPage, 21 )
+	Text( 7, "Go to Zephyr Isle!", JumpPage, 14 )
+	Text( 7, "Go to Glacier Isle!", JumpPage, 15 )
+	Text( 7, "Go to Outlaw Isle!", JumpPage, 16 )
+	Text( 7, "Go to Isle of Chill!", JumpPage, 17 )
+	Text( 7, "Go to Canary Isle!", JumpPage, 18 )
+	Text( 7, "Go to Isle of Fortune!", JumpPage, 20 )
+	Text( 7, "Record Spawn point", JumpPage, 25 )          ---Хж°®µє
+
+	Talk( 8, "Juliet: Hi, I am the island teleporter! How can I help you?" )
+	Text( 8, "Go to Argent City!", JumpPage, 21 )
+	Text( 8, "Go to Zephyr Isle!", JumpPage, 14 )
+	Text( 8, "Go to Glacier Isle!", JumpPage, 15 )
+	Text( 8, "Go to Outlaw Isle!", JumpPage, 16 )
+	Text( 8, "Go to Isle of Chill!", JumpPage, 17 )
+	Text( 8, "Go to Canary Isle!", JumpPage, 18 )
+	Text( 8, "Go to Cupid Isle!", JumpPage, 19 )
+	Text( 8, "Record Spawn point", JumpPage, 25 )          ---єГФЛµє
+
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 2000 )
 	TriggerAction( 1, TakeMoney, 2000 )
-	TriggerAction( 1, teleport, 30 )
+	TriggerAction( 1, GoTo, GoTo01X, GoTo01Y, GoTo01M )
 	TriggerFailure( 1, JumpPage, 26 )
-	Talk( 14, "Перейти на остров Зефира? Нет проблем! Стоимость 2000 золотых " )
-	Text( 14, "Перейти ",MultiTrigger, GetMultiTrigger(), 1 )  
+	Talk( 14, "Teleport to Zephyr Isle? No problem! Please pay 2000G!" )
+	Text( 14, "Teleport",MultiTrigger, GetMultiTrigger(), 1 ) 
 	Text( 14, CancelSelectTalk, JumpPage , CancelSelectPage )
-	
+
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 2000 )
 	TriggerAction( 1, TakeMoney, 2000 )
-	TriggerAction( 1, teleport, 31 )
+	TriggerAction( 1, GoTo, GoTo02X, GoTo02Y, GoTo02M )
 	TriggerFailure( 1, JumpPage, 26 )
-	Talk( 15, "Перейти на Ледниковый остров? Нет проблем! Стоимость 2000 золотых " )
-	Text( 15, "Перейти ",MultiTrigger, GetMultiTrigger(), 1 ) 
+	Talk( 15, "Teleport to Glacier Isle? No problem! Please pay 2000G!" )
+	Text( 15, "Teleport",MultiTrigger, GetMultiTrigger(), 1 ) 
 	Text( 15, CancelSelectTalk, JumpPage , CancelSelectPage )
 	
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 2000 )
 	TriggerAction( 1, TakeMoney, 2000 )
-	TriggerAction( 1, teleport, 32 )
+	TriggerAction( 1, GoTo, GoTo03X, GoTo03Y, GoTo03M )
 	TriggerFailure( 1, JumpPage, 26 )
-	Talk( 16, "Перейти на остров Отверженных? Нет проблем! Стоимость 2000 золотых " )
-	Text( 16, "Перейти ",MultiTrigger, GetMultiTrigger(), 1 )   
+	Talk( 16, "Teleport to Outlaw Isle? No problem! Please pay 2000G!" )
+	Text( 16, "Teleport",MultiTrigger, GetMultiTrigger(), 1 ) 
 	Text( 16, CancelSelectTalk, JumpPage , CancelSelectPage )
 	
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 2000 )
 	TriggerAction( 1, TakeMoney, 2000 )
-	TriggerAction( 1, teleport, 33 )
+	TriggerAction( 1, GoTo, GoTo04X, GoTo04Y, GoTo04M )
 	TriggerFailure( 1, JumpPage, 26 )
-	Talk( 17, "Перейти на остров Стужи? Нет проблем! Стоимость 2000 золотых " )
-	Text( 17, "Перейти ",MultiTrigger, GetMultiTrigger(), 1 )  
+	Talk( 17, "Teleports to Isle of Chill? No problem! Please pay 2000G!" )
+	Text( 17, "Teleport",MultiTrigger, GetMultiTrigger(), 1 ) 
 	Text( 17, CancelSelectTalk, JumpPage , CancelSelectPage )
-	
+
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 2000 )
 	TriggerAction( 1, TakeMoney, 2000 )
-	TriggerAction( 1, teleport, 34 )
+	TriggerAction( 1, GoTo, GoTo05X, GoTo05Y, GoTo05M )
 	TriggerFailure( 1, JumpPage, 26 )
-	Talk( 18, "Перейти на остров Канареек? Нет проблем! Стоимость 2000 золотых " )
-	Text( 18, "Перейти ",MultiTrigger, GetMultiTrigger(), 1 )  
+	Talk( 18, "Teleport to Canary Isle? No problem! Please pay 2000G!" )
+	Text( 18, "Teleport",MultiTrigger, GetMultiTrigger(), 1 ) 
 	Text( 18, CancelSelectTalk, JumpPage , CancelSelectPage )
-	
+
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 2000 )
 	TriggerAction( 1, TakeMoney, 2000 )
-	TriggerAction( 1, teleport, 35 )
+	TriggerAction( 1, GoTo, GoTo06X, GoTo06Y, GoTo06M )
 	TriggerFailure( 1, JumpPage, 26 )
-	Talk( 19, "Перейти на остров Купидона? Нет проблем! Стоимость 2000 золотых " )
-	Text( 19, "Перейти ",MultiTrigger, GetMultiTrigger(), 1 ) 
+	Talk( 19, "Going to Cupid Isle? No problem! Please pay 2000G!" )
+	Text( 19, "Teleport",MultiTrigger, GetMultiTrigger(), 1 ) 
 	Text( 19, CancelSelectTalk, JumpPage , CancelSelectPage )
-	
+
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 2000 )
 	TriggerAction( 1, TakeMoney, 2000 )
-	TriggerAction( 1, teleport, 36 )
+	TriggerAction( 1, GoTo, GoTo07X, GoTo07Y, GoTo07M )
 	TriggerFailure( 1, JumpPage, 26 )
-	Talk( 20, "Перейти на остров Удачи? Нет проблем! Стоимость 2000 золотых " )
-	Text( 20, "Перейти ",MultiTrigger, GetMultiTrigger(), 1 ) 
+	Talk( 20, "Teleport to Isle of Fortune? No problem! Please pay 2000G!" )
+	Text( 20, "Teleport",MultiTrigger, GetMultiTrigger(), 1 ) 
 	Text( 20, CancelSelectTalk, JumpPage , CancelSelectPage )
-	
+
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 2000 )
 	TriggerAction( 1, TakeMoney, 2000 )
-	TriggerAction( 1, teleport, 1 )
+	TriggerAction( 1, GoTo, GoTo08X, GoTo08Y, GoTo08M )
 	TriggerFailure( 1, JumpPage, 26 )
-	Talk( 21, "Перейти в Аргент? Нет проблем! Стоимость 2000 золотых " )
-	Text( 21, "Перейти ",MultiTrigger, GetMultiTrigger(), 1 ) 
+	Talk( 21, "Teleport to Argent City? No problem! Please pay 2000G!" )
+	Text( 21, "Teleport",MultiTrigger, GetMultiTrigger(), 1 ) 
 	Text( 21, CancelSelectTalk, JumpPage , CancelSelectPage )
-	
+
 	InitTrigger()
 	TriggerCondition( 1, IsMapNpc, "garner", 123 )
 	TriggerAction( 1, SetSpawnPos, "Argent City")
@@ -535,16 +867,16 @@ function island()
 	TriggerCondition( 8, IsMapNpc, "darkblue", 65 )
 	TriggerAction( 8, SetSpawnPos, "Isle of Fortune")
 	TriggerFailure( 8, JumpPage, 28 )
-	Talk( 25, "Записать точку возвращения? " )
-	Text( 25, "Да, пожалуйста запиши ", MultiTrigger, GetMultiTrigger(), 8 )
-	Text( 25, "Нет, спасибо ",CloseTalk )
-	
-	Talk( 26, "Простите, у вас недостаточно денег для перемещения! " )
-	
-	Talk( 27, "Найди меня если потребуется помощь ", CloseTalk )
-	
-    Talk( 28, "Невозможно записать точку сохранения! ", CloseTalk )
-	
+	Talk( 25, "Do you wish to record here?" )
+	Text( 25, "Yes. Please record.", MultiTrigger, GetMultiTrigger(), 8 )
+	Text( 25, "No, thank you",CloseTalk )
+
+	Talk( 26, "Sorry! You do not have enough gold to teleport." )
+
+	Talk( 27, "Remember to look for me if you need teleportation services", CloseTalk )
+
+	Talk( 28, "Error, unable to record, Call Robin", CloseTalk )
+
 	InitTrigger()
 	TriggerCondition( 1, IsMapNpc, "garner", 123 )
 	TriggerAction( 1, JumpPage, 1 )

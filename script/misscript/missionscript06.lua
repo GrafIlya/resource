@@ -1,20 +1,31 @@
-----------------------------------------------
---			Перевод skoob13					--
-----------------------------------------------
+-------------------------------------------------------------------
+--									--
+--									--
+--NPCScript06.lua Created by Robin.Zeng 2005.9.22.				--
+--									--
+--									--
+--------------------------------------------------------------------------
+print( "loading NPCScript06.lua" )
 
-print( "‡ Јаг§Є  MissionScript06.lua" )
+jp= JumpPage
+amp=AutoMissionPage
+ct=CloseTalk
+am=AddMission
+MissionCheck = HasFlag
+mc=MissionCheck
 
-jp					= JumpPage
-amp					= AutoMissionPage
-ct					= CloseTalk
-am					= AddMission
-MissionCheck 		= HasFlag
-mc					= MissionCheck
+--------------------------------------------------
 
+
+--                 ё±±ѕИООс
+
+
+--------------------------------------------
 function DuplicateMission001()
-	DefineMission( 500, "Секрет Дункана ", 500 )
+-----------------------------------ѕЖ№нµДГШГЬ
+	DefineMission( 500, "Drunkyard Secrets", 500 )
 	
-	MisBeginTalk( "Я так давно не пил вина...Вино как кислород для меня! Я не могу жить без него! <n><t>Не мог ли ты купить бутылку хорошого вина в Баре Аргента? Я расскрою тебе парочку секретов." )
+	MisBeginTalk( "I have not taste any wine for a long time...Young fellow, wine is like oxygen to me! I cannot live without it! <n><t>Can you buy a bottle of good wine for me from the bar in Argent? I will tell you a secret if you do it." )
 	MisBeginCondition(LvCheck, ">", 29 )
 	MisBeginCondition(NoMission, 500)
 	MisBeginCondition(NoRecord, 500)
@@ -22,11 +33,11 @@ function DuplicateMission001()
 	MisBeginAction(AddTrigger, 5001, TE_GETITEM, 3916, 1 )
 	MisCancelAction(ClearMission, 500)
 
-	MisNeed(MIS_NEED_DESP, " Купи 1 Кокосовое Вино для Дункана в Баре Аргента (2222, 2889).")
+	MisNeed(MIS_NEED_DESP, "Buy 1 Coconut Wine for Drunkyard in Argent Bar at (2222, 2889).")
 	MisNeed(MIS_NEED_ITEM, 3916, 1, 10, 1)
 		
-	MisHelpTalk("Что? Эта девушка не хочет продавать тебе вино? Или ты врешь? Я еще не забыл про то что я тебе хотел рассказать...")
-	MisResultTalk("Мммм... Вкус хорошего вина... Обажаю... Ммммм.. Ик.. Хрппрппп.")
+	MisHelpTalk("What? That girl is not willing to sell wine to you? Or you have not visited her? Go now! Don't make me angry. I will forgot what you want to find out..")
+	MisResultTalk("HmmЎ­This is indeed a good wine! It's a long time since I have tasted such quality! Do you want some? AhЎ­ ZZzzzZZZzzz")
 	MisResultCondition(NoRecord, 500)
 	MisResultCondition(HasMission, 500)
 	MisResultCondition(HasItem, 3916, 1)
@@ -34,16 +45,17 @@ function DuplicateMission001()
 	MisResultAction(ClearMission, 500)
 	MisResultAction(SetRecord, 500)
 	MisResultAction(AddExp, 5000, 5000)
+	--MisResultAction(AddMoney,270,270)
 
 	InitTrigger()
 	TriggerCondition( 1, IsItem, 3916 )	
 	TriggerAction( 1, AddNextFlag, 500, 10, 1 )
 	RegCurTrigger( 5001 )
 
-
-	DefineMission( 501, "Еще чашочку!", 501 )
+-----------------------------------ФЩАґТ»±­
+	DefineMission( 501, "Another Cup Please!", 501 )
 	
-	MisBeginTalk( "<t>\206\233... \223 \237\229 \236\238\227\243 \238\242\226\251\234\237\243\242\252 \238\242 \226\232\237\224! \206\241\242\224\235\224\241\252 \239\238\241\235\229\228\237\255\255 \234\224\239\235\255... \192\233 \242\238\247\237\238 \241\229\234\240\229\242...<n><t>\222\237\251\233 \239\243\242\229\248\229\241\242\226\229\237\237\232\234, \224 \226\251 \231\237\224\229\242\229 \247\242\238 \241\228\229\235\224\229\242 \241 \194\224\236\232 \"\204\229\247\242\224 \196\243\237\234\224\237\224\" \232\231 \193\224\240\224 \192\240\227\229\237\242\224. \193\251\241\242\240\229\229 \239\240\232\242\224\249\232 \236\237\229 \229\227\238!<n><t>\205\229\236\237\238\227\238 \209\224\248\232\236\232 \242\238\230\229 \225\251 \237\229 \239\238\236\229\248\224\235\238... " )
+	MisBeginTalk( "<t>Oh my...The last drop of my wine is gone! But I am still thirsty for more...<n><t>Young adventurer, get me the famous \"Drunkern Dream\" from Argent bar. Faster!<n><t>Some Sashimi too will be nice..." )
 	MisBeginCondition(NoMission, 501)
 	MisBeginCondition(NoRecord, 501)
 	MisBeginCondition(HasRecord, 500)
@@ -52,12 +64,12 @@ function DuplicateMission001()
 	MisBeginAction(AddTrigger, 5012, TE_GETITEM, 1478, 20 )
 	MisCancelAction(ClearMission, 501)
 
-	MisNeed(MIS_NEED_DESP, " Дункан в Аргенте (2222, 2889) хочет 1 бутылку Мечты Дункана и 20 Сашими.")
+	MisNeed(MIS_NEED_DESP, "Argent Drunkyard at (2222, 2889) requires a bottle of Drunken Dreams and 20 Sashimi")
 	MisNeed(MIS_NEED_ITEM, 3926, 1, 10, 1)
 	MisNeed(MIS_NEED_ITEM, 1478, 20, 20, 20)
 		
-	MisHelpTalk("Грр..Хочу больше вина..Ик...Ик..Гррр!")
-	MisResultTalk(" О.. Какое хорошое вино... Ай точно секрет! <n><t>Когда я был молодым примерно твоего возаста, я собрал группу исследователей моего и твоего возраста. Мы вышли в море и плыли по старому компасу который нашел один из комманды. Мы плыли по показанием компаса, на всоток, вдруг мы увидели большую воронку, нас просто затянуло в нее!<n><t>Попав через воронку, мы увидели странный остров с руинами на нем... Я вдруг вспомнил легенду о Забытом Городе которую часто рассказывал мне эту историю. Много секретов и богатства лежит в этом городе!<n><t>Тем не менее никто из нас не мог унести больше одной монеты из этого города. Если кто-то брал больше появлялись злостные скелеты и просто нападали на нас! Они поубивали нас всех! Только я и Маленький Даниель вернулись с этого похода.<n><t>Ты не веришь мне? Нет! Спроси у Маленького Даниеля, он тебе все скажет! Иногда мне даже снится это странное место... Хррррр...")
+	MisHelpTalk("zZZZzzzZZZЎ­I want more wine!")
+	MisResultTalk(" AhЎ­Good wine! I will tell you the secret now.<n><t>When I was young around your age, I gathered a group of enthusiastic adventurers like you and me. We went on a sea expedition once and salvage an ancient looking compass. We sail towards the direction it was pointing and suddenly, a hugh whirlpool appears in front of our ship and suck us into the portal.<n><t>Through the portal is a small island with a forsaken city in the middle of it. Piles of treasures litters the street of the city!<n><t>However, none of us are able to leave with any treasures. Anyone who tried to take any treasure from the city was killed by undead souls and skeletons that appeared out of nowhere! It is so scary! Only me and Little Daniel escaped that calamity.<n><t>You want me to bring you there? NO! I will never set foot on that cursed place ever again! Look for Little Daniel, he knows the way to get to the Forsaken City. Leave me with my wine...zZzz...")
 	MisResultCondition(NoRecord, 501)
 	MisResultCondition(HasMission, 501)
 	MisResultCondition(HasItem, 3926, 1)
@@ -67,6 +79,7 @@ function DuplicateMission001()
 	MisResultAction(ClearMission, 501)
 	MisResultAction(SetRecord, 501)
 	MisResultAction(AddExp, 10000, 10000)
+	--MisResultAction(AddMoney,270,270)
 
 	InitTrigger()
 	TriggerCondition( 1, IsItem, 3926 )	
@@ -77,9 +90,10 @@ function DuplicateMission001()
 	TriggerAction( 1, AddNextFlag, 501, 20, 20 )
 	RegCurTrigger( 5012 )
 
-	DefineMission( 502, "Мечты Дункага ", 502 )
+-----------------------------------ЧнЙъГОЛА
+	DefineMission( 502, "Drunken Dreams", 502 )
 	
-	MisBeginTalk( "<t>О...Мечты Дункана? Только Дункан знает про это вино.<n><t>В это странное вино входят индегреинты 1 Снежная гулкая раковина, 5 Радужный фрукт, 5 Чудо-фрукт и 20 Цветок дурмана. Это все достать не сложно.<n><t>А и под конец, за работу 2000 золота." )
+	MisBeginTalk( "<t>Oh...Drunken Dreams? It must be that drunkyard who told you about it.<n><t>It requires special brewing ingredients that consist of Stramonium Flower, Rainbow Fruit and Strange Fruit. Get me these and I will brew one for you. However, it needed to be contained in a Snowy Trumpet Shell to make it tasty. Get me Snowy Trumpet Shell too.<n><t>And also a fee of 2000G for my effort." )
 	MisBeginCondition(NoMission, 502)
 	MisBeginCondition(NoRecord, 502)
 	MisBeginCondition(HasRecord, 500)
@@ -99,8 +113,8 @@ function DuplicateMission001()
 	MisPrize(MIS_PRIZE_ITEM, 3926, 1, 4)
 	MisPrizeSelAll()
 		
-	MisHelpTalk("Для \ Мечта Дункана\  требуются все индегриенты... ")
-	MisResultTalk("Все! Лучшее вино! Как раз то что хотел Дункан.")
+	MisHelpTalk("Brewing of \"Drunken Dreams\"Ў­All ingredients must be preparedЎ­")
+	MisResultTalk("Yes! These are the stuff. Looks like you are really determine. Take this wine that the Drunkyard wanted.")
 	MisResultCondition(NoRecord, 502)
 	MisResultCondition(HasMission, 502)
 	MisResultCondition(HasItem, 4377, 1)
@@ -116,6 +130,7 @@ function DuplicateMission001()
 	MisResultAction(ClearMission, 502)
 	MisResultAction(SetRecord, 502)
 	MisResultAction(AddExp, 20000, 20000)
+	--MisResultAction(AddMoney,270,270)
 
 	InitTrigger()
 	TriggerCondition( 1, IsItem, 4377 )	
@@ -134,9 +149,10 @@ function DuplicateMission001()
 	TriggerAction( 1, AddNextFlag, 502, 20, 20 )
 	RegCurTrigger( 5024 )
 
-	DefineMission( 503, "Страшный Скелет войн ", 503 )
+-----------------------------------·ПБйОдКїєЎ№З
+	DefineMission( 503, "Skeleton of Sorrow Warrior", 503 )
 	
-	MisBeginTalk( "<t>Если Дункан послал тебя суда, я тебе могу. Я был там до него, но не сказал ему. Что бы войти нужен Генератор Древних. Принеси мне 10 Деталей Робота.<n><t>Кстати, вы можете собрать кости для моего исследования, пока вы там?" )
+	MisBeginTalk( "<t>Since the drunkyard send you here, I will help you. I have been there before. You will need an Ancient Generator to enter. Bring me 10 Robot Core and I will make it for you.<n><t>By the way, can you collect some bones for my research while you are there?" )
 	MisBeginCondition(NoMission, 503)
 	MisBeginCondition(NoRecord, 503)
 	MisBeginCondition(HasRecord, 501)
@@ -147,13 +163,14 @@ function DuplicateMission001()
 	MisBeginAction(AddTrigger, 5034, TE_GETITEM, 3437, 10 )
 	MisCancelAction(ClearMission, 503)
 
+	--MisNeed(MIS_NEED_DESP, "Found 10 Sorrow Warrior Carcass in Forsaken City. Give it to Little Daniel in Argent City at (2193, 2730)")
 	MisNeed(MIS_NEED_ITEM, 3434, 10, 10, 10)
 	MisNeed(MIS_NEED_ITEM, 3435, 10, 20, 10)
 	MisNeed(MIS_NEED_ITEM, 3436, 10, 30, 10)
 	MisNeed(MIS_NEED_ITEM, 3437, 10, 40, 10)
 		
-	MisHelpTalk("Это крайне интересно... Вам надо тоже на это посмотреть.")
-	MisResultTalk("Это труп бессмертного...<n><t>Я чувствую как он зовет меня! Интересно, что это за таинственная сила. Мне нужно будет сделать углубленное исследование.<n><t>Может я расскрою секрет это силы!")
+	MisHelpTalk("HmmЎ­This is a dangerous and meaningful quest. Maybe you should consider to take it upЎ­")
+	MisResultTalk("So these are the carcass of those undead.<n><t>I can feel them calling out to me! I wonder what is this mysterious force behind this. I will need to do an indepth research.<n><t>Maybe I might discover some secret!")
 	MisResultCondition(NoRecord, 503)
 	MisResultCondition(HasMission, 503)
 	MisResultCondition(HasItem, 3434, 10)
@@ -167,6 +184,7 @@ function DuplicateMission001()
 	MisResultAction(ClearMission, 503)
 	MisResultAction(SetRecord, 503)
 	MisResultAction(AddExp, 80000, 80000)
+	--MisResultAction(AddMoney,270,270)
 
 	InitTrigger()
 	TriggerCondition( 1, IsItem, 3434 )	
@@ -185,27 +203,40 @@ function DuplicateMission001()
 	TriggerAction( 1, AddNextFlag, 503, 40, 10 )
 	RegCurTrigger( 5034 )
 
+----------------------------------------
+--                                    --
+--        јУАХ±ИєЈµБЦчПЯИООс          --
+--                                    --
+----------------------------------------
 
-	DefineMission(504,"Опасение Кузнеца ",504)
+----------------------------------------
+--                                    --
+--              ЦчПЯИООс              --
+--                                    --
+----------------------------------------
+
+-- МъЅі >> МъЅіµДµЈУЗ
+	DefineMission(504,"Blacksmith's Worries",504)
 	
-	MisBeginTalk("<t>Моя любимая была похищена! Я пойду спасти себя! Черт бы побрал этих Мертвых Душ! Я буду рвать вас на куски!<n><t>Прости меня за эмоции. Если ты видел Элизабет, скажи ей что я вернусь за ней.<n><t>Если даже это будет стоить моей жизнью!")
+	MisBeginTalk("<t>My beloved was kidnapped! I will go save her myself! Damn those Deathsouls! I will rip you to pieces!<n><t>Sorry, forgive me for my outburst. If you seen Elizabeth, tell her do not be afraid for I will save her.<n><t>Even if it cost me my life!")
 
 	MisBeginCondition(NoRecord, 504)
 	MisBeginCondition(NoMission, 504)
 
 	MisBeginAction(AddMission, 504)
-	MisCancelAction(SystemNotice, "Этот квест не может быть удален")
+	MisCancelAction(SystemNotice, "This quest cannot be abandoned")
 
-	MisHelpTalk("<t>Я никогда не медлю, поэтому и ты беги к ней быстрей!")
-	MisNeed(MIS_NEED_DESP, "Пошли письмо Элизабет")
+	MisHelpTalk("<t>I will go to your rescure immediately! Wait for me!")
+	MisNeed(MIS_NEED_DESP, "Relay Blacksmith's message to Elizabeth")
 	
 	MisResultCondition(AlwaysFailure)
 
-	DefineMission(505,"Опасение Кузнеца ",504,COMPLETE_SHOW )
+-- МъЅі >> МъЅіµДµЈУЗ
+	DefineMission(505,"Blacksmith's Worries",504,COMPLETE_SHOW )
 	
 	MisBeginCondition(AlwaysFailure)
 
-	MisResultTalk("<t>Тебя послал марк ко мне?<n><t>Я знаю... Я люблю его...")
+	MisResultTalk("<t>Did Mark sent you to me?<n><t>I know...I love him too...Always do...ЈЎ")
 	MisResultCondition(HasMission, 504)
 	MisBeginCondition(NoRecord, 504)
 	
@@ -215,9 +246,10 @@ function DuplicateMission001()
 	MisResultAction(SetRecord, 504)
 
 
-	DefineMission(506,"Подарок Элизабет ",505)
+-- МъЅі >> ТБАцЙЇ°ЧµД¶ЁЗйРЕОп
+	DefineMission(506,"Elizabeth's Love Keepsake",505)
 
-	MisBeginTalk("<t>Я хочу послать ему это ожерелье, оно много значит для меня. Эй где мое ожерелье? О нет я его потеряла! <n><t>Ой чтож я наделала! Я думаю я его потеряла на корабле Пиратов! Оно для меня очень, это ведь еще для Марка!<n><t>Не мог бы ты его вернуть мне?")
+	MisBeginTalk("<t>I would like you to pass this necklace to him...Oh no! Where is my necklace?<n><t>Oh dear! I think I have dropped it on the Skeletar Pirate Ship! It is an important keepsake between me and Mark!<n><t>Can you retrieve it back for me please?")
 
 	MisBeginCondition(HasRecord, 504)
 	MisBeginCondition(NoMission, 505)
@@ -227,11 +259,11 @@ function DuplicateMission001()
 	MisBeginAction(AddTrigger, 5051, TE_GETITEM, 2415, 1)
 	
 	MisNeed(MIS_NEED_ITEM, 2415, 1, 10, 1)
-	MisCancelAction(SystemNotice, "Этот квест не может быть удален ")
+	MisCancelAction(SystemNotice, "This quest cannot be abandoned")
 
-	MisHelpTalk("<t>Немог бы ты найти мое ожерелье?")
+	MisHelpTalk("<t>Have you found the necklace?")
 
-	MisResultTalk("<t>Да, это оно! Спасибо тебе огромное.")
+	MisResultTalk("<t>Yes, this is the one. Thank you for getting it back for me.")
 
 	MisResultCondition(HasMission, 505)
 	MisResultCondition(HasItem, 2415, 1)
@@ -249,9 +281,10 @@ function DuplicateMission001()
 	RegCurTrigger(5051)
 
 
-	DefineMission(507,"Ожерелье любви ",506)
+-- МъЅі >> ¶ЁЗйПоБґ
+	DefineMission(507,"Necklace of Love",506)
 	
-	MisBeginTalk("<t>Все хорошо. Я написала ему письмо и прекрипила на него ожерелье.<n><t>Не мог бы ты послать письмо Марку? Да храни тебя Бог!")
+	MisBeginTalk("<t>It is done. I have written my message within this necklace<n><t>Can you help me pass this necklace to Mark? May the Gods protect you!")
 
 	MisBeginCondition(HasRecord, 505)
 	MisBeginCondition(NoRecord, 506)
@@ -261,18 +294,19 @@ function DuplicateMission001()
 	MisBeginAction(AddMission, 506)
 	MisBeginAction(GiveItem, 2415,1,4)
 
-	MisHelpTalk("<t>Богиня дала благословение.")
-	MisNeed(MIS_NEED_DESP, "Помоги Элизабет отослать письмо Кузнецу Марку ")
+	MisHelpTalk("<t>May the Goddess bless you")
+	MisNeed(MIS_NEED_DESP, "Help Elizabeth pass the Necklace of Love to Blacksmith Mark")
 
-	MisCancelAction(SystemNotice, "Это задание не может быть удалено ")
+	MisCancelAction(SystemNotice, "This quest cannot be abandoned")
 
 	MisResultCondition(AlwaysFailure)
 
-	DefineMission(508,"Ожерелье любви ",506, COMPLETE_SHOW)
+-- МъЅі >> ¶ЁЗйПоБґ
+	DefineMission(508,"Necklace of Love",506, COMPLETE_SHOW)
 
 	MisBeginCondition(AlwaysFailure)
 
-	MisResultTalk("<t>Ты нашел Элизабет? Молодец, спасибо тебе большое.<n><t>Подожди, а где ожерелье? А вот оно. Спасибо тебе.")
+	MisResultTalk("<t>You found Elizabeth? Let me go save her now,<n><t>Wait, where is our necklace? Let me check")
 	MisResultCondition(HasMission, 506)
 	MisResultCondition(NoRecord,506)
 	MisResultCondition(HasItem, 2415, 1)
@@ -284,9 +318,10 @@ function DuplicateMission001()
 	MisResultAction(ClearMission, 506)
 	MisResultAction(SetRecord, 506)
 
-	DefineMission(509,"Обещание Кузнеца ",507)
+-- МъЅі >> МъЅіµДФј¶Ё
+	DefineMission(509,"Blacksmith's Promise",507)
 	
-	MisBeginTalk("<t>Да храни тебя Богиня, у меня просто уникальное оружие. Можете ли вы помочь мне с этим?<n><t>Это оружие можно достать только с Коммандира Мертвых Душ.")
+	MisBeginTalk("<t>To save my goddess, we will need a very unique weapon. Are you able to help me with that?<n><t>This weapon only drops from Deathsoul Officer which I believe you are able to deal with easily.")
 
 	MisBeginCondition(HasRecord, 506)
 	MisBeginCondition(NoRecord, 507)
@@ -297,10 +332,10 @@ function DuplicateMission001()
 
 	MisNeed(MIS_NEED_ITEM, 2384, 1, 10, 1)
 
-	MisCancelAction(SystemNotice, "Этот квест не может быть удален ")
-	MisHelpTalk("<t>...Это очень важно для меня. Хмм. Ты достал мне уникальное оружие?")
+	MisCancelAction(SystemNotice, "This quest cannot be abandoned")
+	MisHelpTalk("<t>...It will be ready soon. Hmm? You haven't found the unique weapon?")
 
-	MisResultTalk("<t>Это то что я искал, то что говорила Элизабет.")
+	MisResultTalk("<t>This should be the weapon that Elizabeth is talking about. Its really special from the way I look at it.")
 
 	MisResultCondition(HasMission, 507)
 	MisResultCondition(HasItem, 2384, 1)
@@ -318,9 +353,10 @@ function DuplicateMission001()
 	TriggerAction(1, AddNextFlag, 507, 10, 1)
 	RegCurTrigger(5071)
 
-	DefineMission(573,"Уникальное оружие ",508)
+-- МъЅі >> МШКвµДОдЖч
+	DefineMission(573,"Unique Weapon",508)
 	
-	MisBeginTalk("<t>Это оружие не совсем то что я хотел. Я чувствую не большую силу.<n><t>Хммм...Не мог бы ты отнести его к Джеку Воробею? Он сразу скажет то ли это.")
+	MisBeginTalk("<t>This weapon seems to lack something, the feeling is not there. It feels strange to wield.<n><t>Sigh...Can you bring to Jack Arrow and let him take a look.")
 	
 	MisBeginBagNeed(1)
 	MisBeginCondition(HasRecord, 507)
@@ -331,18 +367,19 @@ function DuplicateMission001()
 	MisBeginAction(AddMission, 508)
 	MisBeginAction(GiveItem, 2384, 1,4)
 
-	MisCancelAction(SystemNotice, "Этот квест не может быть удален ")
+	MisCancelAction(SystemNotice, "This quest cannot be abandoned")
 
-	MisHelpTalk("<t>Что сказал Джек? Или ты еще не был у него?")
-	MisNeed(MIS_NEED_DESP, "Принеси это оружие Джеку Воробею ")
+	MisHelpTalk("<t>What did Jack say? You have not go over?")
+	MisNeed(MIS_NEED_DESP, "Bring the unique weapon from the Blacksmith to Jack Arrow")
 
 	MisResultCondition(AlwaysFailure)
 
 
-	DefineMission(574,"Уникальное оружие ", 508,COMPLETE_SHOW)
+-- ЅЬїЛК·ЕЙВЮ >> МШКвµДОдЖч
+	DefineMission(574,"Unique Weapon", 508,COMPLETE_SHOW)
 	
 	MisBeginCondition(AlwaysFailure)
-	MisResultTalk("<t>Дай-ка я посмотрю! Это оружие и вправду порождение тьмы.<n><t>Только дьявол сможет носить его...Марк просто слишком добр для него...")
+	MisResultTalk("<t>Let me have a look! This weapon has a dark curse on it.<n><t>Only a man of evil can wield it...Mark is just too kind...")
 	MisResultCondition(HasMission, 508)
 	MisResultCondition(NoRecord, 508)
 	MisResultCondition(HasItem, 2384, 1)
@@ -353,9 +390,10 @@ function DuplicateMission001()
 	MisResultAction(SetRecord, 508)
 
 
-	DefineMission(575,"Пираты против Флота ",509)
+-- ЅЬїЛК·ЕЙВЮ >> єЈµБУлєЈѕь
+	DefineMission(575,"Pirate Vs Navy",509)
 	
-	MisBeginTalk("<t>Я требую сделать поездку в Управление Флотом. Расскажи Веллингтону об случившийсе ситуации.<n><t>Я думаю он найдет нужное решение.")
+	MisBeginTalk("<t>I requires you to make a trip to the Navy. Tell Wellington about the current situation.<n><t>I believed that he will make a suitable judgement.")
 
 	MisBeginCondition(HasRecord, 508)
 	MisBeginCondition(NoRecord, 509)
@@ -363,17 +401,18 @@ function DuplicateMission001()
 
 	MisBeginAction(AddMission, 509)
 	
-	MisHelpTalk("<t>Ты уже совершил поездку? Нет тогда отправляйся туда не медленно!")
-	MisNeed(MIS_NEED_DESP, "Помоги Джеку Воробью доставить сообщение Веллингтону.")
+	MisHelpTalk("<t>You have not make a move? Time does not wait!")
+	MisNeed(MIS_NEED_DESP, "Help Jack Arrow send a message to Wellington")
 	
-	MisCancelAction(SystemNotice, "Этот квест не может быть удален.")
+	MisCancelAction(SystemNotice, "This quest cannot be abandoned")
 
 	MisResultCondition(AlwaysFailure)
 
-	DefineMission(576, "Пираты против Флота ", 509,COMPLETE_SHOW)
+-- ЕµБй¶Щ >> єЈµБУлєЈѕь
+	DefineMission(576, "Pirate Vs Navy", 509,COMPLETE_SHOW)
 	MisBeginCondition(AlwaysFailure)
 
-	MisResultTalk("<t>Джек еще не умер? Что! Он смеет просить моей помощи? Какой он смелый!<n><t>Хмм... Офицер Мертвых Душ Токен?<n><t>Похоже, мы стоим на гране союза ведь у нас одна цель... Я буду рассматривать предложение Джека.")
+	MisResultTalk("<t>Jack is not dead yet? What! He dares to request my aid? How daring of him!<n><t>Hmm...Deathsoul Officer's Captain Token?<n><t>Seems like we are on the same side after all. I will consider Jack's suggestion.")
 
 	MisResultCondition(HasMission, 509)
 	MisResultCondition(NoRecord, 509)
@@ -382,9 +421,10 @@ function DuplicateMission001()
 	MisResultAction(ClearMission, 509)
 	MisResultAction(SetRecord, 509)
 
-	DefineMission(577,"Генерал признается в любви ",510)
+-- ЕµБй¶Щ >> Ѕ«ѕьµД±н°Ч
+	DefineMission(577,"General's Confession of Love",510)
 	
-	MisBeginTalk("<t>Черт бы побрал этих Мертвых душ! Я хотел сделать предложение одно девушке, но эти проклятые души украли мое кольцо!<n><t>Не мог бы ты вернуть его обратно?<n><t>Черт! Нам не везет сегодня. Пожалуйста верни его обратно по скорее. Они убегают на кораблях!")
+	MisBeginTalk("<t>Damn those Deathsoul! My Proposal Ring is stolen by them!<n><t>Why took my ring of all things?<n><t>Damn! I spent quite a fortune to make it. Please get it back for me as soon as possible. It seems that they are escaping by the Spirit Ship.")
 
 	MisBeginCondition(HasRecord, 509)
 	MisBeginCondition(NoRecord, 510)
@@ -393,11 +433,11 @@ function DuplicateMission001()
 	MisBeginAction(AddMission, 510)
 	MisBeginAction(AddTrigger, 5101, TE_GETITEM, 2416, 1)
 	MisNeed(MIS_NEED_ITEM, 2416, 1, 10, 1)
-	MisCancelAction(SystemNotice, "Данный квест не может быть удален ")
+	MisCancelAction(SystemNotice, "This quest cannot be abandoned")
 
-	MisHelpTalk("<t>Если ты не вернешь мне кольцо, я не помогу Джеку.")
+	MisHelpTalk("<t>If you do not retrieve my ring, I will not help Jack Arrow")
 
-	MisResultTalk("<t>Хлава Богам! Я могу сделать предложение Элизабет ведь ты достал мне кольцо!")
+	MisResultTalk("<t>Thanks God! I can propose to Elizabeth now since I have the ring!")
 
 	MisResultCondition(HasMission, 510)
 	MisResultCondition(NoRecord, 510)
@@ -414,9 +454,10 @@ function DuplicateMission001()
 	TriggerAction(1, AddNextFlag, 510, 10, 1)
 	RegCurTrigger(5101)
 
-	DefineMission(578,"Генерал признается в любви ",511)
+-- ЕµБй¶Щ >> Ѕ«ѕьµД±н°Ч
+	DefineMission(578,"General's Confession of Love",511)
 	
-	MisBeginTalk("<t>Как я и говорил ранее... Я люблю девушку...<n><t>Но я очень застенчивый и сам не могу сделать ей предложение... Не мог бы ты принести ей это кольцо... Посмотри на ее реакцию...<n><t>Я буду признателен вам.... Если она примет мою любовь... Ах точно..... Ее зовут Элизабет.")
+	MisBeginTalk("<t>How do I say this...I like a girl...I want to propose to her...<n><t>But I am shy...Can you help me pass this ring to her...Observe her reaction please...<n><t>I will be grateful to you....If she accepts my love...Oh right..... Her name is Elizabeth.")
 
 	MisBeginCondition(HasRecord, 510)
 	MisBeginCondition(NoRecord, 511)
@@ -425,18 +466,19 @@ function DuplicateMission001()
 
 	MisBeginAction(AddMission, 511)
 	MisBeginAction(GiveItem, 2416, 1,4)
-	MisHelpTalk("<t>Элизабет... Элизбет...")
-	MisNeed(MIS_NEED_DESP, "<t>Помоги Веллингтону признаться в любви к Элизабет.")
+	MisHelpTalk("<t>Elizabeth...Elizabeth...")
+	MisNeed(MIS_NEED_DESP, "<t>Help Wellington by giving the Proposal Ring to Elizabeth and observe her reaction")
 
-	MisCancelAction(SystemNotice, "Данный квест не может быть удален.")
+	MisCancelAction(SystemNotice, "This quest cannot be abandoned")
 
 	MisResultCondition(AlwaysFailure)
 
-	DefineMission(579, "Генерал признается в любви ", 511,COMPLETE_SHOW)
+-- ТБАцЙЇ°Ч >> Ѕ«ѕьµД±н°Ч
+	DefineMission(579, "General's Confession of Love", 511,COMPLETE_SHOW)
 	
 	MisBeginCondition(AlwaysFailure)
 	
-	MisResultTalk("<t>Генерал Веллингтон... Ой я даже не знаю...")
+	MisResultTalk("<t>General Wellington...Its not worth itЎ­")
 	MisResultCondition(HasMission, 511)
 	MisResultCondition(NoRecord, 511)
 	MisResultCondition(HasItem, 2416, 1)
@@ -446,27 +488,29 @@ function DuplicateMission001()
 	MisResultAction(ClearMission, 511)
 	MisResultAction(SetRecord, 511)
 
-	DefineMission(580,"Молитва Элизабет ",512)
+-- ТБАцЙЇ°Ч >> ТБАцЙЇ°ЧµДЖнµ»
+	DefineMission(580,"Elizabeth's Prayer",512)
 
-	MisBeginTalk("<t>Я чувствую себя плохо.<n><t>Мне надо повидаться с Марком. Я не хочу его разостраивать, не мог бы ты сходить к нему и проверить его? Я за него волнуюсь.<n><t>Я буду молиться что бы ты дошел!")
+	MisBeginTalk("<t>I don't feel good.<n><t>It seems that something has happened to Mark. I am quite worry, can you go over and check on him?<n><t>I will pray for his safety!")
 
 	MisBeginCondition(HasRecord, 511)
 	MisBeginCondition(NoRecord, 512)
 	MisBeginCondition(NoMission, 512)
 	
-	MisCancelAction(SystemNotice, "Данный квест не может быть удален.")
+	MisCancelAction(SystemNotice, "This quest cannot be abandoned")
 	MisBeginAction(AddMission, 512)
-	MisHelpTalk("<t>О могущественный Бог благослави Марка...")
-	MisNeed(MIS_NEED_DESP, "Помоги Элизабет. Сходи проведай Марка.")
+	MisHelpTalk("<t>Oh Almighty God, please bless Mark...")
+	MisNeed(MIS_NEED_DESP, "Help out the Blacksmith on behalf of Elizabeth")
 
 	MisResultCondition(AlwaysFailure)
 
 
-	DefineMission(581, "Молитва Элизабет ", 512,COMPLETE_SHOW)
+-- МъЅі >> ТБАцЙЇ°ЧµДЖнµ»
+	DefineMission(581, "Elizabeth's Prayer", 512,COMPLETE_SHOW)
 
 	MisBeginCondition(AlwaysFailure)
 
-	MisResultTalk("<t>Зачем Элизабет послала тебя?<n><t>У нее что-то случилось? У меня есть пара проблем, но они не значительные. Скажи что бы она не беспокоилась.")
+	MisResultTalk("<t>Did Elizabeth sent you?<n><t>How is she getting on? I encounter some minor problem here but tell her not to worry.")
 
 	MisResultCondition(HasMission, 512)
 	MisResultCondition(NoRecord, 512)
@@ -475,9 +519,10 @@ function DuplicateMission001()
 	MisResultAction(ClearMission, 512)
 	MisResultAction(SetRecord, 512)
 
-	DefineMission(582,"Проклятие ",513)
+-- МъЅі >> ЧзЦд
+	DefineMission(582,"The Curse",513)
 
-	MisBeginTalk("<t>Сокровища которые мы нашли, украли духи мертвых душ. Они наложили проклятье на все что там было.<n><t>Не мог бы ты вернуть мне эти сокровища, я продолжу изучение этого проклятья.<n><t>Но ведь для тебя это не составит проблемы, ведь.<n><t>Пойди и убей их, они наверное на Черной Жемчужене. Я знаю, что это чрезвычайно трудная задача, я награжу тебя хорошо, когда задание будет завершено.")
+	MisBeginTalk("<t>The treasures we collected have been stolen from us by the dead spirits on the Black Jewel and they also set an evil curse on it.<n><t>I need you to find and return these cursed treasures to me, then I will proceed to lift the curse from the treasures.<n><t>How about it, it shouldn't be a problem.<n><t>Go forth and kill those from the Black Jewel. I know this is a extremely difficult mission, I will reward you handsomely once it is completed.")
 	
 	MisBeginCondition(HasRecord, 512)
 	MisBeginCondition(NoRecord, 513)
@@ -485,13 +530,13 @@ function DuplicateMission001()
 	
 	MisBeginAction(AddMission, 513)
 	MisBeginAction(AddTrigger, 5131,TE_GETITEM, 2417, 1)
-	MisCancelAction(SystemNotice, "Данный квест не может быть удален.")
+	MisCancelAction(SystemNotice, "This quest cannot be abandoned")
 
 	MisNeed(MIS_NEED_ITEM, 2417, 1, 10, 1)
 
-	MisHelpTalk("<t>Ты вернул мне сокровища?")
+	MisHelpTalk("<t>You have not brought back the treasures?")
 
-	MisResultTalk("<t> Дай мне посмотреть... Это действительно мощный проклятие. Позволь мне попытаться отменить его.<n><t>!^($......%*#oa2......1&s?~*#^%!...... (Кузнец начал говорить на каком-то странном и не красивом языке!) Отлично! Проклятие снято!")
+	MisResultTalk("<t> Let me have a look...This is a powerful curse indeed. Let me try to undo it.<n><t>!^($......%*#oa2......1&s?~*#^%!...... (Blacksmith starts to chant in some weird language...Scary!) Good! The curse is undone!")
 
 	MisResultCondition(HasMission, 513)
 	MisResultCondition(NoRecord, 513)
@@ -508,28 +553,30 @@ function DuplicateMission001()
 	TriggerAction(1, AddNextFlag, 513, 10, 1)
 	RegCurTrigger(5131)
 
+-- МъЅі >> ЧзЦд
 
-	DefineMission(583,"Проклятие ",514)
+	DefineMission(583,"The Curse",514)
 	
-	MisBeginTalk("<t>Мы сняли проклятье. Но вот эти странные монеты пиратов.<n><t>Без их сокровища и источником власти, они не смогут противостоять нам!<n><t>Настало время сделать решительный шаг! Но вначале сообщи об этом Джеку.")
+	MisBeginTalk("<t>We have undone the curse of coins that those Deathsoul pirates have been relying on.<n><t>Without their treasures and source of power, they will not be able to resist our army!<n><t>It is time to make a decisive attack on them! However, please inform Jack Arrow about our plans first.")
 
 	MisBeginCondition(HasRecord, 513)
 	MisBeginCondition(NoRecord, 514)
 	MisBeginCondition(NoMission, 514)
 
 	MisBeginAction(AddMission, 514)
-	MisCancelAction(SystemNotice, "Данный квест не может быть удален.")
+	MisCancelAction(SystemNotice, "This quest cannot be abandoned")
 
-	MisHelpTalk("<t>Почему ты еще не уехал?! Нам нельзя медлить! Беги быстрей!")
-	MisNeed(MIS_NEED_DESP, "Расскажите Джеку от имени кузнеца, что проклятие было снято.")
+	MisHelpTalk("<t>You have not make a move? The enemies are at their weakest now! Go!")
+	MisNeed(MIS_NEED_DESP, "Tell Jack Arrow oh behalf of the Blacksmith that the curse has been broken")
 
 	MisResultCondition(AlwaysFailure)
 
-	DefineMission(584, "Проклятие ", 514,COMPLETE_SHOW)
+-- ЅЬїЛК·ЕЙВЮ >> ЧзЦд
+	DefineMission(584, "The Curse", 514,COMPLETE_SHOW)
 
 	MisBeginCondition(AlwaysFailure)
 
-	MisResultTalk("<t>Хорошо. Начнем наступление. Вы с нами?")
+	MisResultTalk("<t>I've got it. We will begin attack soon. Are you with us?")
 	MisResultCondition(HasMission, 514)
 	MisResultCondition(NoRecord, 514)
 
@@ -537,9 +584,10 @@ function DuplicateMission001()
 	MisResultAction(ClearMission, 514)
 	MisResultAction(SetRecord, 514)
 
-	DefineMission(585,"Настоящий капитан ",515)
+-- ЅЬїЛК·ЕЙВЮ >> ХжХжµДґ¬і¤
+	DefineMission(585,"The Real Captain",515)
 	
-	MisBeginTalk("<t>Битва надвигается! Я отомщю им! Жди меня Барбаросса!<n><t>Мой друг, Капитан Токен знает об Барбаросе многое однако убивать он его не хочет, но если ты убьешь его без помоши я награжу тебя!<n><t>Он узнает капитан Черной Жемчужены!")
+	MisBeginTalk("<t>Battle draws near! Wait for me Baborosa! Let us settle this once and for all!<n><t>My friend, if you can get back the Captain's Token from Baborosa, I will reward you greatly!<n><t>Let him know who is the real captain of the Black Jewel!")
 	MisBeginCondition(HasRecord, 514)
 	MisBeginCondition(NoRecord, 515)
 	MisBeginCondition(NoMission,515)
@@ -550,11 +598,11 @@ function DuplicateMission001()
 
 	MisNeed(MIS_NEED_KILL, 805, 1, 10, 1)
 	MisNeed(MIS_NEED_ITEM, 2428, 1,20, 1)
-	MisCancelAction(SystemNotice, "Данный квест не может быть удален.")
+	MisCancelAction(SystemNotice, "This quest cannot be abandoned")
 
-	MisHelpTalk("<t>Чертов Барбароса!")
+	MisHelpTalk("<t>Damn you Baborosa!")
 
-	MisResultTalk("<t>Отлично! Я опять капитан Черной Жемчуженны!")
+	MisResultTalk("<t>This is great! I am the captain of the Black Jewel once again!")
 
 	MisResultCondition(HasMission, 515)
 	MisResultCondition(HasFlag, 515, 10)
@@ -579,28 +627,30 @@ function DuplicateMission001()
 	RegCurTrigger(5152)
 
 
-	DefineMission(586,"Подарок ",516)
+-- ЅЬїЛК·ЕЙВЮ >> єШАс
+	DefineMission(586,"The Gift",516)
 	
-	MisBeginTalk("<t>Все, наконец-то закончилась. Я слышал, что Марк и Элизабет поженились, наконец.<n><t>Я еще не отослал мой подарок. Можете ли вы сделать это от моего имени?<n><t>...Кто-то тебе давал уже такое задание?")
+	MisBeginTalk("<t> Everything has finally ended. I heard that Mark and Elizabeth has gotten married at last.<n><t>I have not sent them my gift yet. Can you do it on my behalf? Why don't I sent it myself?<n><t>...Have you heard of an NPC who will do his own task?")
 
 	MisBeginCondition(HasRecord, 515)
 	MisBeginCondition(NoRecord, 516)
 	MisBeginCondition(NoMission, 516)
 	MisBeginBagNeed(1)
-	MisCancelAction(SystemNotice, "Данный квест не может быть удален.")
+	MisCancelAction(SystemNotice, "This quest cannot be abandoned")
 
 	MisBeginAction(AddMission, 516)
 	MisBeginAction(GiveItem, 2433, 1,4)
-	MisHelpTalk("<t> Хмм... Любовь в облаках... Хеххе!")
-	MisNeed(MIS_NEED_DESP, "Отнеси подарок от Джека Элизабет и поздравь ее со свадьбой.")
+	MisHelpTalk("<t> Hmm...Love is in the air...Hehe!")
+	MisNeed(MIS_NEED_DESP, "Send a gift on behalf of Jack to congratulate Elizabeth on her marriage to the Blacksmith")
 	
 	MisResultCondition(AlwaysFailure)
 
-	DefineMission(587,"Подарок ",516,COMPLETE_SHOW)
+-- ЅЬїЛК·ЕЙВЮ >> єШАс
+	DefineMission(587,"The Gift",516,COMPLETE_SHOW)
 
 	MisBeginCondition(AlwaysFailure)
 
-	MisResultTalk("<t>Вау...! Подарок от Джека! Давай-ка откроем его!<n><t>Что!!! Только Костяная Эмблема...Что же это!")
+	MisResultTalk("<t>Wow...A gift from Jack! Let's open it!<n><t>What!!! Only a skeletar emblem...What a miser!")
 	MisResultCondition(HasMission, 516)
 	MisResultCondition(NoRecord, 516)
 	MisResultCondition(HasItem, 2433, 1)
@@ -610,28 +660,30 @@ function DuplicateMission001()
 	MisResultAction(ClearMission, 516)
 	MisResultAction(SetRecord, 516)
 
-	DefineMission(588,"Борьба за любовь ",517)
+-- ТБАцЙЇ°Ч >> РДУРЛщКф
+	DefineMission(588,"Undeserving Love",517)
 	
-	MisBeginTalk("<t>Помоги мне еще раз...<n><t>Верни это кольцо Генералу Веллингтону, я надеюсь он поймет мои чувства.")
+	MisBeginTalk("<t>Help me once again please...<n><t>Return this ring to General Wellington and I hope he can understand my feeling.")
 
 	MisBeginCondition(HasRecord, 516)
 	MisBeginCondition(NoRecord, 517)
 	MisBeginCondition(NoMission, 517)
 	MisBeginBagNeed(1)
-	MisCancelAction(SystemNotice, "Данный квест не может быть удален.")
+	MisCancelAction(SystemNotice, "This quest cannot be abandoned")
 
 	MisBeginAction(AddMission, 517)
 	MisBeginAction(GiveItem, 2416, 1,4)
-	MisHelpTalk("<t>Куда поехать на медовый месяц...? Хм...) ")
-	MisNeed(MIS_NEED_DESP, "Помоги Элизабет вернуть кольцо Веллингтону.")
+	MisHelpTalk("<t>Where to go for my honeymoon...? Hmm..")
+	MisNeed(MIS_NEED_DESP, "Help Elizabeth return the ring to Wellington")
 	
 	MisResultCondition(AlwaysFailure)
 
-	DefineMission(589,"Борьба за любовь ",517,COMPLETE_SHOW)
+-- ЕµБй¶Щ >> РДУРЛщКф
+	DefineMission(589,"Undeserving Love",517,COMPLETE_SHOW)
 
 	MisBeginCondition(AlwaysFailure)
 
-	MisResultTalk("<t>Она вернула кольцо обратно...n><t>Зачем было обещать, если все равно знаешь что не выполнишь...<n><t>Печаль единственное, что осталось...")
+	MisResultTalk("<t>There will be no turning back now...<n><t>Why make a promise if it cannot be kept...<n><t>Sorrow is the only thing left...")
 	MisResultCondition(HasMission, 517)
 	MisResultCondition(NoRecord, 517)
 	MisResultCondition(HasItem, 2416, 1)
@@ -641,28 +693,30 @@ function DuplicateMission001()
 	MisResultAction(ClearMission, 517)
 	MisResultAction(SetRecord, 517)
 
-	DefineMission(590,"Благословение Велингтона ",518)
+-- ЕµБй¶Щ  >> ЕµБй¶ЩµДЧЈёЈ
+	DefineMission(590,"Wellington's Blessing",518)
 	
-	MisBeginTalk("<t>Я думал и думал... Если они действительно любят друг друга пусть останется так.<n><t>Отошли мой подарок им и скажи что я не злюсь.")
+	MisBeginTalk("<t>I have thought it through. I should sent them my blessing instead since they truly love each other.<n><t>Please hand this gift of mine to them.")
 
 	MisBeginCondition(HasRecord, 517)
 	MisBeginCondition(NoRecord, 518)
 	MisBeginCondition(NoMission, 518)
 	MisBeginBagNeed(1)
-	MisCancelAction(SystemNotice, "Данный квест не может быть удален.")
+	MisCancelAction(SystemNotice, "This quest cannot be abandoned")
 
 	MisBeginAction(AddMission, 518)
 	MisBeginAction(GiveItem, 2435, 1,4)
-	MisHelpTalk("<t>Элизабет! Я надеюсь, что судьба сведет нас в следующей жизни.")
-	MisNeed(MIS_NEED_DESP, "Отошли подарок Велленгтона Элизабет.")
+	MisHelpTalk("<t>Elizabeth! I hope that fate will bring us together in our next life.")
+	MisNeed(MIS_NEED_DESP, "Send the gift of Wellington to Elizabeth")
 	
 	MisResultCondition(AlwaysFailure)
 
-	DefineMission(591,"Благословение Велингтона ",518,COMPLETE_SHOW)
+-- ТБАцЙЇ°Ч>> ЕµБй¶ЩµДЧЈёЈ
+	DefineMission(591,"Wellington's Blessing",518,COMPLETE_SHOW)
 
 	MisBeginCondition(AlwaysFailure)
 
-	MisResultTalk("<t>Генерал Тернер... Вы крайне хороший человек.<n><t>Спасибо Вам...")
+	MisResultTalk("<t>General Turner...Thanks for understanding how I feel.<n><t>Thank you...")
 	MisResultCondition(HasMission, 518)
 	MisResultCondition(NoRecord, 518)
 	MisResultCondition(HasItem, 2435, 1)
@@ -671,5 +725,29 @@ function DuplicateMission001()
 	MisResultAction(AddMoney,300000, 300000)
 	MisResultAction(ClearMission, 518)
 	MisResultAction(SetRecord, 518)
-end 
+	
+end
 DuplicateMission001()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

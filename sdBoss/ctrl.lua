@@ -1,12 +1,37 @@
+--此文件中，凡是可能被多次执行的函数，函数名都要加上地图名前缀
+
 function config(map)
-    MapCanSavePos(map, 0)
-    MapCanPK(map, 1)
-    MapCopyNum(map, 1)
+    MapCanSavePos(map, 0) --设置地图是否保存角色位置（地图，坐标，方向），此设置影响该地图的所有副本
+    MapCanPK(map, 1) --设置地图是否可以PK，此设置影响该地图的所有副本
+    MapCopyNum(map, 1) --设置地图的副本数目，如果不调用该语句，则使用默认值1
     SingleMapCopyPlyNum(map, 300)
     MapCanTeam(map , 1)
     MapType ( map , 4 )
 end
 
+
+function get_map_entry_pos_sdBoss()   --设置入口的位置的坐标（坐标（米））
+
+end
+
+function init_entry(map)
+
+end
+
+function after_enter_sdBoss( role , map_copy )
+end
+
+function before_leave_sdBoss( role )
+end
+
+function map_copy_first_run_sdBoss( map_copy )
+
+end
+
+function map_copy_run_sdBoss( map_copy )
+end
+
+--每5秒执行一次的
 function map_copy_run_sdBoss( map_copy )
 	if XmasMonsterNum1 >= 2008 then
 		Notice ( "由于大家不停的捕猎火鸡,冥皇-卡拉幻象降临在圣诞竞技场A了,大家快去打啊!")
@@ -39,3 +64,12 @@ function map_copy_run_sdBoss( map_copy )
 		XmasMonsterNum5 = 0
 	end
 end
+
+--地图关闭时执行
+function map_copy_close_sdBoss( map_copy )
+end
+		
+--地图开关判断——————————————————————————————————————————
+
+function can_open_entry_sdBoss( map ) 
+end 

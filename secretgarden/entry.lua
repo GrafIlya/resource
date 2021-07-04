@@ -1,27 +1,38 @@
+--ґЛОДјюЦРЈ¬·ІКЗїЙДЬ±»¶аґОЦґРРµДєЇКэЈ¬єЇКэГы¶јТЄјУЙПµШНјГыЗ°ЧєЈ¬Изafter_destroy_entry_testpk
+--ґЛОДјюГїРРЧоґуЧЦ·ыёцКэОЄ255Ј¬ИфУРТмТйЈ¬ЗлУліМРтМЅМЦ
+
 function config_entry(entry) 
-    SetMapEntryEntiID(entry, 2492,4)
+    SetMapEntryEntiID(entry, 2492,4) --ЙиЦГµШНјИлїЪКµМеµД±аєЕЈЁёГ±аєЕ¶ФУ¦УЪcharacterinfo.txtµДЛчТэЈ©
+
 end 
 
 function after_create_entry(entry) 
     local guild_lv = GetFightGuildLevel() 
     local RedSide_GuildID, BlueSide_GuildID = GetFightGuildID(guild_lv) 
-    local copy_mgr = GetMapEntryCopyObj(entry, 0)
-    SetMapCopyParam(copy_mgr, 1, 3)
-    SetMapCopyParam(copy_mgr, 2, 2)
+    
+    local copy_mgr = GetMapEntryCopyObj(entry, 0) --ґґЅЁё±±ѕ№ЬАн¶ФПуЈ¬ґЛєЇКэФЪУРПФКЅИлїЪµДµШНјЦР±ШРлµчУГЈ¬¶ФУЪТюКЅИлїЪµДµШНјЈЁИз¶УОйМфХЅЈ©ОЮТЄµчУГёГЅУїЪ
+    SetMapCopyParam(copy_mgr, 1, 3) --ФЪµЪТ»ёцО»ЦГґжИл·Ц±ЯАаРН
+    SetMapCopyParam(copy_mgr, 2, 2) --ФЪµЪ¶юёцО»ЦГґжИл·Ц±ЯКэ
     SetMapCopyParam(copy_mgr, 3, RedSide_GuildID) 
     SetMapCopyParam(copy_mgr, 4, BlueSide_GuildID)
-    SetMapCopyParam(copy_mgr, 5, 0)
+    SetMapCopyParam(copy_mgr, 5, 0) --ФЪµЪ5ёцО»ЦГ·ЕИлК¤ёє№ШПµіхЦµ
     FinishSetMapEntryCopy(entry, 1) 
+
     local RedSideName = GetGuildName( RedSide_GuildID ) 
     local BlueSideName = GetGuildName( BlueSide_GuildID ) 
-	local EntryName = "Война гильдий: ["..RedSideName.."]  против  ["..BlueSideName.."]"
+
+    local EntryName = "Guild War: ["..RedSideName.."]  VS  ["..BlueSideName.."]"
     SetMapEntryEventName( entry, EntryName )
-    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry)
-	Notice("Объявление: Начинается Война гильдий. Защищающаяся сторона: гильдия ["..RedSideName.."], атакующая: гильдия ["..BlueSideName.."]. Члены обоих гильдий приглашаются на кораблях в море Шайтана ("..posx..","..posy.."), чтобы попасть в [Сад Эдель] для сражения.")
+    
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --ИЎµШНјИлїЪµДО»ЦГРЕПўЈЁµШНјГыЈ¬Чш±кЈ¬Дї±кµШНјГыЈ©
+    Notice("Announcement: Guild War challenge has started! Red defending champion: ["..RedSideName.."]. Blue challenger: ["..BlueSideName.."]. Members from both guild can go through the portal in Magical Ocean at ("..posx..","..posy..") to enter Garden of Edel for Guild War challenge.") --НЁЦЄ±ѕЧй·юОсЖчµДЛщУРНжјТ
+
 end
 
 function after_destroy_entry_secretgarden(entry)
     map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) 
+    --Notice("Announcement: Challenge for today has ended.") 
+
 end
 
 function after_player_login_secretgarden(entry, player_name)
@@ -31,53 +42,62 @@ function after_player_login_secretgarden(entry, player_name)
     local RedSideName = GetGuildName( RedSide_GuildID ) 
     local BlueSideName = GetGuildName( BlueSide_GuildID ) 
 
-    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry)
-	ChaNotice(player_name, "Объявление: Начинается Война гильдий. Защищающаяся сторона: гильдия ["..RedSideName.."], атакующая: гильдия ["..BlueSideName.."]. Члены обоих гильдий приглашаются на кораблях в море Шайтана ("..posx..","..posy.."), чтобы попасть в [Сад Эдель] для сражения.")
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --ИЎµШНјИлїЪµДО»ЦГРЕПўЈЁµШНјГыЈ¬Чш±кЈ¬Дї±кµШНјГыЈ©
+    ChaNotice(player_name, "Announcement: Guild War challenge has started! Red defending champion: ["..RedSideName.."]. Blue challenger: ["..BlueSideName.."]. Members from both guild can go through the portal in Magical Ocean at ("..posx..","..posy..") to enter Garden of Edel for Guild War challenge.") --НЁЦЄ±ѕЧй·юОсЖчµДЛщУРНжјТ
+
 end
 
+--УГУЪјмІвЅшИлМхјю
+--·µ»ШЦµЈє0Ј¬І»ВъЧгЅшИлМхјюЎЈ1Ј¬іЙ№¦ЅшИлЎЈ
 function check_can_enter_secretgarden( role, copy_mgr )
 	local Cha = TurnToCha(role)
+
     local RedSide_GuildID = GetMapCopyParam(copy_mgr, 3 )
     local BlueSide_GuildID = GetMapCopyParam(copy_mgr, 4 )
+
+
 	if RedSide_GuildID == 0 or BlueSide_GuildID == 0 then
-		SystemNotice ( role , "Извините, но сражение не может начаться без участвующих гильдий " )
+		SystemNotice ( role , "Sorry, the battle cannot begin without any challenging guild" )
 		return 0
 	end
+
 	if RedSide_GuildID == GetChaGuildID(Cha) then
+
 		return 1
+	
 	else
 		if BlueSide_GuildID == GetChaGuildID(Cha) then
+
 			return 1
+
 		else
-			SystemNotice(role,"Извините, но участвовать могут только члены гильдий ")
+			SystemNotice(role,"Sorry, you do not belong to either guild which are involved in the war.")
 			return 0
+
 		end
+
 	end
 end
 
-function begin_enter_secretgarden( role, copy_mgr )
-	local Cha = TurnToCha( role )
-	local RedSide_GuildID, BlueSide_GuildID
-	RedSide_GuildID = GetMapCopyParam( copy_mgr, 3 )
-	BlueSide_GuildID = GetMapCopyParam( copy_mgr, 4 )
+function begin_enter_secretgarden(role, copy_mgr) 
+    
+	local Cha = TurnToCha(role)
 
-	SystemNotice(role,"Вход в [Сад Эдель]")
+    local RedSide_GuildID, BlueSide_GuildID
+    RedSide_GuildID = GetMapCopyParam(copy_mgr, 3)
+    BlueSide_GuildID = GetMapCopyParam(copy_mgr, 4)
 
 	if RedSide_GuildID == GetChaGuildID(Cha) then
-		if ( AddonSystem["Teleport"] == 1 ) then
-			local n = 37
-			teleport( role, n )
-		else
-			MoveCity( role, "Red Camp" )
-		end
+
+		SystemNotice(role,"Entering [Garden of Edel]")
+		MoveCity(role, "Red Camp")
+	
 	else
 		if BlueSide_GuildID == GetChaGuildID(Cha) then
-			if ( AddonSystem["Teleport"] == 1 ) then
-				local n = 38
-				teleport( role, n )
-			else
-				MoveCity( role, "Blue Camp" )
-			end
-		end
+
+			SystemNotice(role,"Entering [Garden of Edel]")
+			MoveCity(role, "Blue Camp")
+                end
 	end
+
 end 

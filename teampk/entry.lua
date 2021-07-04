@@ -1,20 +1,32 @@
+--іЋќƒЉю÷–£ђЈ≤ «њ…ƒ№±їґаіќ÷і––µƒЇѓ э£ђЇѓ э√ыґЉ“™Љ”…ѕµЎЌЉ√ы«∞„Ї£ђ»зafter_destroy_entry_testpk
+--іЋќƒЉю√њ––„оіу„÷ЈыЄц эќ™255£ђ»ф”–“м“й£ђ«л”л≥ћ–тћљћ÷
+
 SetTeamFightMapName("teampk") 
 
-function after_create_entry( entry ) 
-	Notice( "ќбъ€вление:  арта дл€ сражений между отр€дами открылась." )
+function config_entry(entry) 
+
+end 
+
+function after_create_entry(entry) 
+    Notice("Announcement: Map for party challenge is now opened.") --Ќ®÷™±Њ„йЈюќс∆чµƒЋщ”–ЌжЉ“
+
 end
 
 function after_destroy_entry_teampk(entry)
-    Notice("ќбъ€вление:  арта дл€ сражений между отр€дами закрылась.") 
+    Notice("Announcement: Map for party challenge is now closed.") 
+
 end
 
 function after_player_login_teampk(entry, player_name)
-    ChaNotice(player_name, "ќбъ€вление:  арта дл€ сражений между отр€дами открылась.") 
+    ChaNotice(player_name, "Anncouncement: Map for party challenge is now opened") 
+
 end
 
+--÷ч≥ћ–т‘ЏЌжЉ“…к«лЄ±±Њ≥…є¶Їуµч”√іЋЇѓ э
+--copy£ђЄ±±Њґ‘ѕу°£player1£ђ—ы«лЈљ°£player2£ђ №—ыЈљ°£type£ђ—ы«лја–Ќ£®1£ђґ”ќй°£2£ђµ•ће°£3£ђєЂїб£©
 function after_get_map_copy_teampk(copy_mgr, player1, player2, type) 
-    SetMapCopyParam(copy_mgr, 1, type)
-    SetMapCopyParam(copy_mgr, 2, 2)
+    SetMapCopyParam(copy_mgr, 1, type) --‘ЏµЏ“їЄцќї÷√іж»лЈ÷±яја–Ќ
+    SetMapCopyParam(copy_mgr, 2, 2) --‘ЏµЏґюЄцќї÷√іж»лЈ÷±я э
     if type == 1 then 
         SetMapCopyParam(copy_mgr, 3, GetPlayerTeamID(player1)) 
         SetMapCopyParam(copy_mgr, 4, GetPlayerTeamID(player2)) 
@@ -22,24 +34,28 @@ function after_get_map_copy_teampk(copy_mgr, player1, player2, type)
         SetMapCopyParam(copy_mgr, 3, GetPlayerID(player1)) 
         SetMapCopyParam(copy_mgr, 4, GetPlayerID(player2)) 
     end
-    SetMapCopyParam(copy_mgr, 5, -1)
-    SetMapCopyParam(copy_mgr, 7, 3)
-    SetMapCopyParam(copy_mgr, 8, 0)
-    SetMapCopyParam(copy_mgr, 9, 0)
-    SetMapCopyParam(copy_mgr, 10,0)
-    SetMapCopyParam(copy_mgr, 11,0)
-    SetMapCopyParam(copy_mgr, 12,0)
+    SetMapCopyParam(copy_mgr, 5, -1) --‘ЏµЏќеЄцќї÷√…иґ® §јыґ”ќй≥х÷µ
+					--µЏЅщЄцќї÷√ќ™µЎЌЉєЎ±’—” ±
+    SetMapCopyParam(copy_mgr, 7, 3) --‘ЏµЏ∆яЄцќї÷√…иґ®µЎЌЉњ™∆ф—” ±≥х÷µ
+    SetMapCopyParam(copy_mgr, 8, 0) --‘ЏµЏ∞ЋЄцќї÷√…иґ®µЎЌЉ „іќ±кЉ«
+    SetMapCopyParam(copy_mgr, 9, 0) --‘ЏµЏЊ≈Єцќї÷√…иґ®ґ”ќй1∆љЊщµ»Љґ≥х÷µ
+    SetMapCopyParam(copy_mgr, 10,0) --‘ЏµЏ ЃЄцќї÷√…иґ®ґ”ќй2∆љЊщµ»Љґ≥х÷µ
+    SetMapCopyParam(copy_mgr, 11,0) --‘ЏµЏ Ѓ“їЄцќї÷√…иґ®ґ”ќй1»Ћ э≥х÷µ
+    SetMapCopyParam(copy_mgr, 12,0) --‘ЏµЏ ЃґюЄцќї÷√…иґ®ґ”ќй2»Ћ э≥х÷µ
+
 end 
 
+--”√”ЏЉм≤вљш»лћхЉю
+--ЈµїЎ÷µ£Ї0£ђ≤ї¬ъ„гљш»лћхЉю°£1£ђ≥…є¶љш»л°£
 function check_can_enter_teampk( role, copy_mgr )
 	local RYZ_Num = 0
 	RYZ_Num = CheckBagItem( role,3849 )
 
 	if RYZ_Num <= 0 then
-		SystemNotice ( role , "¬ы не имеете ћедаль „ести." )
+		SystemNotice ( role , "Does not possess Medal of Valor. Unable to participate in challenge." )
 		return 0
 	elseif RYZ_Num > 1 then
-		LG("RYZ_PK","Ќеобходимо иметь более 1 очка „ести ")
+		LG("RYZ_PK","Have more than 1 Mark of Honor")
 		return 0
 	else
 		local role_RYZ = GetChaItem2 ( role , 2 , 3849 )
@@ -50,17 +66,19 @@ function check_can_enter_teampk( role, copy_mgr )
 
 		
 		if attr_num < Rongy_xianzhi then
-			SystemNotice ( role , " оличество очков чести снизилась " )
+			SystemNotice ( role , "Honor points too low. Unable to challenge" )
 			return 0
 		end
 
 		if attr_num > Rongy_xianzhi0 then
-			SystemNotice ( role , " оличество очков чести повысилось " )
+			SystemNotice ( role , "Honor points too high, unable to enter challenge" )
 			return 0
 		end
 		
 	end
 	return 1
+
+
 end
 
 function begin_enter_teampk(role, copy_mgr) 
@@ -69,14 +87,14 @@ function begin_enter_teampk(role, copy_mgr)
 	local side2 = GetMapCopyParam(copy_mgr, 4) 
 	local copy_id = GetMapCopyID(copy_mgr) 
 
-	if type == 1 then
+	if type == 1 then --±»љѕґ”ќй±аЇ≈
 		local team_id1 = GetChaTeamID(role) 
 		if team_id1 == side1 then 
 		    MoveCity(role, "Party PK 1", copy_id) 
 		else 
 		    MoveCity(role, "Party PK2", copy_id)
 		end 
-	elseif type == 2 then
+	elseif type == 2 then --±»љѕЌжЉ“±аЇ≈
 		local player = GetChaPlayer(role) 
 		local ply_id1 = GetPlayerID(player) 
 		if ply_id1 == side1 then 
@@ -85,4 +103,6 @@ function begin_enter_teampk(role, copy_mgr)
 		    MoveCity(role, "Party PK2", copy_id)
 		end 
 	end
+
+	
 end 

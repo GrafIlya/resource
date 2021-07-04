@@ -1,12 +1,16 @@
-print( "‡ £àã§ª  AI_Sdk.lua" )
 
 dofile(GetResPath("script/help/help.lua"))
 dofile(GetResPath("script/ai/ai_define.lua"))
 
+
+--ÖØĞÂÔØÈëaiº¯Êı¿â
 function reload_ai_sdk()
   dofile(GetResPath("script/ai/ai.lua"))
 end
 
+-------AI SDKº¯Êı------------------------------------------------------------------------
+
+--¶ÔÖ¸¶¨µÄ½ÇÉ«¼ì²éÄ¿±êµãÊÇ·ñºÏ·¨¿É´ï
 function is_pos_valid(cha, x, y)
   can_move = IsPosValid(cha, x, y)
   if can_move==0 then
@@ -15,30 +19,38 @@ function is_pos_valid(cha, x, y)
   return can_move
 end
 
+--²éÕÒ¸½½üµÄÄ¿±ê(¶ÔÓÚĞİÃßµÄ¹ÖÎï, Õâ¸ö¾àÀë²»Ó¦¸ÃÌ«´ó, ·ñÔò¿Í»§¶Ë¿´²»µ½±íÏÖ)
+--·µ»Ø²éÕÒµ½µÄ¹ÖÎï
 function find_target(cha, flag)
   x,y = GetChaPos(cha)
   vision = GetChaVision(cha)
-  return GetChaByRange(cha, x, y, vision, flag)
+  return GetChaByRange(cha, x, y, vision, flag) --Ä¬ÈÏÎª9Ã×·¶Î§
 end
 
+--Çå³ıÄ¿±ê
 function clear_target(c)
   LG("lua_ai", "clear target clear_target()")
   SetChaTarget(c, 0)
   SetChaPatrolState(c, 0)
 end
 
+--ÏòÄ¿±êÒÆ¶¯, Ö»ÊÇÒÆ¶¯¶ø²»¹¥»÷, ËùÒÔÖ»»áÒÆ¶¯µ½¸½½üµÄÎ»ÖÃ
+--·µ»ØÖµ 2 ±íÊ¾ÒÑ¾­µ½´ïÄ¿±ê 
+--       1 ±íÊ¾¼ÌĞøÒÆ¶¯
+--       0 ±íÊ¾ÎŞ·¨ÒÆ¶¯
 function move_to(cha, target, flag)
-  if is_near(cha, target, 250)==1 then
+  if is_near(cha, target, 250)==1 then -- Èç¹û¾àÀë×ã¹»½üÔò²»ÔÙÒÆ¶¯
      return 2
   end
-
+  
   x, y = GetChaPos(target)
+  --ÔÚ½ÇÉ«¸½½üÈ¡Ò»¸öËæ»úµã
   rx = 110 - Rand(220)
   ry = 110 - Rand(220)
   x = x + rx
   y = y + ry
   
-  if is_pos_valid(cha, x, y)==0 then
+  if is_pos_valid(cha, x, y)==0 then --Ä¿µÄµØ¶ÔÓÚ´Ë½ÇÉ«²»ºÏ·¨, Ôò²»ÒÆ¶¯
     return 0 
   end 
   
@@ -46,9 +58,17 @@ function move_to(cha, target, flag)
   
   return 1
 end
-
+------------------------------------
 function star_move_to(cha, target)
 	local host_cha = GetChaHost(cha)
+	--local PetNum = GetPetNum(host_cha)
+	
+	--if PetNum == 0 then
+	--	local life = 1
+	--	SetChaLifeTime( cha, life )
+	--	return 1
+	--end
+	
 	local  x1, y1 = GetChaPos(host_cha)
 	
 	if is_near_pos(cha, x1, y1, 200)==1 then
@@ -58,7 +78,7 @@ function star_move_to(cha, target)
 	local rx = x1 + 200 - Rand(200 * 2)
 	local ry = y1 + 200 - Rand(200 * 2)
 	
-	if is_pos_valid(cha, x1, y1)==0 then
+	if is_pos_valid(cha, x1, y1)==0 then --Ä¿µÄµØ¶ÔÓÚ´Ë½ÇÉ«²»ºÏ·¨, Ôò²»ÒÆ¶¯
 	    return 0 
 	end 
 	
@@ -66,38 +86,43 @@ function star_move_to(cha, target)
 	
 	return 1
 end
-
 function star_delete_to(cha)
+	--local PetNum = GetPetNum(host_cha)	
+	--if PetNum == 0 then
 	local life = 1
 	SetChaLifeTime( cha, life )
 	return 1
+	--end
 end
-
+--ÏòÄ¿±ê·´·½ÏòÒÆ¶¯
 function flee(cha, target)
    x, y = GetChaFacePos(target)
    ChaMove(cha, x, y)
 end
 
+--Ëæ»úÒÆ¶¯
 function rand_move(cha, range)
   x, y = GetChaPos(cha)
   rx = x + range - Rand(range * 2)
   ry = y + range - Rand(range * 2)
-  if is_pos_valid(cha, x, y)==0 then return end
+  if is_pos_valid(cha, x, y)==0 then return end --Ä¿µÄµØ¶ÔÓÚ´Ë½ÇÉ«²»ºÏ·¨, ÔòÍ£Ö¹
   ChaMove(cha, rx, ry)
 end
 
+--ÔÚ³öÉúµã¸½½üËæ»úÒÆ¶¯
 function birth_rand_move(cha, range)
   local move_flag = Rand(20)
   
-  if move_flag > 1 then return end
+  if move_flag > 1 then return end --Ö»ÓĞ1/18µÄ¼¸ÂÊ²úÉúËæ»úÒÆ¶¯, ÏŞÖÆËæ»úÒÆ¶¯µÄÆµÂÊ
   
   x, y = GetChaSpawnPos(cha)
   rx = x + range - Rand(range * 2)
   ry = y + range - Rand(range * 2)
-  if is_pos_valid(cha, x, y)==0 then return end
+  if is_pos_valid(cha, x, y)==0 then return end --Ä¿µÄµØ¶ÔÓÚ´Ë½ÇÉ«²»ºÏ·¨, ÔòÍ£Ö¹
   ChaMove(cha, rx, ry)
 end
 
+--·µ»ØÁ½¸ö½ÇÉ«ÊÇ·ñ½Ó½ü
 function is_near(cha, target, r)
   if target==nil or target==0 then 
      LG("ai_error", "is_near() target = "..target)
@@ -111,44 +136,51 @@ function is_near(cha, target, r)
   return 0
 end
 
+--·µ»Ø½ÇÉ«ÊÇ·ñ½Ó½ü×ø±ê
 function is_near_pos(cha, tx, ty, r)
   local x, y = GetChaPos(cha)
   local dis = math.sqrt((tx - x) * (tx - x) + (ty - y) * (ty - y))
+  --LG("lua_ai1", "dis = ", tx - x, ty - y, dis)
   if dis < r then
+    --LG("lua_ai1", "dis = ,r = ", dis, r)
     return 1
   end
   return 0
 end
 
+--·µ»ØÁ½¸ö½ÇÉ«µÄ¾àÀë
 function get_distance(c1, c2)
     local x, y = GetChaPos(c1)
     local tx, ty = GetChaPos(c2)
     return math.sqrt((tx - x) * (tx - x) + (ty - y) * (ty - y))
 end
 
+--·µ»Ø½ÇÉ«ÊÇ·ñÓ¦¸Ã×·×ÙÏÂÈ¥
 function is_chase(cha)
-   if GetChaTypeID(cha)==350 then return 1 end
+   
+   if GetChaTypeID(cha)==350 then return 1 end  --ÅÚËşÊ¼ÖÕ¶¼ÊÇchase±ê¼Ç
 
    local chase_r = GetChaChaseRange(cha)
    LG("lua_ai", "Check chasing range: ", chase_r)
-   if chase_r==0 then
+   if chase_r==0 then --Èç¹û×·»÷·¶Î§Ìî0, ±íÊ¾»áÒ»Ö±×·ÏÂÈ¥
      return 1
    end
-
+   
    local x, y = GetChaSpawnPos(cha)
-
+   
    local host = GetChaHost(cha)
 
    if host~=nil then
-       x, y = GetChaPos(host)
+       x, y = GetChaPos(host) --ÓĞÖ÷ÈËµÄÇé¿öÏÂ, È¡Ö÷ÈËµÄµ±Ç°×ø±ê
    end
-
+   
    local now_x, now_y = GetChaPos(cha)
-
+   
    local dis = (now_x - x) * (now_x - x) + (now_y - y) * (now_y - y)
    LG("lua_ai", "Current distance birth point: ", dis)
    if dis > chase_r * chase_r then
-
+     
+     
      if is_patrol(cha)==1 then
         local x, y = GetChaPatrolPos(cha)
         local dis2 =  (now_x - x) * (now_x - x) + (now_y - y) * (now_y - y)
@@ -158,14 +190,17 @@ function is_chase(cha)
      end    
 
      return 0
-
+   
+   
    else
      return 1
    end
    return 0
 end
 
+--·µ»Ø½ÇÉ«ÊÇ·ñÄÜ¹»ÕÙ¼¯Í¬Àà¹Ö
 function is_cha_can_summon(c1)
+ 	
     if GetChaPatrolState(c1)>=10 then
     	return 0
   	end
@@ -174,20 +209,24 @@ function is_cha_can_summon(c1)
 	if ai_flag_summon[type_id]~=nil then 
 		return 1
 	end 
-
+  
    	return 0
 end
 
+--·µ»Ø½ÇÉ«ÊÇ·ñÄÜ·ñ¼ñ¶«Î÷
 function is_cha_can_pick(c)
+	--if ai_type<=5 then return 1 end --Ö÷¶¯¹¥»÷µÄ¹ÖÊÇ²»»á¼ñµÄ
 	return 0
 end
 
+
+--ÕÙ»½Ğ¡¹ÖÀ´¹¥»÷
 function summon_child(c, t)
    if Rand(25) > 1 then return end
    chaType = GetChaTypeID(c)
    x, y = GetChaPos(c)
    if chaType==206 then
-       LG("lua_ai", "Ìàëåíüêàÿ Ï÷åëêà áûëà ïîáåæäåíà, ïğèçûâ 3 Ëåñíûõ Äóõîâ!")
+       LG("lua_ai", "Mini Bees have been defeated, summon 3 Forest Spirits!")
        nx = x + 100 - Rand(200)
        ny = y + 100 - Rand(200)
        cha1 = CreateCha(103, nx, ny, 90, 1000)
@@ -205,33 +244,49 @@ function summon_child(c, t)
    end
 end
 
+
+--½ÇÉ«Ñ¡Ôñµ±Ç°ÒªÊ¹ÓÃµÄ¼¼ÄÜ
 function select_skill(c)
+   --LG("rand", "Begin----------------", GetChaDefaultName(c))
+   --info = {}
+   --info[0] = { a = 7, b = 20}
+   --info[1] = { a = 8, b = 80}
+   
    local num = GetChaSkillNum(c) - 1
    local s = 0
    local e = 0
    local r = Rand(100)
+   --LG("rand", "r = ", r);
    local skill_id = 0
-   for i = 0, num do          
+   for i = 0, num do
+       --skill_id = info[i].a
+       --ratio    = info[i].b --GetChaSkillInfo(c, i)           
        skill_id, ratio = GetChaSkillInfo(c, i)
        local e = s + ratio
+       --LG("rand", "(", s, ",", e, "]")
        if r > s and r<=e then
           break
        end
        s = s + ratio
    end
+   --LG("rand", "select skill_id = ", skill_id)
+   --LG("rand", "=====================")
    return skill_id
 end
 
+
+--´´½¨Ñ²ÂßaiµÄ¹Ö
 function CreatePatrolCha(t_id, x, y, dir, relive_time, px, py)
     local cha = CreateCha(t_id, x, y, dir, relive_time)
     SetChaPatrolPos(cha, px, py)
     return cha
 end
 
+--ÕÙ»½ÆäËû¹ÖÀ´°ïÃ¦
 function summon_monster(cnn, t)
   LG("lua_ai", "Check nearby monster, type", GetChaTypeID(cnn));
   SetChaEmotion(cnn, 10)
-  SetChaPatrolState(cnn, 10)
+  SetChaPatrolState(cnn, 10) --ÉèÖÃÎªÒÑ¾­ÕÙ»½¹ıÁË
   local x,y = GetChaPos(cnn)
   local m_type = GetChaTypeID(cnn)
   local m = {}
@@ -240,15 +295,17 @@ function summon_monster(cnn, t)
     if monster~=nil then
        name = GetChaDefaultName(monster)
        LG("lua_ai", name, " Come help me deal with target:", GetChaDefaultName(t))
-       local skill_id = select_skill(monster)
+       local skill_id = select_skill(monster) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ
        SetChaTarget(monster, t)
        ChaUseSkill(monster, t, skill_id)
        SetChaEmotion(monster, 11)
-       SetChaPatrolState(monster, 11)
+       SetChaPatrolState(monster, 11) --ÉèÖÃÎªÒÑ¾­±»ÕÙ»½¹ıÁË
     end
   end
 end
 
+--ÈÃÖÜÎ§µÄ¹Ö¼¤»î²¢¹¥»÷Íæ¼Ò, ÓÃÓÚµÀ¾ßÓÕ»ó¹ÖÎï³öÏÖµÄ³¡ºÏ
+--²ÎÊıÎªÄ¿±êÖ¸Õë, ºÍ¹ÖÎïÀàĞÍ
 function tempt_monster(cha, m_type)
   LG("lua_tempt", "Check nearby monster, type", GetChaTypeID(cha));
   x,y = GetChaPos(cha)
@@ -259,26 +316,29 @@ function tempt_monster(cha, m_type)
        local name = GetChaDefaultName(monster)
        LG("lua_tempt", name, " There are things to eat, appear now, target:", GetChaDefaultName(cha))
        SetChaTarget(monster, cha)
-       local skill_id = select_skill(monster)
+       local skill_id = select_skill(monster) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ
        ChaUseSkill(monster, cha, skill_id)
        SetChaEmotion(monster, 11)
     end
   end
 end
 
+--ÊÇ·ñ¹ÖÎï»áÑ²Âß
 function is_patrol(c)
   local px, py = GetChaPatrolPos(c)
   if px==0 then return 0 end
   return 1
 end
 
+--ÊÇ·ñÕıÔÚÍù»Ø×ß
 function is_moving_back(c)
-   if GetChaPatrolState(c)==9 then
+   if GetChaPatrolState(c)==9 then --Íù»Ø×ß 
        return 1
    end
    return 0
 end
 
+--ÉèÖÃÎªÕıÔÚÍù»Ø×ß
 function set_moving_back(c, bFlag)
     if bFlag==1 then
        SetChaPatrolState(c, 9)
@@ -288,3 +348,8 @@ function set_moving_back(c, bFlag)
        end
     end
 end
+
+-------½Ó¿ÚĞÍ AI SDK º¯Êı ½áÊø-----------------------------------------------------------------------
+
+
+

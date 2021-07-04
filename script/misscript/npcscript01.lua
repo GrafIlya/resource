@@ -1,37 +1,367 @@
-print( "‡ Јаг§Є  NpcScript01.lua" )
+--------------------------------------------------------------------------
+--									--
+--									--
+--NPCScript01.lua Created by Robin 2005.1.20.	--
+--									--
+--									--
+--------------------------------------------------------------------------
+print( "loading NPCScript01.lua" )
 
---------------------------
---	Список сокращений	--
---------------------------
-jp				= JumpPage
-amp				= AutoMissionPage
-ct				= CloseTalk
-am				= AddMission
-MissionCheck 	= HasFlag
-mc				= MissionCheck
+jp= JumpPage
+amp=AutoMissionPage
+ct=CloseTalk
+am=AddMission
+MissionCheck = HasFlag
+mc=MissionCheck
 
---------------------------------------------------------------------------------------------------------------------
---													r_talk (Начало)												  --
---------------------------------------------------------------------------------------------------------------------
-function r_talk01()
-	Talk( 1,  "Салвьер: Здравствуйте, Вы похожи на новичка в этих краях. Могу ли я чем то помочь? " )
-	Text( 1,  "Кто Вы? ", JumpPage, 2)
-	Text( 1,  "Что это за место? ", JumpPage, 3 )
-	Text( 1,  "Я думаю все понял. Спасибо. ", JumpPage, 4 )
 
-	Talk( 2,  "Салвьер: Я отвечаю на вопросы жителей этого города. Если у Вас какие то трудности, то ищите меня. " )
-	Text( 2,  "Назад. ", JumpPage, 1)
+------------------------------------------------------------
+-- °ЧТшЦ®іЗ:·юЧ°µкДбИшЖЕЖЕ
+------------------------------------------------------------
 
-	Talk( 3,  "Салвьер: Это самый преуспевающий город во всем Аскароне. У нас нет никаких проблем с ресурсами и все благодаря нашему градоначальнику. " )
-	Text( 3,  "Назад. ", JumpPage, 1)
+function BT_NpcSale001()
 
-	Talk( 4,  "Салвьер: Хорошо, если Вам будет нужна помощь - обращайтесь. " )
-	Text( 4,  "Я хочу задать еще вопросы. ", JumpPage, 5)
+
+	Talk( 1, "Granny Nila: Welcome! My clothings are cheap and good! We also have trendy stuff! Have a look around!" )
+	Text( 1, "Trade", BuyPage )
+
+	InitTrade()
+	Defence(	0290	)
+	Defence(	0466	)
+	Defence(	0642	)
+	Defence(	0296	)
+	Defence(	0472	)
+	Defence(	0648	)
+	Defence(	0291	)
+	Defence(	0467	)
+	Defence(	0643	)
+	Defence(	0297	)
+	Defence(	0473	)
+	Defence(	0649	)
+	Defence(	0293	)
+	Defence(	0469	)
+	Defence(	0645	)
+	Defence(	0298	)
+	Defence(	0474	)
+	Defence(	0650	)
+	Defence(	0300	)
+	Defence(	0476	)
+	Defence(	0652	)
+	Defence(	0301	)
+	Defence(	0477	)
+	Defence(	0653	)
+	Defence(	0228	)
+	Defence(	0229	)
+	Defence(	0230	)
+	Defence(	0295	)
+	Defence(	0471	)
+	Defence(	0647	)
+	Defence(	0302	)
+	Defence(	0478	)
+	Defence(	0654	)
+	Defence(	0299	)
+	Defence(	0475	)
+	Defence(	0651	)
+	Defence(	0303	)
+	Defence(	0479	)
+	Defence(	0655	)
 	
-	Talk( 5,  "Салвьер: Не стесняйтесь, задавайте. " )
-	Text( 5,  "Градоначальник и основание Аргента. ", JumpPage, 6)
+	-- AddNpcMission ( 220 )
+	AddNpcMission ( 705 )
 	
-	Talk( 6,  "Салвьер: Много столетий назад велась война между демонами и империей Аскарон. Это длилось в течение многих лет и Империя потеряла множество своих верных граждан. Герцог и его племянник отступили и решили основать новый город на тогда еще пустующей равнине. Этот город пережил после этого еще множество войн, но ни разу не был взят врагами. " )
+end
+
+-------------------------------------------------------------------
+--								--
+--		°ЧТшіЗЈЁ±ИМШЈ©		--
+--		219533,270323				--
+-------------------------------------------------------------------
+
+function r_talk86()
+
+	Talk( 1, "Peter: Hi, I am the Guard, Peter. I keep the streets of this city free of thugs. I am also incharge of training new Swordsman. Is there anything that matters?")
+
+	InitTrigger()
+	TriggerCondition( 1, LvCheck, ">", 9 )
+	TriggerCondition( 1, IsCategory, 1 )
+	TriggerCondition( 1, PfEqual, 0 )
+	TriggerCondition( 1, HasMoney, 1000 )
+	TriggerCondition( 1, HasItem, 3953, 1 )
+	TriggerAction( 1, TakeItem, 3953, 1 )
+	TriggerAction( 1, TakeMoney, 1000 )
+	TriggerAction( 1, GiveItem, 3164, 1, 4 )
+	TriggerAction( 1, GiveItem, 1, 1, 4 )
+	TriggerAction( 1, SetProfession, 1 )
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerCondition( 2, LvCheck, ">", 9 )
+	TriggerCondition( 2, IsCategory, 2 )
+	TriggerCondition( 2, PfEqual, 0 )
+	TriggerCondition( 2, HasMoney, 1000 )
+	TriggerCondition( 2, HasItem, 3953, 1 )
+	TriggerAction( 2, TakeItem, 3953, 1 )
+	TriggerAction( 2, TakeMoney, 1000 )
+	TriggerAction( 2, GiveItem, 3164, 1, 4 )
+	TriggerAction( 2, GiveItem, 1, 1, 4 )
+	TriggerAction( 2, SetProfession, 1  )
+	TriggerAction( 2, JumpPage, 3 )
+	TriggerFailure( 2, JumpPage, 4 )
+
+	--Talk(2, "Peter: Hey wait! Are you interested in swordsmanship? HmmЎ­you seems suitable to learn some sword fighting. It'll be a pity if you did not become a Swordsman!")
+	--Text(2, "Ok, I will advance to become a Swordsman", MultiTrigger, GetMultiTrigger(), 2)
+	--Text(2, "No, it is good enough for now.", CloseTalk)
+
+	--Talk(3, "Peter: I have taught you all I know regarding swordsmanship. The rest will be up to your own effort.")
+
+	--Talk(4, "Peter: Want to become a Swordsman? Only male Newbies at Level 10 with 1 Courage Certificate are eligible. Registration fee is 1000G.")
+
+	--InitTrigger()
+	---------------ЅЈКї
+	--TriggerCondition( 1, LvCheck, ">", 9 )
+	--TriggerCondition( 1, IsCategory, 1 )
+	--TriggerCondition( 1, PfEqual, 0 )
+	--TriggerAction( 1, JumpPage, 2 )
+	--TriggerCondition( 2, LvCheck, ">", 9 )
+	--TriggerCondition( 2, IsCategory, 2 )
+	--TriggerCondition( 2, PfEqual, 0 )
+	--TriggerAction( 2, JumpPage, 2 )
+	--TriggerFailure( 2, JumpPage, 1 )
+
+	--Start( GetMultiTrigger(), 2 )
+
+	AddNpcMission( 100 )
+	AddNpcMission( 204 )
+	AddNpcMission ( 279 )
+	AddNpcMission ( 281 )
+	AddNpcMission ( 404 )
+	AddNpcMission ( 749 )
+	AddNpcMission ( 750 )
+	AddNpcMission ( 66 )
+	AddNpcMission ( 67 )
+	AddNpcMission ( 68 )
+	AddNpcMission ( 72 )
+	AddNpcMission(	1222	)
+----------eleven
+	AddNpcMission(	5056	)
+	AddNpcMission(	5060	)	
+	AddNpcMission(	5068	)	
+------------1.7
+	AddNpcMission(	5167	)
+	AddNpcMission(	5089	)
+	AddNpcMission (5093 )
+	AddNpcMission (5094 )
+	AddNpcMission (5095 )
+	AddNpcMission (5096 )
+	AddNpcMission (5109 )
+
+	AddNpcMission ( 6078 )
+	AddNpcMission ( 6079 )
+	AddNpcMission ( 6080 )
+	AddNpcMission ( 6097 )
+	AddNpcMission ( 6100 )
+	AddNpcMission ( 6101 )
+
+
+	MisListPage(2)
+
+
+end
+
+
+-------------------------------------------------------------------
+--								--
+--		°ЧТшіЗЈЁМъЅіЎЄЎЄРЎЅрЅрЈ©		--
+--		219533,270323				--
+-------------------------------------------------------------------
+function r_trade01 ()
+	--ВтВф¶«Оч¶Ф»°
+	Talk( 1, "Goldie: Hi, I sell all sorts of weapons! Take a look!" )
+	Text( 1, "Trade", BuyPage)
+	Text( 1, "Repair", OpenRepair)
+	Text( 1, "Regarding Forging", JumpPage, 2)
+	Text( 1, "Regarding Combining", JumpPage, 3)
+	--Text( 1,"Event of aberrance Alloy Pickaxe",JumpPage,9)
+	
+	
+	Talk(9,"Recently, the item mall has sold a batch of aberrance Alloy Pickaxe which has caused much trouble to the players. Should you have any Alloy Pickaxe which durability is at 0, you can come to me to exchange a new one")
+	Text(9,"I have an aberrance pickaxe, I need to repair my pickaxe",CheckMetal)
+	Text(9,"Don't know what are you talking about",CloseTalk)
+
+	
+	--Text( 1, "Mold a mask", JumpPage,4)
+
+	Talk( 2, "Goldie: Forging? Only the blacksmith in Shaitan City can do it." )
+
+	Talk( 3, "Goldie: You wish to combine something? From what I understand, you need a combining scroll and it will list the required items. Collect the items needed and talk to Grocer - Amos in Shaitan City. He is the only person who knows how to combine." )
+
+	InitTrade()
+	Weapon(	0008	)
+	Weapon(	0196	)
+	Weapon(	0197	)
+	Weapon(	0198	)
+	Weapon(	0001	)
+	Weapon(	0010	)
+	Weapon(	0002	)
+	Weapon(	0011	)
+	Weapon(	0003	)
+	Weapon(	0012	)
+	Weapon(	0013	)
+	Weapon(	0014	)
+	Weapon(	0022	)
+	Weapon(	0005	)
+	Weapon(	0023	)
+	Weapon(	1388	)
+	Weapon(	1389	)
+	Weapon(	1390	)
+	Weapon(	1391	)
+	Weapon(	1392	)
+	Weapon(	1395	)
+	Weapon(	1396	)
+	Weapon(	1397	)
+	Weapon(	1398	)
+	Weapon(	1399	)
+	Weapon(	0121	)
+	Weapon(	0122	)
+	Weapon(	0123	)
+	Weapon(	0124	)
+	Weapon(	0125	)
+	Weapon(	0126	)
+	Weapon(	0015	)
+	Weapon(	0020	)
+	Weapon(	0016	)
+	Weapon(	0021	)
+	Weapon(	0004	)
+	Weapon(	1370	)
+	Weapon(	1371	)
+	Weapon(	1372	)
+	Weapon(	1373	)
+	Weapon(	1377	)
+	Weapon(	1378	)
+	Weapon(	1379	)
+	Weapon(	1380	)
+	Weapon(	1381	)
+	Weapon(	1382	)
+	Weapon(	1386	)
+	Weapon(	1387	)
+	Weapon(	0073	)
+	Weapon(	0080	)
+	Weapon(	0074	)
+	Weapon(	0081	)
+	Weapon(	0075	)
+	Weapon(	0082	)
+	Weapon(	0076	)
+	Weapon(	0083	)
+	Weapon(	0077	)
+	Weapon(	0084	)
+	Weapon(	1415	)
+	Weapon(	1416	)
+	Weapon(	1417	)
+	Weapon(	1418	)
+	Weapon(	1419	)
+	Weapon(	1422	)
+	Weapon(	1423	)
+	Weapon(	1424	)
+	Weapon(	1425	)
+	Weapon(	1426	)
+	Weapon(	1443	)
+	Weapon(	1444	)
+	Weapon(	1445	)
+	Weapon(	1446	)
+	Weapon(	1447	)
+	Weapon(	1450	)
+	Weapon(	1451	)
+	Weapon(	1452	)
+	Weapon(	1460	)
+	Weapon(	1461	)
+	--Talk( 4, "Goldie: What type of mask would you like to mold?")
+	--Text( 4, "Snowdoll Mask",JumpPage,5)
+	--Text( 4, "Pumpkin Mask", JumpPage,6)
+	--Text( 4, "Deathsoul Mask", JumpPage,7)
+
+
+	--InitTrigger() --¶Т»»№н№ЦГжѕЯ
+	--TriggerCondition( 1, HasItem, 4358, 30 )
+	--TriggerCondition( 1, HasItem, 3909, 2 )
+	--TriggerCondition(1, HasLeaveBagGrid, 1)
+	--TriggerCondition(1, KitbagLock, 0 )
+       -- TriggerAction( 1, TakeItem, 4358, 30 )
+	--TriggerAction( 1, TakeItem,  3909, 2 )
+	--TriggerAction( 1, GiveItem,1120, 1,4 )
+	--TriggerFailure( 1, JumpPage, 8 ) 
+	--Talk(5, "Goldie: Snowdoll Mask requires 30 Blue Snowballs to mold.")
+	--Text( 5, "Confirm to make",MultiTrigger, GetMultiTrigger(), 1) 
+
+	--InitTrigger() --¶Т»»ГжѕЯ
+	--TriggerCondition( 1, HasItem, 4809, 30 )
+	--TriggerCondition( 1, HasItem, 3909, 2 )
+	--TriggerCondition(1, HasLeaveBagGrid, 1)
+	--TriggerCondition(1, KitbagLock, 0 )
+        --TriggerAction( 1, TakeItem, 4809, 30 )
+	--TriggerAction( 1, TakeItem,  3909, 2 )
+	--TriggerAction( 1, GiveItem,1121, 1,4 )
+	--TriggerFailure( 1, JumpPage, 8 ) 
+	--Talk(6, "Goldie: Pumpkin Mask requires 30 Pumpkin Heads")
+	--Text( 6, "Confirm to make",MultiTrigger, GetMultiTrigger(), 1) 
+	
+	--InitTrigger() --¶Т»»ГжѕЯ
+	--TriggerCondition( 1, HasItem, 2419, 20 )
+	--TriggerCondition( 1, HasItem, 3909, 2 )
+	--TriggerCondition(1, HasLeaveBagGrid, 1)
+	--TriggerCondition(1, KitbagLock, 0 )
+        --TriggerAction( 1, TakeItem, 2419, 20 )
+	--TriggerAction( 1, TakeItem,  3909, 2 )
+	--TriggerAction( 1, GiveItem,1122, 1,4 )
+	--TriggerFailure( 1, JumpPage, 8 ) 
+	--Talk(7, "Goldie: Deathsoul Mask requires 20 Magical Bones to mold.")
+	--Text( 7, "Confirm to make",MultiTrigger, GetMultiTrigger(), 1) 
+	
+	--Talk( 8, "Goldie: You do not seems to have the required items to mold a mask or your inventory has been binded.")
+	
+	AddNpcMission ( 703 )
+	AddNpcMission	(1044)
+	AddNpcMission	(1096)
+	AddNpcMission	(1155)
+	AddNpcMission	(1207)
+	AddNpcMission	(58)
+	AddNpcMission	(59)
+	AddNpcMission	(60)
+	AddNpcMission(	1221	)
+
+
+end
+-----------------------------------------------------------------РЎЅрЅрМъЅіЅбКш----------------------------------------------------------------------------------------------
+
+
+
+
+------------------------------------------------------------------
+--								--
+--								--
+------------------------°ЧТшіЗГШКйЛ№їЛМШ---------------------------
+--			221925,274925				--
+--								--
+------------------------------------------------------------------
+function r_talk01 ()
+	
+	Talk( 1, "Salvier: Hi! You look new! How can I help you?" )
+	Text( 1, "Who are you?", JumpPage, 2)
+	Text( 1, "Where is this place?", JumpPage, 3 )
+	
+	Text( 1, "I think I have understand. Goodbye", JumpPage, 4 )
+
+	Talk( 2, "Salvier: I am in charge of answering people's question for this city. If you meet up with any trouble, look for me." )
+	Text( 2, "Return", JumpPage, 1)
+
+	Talk( 3, "Salvier: This is the most prosperous city in the whole of Ascaron. We have no lack of resources in any way. This is all thanks to our Duke who built this city." )
+	Text( 3, "Return", JumpPage, 1)
+
+	Talk( 4, "Salvier: Ok sure, look for me again if you need more." )
+	Text( 4, "Ok, I want to know some more things.", JumpPage, 5)
+	
+	Talk( 5, "Salvier: Don't be shy. Ask away." )
+	Text( 5, "The Duke and founding of Argent", JumpPage, 6)
+	
+	Talk( 6, "Salvier: Many centuries ago, a war between the demons and Ascaron empire ensures. It lasted for years and taken a hugh toll on the citizen of the empire. Due to this, the Duke and his nephew leads the citizen to the current Argent City and build it from scratch. They endure 30 over years of hardship and manage to build this new city." )
+	--Text( 6, "Wow! How sauve.", JumpPage, 7)
 
 	InitTrigger()
 
@@ -42,11 +372,11 @@ function r_talk01()
 	TriggerAction( 1, SetRecord, 500 )
 	TriggerAction( 1, AddMoney, 100 )
 	
---[[Talk( 7, "Салвьер: Как один из самых значимых людей города я принимаю всех новичков с подобающим гостеприимством. Всем новобранцам подарок - 100 золотых и бесплатное лечение у медсестры до 5лвл!" )
-	Text( 7, "Спасибо!",  MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 7, "Salvier: As a great leader of a great city, I will treat all newcomers with hospitality. A gift of  100G! You can receive healing from the nurse if you are below Lv 5 too!" )
+	Text( 7, "Thank you!",  MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 8, "Салвьер: Серебрянный город нуждается в таких новобранцах как Вы!" )
-	Text( 8, "Спасибо. Я пока осматриваюсь. ",  CloseTalk )]]--
+	Talk( 8, "Salvier: Hi! Argent City need someone like you!" )
+	Text( 8, "Thank you. I am only looking around",  CloseTalk )
 
 
 	InitTrigger()
@@ -57,55 +387,80 @@ function r_talk01()
 
 	Start( GetMultiTrigger(), 1 )
 
-	AddNpcMission ( 203  )
-	AddNpcMission ( 204  )
-	AddNpcMission ( 205  )
-	AddNpcMission ( 206  )
-	AddNpcMission ( 221  )
-	AddNpcMission ( 222  )
+----------------ЧўІбИООс
+
+	AddNpcMission ( 203 )
+	AddNpcMission ( 204 )
+	AddNpcMission ( 205 )
+	AddNpcMission ( 206 )
+	AddNpcMission ( 221 )
+	AddNpcMission ( 222 )
 	AddNpcMission ( 1002 )
 	AddNpcMission ( 1057 )
 	AddNpcMission ( 1112 )
 	AddNpcMission ( 1166 )
-	AddNpcMission ( 55 	 )
-	AddNpcMission ( 56 	 )
-	AddNpcMission ( 57 	 )
+	AddNpcMission ( 55 )
+	AddNpcMission ( 56 )
+	AddNpcMission ( 57 )
 	AddNpcMission ( 1220 )
-	AddNpcMission ( 319  )
-	AddNpcMission ( 325  )
-	AddNpcMission ( 326  )
+	AddNpcMission ( 319 )
+	AddNpcMission ( 325 )
+	AddNpcMission ( 326 )
+---------eleven
 	AddNpcMission ( 5037 )	
+
+
+
 	MisListPage(8)
 end 
+---------------<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<NPC Ў¶Л№їЛМШЎ·ЅбКшБЛ!
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[АПДМДМ]				--
+--							--
+--		227725,276925				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk02 ()
 
-function r_talk02()
-	Talk( 1,  "Бабушка Белди: Здравствуйте молодой человек. " )
-	Text( 1,  "Сделать светильник ", JumpPage, 7 )
-	Text( 1,  "До свидания... ", CloseTalk)
-
-	Talk( 2,  "Бабушка Белди: Чтобы сделать Зернышко Любви необходимо 1 Чистую воду, 1 Лепесток многоцвета, 1 Идеальный сапфир и 1 Сердце наяды. " )
-	Text( 2,  "Сделать Зернышко Любви. ", GetChaName_21, 1 )
-
-	Talk( 3,  "Бабушка Белди: Вы можете обменять 10 Зернышек Любви на 1 Медовый шоколад. ")
-	Text( 3,  "Обменять ",  GetChaName_22, 1)
-
-	Talk( 4,  "Бабушка Белди: Вы можете обменять 100 Зернышек Любви на 3 Усилителя стремлений. ")
-	Text( 4,  "Обменять ",  GetChaName_23, 1)
-
-	Talk( 5,  "Бабушка Белди: Вы можете обменять 1000 Зернышек Любви на 1 Пропуск в Абаддон 4. ")
-	Text( 5,  "Обменять ",  GetChaName_24, 1)
 	
-	InitTrigger()
-	TriggerCondition(1, HasItem, 0058, 1)
-	TriggerCondition(1, HasItem, 0060, 1)
+	Talk( 1, "Old granny: How are you, young man." )
+	--Text( 1, "Seed of Love", JumpPage, 2)
+	--Text( 1, "Redeem 10 Seeds of Love", JumpPage, 3)
+	--Text( 1, "Redeem 100 Seeds of Love", JumpPage, 4)
+	--Text( 1, "Redeem 1000 Seeds of Love", JumpPage, 5)
+--	Text( 1, "К№УГ"Р·Гз"єН"і¬ј¶Р·УГј¤ЛШ"¶Т»»Р·Нх", JumpPage, 6)
+--	Text( 1, "К№УГДНѕГЦµОЄ"0"µДР·Гз¶Т»»Р·Нх", JumpPage, 7)
+	Text( 1, "Exchange Lantern", JumpPage, 7 )
+	Text( 1, "Leave", CloseTalk)
+	
+	
+	Talk( 2, "Granny: Why wait when you can sow your Seed of Love. Bring me 1 vial of Pure Water, 1 Fancy Petal, 1 Perfect Sapphire and 1 Heart of Naiad to germinate 1 Seed of Love." )
+	Text( 2, "Redeem Seed of Love", GetChaName_21, 1 )
+
+	Talk( 3, "Granny: 10 Seeds of Love to exchange for 1 Honey Chocolate")
+	Text(3,"Confirm to exchange",  GetChaName_22, 1)
+
+	Talk( 4, "Granny: 100 Seeds of Love to exchange for 3 Amplifiers of Strive")
+	Text(4,"Confirm to exchange",  GetChaName_23, 1)
+
+	Talk( 5, "Granny: 1000 Seeds of Love can be used to exchange for 1 Pass to Abandon 4")
+	Text(5,"Confirm to exchange",  GetChaName_24, 1)
+	
+	Talk(6,"АПДМДМЈєчТчСКўСзЦ®Р·НхґуІНЈ¬РиТЄДъКЦАпµД1ёцЎ°Р·ГзЎ±єНЙМіЗЦР№єВтµД1ёцЎ°і¬ј¶Р·УГј¤ЛШЎ±ЎЈµ±ДкПнУюХыёцєЈµБЅзµДґуєЈµБНхВЮЙ­Ј¬ФшТтЖ·№эґЛІЛ¶шѕ­Сй±лФцЎЈЗЧ°®µДЕуУСЈЎИГОТГЗ№ІН¬ЖЪґэЖжјЈµДЅµБЩЈЎ")	
+	InitTrigger()                                                   --------1ёцР·Нх
+	TriggerCondition(1, HasItem, 0058, 1)               ---------Р·Гз
+	TriggerCondition(1, HasItem, 0060, 1)               ---------Р·Йю
 	TriggerCondition(1, HasLeaveBagGrid, 1)
 	TriggerCondition(1, KitbagLock, 0 )
 	TriggerAction(1, TakeItem, 0058, 1)
 	TriggerAction(1, TakeItem, 0060, 1)
-	TriggerAction(1, GiveItem, 0059, 1, 4)
+	TriggerAction(1, GiveItem, 0059, 1, 4)              ----------Р·Нх
 	TriggerFailure(1, JumpPage, 8)
+	Text(6,"ПнУГР·НхґуІН", MultiTrigger, GetMultiTrigger(), 1) 
 
-InitTrigger()
+InitTrigger() --¶Ф»»µЖБэ
 	TriggerCondition( 1, HasItem, 3904, 15 )
 	TriggerCondition( 1, HasItem, 3911, 15 )
 	TriggerCondition( 1, HasItem, 4450, 1 )
@@ -116,32 +471,77 @@ InitTrigger()
 	TriggerAction( 1, TakeItem, 4450, 1 )
  	TriggerAction( 1, GiveItem, 3342, 1 ,4)
 	TriggerFailure( 1, JumpPage, 9 ) 
-	Talk( 7,  "Бабушка Белди: дайте мне 15 Красной бумаги, 15 Бамбуковых палочек, и 1 Странную свечу для обмена на Светильник. ")
-	Text( 7,  "Обмен. ", MultiTrigger, GetMultiTrigger(), 1) 
+	Talk( 7, "Bingo: Give me 15 pieces of Red Paper, 15 sticks of Bamboo Stick and 1 Strange Candle to exchange for a Lantern.")
+	Text( 7, "Confirm trade",MultiTrigger, GetMultiTrigger(), 1) 
 
-	Talk( 9,  "Бабушка Белди у Вас нет необходимых ингридиентов. ")
+--[[	Talk(7,"АПДМДМЈєіЦЦ®ТФєгµДДНБ¦КЗіЙ№¦µД№ШјьЈЎЗл°СФЪДъ±і°ьАёµЪ2ёсЕаУэБЛ5МмµДР·ГзёшОТ°ЙЈЎµ±Р·ГзµДДНѕГЦµ»ЇХыОЄ0Ј¬ПнУюХыёцјУДЙґуВЅµДР·НхГылИ±гєбїХіцКАБЛЈЎИГОТГЗТ»ЖрµИґэХвОґЦЄµДѕЄПІЈЎ")
+	InitTrigger()                                                   --------1ёцР·Нх
+	TriggerCondition(1, HasItem, 0058, 1)               ---------Р·Гз 
+	TriggerCondition(1, crablife)
+	TriggerCondition(1, HasLeaveBagGrid, 1)
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction(1, TakeItem, 0058, 1)
+	TriggerAction(1, GiveItem, 0059, 1, 4)              ----------Р·Нх
+	TriggerFailure(1, JumpPage, 9)
+	Text(7, "ПнУГР·НхґуІН", MultiTrigger, GetMultiTrigger(), 1) ]]--
+
+	Talk(8, "ЗлИ·±ЈДъЙнЙПУРР·ГзєНЙМіЗАп№єВтµДЎ°і¬ј¶Р·УГј¤ЛШЎ±аёЈЎ")
+
+	Talk( 9, "Bingo: You do not seem to have enough of Red Paper, Bamboo Stick or Strange Candle!")
+		
 
 	MisListPage(1)
 
-	AddNpcMission ( 282  )
-	AddNpcMission ( 283  )
-	AddNpcMission (	1026 )
-	AddNpcMission (	1084 )
-	AddNpcMission (	1137 )
-	AddNpcMission (	1189 )
-	AddNpcMission (	1224 )
-	AddNpcMission (	373	 )
-	AddNpcMission (	374	 )
-	AddNpcMission (	388	 )
-	AddNpcMission (	5631 )
-	AddNpcMission (	5632 )
+	AddNpcMission ( 282 )
+	AddNpcMission ( 283 )
+	AddNpcMission	(1026)
+	AddNpcMission	(1084)
+	AddNpcMission	(1137)
+	AddNpcMission	(1189)
+	AddNpcMission(	1224	)
+	AddNpcMission(	373	)
+	AddNpcMission(	374	)
+	AddNpcMission(	388	)
+	--AddNpcMission( 906 )
+
+-----------------АПДМДМЎ¤±ґµЩ---------ЅрЕЈ
+	AddNpcMission	(5631)
+	AddNpcMission	(5632)
+
+-------------------АПДМДМЎ¤±ґµЩ---------ЅрЗпК®ФВ№ъЗм»о¶Ї
+--	AddNpcMission  (5865)
+--	AddNpcMission  (5866)
+--	AddNpcMission  (5867)
+
+
 end 
 
-function r_talk03()
-	Talk( 1,  "Дито: Взгляните на мои травы, все собранны мной лично. " )
-	Text( 1,  "Торг ", BuyPage)
-	Text( 1,  "Сделать восстанавливающие зелья. ", JumpPage, 5)
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<АПДМДМЅбКш
 
+
+
+
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[Т©ІЭЙМИЛЎЄЎЄµЫД·]			--
+--							--
+--		224575,277025				--
+----------------------------------------------------------
+function r_talk03 ()
+
+	Talk( 1, "Ditto: Hi! The herbs I have are all gathered by meself. Have a look!" )
+	Text( 1, "Trade", BuyPage)
+	--Text( 1, "Sell items!", SalePage)
+	Text( 1, "Decoct Recovery Potion", JumpPage, 5)
+
+
+	Talk( 4, "Ditto: Very well! You have progressed to Lv 9. You can choose your class at Lv 10. Go now to the related NPC to start your trial for the class you wish to become. Swordsman look for Peter in Argent City at (2192, 2767). Herbalist look for High Priest - Gannon in Shaitan City at (862, 3500). Hunter look for Swordsman - Ray in Icicle Castle at (1365, 570). You can reach Icicle or Shaitan by using the teleporter." )
+	Text( 4, "Trade", BuyPage)
+	--Text( 4, "Sell items!", SalePage )
+	Text( 4, "Decoct Recovery Potion", JumpPage, 5)
+
+---------------ЦЖЧчёКІЭТ©Л®
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1779, 1 )
 	TriggerCondition( 1, HasItem, 3129, 10 )
@@ -152,10 +552,9 @@ function r_talk03()
 	TriggerAction( 1, GiveItem, 3133, 1, 4 )
 	TriggerAction( 1, JumpPage, 6 )
 	TriggerFailure( 1, JumpPage, 7 )
-
-	Talk( 5,  "Дито: Вы можете изготовить у меня любые лечебные зелья, в которых нуждаетесь. " )
-	Text( 5,  "Приготовить Лакричное зелье ", MultiTrigger, GetMultiTrigger(), 1 )
-
+	Talk( 5, "Ditto: You need to have medicine when you are sick! What do you need?" )
+	Text( 5, "Decoct Liquorice Potion", MultiTrigger, GetMultiTrigger(), 1 )
+	--------------ЕЪЦЖРСЙс»ЁІи
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1779, 1 )
 	TriggerCondition( 1, HasItem, 3130, 10 )
@@ -166,9 +565,8 @@ function r_talk03()
 	TriggerAction( 1, GiveItem, 3134, 1, 4 )
 	TriggerAction( 1, JumpPage, 6 )
 	TriggerFailure( 1, JumpPage, 8 )
-
-	Text( 5,  "Сварить Чай Бодрячок ", MultiTrigger, GetMultiTrigger(), 1 )
-
+	Text( 5, "Brew Energetic Tea", MultiTrigger, GetMultiTrigger(), 1 )
+	-------------------єПіЙГШЦЖЖжТмёа
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1779, 1 )
 	TriggerCondition( 1, HasItem, 3131, 10 )
@@ -179,9 +577,8 @@ function r_talk03()
 	TriggerAction( 1, GiveItem, 3135, 1, 4 )
 	TriggerAction( 1, JumpPage, 6 )
 	TriggerFailure( 1, JumpPage, 9 )
-
-	Text( 5,  "Сделать Чудо-мазь ", MultiTrigger, GetMultiTrigger(), 1 )
-
+	Text( 5, "Decoct Special Ointment", MultiTrigger, GetMultiTrigger(), 1 )
+	-------------------Хфїѕ±щСїЛЦ
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1779, 1 )
 	TriggerCondition( 1, HasItem, 3132, 10 )
@@ -192,24 +589,20 @@ function r_talk03()
 	TriggerAction( 1, GiveItem, 3136, 1 , 4)
 	TriggerAction( 1, JumpPage, 6 )
 	TriggerFailure( 1, JumpPage, 10 )
+	Text( 5, "Make Snowy Soft Bud", MultiTrigger, GetMultiTrigger(), 1 )
 
-	Text( 5,  "Сделать Брикет снежной травы ", MultiTrigger, GetMultiTrigger(), 1 )
-
-	Talk( 6,  "Дито: Деньги вперед! Вот, держите что просили. Желаю удачи! " )
-
-	Talk( 7,  "Дито: Для создания 1 Лакричного зелья необходимо 10 Целебной травы, 1 Флакон и 50 золота! " )
-
-	Talk( 8,  "Дито: Для создания 1 Чай Бодрячок необходимо 10 Лепестков многоцвета, 1 Флакон и 50 золота! " )
-
-	Talk( 9,  "Дито: Для создания 1 Чудо-мази необходимо 10 Чудо-фруктов, 1 Флакон и 50 золота! " )
-
-	Talk( 10, "Дито: Для создания 1 Брикет снежной травы необходимо 10 Снежных побегов, 1 Флакон и 50 золота! " )
+	Talk( 6, "Ditto: Money first. This is what you wanted. Keep it well." )
+	Talk( 7, "Ditto: It requires 10 Medicated Grass, 1 Bottle and 50G to make 1 Liquorice Potion." )
+	Talk( 8, "Ditto: Oh, you need 10 Fancy Petals, 1 Bottle and 50G to make 1 cup of Energetic Tea." )
+	Talk( 9, "Ditto: Hi, I need 10 Strange Fruits and 1 Bottle to make 1 Special Ointment. You also need to pay me 50G." )
+	Talk( 10, "Ditto: Hey, you need to have 10 Snowy Grass Buds and 1 Bottle to make 1 Snowy Soft Bud. There is a fee of 50G too!" )
 
 	InitTrade()
 	Other(	1847	)
 	Other(	1848	)
 	Other(	1849	)
 	Other(	3143	)
+	--Leo
 	Other(	1576	)
 	Other(	4049	)
 	Other(	4050	)
@@ -221,58 +614,68 @@ function r_talk03()
 	Other(	4057	)
 	Other(	1768	)
 
+
+
+--ХвАпРґИООсµДјмІв
+
+
+-----------і¬№э9ј¶ёжЛЯНжјТїЙТФЧЄЦ°
+	--InitTrigger()
+	--TriggerCondition( 1, LvCheck, ">", 8 )
+	--TriggerCondition( 1, LvCheck, "<", 10 )
+	---TriggerAction( 1, JumpPage, 4 )
+	--TriggerFailure( 1, JumpPage, 1 )
+
+	--Start( GetMultiTrigger(), 1 )
+
+---------------------ЧўІбИООс
 	MisListPage(1)
 
-	AddNpcMission ( 707  )
-	AddNpcMission ( 214  )
-	AddNpcMission ( 215  )
-	AddNpcMission ( 217  )
-	AddNpcMission ( 218  )
-	AddNpcMission ( 219  )
-	AddNpcMission ( 220  )
-	AddNpcMission ( 1046 )
-	AddNpcMission ( 1208 )
-	AddNpcMission ( 73	 )
-	AddNpcMission ( 74	 )
-	AddNpcMission ( 75	 )
-	AddNpcMission ( 5027 )
-	AddNpcMission ( 5035 )
-	AddNpcMission ( 5036 )
+	AddNpcMission ( 707 )
+	--AddNpcMission ( 733 )
+	--AddNpcMission ( 738 )
+	--AddNpcMission ( 739 )
+	AddNpcMission ( 214 )
+	AddNpcMission ( 215 )
+	AddNpcMission ( 217 )
+	AddNpcMission ( 218 )
+	AddNpcMission ( 219 )
+	AddNpcMission ( 220 )
+	AddNpcMission	(1046)
+	AddNpcMission	(1208)
+	AddNpcMission	(73)
+	AddNpcMission	(74)
+	AddNpcMission	(75)
+	--AddNpcMission	(913)
+	--AddNpcMission	(914)
+	--AddNpcMission	(915)
+	--AddNpcMission	(916)
+-------------eleven
+	AddNpcMission	(5027)
+	AddNpcMission	(5035)
+	AddNpcMission	(5036)
 
 	MisListPage(4)
+
 end 
 
-function r_talk04()
-	InitTrigger()
-	TriggerCondition( 1, LvCheck, "<", 6 )
-	TriggerCondition( 1, HasRecord, 500 )
-	TriggerAction( 1, ReAll )
-	TriggerCondition( 2, HasMoney, 200 )
-	TriggerAction( 2, TakeMoney, 200 )
-	TriggerAction( 2, ReAll )
-	TriggerFailure( 2, JumpPage, 2 )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Т©ІЭЙМИЛЎЄЎЄµХДёЅбКш
 
-	Talk( 1,  "Джина: Привет! Я медсестра Джина! Ищите меня если больны или травмированы. " )
-	Text( 1,  "Большое исцеление ", MultiTrigger,GetMultiTrigger(),2)
 
-	InitTrigger()
-	TriggerCondition( 1, LvCheck, "<", 6 )
-	TriggerCondition( 1, HasRecord, 500 )
-	TriggerAction( 1, ReHp, 50 )
-	TriggerCondition( 2, HasMoney, 50 )
-	TriggerAction( 2, TakeMoney, 50 )
-	TriggerAction( 2, ReHp,50 )
-	TriggerFailure( 2, JumpPage, 3 )
 
-	Text( 1,  "Исцеление ", MultiTrigger,GetMultiTrigger(),2)
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[»¤КїРЎЅгЎЄЎЄб°б°]			--
+--							--
+--		224575,277025				--
+----------------------------------------------------------
 
-	Talk( 2,  "Джина: Прошу прощения, но Большое исцеление стоит 200 золотых. У вас недостаточно денег! " )
+---------------јУСЄ»ЦёґµДЕР¶Ё
 
-	Talk( 3,  "Джина: Прошу прощения, но Исцеление стоит 50 золотых. У вас недостаточно денег! " )
 
-	Talk( 4,  "Я не жду никакого письма. Полагаю вы ошиблись. " )
-
-	Talk( 5,  "Забудьте это. Вот возьмите награду за свою нелегкую работу. " )
+----------------ЖХНЁ¶Ф»°їЄКј
+function r_talk04 ()
 
 	InitTrigger()
 	TriggerCondition( 1, LvCheck, "<", 6 )
@@ -283,8 +686,8 @@ function r_talk04()
 	TriggerAction( 2, ReAll )
 	TriggerFailure( 2, JumpPage, 2 )
 
-	Talk( 6,  "Джина: Привет! Я медсестра Джина! Ищите меня если больны или травмированы. " )
-	Text( 6,  "Большое исцеление ", MultiTrigger,GetMultiTrigger(),2)
+	Talk( 1, "Gina: Hello! I am Nurse Gina. Look for me if you are sick or injured!" )
+	Text( 1, "Greater Heal", MultiTrigger,GetMultiTrigger(),2)
 
 	InitTrigger()
 	TriggerCondition( 1, LvCheck, "<", 6 )
@@ -295,7 +698,40 @@ function r_talk04()
 	TriggerAction( 2, ReHp,50 )
 	TriggerFailure( 2, JumpPage, 3 )
 
-	Text( 6,  "Исцеление ", MultiTrigger,GetMultiTrigger(),2)
+	Text( 1, "Heal", MultiTrigger,GetMultiTrigger(),2)
+	--Text( 1, "Build Ship", JumpPage, 10)
+
+	Talk( 2, "Gina: Sorry, healing requires 200G. You do not have enoughЎ­" )
+
+	Talk( 3, "Gina: Sorry! Healing requires 50GЎ­You do not have enoughЎ­" )
+
+	Talk( 4, "I do not have any letter. I guess you got the wrong person" )
+
+	Talk( 5, "Ya? Forget it...Thank you. Take this reward for your hard work." )
+		
+	InitTrigger()
+	TriggerCondition( 1, LvCheck, "<", 6 )
+	TriggerCondition( 1, HasRecord, 500 )
+	TriggerAction( 1, ReAll )
+	TriggerCondition( 2, HasMoney, 200 )
+	TriggerAction( 2, TakeMoney, 200 )
+	TriggerAction( 2, ReAll )
+	TriggerFailure( 2, JumpPage, 2 )
+
+	Talk( 6, "Gina: Hello! I am Nurse Gina. Look for me if you are sick or injured!" )
+	Text( 6, "Greater Heal", MultiTrigger,GetMultiTrigger(),2)
+
+	InitTrigger()
+	TriggerCondition( 1, LvCheck, "<", 6 )
+	TriggerCondition( 1, HasRecord, 500 )
+	TriggerAction( 1, ReHp, 50 )
+	TriggerCondition( 2, HasMoney, 50 )
+	TriggerAction( 2, TakeMoney, 50 )
+	TriggerAction( 2, ReHp,50 )
+	TriggerFailure( 2, JumpPage, 3 )
+
+	Text( 6, "Heal", MultiTrigger,GetMultiTrigger(),2)
+	
 
 	InitTrigger()
 	TriggerCondition( 1, HasMission, 53 )
@@ -307,42 +743,58 @@ function r_talk04()
 	TriggerFailure( 1, JumpPage, 1 )
 
 	Start( GetMultiTrigger(), 1 )
-	AddNpcMission ( 1048 )
-	AddNpcMission ( 1210 )
-	AddNpcMission ( 920	 )
-	AddNpcMission (	921	 )
+	AddNpcMission	(1048)
+	AddNpcMission	(1210)
+	AddNpcMission	(920)-----------------------------------------
+	AddNpcMission	(921)
 
 	MisListPage(6)
-
+	
+	-----МъИЛБщПо
 	AddNpcMission ( 6117 )
 	AddNpcMission ( 6118 )
 	AddNpcMission ( 6119 )
 	AddNpcMission ( 6120 )
+
 end 
 
-function r_talk05()
-	Talk( 1,  "Дина: Привет, я Дина! Вы действительно моряк? Наверное вы знаете так много замечательных историй... " )
-	Text( 1,  "Купить вино ", BuyPage )
-	Text( 1,  "Обменять репутацию ",JumpPage,4)
-	
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<»¤КїРЎЅгЎЄЎЄб°б°         ЅбКшї©
+
+
+
+----------------------------------------------------------
+----							--
+--							--
+--		°ЧТшіЗ[ѕЖ°ЙЕ® - µЩДИ]			--
+--							--
+--		225325,278875				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk05 ()
+
+	Talk( 1, "Donna: Hi, I am Donna. Are you a sailor? Have you been to the legendary Galley Isle? Tell me the stories if you have." )
+	Text( 1, "Buy Wine", BuyPage )
+	Text(1, "regarding fame",JumpPage,4)
+	--Text(1, "Royal Pirate Reputation Redemption",JumpPage,7)
+	--Text( 1, "єГГыК¤=єГ»Ш±Ё", JumpPage, 9)
+
 	InitTrade()
 	Other(	3916	)
 
-	Talk( 2,  "Дина: Я слышала вы ищете Вино восьми драгоценностей? У меня есть в запасе оно. Если вы хотите его купить, то принесите мне 100000 золотых. " )
+	Talk( 2, "Donna: Heard you have run out of Eight Treasure Wine. I have one left though. If you would like to purchase it, bring me 100000G." )
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 100000 )
 	TriggerAction( 1, TakeMoney, 100000 )
 	TriggerAction( 1, GiveItem, 4072, 1, 4 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 2,  "Вино восьми драгоценностей ", MultiTrigger,GetMultiTrigger(),1)
+	Text( 2, "Eight Treasures Wine", MultiTrigger,GetMultiTrigger(),1)
 
-	Talk( 3,  "Дина: Кажется вы имеете недостаточно денег. Это вино не для бедных! Возвращайтесь как соберете достаточную сумму. " )
+	Talk( 3, "Donna: It seems that you do not have enough gold. Wine is not for the poor. Come back when you have earned enough." )
 
-	Talk( 4,  "Репутация очень важна! Те кто делают полезное для общества получают репутацию. Полученную репутацию вы можете обменять здесь на необходимые предметы. ")
-	Text( 4,  "Я верю в свою репутацию. Я здесь чтобы получить награду. ", JumpPage,5)
+	Talk(4,"Reputation is very important. Those who are extremely helpful will in turn obtain more reputation! You can redeem these reputation points for rewards here")
+	Text(4,"I have faith in my reputation. I come to redeem the rewards.", JumpPage,5)
 
-	Talk( 5,  "Выберите нужную награду. Когда вы получите предмет ваша репутация будет уменьшена. ")
-	
+	Talk(5,"The current rewards for redemption are as follows. When you redempt your rewards, I'll minus your fame.")
 	InitTrigger()
 	TriggerCondition( 1, HasCredit,20 )
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
@@ -350,7 +802,7 @@ function r_talk05()
 	TriggerAction( 1, DelRoleCredit, 20 )
 	TriggerAction( 1, GiveItem, 2602,1,4 )
 	TriggerFailure( 1, JumpPage, 6)
-	Text(5, "Эмблема сремления новичка - стоимость 20 очков репутации. " ,MultiTrigger,GetMultiTrigger(),1)
+	Text(5,"Novice Endeavor Emblem: Requires 20 reputation points" ,MultiTrigger,GetMultiTrigger(),1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasCredit,200 )
@@ -359,7 +811,7 @@ function r_talk05()
 	TriggerAction( 1, DelRoleCredit, 200 )
 	TriggerAction( 1, GiveItem, 2603,1,4 )
 	TriggerFailure( 1, JumpPage, 6)
-	Text( 5,  "Эмблема стремления станд. ур. - стоимость 200 очков репутации. " ,MultiTrigger,GetMultiTrigger(),1)
+	Text(5,"Standard Endeavor Emblem: Requires 200 reputation points" ,MultiTrigger,GetMultiTrigger(),1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasCredit,2000 )
@@ -368,10 +820,10 @@ function r_talk05()
 	TriggerAction( 1, DelRoleCredit, 2000 )
 	TriggerAction( 1, GiveItem, 2604,1,4 )
 	TriggerFailure( 1, JumpPage, 6)
-	Text( 5,  "Эмблема стремления выс. ур. - стоимость 2000 очков репутации. " ,MultiTrigger,GetMultiTrigger(),1)
-	Talk( 6,  "Пожалуйста проверьте есть ли у вас свободные ячейки в инвентаре и что вы имеете достаточно репутации. Заработать репутацию вы можете например взяв себе ученика. ",CloseTalk)
+	Text(5,"Expert Endeavor Emblem: Requires 2000 reputation points" ,MultiTrigger,GetMultiTrigger(),1)
+	Talk(6,"Please make sure that there are empty slots in your inventory and your inventory is not binded. Either that you do not have sufficient reputation points. Help more people before you come back looking for me. Let me tell you a secret...If you are willing to accept a disciple...",CloseTalk)
 
-	Talk( 7,  "Привет! Мы Короли пиратов и служим только пиратам с отличной репутацией. Набрав требуемое количество репутации вы можете обменять ее на необходимые предметы. ")
+	Talk(7,"Hi! This is the Royal Pirates! We only serve pirates with good reputation! Do you wish to redeem anything? Reputation points will be deducted upon redemption.")
 	InitTrigger()
 	TriggerCondition( 1, HasCredit,500 )
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
@@ -380,7 +832,7 @@ function r_talk05()
 	TriggerAction( 1, GiveItem, 855,5,4 )
 	TriggerAction( 1, JumpPage,8 )
 	TriggerFailure( 1, JumpPage, 6)
-	Text( 7,  "5 Монет феи - стоимость 500 очков репутации. " ,MultiTrigger,GetMultiTrigger(),1)
+	Text(7,"5 fairy coins: Requires 500 reputation points" ,MultiTrigger,GetMultiTrigger(),1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasCredit,5000 )
@@ -390,7 +842,7 @@ function r_talk05()
 	TriggerAction( 1, GiveItem, 3094,3,4 )
 	TriggerAction( 1, JumpPage,8 )
 	TriggerFailure( 1, JumpPage, 6)
-	Text( 7,  "3 Усилителя стремлений - стоимость 5000 очков репутации. " ,MultiTrigger,GetMultiTrigger(),1)
+	Text(7,"Amplifier of Strive x3: Requires 5000 reputation points" ,MultiTrigger,GetMultiTrigger(),1)
 
 
 	InitTrigger()
@@ -401,7 +853,7 @@ function r_talk05()
 	TriggerAction( 1, GiveItem, 0610,1,4 )
 	TriggerAction( 1, JumpPage,8 )
 	TriggerFailure( 1, JumpPage, 6)
-	Text( 7,  "Самоуничтожение начального уровня - стоимость 20000 очков репутации. " ,MultiTrigger,GetMultiTrigger(),1)
+	Text(7,"1 Novice Self Destruct: Requires 20000 reputation points" ,MultiTrigger,GetMultiTrigger(),1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasCredit,50000 )
@@ -411,7 +863,7 @@ function r_talk05()
 	TriggerAction( 1, GiveItem, 0885,1,4 )
 	TriggerAction( 1, JumpPage,8 )
 	TriggerFailure( 1, JumpPage, 6)
-	Text( 7,  "Очищающий самоцвет 1 уровня - стоимость 50000 очков репутации. " ,MultiTrigger,GetMultiTrigger(),1)
+	Text(7,"Lv1 Refining Gem: Requires 50000 reputation points" ,MultiTrigger,GetMultiTrigger(),1)
 
 
 	InitTrigger()
@@ -422,7 +874,7 @@ function r_talk05()
 	TriggerAction( 1, GiveItem, 0862,1,4 )
 	TriggerAction( 1, JumpPage,8 )
 	TriggerFailure( 1, JumpPage, 6)
-	Text(7, "Самоцвет колосса - стоимость 200000 очков репутации. " ,MultiTrigger,GetMultiTrigger(),1)
+	Text(7,"Gem of Colossus x1: Requires 200000 reputation points" ,MultiTrigger,GetMultiTrigger(),1)
 
 
 	InitTrigger()
@@ -433,9 +885,165 @@ function r_talk05()
 	TriggerAction( 1, GiveItem, 1012,1,4 )
 	TriggerAction( 1, JumpPage,8 )
 	TriggerFailure( 1, JumpPage, 6)
-	Text( 7,  "Самоцвет души - стоимость 600000 очков репутации. " ,MultiTrigger,GetMultiTrigger(),1)
+	Text(7,"1 Gem of Soul: Requires 600000 reputation points" ,MultiTrigger,GetMultiTrigger(),1)
 
-	Talk( 8,  "Добро пожаловать в Королевские пираты! Работайте больше для достижения своей цели. ")
+	Talk(8,"Welcome to the Royal Pirates! Work harder to achieve your aim!")
+
+--	Talk( 9, "ДъєГЈ¬ОТГЗХвАпЦ»ПтУРГыНыµДИЛїЄ·ЕЎЈЦ»УРДъУРЧг№»µДГыЙщЈ¬ДъїЙТФФЪХвАп»»µЅЛщУРДъПлТЄµД¶«ОчЈ¬І»№эН¬К±ОТГЗТІ»бїЫіэДъµДТ»Ії·Цѕ«БйУІ±ТЧчОЄКЦРш·СЕ¶ЎЈ")
+--	
+--	InitTrigger()
+--	TriggerCondition( 1, HasCredit,5 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerCondition( 1, HasItem, 855, 5)
+--	TriggerAction( 1, DelRoleCredit, 5 )
+--	TriggerAction( 1, TakeItem, 855, 5)
+--	TriggerAction( 1, GiveItem, 1024,1,4 )
+--	TriggerAction( 1, JumpPage,10 )
+--	TriggerFailure( 1, JumpPage, 11)
+--	Text(9,"ёЯј¶ідµзµзіШ: РиТЄГыЙщ5Ј¬ѕ«БйУІ±Т5ёц" ,MultiTrigger,GetMultiTrigger(),1)
+--
+--	InitTrigger()
+--	TriggerCondition( 1, HasCredit,10 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerCondition( 1, HasItem, 855, 10)
+--	TriggerAction( 1, DelRoleCredit, 10 )
+--	TriggerAction( 1, TakeItem, 855, 10)
+--	TriggerAction( 1, GiveItem, 0456,1,4 )
+--	TriggerAction( 1, JumpPage,10 )
+--	TriggerFailure( 1, JumpPage, 11)
+--	Text(9,"Зї»Їѕ§КЇ: РиТЄГыЙщ10Ј¬ѕ«БйУІ±Т10ёц" ,MultiTrigger,GetMultiTrigger(),1)
+--
+--	InitTrigger()
+--	TriggerCondition( 1, HasCredit,20 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerCondition( 1, HasItem, 855, 20)
+--	TriggerAction( 1, DelRoleCredit, 20 )
+--	TriggerAction( 1, TakeItem, 855, 20)
+--	TriggerAction( 1, GiveItem, 0455,1,4 )
+--	TriggerAction( 1, JumpPage,10 )
+--	TriggerFailure( 1, JumpPage, 11)
+--	Text(9,"Зї»ЇѕнЦб: РиТЄГыЙщ20Ј¬ѕ«БйУІ±Т20ёц" ,MultiTrigger,GetMultiTrigger(),1)
+--
+--	InitTrigger()
+--	TriggerCondition( 1, HasCredit,30 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerCondition( 1, HasItem, 855, 30)
+--	TriggerAction( 1, DelRoleCredit, 30 )
+--	TriggerAction( 1, TakeItem, 855, 30)
+--	TriggerAction( 1, GiveItem, 0453,1,4 )
+--	TriggerAction( 1, JumpPage,10 )
+--	TriggerFailure( 1, JumpPage, 11)
+--	Text(9,"ИЫєПѕнЦб: РиТЄГыЙщ30Ј¬ѕ«БйУІ±Т30ёц" ,MultiTrigger,GetMultiTrigger(),1)
+--
+--	InitTrigger()
+--	TriggerCondition( 1, HasCredit,50 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerCondition( 1, HasItem, 855, 50)
+--	TriggerAction( 1, DelRoleCredit, 50 )
+--	TriggerAction( 1, TakeItem, 855, 50)
+--	TriggerAction( 1, GiveItem, 0332,1,4 )
+--	TriggerAction( 1, JumpPage,10 )
+--	TriggerFailure( 1, JumpPage, 11)
+--	Text(9,"ґє·з»ъЖ±: РиТЄГыЙщ50Ј¬ѕ«БйУІ±Т50ёц" ,MultiTrigger,GetMultiTrigger(),1)
+--
+--	InitTrigger()
+--	TriggerCondition( 1, HasCredit,80 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerCondition( 1, HasItem, 855, 80)
+--	TriggerAction( 1, DelRoleCredit, 80 )
+--	TriggerAction( 1, TakeItem, 855, 80)
+--	TriggerAction( 1, GiveItem, 0583,1,4 )
+--	TriggerAction( 1, JumpPage,10 )
+--	TriggerFailure( 1, JumpPage, 11)
+--	Text(9,"Зпµє»ъЖ±: РиТЄГыЙщ80Ј¬ѕ«БйУІ±Т80ёц" ,MultiTrigger,GetMultiTrigger(),1)
+--
+--	InitTrigger()
+--	TriggerCondition( 1, HasCredit,120 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerCondition( 1, HasItem, 855, 120)
+--	TriggerAction( 1, DelRoleCredit, 120 )
+--	TriggerAction( 1, TakeItem, 855, 120)
+--	TriggerAction( 1, GiveItem, 3094,1,4 )
+--	TriggerAction( 1, JumpPage,10 )
+--	TriggerFailure( 1, JumpPage, 11)
+--	Text(9,"Е¬Б¦Фц·щЖч: РиТЄГыЙщ120Ј¬ѕ«БйУІ±Т120ёц" ,MultiTrigger,GetMultiTrigger(),1)
+--
+--	Text(9,"Next Page", JumpPage , 12)
+--
+--	Talk(12, "ДъєГЈ¬ОТГЗХвАпЦ»ПтУРГыНыµДИЛїЄ·ЕЎЈЦ»УРДъУРЧг№»µДГыЙщЈ¬ДъїЙТФФЪХвАп»»µЅЛщУРДъПлТЄµД¶«ОчЈ¬І»№эН¬К±ОТГЗТІ»бїЫіэДъµДТ»Ії·Цѕ«БйУІ±ТЧчОЄКЦРш·СЕ¶ЎЈ")
+--
+--	InitTrigger()
+--	TriggerCondition( 1, HasCredit,150 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerCondition( 1, HasItem, 855, 150)
+--	TriggerAction( 1, DelRoleCredit, 150 )
+--	TriggerAction( 1, TakeItem, 855, 150)
+--	TriggerAction( 1, GiveItem, 1095,1,4 )
+--	TriggerAction( 1, JumpPage,10 )
+--	TriggerFailure( 1, JumpPage, 11)
+--	Text(12,"99±¬ХЁ°ь: РиТЄГыЙщ150Ј¬ѕ«БйУІ±Т150ёц" ,MultiTrigger,GetMultiTrigger(),1)
+--
+--	InitTrigger()
+--	TriggerCondition( 1, HasCredit,200 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerCondition( 1, HasItem, 855, 200)
+--	TriggerAction( 1, DelRoleCredit, 200 )
+--	TriggerAction( 1, TakeItem, 855, 200)
+--	TriggerAction( 1, GiveItem, 2844,1,4 )
+--	TriggerAction( 1, JumpPage,10 )
+--	TriggerFailure( 1, JumpPage, 11)
+--	Text(12,"µШУь4Іг»ъЖ±: РиТЄГыЙщ200Ј¬ѕ«БйУІ±Т200ёц" ,MultiTrigger,GetMultiTrigger(),1)
+--
+--	InitTrigger()
+--	TriggerCondition( 1, HasCredit,300 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerCondition( 1, HasItem, 855, 300)
+--	TriggerAction( 1, DelRoleCredit, 300 )
+--	TriggerAction( 1, TakeItem, 855, 300)
+--	TriggerAction( 1, GiveItem, 3336,1,4 )
+--	TriggerAction( 1, JumpPage,10 )
+--	TriggerFailure( 1, JumpPage, 11)
+--	Text(12,"ЙсЛгІЭ: РиТЄГыЙщ300Ј¬ѕ«БйУІ±Т300ёц" ,MultiTrigger,GetMultiTrigger(),1)
+--
+--	InitTrigger()
+--	TriggerCondition( 1, HasCredit,1000 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerCondition( 1, HasItem, 855, 1000)
+--	TriggerAction( 1, DelRoleCredit, 1000 )
+--	TriggerAction( 1, TakeItem, 855, 1000)
+--	TriggerAction( 1, GiveItem, 3088,1,4 )
+--	TriggerAction( 1, JumpPage,10 )
+--	TriggerFailure( 1, JumpPage, 11)
+--	Text(12,"28ёс±і°ь: РиТЄГыЙщ1000Ј¬ѕ«БйУІ±Т1000ёц" ,MultiTrigger,GetMultiTrigger(),1)
+--
+--	InitTrigger()
+--	TriggerCondition( 1, HasCredit,4700 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerCondition( 1, HasItem, 855, 4700)
+--	TriggerAction( 1, DelRoleCredit, 4700 )
+--	TriggerAction( 1, TakeItem, 855, 4700)
+--	TriggerAction( 1, GiveItem, 1028,1,4 )
+--	TriggerAction( 1, JumpPage,10 )
+--	TriggerFailure( 1, JumpPage, 11)
+--	Text(12,"Д¦Б¦·ыКЇ: РиТЄГыЙщ4700Ј¬ѕ«БйУІ±Т4700ёц" ,MultiTrigger,GetMultiTrigger(),1)
+--
+--	Text(12, "Go back a page", JumpPage , 9 )
+--
+--	Talk( 10, "Р»Р»»Э№ЛЈ¬»¶У­ФЩґО№вБЩ")
+--
+--	Talk( 11, "Зл±ЈЦ¤ДъµД±і°ьБфУРїХёс,Н¬К±ґ¦УЪОґЛш¶ЁµДЧґМ¬,ТЄІ»ѕНКЗДъµДЙщНыІ»№»»тХЯѕ«БйУІ±ТІ»№»¶аЕ¶.....",CloseTalk)
 
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 255 )
@@ -444,23 +1052,39 @@ function r_talk05()
 	TriggerAction( 1, JumpPage, 2 )
 	TriggerFailure( 1, JumpPage, 1 )
 
+
 	Start( GetMultiTrigger(), 1 )
 
 	MisListPage(2)
 
-	AddNpcMission ( 268  )
-	AddNpcMission ( 269  )
-	AddNpcMission ( 288  )
-	AddNpcMission ( 502  )
-	AddNpcMission ( 334  )
+	AddNpcMission ( 268 )
+	AddNpcMission ( 269 )
+	AddNpcMission ( 288 )
+	AddNpcMission ( 502 )
+	AddNpcMission ( 334 )
 	AddNpcMission ( 6081 )
+
 end 
 
-function r_talk06()
-	Talk( 1,  "Малыш Даниэль: Доводилось вам быть у святыни в пустыне? Или в Одинокой башне в чаще Священного леса? В молодом возрасте нужно больше исследовать мир. " )
-	Text( 1,  "Сделать Генератор древних ",JumpPage,2)
-	Text( 1,  "У меня мало времени, чтобы слушать истории.", CloseTalk)
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ѕЖ°ЙЕ® - µЩДИЅбКш
 
+
+
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[РЎЙЅіµ]				--
+--							--
+--		219350,273050				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk06 ()
+	
+	
+	Talk( 1, "Little Daniel: Young adventurers should not be afraid to explore the world. There are many beautiful things waiting to be discovered. Have you been to the great shrine in the desert? How about the Lone Tower in the deep Sacred forest?" )
+	--Text( 1, "Learn Navigation Skill", BuyPage )
+	Text( 1, "I do not have time for story now.", CloseTalk)
+	Text(1,"Show Little Daniel those Robot Cores in your inventory",JumpPage,2)
 	
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3933, 10 )
@@ -470,13 +1094,13 @@ function r_talk06()
 	TriggerAction( 1, GiveItem, 1812, 1, 4 )
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 2,  "Малыш Дэниэль: Ох, опять эти детали машин. В последнее время мы все чаще находим их в телах пиратов! Принесите мне 10 Деталей робота и 5000 золотых и я сделаю для вас Генератор древних. " )
-	Text( 2,  "Сделать Генератор древних ",  MultiTrigger, GetMultiTrigger(), 1 )
-	Text( 2,  "Нет, я передумал. ", CloseTalk)
+	Talk( 2, "Little Daniel: Oh my...I did not expect you to bring so many mechanical core. Bring me 10 Robot Core and 5000G so that I can make a Ancient Generator for you." )
+	Text( 2, "Ok I will pay the (5000G) fee",  MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 2, "Let me consider", CloseTalk)
 
-	Talk( 3,  "Малыш Дэниэль: Вот, держите Генератор древних. Он позволит вам проникнуть в Заброшенный город. Приходите если вам потребуется еще. ")
+	Talk(3, "Little Daniel: Keep it well. This is the Ancient Generator that you will need to get inside Forsaken City. Come to me if you need more.")
 
-	Talk( 4,  "Малыш Дэниель: Простите, у вас нет 10 Деталей робота или 5000 золотых. ")
+	Talk(4, "Little Daniel: Sorry, you need to give me 10 Robot Cores and 5000G to make 1 Ancient Generator.")
 
 	InitTrade()
 	Other(	3243	)
@@ -538,46 +1162,66 @@ function r_talk06()
 
 	Start( GetMultiTrigger(), 1 )
 
-	AddNpcMission (	1045 )
-	AddNpcMission (	1099 )
-	AddNpcMission (	1157 )
-	AddNpcMission (	758  )
-	AddNpcMission (	103  )
-	AddNpcMission (	191  )
-	AddNpcMission (	192  )
-	AddNpcMission (	193  )
-	AddNpcMission (	197  )
-	AddNpcMission (	1225 )
-	AddNpcMission (	503	 )
-	AddNpcMission (	330  )
-	AddNpcMission (	331  )
-	AddNpcMission (	332  )
-	AddNpcMission (	335  )
-	AddNpcMission (	359  )
-	AddNpcMission (	360  )
-	AddNpcMission (	361  )
-	AddNpcMission (	362  )
-	AddNpcMission (	363  )
-	AddNpcMission (	364  )
-	AddNpcMission (	365  )
-	AddNpcMission (	366  )
-	AddNpcMission (	367  )
-	AddNpcMission (	368  )
-	AddNpcMission (	369  )
-	AddNpcMission (	370  )
-	AddNpcMission (	371  )
-	AddNpcMission (	522  )
-	AddNpcMission (	5058 )
-	AddNpcMission (	5062 )
+	--AddNpcMission ( 748 )
+	AddNpcMission	(1045)
+	AddNpcMission	(1099)
+	AddNpcMission	(1157)
+	AddNpcMission	(758)
+	AddNpcMission	(103)
+	AddNpcMission	(191)
+	AddNpcMission	(192)
+	AddNpcMission	(193)
+	AddNpcMission	(197)
+	AddNpcMission(	1225	)
+	AddNpcMission(	503	)
+	AddNpcMission	(330)
+	AddNpcMission	(331)
+	AddNpcMission	(332)
+	AddNpcMission	(335)
+	AddNpcMission	(359)
+	AddNpcMission	(360)
+	AddNpcMission	(361)
+	AddNpcMission	(362)
+	AddNpcMission	(363)
+	AddNpcMission	(364)
+	AddNpcMission	(365)
+	AddNpcMission	(366)
+	AddNpcMission	(367)
+	AddNpcMission	(368)
+	AddNpcMission	(369)
+	AddNpcMission	(370)
+	AddNpcMission	(371)
+	AddNpcMission	(522)
+------------eleven
+	AddNpcMission	(5058)
+	AddNpcMission	(5062)
+	
 
 	MisListPage(2)
+
 end 
 
-function r_talk07()
-	Talk( 1,  "Джимбери: Привет! Могу я тебе чем-нибудь помочь? " )
-	Text( 1,  "Торг ", BuyPage )
-	Text( 1,  "Ничего... ",CloseTalk )
-	Text( 1,  "Сделать Маску реальности. ",JumpPage, 2 )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<РЎЙЅіµЅбКш
+
+
+
+
+
+
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[ФУ»хЙМИЛ - јЄЖХБў]			--
+--							--
+--		225075,277025				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk07 ()
+
+	Talk( 1, "Jimberry: Hi, welcome! How can I help you?" )
+	Text( 1, "Trade", BuyPage )
+	Text( 1, "Nothing...",CloseTalk )
+	Text( 1, "Redeem Reality Mask",JumpPage, 2 )
 
 	InitTrade()
 	Other(	3297	)
@@ -622,10 +1266,12 @@ function r_talk07()
 	Other(	4604	)
 	Other(	3296	)
 	Other(	3299	)
+	--baby--Йъ»ојјДЬКйLv1
 	Other(	2679	)
 	Other(	2689	)
 	Other(	2699	)
 	Other(	2709	)
+	--leo
 	Other(	1611	)
 	Other(	1682	)
 	Other(	1842	)
@@ -649,7 +1295,10 @@ function r_talk07()
 	Other(	1703	)
 	Other(	3288	)
 	Other(  2440    )
+	--AddNpcMission	(5501)
 
+
+	---bragi
 	InitTrigger()
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
 	TriggerCondition( 1, KitbagLock, 0 )
@@ -662,8 +1311,22 @@ function r_talk07()
 	TriggerAction( 1, GiveItem, 2326, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 2,  "Для создания Маски реальности необходимы 1 Эльфийская печать, 10000 золота и 10 любых ресурсов 3 уровня. " )
-	Text( 2,  "Обменять Осколок кости на Маску реальности. ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 2, "To obtain a Reality Mask requires 1 Elven Signet, 10000G and any of 10x Lv3 gathered resource" )
+	Text( 2, "Bones to change a Reality Mask", MultiTrigger, GetMultiTrigger(), 1)
+
+	---InitTrigger()
+	---TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	---TriggerCondition( 1, KitbagLock, 0 )
+	---TriggerCondition( 1, HasItem, 2588, 1 )
+	---TriggerCondition( 1, HasItem, 1842, 10 )
+	---TriggerCondition( 1, HasMoney, 10000 )
+	---TriggerAction( 1, TakeItem, 2588, 1 )
+	---TriggerAction( 1, TakeItem, 1842, 10 )
+	---TriggerAction( 1, TakeMoney, 10000 )
+	---TriggerAction( 1, GiveItem, 2326, 1 , 4)
+	---TriggerAction( 1, JumpPage, 3 )
+	---TriggerFailure( 1, JumpPage, 4 )
+	---Text( 2, "Exchange Razor Tooth for Reality Mask", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
@@ -677,7 +1340,7 @@ function r_talk07()
 	TriggerAction( 1, GiveItem, 2326, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 4 )
-	Text( 2,  "Обменять Руду на Маску реальности. ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 2, "Crystal Eolith to change a Reality Mask", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
@@ -691,7 +1354,7 @@ function r_talk07()
 	TriggerAction( 1, GiveItem, 2326, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 4 )
-	Text( 2,  "Обменять Дерево на Маску реальности. ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 2, "Teak Wood Log to change a Reality Mask ", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
@@ -705,15 +1368,28 @@ function r_talk07()
 	TriggerAction( 1, GiveItem, 2326, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 4 )
-	Text( 2,  "Обменять Сашими на Маску реальности. ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 2, "Bubble Fish to change a Reality Mask", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 3,  "Джимбери: Держите! Маска реальности готова. " )
-	Talk( 4,  "Джимбери: Вы не имеете всех необходимых компонентов или ваш инвентарь заблокирован. " )
+	Talk( 3, "Jimberry: Keep it well, this is important!" )
+	Talk( 4, "Jimberry: You do not seem to have enough materials. Your inventory may be binded or you do not have enough free slots." )
+
 end 
 
-function r_talk08()
-	Talk( 1,  "Маргарет: Привет! Вчера по телевидению... Хахаха... видела его. Он такой забавный... " )
-	Text( 1,  "Сделать укрепляющую пищу ", JumpPage, 2)
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ФУ»хЙМИЛ - јЄЖХБўЅбКш
+
+
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[ѕУГсЎ¤ВкёсАцМШ]			--
+--							--
+--		227459,277722				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk08 ()
+
+	Talk( 1, "Margaret: You...Hahaha...Hello. Yesterday on television...Hahaha...Did you watch it. Hohoho...Its so funny! Hahaha..." )
+	Text( 1, "Bake Pastry", JumpPage, 2)
 	
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1777, 1 )
@@ -723,8 +1399,8 @@ function r_talk08()
 	TriggerAction( 1, GiveItem, 3122, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 2,  "Вы хотите действительно вкусную и полезную пищу? Тогда вы действительно по адресу! " )
-	Text( 2,  "Сделать Сок эльфийского фрукта. ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 2, "Margaret: You have good foresight! Not that I am boosting, but I watched the 'Iron Chef' on television daily! The foodstuff I made are just delicious. Hehe" )
+	Text( 2, "Mix Elven Fruit Juice", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1777, 1 )
@@ -734,7 +1410,7 @@ function r_talk08()
 	TriggerAction( 1, GiveItem, 3123, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 5 )
-	Text( 2,  "Сделать Чай из красных фиников. ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 2, "Brew Red Date Tea", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1777, 1 )
@@ -744,7 +1420,7 @@ function r_talk08()
 	TriggerAction( 1, GiveItem, 3124, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Text( 2,  "Сделать Грибной суп. ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 2, "Make Mushroom Soup", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1777, 1 )
@@ -754,7 +1430,7 @@ function r_talk08()
 	TriggerAction( 1, GiveItem, 3125, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 7 )
-	Text( 2,  "Сделать Сок плодов дурмана. ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 2, "Mix Stramonium Juice", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1777, 1 )
@@ -764,35 +1440,49 @@ function r_talk08()
 	TriggerAction( 1, GiveItem, 3126, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 2,  "Сделать Мороженное ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 2, "Make Ice Cream", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 3,  "Маргарет: Вот то что вы хотели! Не больше и не меньше. " )
+	Talk( 3, "Margaret: This is what you wanted. No more no less." )
+	Talk( 4, "Margaret: Sorry, you do not have the required items. Elven Fruit Juice needs 10 Elven Fruits and 1 Glass to mix." )
+	Talk( 5, "Margaret: Sorry, you do not have the required items. Red Date Tea needs 10 Red Dates and 1 Glass to make." )
+	Talk( 6, "Margaret: Sorry, you do not have the required items. Mushroom Soup requires 10 Mushroom and 1 Glass to make." )
+	Talk( 7, "Margaret: Sorry, you do not have the required items for the recipe. It requires 10 Stramonium Fruits and 1 Glass to mix." )
+	Talk( 8, "Margaret: Sorry! You do not have the required items. You need 10 Ice Fruits and 1 Glass to make an Ice Cream." )
+	AddNpcMission	(1023)
+	AddNpcMission	(1080)
+	AddNpcMission	(1135)
+	AddNpcMission	(1186)
+	AddNpcMission(	1223	)
+	
 
-	Talk( 4,  "Маргарет: Чтобы сделать 1 Сок эльфийского фрукта необходимо 10 Эльфийских фруктов и 1 Стакан. " )
 
-	Talk( 5,  "Margaret: Чтобы сделать 1 Чай из красных фиников необходимо 10 Красных фиников и 1 Стакан. " )
 
-	Talk( 6,  "Маргарет: Чтобы сделать 1 Грибной суп необходимо 10 Грибов и 1 Стакан. " )
 
-	Talk( 7,  "Маргарет: Чтобы сделать 1 Сок плодов дурмана необходимо 10 Плодов дурмана и 1 Стакан. " )
-
-	Talk( 8,  "Маргарет: Чтобы сделать 1 Мороженное необходимо 10 Ледянных фруктов и 1 Стакан. " )
-
-	AddNpcMission (	1023 )
-	AddNpcMission (	1080 )
-	AddNpcMission (	1135 )
-	AddNpcMission (	1186 )
-	AddNpcMission (	1223 )
 end 
 
-function r_talk09()
-	Talk( 1,  "Мариам: Вас интересуют лучшие краски для волос? " )		
-	Text( 1,  "Сделать краситель для волос. ", JumpPage, 2)
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ѕУГсЎ¤ВкёсАцМШ
 
--- Рождественский ивент
---	Text(1,  "Приготовить Вкусное индюшачье мясо ", JumpPage, 10)
---	Text(1,  "Приготовить Рождественский обед ", JumpPage, 13)
 
+----------------------------------------------------------
+--							--
+--							--
+
+	--°ЧТшіЗ[ВГµкАП°еЎ¤ВкА­ТААј]		--
+--							--
+--		221150,278125				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk09 ()
+	
+	
+	Talk( 1, "Marriam: Hi, I am the Innkeeper. Want to stay for a few days? Or maybe a new hairstyle?" )		
+	Text( 1, "Decoct Hair Colorant", JumpPage, 2)
+	
+	--Text(1, "Cook a delicious turkeyt", JumpPage, 10)
+	--Text(1, "Cook Christmas meal", JumpPage, 13)
+	
+	
+---------------------ЕлµчГАО¶µД»рј¦Ив
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2886, 10 )
 	TriggerCondition( 1, HasMoney, 10000 )
@@ -802,16 +1492,16 @@ function r_talk09()
 	TriggerAction( 1, GiveItem, 2895, 1 , 4)
 	TriggerAction( 1, JumpPage, 11 )
 	TriggerFailure( 1, JumpPage, 12)
-	Talk( 10,  "Мариам: Мне требуется 10 Индюшатины и 10000 золота. ")
-	Text( 10,  "Приготовить ",  MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 10, "Marriam: Want some extra juicy and delicious turkey meat? Bring me 10 slices of turkey meat and 10000 coins.")
+	Text(10, "Confirm and Cook",  MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 11,  "Мариам: Вот Вкусное мясо индюшки! Надеюсь вы оцените его сочный вкус! " )
+	Talk(11, "Marriam: The delicious turkey meat was cooked by me, come and try some to see how it tastes?" )
 
-	Talk( 13,  "Мариам: Каждому положено не более трех Рождественских обедов! ")
-	Text( 13,  "Первый Рождественский обед. ",  JumpPage, 15)
-	Text( 13,  "Второй Рождественский обед. ",  JumpPage, 16)
-	Text( 13,  "Третий Рождественский обед. ", JumpPage, 17)
-
+	Talk( 13, "Marriam: If you give me some Christmas roses, I can cook a Christmas Meal. Since it is a very demanding job, I will only cook this feast 3 times, and the cooking fee will become more expensive each time!")
+	Text(13, "Cook Christmas Meal the First Time",  JumpPage, 15)
+	Text(13, "Cook Christmas Meal the Second time",  JumpPage, 16)
+	Text(13, "Cook Christmas Meal the Third time", JumpPage, 17)
+	---------------------ЕлµчКҐµ®ґуІН
 	InitTrigger()
 	TriggerCondition( 1, NoRecord, 815 )
 	TriggerCondition( 1, HasItem, 2895, 10 )
@@ -825,9 +1515,12 @@ function r_talk09()
 	TriggerAction( 1, SetRecord, 815 )
 	TriggerAction( 1, JumpPage, 11 )
 	TriggerFailure( 1, JumpPage, 14 )
-	Talk( 15,  "Мариам: Сделать хороший Рождественнский обед не просто. Мне необходимы 10 кусков Вкусной индюшатины и 1 Рождественнская роза. Также вы должны заплатить 10000 золота. Я смогу приготовить Рождественнский обед лишь 3 раза! ")
-	Text( 15,  "Приготовить ",  MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 15, "ItЎЇs not easy to cook Christmas meal, I need 10 pieces of turkey meat , a Christmas Rose,and 10000 coins. A Christmas Rose can be found in the Item Mall and I will only cook the meal for each person 3 times at most.")
+	Text( 15, "Confirm and Cook",  MultiTrigger, GetMultiTrigger(), 1)
 
+	
+
+	---------------------ЕлµчКҐµ®ґуІН
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 815 )
 	TriggerCondition( 1, NoRecord, 816 )
@@ -842,9 +1535,10 @@ function r_talk09()
 	TriggerAction( 1, SetRecord, 816 )
 	TriggerAction( 1, JumpPage, 11 )
 	TriggerFailure( 1, JumpPage, 18 )
-	Talk( 16,  "Мариам: Сделать хороший Рождественнский обед не просто. Мне необходимы 10 кусков Вкусной индюшатины и 1 Рождественнская роза. Также вы должны заплатить 1000000 золота. Я смогу приготовить Рождественнский обед лишь 3 раза! ")
-	Text( 16,  "Приготовить ",  MultiTrigger, GetMultiTrigger(), 1)
+	Talk(16, "Want me to cook again? I need 10 pieces of turkey meat, a Christmas Rose and 1,000,000 coin.  A Christmas Rose can be found in the Item Mall and I will only cook the meal for each person 3 times at most.")
+	Text( 16, "Confirm and Cook",  MultiTrigger, GetMultiTrigger(), 1)
 
+	---------------------ЕлµчКҐµ®ґуІН
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 816 )
 	TriggerCondition( 1, NoRecord, 817 )
@@ -859,17 +1553,13 @@ function r_talk09()
 	TriggerAction( 1, SetRecord, 817 )
 	TriggerAction( 1, JumpPage, 11 )
 	TriggerFailure( 1, JumpPage,19 )
-	Talk( 17,  "Мариам: Сделать хороший Рождественнский обед не просто. Мне необходимы 10 кусков Вкусной индюшатины и 1 Рождественнская роза. Также вы должны заплатить 10000000 золота. Я смогу приготовить Рождественнский обед лишь 3 раза! ")
-	Text( 17,  "Приготовить ",  MultiTrigger, GetMultiTrigger(), 1)
-
-	Talk( 14,  "Мариам: Кажется вы не имеете всех необходимых компонентов или достаточно золота! Также вы должны иметь 1 свободную ячейку в инвентаре. Вы делаете Рождественнский обед впервые? Вы сможете приготовить его лишь 3 раза! ")
-
-	Talk( 18,  "Мариам: Кажется вы не имеете всех необходимых компонентов или достаточно золота! Также вы должны иметь 1 свободную ячейку в инвентаре. Вы делаете Рождественнский обед второй раз? Вы сможете приготовить его лишь 3 раза! ")
-
-	Talk( 19,  "Мариам: Кажется вы не имеете всех необходимых компонентов или достаточно золота! Также вы должны иметь 1 свободную ячейку в инвентаре. Вы делаете Рождественнский обед в третий раз? Вы сможете приготовить его лишь 3 раза! ")
-
-	Talk( 12,  "Мариам: Кажется вы не имеете всех необходимых компонентов или достаточно золота! Также вы должны иметь 1 свободную ячейку в инвентаре. ")
-
+	Talk(17, "Want me to cook again? I need 10 pieces of turkey meat, a Christmas Rose and 10,000,000 coin.  A Christmas Rose can be found in the Item Mall and I will only cook the meal for each person 3 times at most.")
+	Text( 17, "Confirm and Cook",  MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 14, "Marriam: It seems you donЎЇt have enough items and money. You also need to make sure there is one available slot in your backpack. Is this your first time to let me cook Christmas meal? I will only do it 3 times. ")
+	Talk( 18, "Marriam: It seems you donЎЇt have enough items and money. You also need to make sure there is one available slot in your backpack. Is this your second time to let me cook Christmas meal? I will only do it 3 times. ")
+	Talk( 19, " It seems you donЎЇt have enough items and money. You also need to make sure there is one available slot in your backpack. Is this your third time to let me cook Christmas meal? I will only do it 3 times. ")
+	Talk( 12, " It seems you donЎЇt have enough items and money. You also need to make sure there is one available slot in your backpack.")
+------------------µчЕдємЙ«Иѕ·ўјБ
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1787, 5 )
 	TriggerCondition( 1, HasItem, 1657, 1 )
@@ -882,9 +1572,9 @@ function r_talk09()
 	TriggerAction( 1, GiveItem, 1797, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 2,  "Мариам: Иметь один и тот же цвет прически постоянно скучно. Я могу приготовить для вас краситель для интересующего вас цвета. " )
-	Text( 2,  "Сделать Красный краситель ", MultiTrigger, GetMultiTrigger(), 1)
-
+	Talk( 2, "Marriam: Keeping the same color of hairdo will make you a boring person. I can decoct colored hair dyes for you if you wish." )
+	Text( 2, "Decoct Red Colorant", MultiTrigger, GetMultiTrigger(), 1)
+---------------------µчЕдіИЙ«Иѕ·ўјБ
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1788, 5 )
 	TriggerCondition( 1, HasItem, 1657, 1 )
@@ -897,8 +1587,8 @@ function r_talk09()
 	TriggerAction( 1, GiveItem, 1798, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 5 )
-	Text( 2,  "Сделать Оранжевый краситель ", MultiTrigger, GetMultiTrigger(), 1)
-
+	Text( 2, "Decoct Orange Colorant", MultiTrigger, GetMultiTrigger(), 1)
+---------------------µчЕдєЪЙ«Иѕ·ўјБ
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 4606, 5 )
 	TriggerCondition( 1, HasItem, 1657, 1 )
@@ -911,8 +1601,8 @@ function r_talk09()
 	TriggerAction( 1, GiveItem, 4607, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 2,  "Сделать Черный краситель ", MultiTrigger, GetMultiTrigger(), 1)
-
+	Text( 2, "Decoct Black Colorant", MultiTrigger, GetMultiTrigger(), 1)
+---------------------µчЕдєЦЙ«Иѕ·ўјБ
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 4608, 5 )
 	TriggerCondition( 1, HasItem, 1657, 1 )
@@ -925,13 +1615,11 @@ function r_talk09()
 	TriggerAction( 1, GiveItem, 4609, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 9 )
-	Text( 2,  "Сделать коричневый краситель ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 2, "Decoct Brown Colorant", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 3,  "Мариам: Готово! Возьмите этот превосходный краситель, сваренный именно для вас. " )
-
-	Talk( 4,  "Мариам: Чтобы приготовить 1 Красный краситель необходимо 5 Красной краски, 1 Особый газ, 1 Радужный стакан и 200 золотых. " )
-
-	Talk( 5,  "Мариам: Чтобы приготовить 1 Оранжевый краситель необходимо 5 Оранжевой краски, 1 Особый газ, 1 Радужный стакан и 200 золотых. " )
+	Talk( 3, "Marriam: Look! Its done! Take this nice colorant with you." )
+	Talk( 4, "Marriam: Red Colorant requires 5 Red Dye, 1 Special Gas, 1 Rainbow Glass and a 200G fee." )
+	Talk( 5, "Marriam: Orange Colorant requires 5 Orange Dye, 1 Special Gas, 1 Rainbow Glass and 200G to decoct." )
 
 	InitTrigger()
 	TriggerCondition( 1, LvCheck, "<", 2 )
@@ -939,227 +1627,641 @@ function r_talk09()
 	TriggerAction( 1, AddExpAndType,2,370500,370500)
 	TriggerAction( 1, AddMoney, 1000000 )
 	TriggerFailure( 1, JumpPage, 7 )
---	Talk( 6, "Мариам: To test PK, I will make you Lv 65 and add 1 million gold for you." )
---	Text( 6, "Хорошо ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 6, "Marriam: To test PK, I will make you Lv 65 and add 1 million gold for you." )
+	Text( 6, "Ok", MultiTrigger, GetMultiTrigger(), 1)
 
---	Talk( 7, "Мариам: Я только give this chance to level 1 new players." ) --Непоймишто О_____о
+	Talk( 7, "Marriam: I only give this chance to level 1 new players." )
 
-	Talk( 8,  "Мариам: Чтобы приготовить 1 Черный краситель необходимо 5 Черной краски, 1 Особый газ, 1 Радужный стакан и 200 золотых. " )
+	Talk( 8, "Marriam: Black Colorant requires 5 Black Dye, 1 Special Gas, 1 Rainbow Glass and 200G to decoct." )
+	Talk( 9, "Marriam: Brown Colorant requires 5 Brown Dye, 1 Special Gas, 1 Rainbow Glass and also 200G." )
 
-	Talk( 9,  "Мариам: Чтобы приготовить 1 Коричневой краситель необходимо 5 Коричневой краски, 1 Особый газ, 1 Радужный стакан и 200 золотых. " )
+	AddNpcMission	(1029)
+	AddNpcMission	(1192)
+	------------¶юФВ-----------ЗйОЄєООп-----------ЗгіЗЦ®Бµ------------РТФЛЦнЦн----------ЖЯЦнїЄМ©
+	--AddNpcMission	(5505)   		--7ЦнїЄМ©
+	--AddNpcMission	(5506)		--РТФЛЦнЦн
+	--AddNpcMission	(5508)			--ЗгіЗЦ®Бµ
+	--AddNpcMission	(5509)			--ЗгіЗЦ®Бµ
+	AddNpcMission	(5536)		--ЗгіЗЦ®Бµ
 
-	AddNpcMission (	1029 )
-	AddNpcMission (	1192 )
-	AddNpcMission (	5536 )
 end 
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ВГµкАП°еЎ¤ВкА­ТААј
 
-function r_talk11()
-	Talk( 1,  "Форбей: Привет! Я расскажу вам одну длинную историю... Подождите! Не уходите! " )
 
-	AddNpcMission (	1009 )
-	AddNpcMission (	1173 )
+
+
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[·рД·]				--
+--							--
+--		222629,272668				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk11 ()
+	
+	
+	Talk( 1, "Forbei: I have a riddle for you, what is 1 plus 1? Hoho, its 2! Isn't it funny? No? Let me change anotherЎ­Wait! Don't go!" )
+
+	--Text( 1, "Ties up Dumpling", JumpPage,2)
+
+	--Talk( 2, "0")
+	--Text( 2, "Egg Yolk dumpling",JumpPage,3)
+	--Text( 2, "Bean Paste Dumpling", JumpPage,4)
+	--Text( 2, "Sticky Rice Dumpling", JumpPage,5)
+
+	InitTrigger() --¶Т»»µ°»ЖфХ
+	TriggerCondition( 1, HasItem, 3037, 1 )
+	TriggerCondition( 1, HasItem, 3040, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 3037, 1 )
+	TriggerAction( 1, TakeItem, 3040, 1 )
+	TriggerAction( 1, GiveItem,3043, 1,4 )
+	TriggerFailure( 1, JumpPage, 6 ) 
+	Talk(3, "Forbei: 1 Egg Yolk Dumpling String + 1 Warm Dumpling=1 Egg yolk dumpling. Egg yolk dumpling can raise defense by 60 points in 10 minutes.")
+	Text( 3, "Comfirm",MultiTrigger, GetMultiTrigger(), 1) 
+
+	InitTrigger() --¶Т»»¶№ЙіфХ
+	TriggerCondition( 1, HasItem, 3037, 1 )
+	TriggerCondition( 1, HasItem, 3041, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+        TriggerAction( 1, TakeItem, 3037, 1 )
+	TriggerAction( 1, TakeItem, 3041, 1 )
+	TriggerAction( 1, GiveItem,3044, 1,4 )
+	TriggerFailure( 1, JumpPage, 6 ) 
+	Talk(4, "Forbei: 1 red bean dumpling string + 1 warm dumpling=1 red bean dumpling. Red bean dumpling can greatly increase walking speed in 15 minutes.")
+	Text( 4, "Comfirm",MultiTrigger, GetMultiTrigger(), 1) 
+	
+	InitTrigger() --¶Т»»ЕґГЧфХ
+	TriggerCondition( 1, HasItem, 3037, 1 )
+	TriggerCondition( 1, HasItem, 3042, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+        TriggerAction( 1, TakeItem, 3037, 1 )
+	TriggerAction( 1, TakeItem, 3042, 1 )
+	TriggerAction( 1, GiveItem,3045, 1,4 )
+	TriggerFailure( 1, JumpPage, 6 ) 
+	Talk(5, "Forbei: 1 Sticky Rice Dumpling String + 1 Warm Dumpling=1 Sticky Rice Dumpling. Sticky Rice Dumpling can recover 35% HP")
+	Text( 5, "Comfirm",MultiTrigger, GetMultiTrigger(), 1) 
+	
+	Talk( 6, "Forbei: You do have have enough space to make a dumpling! Your bag could also be locked, please confirm you have one space inside your inventory.")
+	AddNpcMission	(1009)
+	AddNpcMission	(1173)
+
+	-----МъИЛБщПо
 	AddNpcMission ( 6123 )
 	AddNpcMission ( 6124 )
 end 
 
-function r_talk12()
-	Talk( 1,  "Коди: Привет! Я моряк Коди. " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<·рД·
 
-	AddNpcMission (	1039 )
-	AddNpcMission (	1202 )
-	AddNpcMission (	80	 )
-	AddNpcMission (	81	 )
-	AddNpcMission (	79	 )
-	AddNpcMission (	5510 )
+
+
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[Л®КЦЎ¤єЈФЖ]			--
+--							--
+--		235013,284694				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk12 ()
+	
+	
+	Talk( 1, "Coddy: Hi, I am Sailor Coddy." )
+
+--	InitTrigger()
+--	TriggerCondition( 1, HasMission, 1043 )
+--	TriggerCondition( 1, HasRecord, 1042 )
+--	TriggerCondition( 1, NoRecord, 1058 )
+--	TriggerAction( 1, JumpPage, 2 )
+--	TriggerFailure( 1, JumpPage, 3 )
+--	Text( 1, "First question",MultiTrigger, GetMultiTrigger(), 1 )
+--
+--	InitTrigger()
+--	TriggerAction( 1, SetRecord, 1044 )
+--	TriggerAction( 1, SetRecord, 1058 )
+--	TriggerAction( 1, JumpPage, 4 )
+--	Talk( 2, "Is killing Mystic Shrubs fun?")
+--	Text( 2, "Good",MultiTrigger, GetMultiTrigger(), 1 )
+--
+--	InitTrigger()
+--	TriggerAction( 1, SetRecord, 1045 )
+--	TriggerAction( 1, SetRecord, 1058 )
+--	TriggerAction( 1, JumpPage, 5 )
+--	Text( 2, "Not happy",MultiTrigger, GetMultiTrigger(), 1  )
+
+
+--	Talk( 3, "Who are you? I do not know you!")
+--	Talk( 4, "Good? LetЎЇs continue.")
+--	Talk( 5, "No satisfied? LetЎЇs change another for you to kill")
+
+	AddNpcMission	(1039)
+	AddNpcMission	(1202)
+	AddNpcMission	(80)
+	AddNpcMission	(81)
+	AddNpcMission	(79)
+	----------------јЄДбЛ№-єЈФЖ---01
+	AddNpcMission	(5510)
+	--AddNpcMission ( 6061 )
+	--AddNpcMission ( 6062 )
+	--AddNpcMission ( 6063 )
+	--AddNpcMission ( 6064 )
+	--AddNpcMission ( 6065 )
+	--AddNpcMission ( 6066 )
+	--AddNpcMission ( 6067 )
+	--AddNpcMission ( 6068 )
+
 end 
 
-function r_talk13()	
-	Talk( 1,  "Моника: Привет! Я банкир Моника! В нашем банке ваши вещи всегда под надежной защитой! " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Л®КЦЎ¤єЈФЖ
+
+
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[ТшРРіцДЙЎ¤Д¦ДЭСЕ]			--
+--							--
+--		222050,270400				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk13 ()
+	
+	
+	Talk( 1, "Monica: Hi, I am Banker Monica. Accounts can never go wrong with me around." )
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 200 )
 	TriggerAction( 1, TakeMoney, 200 )
 	TriggerAction( 1, OpenBank )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1,  "Хранилище (стоимость 200 золотых) ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 1, "Vault (200G Fee)", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 2, "Sorry, you do not have sufficient gold to pay for vault usage" )
 
-	Talk( 2,  "Простите, Вы не имеете достаточное количество золота! " )
-
-	AddNpcMission (	1050 )
-	AddNpcMission (	1212 )
+	AddNpcMission	(1050)
+	AddNpcMission	(1212)
 	AddNpcMission ( 6091 )
 	AddNpcMission ( 6092 )
+
+
 end 
 
-function r_talk14()
-	Talk( 1,  "Вильям: Привет, Я генерал Вильям. Тут я самый главный! " )
-	Text( 1,  "Пока.",CloseTalk )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ТшРРіцДЙЎ¤Д¦ДЭСЕ
 
-	AddNpcMission ( 207  )
-	AddNpcMission ( 208  )
-	AddNpcMission ( 209  )
-	AddNpcMission ( 212  )
-	AddNpcMission ( 213  )
-	AddNpcMission ( 216  )
-	AddNpcMission ( 274  )
-	AddNpcMission ( 275  )
-	AddNpcMission ( 276  )
-	AddNpcMission (	1016 )
-	AddNpcMission (	1179 )
-	AddNpcMission (	69	 )
-	AddNpcMission (	70	 )
-	AddNpcMission (	71	 )
-	AddNpcMission (	194  )
-	AddNpcMission (	195  )
-	AddNpcMission (	196  )
-	AddNpcMission (	318	 )
-	AddNpcMission (	323	 )
-	AddNpcMission (	324	 )
-	AddNpcMission (	5053 )
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[єЈѕьЙЩЅ«Ў¤Ню¶ыЛ№]			--
+--							--
+--		230228,270157				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk14 ()
+	
+	
+	Talk( 1, "William: Hi, I am General William. The highest authority around here." )
+	--Text( 1, "¶Т»»ѕьГ±", JumpPage, 3)
+	Text( 1, "Nothing...",CloseTalk )
+
+	Talk( 3, "Ню¶ыЛ№:ОТХвАпїЙТФУГѕьПОЦ¤Гч»»µГ·ЗіЈПЎУРµДѕьГ±Е¶." )
+	Text( 3, "¶Т»»ЙЩРЈѕьГ±", JumpPage, 4)
+	Text( 3, "¶Т»»ЦРРЈѕьГ±", JumpPage, 5)
+	Text( 3, "¶Т»»ЙПРЈѕьГ±", JumpPage, 6)
+	Text( 3, "¶Т»»Ѕ«ѕьѕьГ±", JumpPage, 7)
+	Text( 3, "¶Т»»ФЄЛ§ѕьГ±", JumpPage, 8)
+	
+	Talk( 4, "Ню¶ыЛ№:ПлТЄ¶Т»»ЙЩРЈЦ®КЧ,Дг±ШРлёшОТ1ХЕЙЩРЈѕьПОЦ¤ГчІЕРР." )
+	--------------¶Т»»ЙЩРЈЦ®КЧ
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 68, 1 )
+	TriggerAction( 1, TakeItem, 68, 1 )
+	TriggerAction( 1, GiveItem, 90, 1 , 4)
+	TriggerFailure( 1, JumpPage, 10 )
+	Text( 4, "ОТТЄ¶Т»»", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 4, "ґУ",CloseTalk )
+
+	Talk( 5, "Ню¶ыЛ№:ПлТЄ¶Т»»ЙЩРЈЦ®КЧ,Дг±ШРлёшОТ1ХЕЦРРЈѕьПОЦ¤ГчІЕРР." )
+	--------------¶Т»»ЦРРЈЦ®КЧ
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 69, 1 )
+	TriggerAction( 1, TakeItem, 69, 1 )
+	TriggerAction( 1, GiveItem, 91, 1 , 4)
+	TriggerFailure( 1, JumpPage, 10 )
+	Text( 5, "ОТТЄ¶Т»»", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 5, "ґУ",CloseTalk )
+
+	Talk( 6, "Ню¶ыЛ№:ПлТЄ¶Т»»ЙПРЈЦ®КЧ,Дг±ШРлёшОТ1ХЕЦРРЈѕьПОЦ¤ГчІЕРР." )
+	--------------¶Т»»ЙПРЈЦ®КЧ
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 70, 1 )
+	TriggerAction( 1, TakeItem, 70, 1 )
+	TriggerAction( 1, GiveItem, 92, 1 , 4)
+	TriggerFailure( 1, JumpPage, 10 )
+	Text( 6, "ОТТЄ¶Т»»", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 6, "ґУ",CloseTalk )
+
+	Talk( 7, "Ню¶ыЛ№:ПлТЄ¶Т»»Ѕ«ѕьЦ®КЧ,Дг±ШРлёшОТ1ХЕЦРРЈѕьПОЦ¤ГчІЕРР." )
+	--------------¶Т»»Ѕ«ѕьЦ®КЧ
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 71, 1 )
+	TriggerAction( 1, TakeItem, 71, 1 )
+	TriggerAction( 1, GiveItem, 93, 1 , 4)
+	TriggerFailure( 1, JumpPage, 10 )
+	Text( 7, "ОТТЄ¶Т»»", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 7, "ґУ",CloseTalk )
+
+	Talk( 8, "Ню¶ыЛ№:ПлТЄ¶Т»»ФЄЛ§Ц®КЧ,Дг±ШРлёшОТ1ХЕЦРРЈѕьПОЦ¤ГчІЕРР." )
+	--------------¶Т»»ФЄЛ§Ц®КЧ
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 72, 1 )
+	TriggerAction( 1, TakeItem, 72, 1 )
+	TriggerAction( 1, GiveItem, 94, 1 , 4)
+	TriggerFailure( 1, JumpPage, 10 )
+	Text( 8, "ОТТЄ¶Т»»", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 8, "ґУ",CloseTalk )
+
+	InitTrigger()
+	TriggerCondition( 1, HasMoney, 20000 )
+	TriggerAction( 1, TakeMoney, 20000 )
+	TriggerAction( 1, GiveItem, 4082, 1, 4)
+	Talk( 2, "William: What? What! You lost your token? The Chairman will not admit to anything without it! Luckily I still have another. I spend 20000G to get it but you can buy from me.")
+	Text( 2, "Ok, I will buy a Bounty Token", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 2, "Gannon: I am doing some research on ancient runestones. If you bring me enough, I will exchange them for something good." )
+	Text( 2, "Regarding Skeletar set items", JumpPage, 3)
+	Text( 2, "Regarding Incantation set", JumpPage, 4)
+	Text( 2, "Regarding Evanescence set items", JumpPage, 5)
+	Text( 2, "Regarding Enigma set items", JumpPage, 6)
+
+	Talk( 10, "Ню¶ыЛ№:ЗлИ·±ЈДъЙнЙПУР¶ФУ¦µДѕьПОЦ¤Гч." )
+
+	InitTrigger()
+	TriggerCondition( 1, HasMission, 248 )
+	TriggerCondition( 1, NoItem, 4082, 1 )
+	TriggerAction( 1, JumpPage, 2 )
+	TriggerCondition( 2, HasRecord, 249 )
+	TriggerCondition( 2, NoRecord, 250 )
+	TriggerCondition( 2, NoItem, 4082, 1 )
+	TriggerAction( 2, JumpPage, 2 )
+	TriggerFailure( 2, JumpPage, 1 )
+
+	Start( GetMultiTrigger(), 2 )
+
+	AddNpcMission ( 207 )
+	AddNpcMission ( 208 )
+	AddNpcMission ( 209 )
+	AddNpcMission ( 212 )
+	AddNpcMission ( 213 )
+	AddNpcMission ( 216 )
+	AddNpcMission ( 274 )
+	AddNpcMission ( 275 )
+	AddNpcMission ( 276 )
+	AddNpcMission	(1016)
+	AddNpcMission	(1179)
+	AddNpcMission	(69)
+	AddNpcMission	(70)
+	AddNpcMission	(71)
+	AddNpcMission	(194)
+	AddNpcMission	(195)
+	AddNpcMission	(196)
+	AddNpcMission	(318)
+	AddNpcMission	(323)
+	AddNpcMission	(324)
+----------eleven
+	AddNpcMission	(5053)
 
 	MisListPage(2)
-end
 
-function r_talk15()
-	Talk( 1,  "Ксиба: Хотя я и посол, но все же не могу проводить все свое время в работе. Вы также должны играть чтобы уравновесить это. " )
-
-	AddNpcMission (	1032 )
-	AddNpcMission (	1195 )
 end 
 
-function r_talk16()
-	Talk( 1,  "Рональд: Я правитель и отвечаю за всю торговлю в этом городе. Я могу научить вас как стать самым богатым в Аргенте. " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<єЈѕьЙЩЅ«Ў¤Ню¶ыЛ№
+
+
+
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[Йіб°іЗґуК№Ў¤ПЇ°Н]			--
+--							--
+--		225648,270640				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk15 ()
 	
-	AddNpcMission ( 271  )
-	AddNpcMission ( 277  )
-	AddNpcMission ( 278  )
-	AddNpcMission ( 280  )
-	AddNpcMission ( 286  )
-	AddNpcMission (	5076 )
-	AddNpcMission (	5077 )
-	AddNpcMission (	5078 )
-	AddNpcMission (	5079 )
-	AddNpcMission (	5088 )
-	AddNpcMission (	5110 )
-	AddNpcMission (	5112 )
-	AddNpcMission (	5114 )
-	AddNpcMission (	5116 )
-	AddNpcMission (	5147 )
-end 
-
-function r_talk17()
-	Talk( 1,  "Пачкуля: Бабушка Белди печет самое вкусное печенье! " )
-
-	AddNpcMission ( 266  )
-	AddNpcMission ( 267  )
-	AddNpcMission ( 270  )
-	AddNpcMission ( 272  )
-	AddNpcMission ( 273  )
-	AddNpcMission ( 337  )
-	AddNpcMission ( 338  )
-	AddNpcMission ( 554  )
-	AddNpcMission ( 555  )
-	AddNpcMission ( 901  )
-	AddNpcMission ( 5557 )
-	AddNpcMission ( 5558 )
-	AddNpcMission ( 6168 )
-	AddNpcMission ( 6169 )
-	AddNpcMission ( 6170 )
-	AddNpcMission ( 6173 )
-end 
-
-function r_talk18()
-	Talk( 1,  "Рори: Я думаю у нашего правителя есть тайна и я действительно очень хочу ее узнать. " )
 	
-	AddNpcMission ( 76 	 )
-	AddNpcMission ( 77 	 )
-	AddNpcMission ( 78 	 )
+	Talk( 1, "Xiba: Although I am an Ambassador, I need some time for myself tooЎ­Life cannot be just about work. You need to play to balance it too!" )
+
+	AddNpcMission	(1032)
+	AddNpcMission	(1195)
+----------------ЗпµєїЄ·ў
+	--AddNpcMission	(6177)
+
 end 
 
-function r_talk19()
-	Talk( 1,  "Странник: Из всех морских монстров наибольший страх мне внушает Пузырчатый моллюск. Это правда! Я видел Однажды в порту огромную особь. Если бы в него не начали стрелять Сакура 13, я думаю он мог бы убить горожан. " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Йіб°іЗґуК№Ў¤ПЇ°Н
+
+
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[°ЧТшіЗЙМ»б»бі¤Ў¤АНВЧµПВнЛ№]		--
+--							--
+--		224207,274850				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk16 ()
+	
+	
+	Talk( 1, "Ronnie: I am the chairman who is in-charge of all commerce trading in Argent City. I can train you to become the richest Merchant in Ascaron." )
+	
+	AddNpcMission ( 271 )
+	AddNpcMission ( 277 )
+	AddNpcMission ( 278 )
+	AddNpcMission ( 280 )
+	AddNpcMission ( 286 )
+------------1.7
+	AddNpcMission (5076 )
+	AddNpcMission (5077 )
+	AddNpcMission (5078 )
+	AddNpcMission (5079 )
+	AddNpcMission (5088 )
+	AddNpcMission (5110 )
+	AddNpcMission (5112 )
+	AddNpcMission (5114 )
+	AddNpcMission (5116 )
+	AddNpcMission (5147 )
+end 
+
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<°ЧТшіЗЙМ»б»бі¤Ў¤АНВЧµПВнЛ№
+
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[АПХЯЎ¤єэНїЙЅИЛ]			--
+--							--
+--		227208,270036				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk17 ()
+	
+	
+	Talk( 1, "Blurry: The strawberry biscuit made by Beldi is so delicious!" )
+
+	AddNpcMission ( 266 )
+	AddNpcMission ( 267 )
+	AddNpcMission ( 270 )
+	AddNpcMission ( 272 )
+	AddNpcMission ( 273 )
+	AddNpcMission ( 337 )
+	AddNpcMission ( 338 )
+	AddNpcMission ( 554 )
+	AddNpcMission ( 555 )
+	AddNpcMission ( 901 )
+	---------------°ЧСт
+	AddNpcMission	(5557)
+	AddNpcMission	(5558)
+	--AddNpcMission ( 6094 )
+		--------------Цн№в±¦Жш--------ВнАґОчСЗ
+	--AddNpcMission ( 6126 )
+	---------------УВХЯКФБ¶
+	--AddNpcMission( 6167 )
+	AddNpcMission( 6168 )
+	AddNpcMission( 6169 )
+	AddNpcMission( 6170 )
+	AddNpcMission( 6173 )
+
+end 
+
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<АПХЯЎ¤єэНїЙЅИЛ
+
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[»бі¤ЦъАнЎ¤ВЮТБ]			--
+--							--
+--		224075,275275				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk18 ()
+	
+	
+	Talk( 1, "Rouri: HmmЎ­I am wandering what secret does our chairman has? I am really interested to find outЎ­" )
+	
+	AddNpcMission ( 76 )
+	AddNpcMission ( 77 )
+	AddNpcMission ( 78 )
+end 
+
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<»бі¤ЦъАнЎ¤ВЮТБ
+
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[В·ИЛЎ¤јЧ]				--
+--							--
+--		221588,282819				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk19 ()
+	
+	
+	Talk( 1, "Passerby A: Of all the sea monsters, Bubble Clam are the most fearsome. Its true. I have seen one at the port this big. If Sakura 13 hadn't shot a dart at it, those living by the shore would have been done for." )
 	
 	AddNpcMission ( 6086 )
 	AddNpcMission ( 6089 )
 	AddNpcMission ( 6090 )
+
 end 
 
-function r_talk20()
-	Talk( 1,  "Энтони: Э? Что? Вы что то хотите? Боюсь вы не по адресу. " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<В·ИЛЎ¤јЧ
+
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[ѕЖ№нЎ¤·ТµВДЪ]			--
+--							--
+--		236002,281965				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk20 ()
 	
-	AddNpcMission ( 500  )
-	AddNpcMission ( 501  )
-	AddNpcMission ( 358  )
-	AddNpcMission ( 372  )
+	
+	Talk( 1, "Anthony: What? You want to find out something from me? Then you have found the right guy. However, only money talk. You have to pay for all information. Please input '/?keyword' into your text back for enquiry." )
+	
+	AddNpcMission ( 500 )
+	AddNpcMission ( 501 )
+	AddNpcMission ( 358 )
+	AddNpcMission ( 372 )
 	AddNpcMission ( 6082 )
+
 end 
 
-function r_talk21()
-	Talk( 1,  "Томми: Привет, я Томми. А вы? Монстры что то какие то неспокойные в последнее время. " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ѕЖ№нЎ¤·ТµВДЪ
+
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[ЙЩДкЎ¤МЖµВ]			--
+--							--
+--		196225,269425				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk21 ()
 	
-	AddNpcMission ( 210  )
-	AddNpcMission ( 211  )
-	AddNpcMission (	1034 )
-	AddNpcMission (	1197 )
-end 
-
-function r_talk22()
-	Talk( 1,  "Дезмонд: Работа ремесленника лучше чем у вас! Но вы люди слишком высокомерны чтобы это признать. " )
 	
-	AddNpcMission (	1054 )
-	AddNpcMission (	1216 )
-end 
-
-function r_talk23()
-	Talk( 1,  "Контрабандист Банни: Запрещенные товары? Я имею все, в чем вы нуждаетесь! " )
+	Talk( 1, "Tommy: Hi, I am Tommy. What about you? Monsters are running rampant these days." )
 	
-	AddNpcMission (	1000 )
-	AddNpcMission (	1164 )
+	AddNpcMission ( 210 )
+	AddNpcMission ( 211 )
+	AddNpcMission	(1034)
+	AddNpcMission	(1197)
+
 end 
 
-function r_talk24()
-	Talk( 1,  "Дессаро: Привет! Я являюсь самым главным в Громограде. Не желаете присоединится к нашей команде? " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ЙЩДкЎ¤МЖµВ
 
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[ЦЖФмК¦Ў¤µВИшїЛ]			--
+--							--
+--		173269,278261				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk22 ()
+	
+	
+	Talk( 1, "Desmond: Our artisan works are better than you humans, but you humans are just too arrogant to admit." )
+	
+	AddNpcMission	(1054)
+	AddNpcMission	(1216)
+
+end 
+
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ЦЖФмК¦Ў¤µВИшїЛ
+
+
+----------------------------------------------------------
+--							--
+--							--
+--		°ЧТшіЗ[D°жЙМЎ¤ЧЯЛЅНГ]			--
+--							--
+--		2298,2520				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk23 ()
+	
+	
+	Talk( 1, "Smuggling Bunny: Banned items? You name it, I have it! What do you need?" )
+	
+	AddNpcMission	(1000)
+	AddNpcMission	(1164)
+			--------УЮИЛЅЪ
+	--AddNpcMission	(5601)
+	--AddNpcMission	(5602)
+	--AddNpcMission	(5603)
+end 
+
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<D°жЙМЎ¤ЧЯЛЅНГ
+
+
+----------------------------------------------------------
+--							--
+--							--
+--		АЧцЄ±¤[єЈѕьЛѕБо№ЩЎ¤µВЛ№ЛюВЮ]		--
+--							--
+--		71350,141619				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk24 ()
+	
+	
+	Talk( 1, "Dessaro: Hi, I am the highest in command in Thundoria. Do you wish to join us?" )
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 100000 )
 	TriggerCondition( 1, HasItem, 1780, 1 )
 	TriggerCondition( 1, NoGuild )
 	TriggerAction( 1, CreateGuild, 0 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1,  "Создать гильдию Флота ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 1, "Create a Navy Guild", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 2,  "Дессаро: Чтобы создать гильдию Флота вы должны заплатить 100000 золота и принести Камень клятвы. так вы докажете вашу преданность. " )
-  
-	AddNpcMission (	566	 )
-	AddNpcMission (	477	 )
-	AddNpcMission (	478  )
+	Talk( 2, "Dessaro: To become a guild leader of the Navy Division, you will need to pay 100000G and bring a Stone of Oath to prove your loyalty." )
+        
+	AddNpcMission	(566)
+	AddNpcMission	(477)
+	AddNpcMission	(478)
 	AddNpcMission ( 6087 )
 	AddNpcMission ( 6088 )
+
 end 
 
-function r_talk25()
-	Talk( 1,  "Мона: Привет! Вы слышали про пирата Сакура 13? Она мой идол! Я желаю поскорее оставить это скучное место и стать таким пиратом как она! " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<єЈѕьЛѕБо№ЩЎ¤µВЛ№ЛюВЮ
 
-	AddNpcMission (	1022 )
-	AddNpcMission (	1079 )
-	AddNpcMission (	1134 )
-	AddNpcMission (	1185 )
-	AddNpcMission (	378	 )
+
+----------------------------------------------------------
+--							--
+--							--
+--		АЧцЄ±¤[ѕЖ°Й·юОсФ±Ў¤ГЧДИ]			--
+--							--
+--		99053,133465				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk25 ()
+	
+	
+	Talk( 1, "Mona: Hi! Do you know the famous pirate, Sakura 13? She is my idol! I wish to leave this boring place and be a pirate like her!" )
+	AddNpcMission	(1022)
+	AddNpcMission	(1079)
+	AddNpcMission	(1134)
+	AddNpcMission	(1185)
+	AddNpcMission	(378)
+
 end 
 
-function r_talk26()
-	Talk( 1,  "Дио: Привет! Я моряк Дио. Будьте осторожны в открытом море, там есть много свирепых монстров, а особенно акулы! Они откусят вам ногу также как мою. О, моя бедная нога... " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ѕЖ°Й·юОсФ±Ў¤ГЧДИ
 
-	AddNpcMission (	1038 )
-	AddNpcMission (	1092 )
-	AddNpcMission (	1150 )
-	AddNpcMission (	1201 )
-	AddNpcMission (	5535 )
+----------------------------------------------------------
+--							--
+--							--
+--		АЧцЄ±¤[Л®КЦЎ¤µП°В]			--
+--							--
+--		108330,128563				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk26 ()
+	
+	
+	Talk( 1, "Hi! I am Sailor Dio. Becareful when you are out in the open sea. There are many ferocious monsters out there, especially those sharks. They are demonsЎ­and they will bite off your leg! Just like mine! Oh no!...My leg!" )
+	AddNpcMission	(1038)
+	AddNpcMission	(1092)
+	AddNpcMission	(1150)
+	AddNpcMission	(1201)
+----------------јЄДбЛ№---Л®КЦЎ¤µП°В--01
+	AddNpcMission (5535 )
 end 
 
-function r_talk28()
-	Talk( 1,  "Маса: С вами что то не так? Я военный доктор Громограда. Не ищите меня по пустякам! " )
-	Text( 1,  "Торг ", BuyPage )
-	Text( 1,  "Ничего... ",CloseTalk )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Л®КЦЎ¤µП°В
+
+
+
+
+
+
+----------------------------------------------------------
+--							--
+--							--
+--		АЧцЄ±¤[ѕьТЅЎ¤ВкЙі]			--
+--							--
+--		77300,154900				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk28 ()
+	
+	
+	Talk( 1, "Masa: Anything wrong with you? I am the military doctor of Thundoria. Don't look for me if its only a small cut." )
+	Text( 1, "Trade", BuyPage )
+	Text( 1, "Nothing...",CloseTalk )
 
 	InitTrade()
 	Other(	1847	)
@@ -1167,46 +2269,76 @@ function r_talk28()
 	Other(	1849	)
 	Other(	3143	)
 
-	AddNpcMission (	1024 )
-	AddNpcMission (	1081 )
-	AddNpcMission (	1136 )
-	AddNpcMission (	1187 )
-	AddNpcMission (	5130 )
-	AddNpcMission (	5131 )
-	AddNpcMission (	5132 )
+	AddNpcMission	(1024)
+	AddNpcMission	(1081)
+	AddNpcMission	(1136)
+	AddNpcMission	(1187)
+	----------------1.7
+	AddNpcMission (5130 )
+	AddNpcMission (5131 )
+	AddNpcMission (5132 )
+	
 end 
 
-function r_talk29()
-	Talk( 1,  "Макурдо: Добро пожаловать в банк Громограда! " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ѕьТЅЎ¤ВкЙі
 
+----------------------------------------------------------
+--							--
+--							--
+--		АЧцЄ±¤[ТшРРіцДЙЎ¤ВкїЁ¶а]			--
+--							--
+--		74300,153400				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk29 ()
+	
+	
+	Talk( 1, "Macurdo: Hi, welcome to Thundoria Bank." )
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 200 )
 	TriggerAction( 1, TakeMoney, 200 )
 	TriggerAction( 1, OpenBank )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1,  "Хранилище (200 золотых) ", MultiTrigger, GetMultiTrigger(), 1)
-	Talk( 2,  "Простите, у вас недостаточно золота для входа в хранилище! " )
+	Text( 1, "Vault (200G Fee)", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 2, "Sorry, you do not have sufficient gold to pay for vault usage" )
 
-	AddNpcMission (	1049 )
-	AddNpcMission (	1103 )
-	AddNpcMission (	1159 )
-	AddNpcMission (	1211 )
-	AddNpcMission (	320	 )
-	AddNpcMission (	375	 )
-	AddNpcMission (	376	 )
-	AddNpcMission (	377	 ) 
-	AddNpcMission (	432	 )
-	AddNpcMission (	560	 )
-	AddNpcMission (	561	 )
-	AddNpcMission (	542	 )
-	AddNpcMission (	562	 )
+	AddNpcMission	(1049)
+	AddNpcMission	(1103)
+	AddNpcMission	(1159)
+	AddNpcMission	(1211)
+	AddNpcMission	(320)
+	AddNpcMission	(375)
+	AddNpcMission	(376)
+	AddNpcMission	(377)
+	AddNpcMission	(432)
+	AddNpcMission	(560)
+	AddNpcMission	(561)
+	AddNpcMission	(542)
+	AddNpcMission	(562)
+
+	
 end 
 
-function r_talk30()
-	Talk( 1,  "Фарлингтон: Что? Плавка? Хехе. " )
-	Text( 1,  "Очистить ", JumpPage, 2)
-	Text( 1,  "Ничего... ",CloseTalk )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ТшРРіцДЙЎ¤ВкїЁ¶а
 
+
+----------------------------------------------------------
+--							--
+--							--
+--		АЧцЄ±¤[МъЅіЎ¤·рАКёз]			--
+--							--
+--		76662,144769				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk30 ()
+	
+	
+	Talk( 1, "Furlington: Eh? Smelting? Hehe!" )
+	Text( 1, "Refine", JumpPage, 2)
+	Text( 1, "Nothing...",CloseTalk )
+
+
+----------------Б¶ЦЖЛ®ѕ§Й°ЛйЖ¬
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1784, 10 )
 	TriggerCondition( 1, HasMoney, 200 )
@@ -1215,27 +2347,41 @@ function r_talk30()
 	TriggerAction( 1, GiveItem, 1785, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 2,  "Фарлингтон: Ковка, ковка, ковка. И так каждый день, одна ковка. " )
-	Text( 2,  "Очистить Кусок звенящего кристалла. ",MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 2, "Furlington: ForgeЎ­forgeЎ­forgeЎ­All I do all day long is forge itemsЎ­zzZZz" )
+	Text( 2, "Refine Clarion Fragment",MultiTrigger, GetMultiTrigger(), 1)
 	
-	Talk( 3,  "Фарлингтон: Ваш Кусок звенящего кристалла готов. Ищите меня снова если потребуется помощь. " )
-	Talk( 4,  "Фарлингтон: Чтобы приготовить 1 Кусок звенящего кристалла мне необходимо 10 Звенящего песка и 200 золота. " )
+	Talk( 3, "Furlington: This Clarion Crystal is made from the fragments. Keep it well. Look for me again." )
+	Talk( 4, "Furlington: I can refine 10 Clarion Sand into a Clarion Fragment. You need to pay 200G for my service." )
+	AddNpcMission	(1042)
+	AddNpcMission	(1094)
+	AddNpcMission	(1153)
+	AddNpcMission	(1205)
 
-	AddNpcMission (	1042 )
-	AddNpcMission (	1094 )
-	AddNpcMission (	1153 )
-	AddNpcMission (	1205 )	
+
+	
 end 
 
-function r_talk31()
-	Talk( 1,  "Синди: Привет! Я люблю хороший материал. Если вы найдете что то ценное, то сохраните для меня. " )
-	Text( 1,  "Дворец Овна-вампира (Гороскоп) ", JumpPage,6 )
-	Text( 1,  "Награда моряка ", JumpPage,8 )
-	Text( 1,  "Награда пирата ", JumpPage,11 )
-	Text( 1,  "Награда капитана ", JumpPage,12 )
-	Text( 1,  "Сделать краситель для волос ", JumpPage, 2)
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<МъЅіЎ¤·рАКёз
+----------------------------------------------------------
+--							--
+--							--
+--		АЧцЄ±¤[ЙЩЕ®Ў¤РБµЩ]			--
+--							--
+--		74026,145143				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk31 ()
+	
+	
+	Talk( 1, "Cindy: Hi, I love cute stuff. If you come across any cute items, keep for me!" )
+	
+	Text( 1, "Vampiric Aries Palace (Horoscope Quest)", JumpPage,6 )
+	Text( 1, "Sailor Completion Reward", JumpPage,8 )
+	Text( 1, "Pirate Completion Reward", JumpPage,11 )
+	Text( 1, "Captain completion reward", JumpPage,12 )
+	Text( 1, "Decoct Hair Colorant", JumpPage, 2)
 
-	Talk( 6,  "Синди: Пожалуйста выберите сложность в порядке от моряка к капитану. Чем больше сложность, тем более лучшие награды. Вы сделали выбор? Изменить его потом будет невозможно! " )
+	Talk( 6, "Cindy: Please select the difficulty, in ascending order from Sailor to Captain. Greater rewards awaits those who chosen a tougher challenge. Have you come to a decision? Do not regret." )
 
 	InitTrigger()
 	TriggerCondition( 1, NoRecord,834 )
@@ -1244,7 +2390,7 @@ function r_talk31()
 	TriggerAction( 1, SetRecord, 836 )
 	TriggerAction( 1, JumpPage, 7 )
 	TriggerFailure( 1, JumpPage, 13 )
-	Text( 6,  "Моряк ",MultiTrigger_1, GetMultiTrigger(), 1)
+	Text( 6, "Sailor",MultiTrigger_1, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, NoRecord,833 )
@@ -1253,7 +2399,7 @@ function r_talk31()
 	TriggerAction( 1, SetRecord, 836 )
 	TriggerAction( 1, JumpPage, 7 )
 	TriggerFailure( 1, JumpPage, 13 )
-	Text( 6,  "Пират ",MultiTrigger_2, GetMultiTrigger(), 1)
+	Text( 6, "Pirate",MultiTrigger_2, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, NoRecord,834 )
@@ -1262,10 +2408,13 @@ function r_talk31()
 	TriggerAction( 1, SetRecord, 836 )
 	TriggerAction( 1, JumpPage, 7 )
 	TriggerFailure( 1, JumpPage, 13 )
-	Text( 6,  "Капитан ",MultiTrigger_3, GetMultiTrigger(), 1)
+	Text( 6, "Captain",MultiTrigger_3, GetMultiTrigger(), 1)
 
-	Talk( 7,  "Синди: Желаю удачи! " )
- 
+	Talk( 7, "Cindy: Good luck!" )
+  
+
+
+
 	InitTrigger()
 	TriggerCondition( 1, HasRecord,833 )
 	TriggerCondition( 1, HasItem, 2944, 1 )
@@ -1284,6 +2433,7 @@ function r_talk31()
 	TriggerAction( 1, TakeItem, 2948, 1 )
 	TriggerAction( 1, TakeItem, 2949, 1 )
 	TriggerAction( 1, TakeItem, 2950, 1 )
+	--TriggerAction( 1, SetLog  , 1 )
 
 	TriggerAction( 1, GiveItem, 2942, 1 , 4)
 	TriggerAction( 1, GiveItem, 2943, 1 , 4)
@@ -1291,8 +2441,10 @@ function r_talk31()
 	TriggerAction( 1, AddMoney, 10000 )
 	TriggerAction( 1, JumpPage, 9 )
 	TriggerFailure( 1, JumpPage, 10 )
-	Talk( 8,  "Синди: Соберите 7 эмблем для получения Печати Овна и пропуска к следующему дворцу. " )
-	Text( 8,  "Обменять ",MultiTrigger_0, GetMultiTrigger(), 1)
+	Talk( 8, "Cindy: Collect 7 Emblems to change for the Seal of Aries and the ticket to the next palace. There will also be other rewards" )
+	Text( 8, "Confirm to exchange",MultiTrigger_0, GetMultiTrigger(), 1)
+
+
 
 	InitTrigger()
 	TriggerCondition( 1, HasRecord,834 )
@@ -1312,14 +2464,16 @@ function r_talk31()
 	TriggerAction( 1, TakeItem, 2948, 1 )
 	TriggerAction( 1, TakeItem, 2949, 1 )
 	TriggerAction( 1, TakeItem, 2950, 1 )
+
 	TriggerAction( 1, GiveItem, 2942, 1 , 4)
 	TriggerAction( 1, GiveItem, 2943, 1 , 4)
 	TriggerAction( 1, GiveItem, 3094, 3 , 4)
 	TriggerAction( 1, AddMoney, 50000 )
 	TriggerAction( 1, JumpPage, 9 )
 	TriggerFailure( 1, JumpPage, 10 )
-	Talk( 11,  "Синди: Соберите 7 эмблем для получения Печати Овна и пропуска к следующему дворцу. " )
-	Text( 11,  "Обменять ",MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 11, "Cindy: Collect 7 Emblems to change for the Seal of Aries and the ticket to the next palace. There will also be other rewards" )
+	Text( 11, "Confirm to exchange",MultiTrigger, GetMultiTrigger(), 1)
+
 
 	InitTrigger()
 	TriggerCondition( 1, HasRecord,835 )
@@ -1339,20 +2493,19 @@ function r_talk31()
 	TriggerAction( 1, TakeItem, 2948, 1 )
 	TriggerAction( 1, TakeItem, 2949, 1 )
 	TriggerAction( 1, TakeItem, 2950, 1 )
+
 	TriggerAction( 1, GiveItem, 2942, 1 , 4)
 	TriggerAction( 1, GiveItem, 2943, 1 , 4)
 	TriggerAction( 1, GiveItem, 3094, 5 , 4)
 	TriggerAction( 1, AddMoney, 80000 )
 	TriggerAction( 1, JumpPage, 9 )
 	TriggerFailure( 1, JumpPage, 10 )
-	Talk( 12,  "Синди: Соберите 7 эмблем для получения Печати Овна и пропуска к следующему дворцу. " )
-	Text( 12,  "Обменять ",MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 12, "Cindy: Collect 7 Emblems to change for the Seal of Aries and the ticket to the next palace. There will also be other rewards" )
+	Text( 12, "Confirm to exchange",MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 10,  "Синди: Вы не собрали все эмблемы, или ваш инвентарь заблокирован. Возможно также у вас нет свободных ячеек. ")
-
-	Talk( 9,   "Синди: Дворец Тельца ждет вас! ")
-
-	Talk( 13,  "Синди: Вы можете делать свой выбор лишь 1 раз! ")
+	Talk( 10, "Cindy: You do not seem to have enough emblems. Please check to see if your inventory has been binded, and make sure that you have at least 3 free slots. Also, are you sure about the difficulty that you have chose?")
+	Talk( 9, "Cindy: Taurus Palace has many difficult challenges!")
+	Talk( 13, "Cindy: You can only chose the difficulty level once while challenging Aries Palace")
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1789, 5 )
@@ -1366,9 +2519,9 @@ function r_talk31()
 	TriggerAction( 1, GiveItem, 1799, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 2,  "Синди: Планируете сменить прическу? Я приготовлю для вас лучшие красители! " )
-	Text( 2,  "Сделать Желтый краситель ",MultiTrigger, GetMultiTrigger(), 1)
-
+	Talk( 2, "Cindy: Want to have the same hair color as me? Let me help you mix the hair colourant." )
+	Text( 2, "Decoct Yellow Colorant",MultiTrigger, GetMultiTrigger(), 1)
+---------------µчЕдВМЙ«Иѕ·ўјБ
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1790, 5 )
 	TriggerCondition( 1, HasItem, 1657, 1 )
@@ -1381,181 +2534,428 @@ function r_talk31()
 	TriggerAction( 1, GiveItem, 1800, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 5 )
-	Text( 2,  "Сделать Зеленый краситель ",MultiTrigger, GetMultiTrigger(), 1)
+	Text( 2, "Decoct Green Colorant",MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 3,  "Синди: Вот краситель, в котором вы нуждались! " )
+	Talk( 3, "Cindy: I am still new to this art. Please be patient. This is the colorant you needed." )
+	Talk( 4, "Cindy: I can make Yellow Colorant. You will need to give me 5 Yellow Dye, 1 Special Gas, 1 Rainbow Glass and 200G." )
+	Talk( 5, "Cindy: I can make Green Colorant. You need to bring me 5 Green Dye, 1 Special Gas, 1 Rainbow Glass and 200G." )
+	AddNpcMission	(1036)
+	AddNpcMission	(1090)
+	AddNpcMission	(1148)
+	AddNpcMission	(1199)
+	AddNpcMission	(867)
+	AddNpcMission	(863)
+	------------------------------------------°ЧСт
+	AddNpcMission	(5536)
+	AddNpcMission	(5537)
+	AddNpcMission	(5538)
+	AddNpcMission	(5539)
+	AddNpcMission	(5540)
+	AddNpcMission	(5541)
 
-	Talk( 4,  "Синди: Чтобы сделать Желтый краситель необходмо 5 Желтых красок, 1 Особый газ, 1 радужный стакан и 200 золотых! " )
+	AddNpcMission	(5542)
+	AddNpcMission	(5543)
+	AddNpcMission	(5544)
+	AddNpcMission	(5545)
+	AddNpcMission	(5546)
+	AddNpcMission	(5547)
 
-	Talk( 5,  "Синди: Чтобы сделать Зеленый краситель необходмо 5 Зеленых красок, 1 Особый газ, 1 радужный стакан и 200 золотых! " )
-	AddNpcMission (	1036 )
-	AddNpcMission (	1090 )
-	AddNpcMission (	1148 )
-	AddNpcMission (	1199 )
-	AddNpcMission (	867	 )
-	AddNpcMission (	863	 )
-	AddNpcMission (	5536 )
-	AddNpcMission (	5537 )
-	AddNpcMission (	5538 )
-	AddNpcMission (	5539 )
-	AddNpcMission (	5540 )
-	AddNpcMission (	5541 )
-	AddNpcMission (	5542 )
-	AddNpcMission (	5543 )
-	AddNpcMission (	5544 )
-	AddNpcMission (	5545 )
-	AddNpcMission (	5546 )
-	AddNpcMission (	5547 )
-	AddNpcMission (	5548 )
-	AddNpcMission (	5549 )
-	AddNpcMission (	5550 )
-	AddNpcMission (	5551 )
-	AddNpcMission (	5552 )
-	AddNpcMission (	5597 )
-	AddNpcMission (	5600 )
+	AddNpcMission	(5548)
+	AddNpcMission	(5549)
+	AddNpcMission	(5550)
+	AddNpcMission	(5551)
+	AddNpcMission	(5552)
+
+
+	AddNpcMission	(5597)
+	AddNpcMission	(5600)
+
 end 
 
-function r_talk32()
-	Talk( 1,  "Аликс: Привет! Я посол Шайтана. У вас есть вопросы? Если что ищите меня в этом месте! " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ЙЩЕ®Ў¤РБµЩ
 
-	AddNpcMission (	1033 )
-	AddNpcMission (	1088 )
-	AddNpcMission (	1145 )
-	AddNpcMission (	1196 )
+
+----------------------------------------------------------
+--							--
+--							--
+--		АЧцЄ±¤[Йіб°Ч¤АЧцЄ±¤ґуК№Ў¤°ЈµВјУ]		--
+--							--
+--		71220,150827				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk32 ()
+	
+	
+	Talk( 1, "Alix: Hi, I am the Shaitan Ambassador Alix. Have you been there recently? I miss that place." )
+	AddNpcMission	(1033)
+	AddNpcMission	(1088)
+	AddNpcMission	(1145)
+	AddNpcMission	(1196)
+
 end 
 
-function r_talk33()
-	Talk( 1,  "Уисли: Привет! Я тоже новичок в этом городе. Прошу вас посещайте меня почаще. " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Йіб°Ч¤АЧцЄ±¤ґуК№Ў¤°ЈµВјУ
 
-	AddNpcMission (	1008 )
-	AddNpcMission (	1063 )
-	AddNpcMission (	1118 )
-	AddNpcMission (	1172 )
-	AddNpcMission (	850	 )
-	AddNpcMission (	861	 )
-	AddNpcMission (	868	 )	
+----------------------------------------------------------
+--							--
+--							--
+--		АЧцЄ±¤[µАѕЯЙМИЛЎ¤РЭІјАоО¬Л№]		--
+--							--
+--		74100,156300				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk33 ()
+	
+	
+	Talk( 1, "Wesley: Holla! Welcome welcome! I am also a new citizen in this town. Please visit me often." )
+
+	AddNpcMission	(1008)
+	AddNpcMission	(1063)
+	AddNpcMission	(1118)
+	AddNpcMission	(1172)
+	AddNpcMission	(850)
+	AddNpcMission	(861)
+	AddNpcMission	(868)
+
+	
 end 
 
-function r_talk34()
-	Talk( 1,  "Бабушка Майя: Моя гостиница закрыта, поскольку мне нездоровится. " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<µАѕЯЙМИЛЎ¤РЭІјАоО¬Л№
 
-	AddNpcMission (	1030 )
-	AddNpcMission (	1086 )
-	AddNpcMission (	1139 )
-	AddNpcMission (	1193 )
+----------------------------------------------------------
+--							--
+--							--
+--		АЧцЄ±¤[ВГ№ЭАП°еЎ¤ВкСЕЖЕЖЕ]		--
+--							--
+--		69761,154269				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk34 ()
+	
+	
+	Talk( 1, "Granny Maya: Hi, my inn is closed as I am not in good health." )
+	AddNpcMission	(1030)
+	AddNpcMission	(1086)
+	AddNpcMission	(1139)
+	AddNpcMission	(1193)
+
 end 
 
-function r_talk35()
-	Talk( 1,  "Дитер: Привет! В данный момент мы закрыты! " )
-	Text( 1,  "Спасибо... ",CloseTalk )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ВГ№ЭАП°еЎ¤ВкСЕЖЕЖЕ
 
-	AddNpcMission (	1010 )
-	AddNpcMission (	1066 )
-	AddNpcMission (	1122 )
-	AddNpcMission (	1174 )
+----------------------------------------------------------
+--							--
+--							--
+--		АЧцЄ±¤[·юЧ°µкЦчЎ¤µПАЦ]			--
+--							--
+--		75450,151200				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk35 ()
+	
+	
+	Talk( 1, "Ditter: Hi! We are closed for the moment" )
+	Text( 1, "Nothing...",CloseTalk )
+	AddNpcMission	(1010)
+	AddNpcMission	(1066)
+	AddNpcMission	(1122)
+	AddNpcMission	(1174)
+
+
 end 
 
-function r_talk36()
-	Talk( 1,  "Ята: Только злые торговцы сделали его таким большим. Хахаха. " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<·юЧ°µкЦчЎ¤µПАЦ
 
-	AddNpcMission (	1003 )
-	AddNpcMission (	1058 )
-	AddNpcMission (	1113 )
-	AddNpcMission (	1167 )
+----------------------------------------------------------
+--							--
+--							--
+--		АЧцЄ±¤[°ЧТшіЗЧ¤АЧцЄ±¤ґуК№Ў¤ТБЛю¶а]		--
+--							--
+--		74171,155325				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk36 ()
+	
+	
+	Talk( 1, "Yata: Only wicked merchants made it big! Haha." )
+	AddNpcMission	(1003)
+	AddNpcMission	(1058)
+	AddNpcMission	(1113)
+	AddNpcMission	(1167)
 	AddNpcMission ( 6025 )
 	AddNpcMission ( 6026 )
 	AddNpcMission ( 6027 )
+
 end 
 
-function r_talk37()
-	Talk( 1,  "Мэллоу: Привет! Я стражник крепости Громограда. " )
-	Text( 1,  "Ничего... ",CloseTalk )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<°ЧТшіЗЧ¤АЧцЄ±¤ґуК№Ў¤ТБЛю¶а
 
-	AddNpcMission (	1019 )
-	AddNpcMission (	1074 )
-	AddNpcMission (	1130 )
-	AddNpcMission (	1182 )
-	AddNpcMission (	852	 )
-	AddNpcMission (	855	 )
-	AddNpcMission (	865	 )
-	AddNpcMission (	473	 )
+----------------------------------------------------------
+--							--
+--							--
+--		АЧцЄ±¤[»¤ОАі¤Ў¤еИВФїЛ]			--
+--							--
+--		79600,148800				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk37 ()
+	
+	
+	Talk( 1, "Mallack: Hellow! I am the Guard for Thundoria Castle." )
+	Text( 1, "Nothing...",CloseTalk )
+
+	InitTrigger()
+	TriggerCondition( 1, LvCheck, ">", 39 )
+	TriggerCondition( 1, IsCategory, 1 )
+	TriggerCondition( 1, PfEqual, 1 )
+	TriggerCondition( 1, HasItem, 1673, 1 )
+	TriggerCondition( 1, HasMoney, 20000 )
+	TriggerAction( 1, TakeItem, 1673, 1 )
+	TriggerAction( 1, TakeMoney, 20000 )
+	TriggerAction( 1, SetProfession, 10 )
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerCondition( 2, LvCheck, ">", 39 )
+	TriggerCondition( 2, IsCategory, 2 )
+	TriggerCondition( 2, PfEqual, 1 )
+	TriggerCondition( 2, HasItem, 1673, 1 )
+	TriggerCondition( 2, HasMoney, 20000 )
+	TriggerAction( 2, TakeItem, 1673, 1 )
+	TriggerAction( 2, TakeMoney, 20000 )
+	TriggerAction( 2, SetProfession, 10  )
+	TriggerAction( 2, JumpPage, 3 )
+	TriggerFailure( 2, JumpPage, 4 )
+
+	Talk(2, "Pirates and monsters are rampant nowadays. We are lacking of Swordsman to deal with them. Hmm...You look suitable to become a Swordsman. Want to consider being the one to defend the peace?")
+	Text(2, "Ok, become a White Knight", MultiTrigger, GetMultiTrigger(), 2)
+	Text(2, "No, it is good enough for now.", CloseTalk)
+
+	Talk(3, "Keeping the peace is the job of a White Knight. Please remember this in your heart.")
+
+	Talk(4, "Want to become a White Knight? Come back to me when you have reached Lv 40. You must train your swordsmanship well. Remember to bring 1 Strange Metal Fragment and 20000G as a proof of your training too.")
+	
+
+	
+	
+	
+		
+
+	----------ЧЄЦ°іЙОЄЅЈ¶ЬКї
+	--TriggerCondition( 1, LvCheck, ">", 39 )
+	--TriggerCondition( 1, IsCategory, 1 )
+	--TriggerCondition( 1, PfEqual, 1 )
+	--TriggerAction( 1, JumpPage, 2 )
+
+	--TriggerCondition( 2, LvCheck, ">", 39 )
+	--TriggerCondition( 2, IsCategory, 2 )
+	--TriggerCondition( 2, PfEqual, 1 )
+	--TriggerAction( 2, JumpPage, 2 )
+
+-------------------ЧЄѕС»чКЦЕР¶П
+
+	AddNpcMission	(1019)
+	AddNpcMission	(1074)
+	AddNpcMission	(1130)
+	AddNpcMission	(1182)
+	AddNpcMission	(852)
+	AddNpcMission	(855)
+	AddNpcMission	(865)
+	AddNpcMission	(473)
 
 	MisListPage(5)
+
 end 
 
-function r_talk38()
-	Talk( 1,  "Каду: Привет! Вы прибыли как раз вовремя. Вы можете получить скидку у меня! " )
-	Text( 1,  "Ничего... ",CloseTalk )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<»¤ОАі¤Ў¤еИВФїЛ
 
-	AddNpcMission (	1053 )
-	AddNpcMission (	1107 )
-	AddNpcMission (	1163 )
-	AddNpcMission (	1215 )
+----------------------------------------------------------
+--							--
+--							--
+--		АЧцЄ±¤[ФУ»хЙМИЛЎ¤№ѕаЅ]			--
+--							--
+--		72500,155100				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk38 ()
+	
+	
+	Talk( 1, "Kudu: Hi! You come at the right moment! We are having a promotion here. Look for me when you are above Lv 10, I can give you special discount for my items. Maybe you will get some experience bonus too!" )
+	Text( 1, "Nothing...",CloseTalk )
+	AddNpcMission	(1053)
+	AddNpcMission	(1107)
+	AddNpcMission	(1163)
+	AddNpcMission	(1215)
+
+		
+	
 end 
 
-function r_talk39()
-	Talk( 1,  "Риоли: Вы были во многих местах. Встречали ли вы Генерала Вильяма? Его отправили в Аргент. Слишком скучное место. " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ФУ»хЙМИЛЎ¤№ѕаЅ
 
-	AddNpcMission (	1035 )
-	AddNpcMission (	1089 )
-	AddNpcMission (	1147 )
-	AddNpcMission (	1198 )
+----------------------------------------------------------
+--							--
+--							--
+--		АЧцЄ±¤[ЙЩЕ®Ў¤ВЮАт]			--
+--							--
+--		101653,128642				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk39 ()
+	
+	
+	Talk( 1, "Rioli: You have been to many places. Have you met Navy General William? Since he has been transferred to Argent City, the city is a boring place to be in." )
+	AddNpcMission	(1035)
+	AddNpcMission	(1089)
+	AddNpcMission	(1147)
+	AddNpcMission	(1198)
+
 end 
 
-function r_talk40()
-	Talk( 1,  "Генерал Кен: Я чувствую Макси затевает мне неприятности. Он всегда устраивает для меня мнеприятности. " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ЙЩЕ®Ў¤ВЮАт
 
-	AddNpcMission (	1017 )
-	AddNpcMission (	1071 )
-	AddNpcMission (	1127 )
-	AddNpcMission (	1180 )
-	AddNpcMission (	5575 )
-	AddNpcMission (	5576 )
+----------------------------------------------------------
+--							--
+--							--
+--		АЧцЄ±¤[єЈѕьЧЬІїЦё»У№ЩЎ¤»щ.°ЈЛ№ОчЧјЅ«]	--
+--							--
+--		80800,152100				--
+---------------------2005-3-8-------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk40 ()
+	
+	
+	Talk( 1, "General Ken: I sense that Maxi will come looking for my trouble one day. Even I sent himto guard other outpost, I am sure that he will make some trouble there too. He is always landing me in troubleЎ­" )
+	AddNpcMission	(1017)
+	AddNpcMission	(1071)
+	AddNpcMission	(1127)
+	AddNpcMission	(1180)
+---------------°ЧСт
+	AddNpcMission	(5575)
+	AddNpcMission	(5576)
 end 
 
-function r_talk41()
-	Talk( 1,  "Полковник Макси: Привет! Генерал Кен отправил меня заботится об этом месте. Хехе. Я люблю устраивать ему неприятности. " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<єЈѕьЧЬІїЦё»У№ЩЎ¤»щ.°ЈЛ№ОчЧјЅ«
+
+----------------------------------------------------------
+--							--
+--							--
+--		АЧцЄ±¤[єЈѕьЧЬІїІОД±і¤Ў¤ВкСЗЧИЙЩРЈ]		--
+--							--
+--		65323,150512				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk41 ()
+	
+	
+	Talk( 1, "Colonel Maxi: Hi, I am Colonel Maxi. General Ken delegates me to take care of this place. Hehe! I love to make trouble for himЎ­Hehe!" )
 	
 	AddNpcMission	(849)
 	AddNpcMission	(856)
 	AddNpcMission	(858)
 	AddNpcMission	(860)
 	AddNpcMission	(866)
+
 end 
 
-function r_talk42()
-	Talk( 1,  "Фрея: Вы парни считаете нас за демонов? Не заговаривайте со мной! " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<єЈѕьЧЬІїІОД±і¤Ў¤ВкСЗЧИЙЩРЈ
+
+----------------------------------------------------------
+--							--
+--							--
+--		АЧцЄ±¤[Д¦¶ыїЛИЛєуТбЎ¤·Ж¶щ]		--
+--							--
+--		65146,158595				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk42 ()
+	
+	
+	Talk( 1, "Freya: Didn't you guys label us as demons? Don't talk to me, arrogant fellow!" )
 	
 	AddNpcMission	(851)
 	AddNpcMission	(853)
 	AddNpcMission	(854)
 	AddNpcMission	(862)
 	AddNpcMission	(864)
+
+
 end 
 
-function r_talk43()
-	Talk( 1,  "Ниссон: Привет! Я близкий друг Сонни. Мы с ним оба превосходные стражники Флота! " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Д¦¶ыїЛИЛєуТбЎ¤·Ж¶щ
+
+----------------------------------------------------------
+--							--
+--							--
+--		АЧцЄ±¤[»¤ОАЎ¤ДбЛЙ]			--
+--							--
+--		71187,141438				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk43 ()
+	
+	
+	Talk( 1, "Nisson: I am a close friend of Sonny and the both of us are excellent Navy guards." )
 
 	AddNpcMission	(859)
 	AddNpcMission	(857)
+	-------------»¤ОАЎ¤ДбЛЙ-------Л«ЧУ
 	AddNpcMission	(5690)
 	AddNpcMission	(5691)
 end 
 
-function r_talk44()
-	Talk( 1,  "Сонни: Привет! Никогда не заговаривай со мной о деньгах! " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<»¤ОАЎ¤ДбЛЙ
+
+----------------------------------------------------------
+--							--
+--							--
+--		АЧцЄ±¤[»¤ОАЎ¤ЛЙДб]			--
+--							--
+--		71536,141462				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk44 ()
+	
+	
+	Talk( 1, "Sonny: Good friends do not talk about money." )
 
 	AddNpcMission	(474)
+	
 end 
 
-function r_talk45()
-	Talk( 1,  "Бай: Громоград имеет хороший бар в порту. К сожалению туда очень далеко добираться. " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<»¤ОАЎ¤ЛЙДб
+
+----------------------------------------------------------
+--							--
+--							--
+--		АЧцЄ±¤[В·ИЛЎ¤±ы]				--
+--							--
+--		66976,155428				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk45 ()
+	
+	
+	Talk( 1, "Bey: Thundoria has a nice bar near the harbor. But its too far for me to visit." )
+	
 end 
 
-function r_talk46()
-	Talk( 1,  "Барабей: Привет! Действительно ли вы бывший пират? В Громограде встречаются только люди из флота, пираты не осмеливаются туда приближаться. " )
-	Text( 1,  "Очистить ", JumpPage, 2)
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<В·ИЛЎ¤±ы
 
+
+----------------------------------------------------------
+--							--
+--							--
+--		АЧцЄ±¤[В·ИЛЎ¤°Н±И]				--
+--							--
+--		99475,123473				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk46 ()
+	
+	
+	Talk( 1, "Barbi: Hi, are you an ex-pirate? There are just too much Navy men in Thundoria. The pirates dare not approach!" )
+	Text( 1, "Refine", JumpPage, 2)
+
+--------------Б¶ФмµШЅр
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1782, 10 )
 	TriggerCondition( 1, HasMoney, 2000 )
@@ -1564,29 +2964,41 @@ function r_talk46()
 	TriggerAction( 1, GiveItem, 1783, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 2,  "Барабей: Моя работа - объединять множество фрагментов руды в одну. " )
-	Text( 2,  "Очистить Терранский золотой ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 2, "Barbi: My job is to combine those ore fragment into a big ore." )
+	Text( 2, "Refine Terra Gold", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 3,  "Барабей: Я дам вам Терранский золотой. Не пожалейте в будущем. " )
-
-	Talk( 4,  "Барабей: Терранский золотой? Принесите мне 10 Терранской золотой руды и 2000 золота. " )
+	Talk( 3, "Barbi: I will give Terra Gold Ore to you. Do not regret in the future." )
+	Talk( 4, "Barbi: Terra Gold? Bring me 10 Terra Gold Ores and 2000G in exchange." )
+	
 end 
 
-function r_talk47()
-	Talk( 1,  "Гэньон: Здравствуй мой друг. Да благославит тебя Богиня Кара! Я высший жрец Шайтана " )
-	Text( 1,  "Исследовать руны ", JumpPage, 2)
-    Text( 1,  "Собрать карту сокровищ ", JumpPage, 7)
-    Text( 1,  "Обменять Фрагменты иллюзии на чертежи ", JumpPage, 9)
-	Text( 1,  "Обменять Сердце иллюзии на кольцо 60 уровня ", JumpPage, 10)
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<В·ИЛЎ¤°Н±И
 
-	Talk( 2,  "Геньон: Я занимаюсь исследованиями древних рун. Если принесете мне их достаточное количество, то получите взамен некоторые ценные вещи. " )
-	Text( 2,  "Обменять на Скелетный набор ", JumpPage, 3)
-	Text( 2,  "Обменять на набор Заклинания ", JumpPage, 4)
-	Text( 2,  "Обменять на Исчезающий набор ", JumpPage, 5)
-	Text( 2,  "Обменять на Таинственный набор ", JumpPage, 6)
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[ґуЙс№ЩЎ¤ёКµШО¬А­]			--
+--							--
+--		86299,350092				--
+ 
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk47 ()
 	
-	Talk( 3,  "Геньон: Скелетный набор содержит экипировку 30 уровня из Заброшенного города. Чтобы его получить тебе необходимо найти 10 рун Наль и 10 рун Сол. " )
+	
+	Talk( 1, "Gannon: Hello, my friend. May the Goddess Kara bless you. I'm High Priest Gannon of Shaitan City" )
+	Text( 1, "Research Runestone", JumpPage, 2)
+        Text( 1, "Combine Treasure Map", JumpPage, 7)
+        Text( 1, "Illusion Fragment to change a Blueprint", JumpPage, 9)
+	Text( 1, "Illusion Heart to exchange for Lv 60 ring", JumpPage, 10)
 
+	Talk( 2, "Gannon: I am doing some research on ancient runestones. If you bring me enough, I will exchange them for something good." )
+	Text( 2, "Regarding Skeletar set items", JumpPage, 3)
+	Text( 2, "Regarding Incantation set", JumpPage, 4)
+	Text( 2, "Regarding Evanescence set items", JumpPage, 5)
+	Text( 2, "Regarding Enigma set items", JumpPage, 6)
+	
+	Talk( 3, "Gannon: Skeletar set items belong to Lv 30 equipments from Forsaken City. You will need to pass me 10 Nal Runestones and 10 Sol Runestones. You can select the related class too." )
+	--------------чјчГЦ®ЅЈКї±¦Пд
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3425, 10 )
 	TriggerCondition( 1, HasItem, 3426, 10 )
@@ -1594,8 +3006,8 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 3426, 10 )
 	TriggerAction( 1, GiveItem, 3400, 1 , 4)
 	TriggerFailure( 1, JumpPage, 30 )
-	Text( 3,  "Получить сундук мечника ", MultiTrigger, GetMultiTrigger(), 1)
-
+	Text( 3, "Obtain Swordsman equipment", MultiTrigger, GetMultiTrigger(), 1)
+	--------------чјчГЦ®БФИЛ±¦Пд
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3425, 10 )
 	TriggerCondition( 1, HasItem, 3426, 10 )
@@ -1603,8 +3015,8 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 3426, 10 )
 	TriggerAction( 1, GiveItem, 3401, 1 , 4)
 	TriggerFailure( 1, JumpPage, 30 )
-	Text( 3,  "Получить сундук охотника ", MultiTrigger, GetMultiTrigger(), 1)
-
+	Text( 3, "Obtained Hunter equipment", MultiTrigger, GetMultiTrigger(), 1)
+	--------------чјчГЦ®Т©К¦±¦Пд
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3425, 10 )
 	TriggerCondition( 1, HasItem, 3426, 10 )
@@ -1612,8 +3024,8 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 3426, 10 )
 	TriggerAction( 1, GiveItem, 3402, 1 , 4)
 	TriggerFailure( 1, JumpPage, 30 )
-	Text( 3,  "Получить сундук знахарки ", MultiTrigger, GetMultiTrigger(), 1)
-
+	Text( 3, "Obtained Herbalist equipment", MultiTrigger, GetMultiTrigger(), 1)
+	--------------чјчГЦ®Г°ПХХЯ±¦Пд
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3425, 10 )
 	TriggerCondition( 1, HasItem, 3426, 10 )
@@ -1621,10 +3033,10 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 3426, 10 )
 	TriggerAction( 1, GiveItem, 3403, 1 , 4)
 	TriggerFailure( 1, JumpPage, 30 )
-	Text( 3,  "Получить сундук исследователя ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 3, "Obtained Explorer equipment", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 4,  "Геньон: Набор заклинателя содержит экипировку 40 уровня, полученную в Заброшенном городе и Темной топи. Для ее получения необходимо принести 10 рун Эль и 10 рун Кам " )
-
+	Talk( 4, "Gannon: Incantation set items are Lv 40 equipments from Forsaken City and Dark Swamp. You need to bring me 10 El Runestone and 10 Cam Runestone in exchange. You can select the class for the equipment." )
+	--------------ЦдКхЦ®Л«ЅЈКїЧ°±ёПд
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3428, 10 )
 	TriggerCondition( 1, HasItem, 3429, 10 )
@@ -1632,8 +3044,8 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 3429, 10 )
 	TriggerAction( 1, GiveItem, 3404, 1 , 4)
 	TriggerFailure( 1, JumpPage, 30 )
-	Text( 4,  "Получить сундук Воителя ", MultiTrigger, GetMultiTrigger(), 1)
-
+	Text( 4, "Obtained Crusader equipment", MultiTrigger, GetMultiTrigger(), 1)
+	--------------ЦдКхЦ®ѕЮЅЈКїЧ°±ёПд
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3428, 10 )
 	TriggerCondition( 1, HasItem, 3429, 10 )
@@ -1641,8 +3053,8 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 3429, 10 )
 	TriggerAction( 1, GiveItem, 3405, 1 , 4)
 	TriggerFailure( 1, JumpPage, 30 )
-	Text( 4,  "Получить сундук Чемпиона ", MultiTrigger, GetMultiTrigger(), 1)
-
+	Text( 4, "Obtained Champion equipment", MultiTrigger, GetMultiTrigger(), 1)
+	--------------ЦдКхЦ®ѕС»чКЦЧ°±ёПд
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3428, 10 )
 	TriggerCondition( 1, HasItem, 3429, 10 )
@@ -1650,8 +3062,8 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 3429, 10 )
 	TriggerAction( 1, GiveItem, 3406, 1 , 4)
 	TriggerFailure( 1, JumpPage, 30 )
-	Text( 4,  "Получить сундук Стрелка ", MultiTrigger, GetMultiTrigger(), 1)
-
+	Text( 4, "Obtained Sharpshooter equipment", MultiTrigger, GetMultiTrigger(), 1)
+	--------------ЦдКхЦ®КҐЦ°ХЯЧ°±ёПд
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3428, 10 )
 	TriggerCondition( 1, HasItem, 3429, 10 )
@@ -1659,8 +3071,8 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 3429, 10 )
 	TriggerAction( 1, GiveItem, 3407, 1 , 4)
 	TriggerFailure( 1, JumpPage, 30 )
-	Text( 4,  "Получить сундук Целителя ", MultiTrigger, GetMultiTrigger(), 1)
-
+	Text( 4, "Obtain Cleric equipment", MultiTrigger, GetMultiTrigger(), 1)
+	--------------ЦдКхЦ®·вУЎК¦Ч°±ёПд
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3428, 10 )
 	TriggerCondition( 1, HasItem, 3429, 10 )
@@ -1668,8 +3080,8 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 3429, 10 )
 	TriggerAction( 1, GiveItem, 3408, 1 , 4)
 	TriggerFailure( 1, JumpPage, 30 )
-	Text( 4,  "Получить сундук Колдуньи ", MultiTrigger, GetMultiTrigger(), 1)
-
+	Text( 4, "Obtained Seal Master equipment", MultiTrigger, GetMultiTrigger(), 1)
+	--------------ЦдКхЦ®єЅєЈКїЧ°±ёПд
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3428, 10 )
 	TriggerCondition( 1, HasItem, 3429, 10 )
@@ -1677,10 +3089,11 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 3429, 10 )
 	TriggerAction( 1, GiveItem, 3409, 1 , 4)
 	TriggerFailure( 1, JumpPage, 30 )
-	Text( 4,  "Получить сундук Покорителя морей ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 4, "Obtained Voyager equipment", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 5,  "Геньон: Набор исчезновения содержит экипировку 50 уровня полученную в Мире Демонов. Для ее получения необходимо принести 10 рун Тер и 10 рун Фа. " )
 
+	Talk( 5, "Gannon: Incantation set items belonged to Demonic World Lv50 equipments. You will need to pass me 10 Ja Runestones and 10 Tef Runestones. You can select the related class too." )
+	--------------»ГБйЦ®Л«ЅЈКїЧ°±ёПд
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3427, 10 )
 	TriggerCondition( 1, HasItem, 3430, 10 )
@@ -1688,8 +3101,8 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 3410, 1 , 4)
 	TriggerFailure( 1, JumpPage, 30 )
-	Text( 5,  "Получить сундук Воителя ", MultiTrigger, GetMultiTrigger(), 1)
-
+	Text( 5, "Obtained Crusader equipment", MultiTrigger, GetMultiTrigger(), 1)
+	--------------»ГБйЦ®ѕЮЅЈКїЧ°±ёПд
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3427, 10 )
 	TriggerCondition( 1, HasItem, 3430, 10 )
@@ -1697,8 +3110,8 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 3411, 1 , 4)
 	TriggerFailure( 1, JumpPage, 30 )
-	Text( 5,  "Получить сундук Чемпиона ", MultiTrigger, GetMultiTrigger(), 1)
-
+	Text( 5, "Obtained Champion equipment", MultiTrigger, GetMultiTrigger(), 1)
+	--------------»ГБйЦ®ѕС»чКЦЧ°±ёПд
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3427, 10 )
 	TriggerCondition( 1, HasItem, 3430, 10 )
@@ -1706,8 +3119,8 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 3412, 1 , 4)
 	TriggerFailure( 1, JumpPage, 30 )
-	Text( 5,  "Получить сундук Стрелка ", MultiTrigger, GetMultiTrigger(), 1)
-
+	Text( 5, "Obtained Sharpshooter equipment", MultiTrigger, GetMultiTrigger(), 1)
+	--------------»ГБйЦ®КҐЦ°ХЯЧ°±ёПд
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3427, 10 )
 	TriggerCondition( 1, HasItem, 3430, 10 )
@@ -1715,8 +3128,8 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 3413, 1 , 4)
 	TriggerFailure( 1, JumpPage, 30 )
-	Text( 5,  "Получить сундук Целителя ", MultiTrigger, GetMultiTrigger(), 1)
-
+	Text( 5, "Obtain Cleric equipment", MultiTrigger, GetMultiTrigger(), 1)
+	--------------»ГБйЦ®·вУЎК¦Ч°±ёПд
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3427, 10 )
 	TriggerCondition( 1, HasItem, 3430, 10 )
@@ -1724,8 +3137,8 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 3414, 1 , 4)
 	TriggerFailure( 1, JumpPage, 30 )
-	Text( 5,  "Получить сундук Колдуньи ", MultiTrigger, GetMultiTrigger(), 1)
-
+	Text( 5, "Obtained Seal Master equipment", MultiTrigger, GetMultiTrigger(), 1)
+	--------------»ГБйЦ®єЅєЈКїЧ°±ёПд
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3427, 10 )
 	TriggerCondition( 1, HasItem, 3430, 10 )
@@ -1733,10 +3146,11 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 3415, 1 , 4)
 	TriggerFailure( 1, JumpPage, 30 )
-	Text( 5,  "Получить сундук Покорителя морей ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 5, "Obtained Voyager equipment", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 6,  "Геньон: Таинственный набор содержит в себе экипировку 60 уровня, полученную в Мире Демонов. Для ее получения необходимо принести 10 рун Тер и 10 рун Фа. " )
 
+	Talk( 6, "Gannon: Enigma set items belonged to Demonic World Lv60 equipments. You will need to pass me 10 Ter Runestones and 10 Fa Runestones. You can select the related class too." )
+	--------------ГФЦ®Л«ЅЈКїЧ°±ёПд
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3455, 10 )
 	TriggerCondition( 1, HasItem, 3456, 10 )
@@ -1744,8 +3158,8 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 3456, 10 )
 	TriggerAction( 1, GiveItem, 3416, 1 , 4)
 	TriggerFailure( 1, JumpPage, 30 )
-	Text( 6,  "Получить сундук Воителя ", MultiTrigger, GetMultiTrigger(), 1)
-
+	Text( 6, "Obtained Crusader equipment", MultiTrigger, GetMultiTrigger(), 1)
+	--------------ГФЦ®ѕЮЅЈКїЧ°±ёПд
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3455, 10 )
 	TriggerCondition( 1, HasItem, 3456, 10 )
@@ -1753,8 +3167,8 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 3456, 10 )
 	TriggerAction( 1, GiveItem, 3417, 1 , 4)
 	TriggerFailure( 1, JumpPage, 30 )
-	Text( 6,  "Получить сундук Чемпиона ", MultiTrigger, GetMultiTrigger(), 1)
-
+	Text( 6, "Obtained Champion equipment", MultiTrigger, GetMultiTrigger(), 1)
+	--------------ГФЦ®ѕС»чКЦЧ°±ёПд
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3455, 10 )
 	TriggerCondition( 1, HasItem, 3456, 10 )
@@ -1762,8 +3176,8 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 3456, 10 )
 	TriggerAction( 1, GiveItem, 3418, 1 , 4)
 	TriggerFailure( 1, JumpPage, 30 )
-	Text( 6,  "Получить сундук Стрелка ", MultiTrigger, GetMultiTrigger(), 1)
-
+	Text( 6, "Obtained Sharpshooter equipment", MultiTrigger, GetMultiTrigger(), 1)
+	--------------ГФЦ®КҐЦ°ХЯЧ°±ёПд
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3455, 10 )
 	TriggerCondition( 1, HasItem, 3456, 10 )
@@ -1771,8 +3185,8 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 3456, 10 )
 	TriggerAction( 1, GiveItem, 3419, 1 , 4)
 	TriggerFailure( 1, JumpPage, 30 )
-	Text( 6,  "Получить сундук Целителя ", MultiTrigger, GetMultiTrigger(), 1)
-
+	Text( 6, "Obtain Cleric equipment", MultiTrigger, GetMultiTrigger(), 1)
+	--------------ГФЦ®·вУЎК¦Ч°±ёПд
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3455, 10 )
 	TriggerCondition( 1, HasItem, 3456, 10 )
@@ -1780,8 +3194,8 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 3456, 10 )
 	TriggerAction( 1, GiveItem, 3420, 1 , 4)
 	TriggerFailure( 1, JumpPage, 30 )
-	Text( 6,  "Получить сундук Колдуньи ", MultiTrigger, GetMultiTrigger(), 1)
-
+	Text( 6, "Obtained Seal Master equipment", MultiTrigger, GetMultiTrigger(), 1)
+	--------------ГФЦ®єЅєЈКїЧ°±ёПд
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3455, 10 )
 	TriggerCondition( 1, HasItem, 3456, 10 )
@@ -1789,11 +3203,12 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 3456, 10 )
 	TriggerAction( 1, GiveItem, 3421, 1 , 4)
 	TriggerFailure( 1, JumpPage, 30 )
-	Text( 6,  "Получить сундук Покорителя морей ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 6, "Obtained Voyager equipment", MultiTrigger, GetMultiTrigger(), 1)
 
-	InitTrigger()
+ 
+	InitTrigger() --єПіЙІШ±¦Нј
 	TriggerCondition( 1, HasItem, 0432, 1 )
-    TriggerCondition( 1, HasItem, 0433, 1 )
+        TriggerCondition( 1, HasItem, 0433, 1 )
 	TriggerCondition( 1, HasItem, 0434, 1 )
 	TriggerCondition( 1, HasItem, 0435, 1 )
 	TriggerCondition( 1, HasMoney, 2000 )
@@ -1805,11 +3220,11 @@ function r_talk47()
 	TriggerAction( 1, GiveItem, 1092, 1, 4 )
 	TriggerFailure( 1, JumpPage, 8 ) 
 
-	Talk( 7,  "Геньон: Принесите мне 4 фрагмента карты и я объединю их для вас в полную карту сокровищ " )
-	Text( 7,  "Объединить карту сокровищ ",MultiTrigger, GetMultiTrigger(), 1) 
+	Talk( 7, "Gannon: Bring the 4 map fragments to me and I will combine a complete treasure map for you." )
+	Text( 7, "Combine Treasure Map",MultiTrigger, GetMultiTrigger(), 1) 
+	Talk( 8, "Gannon: When you have collected the 4 separate maps, look for me and bring along 2000G." )
 
-	Talk( 8,  "Геньон: Ищите меня когда соберете 4 фрагмента карты и 2000 золотых " )
-
+	--------------¶Т»»НјЦЅ
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2324, 5 )
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
@@ -1817,9 +3232,10 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 2324, 5 )
 	TriggerAction( 1, GiveItem, 1000, 1 , 4)
 	TriggerFailure( 1, JumpPage, 11 )
-	Talk( 9,  "Геньон: Вам известно что иллюзии могут быть материальными? Если принесете мне их осколки, я дам вам некоторые старые чертежи " )
-	Text( 9,  "5 Фрагментов иллюзии на чертеж Пачкули ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 9, "Gannon: Ah? Can you give me your Fragment? It will be worth your while." )
+	Text( 9, "5 Illusion Fragments to exchange for 1 Burry Blueprint", MultiTrigger, GetMultiTrigger(), 1)
 
+	--------------¶Т»»НјЦЅ
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2324, 30 )
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
@@ -1827,8 +3243,9 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 2324, 30 )
 	TriggerAction( 1, GiveItem, 1001, 1 , 4)
 	TriggerFailure( 1, JumpPage, 11 )
-	Text( 9,  "30 Фрагментов иллюзии на Зашифрованный чертеж  ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 9, "30 Illusion Fragments to exchange for 1 Encrypted Blueprint ", MultiTrigger, GetMultiTrigger(), 1)
 
+	--------------¶Т»»НјЦЅ
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2324, 100 )
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
@@ -1836,8 +3253,9 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 2324, 100 )
 	TriggerAction( 1, GiveItem, 1002, 1 , 4)
 	TriggerFailure( 1, JumpPage, 11 )
-	Text( 9,  "100 Фрагментов иллюзии на Запечатанный чертеж ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 9, "100 Illusion Fragments to exchange for 1 Sealed Blueprint", MultiTrigger, GetMultiTrigger(), 1)
 
+	--------------¶Т»»НјЦЅ
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2324, 500 )
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
@@ -1845,8 +3263,10 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 2324, 500 )
 	TriggerAction( 1, GiveItem, 1003, 1 , 4)
 	TriggerFailure( 1, JumpPage, 11 )
-	Text( 9,  "500 Фрагментов иллюзии на Чертеж призыва ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 9, "500 Illusion Fragments to exchange for 1 Invocation Blueprint", MultiTrigger, GetMultiTrigger(), 1)
 
+
+	--------------¶Т»»ЅдЦё
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2325, 1 )
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
@@ -1854,9 +3274,10 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 2325, 1 )
 	TriggerAction( 1, GiveItem, 4656, 1 , 4)
 	TriggerFailure( 1, JumpPage, 11 )
-	Talk( 10,  "Геньон: Если вам было даровано Сердце иллюзии вы достойны награды " )
-	Text( 10,  "Получить Пламя ярости ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 10, "Gannon: Its such a beautiful Illusion Heart. Let me use this ring to exchange." )
+	Text( 10, "Exchanged Flame of Fury", MultiTrigger, GetMultiTrigger(), 1)
 
+	--------------¶Т»»ЅдЦё
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2325, 1 )
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
@@ -1864,8 +3285,9 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 2325, 1 )
 	TriggerAction( 1, GiveItem, 4657, 1 , 4)
 	TriggerFailure( 1, JumpPage, 11 )
-	Text( 10,  "Получить Булыжник ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 10, "Redeem Stable Cliff", MultiTrigger, GetMultiTrigger(), 1)
 
+	--------------¶Т»»ЅдЦё
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2325, 1 )
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
@@ -1873,8 +3295,9 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 2325, 1 )
 	TriggerAction( 1, GiveItem, 4658, 1 , 4)
 	TriggerFailure( 1, JumpPage, 11 )
-	Text( 10,  "Получить Ветер благородной души ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 10, "Redeem Wind of the Gentle Soul", MultiTrigger, GetMultiTrigger(), 1)
 
+	--------------¶Т»»ЅдЦё
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2325, 1 )
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
@@ -1882,8 +3305,9 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 2325, 1 )
 	TriggerAction( 1, GiveItem, 4659, 1 , 4)
 	TriggerFailure( 1, JumpPage, 11 )
-	Text( 10,  "Получить Сплетенный хлыст из ротанга ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 10, "Redeem Entwined Rattan", MultiTrigger, GetMultiTrigger(), 1)
 
+	--------------¶Т»»ЅдЦё
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2325, 1 )
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
@@ -1891,19 +3315,23 @@ function r_talk47()
 	TriggerAction( 1, TakeItem, 2325, 1 )
 	TriggerAction( 1, GiveItem, 4660, 1 , 4)
 	TriggerFailure( 1, JumpPage, 11 )
-	Text( 10,  "Получить Чудесную воду ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 10, "Redeem Water of Miracle", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 11,  "Геньон: К сожалению не могу произвести обмен. Возможно у вас нет необходимых компонентов или заблокирован инвентарь. " )
 
+	Talk( 11, "You do not have the items required for exchanging, or your inventory might be binded or you do not have sufficient inventory slots." )
+
+
+
+	--AddNpcMission ( 719 )
 	AddNpcMission ( 102 )
 	AddNpcMission 	(416)
 	AddNpcMission 	(751)
 	AddNpcMission 	(755)
-	AddNpcMission 	(95 )
-	AddNpcMission 	(96 )
-	AddNpcMission 	(97 )
+	AddNpcMission 	(95)
+	AddNpcMission 	(96)
+	AddNpcMission 	(97)
 	AddNpcMission 	(151)
-	AddNpcMission	(1227)
+	AddNpcMission(	1227	)
 	AddNpcMission 	(342)
 	AddNpcMission 	(343)
 	AddNpcMission 	(344)
@@ -1918,6 +3346,7 @@ function r_talk47()
 	AddNpcMission 	(353)
 	AddNpcMission 	(354)
 	AddNpcMission 	(355)
+-------------eleven
 	AddNpcMission 	(5009)
 	AddNpcMission 	(5015)
 	AddNpcMission 	(5017)
@@ -1926,17 +3355,31 @@ function r_talk47()
 	AddNpcMission 	(5031)
 	AddNpcMission 	(5059)
 	AddNpcMission 	(5064)
+	
 end 
 
-function r_talk48()
-	Talk( 1,  "Альбуда: Привет, я руководитель клана. Могу я чем то помочь? " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ґуЙс№ЩЎ¤ёКµШО¬А­
+
+
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[КПЧеі¤Ў¤°ўІј¶аВЮ.Ао]		--
+--							--
+--		90374,364023				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk48 ()
+	
+	
+	Talk( 1, "Albuda: Hi, I am the Clan Chief. How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasMission, 1014 )	
 	TriggerCondition( 1, HasRecord, 1013 )
 	TriggerCondition( 1, NoRecord, 1059 )
 	TriggerAction( 1, JumpPage, 2 )	
 	TriggerFailure( 1, JumpPage, 3)
-	Text( 1,  "Выбрать путь перерождения ",MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Select path of Rebirth",MultiTrigger, GetMultiTrigger(), 1 )
 
 
 	InitTrigger()
@@ -1945,26 +3388,33 @@ function r_talk48()
 	TriggerCondition( 1, NoRecord, 1056 )
 	TriggerAction( 1, JumpPage, 5 )
 	TriggerFailure( 1, JumpPage, 6)
-	Text( 1,  "Сменить путь перерождения ",MultiTrigger, GetMultiTrigger(), 1 )
---	Text( 1, "There's something wrong with my Rebirth Quest", JumpPage, 9 )
-	Text( 1,  "До свидания ", CloseTalk)
+	Text( 1, "Reselect path of rebirth",MultiTrigger, GetMultiTrigger(), 1 )
+	
+		
+	Text( 1, "There's something wrong with my Rebirth Quest", JumpPage, 9 )  --Хл¶Ф±±ГАЧЄЙъИООсОЮ·ЁЅУµЅєуРшµДІ№ідСЎПо
+	Text( 1, "Nothing", CloseTalk)
+	
+	
+
 
 	InitTrigger()
 	TriggerAction( 1, SetRecord, 1015 )
 	TriggerAction( 1, SetRecord, 1059 )	
 	TriggerAction( 1, JumpPage, 4 )
-	Talk( 2,  "Альбуда: Для перерождения есть 2 пути. Вы вправе выбрать любой из них. Первый - сложный. Вам на пути встретятся очень сильные монстры и опасные задания. Второй путь - долгий. Этот путь для терпеливых. ")
-	Text( 2,  "Сложный путь ",MultiTrigger, GetMultiTrigger(), 1 )
+	Talk( 2, "Albuda: There are two paths to rebirth. One has tough difficulty and you will meet the strongest monsters in this game along the way. This path is meant for the strong. The other path consists of many obstacles and interference. This is meant for those with great patience. You must be fully prepared before you embark on either path. Complete either and you will be rebirthed!")
+	Text( 2, "Tough Difficulty",MultiTrigger, GetMultiTrigger(), 1 )
+
 
 	InitTrigger()
 	TriggerAction( 1, SetRecord, 1016 )
 	TriggerAction( 1, SetRecord, 1059 )
 	TriggerAction( 1, JumpPage, 4 )
-	Text( 2,  "Долгий путь ",MultiTrigger, GetMultiTrigger(), 1  )
+	Text( 2, "Troublesome Path",MultiTrigger, GetMultiTrigger(), 1  )
 
-	Talk( 3,  "Альбуда: Вы не можете выбрать путь перерождения или уже выбрали ")
+	Talk( 3, "You have not select the path of rebirth or have you selected the path of rebirth")
 
-	Talk( 4,  "Альбуда: После выбора пути посетите Тинк! ")
+	Talk( 4, "Go forth once you have selected your path. Look for Tink!")
+
 
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 1016 )
@@ -1974,8 +3424,8 @@ function r_talk48()
 	TriggerAction( 1, TakeMoney, 5000000 )
 	TriggerAction( 1, JumpPage, 7 )
 	TriggerFailure( 1, JumpPage, 8)
-	Talk( 5,  "Альбуда: Смена пути перерождения потребует высокой цены. Готовы вы заплатить за это 5000000 золота? ")
-	Text( 5,  "Изменить на сложный путь ",MultiTrigger, GetMultiTrigger(), 1 )
+	Talk( 5, "To reselect the path of rebirth requires a high price of 5000000 gold!")
+	Text( 5, "Changed to tough difficulty",MultiTrigger, GetMultiTrigger(), 1 )
 
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 1015 )
@@ -1985,16 +3435,15 @@ function r_talk48()
 	TriggerAction( 1, TakeMoney, 5000000 )
 	TriggerAction( 1, JumpPage, 7 )
 	TriggerFailure( 1, JumpPage, 8)
-	Text( 5,  "Изменить на долгий путь ",MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 5, "Change to troublesome path",MultiTrigger, GetMultiTrigger(), 1 )
 
-	Talk( 6,  "Альбуда: Вы не можете сменить путь перерождения. Это путь для игроков сожалеющих о ранее выбранном пути. ")
+	Talk( 6, "You have not select your path of rebirth or you have already competed your rebirth process. This function is for players who regretted their initial choice.")
 
-	Talk( 7,  "Альбуда: Теперь вы должны работать усерднее. ")
+	Talk( 7, "You must work harder this time")
 
-	Talk( 8,  "Альбуда: У вас недостаточно золота или данный путь уже выбран. ")
-
---Не нужный кусок кода
---[[	Talk( 9, "Choose the quest you want to reset according to the Rebirth Quest you selected.")
+	Talk( 8, "You do not have sufficient gold or you have selected the same path of rebirth")
+	
+	Talk( 9, "Choose the quest you want to reset according to the Rebirth Quest you selected.")
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 1059 )		
 	TriggerAction( 1, JumpPage, 10 )
@@ -2037,8 +3486,8 @@ function r_talk48()
 	Text( 11, "No", CloseTalk )
 	
 	Talk( 12, "Congratulations! Reset successful. Return to Passerby - Tink and continue your quest.")
-
-	Talk( 13, "WhatЎЇs the matter?")]]--
+	Talk( 13, "WhatЎЇs the matter?")
+	
 
 	AddNpcMission ( 231 )
 	AddNpcMission ( 232 )
@@ -2053,11 +3502,28 @@ function r_talk48()
 	AddNpcMission	(340)
 	AddNpcMission ( 6017 )
 	AddNpcMission ( 6018 )
+	
+
+
+
 end 
 
-function r_talk49()
-	Talk( 1,  "Ойа: Только для вас лучшие восстанавливающие зелья! Сварены с любовью! " )
-	Text( 1,  "Сделать восстанавливающее зелье ", JumpPage, 2 )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<КПЧеі¤Ў¤°ўІј¶аВЮ.Ао
+
+
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[µАѕЯµкЦчЎ¤Е·µФ]			--
+--							--
+--		86214,359121				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk49 ()
+	
+	
+	Talk( 1, "Ouya: Come and take a look, my friend. My medicines are made from the secret recipes of the natives." )
+	Text( 1, "Decoct Recovery Potion", JumpPage, 2 )
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1779, 1 )
@@ -2069,8 +3535,8 @@ function r_talk49()
 	TriggerAction( 1, GiveItem, 3133, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 2,  "Ойа: Выберите зелье, которое желаете приготовить " )
-	Text( 2,  "Приготовить Лакричное зелье ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 2, "Ouya: To recover SP you will need a potion. I can decoct one for you if you like." )
+	Text( 2, "Decoct Liquorice Potion", MultiTrigger, GetMultiTrigger(), 1)
 	
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1777, 1 )
@@ -2080,7 +3546,7 @@ function r_talk49()
 	TriggerAction( 1, GiveItem, 3122, 1 , 4)
 	TriggerAction( 1, JumpPage, 5 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Text( 2,  "Приготовить Сок эльфийского фрукта ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 2, "Mix Elven Fruit Juice", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1779, 1 )
@@ -2092,31 +3558,43 @@ function r_talk49()
 	TriggerAction( 1, GiveItem, 3134, 1 , 4)
 	TriggerAction( 1, JumpPage, 7 )
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 2,  "Приготовить Чай Бодрячок ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 2, "Brew Energetic Tea", MultiTrigger, GetMultiTrigger(), 1 )
 
-	Talk( 3,  "Ойа: Деньги - вперед. Вот, держите что заказывали! " )
+	Talk( 3, "Ouya: Money firstЎ­This is the Energetic Tea you needed. Keep it well." )
+	Talk( 4, "Ouya: OhЎ­It requires 10 Medicated Grass and 1 Bottle to make 1 Liquorice Potion. Also, it needs a fee of 50G." )
+	Talk( 5, "Ouya: This Elven Fruit Juice was made from your Elven Fruit. Keep it well." )
+	Talk( 6, "Ouya: Sorry, you do not have the required items. Elven Fruit Juice requires 10 Elven Fruits and 1 Glass to make." )
+	Talk( 7, "Ouya: Money first...This is the Energetic Tea you needed. Keep it well." )
+	Talk( 8, "Ouya: OhЎ­It requires 10 Fancy Petal and 1 Bottle to make 1 Energetic Tea. Needs a fee of 50G too." )
 
-	Talk( 4,  "Ойа: Для получения одного Лакричного зелья необходимо 10 Целебной травы, 1 Флакон и 50 золота " )
+	AddNpcMission( 1007 )
+	AddNpcMission( 1117 )
+	AddNpcMission( 1171 )
+	AddNpcMission(	1062	)
+	AddNpcMission(	1229	)
+	
 
-	Talk( 5,  "Ойа: Этот фруктовый сок сварен из отборных фруктов! Держите, и удачи. " )
 
-	Talk( 6,  "Ойа: Для получения Сока эльфийского сока необходимо 10 Эльфийских фруктов, 1 Стакан и 50 золота " )
 
-	Talk( 7,  "Ойа: Деньги вперед! Не правда ли этот чай так освежает? " )
-
-	Talk( 8,  "Ойа: Чтобы приготовить 1 Чай Бодрячок необходимо 10 Лепестков многоцвета, 1 Флакон и 50 золота " )
-
-	AddNpcMission(	1007 )
-	AddNpcMission(	1117 )
-	AddNpcMission(	1171 )
-	AddNpcMission(	1062 )
-	AddNpcMission(	1229 )
 end 
 
-function r_talk50()
-	Talk( 1,  "Мойа: Я потомственный портной. Посмотрите мои вещи, возможно вас что то заинтересует. " )
-	Text( 1,  "Торг ", BuyPage )
-	Text( 1,  "Ничего... ",CloseTalk )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<µАѕЯµкЦчЎ¤Е·µФ
+
+
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[·юЧ°µкЦчЎ¤ДЄСЗ]			--
+--							--
+--		89463,360213				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk50 ()
+	
+	
+	Talk( 1, "Moya: I come from a family of tailors. See if there is anything you like." )
+	Text( 1, "Trade", BuyPage )
+	Text( 1, "Nothing...",CloseTalk )
 
 	InitTrade()
 	Defence(	0365	)
@@ -2204,36 +3682,110 @@ function r_talk50()
 	Defence(	0567	)
 	Defence(	0743	)
 
+
 	AddNpcMission ( 715 )
 	AddNpcMission	(1011)
 	AddNpcMission	(1068)
 	AddNpcMission	(1123)
 	AddNpcMission	(1175)
 	AddNpcMission(	1230	)
+	
+
+
+
 end 
 
-function r_talk51()
-	Talk( 1,  "Юдис: Привет! Добро пожаловать в Банк Шайтана. Могу ли я чем либо помочь? " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<·юЧ°µкЦчЎ¤ДЄСЗ
+
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[ТшРРіцДЙЎ¤ЦмµПЛ№]			--
+--							--
+--		90637,353900				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk51 ()
+	
+	
+	Talk( 1, "Judis: Hi! Welcome to the bank of Shaitan! How can I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 200 )
 	TriggerAction( 1, TakeMoney, 200 )
 	TriggerAction( 1, OpenBank )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1,  "Хранилище (200 золота) ", MultiTrigger, GetMultiTrigger(), 1)
-
-	Talk( 2,  "Прости, но у тебя недостаточно денег на счету " )
+	Text( 1, "Vault (200G Fee)", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 2, "Sorry, you do not have sufficient gold to pay for vault usage" )
 
 	AddNpcMission	(1051)
 	AddNpcMission	(1104)
 	AddNpcMission	(1160)
 	AddNpcMission	(1213)
 	AddNpcMission(	1231	)
+-------eleven
 	AddNpcMission(	5012	)	
 end 
 
-function r_talk52()
-	Talk( 1,  "Франко: Я хотел вступить во Флот, но к сожалению из за недоразумения меня отправили сюда. " )
-	Text( 1,  "Ничего... ",CloseTalk )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ТшРРіцДЙЎ¤ЦмµПЛ№
+
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[ёЫОА¶УіЙФ±Ў¤рСріІЭ]		--
+--							--
+--		86734,366071				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk52 ()
+	
+	
+	Talk( 1, "Franco: I wanted to join the Navy actually. However, I am a jinx. One time while we were out in the open sea, our ship got attacked by 10 pirate ships. My officers were stripped bare with only their underwear left. They got so angry with me that they made me to look after this place in Shaitan." )
+	Text( 1, "Nothing...",CloseTalk )
+	
+	
+	----------------ЧЄЦ°іЙОЄСµКЮК¦
+	InitTrigger()
+	TriggerCondition( 1, LvCheck, ">", 39 )
+	TriggerCondition( 1, IsCategory, 1 )
+	TriggerCondition( 1, PfEqual, 2 )
+	TriggerCondition( 1, HasMoney, 20000 )
+	TriggerCondition( 1, HasItem, 3364, 1 )
+	TriggerAction( 1, TakeItem, 3364, 1 )
+	TriggerAction( 1, TakeMoney, 20000 )
+	TriggerAction( 1, SetProfession, 11 )
+	TriggerAction( 1, JumpPage, 6 )
+	TriggerCondition( 2, LvCheck, ">", 39 )
+	TriggerCondition( 2, IsCategory, 3 )
+	TriggerCondition( 2, PfEqual, 2 )
+	TriggerCondition( 2, HasMoney, 20000 )
+	TriggerCondition( 2, HasItem, 3364, 1 )
+	TriggerAction( 2, TakeItem, 3364, 1 )
+	TriggerAction( 2, TakeMoney, 20000 )
+	TriggerAction( 2, SetProfession, 11  )
+	TriggerAction( 2, JumpPage, 6 )
+	TriggerFailure( 2, JumpPage, 7 )
+
+	Talk(5, "SighЎ­it's a pity that you are not a Beast Tamer. I believed that you have the ability to become one. Let me teach you how!")
+	Text(5, "Ok, I will become a Beast Tamer", MultiTrigger, GetMultiTrigger(), 2)
+	Text(5, "No, it is good enough for now.", CloseTalk)
+
+	Talk(6, "How is it? I knew you are born to be a Beast Tamer!")
+
+	Talk(7, "Want to become a Beast Tamer? Come back to me when you have reached Lv 40. Train your hunter skills well as they are important foundation for you to advance further. Remember to bring 1 Clarity Crystal and 20000G too.")
+
+
+	--TriggerCondition( 2, LvCheck, ">", 39 )
+	--TriggerCondition( 2, IsCategory, 1 )
+	--TriggerCondition( 2, PfEqual, 2 )
+	--TriggerAction( 2, JumpPage, 5 )
+	--TriggerCondition( 3, LvCheck, ">", 39 )
+	--TriggerCondition( 3, IsCategory, 3 )
+	--TriggerCondition( 3, PfEqual, 2 )
+	--TriggerAction( 3, JumpPage, 5 )
+	
+
+	--Start( GetMultiTrigger(), 1 )
+	
 
 	AddNpcMission ( 243 )
 	AddNpcMission ( 244 )
@@ -2245,19 +3797,36 @@ function r_talk52()
 	AddNpcMission	(89)
 	AddNpcMission	(90)
 	AddNpcMission(	1232	)
+	
 
+
+
+	
 	MisListPage(5)
 end 
 
-function r_talk53()
-	Talk( 1,  "Коваль: Интересует качественное и недорогое оружие? Посмотреть можно и бесплатно! " )
-	Text( 1,  "Торг ", BuyPage )
-	Text( 1,  "Ремонт ", OpenRepair )
-	Text( 1,  "Вставить самоцвет ", OpenForge)
-	Text( 1,  "Сделать слот ", OpenMilling)
-	Text( 1,  "Вставить в аппарель ", OpenFusion)
-	Text( 1,  "Улучшение аппарели ", OpenUpgrade)
-	Text( 1,  "Ничего... ",CloseTalk )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ёЫОА¶УіЙФ±Ў¤рСріІЭ
+
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[МъЅіЎ¤Н­Н­№Д]			--
+--							--
+--		90424,349871				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk53 ()
+	
+	
+	Talk( 1, "Smithy: Hi! I have a wide variety of weapons here! Free free to browse!" )
+	Text( 1, "Trade", BuyPage )
+	Text( 1, "Repair", OpenRepair )
+	Text( 1, "Forge", OpenForge)
+	Text( 1, "Fusion", OpenMilling)
+	Text( 1, "Apparel Fusion", OpenFusion)
+	Text( 1, "Apparel Upgrade", OpenUpgrade)
+	Text( 1, "Nothing...",CloseTalk )
+
 
 	InitTrade()
 	Weapon(	0008	)
@@ -2307,20 +3876,63 @@ function r_talk53()
 	Weapon(	1475	)
 	Weapon(	1476	)
 
-	AddNpcMission 	(	713		)
-	AddNpcMission	(	1043	)
-	AddNpcMission	(	1095	)
-	AddNpcMission	(	1154	)
-	AddNpcMission	(	1206	)
-	AddNpcMission	(	91		)
-	AddNpcMission	(	92		)
-	AddNpcMission	(	93		)
+	AddNpcMission ( 713 )
+	AddNpcMission	(1043)
+	AddNpcMission	(1095)
+	AddNpcMission	(1154)
+	AddNpcMission	(1206)
+	AddNpcMission	(91)
+	AddNpcMission	(92)
+	AddNpcMission	(93)
+
 end 
 
-function r_talk54()
-	Talk( 1,  "Лена: Привет! Я жена кузнеца! " )
-	Text( 1,  "Изготовить краситель ", JumpPage, 2)
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<МъЅіЎ¤Н­Н­№Д
 
+
+
+
+--------------------------------------------------------------МъЅіµДНЅµЬ 
+function mmm_talk04 ()
+	Talk( 1, "Blacksmith's apprentice: If only I have my teacher's skills." )
+	Text( 1, "Regarding Item Forging", JumpPage, 2 )
+	Text( 1, "Regarding Composition", JumpPage, 3 )
+	Text( 1, "Regarding Fusion", JumpPage, 7 )
+	Text( 1, "Nothing...",CloseTalk )
+	
+	
+	Talk( 2, "Blacksmith's Disciple: To forge any item, there is a huge fee to pay. You will need to have a Refining Gem that is of equal level to that of your item as a catalyst. Then you select the type of Gems to forge onto your item. Different type of Gems have different attribute added and item type restriction. The Gems also need to be of equal level to that of your item. Do you want to forge?" )
+	Text( 2, "Regarding Refining Gem", JumpPage, 4)
+	Text( 2, "Regarding Gem", JumpPage, 5)
+	Text( 2, "Regarding Forging Success Rate", JumpPage, 6)
+	
+	Talk( 3, "Blacksmith Disciple: You wish to combine something? From what I understand, you need a combining scroll and it will list the required items. Collect the items needed and talk to Grocer - Amos in Shaitan City. He is the only person who knows how to combine." )
+	
+	Talk( 4, "Blacksmith Disciple: Refining Gems are a crucial catalyst in the forging of items. It must match the level of the item before it can be used. High level refining gems may be obtained from combining or killing monsters." )
+
+	Talk( 5, "Blacksmith Disciple: There are a lof of gems for forging. Fire based attack gem, water based defense gem and sacred spiritual gem. High level gems can be obtained from combining or killing monsters." )
+
+	Talk( 6, "Blacksmith's Disciple: Success rate gets lower as item level gets higher. Max level of item that can be forged is 27. Items will disappear if forging fails." )
+	
+	Talk( 7, "Blacksmith Disciple: For item fusion, you need to prepare 1 Equipment Stabilizer and 1 Equipment Catalyst in order to make a socket." )
+
+end
+
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[АтДИ]				--
+--							--
+--		88307,352019				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk54 ()
+	
+	
+	Talk( 1, "Lena: Hi! I am the wife of Smithy." )
+	Text( 1, "Decoct Hair Colorant", JumpPage, 2)
+
+----------------µчЕдЗаЙ«Иѕ·ўјБ
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1791, 5 )
 	TriggerCondition( 1, HasItem, 1657, 1 )
@@ -2333,24 +3945,37 @@ function r_talk54()
 	TriggerAction( 1, GiveItem, 1801, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 2,  "Лена: Будь модным, будь красивым и тебя полюбят! С моими красителями для волос это так просто! " )
-	Text( 2,  "Изготовить Голубой краситель ",MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 2, "Lena: I think this color will suit your hair. Need me to decoct a hair colorant for you?" )
+	Text( 2, "Decoct Cyan Colorant",MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 3,  "Лена: Ну как? Этот краситель вам понравился? " )
-	Talk( 4,  "Лена: Для получения Голубого красителя необходимо 5 Голубых красок, 1 Особый газ, 1 Радужный стакан и 200 золота. " )
+	Talk( 3, "Lena: How is it? Is this Cyan Colorant to your liking?" )
+	Talk( 4, "Lena: 5 Cyan Dye, 1 Special Gas, 1 Rainbow Glass and 200G to make a Cyan Colorant." )
 	
 	AddNpcMission	(1146)
 	AddNpcMission	(155)
 	AddNpcMission	(156)
 	AddNpcMission	(157)
+
 end 
 
-function r_talk55()
-	Talk( 1,  "Амос: Только у меня самые последние разработки. Даже не трудитесь смотреть в другом месте. " )
-	Text( 1,  "Торг ", BuyPage )
-	Text( 1,  "Комбинация самоцветов ", OpenUnite)
-	Text( 1,  "Изготовить Маску реальности ",JumpPage, 2 )
-	Text( 1,  "Ничего... ",CloseTalk )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<АтДИ
+
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[ФУ»хЙМИЛЎ¤°¬Д«]			--
+--							--
+--		84040,358567				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk55 ()
+	
+	
+	Talk( 1, "Amos: Hi, we have the latest items here. Don't bother to look elsewhere." )
+	Text( 1, "Trade", BuyPage )
+	Text( 1, "Combine", OpenUnite)
+	Text( 1, "Nothing...",CloseTalk )
+	Text( 1, "Redeem Reality Mask",JumpPage, 2 )
 
 	InitTrade()
 	Other(	3206	)
@@ -2379,12 +4004,14 @@ function r_talk55()
 	Other(	4602	)
 	Other(	4603	)
 	Other(	4604	)
-	Other(  3296 	)
-	Other(  886 	)
+	Other( 3296 )
+	Other( 886 )
+	--baby--Йъ»ојјДЬКйLv1
 	Other(	2679	)
 	Other(	2689	)
 	Other(	2699	)
 	Other(	2709	)
+	--Leo
 	Other(	1611	)
 	Other(	1682	)
 	Other(	1842	)
@@ -2406,13 +4033,16 @@ function r_talk55()
 	Other(	1734	)
 	Other(	1621	)
 	Other(	1703	)
+	--Other(	3288	)
 	Other(  2440    )
 
 	AddNpcMission	(1161)
 	AddNpcMission	(152)
 	AddNpcMission	(153)
 	AddNpcMission	(154)
+	--AddNpcMission	(5500)
 
+	---bragi
 	InitTrigger()
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
 	TriggerCondition( 1, KitbagLock, 0 )
@@ -2425,8 +4055,22 @@ function r_talk55()
 	TriggerAction( 1, GiveItem, 2326, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 2,  "Амос: Для изготовления Маски реальности необходимо 1 Эльфийскую печать, 10000 золота и 10 штук любых ресурсов 3 уровня. " )
-	Text( 2,  "Обменять Осколок кости на Маску реальности ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 2, "To obtain a Reality Mask requires 1 Elven Signet, 10000G and any of 10x Lv3 gathered resource" )
+	Text( 2, "Use bones to exchange for Reality Mask", MultiTrigger, GetMultiTrigger(), 1)
+
+	---InitTrigger()
+	---TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	---TriggerCondition( 1, KitbagLock, 0 )
+	---TriggerCondition( 1, HasItem, 2588, 1 )
+	---TriggerCondition( 1, HasItem, 1842, 10 )
+	---TriggerCondition( 1, HasMoney, 10000 )
+	---TriggerAction( 1, TakeItem, 2588, 1 )
+	---TriggerAction( 1, TakeItem, 1842, 10 )
+	---TriggerAction( 1, TakeMoney, 10000 )
+	---TriggerAction( 1, GiveItem, 2326, 1 , 4)
+	---TriggerAction( 1, JumpPage, 3 )
+	---TriggerFailure( 1, JumpPage, 4 )
+	---Text( 2, "Exchange Razor Tooth for Reality Mask", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
@@ -2440,7 +4084,7 @@ function r_talk55()
 	TriggerAction( 1, GiveItem, 2326, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 4 )
-	Text( 2,  "Обменять Руду на Маску реальности ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 2, "Use Crystal Eolith to exchange for Reality Mask", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
@@ -2454,7 +4098,7 @@ function r_talk55()
 	TriggerAction( 1, GiveItem, 2326, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 4 )
-	Text( 2,  "Обменять Дерево на Маску реальности  ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 2, "Use Teak Wood Log to exchange for a Reality Mask", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
@@ -2468,17 +4112,30 @@ function r_talk55()
 	TriggerAction( 1, GiveItem, 2326, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 4 )
-	Text( 2,  "Обменять Сашими на маску реальности ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 2, "Use Bubble Fish to exchange for Reality Mask", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 3,  "Амос: Получите и распишитесь. " )
+	Talk( 3, "Amos: Be careful with it, its very important." )
+	Talk( 4, "Amos: You do not seem to have enough material. Or it might be that your inventory is binded or you do not have enough slots in your inventory." )
 
-	Talk( 4,  "Амос: У вас нет всех необходимых ингридиентов или свободных мест в инвентаре. ВОзможно также у вас заблокирован инвентарь. " )
 end 
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ФУ»хЙМИЛЎ¤°¬Д«
 
-function r_talk56()
-	Talk( 1,  "Мокен: Привет! Не где остановиться? Я могу предложить чудесную комнату для двоих! " )
-	Text( 1,  "Сделать десерт ", JumpPage, 2)
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[ВГµкАП°еЎ¤№юёщ]			--
+--							--
+--		81035,349813				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk56 ()
+	
+	
+	Talk( 1, "Moken: Hi! Need a stay? I have a room for two above." )
+	Text( 1, "Make nice desert", JumpPage, 2)
 
+
+--------------------µчЕдОеІКБрБ§Ц­
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1778, 1 )
 	TriggerCondition( 1, HasItem, 3121, 4 )
@@ -2489,9 +4146,10 @@ function r_talk56()
 	TriggerAction( 1, GiveItem, 3127, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 2,  "Мокен: Мой бизнес в этом году просто превосходен. Я уже распродал большую часть товара! " )
-	Text( 2,  "Смешать Сок радужных фруктов ",MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 2, "Harken: It's a good year for the business. All my items are sold out due to overwhelming demands." )
+	Text( 2, "Mix Rainbow Fruit Juice",MultiTrigger, GetMultiTrigger(), 1)
 
+----------------µчЕдЧЫєП№ыЦ­
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1778, 1 )
 	TriggerCondition( 1, HasItem, 3122, 1 )
@@ -2508,34 +4166,101 @@ function r_talk56()
 	TriggerAction( 1, GiveItem, 3128, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 5 )
-	Text( 2,  "Смешать Фруктовый коктейль ",MultiTrigger, GetMultiTrigger(), 1)
+	Text( 2, "Decoct Fruity Mix",MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 3,  "Мокен: Напиток что вы заказали готов! Приятного времяпровождения! " )
-
-	Talk( 4,  "Мокен: Простите, но для приготовления 1 Сока радужных фруктов необходимо 4 Радужных фрукта, 1 Радужный стакан и 50 золота. " )
-
-	Talk( 5,  "Мокен: Простите, но для изготовления 1 Фруктового коктейля необходимо 1 Сок эльфийского фрукта, 1 Чай из красных фиников, 1 Грибной суп, 1 Сок из плодов дурмана, 1 Радужный стакан и 50 золота. " )
-
+	Talk( 3, "Harken: Young man, the drink you wanted is done. Be careful with it. Its the most popular drink in town." )
+	Talk( 4, "Harken: Sorry, you do not have the required items. Rainbow Fruit Juice requires 4 Rainbow Fruits, 1 Rainbow Glass and 50G" )
+	Talk( 5, "Harken: Sorry, you do not have the required items. Fruity Mix requires 1 Elven Fruit Juice, 1 Red Date Tea, 1 Mushroom Soup, 1 Stramonium Fruit Juice, 1 Rainbow Glass and also 50G to make." )
 	AddNpcMission	(1138)
 	AddNpcMission	(1161)
+	
 end 
 
-function r_talk57()
-	Talk( 1,  "Ленди: Привет, я начинающая медсетсра города Шайтана. К сожалению пока я еще учусь, поэтому не могу помочь вам в лечении. Если вам нужна помощь, то обратитесь к Целителю Шала. Он находится в точке (903,3646) " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ВГµкАП°еЎ¤№юёщ
 
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[»¤КїРЎЅгЎ¤АјАј]			--
+--							--
+--		87954,356282				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk57 ()
+	
+	
+	Talk( 1, "Landy: Hi I am Nurse Landy. I am still in training so my healing skill is mediocre. I am unable to heal you for the moment. If you need anything, look for Physician - Shala at (903,3646)." )
 	AddNpcMission	(1129)
+
 end 
 
-function r_talk58()
-	Talk( 1,  "Деки: Привет, я лидер пиратов-оборотней. В настоящий момент я на 7-ом месте в списке самых разыскиваемых пиратов флотом. Почему я тебе это рассказываю? Я не боюсь флота! Хехе " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<»¤КїРЎЅгЎ¤АјАј
+
+--------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[єЈµБЎ¤µВїЛ]			--
+--							--
+--		794,3669				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk58 ()
+	
+	
+	Talk( 1, "Decky: Hey! I am the werewolf pirates leader Decky! I am currently ranked 7th on the Navy bounty list. Why I telling you this? It is because I am not afraid of the Navy! Hehe!" )
+	
+
+--	Text( 1, "ГО»ГЛ«ЧУ№¬(ЦХј«12№¬ЧЁУГИООс)", JumpPage,2 )
+
+	Talk( 2, "єЈµБЎ¤µВїЛ:ЗлСЎФсДгТЄґі№ШµДДС¶И,ґУЛ®КЦµЅґ¬і¤ДС¶ИТАґОјУґу,µ±И»БЛДС¶ИФЅёЯЅ±АшФЅ·бєс.ДгПлєГБЛВр?Ц»ДЬСЎФсТ»ґО,І»їЙТФєу»ЪЕ¶" )
+
+	InitTrigger()
+	TriggerCondition( 1, NoRecord,1204 )
+	TriggerCondition( 1, NoRecord,1161 )
+	TriggerCondition( 1, HasItem, 3027, 1 )---------Л«ЧУГЕЖ±
+	TriggerAction( 1, TakeItem, 3027, 1 )----------Л«ЧУГЕЖ±
+	TriggerAction( 1, SetRecord, 1159 )
+	TriggerAction( 1, SetRecord, 1162 )
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Text( 2, "Sailor",MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, NoRecord,1159 )
+	TriggerCondition( 1, NoRecord,1161 )
+	TriggerCondition( 1, HasItem, 3027, 1 )---------Л«ЧУГЕЖ±
+	TriggerAction( 1, TakeItem, 3027, 1 )----------Л«ЧУГЕЖ±
+	TriggerAction( 1, SetRecord, 1204 )
+	TriggerAction( 1, SetRecord, 1162 )
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Text( 2, "Pirate",MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, NoRecord,1159 )
+	TriggerCondition( 1, NoRecord,1204 )
+	TriggerCondition( 1, HasItem, 3027, 1 )--------Л«ЧУГЕЖ±
+	TriggerAction( 1, TakeItem, 3027, 1 )----------Л«ЧУГЕЖ±
+	TriggerAction( 1, SetRecord, 1161 )
+	TriggerAction( 1, SetRecord, 1162 )
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Text( 2, "Captain",MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk(3, "єЈµБЎ¤µВїЛ:ОТЖнµ»ДгФЪЧФјєСЎФсµДµАВ·ЙПІ»»бТ»ГьОШєф.НЫ№ю№ю№ю..." )
+	Talk( 4, "єЈµБЎ¤µВїЛ:МфХЅЛ«ЧУ№¬µДК±єт,ДС¶ИЦ»ДЬСЎФсТ»ґО.ІўИ·±ЈДъµД±і°ьАпУРЛ«ЧУ№¬ГЕЖ±.")
 	
 	AddNpcMission	(1125)
+
+---------------------єЈµБЎ¤µВїЛ
+	---------------Л«ЧУ
 	AddNpcMission	(5673)
 	AddNpcMission	(5674)
-	AddNpcMission	(5741)
+	AddNpcMission	(5741)-------(5675)
 	AddNpcMission	(5742)
 	AddNpcMission	(5677)
 	AddNpcMission	(5678)
+
 	AddNpcMission	(5679)
 	AddNpcMission	(5680)
 	AddNpcMission	(5681)
@@ -2547,46 +4272,63 @@ function r_talk58()
 	AddNpcMission	(5687)
 	AddNpcMission	(5688)
 	AddNpcMission	(5689)
+
 	AddNpcMission	(5730)
 	AddNpcMission	(5731)
 	AddNpcMission	(5733)
 	AddNpcMission	(5734)
-	AddNpcMission	(5735)	
+	AddNpcMission	(5735)
+	
+
+	
 end 
 
-function r_talk59()
-	Talk( 1,  "Рислина: Привет! Я люблю болтать и совать свой нос в чужие неприятности. Если у вас есть неприятности - ищите меня. " )
-	Text( 1,  "Звезда Единства ", JumpPage, 31 )
-	Text( 1,  "Я хотел бы кое о чем спросить ", JumpPage, 4 )
-	Text( 1,  "Я хотел бы узнать о классах и атрибутах ", JumpPage, 11 )
-	Text( 1,  "Я хочу узнать координаты монстров ", JumpPage, 30 )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<єЈµБЎ¤µВїЛ
 
-	Talk( 4,  "Рислина: Город Шайтан является центром магии. Здесь также изготавливается лучшее оружие. Думаю вам лучше самим пройтисб и осмотреть наш чудесный город. " )
-	Text( 4,  "Узнать об оружейном магазине ", JumpPage, 5 )
-	Text( 4,  "Узнать об магазине доспехов ", JumpPage, 7 )
-	Text( 4,  "Узнать о магазине с предметами ", JumpPage, 8 )
-	Text( 4,  "Узнать о портальщиках ", JumpPage, 9 )
-	Text( 4,  "Я чувствую себя не очень хорошо, как найти доктора? ", JumpPage, 10 )
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[РВКЦЦёµјЎ¤А­Лї±М]			--
+--							--
+--		87614,357250				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk59 ()
+	Talk( 1, "Resline: 'Hi, I am Resline. I love to chat and poke my nose into all troubles. Look for me if you have any troubles.'" )
+	Text( 1, "Star of Unity", JumpPage, 31 )
+	Text( 1, "I would like to ask about something", JumpPage, 4 )
+	Text( 1, "Regarding Classes and Attributes", JumpPage, 11 )
+	Text( 1, "Check Monster Coordinate", JumpPage, 30 )
 
-	Talk( 5,  "Рислина: У шайтанского кузнеца всегда самое лучшее оружие. Ищите его магазин в верхнем право углу города. " )
-	Text( 5,  "Унать о других продавцах ", JumpPage, 4 )
-	Text( 5,  "Спасибо, я все понял ", CloseTalk )
+	Talk( 4, "Shaitan City focus on handicraft and arts of magic. Most of the best weapons are made here. Why don't you talk a walk around and see our magnificient city." )
+	Text( 4, "Regarding Weapon Shop", JumpPage, 5 )
+	Text( 4, "Regarding Armor Shop", JumpPage, 7 )
+	Text( 4, "Regarding Item Shop", JumpPage, 8 )
+	Text( 4, "Regarding Teleporter", JumpPage, 9 )
+	Text( 4, "Not feeling well, need to go see a doctor", JumpPage, 10 )
 
-	Talk( 7,  "Рислина: Если вам нужны отличные доспехи, то ваш выбор - портной Мойа! Его магазин вы можете найти чуть ниже фонтана, справа. " )
-	Text( 7,  "Унать о других продавцах ", JumpPage, 4 )
-	Text( 7,  "Спасибо, я все понял ", CloseTalk )
+	Talk( 5, "Shaitan Blacksmith Smithy sells all sorts of top quality weapon. Look for him at his shop at the right corner of the city." )
+	Text( 5, "Regarding other shops", JumpPage, 4 )
+	Text( 5, "I have understood all", CloseTalk )
 
-	Talk( 8,  "Рислина: Нужны полезные предметы? Продавец инструментов Оуйа в западном углу этого города. " )
-	Text( 8,  "Унать о других продавцах ", JumpPage, 4 )
-	Text( 8,  "Спасибо, я все понял ",  CloseTalk )
+--	Talk( 6, "Look for me again if there is anything you don't understand", CloseTalk )
 
-	Talk( 9,  "Рислина: Если хотите попасть в другой крупный город этого мира - вам в помощь портальщик Шайтана. Он также может записать для вас здесь точку возвращения. Ищите его у выхода из города. " )
-	Text( 9,  "Унать о других продавцах ", JumpPage, 4 )
-	Text( 9,  "Спасибо, я все понял ",  CloseTalk )
+	Talk( 7, "To buy armors for yourself, look for Tailor Moya. His prices are reasonable. Moya can be found just below the fountain on the right." )
+	Text( 7, "Regarding other shops", JumpPage, 4 )
+	Text( 7, "I have understood all", CloseTalk )
 
-	Talk( 10,  "Рислина: Вы действительно больны? Медсестра находится ниже фонтана. " )
-	Text( 10,  "Унать о других продавцах ", JumpPage, 4 )
-	Text( 10,  "Спасибо, я все понял ",  CloseTalk)
+	Talk( 8, "Buying item? Tools seller Ouya is at the west corner of this city. Look for him there." )
+	Text( 8, "Regarding other shops", JumpPage, 4 )
+	Text( 8, "I have understood all",  CloseTalk )
+
+	Talk( 9, "To get elsewhere, Shaitan Teleporter - May can teleports you to any main city in the world. She can also registered a new Spawn point for you here. Look for her near the entrance to this city." )
+	Text( 9, "Regarding other shops", JumpPage, 4 )
+	Text( 9, "I have understood all",  CloseTalk )
+
+	Talk( 10, "Are you ill? The nurse is just beside the small pond. Go and look for her now!" )
+	Text( 10, "Regarding other shops", JumpPage, 4 )
+	Text( 10, "I have understood all",  CloseTalk)
+
 
 	InitTrigger()
 	TriggerCondition( 1, NoRecord, 706 )
@@ -2595,9 +4337,10 @@ function r_talk59()
 	TriggerAction( 1, SetFlag, 706, 10)
 	TriggerAction( 1, JumpPage, 12 )
 	TriggerFailure( 1, JumpPage, 12 )
-	Talk( 11,  "Рислина: Чтобы стать хорошим игроком вы должны знать хотя бы минимальные понятия о различных классах и атрибутах. Хотите знать больше? " )
-	Text( 11,  "Узнать о классах ", JumpPage, 12)
-	Text( 11,  "Узнать о атрибутах ", JumpPage, 13)
+	Talk( 11, "Resline: To be a good player, you will need to understand the basic of different classes and attributes. Would you like to find out more?" )
+	Text( 11, "Regarding Classes", JumpPage, 12)
+	Text( 11, "Regarding Attributes", JumpPage, 13)
+	--Text( 11, "Regarding Classes", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, NoRecord, 706 )
@@ -2606,78 +4349,103 @@ function r_talk59()
 	TriggerAction( 1, SetFlag, 706, 20)
 	TriggerAction( 1, JumpPage, 13 )
 	TriggerFailure( 1, JumpPage, 13 )
+	--Text( 11, "Regarding Attributes", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 12,  "Рислина: Здесь существует 4 основных базовых класса. Каждый из них удовлетворяет своей особой цели в игре. Про какой класс вы хотели бы узнать? " )
-	Text( 12,  "Узнать о мечниках ", JumpPage, 14 )
-	Text( 12,  "Узнать о охотниках ", JumpPage, 15 )
-	Text( 12,  "Узнать о исследователях ", JumpPage, 17 )
-	Text( 12,  "Узнать о знахарке ", JumpPage, 18 )
+	Talk( 12, "Resline: There are 7 basic classes in this game. Each has its unique ways and serve a special purpose in the game. Which would you like to become?" )
+	Text( 12, "Regarding Swordsman", JumpPage, 14 )
+	Text( 12, "Regarding Hunter", JumpPage, 15 )
+--	Text( 12, "Regarding Sailor", JumpPage, 16 )
+	Text( 12, "Regarding Explorer", JumpPage, 17 )
+	Text( 12, "Regarding Herbalist", JumpPage, 18 )
+--	Text( 12, "Regarding Artisan", JumpPage, 19 )
+--	Text( 12, "Regarding Merchant", JumpPage, 20 )
 
-	Talk( 13,  "Рислина: Всего существует 5 базовых атрибута. Каждый атрибут может иметь максимальное значение в 100. У новичка все атрибуты равны 5. Каждый уровень вам будет выдаваться еще 1 пункт атрибута и навыка. В начале игры у вас есть 5 свободных пункта, которые вы можете распределить по своим предпочтениям. " )
-	Text( 13,  "Узнать о силе ", JumpPage, 21 )
-	Text( 13,  "Узнать о ловкости ", JumpPage, 22 )
-	Text( 13,  "Узнать о телосложении ", JumpPage, 23 )
-	Text( 13,  "Узнать о духе ", JumpPage, 24 )
-	Text( 13,  "Узнать о точности ", JumpPage, 26 )
+	Talk( 13, "Resline: Each character will have 5 base attributes. Players can increase them accordingly to raise certain aspect of their ability. Each level will reward players with 1 stat point and 1 skill point. Beginner will have 5 stat points to distribute." )
+	Text( 13, "Regarding Strength", JumpPage, 21 )
+	Text( 13, "Regarding Agility", JumpPage, 22 )
+	Text( 13, "Regarding Constitution", JumpPage, 23 )
+	Text( 13, "Regarding Spirit", JumpPage, 24 )
+	--Text( 13, "Regarding Luck", JumpPage, 25 )
+	Text( 13, "Regarding Accuracy", JumpPage, 26 )
 
-	Talk( 14,  "Рислина: Мечники имеют самое высокое физическое сопротивление в этой игре. Мечником может стать только Ланс или Карциз. Если хотите стать мечником, то обратитесь к Стражнику Питеру в Аргенте. " )
-	Text( 14,  "Узнать о других классах ", JumpPage, 12)
-	Text( 14,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 14,  "Спасибо, я все понял ", JumpPage, 27)
+	Talk( 14, "Resline: Swordsman has the highest physical resistance in this game. Male character may chose to become one when they reach Lv 10. Look for Peter in Argent City to select the Swordsman class." )
+	Text( 14, "Regarding other Classes", JumpPage, 12)
+	Text( 14, "Regarding Attributes", JumpPage, 13)
+	Text( 14, "I have understood all", JumpPage, 27)
 
-	Talk( 15,  "Рислина: Охотники единственный класс, способный использовать дистанционное оружие в бою. Также в дальнейшем они могут научиться использовать огнестрельное оружие. Только Ланс или Филисс могут стать охотником. Если хотите стать охотником, то ищите Стражника Рея в Ледыне. " )
-	Text( 15,  "Узнать о других классах ", JumpPage, 12)
-	Text( 15,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 15,  "Спасибо, я все понял ", JumpPage, 27)
+	Talk( 15, "Resline: Hunters is the only long range class in this game. After further advancement, they can learn to use fireguns which have higher damage. Only Lance and Phyllis may become a Hunter. Players Lv 10 and above can look for Ray in Icicle to become a Hunter." )
+	Text( 15, "Regarding other Classes", JumpPage, 12)
+	Text( 15, "Regarding Attributes", JumpPage, 13)
+	Text( 15, "I have understood all", JumpPage, 27)
+
+	Talk( 16, "Resline: Sailor is the strongest class in the sea. It is still unreleased in current version." )
+	Text( 16, "Regarding other Classes", JumpPage, 12)
+	Text( 16, "Regarding Attributes", JumpPage, 13)
+	Text( 16, "I have understood all", JumpPage, 27)
 	
-	Talk( 17,  "Рислина: Исследователи самый лучший класс для покорителей моря. Только Ами, Филис или Ланс могут стать исследователем. если хотите стать исследователем, то ищите малыша Дэниеля в Аргенте. " )
-	Text( 17,  "Узнать о других классах ", JumpPage, 12)
-	Text( 17,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 17,  "Спасибо, я все понял ", JumpPage, 27)
+	Talk( 17, "Resline: Explorers are the support class for sea battle. Beside Carsise, all other three characters can apply to become an Explorer. Players Lv 10 and above can look for Little Daniel in Argent City to an Explorer." )
+	Text( 17, "Regarding other Classes", JumpPage, 12)
+	Text( 17, "Regarding Attributes", JumpPage, 13)
+	Text( 17, "I have understood all", JumpPage, 27)
 
-	Talk( 18,  "Рислина: Знахарки это последовательницы культа Богини Кары. За это им была дарована огромная магическая сила. Знахарки способны исцелять людей. Только Филисс или Ами могут стать знахарками. Если хотите стать знахаркой - ищите Верховного жреца Геньона в Шайтане. " )
-	Text( 18,  "Узнать о других классах ", JumpPage, 12)
-	Text( 18,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 18,  "Спасибо, я все понял ", JumpPage, 27)
+	Talk( 18, "Resline: Herbalist are loyal followers of Goddess Kara. They possess mystical healing ability. Only Phyllis and Ami can select to become a Herbalist. Lv 10 players can look for High Priest - Gannon in Shaitan City to become a Herbalist." )
+	Text( 18, "Regarding other Classes", JumpPage, 12)
+	Text( 18, "Regarding Attributes", JumpPage, 13)
+	Text( 18, "I have understood all", JumpPage, 27)
 
-	Talk( 21,  "Рислина: От силы зависит уровень вашей физической атаки. " )
-	Text( 21,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 21,  "Узнать о других классах ", JumpPage, 12)
-	Text( 21,  "Спасибо, я все понял ", JumpPage, 27)
+	Talk( 19, "Resline: Artisan is the only class that can make item. They will be in-charge of building structures for the guild. It is still unreleased in current version." )
+	Text( 19, "Regarding other Classes", JumpPage, 12)
+	Text( 19, "Regarding Attributes", JumpPage, 13)
+	Text( 19, "I have understood all", JumpPage, 27)
 
-	Talk( 22,  "Рислина: Ловкость влияет на скорость атаки и уклонение. " )
-	Text( 22,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 22,  "Узнать о других классах ", JumpPage, 12)
-	Text( 22,  "Спасибо, я все понял ", JumpPage, 27)
+	Talk( 20, "Resline: Merchant is the richest of all classes as they specialise in commerce. It is still unreleased in current version." )
+	Text( 20, "Regarding other Classes", JumpPage, 12)
+	Text( 20, "Regarding Attributes", JumpPage, 13)
+	Text( 20, "I have understood all", JumpPage, 27)
 
-	Talk( 23,  "Рислина: Телосложение влияет на уровень вашей жизни и на защиту. " )
-	Text( 23,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 23,  "Узнать о других классах ", JumpPage, 12)
-	Text( 23,  "Спасибо, я все понял ", JumpPage, 27)
+	Talk( 21, "Resline: Strength increases Melee Attack Power" )
+	Text( 21, "Enquire about other Attributes", JumpPage, 13)
+	Text( 21, "Enquire about other Classes", JumpPage, 12)
+	Text( 21, "I have understood all", JumpPage, 27)
 
-	Talk( 24,  "Рислина: Дух влияет на уровень вашей маны, на магическую защиту и на эффект некоторых умений. " )
-	Text( 24,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 24,  "Узнать о других классах ", JumpPage, 12)
-	Text( 24,  "Спасибо, я все понял ", JumpPage, 27)
+	Talk( 22, "Resline: Agility increases Attack Speed and Dodge Rate" )
+	Text( 22, "Enquire about other Attributes", JumpPage, 13)
+	Text( 22, "Enquire about other Classes", JumpPage, 12)
+	Text( 22, "I have understood all", JumpPage, 27)
 
-	Talk( 26,  "Рислина: Точность влияет на уровень дистанционной атаки и на шанс урона. " )
-	Text( 26,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 26,  "Узнать о других классах ", JumpPage, 12)
-	Text( 26,  "Спасибо, я все понял ", JumpPage, 27)
+	Talk( 23, "Resline: Constitution increases Max HP and Physical Resist" )
+	Text( 23, "Enquire about other Attributes", JumpPage, 13)
+	Text( 23, "Enquire about other Classes", JumpPage, 12)
+	Text( 23, "I have understood all", JumpPage, 27)
 
-	Talk( 27,  "Рислина: Хорошо. Обращайся если еще возникнут вопросы. ")
+	Talk( 24, "Resline: Spirit increases Max SP and affect some skill effect" )
+	Text( 24, "Enquire about other Attributes", JumpPage, 13)
+	Text( 24, "Enquire about other Classes", JumpPage, 12)
+	Text( 24, "I have understood all", JumpPage, 27)
 
-	Talk( 28,  "Рислина: Я вижу вы уже неплохо разбираетесь в основных значениях. теперь попробуйте пообщаться с другими людьми и выполнять их поручения. " )
-	Text( 28,  "Я бы хотел кое о чем спросить ", JumpPage, 4 )
-	Text( 28,  "Узнать о классах и атрибутах ", JumpPage, 11 )
-	Text( 28,  "Спасибо, я все понял ",  CloseTalk)
+	Talk( 25, "Resline:  Luck increases Critical Rate and Combining Success Rate" )
+	Text( 25, "Enquire about other Attributes", JumpPage, 13)
+	Text( 25, "Enquire about other Classes", JumpPage, 12)
+	Text( 25, "I have understood all", JumpPage, 27)
 
-	Talk( 29,  "Рислина: Очень хорошо. Вы дотигли 9 уровня и можете начать задумываться о дальнейшей профессии " )
-	Text( 29,  "Я бы хотел кое о чем спросить ", JumpPage, 4 )
-	Text( 29,  "Узнать о классах и атрибутах ", JumpPage, 11 )
-	Text( 29,  "Спасибо, я все понял ",  CloseTalk )
+	Talk( 26, "Resline: Accuracy increases Hit Rate and Range attack power" )
+	Text( 26, "Enquire about other Attributes", JumpPage, 13)
+	Text( 26, "Enquire about other Classes", JumpPage, 12)
+	Text( 26, "I have understood all", JumpPage, 27)
 
-	Talk( 30,  "Рислина: Чтобы узнать координаты монстров вам необходимо обратиться к Пьянице Энтони в баре Аргента. " )
+	Talk( 27, "Resline: Good. Look for me again if you have any question!")
+
+	Talk( 28, "Resline: Well done, it looks like you now have a good grasp at basic combat and also a good idea on how item drops work. Since there is nothing much left to learn from me, why don't you go and look for my friends? If fighting is your cup of tea, seek out Michael. He was last seen at (958, 3549). Another person you may like to meet would be Shala (903, 3646), Shaitan City's famous physician. Lately, she has been looking for helpers to help her collect more ingredients. If you are interested, you can look for her near the city fountain." )
+	Text( 28, "I would like to ask about something", JumpPage, 4 )
+	Text( 28, "Regarding Classes and Attributes", JumpPage, 11 )
+	Text( 28, "I have understood all",  CloseTalk)
+
+	Talk( 29, "Resline: Very well! You have progressed to Lv 9. You can choose your class at Lv 10. Go now to the related NPC to start your trial for the class you wish to become. Swordsman look for Peter in Argent City at (2192, 2767). Herbalist look for High Priest - Gannon in Shaitan City at (862, 3500). Hunter look for Swordsman - Ray in Icicle Castle at (1365, 570). You can reach Icicle or Argent by using the teleporter." )
+	Text( 29, "I would like to ask about something", JumpPage, 4 )
+	Text( 29, "Regarding Classes and Attributes", JumpPage, 11 )
+	Text( 29, "I have understood all",  CloseTalk )
+
+	Talk( 30, "Resline: To check the coordinates of monsters in game, all you have to do is look for a Drunkyard in Argent City Bar at (2222, 288). He can tell you the coordinates for a fee." )
 
 	InitTrigger()
 	TriggerCondition( 1, NoItem, 1034, 1 )
@@ -2691,14 +4459,28 @@ function r_talk59()
 	TriggerAction( 1, GiveItem, 1033, 1, 4 )
 	TriggerFailure( 1, JumpPage, 6 )
 
-	Talk( 31,  "Рислина: Звезда Единства - предмет из другого мира. При ее использовании она начинает копить получаемый вами опыт. В некоторых условиях она может неожиданно отдать весь опыт обратно. Кроме того по достижении 41 уровня вы можете обменять Звезду Единства на экипировку 50 уровня. Получить Звезду Единства может любой игрок не старше 41 уровня. " )
-	Text( 31,  "Получить Звезду Единства ",MultiTrigger, GetMultiTrigger(), 1)
-	Text( 31,  "Обменять Звезду Единства ",JumpPage, 32 )
+	Talk( 31, "Resline: Star of Unity is a mysterious accessory from another world. When you equip it, you might be able to activate the power of unity and something unexpected might happen. We are running a trial event 'Hoard Exchange'. All players below Lv 41 can redeem a Star of Unity to exchange for a suitable piece of equipment. Are you interested?" )
+	Text( 31, "Redeem Star of Unity",MultiTrigger, GetMultiTrigger(), 1)
+	Text( 31, "Hoard Exchange",JumpPage, 32 )
 
-	Talk( 32,  "Рислина: Если у вас есть Звезда Единства, то вы можете обменять ее на экипировку 50 уровня для своего класса. Вас это интересует? ")
-	Text( 32,  "Получить экипировку ", Transfer_TeamStar, 1)
+	Talk( 32, "Thank you for using our products. If you have a 'Star of Unity', you can redeem a Lv 50 weapon for your class. Interesting isn't it?")
+	Text( 32, "Redeem class weapon", Transfer_TeamStar, 1)
 
-	Talk( 6,  "Рислина: Прошу прощения, но вы не подходите по условию. " )
+	Talk( 6, "Resline: Sorry, you do not meet the requirements to redeem." )
+	
+	--InitTrigger()
+	---------------------НжјТі¬№э6ј¶НкіЙ№эЙЄ°ІµДХЅ¶·СµБ·ИООс
+	--TriggerCondition( 1, LvCheck, ">", 4 )
+	--TriggerCondition( 1, LvCheck, "<", 9 )
+	---TriggerCondition( 1, HasRecord, 710 )
+	--TriggerAction( 1, JumpPage, 28 )
+	--TriggerCondition( 2, LvCheck, ">", 8 )
+	--TriggerCondition( 2, PfEqual, 0 )
+	--TriggerAction( 2, JumpPage, 29 )
+	--TriggerFailure( 2, JumpPage, 1 )
+
+
+	--Start( GetMultiTrigger(), 2 )
 
 	AddNpcMission ( 711 )
 	AddNpcMission ( 712 )
@@ -2718,54 +4500,260 @@ function r_talk59()
 
 	MisListPage(28)
 	MisListPage(29)
+
 end 
 
-function r_talk61()
-	Talk( 1,  "Адмирал Ник: Привет! Я первая девушка-офицер в этих местах! " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<РВКЦЦёµјЎ¤А­Лї±М
 
+
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[єЈѕь°мКВґ¦№ЩФ±Ў¤°¬Оў¶ыЙЩРЈ]		--
+--							--
+--		86507,364804				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk61 ()
+	
+	
+	Talk( 1, "Admiral Nic: Hi! I am Nic, the first female officer appointed here." )
 	AddNpcMission	(1126)
 	AddNpcMission	(98)
 	AddNpcMission	(99)
 	AddNpcMission	(150)
+
+	
 end 
 
-function r_talk62()
-	Talk( 1,  "Плуто: Я люблю собирать странные вещи. Кроме того я всегда ищу товар по более низкой цене и продаю по более высокой. Меня можно назвать самым находчивым продавцом. " )
-	Text( 1,  "До свидания ",CloseTalk )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<єЈѕь°мКВґ¦№ЩФ±Ў¤°¬Оў¶ыЙЩРЈ
 
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[Йіб°іЗЙМ»б»бі¤Ў¤№ЕАы»ч]		--
+--							--
+--		87362,354566				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk62 ()
+	
+	
+	Talk( 1, "Guile: I love collecting strange items, buy low price items and sell them off at a higher price. I can be considered the most resourceful trader. Is there any matter?" )
+	Text( 1, "Nothing...",CloseTalk )
 	AddNpcMission	(1144)
+
+-----МъИЛБщПо
 	AddNpcMission ( 6115 )
 	AddNpcMission ( 6116 )
+	
 end 
 
-function r_talk63()
-	Talk( 1,  "Вово: Малышу Дэниелю нельзя доверять. Я переехал сюда только чтобы быть от него подальше. " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Йіб°іЗЙМ»б»бі¤Ў¤№ЕАы»ч
+
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[В·ИЛЎ¤Йєєчіж]		--
+--							--
+--		84634,349945				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk63 ()
+	
+	
+	Talk( 1, "Wowo: Little Daniel cannot be trusted. I moved here to avoid him" )
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2999, 99 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 2999, 99 )
+	TriggerAction( 1, GiveItem, 3000, 1 , 4)
+	TriggerAction( 1, JumpPage, 2 )
+	TriggerFailure( 1, JumpPage, 4 )
+	--Text( 1, "99ёцЅрКфЛйЖ¬¶Т»»1ёц±¦ІШГЬФї", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3000, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 3000, 1 )
+	TriggerAction( 1, GiveItem, 3017, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	--Text( 1, "1ёц±¦ІШГЬФї¶Т»»1ёцМмК№±¦ІШ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3000, 8 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 3000, 8 )
+	TriggerAction( 1, GiveItem, 3018, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	--Text( 1, "8ёц±¦ІШГЬФї¶Т»»1ёц»ЖЅрКҐ¶·Кї±¦ІШ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3000, 18 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 3000, 18 )
+	TriggerAction( 1, GiveItem, 3019, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	--Text( 1, "18ёц±¦ІШГЬФї¶Т»»1ёцЙсБъ±¦ІШ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3000, 88 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 3000, 88 )
+	TriggerAction( 1, GiveItem, 3020, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	--Text( 1, "88ёц±¦ІШГЬФї¶Т»»1ёцј«ЛЩ±¦ІШ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3000, 198 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 3000, 198 )
+	TriggerAction( 1, GiveItem, 3021, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	--Text( 1, "198ёц±¦ІШГЬФї¶Т»»1ёц¶сД§±¦ІШ", MultiTrigger, GetMultiTrigger(), 1)
+
+	--Text( 1, "Next Page", JumpPage, 5)
+	
+	InitTrigger()
+	TriggerCondition( 1, HasRecord, 1007 )
+	TriggerAction( 1, ClearRecord, 1000 )
+	TriggerAction( 1, ClearRecord, 1001 )
+	TriggerAction( 1, ClearRecord, 1002 )
+	TriggerAction( 1, ClearRecord, 1003 )
+	TriggerAction( 1, ClearRecord, 1004 )
+	TriggerAction( 1, ClearRecord, 1005 )
+	TriggerAction( 1, ClearRecord, 1006 )
+	TriggerAction( 1, ClearRecord, 1007 )
+	TriggerAction( 1, JumpPage, 20)
+	TriggerFailure( 1, JumpPage, 21)
+	Text( 1, "Start challenge again" ,MultiTrigger, GetMultiTrigger(), 1)	
+
+	Talk( 5, "Wowo: Little Daniel cannot be trusted. I moved here to avoid him" )
+
+	Text( 5, "Go back a page", JumpPage, 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3000, 498 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 3000, 498 )
+	TriggerAction( 1, GiveItem, 3022, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Text( 5, "498ёц±¦ІШГЬФї¶Т»»1ёцЛАЙс±¦ІШ", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3000, 3888 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 3000, 3888 )
+	TriggerAction( 1, GiveItem, 3023, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4 )
+	Text( 5, "3888ёц±¦ІШГЬФї¶Т»»1ёцДкКЮ±¦ІШ", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 2, "ХвїЙКЗґ«ЛµЦРДЬґшАґОЮКэІЖё»µДФїіЧ°ЎЈ¬ХвґО¶Т»»ХжКЗ±гТЛДгБЛЎЈ")
+	Talk( 3, "»»µЅДгПлТЄµД±¦ПдБЛВрЈїЧЈДгєГФЛїЄіцєГ¶«¶«Е¶ЎЈ")
+	Talk( 4, "ДъГ»УРЧг№»µД¶Т»»ЛщРиТЄµДµАѕЯЈ¬ТІУРїЙДЬДъµД±і°ьТСѕ­Лш¶Ё»тХЯ±і°ьїХјдІ»№»." )
+	Talk( 20, "You can take the challenge of Hexathlon again now!")
+	Talk( 21, "you can do the challenge now.please don't joke with me.i'm busy now.")
 
 	AddNpcMission ( 6028 )
 	AddNpcMission ( 6029 )
 	AddNpcMission ( 6054 )
 	AddNpcMission ( 6055 )
+	-----МъИЛБщПо
 	AddNpcMission ( 6114 )
+
 end 
 
-function r_talk64()
-	Talk( 1,  "Волли: Привет! Я первая в мире говорящая овечка! Бееее " )
+
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<В·ИЛЎ¤Йєєчіж
+
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[РЎСтЎ¤НюАы]			--
+--							--
+--		89875,368331				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk64 ()
+	
+	
+	Talk( 1, "Welly: Hi! I am the world only talking lamb! Baa!" )
 
 	AddNpcMission ( 233 )
+	---------------°ЧСт
 	AddNpcMission	(5565)
 	AddNpcMission	(5566)
+
+		----------------ЗпµєїЄ·ў
+	--AddNpcMission	(6184)
 end 
 
-function r_talk65()
-	Talk( 1,  "Тинтин: Мы всегда обещаем, но никогда не выполняем. " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<РЎСтЎ¤НюАы
+
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[»бі¤ЦъАнЎ¤МбЛѕГж°ь]		--
+--							--
+--		87171,354774				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk65 ()
+	
+	
+	Talk( 1, "Tintin: We always talk but never take any action." )
+--	AddNpcMission ( 905 )
+	----------------ЦЬЛк°ь
+--	AddNpcMission ( 5604 )
+--	AddNpcMission ( 5605 )
+--	AddNpcMission ( 5606 )
+--	AddNpcMission ( 5607 )
+	
 end 
 
-function r_talk66()
-	Talk( 1,  "Яй: Святая жрица в храме города Шайтана. Она благославляет своих приверженцов. " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<»бі¤ЦъАнЎ¤МбЛѕГж°ь
+
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[В·ИЛЎ¤ТТ]				--
+--							--
+--		79792,355469				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk66 ()
+	
+	
+	Talk( 1, "Yay: Holy Priestess is at the temple in Shaitan City. She has the blessings of many devotees." )
+	
 end 
 
-function r_talk67()
-	Talk( 1,  "Супермун: Я великий потомок супермена! Я буду владеть всей пустыней с помощью своей супер силы! (О Боже, он опять грезит наяву) " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<В·ИЛЎ¤ТТ
+
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[Йі·ЛЎ¤ЙБ№вПА°ЛКА]			--
+--							--
+--		108242,310135				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk67 ()
+	
+	
+	Talk( 1, "Supermun: I am the great descendent of Superman! I will rule the desert with my super powers! (Oh god he is dreaming againЎ­)" )
 	
 	AddNpcMission ( 237 )
 	AddNpcMission ( 238 )
@@ -2773,12 +4761,26 @@ function r_talk67()
 	AddNpcMission ( 240 )
 	AddNpcMission ( 248 )
 	AddNpcMission ( 557 )
+--------eleven
 	AddNpcMission (5011 )
 end 
 
-function r_talk68()
-	Talk( 1,  "Хассан: Хмм.. На днях я начал чувствовать здесь какой то особый запах. Как хочется узнать что же это такое... " )
-	Text( 1,  "Комбинировать ", JumpPage, 2)
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Йі·ЛЎ¤ЙБ№вПА°ЛКА
+
+
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[ИЛУгНхЧУЎ¤№юЙіМШ]			--
+--							--
+--		125471,349171				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk68 ()
+	
+	
+	Talk( 1, "Hassan: HmmЎ­I smell something nice the other day and the smell has lingered for very long. I wish to find out what is it exactly." )
+	Text( 1, "Combine", JumpPage, 2)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1785, 10 )
@@ -2788,30 +4790,56 @@ function r_talk68()
 	TriggerAction( 1, GiveItem, 1786, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 2,  "Хассан: Кусок звенящего кристалла имеет небольшую ценность. Хотели бы вы объединить его в Звенящий кристалл? " )
-	Text( 2,  "Объединить Звенящий кристалл ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 2, "Hassan: Clarion Fragment has little value. Would you like to combine them into a Clarion Crystal?" )
+	Text( 2, "Combine Clarion Crystal", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 3,  "Хассан: Ваш Звенящий кристалл готов. Приходите еще! " )
-
-	Talk( 4,  "Хассан: Для создания Звенящего кристалла необходимы 10 Кусков звенящего кристалла и 2000 золота. " )
-
+	Talk( 3, "Hassan: Isn't this Clarion Crystal beautiful? Remember to look for me next time." )
+	Talk( 4, "Hassan: Bring 10 Crystal Fragment and 2000G and Clarion Crystal will be yours." )
+	-------------eleven
 	AddNpcMission ( 5010)
 	AddNpcMission ( 5014)
 	AddNpcMission ( 5033)
 	AddNpcMission ( 5034)
+	---------------°ЧСт
 	AddNpcMission	(5553)
 	AddNpcMission	(5554)
 end 
 
-function r_talk69()
-	Talk( 1,  "Шармель: Привет! Я местный музыкант. " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ИЛУгНхЧУЎ¤№юЙіМШ
 
+
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[АЦЖчЧЁјТЎ¤ЙіГ·¶э]			--
+--							--
+--		66465,609367				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk69 ()
+	
+	
+	Talk( 1, "Shamel: Hi! I am a musician that bring melody to this place." )
+---------------°ЧСт
 	AddNpcMission	(5559)
 	AddNpcMission	(5560)
 end 
 
-function r_talk70()
-	Talk( 1,  "Ада: Здравствуй мой друг. Пусть Кара благославляет твой путь. Я Верховная жрица Ада. " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<АЦЖчЧЁјТЎ¤ЙіГ·¶э
+
+
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[КҐЕ®Ў¤°¬ґп]			--
+--							--
+--		86248,330381				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk70 ()
+	
+	
+	Talk( 1, "Ada: Hi, friend from afar. May the Goddess be with you. I am High Priestess Ada." )
 
 	AddNpcMission ( 756 )
 	AddNpcMission ( 341 )
@@ -2824,30 +4852,70 @@ function r_talk70()
 	AddNpcMission ( 552 )
 	AddNpcMission ( 553 )
 	AddNpcMission ( 556 )
+-----------------КҐЕ®Ў¤°¬ґп---------ЅрЕЈ
 	AddNpcMission	(5627)
 	AddNpcMission	(5628)
+	
 end 
 
-function r_talk71()
-	Talk( 1,  "Фейру: Знаете ли вы что у кактуса тоже бывают цветы? У них такой чудесный запах! " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<КҐЕ®Ў¤°¬ґп
+
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[В·ИЛЎ¤·ЁАы¶ы]			--
+--							--
+--		93176,352977				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk71 ()
+	
+	
+	Talk( 1, "Fairu: You know something? Cactus also has flowers! And the smell is just heavenly!" )
+	
 end 
 
-function r_talk72()
-	Talk( 1,  "Форлан: Сила в единстве! Хотите бросить вызов одной из 3 самых сильных гильдий? Хотите править этим миром? " )
-	Text( 1,  "Топ 3 гильдий ", ListChallenge)
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<В·ИЛЎ¤·ЁАы¶ы
+
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[№¤»б»бі¤Ў¤·рИр]			--
+--							--
+--		83171,354853				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk72 ()
+	
+	Talk( 1, "Forlan: Unity is strength! Want to challenge the Top 3 Guilds? Want to rule this world? Guild leader may apply for guild challenge with me. Your guild might make it to the Top 3 too!" )
+	Text( 1, "View Top 3 Guild", ListChallenge)
+	
 end 
 
-function r_talk73()
-	Talk( 1,  "Баш: Добро пожаловать! Я продаю все виды оружия! " )
-	Text( 1,  "Торг ", BuyPage )
-	Text( 1,  "Ремонт ", OpenRepair)
-	Text( 1,  "Вставить самоцвет ", JumpPage, 2)
-	Text( 1,  "Комбинирование", JumpPage, 3)
-	Text( 1,  "Ничего ",CloseTalk )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<№¤»б»бі¤Ў¤·рИр
 
-	Talk( 2,  "Баш: Вставить самоцвет? Только кузнец Шайтана знает как это делать. " )
+----------------------------------------------------------
+--							--
+--							--
+--		±щАЗ±¤[МъЅіЎ¤±©±щ]			--
+--							--
+--		134423,52988				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk73 ()
+	
+	
+	Talk( 1, "Bash: Welcome! I sell all sorts of weapon! Satisfaction guarantee!" )
+	Text( 1, "Trade", BuyPage )
+	Text( 1, "Repair", OpenRepair)
+	Text( 1, "Regarding Forging", JumpPage, 2)
+	Text( 1, "Regarding Combining", JumpPage, 3)
+	Text( 1, "Nothing...",CloseTalk )
 
-	Talk( 3,  "Баш: Хочешь соединить что-нибудь? Насколько я понимаю, тебе понадобится свиток ковки со списком необходимых предметов. Собери все, что понадобится, и поговори с Бакалейщиком - Амосом из Шайтана. Только он владеет искусством соединения." )
+	Talk( 2, "Bash: Forging? Only Shaitan Blacksmith know how to forge items." )
+
+	Talk( 3, "Bash: You wish to combine something? From what I understand, you need a combining scroll and it will list the required items. Collect the items needed and talk to Grocer - Amos in Shaitan City. He is the only person who knows how to combine." )
+
 
 	InitTrade()
 	Weapon(	0008	)
@@ -2879,19 +4947,35 @@ function r_talk73()
 	Weapon(	1413	)
 	Weapon(	1414	)
 
+
+
+
 	AddNpcMission ( 723 )
 	AddNpcMission	(1041)
 	AddNpcMission	(1093)
 	AddNpcMission	(1152)
 	AddNpcMission	(1204)
 	AddNpcMission(	1233	)
+	
+
+
 end 
 
-function r_talk74()
-	Talk( 1,  "Палпин: Привет! Я бакалейщик Ледыни. Ищи меня когда достигнешь 10 уровня, я дам тебе задание кое что найти. За это я хорошо заплачу! " )
-	Text( 1,  "Торг ", BuyPage )
-	Text( 1,  "Ничего... ",CloseTalk )
-	Text( 1,  "Изготовить Маску реальности ",JumpPage, 2 )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<МъЅіЎ¤±©±щ
+
+----------------------------------------------------------
+--							--
+--							--
+--		±щАЗ±¤[ФУ»хЙМИЛЎ¤І®Ві]			--
+--							--
+--		135671,48320				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk74 ()
+	Talk( 1, "Palpin: Hi, I am the Grocer in Icicle City. I love to collect items. After you are Lv 10, look for me to get some item scollection quest. I pay well for the items I needed. How can I help you?" )
+	Text( 1, "Trade", BuyPage )
+	Text( 1, "Nothing...",CloseTalk )
+	Text( 1, "Redeem Reality Mask",JumpPage, 2 )
 
 	InitTrade()
 	Other(	3187	)
@@ -2914,11 +4998,13 @@ function r_talk74()
 	Other(	4602	)
 	Other(	4603	)
 	Other(	4604	)
-	Other( 	3296 	)
+	Other( 3296 )
+	--baby--Йъ»ојјДЬКйLv1
 	Other(	2679	)
 	Other(	2689	)
 	Other(	2699	)
 	Other(	2709	)
+	--Leo
 	Other(	1611	)
 	Other(	1682	)
 	Other(	1842	)
@@ -2940,7 +5026,9 @@ function r_talk74()
 	Other(	1734	)
 	Other(	1621	)
 	Other(	1703	)
+	--Other(	3288	)
 	Other(  2440    )
+
 
 	AddNpcMission	(1052)
 	AddNpcMission	(1106)
@@ -2950,7 +5038,9 @@ function r_talk74()
 	AddNpcMission	(182)
 	AddNpcMission	(183)
 	AddNpcMission	(1234)
+	--AddNpcMission	(5502)
 
+	---bragi
 	InitTrigger()
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
 	TriggerCondition( 1, KitbagLock, 0 )
@@ -2963,8 +5053,22 @@ function r_talk74()
 	TriggerAction( 1, GiveItem, 2326, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 2,  "Палпин: Для изготовления Маски реальности необходимо 1 Эльфийскую печать, 10000 золота и 10 любых ресурсов 3 уровня. " )
-	Text( 2,  "Обменять Осколок кости на Маску реальности ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 2, "To obtain a Reality Mask requires 1 Elven Signet, 10000G and any of 10x Lv3 gathered resource" )
+	Text( 2, "Use bones to exchange for Reality Mask", MultiTrigger, GetMultiTrigger(), 1)
+
+	---InitTrigger()
+	---TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	---TriggerCondition( 1, KitbagLock, 0 )
+	---TriggerCondition( 1, HasItem, 2588, 1 )
+	---TriggerCondition( 1, HasItem, 1842, 10 )
+	---TriggerCondition( 1, HasMoney, 10000 )
+	---TriggerAction( 1, TakeItem, 2588, 1 )
+	---TriggerAction( 1, TakeItem, 1842, 10 )
+	---TriggerAction( 1, TakeMoney, 10000 )
+	---TriggerAction( 1, GiveItem, 2326, 1 , 4)
+	---TriggerAction( 1, JumpPage, 3 )
+	---TriggerFailure( 1, JumpPage, 4 )
+	---Text( 2, "Exchange Razor Tooth for Reality Mask", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
@@ -2978,7 +5082,7 @@ function r_talk74()
 	TriggerAction( 1, GiveItem, 2326, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 4 )
-	Text( 2,  "Обменять Руду на Маску реальности ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 2, "Use Crystal Eolith to exchange for Reality Mask", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
@@ -2992,7 +5096,7 @@ function r_talk74()
 	TriggerAction( 1, GiveItem, 2326, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 4 )
-	Text( 2,  "Обменять Дерево на Маску реальности  ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 2, "Use Teak Wood Log to exchange for a Reality Mask", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
@@ -3006,27 +5110,38 @@ function r_talk74()
 	TriggerAction( 1, GiveItem, 2326, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 4 )
-	Text( 2,  "Обменять Сашими на Маску реальности ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 2, "Use Bubble Fish to exchange for Reality Mask", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 3,  "Палпин: Вот, держите что заказали. " )
-
-	Talk( 4,  "Палпин: Вы не имеете всех необходимых ингридиентов  или у вас недостаточно свободного места в инвентаре. Также возможно что ваш инвентарь заблокирован. " )
+	Talk( 3, "Palpin: Keep it well...It is important." )
+	Talk( 4, "Palpin: You do not seem to have enough material. Your inventory may be binded or you do not have enough free slots." )
 end 
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ФУ»хЙМИЛЎ¤І®Ві
 
-function r_talk75()
-	Talk( 1,  "Дайша: Привет! У меня лучшие травы во всей Ледыни! " )
-	Text( 1,  "Торг ", BuyPage )
-	Text( 1,  "Ничего... ",CloseTalk )
+----------------------------------------------------------
+--							--
+--							--
+--		±щАЗ±¤[Т©µкАП°еЎ¤ґпєХ]			--
+--							--
+--		135298,49926				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk75 ()
 	
-	Talk( 2,  "Дайша: Отлично! Вы дошли до 9 лвл. Вы можете выбрать свой класс с 10 лвл. Теперь идите к соответствующему НПС, чтобы начать выбор класса.Если вы хотите стать Мечником, то ищите Петра в Аргенте в (2192, 2767). Целительницам надо искать Первосвященник - Гэннон в Шайтане в (862, 3500). Охотнику надо искать Мечника Рэя в Ледыне в (1365, 570). Мореплавотелю надо найти Малыша Даниэля в Аргенте в(2193, 2730). Вы можете переместиться в Аргент или Шайтан с помощью телепорта. " )
-	Text( 2,  "Торг ", BuyPage )
-	Text( 2,  "Ничего... ",CloseTalk )
+	
+	Talk( 1, "Daisha: Hello! Have a look here! I have the best herbs in all of Icicle." )
+	Text( 1, "Trade", BuyPage )
+	Text( 1, "Nothing...",CloseTalk )
+	
+	Talk( 2, "Daisha: Very well! You have progressed to Lv 9. You can choose your class at Lv 10. Go now to the related NPC to start your trial for the class you wish to become. Swordsman look for Peter in Argent City at (2192, 2767). Herbalist look for High Priest - Gannon in Shaitan City at (862, 3500). Hunter look for Swordsman - Ray in Icicle Castle at (1365, 570). You can reach Argent or Shaitan by using the teleporter." )
+	Text( 2, "Trade", BuyPage )
+	Text( 2, "Nothing...",CloseTalk )
 
 	InitTrade()
 	Other(	1847	)
 	Other(	1848	)
 	Other(	1849	)
 	Other(	3143	)
+	--Leo
 	Other(	1576	)
 	Other(	4049	)
 	Other(	4050	)
@@ -3038,64 +5153,110 @@ function r_talk75()
 	Other(	4057	)
 	Other(	1768	)
 
+	---------------------НжјТі¬№э9ј¶
+	--InitTrigger()
+	--TriggerCondition( 1, LvCheck, ">", 8 )
+	--TriggerCondition( 1, LvCheck, "<", 10 )
+	--TriggerAction( 1, JumpPage, 2 )
+	--TriggerFailure( 1, JumpPage, 1 )
+	--Start( GetMultiTrigger(), 1 )
+
 	AddNpcMission ( 727 )
+	--AddNpcMission ( 735 )
+	--AddNpcMission ( 746 )
+	--AddNpcMission ( 747 )
 	AddNpcMission	(1047)
 	AddNpcMission	(1101)
 	AddNpcMission	(1158)
 	AddNpcMission	(1209)
 	AddNpcMission(	1235	)
+---------eleven	
 	AddNpcMission(	5067)
 	AddNpcMission(	593)
 	AddNpcMission(	594	)
 	AddNpcMission(	596	)	
 
 	MisListPage(2)
+
 end 
 
-function r_talk76()
-	Talk( 1,  "Анна: Првиет! Я медстестра Анна! Поскольку я пока нахожусь на обучении я не могу вам ничем помочь. " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Т©µкАП°еЎ¤ґпєХ
 
+
+----------------------------------------------------------
+--							--
+--							--
+--		±щАЗ±¤[»¤КїРЎЅгЎ¤°ІДЭ]			--
+--							--
+--		131725,50169				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk76 ()
+	
+	
+	Talk( 1, "Anne: Hi! I am Nurse Anne. As I am on probation, I cannot give you any treatment just yet." )
 	AddNpcMission	(1018)
 	AddNpcMission	(1073)
 	AddNpcMission	(1128)
 	AddNpcMission	(1181)
 	AddNpcMission(	1236	)
+	
+
+
+
+	
 end 
 
-function r_talk77()
-	Talk( 1,  "Анжела: Привет! Я наставница Ледыни. Я буду учить вас некоторым основным знаниям. Наслаждайтесь вечной зимой! " )
-	Text( 1,  "Звезда Единства ", JumpPage, 31 )
-	Text( 1,  "Я бы хотел кое о чем спросить ", JumpPage, 4 )
-	Text( 1,  "Узнать о классах и атрибутах ", JumpPage, 11 )
-	Text( 1,  "Узнать координаты монстров ", JumpPage, 30 )
-	Text( 1,  "Спасибо, я все понял ", CloseTalk )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<»¤КїРЎЅгЎ¤°ІДЭ
 
-	Talk( 4,  "Анжела: Ледынь это место, где вечная зима. Чтобы тут выжить надо знать где найти нужные вещи. " )
-	Text( 4,  "Узнать об оружейном магазине ", JumpPage, 5 )
-	Text( 4,  "Узнать о магазине доспехов ", JumpPage, 7 )
-	Text( 4,  "Узнать о магазине с предметами ", JumpPage, 8 )
-	Text( 4,  "Узнать о магазине портальщиках ", JumpPage, 9 )
-	Text( 4,  "Узнать о магазине лечении ", JumpPage, 10 )
+----------------------------------------------------------
+--							--
+--							--
+--		±щАЗ±¤[РВКЦЦёµјЎ¤°ІзчВ¶СЗ]		--
+--							--
+--		131577,50700				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk77 ()
+	
+	
+        Talk( 1, "Angela: 'Hi, everyone calls me Angela. I will teach you the way of living in Icicle city. Enjoy all year round of winter! '" )
+	Text( 1, "Star of Unity", JumpPage, 31 )
+	Text( 1, "I would like to ask about something", JumpPage, 4 )
+	Text( 1, "Regarding Classes and Attributes", JumpPage, 11 )
+	Text( 1, "Regarding Monsters Coordinates", JumpPage, 30 )
+	Text( 1, "I have understood all", CloseTalk )
+--	Text( 1, "I have understood all", CloseTalk )
 
-	Talk( 5,  "Анжела: Отсюда двигайтесь на юг, а затем сверрните направо на перекрестке. Там вы увидите нашего кузнеца. " )
-	Text( 5,  "Унать о других продавцах ", JumpPage, 4 )
-	Text( 5,  "Спасибо, я все понял ", CloseTalk )
 
-	Talk( 7,  "Анжела: Чтобы купить доспехи ищите нашего портного. Он очень добрый человек. Находится в правой части города. " )
-	Text( 7,  "Унать о других продавцах ", JumpPage, 4 )
-	Text( 7,  "Спасибо, я все понял ", CloseTalk )
+	Talk( 4, "Just like what you have seen, Icicle City is a place covered in snow. To stay here in comfort, you must learn how to get the necessary items and equipments." )
+	Text( 4, "Regarding Weapon Shop", JumpPage, 5 )
+	Text( 4, "Regarding Armor Shop", JumpPage, 7 )
+	Text( 4, "Regarding Item Shop", JumpPage, 8 )
+	Text( 4, "Regarding Teleporter", JumpPage, 9 )
+	Text( 4, "Regarding Healing", JumpPage, 10 )
 
-	Talk( 8,  "Анжела: Купить предметы вы можете у бакалейщика нашего города. У него есть все для путешевствия. Он находится в западном углу этого города. " )
-	Text( 8,  "Унать о других продавцах ", JumpPage, 4 )
-	Text( 8,  "Спасибо, я все понял ", CloseTalk )
+	Talk( 5, "Walk south from here and turn right at the crossroad. From there, you should be able to see the Blacksmith. He sell all sort of weapons. See if you can find anything you like." )
+	Text( 5, "Regarding other shops", JumpPage, 4 )
+	Text( 5, "I have understood all", CloseTalk )
 
-	Talk( 9,  "Анжела: Идите по дороге на юг и вы увидите красивую леди стоящую там. Это наша портальщица. С помощью нее вы можете переместиться в любой крупный город этого мира. Также вы можете записать у нее точку возвращения. " )
-	Text( 9,  "Унать о других продавцах ", JumpPage, 4 )
-	Text( 9,  "Спасибо, я все понял ", CloseTalk )
+--	Talk( 6, "Look for me again if there is anything you don't understand", CloseTalk )
 
-	Talk( 10,  "Анжела: Медсестра - девушка стоящая с другой стороны фонтана. Не забудьте найти ее если вы больны. " )
-	Text( 10,  "Унать о других продавцах ", JumpPage, 4 )
-	Text( 10,  "Спасибо, я все понял ", CloseTalk )
+	Talk( 7, "To buy armors, look for the Tailor. He is a friendly and kind man. Find him at the bottom right corner of town." )
+	Text( 7, "Regarding other shops", JumpPage, 4 )
+	Text( 7, "I have understood all", CloseTalk )
+
+	Talk( 8, "Buying items? The grocery is not far from here. It is at the western corner of this city. It will have all you need to start your adventure." )
+	Text( 8, "Regarding other shops", JumpPage, 4 )
+	Text( 8, "I have understood all", CloseTalk )
+
+	Talk( 9, "Walk along the path and you will find a beautiful lady near the gate. She is the Teleporter who can send you to other cities. You can also record your Spawn point there." )
+	Text( 9, "Regarding other shops", JumpPage, 4 )
+	Text( 9, "I have understood all", CloseTalk )
+
+	Talk( 10, "The nurse is the lady at the other side of the fountain. Remember to look for her when you are sick or injuired." )
+	Text( 10, "Regarding other shops", JumpPage, 4 )
+	Text( 10, "I have understood all", CloseTalk )
 
 	InitTrigger()
 	TriggerCondition( 1, NoRecord, 700 )
@@ -3104,9 +5265,11 @@ function r_talk77()
 	TriggerAction( 1, SetFlag, 700, 10)
 	TriggerAction( 1, JumpPage, 12 )
 	TriggerFailure( 1, JumpPage, 12 )
-	Talk( 11,  "Анжела: Вам как новому игроку необходимо очень много узнать. Я готовоа вам в этом помочь. " )
-	Text( 11,  "Узнать о классах ", JumpPage, 12)
-	Text( 11,  "Узнать о других атрибутах ", JumpPage, 13)
+	Talk( 11, "Angela: Being a new player, you should understand more about the different class and attributes. What you wish to know?" )
+	Text( 11, "Regarding Classes", JumpPage, 12)
+	Text( 11, "Regarding Attributes", JumpPage, 13)
+
+	--Text( 11, "Regarding Classes", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, NoRecord, 700 )
@@ -3115,80 +5278,105 @@ function r_talk77()
 	TriggerAction( 1, SetFlag, 700, 20)
 	TriggerAction( 1, JumpPage, 13 )
 	TriggerFailure( 1, JumpPage, 13 )
+	--Text( 11, "Regarding Attributes", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 12,  "Анжела: Всего существует 4 базовых класса. Каждый имеет свои особенности. " )
-	Text( 12,  "Узнать о мечниках ", JumpPage, 14 )
-	Text( 12,  "Узнать об охотниках ", JumpPage, 15 )
-	Text( 12,  "Узнать об исследователях ", JumpPage, 17 )
-	Text( 12,  "Узнать об знахарках ", JumpPage, 18 )
-	Text( 12,  "Я все понял. Хочу узнать кое что другое. ", JumpPage, 11 )
+	Talk( 12, "Angela: There are 7 basic classes in Tales of Pirates. Each have their unique attributes and roles. Which interests you most?" )
+	Text( 12, "Regarding Swordsman", JumpPage, 14 )
+	Text( 12, "Regarding Hunter", JumpPage, 15 )
+--	Text( 12, "Regarding Sailor", JumpPage, 16 )
+	Text( 12, "Regarding Explorer", JumpPage, 17 )
+	Text( 12, "Regarding Herbalist", JumpPage, 18 )
+--	Text( 12, "Regarding Artisan", JumpPage, 19 )
+--	Text( 12, "Regarding Merchant", JumpPage, 20 )
+	Text( 12, "Understood. Let me check out others.", JumpPage, 11 )
 
-	Talk( 13,  "Анжела: Всего существует 5 базовых атрибута. Каждый атрибут может иметь максимальное значение в 100. У новичка все атрибуты равны 5. Каждый уровень вам будет выдаваться еще 1 пункт атрибута и навыка. В начале игры у вас есть 5 свободных пункта, которые вы можете рас " )
-	Text( 13,  "Узнать о силе ", JumpPage, 21 )
-	Text( 13,  "Узнать о ловкости ", JumpPage, 22 )
-	Text( 13,  "Узнать о телосложении ", JumpPage, 23 )
-	Text( 13,  "Узнать о духе ", JumpPage, 24 )
-	Text( 13,  "Узнать о точности ", JumpPage, 26 )
-	Text( 13,  "Я все понял. Хочу узнать кое что другое. ", JumpPage, 11 )
+	Talk( 13, "Angela: Each character will have 5 base attributes. Players can increase them accordingly to raise certain aspect of their ability. Each level will reward players with 1 stat point and 1 skill point. Beginner will have 5 stat points to distribute." )
+	Text( 13, "Regarding Strength", JumpPage, 21 )
+	Text( 13, "Regarding Agility", JumpPage, 22 )
+	Text( 13, "Regarding Constitution", JumpPage, 23 )
+	Text( 13, "Regarding Spirit", JumpPage, 24 )
+	--Text( 13, "Regarding Luck", JumpPage, 25 )
+	Text( 13, "Regarding Accuracy", JumpPage, 26 )
+	Text( 13, "Understood. Let me check out others.", JumpPage, 11 )
 
-	Talk( 14,  "Мечники имеют самое высокое физическое сопротивление в этой игре. Мечником может стать только Ланс, Филисс или Карциз. Если хотите стать мечником, то обратитесь к Стражнику Питеру в Аргенте. " )
-	Text( 14,  "Узнать о других классах ", JumpPage, 12)
-	Text( 14,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 14,  "Спасибо, я все понял ", JumpPage, 27)
+	Talk( 14, "Angela: Swordsman is the highest physical defence Class in Pirate King. Male Newbies can look for Argent City's Guard Peter to become one when they reach Lv 10." )
+	Text( 14, "Regarding other Classes", JumpPage, 12)
+	Text( 14, "Regarding Attributes", JumpPage, 13)
+	Text( 14, "I have understood all", JumpPage, 27)
 
-	Talk( 15,  "Анжела: Охотники это единственный класс использующий оружие с дистанционной атакой. Охотником может стать только Филисс или Ланс. Чтобы стать охотником необходимо обратится к мечнику Рею в Ледыни. " )
-	Text( 15,  "Узнать о других классах ", JumpPage, 12)
-	Text( 15,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 15,  "Спасибо, я все понял ", JumpPage, 27)
+	Talk( 15, "Angela: Hunter is the only long ranged attacking class in this game. In the second advancement, they can adopt using firegun to boost the attacking power. Only Lance and Phyllis may apply to be a Hunter. Players who are Lv 10 can look for Swordsman Ray in Icicle City to become one." )
+	Text( 15, "Regarding other Classes", JumpPage, 12)
+	Text( 15, "Regarding Attributes", JumpPage, 13)
+	Text( 15, "I have understood all", JumpPage, 27)
 
-	Talk( 17,  "Анжела: Исследователь это лучший класс для морских путешевствий. Исследователем могут стать только Филисс, Ланс или Ами. Чтобы стать исследователем обратись к Малышу Дэниэлю в Аргенте. " )
-	Text( 17,  "Узнать о других классах ", JumpPage, 12)
-	Text( 17,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 17,  "Спасибо, я все понял ", JumpPage, 27)
+	Talk( 16, "Angela: Sailor is the strongest class in the sea. It is still unreleased in current version." )
+	Text( 16, "Regarding other Classes", JumpPage, 12)
+	Text( 16, "Regarding Attributes", JumpPage, 13)
+	Text( 16, "I have understood all", JumpPage, 27)
+	
+	Talk( 17, "Angela: Explorer is the strongest support Class on the sea. Everyone can become one except for Carsise. You can look for Little Daniel at Argent City to become one when you reach Lv10." )
+	Text( 17, "Regarding other Classes", JumpPage, 12)
+	Text( 17, "Regarding Attributes", JumpPage, 13)
+	Text( 17, "I have understood all", JumpPage, 27)
 
-	Talk( 18,  "Анжела: Целительницы это приверженцы культа Богини Кары, за это им дарована магическая сила. Целителем может стать только Филисс или Ами. Чтобы стать Целителем ищи Верховного жреца Геньона в Шайтане. " )
-	Text( 18,  "Узнать о других классах ", JumpPage, 12)
-	Text( 18,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 18,  "Спасибо, я все понял ", JumpPage, 27)
+	Talk( 18, "Angela: Herbalist are loyal followers of Goddess Kara. They possess mystical healing ability. Only Phyllis and Ami can select to become a Herbalist. Lv 10 players can look for High Priest - Gannon in Shaitan City to become a Herbalist." )
+	Text( 18, "Regarding other Classes", JumpPage, 12)
+	Text( 18, "Regarding Attributes", JumpPage, 13)
+	Text( 18, "I have understood all", JumpPage, 27)
 
-	Talk( 21,  "Анжела: Сила влияет на физический урон. " )
-	Text( 21,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 21,  "Узнать о других классах ", JumpPage, 12)
-	Text( 21,  "Спасибо, я все понял ", JumpPage, 27)
+	Talk( 19, "Angela: Angela: Artisan is the only class that can make item. They will be in-charge of building structures for the guild. It is still unreleased in current version." )
+	Text( 19, "Regarding other Classes", JumpPage, 12)
+	Text( 19, "Regarding Attributes", JumpPage, 13)
+	Text( 19, "I have understood all", JumpPage, 27)
 
-	Talk( 22,  "Анжела: Ловкость влияет на уклонение и скорость атаки. " )
-	Text( 22,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 22,  "Узнать о других классах ", JumpPage, 12)
-	Text( 22,  "Спасибо, я все понял ", JumpPage, 27)
+	Talk( 20, "Angela: Merchant is the richest of all classes as they specialise in commerce. It is still unreleased in current version." )
+	Text( 20, "Regarding other Classes", JumpPage, 12)
+	Text( 20, "Regarding Attributes", JumpPage, 13)
+	Text( 20, "I have understood all", JumpPage, 27)
 
-	Talk( 23,  "Анжела: Телосложение влияет на количество жизни и на защиту. " )
-	Text( 23,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 23,  "Узнать о других классах ", JumpPage, 12)
-	Text( 23,  "Спасибо, я все понял ", JumpPage, 27)
+	Talk( 21, "Angela: Strength increases Melee Attack power" )
+	Text( 21, "Enquire about other Attributes", JumpPage, 13)
+	Text( 21, "Enquire about other Classes", JumpPage, 12)
+	Text( 21, "I have understood all", JumpPage, 27)
 
-	Talk( 24,  "Анжела: Дух влияет на количество маны, магическую защиту и урон от некоторых скиллов. " )
-	Text( 24,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 24,  "Узнать о других классах ", JumpPage, 12)
-	Text( 24,  "Спасибо, я все понял ", JumpPage, 27)
+	Talk( 22, "Angela: Agility increases Attack Speed and Dodge Rate" )
+	Text( 22, "Enquire about other Attributes", JumpPage, 13)
+	Text( 22, "Enquire about other Classes", JumpPage, 12)
+	Text( 22, "I have understood all", JumpPage, 27)
 
-	Talk( 26,  "Анжела: Точность влияет на шанс урона и силу дистанционной атаки. " )
-	Text( 26,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 26,  "Узнать о других классах ", JumpPage, 12)
-	Text( 26,  "Спасибо, я все понял ", JumpPage, 27)
+	Talk( 23, "Angela: Constitution increases Max HP and Physical Resistance" )
+	Text( 23, "Enquire about other Attributes", JumpPage, 13)
+	Text( 23, "Enquire about other Classes", JumpPage, 12)
+	Text( 23, "I have understood all", JumpPage, 27)
 
-	Talk( 27,  "Анжела: Отлично! Ищи меня если что то понадобится. ")
+	Talk( 24, "Angela: Spirit increases Max SP and Skill effect" )
+	Text( 24, "Enquire about other Attributes", JumpPage, 13)
+	Text( 24, "Enquire about other Classes", JumpPage, 12)
+	Text( 24, "I have understood all", JumpPage, 27)
 
-	Talk( 28,  "Анжела: Очень хорошо! Вы очень хорошо увоили основы. Попробуйте теперь пообщаться с другими жителями и постараться найти работу. " )
-	Text( 28,  "Я бы хотел кое о чем спросить ", JumpPage, 4 )
-	Text( 28,  "Узнать о классах и атрибутах ", JumpPage, 11 )
-	Text( 28,  "Спасибо, я все понял ",  CloseTalk )
+	Talk( 25, "Angela: Luck increases Critical strike and Combine success rate" )
+	Text( 25, "Enquire about other Attributes", JumpPage, 13)
+	Text( 25, "Enquire about other Classes", JumpPage, 12)
+	Text( 25, "I have understood all", JumpPage, 27)
 
-	Talk( 29,  "Анжела: Хорошо! Теперь вы можете определится с будующей профессией и обратится к тренеру своего класса. " )
-	Text( 29,  "Я бы хотел кое о чем спросить ", JumpPage, 4 )
-	Text( 29,  "Узнать о классах и атрибутах ", JumpPage, 11 )
-	Text( 29,  "Спасибо, я все понял ",  CloseTalk)
+	Talk( 26, "Angela: Accuracy increases Hit Rate and Range Attack power" )
+	Text( 26, "Enquire about other Attributes", JumpPage, 13)
+	Text( 26, "Enquire about other Classes", JumpPage, 12)
+	Text( 26, "I have understood all", JumpPage, 27)
 
-	Talk( 30,  "Анжела: Чтобы узнать координаты монстров обратись к Пьянице Энтони в Баре Аргента. " )
+	Talk( 27, "Angela: Good. Look for me if there is anything you are unsure of!")
+
+	Talk( 28, "Angela: Well done, it looks like you now have a good grasp at basic combat and also a good idea on how item drops work. Since there is nothing much left to learn from me, why don't you go and look for my friends? If fighting is your cup of tea, seek out Little Mo. He's a patroller and is often seen patrolling about the outskirts of this city. He was last seen at (1237, 613). Another person you may like to meet would be Physican - Daisha (1352, 499), he likes collecting all sorts of stuff. I'm sure you will like to meet them." )
+	Text( 28, "I would like to ask about something", JumpPage, 4 )
+	Text( 28, "Regarding Classes and Attributes", JumpPage, 11 )
+	Text( 28, "I have understood all",  CloseTalk )
+
+	Talk( 29, "Angela: Very good! Now it is time for you to select your class. To become a Swordsman, go to Peter in Argent City (2192, 2767), Herbalist go to Shaitan City look for High Priest - Gannon at (862, 3500), Hunter look for Swordsman - Ray in Icicle City at (1365, 570). The path is longЎ­Choose well." )
+	Text( 29, "I would like to ask about something", JumpPage, 4 )
+	Text( 29, "Regarding Classes and Attributes", JumpPage, 11 )
+	Text( 29, "I have understood all",  CloseTalk)
+
+	Talk( 30, "Angela: To check the coordinates of monsters in game, all you have to do is look for a Drunkyard in Argent City Bar at (2222, 288). He can tell you the coordinates for a fee." )
 
 	InitTrigger()
 	TriggerCondition( 1, NoItem, 1034, 1 )
@@ -3202,15 +5390,29 @@ function r_talk77()
 	TriggerAction( 1, GiveItem, 1033, 1, 4 )
 	TriggerFailure( 1, JumpPage, 6 )
 
-	Talk( 31,  "Анжела: Звезда Единства - таинственный предмет из другого мира. При ношении способна накапливать опыт хозяина, а затем при некоторых условиях отдавать накопленное количество опыта назад. Кроме того вы можете обменять Звезду Единства на экипировку своего класса на 50 уровень когда достигнете 41 уровня. " )
-	Text( 31,  "Получить Звезду Единства ",MultiTrigger, GetMultiTrigger(), 1)
-	Text( 31,  "Обмен Звезды Единства ",JumpPage, 32 )
+	Talk( 31, "Angela: Star of Unity is a mysterious accessory from another world. When you equip it, you might be able to activate the power of unity and something unexpected might happen. We are running a trial event 'Hoard Exchange'. All players below Lv 41 can redeem a Star of Unity to exchange for a suitable piece of equipment. Are you interested?" )
+	Text( 31, "Redeem Star of Unity",MultiTrigger, GetMultiTrigger(), 1)
+	Text( 31, "Hoard Exchange",JumpPage, 32 )
 
-	Talk( 32,  "Анжела: Спасибо за использование наших продуктов. Вы можете обменять Звезду Единства на экипировку своего класса на 50 уровень. Вас это интересует? ")
-	Text( 32,  "Получить оружие класса ", Transfer_TeamStar, 1)
+	Talk( 32, "Thank you for using our products. If you have a 'Star of Unity', you can redeem a Lv 50 weapon for your class. Interesting isn't it?")
+	Text( 32, "Redeem class weapon", Transfer_TeamStar, 1)
 
-	Talk( 6,  "Анжела: Прошу прощения, но вы не подходите по требованиям. " )
+	Talk( 6, "Angela: Sorry, you do not meet the requirements to redeem." )
 
+	--InitTrigger()
+	---------------------НжјТі¬№э6ј¶НкіЙ№эЙЄ°ІµДХЅ¶·СµБ·ИООс
+	--TriggerCondition( 1, LvCheck, ">", 4 )
+	--TriggerCondition( 1, LvCheck, "<", 9 )
+	--TriggerCondition( 1, HasRecord, 716 )
+	--TriggerAction( 1, JumpPage, 28 )
+	--TriggerCondition( 2, LvCheck, ">", 8 )
+	--TriggerCondition( 2, PfEqual, 0 )
+	--TriggerAction( 2, JumpPage, 29 )
+	--TriggerFailure( 2, JumpPage, 1 )
+
+	--Start( GetMultiTrigger(), 2 )
+
+	
 	AddNpcMission ( 721 )
 	AddNpcMission ( 722 )
 	AddNpcMission ( 724 )
@@ -3227,13 +5429,120 @@ function r_talk77()
 	AddNpcMission 	(173)
 	AddNpcMission 	(190)
 
+
 	MisListPage(28)
 	MisListPage(29)
+
 end 
 
-function r_talk78()
-	Talk( 1,  "Рэй: Привет! Я наемный охотник, люблю охотится за нежитью. Если вас это интересует, то могу показать несколько хороших мест. " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<РВКЦЦёµјЎ¤°ІзчВ¶СЗ
 
+
+----------------------------------------------------------
+--							--
+--							--
+--		±щАЗ±¤[±щАЗ±¤ЅЈКїЎ¤АЧЕ·]		--
+--							--
+--		136573,57078				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk78 ()
+	
+	-------------------ЧЄЦ°Л«ЅЈ
+	Talk( 1, "Ray: I am a bounty hunter. I love to hunt for undeads. If you are interested, I can recommend a few places to you." )
+
+		----------------ЧЄЦ°іЙОЄБФИЛ
+	InitTrigger()
+	TriggerCondition( 1, LvCheck, ">", 9 )
+	TriggerCondition( 1, IsCategory, 1 )
+	TriggerCondition( 1, PfEqual, 0 )
+	TriggerCondition( 1, HasMoney, 1000 )
+	TriggerCondition( 1, HasItem, 3955, 1 )
+	TriggerAction( 1, TakeItem, 3955, 1 )
+	TriggerAction( 1, TakeMoney, 1000 )
+	TriggerAction( 1, GiveItem, 3187, 1 , 4)
+	TriggerAction( 1, GiveItem, 25, 1 , 4)
+	TriggerAction( 1, SetProfession, 2 )
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerCondition( 2, LvCheck, ">", 7 )
+	TriggerCondition( 2, IsCategory, 3 )
+	TriggerCondition( 2, PfEqual, 0 )
+	TriggerCondition( 2, HasMoney, 1000 )
+	TriggerCondition( 2, HasItem, 3955, 1 )
+	TriggerAction( 2, TakeItem, 3955, 1 )
+	TriggerAction( 2, TakeMoney, 1000 )
+	TriggerAction( 2, GiveItem, 3187, 1 , 4)
+	TriggerAction( 2, GiveItem, 25, 1, 4)
+	TriggerAction( 2, SetProfession, 2  )
+	TriggerAction( 2, JumpPage, 3 )
+	TriggerFailure( 2, JumpPage, 4 )
+
+	Talk(2, "Hi my friend. You have great reflexes, suitable to become a hunter. Why don't you become a hunter now? I believe that you will not be disappointed.")
+	Text(2, "Ok, class change to be Hunter", MultiTrigger, GetMultiTrigger(), 2)
+	Text(2, "No, it is good enough for now.", CloseTalk)
+
+	Talk(3, "I have told you all I can about being a Hunter. Now its up to you to become the best Hunter.")
+
+	Talk(4, "Want to be a Hunter? Only players Lv 8 and above who possess a Hunter Manual can register with me for 1000G. Muscular guy or little girl are not suitable.")
+
+	----------------ЧЄЦ°іЙОЄѕС»чКЦ
+	InitTrigger()
+	TriggerCondition( 1, LvCheck, ">", 39 )
+	TriggerCondition( 1, IsCategory, 1 )
+	TriggerCondition( 1, PfEqual, 2 )
+	TriggerCondition( 1, HasMoney, 15000 )
+	TriggerCondition( 1, HasItem, 3364, 1 )
+	TriggerAction( 1, TakeItem, 3364, 1 )
+	TriggerAction( 1, TakeMoney, 15000 )
+	TriggerAction( 1, SetProfession, 12 )
+	TriggerAction( 1, JumpPage, 6 )
+	TriggerCondition( 2, LvCheck, ">", 39 )
+	TriggerCondition( 2, IsCategory, 3 )
+	TriggerCondition( 2, PfEqual, 2 )
+	TriggerCondition( 2, HasMoney, 15000 )
+	TriggerCondition( 2, HasItem, 3364, 1 )
+	TriggerAction( 2, TakeItem, 3364, 1 )
+	TriggerAction( 2, TakeMoney, 15000 )
+	TriggerAction( 2, SetProfession, 12  )
+	TriggerAction( 2, JumpPage, 6 )
+	TriggerFailure( 2, JumpPage, 7 )
+
+	Talk(5, "Sharpshoots nowadays only want to earn more money. They will kill anyone on sight as long as there is a bounty. Friend, it seems that you are suitable to become a sharpshooter. You have a good character and build. Would you consider to be one so that you might restore the glory of the Sharpshooters one day?")
+	Text(5, "Ok, I will become a Sharpshooter", MultiTrigger, GetMultiTrigger(), 2)
+	Text(5, "No, it is good enough for now.", CloseTalk)
+
+	Talk(6, "Sharpshooters are not assassins. You must not forget the principles of the sharpshooters in the future.")
+
+	Talk(7, "Want to become a Sharpshooter? Come back here when you are Lv 40. Remember to bring along 1 Clarity Crystal and 15000G too!")
+
+	--InitTrigger()
+
+-------------------ЧЄБФИЛЕР¶П
+	--TriggerCondition( 1, LvCheck, ">", 9 )
+	----TriggerCondition( 1, IsCategory, 1 )
+	--TriggerCondition( 1, PfEqual, 0 )
+	--TriggerAction( 1, JumpPage, 2 )
+	--TriggerCondition( 2, LvCheck, ">", 9 )
+	--TriggerCondition( 2, IsCategory, 3 )
+	--TriggerCondition( 2, PfEqual, 0 )
+	--TriggerAction( 2, JumpPage, 2 )
+	--TriggerFailure( 2, JumpPage, 1 )
+
+----------------ѕС»чКЦ
+
+	--TriggerCondition( 3, LvCheck, ">", 39 )
+	--TriggerCondition( 3, IsCategory, 1 )
+	--TriggerCondition( 3, PfEqual, 2 )
+	--TriggerAction( 3, JumpPage, 5 )
+	--TriggerCondition( 4, LvCheck, ">", 39 )
+	--TriggerCondition( 4, IsCategory, 3 )
+	--TriggerCondition( 4, PfEqual, 2 )
+	--TriggerAction( 4, JumpPage, 5 )
+	--TriggerFailure( 4, JumpPage, 1 )
+
+	--Start( GetMultiTrigger(), 2 )
+	
+	--AddNpcMission ( 729 )
 	AddNpcMission ( 101 )
 	AddNpcMission ( 251 )
 	AddNpcMission ( 252 )
@@ -3250,9 +5559,11 @@ function r_talk78()
 	AddNpcMission 	(180)
 	AddNpcMission 	(523)
 	AddNpcMission(	1237	)
+-------------eleven
 	AddNpcMission(	5057	)
 	AddNpcMission(	5061	)	
 	AddNpcMission(	5069	)
+----------1.7
 	AddNpcMission(	5168	)
 	AddNpcMission(	5090	)
 	AddNpcMission (5097 )
@@ -3263,13 +5574,27 @@ function r_talk78()
 
 	MisListPage(2)
 
+-----МъИЛБщПо
 	AddNpcMission ( 6125 )
 end 
 
-function r_talk79()
-	Talk( 1,  "Рэйно: Привет! Я председатель Ледыни, самый богатый человек города. Я везде где есть деньги. " )
-	Text( 1,  "Сделать восстанавливающее зелье ", JumpPage, 5)
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<±щАЗ±¤ЅЈКїЎ¤АЧЕ·
 
+----------------------------------------------------------
+--							--
+--							--
+--		±щАЗ±¤[±щАЗ±¤ЙМ»б»бі¤Ў¤°¬БўїЛ]		--
+--							--
+--		129486,49842				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk79 ()
+	
+	
+	Talk( 1, "Reyno: Wherever there are money to be earned, I will be there. Hi! I am Icicle Chairman - Reyno. The richest man in the city." )
+	Text( 1, "Decoct Recovery Potion", JumpPage, 5)
+
+	--------------------ЕЪЦЖМбЙсјБ
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1779, 1 )
 	TriggerCondition( 1, HasItem, 3138, 2 )
@@ -3282,9 +5607,10 @@ function r_talk79()
 	TriggerAction( 1, GiveItem, 3139, 1 , 4)
 	TriggerAction( 1, JumpPage, 6 )
 	TriggerFailure( 1, JumpPage, 7 )
-	Talk( 5,  "Рэйно: Те травы, что продают целители самые обычные. Только я продаю самые волшебные травы! " )
-	Text( 5,  "Сделать Агрипнотик ",MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 5, "Reyno: Those herbs sold by physicians are just common herbs. Only I possess rare herbs that do miracles." )
+	Text( 5, "Make Agrypnotic",MultiTrigger, GetMultiTrigger(), 1)
 
+	----------------єПіЙД§»ГТ©Л®
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1779, 1 )
 	TriggerCondition( 1, HasItem, 3133, 1 )
@@ -3301,11 +5627,11 @@ function r_talk79()
 	TriggerAction( 1, GiveItem, 3140, 1 , 4)
 	TriggerAction( 1, JumpPage, 6 )
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 5,  "Сделать Волшебное зелье ",MultiTrigger, GetMultiTrigger(), 1)
+	Text( 5, "Decoct Magical Potion",MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 6,  "Рэйно: Вот то, что вы заказывали. " )
-	Talk( 7,  "Рэйно: Чтобы сделать 1 Агрипнотик необходимо 2 Тиамарина, 2 Загадочных фрукта, 1 Стакан и 200 золота. " )
-	Talk( 8,  "Рэйно: Чтобы сделать 1 Волшебное зелье необходимо 1 Лакричное зелье, 1 Чай Бодрячок, 1 Чудо-мазь, 1 Брикет снежной травы, 1 Стакан и 200 золота. " )
+	Talk( 6, "Reyno: Did you wait for a long time? This is what you wanted." )
+	Talk( 7, "Reyno: I do have Agrypnotic. However, you must bring me 2 Mystery Fruits, 2 Tiamari Fruits, 1 Bottle and 200G in exchange." )
+	Talk( 8, "Reyno: I have with me some Magical Potion. You can bring me 1 Liquorice Potion, 1 Energetic Tea, 1 Special Ointment, 1 Snowy Soft Bud, 1 Bottle and 200G in exchange." )
 
 	AddNpcMission 	(459)
 	AddNpcMission 	(465)
@@ -3316,6 +5642,7 @@ function r_talk79()
 	AddNpcMission	(1115)
 	AddNpcMission	(1169)
 	AddNpcMission(	1238	)
+	--------------------1.7
 	AddNpcMission ( 5084	)
 	AddNpcMission ( 5085	)
 	AddNpcMission ( 5086	)
@@ -3325,103 +5652,246 @@ function r_talk79()
 	AddNpcMission (5145 )
 	AddNpcMission (5146 )
 	AddNpcMission (5151 )
+
+
+
 end 
 
-function r_talk80()
-	Talk( 1,  "Мас: История моей семьи началась также давно как основали замок Ледыни. Здесь все меня знают и уважают. " )
-	Text( 1,  "Создать пиратскую гильдию ",JumpPage, 2 )
-	Text( 1,  "Ничего... ",CloseTalk )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ЙМ»б»бі¤Ў¤°¬БўїЛ
 
-	Talk( 2,  "Мас: Хохо.. Хотите создать пиратскую гильдию? Думаю вам это по силам. " )
+----------------------------------------------------------
+--							--
+--							--
+--		±щАЗ±¤[±щАЗ±¤№уЧеЎ¤Вн¶ыРЮЛ№]		--
+--							--
+--		134652,45141				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk80 ()
+	
+	
+	Talk( 1, "Mas: My family history runs as deep as Icicle Castle. Everybody here know and respected me." )
+	Text( 1, "Regarding the legends of the Pirates",JumpPage, 2 )
+	Text( 1, "Nothing...",CloseTalk )
+
+
+	Talk( 2, "Mas: Hohoho...Pirates Crew? You wish to create one? That would have to depend on your ability." )
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 100000 )
 	TriggerCondition( 1, HasItem, 1780, 1 )
 	TriggerAction( 1, CreateGuild, 1 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 2,  "Создать пиратскую гильдию ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 2, "Create a Pirate Guild", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 3,  "Мас: Стать лидером пиратской гильдии не так просто. Вам нужно принести 1 камень клятвы и 100000 золота. " )
+	Talk( 3, "Mas: To be the leader of the pirates is not an easy matter. Bring 100000G and the Stone of Oath to prove your worth" )
 
-	AddNpcMission ( 253  )
-	AddNpcMission ( 254  )
-	AddNpcMission (	453  )
-	AddNpcMission (	698	 )
-	AddNpcMission (	801	 )
-	AddNpcMission (	1004 )
-	AddNpcMission (	1059 )
-	AddNpcMission (	1114 )
-	AddNpcMission (	1168 )
-	AddNpcMission (	317	 )
-	AddNpcMission (	321	 )
-	AddNpcMission (	322	 )
-	AddNpcMission (	5045 )
-	AddNpcMission (	5046 )
-	AddNpcMission (	5047 )
+
+	AddNpcMission ( 253 )
+	AddNpcMission ( 254 )
+	AddNpcMission (	453 )
+	AddNpcMission 	(698)
+	AddNpcMission 	(801)
+	AddNpcMission	(1004)
+	AddNpcMission	(1059)
+	AddNpcMission	(1114)
+	AddNpcMission	(1168)
+	AddNpcMission	(317)
+	AddNpcMission	(321)
+	AddNpcMission	(322)
+-----------eleven
+	AddNpcMission	(5045)
+	AddNpcMission	(5046)
+	AddNpcMission	(5047)
+
 end 
 
-function r_talk81()
-	Talk( 1,  "Белинда: Добро пожаловать в банк Ледыни! Чем я могу помочь? " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<±щАЗ±¤№уЧеЎ¤Вн¶ыРЮЛ№
+
+----------------------------------------------------------
+--							--
+--							--
+--		±щАЗ±¤[ТшРРіцДЙЎ¤ІјАцДИ]		--
+--							--
+--		136058,51931				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk81 ()
+	
+	
+	Talk( 1, "Belinda: Welcome to Icicle Bank. How may I help you?" )
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 200 )
 	TriggerAction( 1, TakeMoney, 200 )
 	TriggerAction( 1, OpenBank )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1,  "Хранилище (200 золотых) ", MultiTrigger, GetMultiTrigger(), 1)
-	Talk( 2,  "Простите, но у вас недостаточно денег для входа в хранилище. " )
+	Text( 1, "Vault (200G Fee)", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 2, "Sorry, you do not have sufficient gold to pay for vault usage" )
 
-	AddNpcMission (	1102 )
-	AddNpcMission (	187	 )
-	AddNpcMission (	188	 )
-	AddNpcMission (	189	 )
-	AddNpcMission (	597	 )
-	AddNpcMission (	598	 )
+	AddNpcMission	(1102)
+	AddNpcMission	(187)
+	AddNpcMission	(188)
+	AddNpcMission	(189)
+----------eleven
+	AddNpcMission	(597)
+	AddNpcMission	(598)
 	AddNpcMission ( 6093 )
+
 end 
 
-function r_talk82()
-	Talk( 1,  "Барбара: Здравствуйте! Не найдется ли у вас интересных историй для меня? " )
-	Text( 1,  "Дворец Тельца ", JumpPage,9)
-	Text( 1,  "Сделать краситель ", JumpPage, 2)
-	Text( 1,  "Сделать сок ", JumpPage, 6)
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ТшРРіцДЙЎ¤ІјАцДИ
 
-	Talk( 9, "Барбара: Хочешь войти во Дворец Тельца? Задания буду гораздо сложнее, чем на предыдущем этапе. Можно выбрать один из уровней сложности." )
+-----------------------------------------------------------
+--							--
+--							--
+--		±щАЗ±¤[ѕЖ°Й·юОсФ±Ў¤°Е°ЕА­]		--
+--							--
+--		131083,53031				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk82 ()
+	
+	
+	Talk( 1, "Babara: Hi, do you have any interesting story to tell?" )
+
+	Text( 1, "Blood shed Taurus Palace (Horoscope Quest)", JumpPage,9 )
+--	Text( 1, "Sailor Completion Reward", JumpPage,11 )
+--	Text( 1, "Pirate Completion Reward", JumpPage,12 )
+--	Text( 1, "Captain completion reward", JumpPage,13 )
+	Text( 1, "Decoct Hair Colorant", JumpPage, 2)
+	Text( 1, "Bake Pastry", JumpPage, 6)
+
+
+	Talk( 9, "Babara: Please choose your difficulty, from sailor to captain. The more difficult you choose, the better the prize is. Have you pick your choice? You can only pick once, do not regret after." )
 
 	InitTrigger()
 	TriggerCondition( 1, NoRecord,1112 )
 	TriggerCondition( 1, NoRecord,1113 )
-	TriggerCondition( 1, HasItem, 2943, 1 )
-	TriggerAction( 1, TakeItem, 2943, 1 )
+	TriggerCondition( 1, HasItem, 2943, 1 )---------ЅрЕЈГЕЖ±
+	TriggerAction( 1, TakeItem, 2943, 1 )----------ЅрЕЈГЕЖ±
 	TriggerAction( 1, SetRecord, 1111 )
 	TriggerAction( 1, SetRecord, 1152 )
 	TriggerAction( 1, JumpPage, 10 )
 	TriggerFailure( 1, JumpPage, 13 )
-	Text( 9, "Матрос ",MultiTrigger, GetMultiTrigger(), 1)
+	Text( 9, "Sailor",MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, NoRecord,1111 )
 	TriggerCondition( 1, NoRecord,1113 )
-	TriggerCondition( 1, HasItem, 2943, 1 )
-	TriggerAction( 1, TakeItem, 2943, 1 )
+	TriggerCondition( 1, HasItem, 2943, 1 )---------ЅрЕЈГЕЖ±
+	TriggerAction( 1, TakeItem, 2943, 1 )----------ЅрЕЈГЕЖ±
 	TriggerAction( 1, SetRecord, 1112 )
 	TriggerAction( 1, SetRecord, 1152 )
 	TriggerAction( 1, JumpPage, 10 )
 	TriggerFailure( 1, JumpPage, 13 )
-	Text( 9, "Пират ",MultiTrigger, GetMultiTrigger(), 1)
+	Text( 9, "Pirate",MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, NoRecord,1111 )
 	TriggerCondition( 1, NoRecord,1112 )
-	TriggerCondition( 1, HasItem, 2943, 1 )
-	TriggerAction( 1, TakeItem, 2943, 1 )
+	TriggerCondition( 1, HasItem, 2943, 1 )---------ЅрЕЈГЕЖ±
+	TriggerAction( 1, TakeItem, 2943, 1 )----------ЅрЕЈГЕЖ±
 	TriggerAction( 1, SetRecord, 1113 )
 	TriggerAction( 1, SetRecord, 1152 )
 	TriggerAction( 1, JumpPage, 10 )
 	TriggerFailure( 1, JumpPage, 13 )
-	Text( 9, "Капитан ",MultiTrigger, GetMultiTrigger(), 1)
+	Text( 9, "Captain",MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 10, "Барбара: Выбрали? Тогда вперед, навстречу Тельцу!" )
-	Talk( 13, "Барбара: Проверь внимательно, может быть ты ещё не прошел Дворец Овна?")
+	Talk(10, "Babara: I know you can do it!!" )
+	Talk( 13, "Babara: When challenging Taurus Palace, the difficulty can only be choosed one. Please also make sure you have Taurus Palace ticket with you.")
 
+--	InitTrigger()
+--	TriggerCondition( 1, HasRecord,1111 )
+--	TriggerCondition( 1, HasItem, 3028, 1 )
+--	TriggerCondition( 1, HasItem, 3029, 1 )
+--	TriggerCondition( 1, HasItem, 3030, 1 )
+--	TriggerCondition( 1, HasItem, 3031, 1 )
+--	TriggerCondition( 1, HasItem, 3032, 1 )
+--	TriggerCondition( 1, HasItem, 3033, 1 )
+--	TriggerCondition( 1, HasItem, 3034, 1 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 3 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerAction( 1, TakeItem, 3028, 1 )
+--	TriggerAction( 1, TakeItem, 3029, 1 )
+--	TriggerAction( 1, TakeItem, 3030, 1 )
+--	TriggerAction( 1, TakeItem, 3031, 1 )
+--	TriggerAction( 1, TakeItem, 3032, 1 )
+--	TriggerAction( 1, TakeItem, 3033, 1 )
+--	TriggerAction( 1, TakeItem, 3034, 1 )
+--	TriggerAction( 1, SetLog  , 0 )-------------??????
+--
+--	TriggerAction( 1, GiveItem, 3026, 1 , 4)
+--	TriggerAction( 1, GiveItem, 3027, 1 , 4)
+--	TriggerAction( 1, GiveItem, 0227, 10 , 4)
+--	TriggerAction( 1, AddMoney, 100000 )
+--	TriggerAction( 1, JumpPage, 15 )
+--	TriggerFailure( 1, JumpPage, 16 )
+--	Talk( 11, "Babara: Collect all 7 badges to exchange for Aries Protector Seal and the Ticket for the next Palace. There are also more prizes available." )
+--	Text( 11, "Confirm to exchange",MultiTrigger_1, GetMultiTrigger(), 1)--------------------?????????
+--
+--
+--
+--	InitTrigger()
+--	TriggerCondition( 1, HasRecord,1112 )
+--	TriggerCondition( 1, HasItem, 3028, 1 )
+--	TriggerCondition( 1, HasItem, 3029, 1 )
+--	TriggerCondition( 1, HasItem, 3030, 1 )
+--	TriggerCondition( 1, HasItem, 3031, 1 )
+--	TriggerCondition( 1, HasItem, 3032, 1 )
+--	TriggerCondition( 1, HasItem, 3033, 1 )
+--	TriggerCondition( 1, HasItem, 3034, 1 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 3 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerAction( 1, TakeItem, 3028, 1 )
+--	TriggerAction( 1, TakeItem, 3029, 1 )
+--	TriggerAction( 1, TakeItem, 3030, 1 )
+--	TriggerAction( 1, TakeItem, 3031, 1 )
+--	TriggerAction( 1, TakeItem, 3032, 1 )
+--	TriggerAction( 1, TakeItem, 3033, 1 )
+--	TriggerAction( 1, TakeItem, 3034, 1 )
+--
+--	TriggerAction( 1, GiveItem, 3026, 1 , 4)
+--	TriggerAction( 1, GiveItem, 3027, 1 , 4)
+--	TriggerAction( 1, GiveItem, 0227, 20 , 4)
+--	TriggerAction( 1, AddMoney, 200000 )
+--	TriggerAction( 1, JumpPage, 15 )
+--	TriggerFailure( 1, JumpPage, 16 )
+--	Talk( 11, "Babara: Collect all 7 Emblems to exchange for Taurus Protector Seal and Gemini Gate Ticket. There are also other prizes available." )
+--	Text( 11, "Confirm to exchange",MultiTrigger, GetMultiTrigger(), 1)
+--
+--
+--	InitTrigger()
+--	TriggerCondition( 1, HasRecord,1113 )
+--	TriggerCondition( 1, HasItem, 3028, 1 )
+--	TriggerCondition( 1, HasItem, 3029, 1 )
+--	TriggerCondition( 1, HasItem, 3030, 1 )
+--	TriggerCondition( 1, HasItem, 3031, 1 )
+--	TriggerCondition( 1, HasItem, 3032, 1 )
+--	TriggerCondition( 1, HasItem, 3033, 1 )
+--	TriggerCondition( 1, HasItem, 3034, 1 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 3 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerAction( 1, TakeItem, 3028, 1 )
+--	TriggerAction( 1, TakeItem, 3029, 1 )
+--	TriggerAction( 1, TakeItem, 3030, 1 )
+--	TriggerAction( 1, TakeItem, 3031, 1 )
+--	TriggerAction( 1, TakeItem, 3032, 1 )
+--	TriggerAction( 1, TakeItem, 3033, 1 )
+--	TriggerAction( 1, TakeItem, 3034, 1 )
+--
+--	TriggerAction( 1, GiveItem, 3026, 1 , 4)
+--	TriggerAction( 1, GiveItem, 3027, 1 , 4)
+--	TriggerAction( 1, GiveItem, 0227, 30 , 4)
+--	TriggerAction( 1, AddMoney, 300000 )
+--	TriggerAction( 1, JumpPage, 15 )
+--	TriggerFailure( 1, JumpPage, 16 )
+--	Talk( 12, "Babara: Collect all 7 Taurus Emblem to exchange with me for Taurus Protector Seal and Gemini Gate Ticket. There are also more prizes available." )
+--	Text( 12, "Confirm to exchange",MultiTrigger, GetMultiTrigger(), 1)
+--
+--	Talk( 16, "Babara: You don't seem to have enough emblems on you! Please check if your bag is locked, and please make sure you have 3 slots in your inventory! Are you sure you want to choose this difficulty?")
+--	Talk( 15, "Babara: Next Palace is Gemini Palace, and please continue your effort!")
+
+
+-----------µчЕдА¶Й«Иѕ·ўјБ
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1792, 5 )
 	TriggerCondition( 1, HasItem, 1657, 1 )
@@ -3434,9 +5904,9 @@ function r_talk82()
 	TriggerAction( 1, GiveItem, 1802, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 2,  "Барбара: Вы столкнулись с чем то интересным? Сообщите мне! " )
-	Text( 2,  "Сделать Голубой краситель ", MultiTrigger, GetMultiTrigger(), 1)
-
+	Talk( 2, "Babara: Hi! Have you encounter anything interesting? Tell me!" )
+	Text( 2, "Decoct Blue Colorant", MultiTrigger, GetMultiTrigger(), 1)
+-------------------------µчЕдЧПЙ«Иѕ·ўјБ
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1793, 5 )
 	TriggerCondition( 1, HasItem, 1657, 1 )
@@ -3449,11 +5919,11 @@ function r_talk82()
 	TriggerAction( 1, GiveItem, 1803, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 5 )
-	Text( 2,  "Сделать Пурпурный краситель ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 2, "Decoct Purple Colorant", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 3,  "Барбара: Вот, то что вы просили готово! " )
-	Talk( 4,  "Барбара: Для приготовления 1 Голубого красителя нужно 5 Голубой краски, 1 Особый газ, 1 Радужный стакан и 200 золота. " )
-	Talk( 5,  "Барбара: Для приготовления 1 Пурпурного красителя нужно 5 Пурпурной краски, 1 Особый газ, 1 Радужный стакан и 200 золота. " )
+	Talk( 3, "Babara: I did a great job for you! Keep it close. Look for me next time." )
+	Talk( 4, "Babara: 5 Blue Dye, 1 Special Gas, 1 Rainbow Glass and 200G to make 1 Blue Colorant." )
+	Talk( 5, "Babara: 5 Purple Dye, 1 Special Gas, 1 Rainbow Glass and 200G to make 1 Purple Colorant." )
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1777, 1 )
@@ -3463,43 +5933,62 @@ function r_talk82()
 	TriggerAction( 1, GiveItem, 3122, 1 , 4)
 	TriggerAction( 1, JumpPage, 7 )
 	TriggerFailure( 1, JumpPage, 8 )
-	Talk( 6,  "Барбара: У меня лучший сок во всей Ледыни! Вы приготовили стакан? " )
-	Text( 6,  "Сделать Сок эльфийского фрукта ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 6, "Babara: I'm the only one in Icicle City who can make Elven Fruit Juice. Do you want a glass?" )
+	Text( 6, "Mix Elven Fruit Juice", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 7,  "Барбара: Держите ваш самый вкусный сок, как и просили. " )
+	Talk( 7, "Babara: This is the Elven Fruit Juice I mixed for you. Keep it well." )
 
-	Talk( 8,  "Барбара: Простите, но для приготовления 1 Сок эльфийского фрукта требуется 10 Эльфийских фруктов и 1 Стакан. " )
+	Talk( 8, "Babara: Sorry! You do not have the required items. You need to have 10 Elven Fruits and 1 Glass to mix the drink." )
+	AddNpcMission	(1078)
+	AddNpcMission	(389)
+---------------------°Е°ЕА­
+	---------------ЅрЕЈ
+	AddNpcMission	(5608)
+	AddNpcMission	(5609)
+	AddNpcMission	(5610)
+	AddNpcMission	(5611)
+	AddNpcMission	(5612)
+	AddNpcMission	(5613)
 
-	AddNpcMission (	1078 )
-	AddNpcMission (	389	 )
-	AddNpcMission (	5608 )
-	AddNpcMission (	5609 )
-	AddNpcMission (	5610 )
-	AddNpcMission (	5611 )
-	AddNpcMission (	5612 )
-	AddNpcMission (	5613 )
-	AddNpcMission (	5614 )
-	AddNpcMission (	5615 )
-	AddNpcMission (	5616 )
-	AddNpcMission (	5617 )
-	AddNpcMission (	5618 )
-	AddNpcMission (	5619 )
-	AddNpcMission (	5620 )
-	AddNpcMission (	5621 )
-	AddNpcMission (	5622 )
-	AddNpcMission (	5623 )
-	AddNpcMission (	5624 )
-	AddNpcMission (	5667 )
-	AddNpcMission (	5670 )
-	AddNpcMission (	5671 )
-	AddNpcMission (	5672 )
-	AddNpcMission (	5675 )
+	AddNpcMission	(5614)
+	AddNpcMission	(5615)
+	AddNpcMission	(5616)
+	AddNpcMission	(5617)
+	AddNpcMission	(5618)
+	AddNpcMission	(5619)
+	AddNpcMission	(5620)
+	AddNpcMission	(5621)
+	AddNpcMission	(5622)
+	AddNpcMission	(5623)
+	AddNpcMission	(5624)
+
+	AddNpcMission	(5667)
+	--AddNpcMission	(5668)
+
+	AddNpcMission	(5670)
+	AddNpcMission	(5671)
+	AddNpcMission	(5672)
+--	AddNpcMission	(5673)
+	AddNpcMission	(5675)
+	
 end 
 
-function r_talk83()
-	Talk( 1,  "Ханна: Привет, я портной Ледыни. У меня вы можете найти лучшие доспехи в городе! " )
-	Text( 1,  "Торг ", BuyPage )
-	Text( 1,  "Ничего... ",CloseTalk )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ѕЖ°Й·юОсФ±Ў¤°Е°ЕА­
+
+----------------------------------------------------------
+--							--
+--							--
+--		±щАЗ±¤[·юЧ°µкЦчЎ¤єІДИ]		--
+--							--
+--		134926,53992				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk83 ()
+	
+	
+	Talk( 1, "Hannah: Welcome to the Tailor Shop of Icicle City. We have all sorts of trendy clothes." )
+	Text( 1, "Trade", BuyPage )
+	Text( 1, "Nothing...",CloseTalk )
 	
 	InitTrade()
 	Defence(	0305	)
@@ -3533,26 +6022,56 @@ function r_talk83()
 	Defence(	0492	)
 	Defence(	0668	)
 
-	AddNpcMission ( 725  )
-	AddNpcMission (	1067 )
-	AddNpcMission (	170	 )
-	AddNpcMission (	171	 )
-	AddNpcMission (	172	 )
+
+
+
+	AddNpcMission ( 725 )
+	AddNpcMission	(1067)
+	AddNpcMission	(170)
+	AddNpcMission	(171)
+	AddNpcMission	(172)
 end 
 
-function r_talk84()
-	Talk( 1,  "Яски: Добро пожаловать в гостиницу Ледыни. Я ее владелец Яски. " )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<·юЧ°µкЦчЎ¤єІДИ
 
-	AddNpcMission (	1085 )
-	AddNpcMission (	184	 )
-	AddNpcMission (	185	 )
-	AddNpcMission (	186	 )
-end 
-
-function r_talk85()
-	Talk( 1,  "Тинк: Вы видели трех моих братьев? Они живут в Громограде, Аргенте и Шайтане. " )
-	Text( 1,  "Очистить ", JumpPage, 2)
+----------------------------------------------------------
+--							--
+--							--
+--		±щАЗ±¤[ВГµкАП°еЎ¤ФјЙЄ·т]		--
+--							--
+--		129074,54098				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk84 ()
 	
+	
+	Talk( 1, "Yaskey: Welcome to the Inn of Icicle City. I am the owner Yaskey." )
+	AddNpcMission	(1085)
+	AddNpcMission	(184)
+	AddNpcMission	(185)
+	AddNpcMission	(186)
+	---------------ЗпµєїЄ·ў
+	--AddNpcMission	(6179)
+	--AddNpcMission	(6180)
+	
+end 
+
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ВГµкАП°еЎ¤ФјЙЄ·т
+
+----------------------------------------------------------
+--							--
+--							--
+--		±щАЗ±¤[В·ИЛЎ¤¶Ў]		--
+--							--
+--		133550,46900				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function r_talk85 ()
+	
+	
+	Talk( 1, "Tink: Have you seen my three brothers? They live in Shaitan, Argent and Thundoria respectively." )
+	Text( 1, "Refine", JumpPage, 2)
+-------------------Б¶ФмµШЅрїуКЇ
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1781, 10 )
 	TriggerCondition( 1, HasMoney, 200 )
@@ -3561,12 +6080,11 @@ function r_talk85()
 	TriggerAction( 1, GiveItem, 1782, 1 , 4)
 	TriggerAction( 1, JumpPage, 3 )
 	TriggerFailure( 1, JumpPage, 4 )	
-	Talk( 2, "Тинк: Я не простой НПС. Без меня в этой игре не обойтись! Хо-хо! Польволь-ка мне это доказать!" )
-	Text( 2, "Очистить Терранский золотой ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 2, "Tink: I am not just a normal NPC. The game cannot do without me! Hoho! Let me prove it to you!" )
+	Text( 2, "Refine Terra Gold", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 3, "Тинк: Вот твоя Терранская золотая руда." )
-
-	Talk( 4, "Тинк: Я знаю способ изготовления Терранской золотой руды. Для этого мне необходимо: 10 терранских золотых и 200 золота." )
+	Talk( 3, "Tink: Ok! This Terra Gold Ore is yours!" )
+	Talk( 4, "Tink: Tink: I have a method to make Terra Gold Ore. Pass me 10 Terra Gold Fragment and 200G and it'll be yours." )
 
 	AddNpcMission ( 6015 )
 	AddNpcMission ( 6016 )
@@ -3576,78 +6094,254 @@ function r_talk85()
 	AddNpcMission ( 6022 )
 	AddNpcMission ( 6023 )
 	AddNpcMission ( 6024 )
+	-------------------В·ИЛЎ¤¶Ў  -------------------------ѕЮР·
 	AddNpcMission ( 5859 )
 	AddNpcMission ( 5860 )
+
+	
 end 
 
-function r_talk86()
-	Talk( 1,  "Питер: Привет, я Питер, стражник этого города. Я слежу за порядком и охраняю улицы от головорезов. У тебя есть ко мне какое то дело? ")
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<В·ИЛЎ¤¶Ў
+
+
+
+
+------------------------------------------------------------
+-- °ЧТшЦ®іЗ:АъК·ИООс:РВКЦЦёµјИООс
+------------------------------------------------------------
+
+function BT_NewUser001()
+
+	Talk( 1, "Senna: Hi, I am the image consultant for Argent City. I am responsible for all newcomers and visitors. Look for me if there is something you do not understand." )
+	Text( 1, "Star of Unity", JumpPage, 31 )
+	Text( 1, "Regarding Argent City", JumpPage, 4 )
+	Text( 1, "Regarding Classes and Attributes", JumpPage, 11 )
+	Text( 1, "Regarding Monster Coordinates", JumpPage, 30 )
+	Text( 1, "I have understood all",  CloseTalk)
+
+
+
+	Talk( 4, "Argent City is a place for merchant to sell their products. Have a look around." )
+	Text( 4, "Regarding Weapon Shop", JumpPage, 5 )
+	Text( 4, "Regarding Armor Shop", JumpPage, 7 )
+	Text( 4, "Regarding Item Shop", JumpPage, 8 )
+	Text( 4, "Regarding Teleporter", JumpPage, 9 )
+	Text( 4, "Regarding the Nurse", JumpPage, 10 )
+
+	Talk( 5, "Argent City's Blacksmith Goldie deals in the sale of weapons. His weapons are of excellent quality. Go take a look. Blacksmith's shop is at Argent City's top left corner." )
+	Text( 5, "Regarding other shops", JumpPage, 4 )
+	Text( 5, "I have understood all",  CloseTalk )
+
+--	Talk( 6, "Look for me again if there is anything you don't understand", CloseTalk )
+
+	Talk( 7, "Armors made in Argent City are very durable. You can have a look at them at the top right corner of the city." )
+	Text( 7, "Regarding other shops", JumpPage, 4 )
+	Text( 7, "I have understood all",  CloseTalk )
+
+	Talk( 8, "We have a lot of items here that are important to an Explorer. Check it out on the right side of the pond." )
+	Text( 8, "Regarding other shops", JumpPage, 4 )
+	Text( 8, "I have understood all",  CloseTalk )
+
+	Talk( 9, "Teleporter can send you to any city in this land. They can also record the spawn point for you. She is beside the western gate." )
+	Text( 9, "Regarding other shops", JumpPage, 4 )
+	Text( 9, "I have understood all",  CloseTalk )
+
+	Talk( 10, "The nurse is just slightly below the fountain. She is a gentle and caring lady that is well loved by all." )
+	Text( 10, "Regarding other shops", JumpPage, 4 )
+	Text( 10, "I have understood all", CloseTalk)
+
+	
+	InitTrigger()
+	TriggerCondition( 1, NoRecord, 700 )
+	TriggerCondition( 1, HasMission, 700 )
+	TriggerCondition( 1, NoFlag, 700, 10 )
+	TriggerAction( 1, SetFlag, 700, 10)
+	TriggerAction( 1, JumpPage, 12 )
+	TriggerFailure( 1, JumpPage, 12 )
+	Talk( 11, "Senna: Being a new player, you must understand the basic of each class and attributes. What you wish to know?" )
+	Text( 11, "Regarding Classes", JumpPage, 12)
+	Text( 11, "Regarding Attributes", JumpPage, 13)
+	Text( 11, "I have understood all", JumpPage, 6 )
+	--Text( 11, "Regarding Classes", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
-	TriggerCondition( 1, LvCheck, ">", 9 )
-	TriggerCondition( 1, IsCategory, 1 )
-	TriggerCondition( 1, PfEqual, 0 )
-	TriggerCondition( 1, HasMoney, 1000 )
-	TriggerCondition( 1, HasItem, 3953, 1 )
-	TriggerAction( 1, TakeItem, 3953, 1 )
-	TriggerAction( 1, TakeMoney, 1000 )
-	TriggerAction( 1, GiveItem, 3164, 1, 4 )
-	TriggerAction( 1, GiveItem, 1, 1, 4 )
-	TriggerAction( 1, SetProfession, 1 )
-	TriggerAction( 1, JumpPage, 3 )
-	TriggerCondition( 2, LvCheck, ">", 9 )
-	TriggerCondition( 2, IsCategory, 2 )
-	TriggerCondition( 2, PfEqual, 0 )
-	TriggerCondition( 2, HasMoney, 1000 )
-	TriggerCondition( 2, HasItem, 3953, 1 )
-	TriggerAction( 2, TakeItem, 3953, 1 )
-	TriggerAction( 2, TakeMoney, 1000 )
-	TriggerAction( 2, GiveItem, 3164, 1, 4 )
-	TriggerAction( 2, GiveItem, 1, 1, 4 )
-	TriggerAction( 2, SetProfession, 1  )
-	TriggerAction( 2, JumpPage, 3 )
-	TriggerFailure( 2, JumpPage, 4 )
+	TriggerCondition( 1, NoRecord, 700 )
+	TriggerCondition( 1, HasMission, 700 )
+	TriggerCondition( 1, NoFlag, 700, 20 )
+	TriggerAction( 1, SetFlag, 700, 20)
+	TriggerAction( 1, JumpPage, 13 )
+	TriggerFailure( 1, JumpPage, 13 )
+	--Text( 11, "Regarding Attributes", MultiTrigger, GetMultiTrigger(), 1)
 
-	AddNpcMission ( 100  )
-	AddNpcMission ( 204  )
-	AddNpcMission ( 279  )
-	AddNpcMission ( 281  )
-	AddNpcMission ( 404  )
-	AddNpcMission ( 749  )
-	AddNpcMission ( 750  )
-	AddNpcMission ( 66 	 )
-	AddNpcMission ( 67 	 )
-	AddNpcMission ( 68 	 )
-	AddNpcMission ( 72 	 )
-	AddNpcMission (	1222 )
-	AddNpcMission (	5056 )
-	AddNpcMission (	5060 )	
-	AddNpcMission (	5068 )	
-	AddNpcMission (	5167 )
-	AddNpcMission (	5089 )
-	AddNpcMission (	5093 )
-	AddNpcMission (	5094 )
-	AddNpcMission (	5095 )
-	AddNpcMission (	5096 )
-	AddNpcMission (	5109 )
-	AddNpcMission ( 6078 )
-	AddNpcMission ( 6079 )
-	AddNpcMission ( 6080 )
-	AddNpcMission ( 6097 )
-	AddNpcMission ( 6100 )
-	AddNpcMission ( 6101 )
+	Talk( 12, "Senna: There are 7 basic classes in this game. Each has its unique ways and serves a special purpose in the game. Which would you like to become?" )
+	Text( 12, "Regarding Swordsman", JumpPage, 14 )
+	Text( 12, "Regarding Hunter", JumpPage, 15 )
+--	Text( 12, "Regarding Sailor", JumpPage, 16 )
+	Text( 12, "Regarding Explorer", JumpPage, 17 )
+	Text( 12, "Regarding Herbalist", JumpPage, 18 )
+--	Text( 12, "Regarding Artisan", JumpPage, 19 )
+--	Text( 12, "Regarding Merchant", JumpPage, 20 )
+	Text( 12, "Understood. Let me check out others.", JumpPage, 11 )
 
-	MisListPage(2)
+	Talk( 13, "Senna: Each character will have 5 base attributes. Players can increase them accordingly to raise certain aspect of their ability. Each level will reward players with 1 stat point and 1 skill point. Beginner will have 5 stat points to distribute." )
+	Text( 13, "Regarding Strength", JumpPage, 21 )
+	Text( 13, "Regarding Agility", JumpPage, 22 )
+	Text( 13, "Regarding Constitution", JumpPage, 23 )
+	Text( 13, "Regarding Spirit", JumpPage, 24 )
+	--Text( 13, "Regarding Luck", JumpPage, 25 )
+	Text( 13, "Regarding Accuracy", JumpPage, 26 )
+	Text( 13, "Understood. Let me check out others.", JumpPage, 11 )
+
+	Talk( 14, "Senna: Swordsman has the highest physical resistance in this game. Male character may choose to become one when they reach Lv 10. Look for Peter in Argent City to select the Swordsman class." )
+	Text( 14, "Regarding other Classes", JumpPage, 12)
+	Text( 14, "Regarding Attributes", JumpPage, 13)
+	Text( 14, "I have understood all", JumpPage, 27)
+
+	Talk( 15, "Senna: Hunters is the only long range class in this game. After further advancement, they can learn to use fireguns which have higher damage. Only Lance and Phyllis may become a Hunter. Players Lv 10 and above can look for Ray in Icicle to become a Hunter." )
+	Text( 15, "Regarding other Classes", JumpPage, 12)
+	Text( 15, "Regarding Attributes", JumpPage, 13)
+	Text( 15, "I have understood all", JumpPage, 27)
+
+	Talk( 16, "Senna: Sailor is the strongest class in the sea. It is still unreleased in current version." )
+	Text( 16, "Regarding other Classes", JumpPage, 12)
+	Text( 16, "Regarding Attributes", JumpPage, 13)
+	Text( 16, "I have understood all", JumpPage, 27)
+	
+	Talk( 17, "Senna: Senna: Explorer are the best support class in the sea. Beside Carsise, all other 3 character can apply for this class. Players Lv 10 and above can talk to Little Daniel in Argent City to become an Explorer." )
+	Text( 17, "Regarding other Classes", JumpPage, 12)
+	Text( 17, "Regarding Attributes", JumpPage, 13)
+	Text( 17, "I have understood all", JumpPage, 27)
+
+	Talk( 18, "Resline: Herbalist are loyal followers of Goddess Kara. They possess mystical healing ability. Only Phyllis and Ami can select to become a Herbalist. Lv 10 players can look for High Priest - Gannon in Shaitan City to become a Herbalist." )
+	Text( 18, "Regarding other Classes", JumpPage, 12)
+	Text( 18, "Regarding Attributes", JumpPage, 13)
+	Text( 18, "I have understood all", JumpPage, 27)
+
+	Talk( 19, "Senna: Artisan is the only class that can make item. They will be in-charge of building structures for the guild. It is still unreleased in current version." )
+	Text( 19, "Regarding other Classes", JumpPage, 12)
+	Text( 19, "Regarding Attributes", JumpPage, 13)
+	Text( 19, "I have understood all", JumpPage, 27)
+
+	Talk( 20, "Senna: Merchant is the richest of all classes as they specialise in commerce. It is still unreleased in current version." )
+	Text( 20, "Regarding other Classes", JumpPage, 12)
+	Text( 20, "Regarding Attributes", JumpPage, 13)
+	Text( 20, "I have understood all", JumpPage, 27)
+
+	Talk( 21, "Senna: Strength increases Melee Attack power" )
+	Text( 21, "Enquire about other Attributes", JumpPage, 13)
+	Text( 21, "Enquire about other Classes", JumpPage, 12)
+	Text( 21, "I have understood all", JumpPage, 27)
+
+	Talk( 22, "Senna: Agility increases Attack Speed and Dodge Rate" )
+	Text( 22, "Enquire about other Attributes", JumpPage, 13)
+	Text( 22, "Enquire about other Classes", JumpPage, 12)
+	Text( 22, "I have understood all", JumpPage, 27)
+
+	Talk( 23, "Senna: Constitution increases Max HP and Physical Resist" )
+	Text( 23, "Enquire about other Attributes", JumpPage, 13)
+	Text( 23, "Enquire about other Classes", JumpPage, 12)
+	Text( 23, "I have understood all", JumpPage, 27)
+
+	Talk( 24, "Senna: Spirit increases Max SP and certain skill effect" )
+	Text( 24, "Enquire about other Attributes", JumpPage, 13)
+	Text( 24, "Enquire about other Classes", JumpPage, 12)
+	Text( 24, "I have understood all", JumpPage, 27)
+
+	Talk( 25, "Senna: Luck increases Critical Rate and Combining Rate" )
+	Text( 25, "Enquire about other Attributes", JumpPage, 13)
+	Text( 25, "Enquire about other Classes", JumpPage, 12)
+	Text( 25, "I have understood all", JumpPage, 27)
+
+	Talk( 26, "Senna: Accuracy increases Hit Rate and Range Attack power" )
+	Text( 26, "Enquire about other Attributes", JumpPage, 13)
+	Text( 26, "Enquire about other Classes", JumpPage, 12)
+	Text( 26, "I have understood all", JumpPage, 27)
+
+	Talk( 27, "Senna: Ok, look for me again if you have something that you do not understand.")
+	
+	Talk( 28, "Well done, it looks like you now have a good grasp at basic combat and also a good idea on how item drops work. Since there is nothing much left to learn from me, why don't you go and look for my friends? If fighting is your cup of tea, seek out Marcusa. He's a patroller and is often seen patrolling about the outskirts of this city. He was last seen at (2085, 2742). Another person you may like to meet would be Ditto (2250, 2770), Argent City's famous physician. Lately, he has been looking for helpers to help him collect more ingredients for his medicine. If you are interested, you can look for him on the right side of the city fountain (2250, 2770)." )
+	Text( 28, "Regarding Argent City", JumpPage, 4 )
+	Text( 28, "Regarding Classes and Attributes", JumpPage, 11 )
+	Text( 28, "I have understood all",  CloseTalk)
+
+	Talk( 29, "Senna: Very well! You have progressed to Lv 9. You can choose your class at Lv 10. Go now to the related NPC to start your trial for the class you wish to become. Swordsman look for Peter in Argent City at (2192, 2767). Herbalist look for High Priest - Gannon in Shaitan City at (862, 3500). Hunter look for Swordsman - Ray in Icicle Castle at (1365, 570). Explorer look for Little Daniel at (2193, 2730). You can reach Argent or Shaitan by using the teleporter." )
+	Text( 29, "I would like to ask about something", JumpPage, 4 )
+	Text( 29, "Regarding Classes and Attributes", JumpPage, 11 )
+	Text( 29, "I have understood all",  CloseTalk )
+
+	Talk( 30, "Senna: To check the coordinates of monsters in game, all you have to do is look for a Drunkyard in Argent City Bar at (2222, 288). He can tell you the coordinates for a fee." )
+	
+	InitTrigger()
+	TriggerCondition( 1, NoItem, 1034, 1 )
+	TriggerCondition( 1, NoItem, 1033, 1 )
+	TriggerCondition( 1, BankNoItem, 1034, 1 )
+	TriggerCondition( 1, BankNoItem, 1033, 1 )
+	TriggerCondition( 1, EquipNoItem, 1034, 1 )
+	TriggerCondition( 1, EquipNoItem, 1033, 1 )
+
+	TriggerCondition( 1, LvCheck, "<", 41 )
+	TriggerAction( 1, GiveItem, 1033, 1, 4 )
+	TriggerFailure( 1, JumpPage, 6 )
+	Talk( 31, "Senna: Star of Unity is a mysterious accessory from another world. When you equip it, you might be able to activate the power of unity and something unexpected might happen. We are running a trial event 'Hoard Exchange'. All players below Lv 41 can redeem a Star of Unity to exchange for a suitable piece of equipment. Are you interested?" )
+	Text( 31, "Redeem Star of Unity",MultiTrigger, GetMultiTrigger(), 1)
+	Text( 31, "Hoard Exchange",JumpPage, 32 )
+
+	Talk( 32,"Thank you for using our products. If you have a 'Star of Unity', you can redeem a Lv 50 weapon for your class. Interesting isn't it?")
+	Text( 32, "Redeem class weapon", Transfer_TeamStar, 1)
+
+	Talk( 6, "Senna: I'm sorry, you are not qualified to receive the prize" )
+
+	--InitTrigger()
+	---------------------НжјТі¬№э6ј¶НкіЙ№эЙЄ°ІµДХЅ¶·СµБ·ИООс
+	--TriggerCondition( 1, LvCheck, ">", 4 )
+	--TriggerCondition( 1, LvCheck, "<", 8 )
+	--TriggerCondition( 1, HasRecord, 704)
+	--TriggerAction( 1, JumpPage, 28 )
+	--TriggerCondition( 2, LvCheck, ">", 8 )
+	--TriggerCondition( 2, PfEqual, 0 )
+	--TriggerAction( 2, JumpPage, 29 )
+	--TriggerFailure( 2, JumpPage, 1 )
+
+	--Start( GetMultiTrigger(), 2 )
+
+	AddNpcMission ( 701 )
+	AddNpcMission ( 702 )
+	AddNpcMission ( 704 )
+	AddNpcMission ( 706 )
+	AddNpcMission ( 708 )
+	AddNpcMission ( 200 )
+	AddNpcMission 	(402)
+	AddNpcMission 	(50)
+	AddNpcMission 	(51)
+	AddNpcMission 	(61)
+	AddNpcMission 	(62)
+	AddNpcMission 	(63)
+	AddNpcMission 	(64)
+	AddNpcMission 	(65)
+	AddNpcMission 	(82)
+
+	MisListPage(28)
+	MisListPage(29)
+-----------------¶юФВ-------------С№Лк°ь
+	--AddNpcMission 	(5507)
 end
 
-function r_talk87()
-	Talk( 1,  "Администратор Арены: Привет! Я Администратор Арены! Вы желаете попробовать свои силы и бросить вызов другим игрокам? " )	
-	Text( 1,  "Получить Медаль отваги ", JumpPage, 2)
---	Text( 1,  "Правила боев ", JumpPage, 6)
-	Text( 1,  "Обменять очки взноса отряда ", JumpPage, 3)
-	Text( 1,  "Записать точку возвращения ", SetSpawnPos, "Argent Bar")
 
-	Talk( 2,  "Администратор Арены: Чтобы получить Медаль отваги вы должны быть 25 уровня и заплатить 50000 золота. Медаль отваги записывает все ваши победы и поражения в бою. После получения ее нельзя будет уничтожить. " )
+
+
+------------------------------------------------------------
+-- НЁУГѕєјјіЎЅЕ±ѕ
+------------------------------------------------------------
+
+function r_talk87 ()
+
+	Talk( 1, "Arena Administrator: Hi! I am the Arena Administrator. Do you wish to prove your capability? Or challenge other players?" )
+	Text( 1, "Obtain Medal of Valor", JumpPage, 2)
+	Text( 1, "Party Challenge Honor System", JumpPage, 6)
+	Text( 1, "Honor Exchange", JumpPage, 3)
+	Text( 1, "Record Current Challenge Location", SetSpawnPos, "Argent Bar")
+
+	Talk( 2, "Arena Administrator: Hi young man, to obtain the Medal of Valor, you need to be above Lv25, prepare 50000G as administration fee along with the Medal of Valor, you will be able to participate in party pk. This Medal of Valor will forever with you. You won't be able to throw, destroy or sell it." )
 	InitTrigger()
 	TriggerCondition( 1, LvCheck, ">", 25 )
 	TriggerCondition( 1, HasMoney, 50000 )
@@ -3656,9 +6350,9 @@ function r_talk87()
 	TriggerAction( 1, TakeMoney, 50000 )
 	TriggerAction( 1, GiveItem, 3849, 1, 97 )
 	TriggerFailure( 1, JumpPage, 4 )
-	Text( 2,  "Получить Медаль отваги ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 2, "Obtain Medal of Valor", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 3,  "Администратор Арены: При отрицательном количестве чести вы можете обменять свои очки взноса отряда на очки чести. Стоимость 1 очка чести равна 10 очкам взноса отряда и 500 золота. " )
+	Talk( 3, "Arena Administrator: To exchange for Honor points, you will need to have Party Contribution points. They can be obtained by winning party challenge. Each Honor point requires 10 Party Contribution points and 500G." )
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3849, 1 )
 	TriggerCondition( 1, LessCredit, "<", 0 )
@@ -3668,7 +6362,7 @@ function r_talk87()
 	TriggerAction( 1, TakeOffer, 10 )
 	TriggerAction( 1, AddCredit, 1 )
 	TriggerFailure( 1, JumpPage, 5 )
-	Text( 3,  "Обменять 10 очков взноса отряда ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 3, "Redeem 10 Party Contribution points", MultiTrigger, GetMultiTrigger(), 1)
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3849, 1 )
 	TriggerCondition( 1, LessCredit, "<", 0 )
@@ -3678,7 +6372,7 @@ function r_talk87()
 	TriggerAction( 1, TakeOffer, 50 )
 	TriggerAction( 1, AddCredit, 5 )
 	TriggerFailure( 1, JumpPage, 11 )
-	Text( 3,  "Обменять 50 очков взноса отряда ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 3, "Redeem 50 Party Contribution points", MultiTrigger, GetMultiTrigger(), 1)
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3849, 1 )
 	TriggerCondition( 1, LessCredit, "<", 0 )
@@ -3688,7 +6382,7 @@ function r_talk87()
 	TriggerAction( 1, TakeOffer, 100 )
 	TriggerAction( 1, AddCredit, 10 )
 	TriggerFailure( 1, JumpPage, 12 )
-	Text( 3,  "Обменять 100 очков взноса отряда ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 3, "Redeem 100 Party Contribution points", MultiTrigger, GetMultiTrigger(), 1)
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3849, 1 )
 	TriggerCondition( 1, LessCredit, "<", 0 )
@@ -3698,18 +6392,48 @@ function r_talk87()
 	TriggerAction( 1, TakeOffer, 300 )
 	TriggerAction( 1, AddCredit, 30 )
 	TriggerFailure( 1, JumpPage, 13 )
-	Text( 3,  "Обменять 300 очков взноса отряда ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 3, "Redeem 300 Party Contribution points", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 4,  "Администратор Арены: Простите но вы не подходите по требованию. Также возможно у вас уже есть Медаль отваги. " )
+	Talk( 4, "Arena Administrator: Sorry, you need to have at least 1 empty inventory slot, higher than Lv25 with at least 50000G. Each person is limit to 1 Medal of Valor." )
 
-	Talk( 5,  "Администратор Арены: Для обмена очков взноса отряда вы должны иметь отрицательную честь, кроме того заплатить 10 очков взноса отряда и 500 золота за каждое очко чести. " )
+	Talk( 5, "Arena Administrator: Hi! To exchange 10 Party Contribution points for 1 Honor point, you will need to have 10 Party Contribution points, 500G and a negative Honor value." )
+
+	Talk( 6, "Arena Administrator: Regarding Honor system as followed" )
+	Text( 6, "Regarding Battle Count", JumpPage, 7)
+	Text( 6, "Regarding Challenge Honor", JumpPage, 8)
+	Text( 6, "Regarding Victory Honor", JumpPage, 9)
+	Text( 6, "Regarding Escape Penalty", JumpPage, 10)
+
+	Talk( 7, "Arena Administrator: Each battle will increase battle count by 1" )
+
+	Talk( 8, "Arena Administrator: Each kill will increase Kill count by 1 and 1 Honor point (Opponent lower by 10 levels will not have any Honor. Those higher by 10 levels will earn a bonus 1 Honor). Vice versa for those defeated in challenge." )
+
+	Talk( 9, "Arena Administrator: Each victory to the party will increase victory count by 1 and gain Honor points according to the differences between the average level of the two parties." )
+
+	Talk( 10, "Arena Administrator: Each time a party escape or quit battle, System will deduct Honor points according to the average level of both party and an additional of 2 Honor points per person. The other party will gain Honor points based on those lost by the party." )
+
+	Talk( 11, "Arena Administrator: Hi! To exchange 50 Party Contribution points for 5 Honor points, you will need to have 50 Party Contribution points, 2500G and a negative Honor value." )
+
+	Talk( 12, "Arena Administrator: Hi, 100 Party Contribution points can be exchanged for 10 Honor points. You also need to pay 5000G and have a negative Honor point value in order to exchange." )
+
+	Talk( 13, "Arena Administrator: Hi, exchanging 300 Party Contribution points for 30 Honor points requires 300 Party Contribution points, 15000G and negative Honor points" )
+
 end
 
-function r_talk88()
-	Talk( 1,  "Маркуза: Привет, я здесь новичок. Вокруг Аргента собирается много кальмаров, а капитан отправляет меня их убирать. От их чернил у меня постоянно слезятся глаза. Тут всегда так издеваются над новичком? " )
 
-	Talk( 2,  "Маркуза: Отлично! Вы дошли до 9 лвл. Вы можете выбрать свой класс с 10 лвл. Теперь идите к соответствующему НПС, чтобы начать выбор класса.Если вы хотите стать Мечником, то ищите Петра в Аргенте в (2192, 2767). Целительницам надо искать Первосвященник - Гэннон в Шайтане в (862, 3500). Охотнику надо искать Мечника Рэя в Ледыне в (1365, 570). Мореплавотелю надо найти Малыша Даниэля в Аргенте в(2193, 2730). Вы можете переместиться в Ледынь или Шайтан с помощью телепорта. " )
 
+------------------------------------------------------------
+-- °ЧТшіЗЎЄЎЄСІВЯ±шЎ¤Вн¶ыЛ№
+------------------------------------------------------------
+
+function r_talk88 ()
+
+	Talk( 1, "Marcusa: Hi, I am new around here. My name is Marcusa. Wonder why so many squids appear outside of Argent. My captain sends me to clear up the mess they did with their inkЎ­sobЎ­sob. New man always gets bulliedЎ­" )
+
+	Talk( 2, "Marcusa: Very well! You have progressed to Lv 9. You can choose your class at Lv 10. Go now to the related NPC to start your trial for the class you wish to become. Swordsman look for Peter in Argent City at (2192, 2767). Herbalist look for High Priest - Gannon in Shaitan City at (862, 3500). Hunter look for Swordsman - Ray in Icicle Castle at (1365, 570). Explorer look for Little Daniel at (2193, 2730). You can reach Icicle or Shaitan by using the teleporter." )
+
+
+	---------------------НжјТі¬№э9ј¶
 	InitTrigger()
 	TriggerCondition( 1, LvCheck, ">", 8 )
 	TriggerCondition( 1, LvCheck, "<", 10 )
@@ -3717,21 +6441,31 @@ function r_talk88()
 	TriggerFailure( 1, JumpPage, 1 )
 	Start( GetMultiTrigger(), 1 )
 
-	AddNpcMission ( 400  )
-	AddNpcMission ( 52 	 )
-	AddNpcMission ( 53 	 )
-	AddNpcMission ( 54 	 )
-	AddNpcMission (	5696 )
-	AddNpcMission (	5697 )
-
+	--AddNpcMission ( 730 )
+	--AddNpcMission ( 736 )
+	--AddNpcMission ( 737 )
+	AddNpcMission ( 400 )
+	AddNpcMission ( 52 )
+	AddNpcMission ( 53 )
+	AddNpcMission ( 54 )
+----------СІВЯ±шЎ¤Вн¶ыЛ№-------Л«ЧУ
+	AddNpcMission	(5696)
+	AddNpcMission	(5697)
 	MisListPage(2)
+
 end
 
-function r_talk89()
-	Talk( 1,  "Майкл: Привет, я патрулирую местность в округе. Будьте осторожны, скорпионы довольно опасны! " )
+------------------------------------------------------------
+-- Йіб°іЗЎЄЎЄСІВЯ±шЎ¤ВхїЛ
+------------------------------------------------------------
+
+function r_talk89 ()
+
+	Talk( 1, "Michael: Hi, I am suppose to patrol around here.. You better be careful as the scorpions here are dangerous. Its so boringЎ­" )
 	
-	Talk( 2,  "Майкл: Отлично! Вы дошли до 9 лвл. Вы можете выбрать свой класс с 10 лвл. Теперь идите к соответствующему НПС, чтобы начать выбор класса.Если вы хотите стать Мечником, то ищите Петра в Аргенте в (2192, 2767). Целительницам надо искать Первосвященник - Гэннон в Шайтане в (862, 3500). Охотнику надо искать Мечника Рэя в Ледыне в (1365, 570). Вы можете переместиться в Ледынь или Аргент с помощью телепорта. " )
+	Talk( 2, "Michael: Very well! You have progressed to Lv 9. You can choose your class at Lv 10. Go now to the related NPC to start your trial for the class you wish to become. Swordsman look for Peter in Argent City at (2192, 2767). Herbalist look for High Priest - Gannon in Shaitan City at (862, 3500). Hunter look for Swordsman - Ray in Icicle Castle at (1365, 570). You can reach Icicle or Argent by using the teleporter." )
 
+	---------------------НжјТі¬№э9ј¶
 	InitTrigger()
 	TriggerCondition( 1, LvCheck, ">", 8 )
 	TriggerCondition( 1, LvCheck, "<", 10 )
@@ -3739,28 +6473,39 @@ function r_talk89()
 	TriggerFailure( 1, JumpPage, 1 )
 	Start( GetMultiTrigger(), 1 )
 
-	AddNpcMission ( 235  )
-	AddNpcMission ( 236  )
-	AddNpcMission ( 241  )
-	AddNpcMission ( 242  )
-	AddNpcMission (	412  )
-	AddNpcMission (	85	 )
-	AddNpcMission (	86	 )
-	AddNpcMission (	87	 )
-	AddNpcMission (	922	 )
-	AddNpcMission (	923	 )
-	AddNpcMission (	924	 )
-	AddNpcMission (	5692 )
-	AddNpcMission (	5693 )
+	--AddNpcMission ( 731 )
+	--AddNpcMission ( 740 )
+	--AddNpcMission ( 741 )
+	AddNpcMission ( 235 )
+	AddNpcMission ( 236 )
+	AddNpcMission ( 241 )
+	AddNpcMission ( 242 )
+	AddNpcMission 	(412)
+	AddNpcMission 	(85)
+	AddNpcMission 	(86)
+	AddNpcMission 	(87)
+	AddNpcMission 	(922)--------------------------------------------
+	AddNpcMission 	(923)
+	AddNpcMission 	(924)------------
+----------СІВЯ±шЎ¤ВхїЛ-------Л«ЧУ
+	AddNpcMission	(5692)
+	AddNpcMission	(5693)
 
 	MisListPage(2)
+
 end
 
-function r_talk90()
-	Talk( 1,  "Малыш Мо: Я патрулирую местность и мне ужасно хочется есть. У вас нет с собой при себе ничего чтобы поесть? Здесь в округе совсем нет еды... " )
+------------------------------------------------------------
+-- ±щАЗ±¤ЎЄЎЄСІВЯ±шЎ¤РЎДЄ
+------------------------------------------------------------
 
-	Talk( 2,  "Малыш Мо: Отлично! Вы дошли до 9 лвл. Вы можете выбрать свой класс с 10 лвл. Теперь идите к соответствующему НПС, чтобы начать выбор класса.Если вы хотите стать Мечником, то ищите Петра в Аргенте в (2192, 2767). Целительницам надо искать Первосвященник - Гэннон в Шайтане в (862, 3500). Охотнику надо искать Мечника Рэя в Ледыне в (1365, 570). Вы можете переместиться в Ледынь или Аргент с помощью телепорта. " )
+function r_talk90 ()
 
+	Talk( 1, "Little Mo: I am supposed to patrol around this area all day long. It is so boring and cold around here. Do you have something for me to eat? I am so hungry. There are no good foods around hereЎ­" )
+
+	Talk( 2, "Little Mo: Very well! You have progressed to Lv 9. You can choose your class at Lv 10. Go now to the related NPC to start your trial for the class you wish to become. Swordsman look for Peter in Argent City at (2192, 2767). Herbalist look for High Priest - Gannon in Shaitan City at (862, 3500). Hunter look for Swordsman - Ray in Icicle Castle at (1365, 570). You can reach Icicle or Shaitan by using the teleporter." )
+
+	---------------------НжјТі¬№э9ј¶
 	InitTrigger()
 	TriggerCondition( 1, LvCheck, ">", 8 )
 	TriggerCondition( 1, LvCheck, "<", 10 )
@@ -3768,29 +6513,44 @@ function r_talk90()
 	TriggerFailure( 1, JumpPage, 1 )
 	Start( GetMultiTrigger(), 1 )
 
-	AddNpcMission ( 255  )
-	AddNpcMission ( 256  )
-	AddNpcMission (	408	 )
-	AddNpcMission (	164	 )
-	AddNpcMission (	165	 )
-	AddNpcMission (	166	 )
-	AddNpcMission (	177	 )
-	AddNpcMission (	178	 )
-	AddNpcMission (	179	 )
+	--AddNpcMission ( 732 )
+	--AddNpcMission ( 742 )
+	--AddNpcMission ( 743 )
+	AddNpcMission ( 255 )
+	AddNpcMission ( 256 )
+	AddNpcMission 	(408)
+	AddNpcMission 	(164)
+	AddNpcMission 	(165)
+	AddNpcMission 	(166)
+	AddNpcMission 	(177)
+	AddNpcMission 	(178)
+	AddNpcMission 	(179)
+
 
 	MisListPage(2)
+
 end
 
-function r_talk91()
-	Talk( 1,  "Шайла: Привет! Я целитель Шайтана! Я могу тебе чем то помочь? " )
-	Text( 1,  "Торг ", BuyPage )
-	Text( 1,  "Ничего... ",CloseTalk )
+------------------------------------------------------------
+-- Йіб°іЗЎЄЎЄТ©ІДЙМИЛЎ¤ЙіА­А­
+------------------------------------------------------------
+
+function r_talk91 ()
+
+	Talk( 1, "Shala: Hey hey...I am the physician in Shaitan. I have all you needed!" )
+	Text( 1, "Trade", BuyPage )
+	Text( 1, "Nothing...",CloseTalk )
+	
+	Talk( 2, "Shala: Very good. You have advanced to Lv9. You can select a class at Lv 10. Now is the time for you to make a decision. Look for Peter in Argent City at (2192, 2767) if you want to become a Swordsman. Look for High Priest - Gannon in Shaitan City at (862, 3500) to be a Herbalist. To be a Hunter, look for Swordsman Ray in Icicle City at (1365, 570). As the journey to Argent and Icicle is too far, look for the Teleporter to teleport you there in an instant." )
+	Text( 2, "Trade", BuyPage )
+	Text( 2, "Nothing...",CloseTalk )
 
 	InitTrade()
 	Other(	1847	)
 	Other(	1848	)
 	Other(	1849	)
 	Other(	3143	)
+	--Leo
 	Other(	1576	)
 	Other(	4049	)
 	Other(	4050	)
@@ -3802,380 +6562,663 @@ function r_talk91()
 	Other(	4057	)
 	Other(	1768	)
 
+
+	---------------------НжјТі¬№э9ј¶
+	--InitTrigger()
+	--TriggerCondition( 1, LvCheck, ">", 8 )
+	--TriggerCondition( 1, LvCheck, "<", 10 )
+	--TriggerAction( 1, JumpPage, 2 )
+	--TriggerFailure( 1, JumpPage, 1 )
+	--Start( GetMultiTrigger(), 1 )
+
 	AddNpcMission ( 717 )
+	--AddNpcMission ( 734 )
+	--AddNpcMission ( 744 )
+	--AddNpcMission ( 745 )
 
 	MisListPage(2)
+
 end 
 
-function r_talk92()
-	Talk( 1,  "Чиво: Привет! Я местный доктор! Вам нужны какие нибудь травы? " )
-	Text( 1,  "Торг ", BuyPage )
-	Text( 1,  "Ничего... ",CloseTalk )
+------------------------------------------------------------
+--їЁ¶ыјУµВС©Ф­    ВГРРТЅЙъЎ¤НЯВЮОВДЭ
+------------------------------------------------------------
+
+function r_talk92 ()
+
+	Talk( 1, "Chivo: Hi, I am Chivo. I am the only doctor around here. You need any herbs?" )
+	Text( 1, "Trade", BuyPage )
+	Text( 1, "Nothing...",CloseTalk )
 
 	InitTrade()
 	Other(	1847	)
 	Other(	1848	)
 	Other(	1849	)
 
-	AddNpcMission (	471	 )
-	AddNpcMission (	472	 )
-	AddNpcMission (	753	 )
+	AddNpcMission(	471	)
+	AddNpcMission(	472	)
+	AddNpcMission	(753)
+	
 end
 
-function r_talk93()
-	Talk( 1,  "Миносива: Привет! Я местный доктор! Что вас интересует? " )
-	Text( 1,  "Торг ", BuyPage )
-	Text( 1,  "Ничего... ",CloseTalk )
+------------------------------------------------------------
+-- Аµ°ІЙ­БЦЎЄЎЄВГРРТЅЙъЎ¤ГЧДОПЈ¶ы
+------------------------------------------------------------
+
+function r_talk93 ()
+
+	Talk( 1, "Minoseva: Hi, I am Minoseva. There is no other doctor nearby. Do you need some medicine?" )
+	Text( 1, "Trade", BuyPage )
+	Text( 1, "Nothing...",CloseTalk )
 
 	InitTrade()
 	Other(	1847	)
 	Other(	1848	)
 	Other(	1849	)
 
-	AddNpcMission (	1442 )
-	AddNpcMission (	1900 )
-	AddNpcMission (	5567 )
-	AddNpcMission (	5568 )
+	AddNpcMission(	1442	)
+	AddNpcMission (	1900	)
+
+	---------------°ЧСт
+	AddNpcMission	(5567)
+	AddNpcMission	(5568)
 	AddNpcMission ( 6052 )
 	AddNpcMission ( 6053 )
+	
+
+
+	
 end
 
-function r_talk94()
-	Talk( 1,  "Фукс: Возможно вы скажете что я высокомерен, но я хочу быть высокомерным моряком. Я уже говорил это? " )
+------------------------------------------------------------
+-- µВ¶ыО¬ЖЅФ­-----ёЈїЛ
+------------------------------------------------------------
+
+function r_talk94 ()
+
+	Talk( 1, "Fukei: You may say that I am arrogant! But my dream is to be a proud sailor? Did I say that?" )
+
 end
 
-function r_talk95()
-	Talk( 1,  "Фардей: Мой немой друг хочет привезти зимние шубы, чтобы продавать их в горячем Шайтане. Как мне его удержать? " )
-	Text( 1,  "Торг ", BuyPage )
-	Text( 1,  "Ничего... ",CloseTalk )
+------------------------------------------------------------
+-- ±щј«І№ёшХѕ-----·ЁµП¶ы
+------------------------------------------------------------
+
+function r_talk95 ()
+
+	Talk( 1, "Fardey: My dumb friend is thinking to bring winter clothings to sell in the hot and dry Shaitan CityЎ­What can I do to deter himЎ­." )
+	Text( 1, "Trade", BuyPage )
+	Text( 1, "Nothing...",CloseTalk )
 
 	InitTrade()
 	Other(	1847	)
 	Other(	1848	)
 	Other(	1849	)
+		
+	AddNpcMission	(1065)
+	AddNpcMission	(	869	)
+	AddNpcMission	(	872	)
+	AddNpcMission	(	874	)
+	AddNpcMission	(	878	)
+	AddNpcMission	(	886	)
+	AddNpcMission	(	889	)
+	AddNpcMission	(	470	)
+	AddNpcMission(	1738	)
+	AddNpcMission (	1927	)
+	AddNpcMission (	1948	)
 
-	AddNpcMission (	1065 )
-	AddNpcMission (	869	 )
-	AddNpcMission (	872	 )
-	AddNpcMission (	874	 )
-	AddNpcMission (	878	 )
-	AddNpcMission (	886	 )
-	AddNpcMission (	889	 )
-	AddNpcMission (	470	 )
-	AddNpcMission (	1738 )
-	AddNpcMission (	1927 )
-	AddNpcMission (	1948 )
+	------------------¶юФВ
+	--AddNpcMission (5504	)
+
+
+
 end
 
-function r_talk96()
-	Talk( 1,  "Кситрон: Все в округе говорят что я волк в овечьей шкуре. Хехе " )
+------------------------------------------------------------
+-- µВ¶ыО¬ЖЅФ­-----ПЇМШ
+------------------------------------------------------------
+
+function r_talk96 ()
+
+	Talk( 1, "Xitron: Everyone says that I'm a wolf in sheep's clothing. Hehe." )
+
 end
 
-function r_talk97()
-	Talk( 1,  "Кентаро: Жизнь коротка как мимолетная снежинка, тающая даже не достигнув земли... " )
+------------------------------------------------------------
+-- µВ¶ыО¬ЖЅФ­-----СПВЮЛю
+------------------------------------------------------------
 
-	AddNpcMission (	409	 )
-	AddNpcMission (	415	 )
-	AddNpcMission (	424	 )
-	AddNpcMission (	426	 )
-	AddNpcMission (	449	 )
-	AddNpcMission (	809	 )
-	AddNpcMission (	813	 )
-	AddNpcMission (	1431 )
-	AddNpcMission (	1901 )
-	AddNpcMission (	5048 )
-	AddNpcMission (	5049 )
-	AddNpcMission (	5050 )
-	AddNpcMission (	5051 )
-	AddNpcMission (	5052 )
+function r_talk97 ()
+
+	Talk( 1, "Kentaro: Life is short like a fleeting snowflake which melts before it reaches the ground." )
+
+	AddNpcMission 	(409)
+	AddNpcMission 	(415)
+	AddNpcMission 	(424)
+	AddNpcMission 	(426)
+	AddNpcMission 	(449)
+	AddNpcMission 	(809)
+	AddNpcMission 	(813)
+	AddNpcMission(	1431	)
+	AddNpcMission (	1901	)
+----------eleven
+	AddNpcMission (	5048	)
+	AddNpcMission (	5049	)
+	AddNpcMission (	5050	)
+	AddNpcMission (	5051	)
+	AddNpcMission (	5052	)
 	AddNpcMission ( 6030 )
 	AddNpcMission ( 6031 )
+
 end
 
-function r_talk98()
-	Talk( 1,  "Бабу: Мой отец пират! А я хочу присоединится к флоту и быть шпионом. " )
+------------------------------------------------------------
+-- µВ¶ыО¬ЖЅФ­-----ІјІј
+------------------------------------------------------------
+
+function r_talk98 ()
+
+	Talk( 1, "Bubu: My father is a pirate so I want to join the Navy and be their spy!" )
+
 end
 
-function r_talk99()
-	Talk( 1,  "Лулу: Хаха. Не видишь никакого зла? " )
+------------------------------------------------------------
+-- µВ¶ыО¬ЖЅФ­-----ВіВі
+------------------------------------------------------------
 
-	AddNpcMission (	1736 )
-	AddNpcMission (	1925 )
-	AddNpcMission (	1946 )
-	AddNpcMission (	5561 )
-	AddNpcMission (	5562 )
+function r_talk99 ()
+
+	Talk( 1, "Lulu: Haha! See no evil!" )
+
+	AddNpcMission(	1736	)
+	AddNpcMission (	1925	)
+	AddNpcMission (	1946	)
+
+	---------------°ЧСт
+	AddNpcMission	(5561)
+	AddNpcMission	(5562)
 	AddNpcMission ( 6040 )
 	AddNpcMission ( 6041 )
+
+
+
 end
+
+------------------------------------------------------------
+-- µВ¶ыО¬ЖЅФ­-----°ВµПЛ№.ЙБ№в
+------------------------------------------------------------
 
 function r_talk100()
-	Talk( 1,  "Одессис: Я так стар... Но тем не менее хочу отправится на остров Демонов и увидеть вулканическое извержение. " )
 
-	AddNpcMission (	454	 )
-	AddNpcMission (	458	 )
-	AddNpcMission (	654	 )
-	AddNpcMission (	657	 )
-	AddNpcMission (	658	 )
-	AddNpcMission (	663	 )
-	AddNpcMission (	666	 )
-	AddNpcMission (	1110 )
-	AddNpcMission (	1584 )
-	AddNpcMission (	1914 )
+	Talk( 1, "Odessis: When I am old, I want to move to Demon Isle. To be able to see the magnificient volcanic eruption." )
+
+	AddNpcMission (	454	)
+	AddNpcMission (	458	)
+	AddNpcMission 	(654)
+	AddNpcMission 	(657)
+	AddNpcMission 	(658)
+	AddNpcMission 	(663)
+	AddNpcMission 	(666)
+	AddNpcMission	(1110)
+	AddNpcMission(	1584	)
+	AddNpcMission (	1914	)
+
+	
+
+
+
+
 end
+
+------------------------------------------------------------
+-- µВ¶ыО¬ЖЅФ­-----Г·¶ы
+------------------------------------------------------------
 
 function r_talk101()
-	Talk( 1,  "Мелисса: Если хотите прекратить сплетню, то создайте новую. " )
+
+	Talk( 1, "Melissa: To end a gossip, start another." )
+
 end
+
+------------------------------------------------------------
+-- µВ¶ыО¬ЖЅФ­-----№ЕІ©А­
+------------------------------------------------------------
 
 function r_talk102()
-	Talk( 1,  "Гэдор: Я написал недавно книгу-бестселлер. Я слышал что она популярна у пиратов. " )
 
-	AddNpcMission (	603	 )
-	AddNpcMission (	608	 )
-	AddNpcMission (	613	 )
-	AddNpcMission (	615	 )
-	AddNpcMission (	618	 )
-	AddNpcMission (	5702 )
-	AddNpcMission (	5703 )
+	Talk( 1, "Gador: I have written a bestseller by the name of 'Beach Boys with Tees'. I heard its popular among the pirates." )
+
+	AddNpcMission 	(603)
+	AddNpcMission 	(608)
+	AddNpcMission 	(613)
+	AddNpcMission 	(615)
+	AddNpcMission 	(618)
+----------№ЕІ©А­-------Л«ЧУ
+	AddNpcMission	(5702)
+	AddNpcMission	(5703)
+
 end
+
+------------------------------------------------------------
+-- µВ¶ыО¬ЖЅФ­-----РЎїв¶ыЙ­
+------------------------------------------------------------
 
 function r_talk103()
-	Talk( 1,  "Маленький Ковен: мама запрещает мне разговаривать с незнакомцами. Вы угостите меня конфетой? " )
+
+	Talk( 1, "Little Cuwen: Mum say I should not talk to strangerЎ­Can I have a sweet?" )
+
 end
+
+------------------------------------------------------------
+-- µВ¶ыО¬ЖЅФ­-----Вкј§ЙфЙф
+------------------------------------------------------------
 
 function r_talk104()
-	Talk( 1,  "Тетушка Мэри: Я люблю поесть Шварцальский пирог с толстым слоем конфет наверху. Эта вкуснятина заставляет меня пускать слюни. " )
+
+	Talk( 1, "Aunt Mary: I love to eat Black Forest Cake, baked with a thick layer of chocolates on top. YummyЎ­It makes me drool." )
+
 end
+
+------------------------------------------------------------
+-- µВ¶ыО¬ЖЅФ­-----НЯИш·Ё¶ы
+------------------------------------------------------------
 
 function r_talk105()
-	Talk( 1,  "Ваала: Рассказать секрет? Я недавно придумал новую игру в карты! Она требует 4 друзей и 108 карт. " )
 
-	AddNpcMission (	451	 )
-	AddNpcMission (	457	 )
-	AddNpcMission (	621	 )
-	AddNpcMission (	625	 )
-	AddNpcMission (	1590 )
-	AddNpcMission (	1902 )
-	AddNpcMission (	1940 )
-	AddNpcMission (	5708 )
-	AddNpcMission (	5709 )
+	Talk( 1, "Waala: Tell you a secretЎ­Recently, my friends and I made a new card game. It requires 4 person and 108 cards. Each of us sit in a circle andЎ­." )
+
+	AddNpcMission 	(451)
+	AddNpcMission 	(457)
+	AddNpcMission 	(621)
+	AddNpcMission 	(625)
+	AddNpcMission(	1590	)
+	AddNpcMission (	1902	)
+	AddNpcMission (	1940	)
+
+	----------НЯИш·Ё¶ы-------Л«ЧУ
+	AddNpcMission	(5708)
+	AddNpcMission	(5709)
+
+
+
+
 end
+
+------------------------------------------------------------
+-- µВ¶ыО¬ЖЅФ­-----ЦмАцІјВк
+------------------------------------------------------------
 
 function r_talk106()
-	Talk( 1,  "Джули Огонек: Хотите узнать почему наш кузнец лысый? Я сплетница? С вами так скучно... " )
 
-	AddNpcMission (	689	 )
-	AddNpcMission (	1109 )
-	AddNpcMission (	1579 )
-	AddNpcMission (	1918 )
+	Talk( 1, "Julie Burn: Do you want to know why the blacksmith is bald? I like to gossip? You are so boring!" )
+
+	AddNpcMission 	(689)
+	AddNpcMission	(1109)
+	AddNpcMission(	1579	)
+	AddNpcMission (	1918	)
+
+
+
+
+
 end
+
+------------------------------------------------------------
+-- µВ¶ыО¬ЖЅФ­-----°ўАпїЛЛ№
+------------------------------------------------------------
 
 function r_talk107()
-	Talk( 1,  "Александрис: Жизнь жестока! Так почему бы не поиграть в нее онлайн? " )
-	
-	AddNpcMission (	425	 )
-	AddNpcMission (	431	 )
-	AddNpcMission (	436	 )
-	AddNpcMission (	442	 )
-	AddNpcMission (	448	 )
-	AddNpcMission (	601	 )
-	AddNpcMission (	607	 )
-	AddNpcMission (	610	 )
-	AddNpcMission (	612	 )
-	AddNpcMission (	1001 )
-	AddNpcMission (	1165 )
+
+	Talk( 1, "Alexandis: Life is tough, why not play online game?" )
+	AddNpcMission 	(425)
+	AddNpcMission 	(431)
+	AddNpcMission 	(436)
+	AddNpcMission 	(442)
+	AddNpcMission 	(448)
+	AddNpcMission 	(601)
+	AddNpcMission 	(607)
+	AddNpcMission 	(610)
+	AddNpcMission 	(612)
+	AddNpcMission	(1001)
+	AddNpcMission	(1165)
+
+
+
 end
+
+------------------------------------------------------------
+-- µВ¶ыО¬ЖЅФ­-----АПїв¶ыЙ­
+------------------------------------------------------------
 
 function r_talk108()
-	Talk( 1,  "Старик Ковен: В этот жаркий день я мечтаю пойти на необитаемый остров и веселится в одиночестве. " )
 
-	AddNpcMission (	475	 )
+	Talk( 1, "Old Cuwen: In this warm summer I feel like going to a isolated island for a holiday." )
+
+	AddNpcMission	(475)
+
 end
+
+------------------------------------------------------------
+-- µВ¶ыО¬ЖЅФ­-----єЈѕьБР±ш
+------------------------------------------------------------
 
 function r_talk109()
-	Talk( 1,  "Тсссс, потише! Наш адмирал говорит." )
+
+	Talk( 1, "Shhhh~ softer, our boss is speaking" )
+
 end
+
+------------------------------------------------------------
+-- ЕБїЛ»ДД®-----јЄ¶ыДбДбЛ№
+------------------------------------------------------------
 
 function r_talk110()
-	Talk( 1,  "Джернис: Моя семья лесорубы, однако недавно их забрал какой то страж природы. Так неприятно. " )
 
-	AddNpcMission (	411	 )
-	AddNpcMission (	669	 )
-	AddNpcMission (	675	 )
-	AddNpcMission (	678	 )
-	AddNpcMission (	680	 )
-	AddNpcMission (	1075 )
+	Talk( 1, "Jernis: My ancestors are all woodcutters. Some environmentalist has been picking on my family recently. So troublesome." )
+
+	AddNpcMission 	(411)
+	AddNpcMission 	(669)
+	AddNpcMission 	(675)
+	AddNpcMission 	(678)
+	AddNpcMission 	(680)
+	AddNpcMission	(1075)
+
+
+
 end
+
+------------------------------------------------------------
+-- ЕБїЛ»ДД®-----ГЧ¶ыГЧАт
+------------------------------------------------------------
 
 function r_talk111()
-	Talk( 1,  "Минели: Привет! Мои друзья называют меня Элли. Я не буду возражать если вы тоже будете меня так называть. " )
 
-	AddNpcMission (	456	 )
-	AddNpcMission (	656	 )
-	AddNpcMission (	661	 )
-	AddNpcMission (	665	 )
-	AddNpcMission (	1142 )
-	AddNpcMission (	1582 )
-	AddNpcMission (	1910 )
-	AddNpcMission (	5025 )
-	AddNpcMission ( 5026 )
-	AddNpcMission ( 5029 )
-	AddNpcMission (	5070 )
-	AddNpcMission ( 5072 )
-	AddNpcMission ( 5073 )
-	AddNpcMission ( 5074 )
-	AddNpcMission (	5092 )
-	AddNpcMission (	5101 )
-	AddNpcMission (	5102 )
-	AddNpcMission (	5103 )
-	AddNpcMission (	5104 )
-	AddNpcMission (	5113 )
+	Talk( 1, "Minelli: Hi how are you? My friends all call me Elli. I don't mind if you call me that too." )
+
+	AddNpcMission 	(456)
+	AddNpcMission 	(656)
+	AddNpcMission 	(661)
+	AddNpcMission 	(665)
+	AddNpcMission	(1142)
+	AddNpcMission(	1582	)
+	AddNpcMission (	1910	)
+---------eleven
+	AddNpcMission (	5025	)
+	AddNpcMission ( 5026	)
+	AddNpcMission ( 5029	)
+	AddNpcMission (	5070)
+	AddNpcMission ( 5072	)
+	AddNpcMission ( 5073	)
+	------------1.7
+	AddNpcMission ( 5074	)
+	AddNpcMission(	5092 )
+	AddNpcMission (5101 )
+	AddNpcMission (5102 )
+	AddNpcMission (5103 )
+	AddNpcMission (5104 )
+	AddNpcMission (5113 )
 	AddNpcMission ( 6032 )
 	AddNpcMission ( 6033 )
-	AddNpcMission (	5722 )
-	AddNpcMission (	5723 )
+----------ГЧ¶ыГЧАт-------Л«ЧУ
+	AddNpcMission	(5722)
+	AddNpcMission	(5723)
 end
+
+------------------------------------------------------------
+-- ЕБїЛ»ДД®-----°ВёсЙ­
+------------------------------------------------------------
 
 function r_talk112()
-	Talk( 1,  "Августин: Есть много мифов и легенд ждущих большого авантюриста. " )
 
-	AddNpcMission (	1111 )
+	Talk( 1, "Augustan: There are many myth and legends waiting for a great adventurer to solve them all!" )
+
+	AddNpcMission	(1111)
+
+
 end
+
+------------------------------------------------------------
+-- ЕБїЛ»ДД®-----јУОчСЗЎ¤ЖЖ·«
+------------------------------------------------------------
 
 function r_talk113()
-	Talk( 1,  "Джейна: Привет! Я Джейна! " )
 
-	AddNpcMission (	1131 )
+	Talk( 1, "Jeynaa: Hi, I am Jeynaa." )
+	AddNpcMission	(1131)
+
 end
+
+------------------------------------------------------------
+-- ЕБїЛ»ДД®-----µПµПВнРЮ
+------------------------------------------------------------
 
 function r_talk114()
-	Talk( 1,  "Дитаро: Путешевственники! Давайте отправимся в открытый океан! " )
 
-	AddNpcMission (	640	 )
-	AddNpcMission (	644	 )
-	AddNpcMission (	645	 )
-	AddNpcMission (	646	 )
-	AddNpcMission (	651	 )
-	AddNpcMission (	1119 )
-	AddNpcMission (	1437 )
-	AddNpcMission (	1911 )
+	Talk( 1, "Ditaro: Great adventurers! Let's set off for the big ocean!" )
+
+	AddNpcMission 	(640)
+	AddNpcMission 	(644)
+	AddNpcMission 	(645)
+	AddNpcMission 	(646)
+	AddNpcMission 	(651)
+	AddNpcMission	(1119)
+	AddNpcMission(	1437	)
+	AddNpcMission (	1911	)
 	AddNpcMission ( 6038 )
 	AddNpcMission ( 6039 )
+
+	
+
+
+
+
+
 end
+
+------------------------------------------------------------
+-- ЕБїЛ»ДД®-----¶нїЛБрОчЛ№
+------------------------------------------------------------
 
 function r_talk115()
-	Talk( 1,  "Рубен Актус: Я нуждаюсь в большом количестве золота. Но так как у меня его нет, то я нуждаюсь в друге, у которого есть большое количество золота. " )
 
-	AddNpcMission (	1120 )
-	AddNpcMission (	5698 )
-	AddNpcMission (	5699 )
+	Talk( 1, "Ruben Actus: I want to earn a lot of gold. If that cannot be done, I need a party mate that is able to supply me with lots of gold." )
+	AddNpcMission	(1120)
+----------¶нїЛБрОчЛ№-------Л«ЧУ
+	AddNpcMission	(5698)
+	AddNpcMission	(5699)
+
 end
+
+------------------------------------------------------------
+-- ЕБїЛ»ДД®-----Г·АыОчСЗЎ¤ГЁСЫ
+------------------------------------------------------------
 
 function r_talk116()
-	Talk( 1,  "Меррикс: Почему вы так удивлены? Вы никогда не видели женщину-пирата? " )
+
+	Talk( 1, "Merrix: Why you look so surprised? Have you not seen a female pirate before?" )
 	
-	AddNpcMission ( 245  )
-	AddNpcMission ( 246  )
-	AddNpcMission ( 247  )
-	AddNpcMission ( 249  )
-	AddNpcMission ( 250  )
-	AddNpcMission (	1141 )
+	AddNpcMission ( 245 )
+	AddNpcMission ( 246 )
+	AddNpcMission ( 247 )
+	AddNpcMission ( 249 )
+	AddNpcMission ( 250 )
+	AddNpcMission (1141)
+
 end
+
+------------------------------------------------------------
+-- ЕБїЛ»ДД®-----№ЕµГЛюїЛЎ¤»ТЗЅ
+------------------------------------------------------------
 
 function r_talk117()
-	Talk( 1,  "Гудас: Кто сказал что я страдаю морской болезнью? Я не страдаю морской болезни, просто я еще не привык к новому судну. " )
+
+	Talk( 1, "Gudas: Who say I will get seasick, in this golden era, how can I be seasick! I am only not accustomed to the new ship." )
+
 end
+
+------------------------------------------------------------
+-- ЕБїЛ»ДД®-----їьИьЛ№Ў¤їсЙі
+------------------------------------------------------------
 
 function r_talk118()
-	Talk( 1,  "Гасардис: Я не плачу чтобы быть добрым. " )
+
+	Talk( 1, "Gasardis: It doesn't pay to be kindЎ­" )
 	
-	AddNpcMission ( 257  )
-	AddNpcMission ( 258  )
-	AddNpcMission ( 259  )
-	AddNpcMission (	435	 )
-	AddNpcMission (	686	 )
-	AddNpcMission (	691	 )
-	AddNpcMission (	693	 )
-	AddNpcMission (	694	 )
-	AddNpcMission (	1082 )
+	AddNpcMission ( 257 )
+	AddNpcMission ( 258 )
+	AddNpcMission ( 259 )
+	AddNpcMission 	(435)
+	AddNpcMission 	(686)
+	AddNpcMission 	(691)
+	AddNpcMission 	(693)
+	AddNpcMission 	(694)
+	AddNpcMission	(1082)
+
+
+
 end
+
+------------------------------------------------------------
+-- ЕБїЛ»ДД®-----НЁБйХЯЎ¤ФВ№вСЫ
+------------------------------------------------------------
 
 function r_talk119()
-	Talk( 1,  "Оракул - Лунный Свет: Я могу видеть то, что другие не видят. " )
 
-	AddNpcMission (	804	 )
-	AddNpcMission (	808	 )
-	AddNpcMission (	468	 )
-	AddNpcMission (	1586 )
-	AddNpcMission (	1920 )
-	AddNpcMission (	5585 )
-	AddNpcMission (	5586 )
+	Talk( 1, "Oracle Moonlight: I can see what others cannot seeЎ­like the shadow behind youЎ­" )
+
+	AddNpcMission 	(804)
+	AddNpcMission 	(808)
+	
+	AddNpcMission	(	468	)
+	AddNpcMission(	1586	)
+	AddNpcMission (	1920	)
+
+	
+---------------°ЧСт
+	AddNpcMission	(5585)
+	AddNpcMission	(5586)
+
+
+
 end
+
+------------------------------------------------------------
+-- ЕБїЛ»ДД®-----їЁ¶ыЛХЛ№Ў¤Да°Н
+------------------------------------------------------------
 
 function r_talk120()
-	Talk( 1,  "Каворский: Я не завидую бывшему секретарю Аргента или чиновникам Громограда. Мне нравится быть собой. " )
 
-	AddNpcMission (	407	 )
-	AddNpcMission (	638	 )
-	AddNpcMission (	642	 )
-	AddNpcMission (	1438 )
-	AddNpcMission (	1912 )
+	Talk( 1, "Kavosky: I do not envy being Argent secretary or a high ranking officer of Thundoria. I only want to be myself." )
+
+	AddNpcMission 	(407)
+	AddNpcMission 	(638)
+	AddNpcMission 	(642)
+	AddNpcMission(	1438	)
+	AddNpcMission (	1912	)
+
+	
+
+
+
 end
+
+------------------------------------------------------------
+-- ЕБїЛ»ДД®-----ДбАп°¬СЗЎ¤і¤·ў
+------------------------------------------------------------
 
 function r_talk121()
-	Talk( 1,  "Нейла: А, это вы? Как жаль... Я сказала это вслух? " )
 
-	AddNpcMission (	870	 )
-	AddNpcMission (	875	 )
-	AddNpcMission (	876	 )
-	AddNpcMission (	880	 )
-	AddNpcMission (	882	 )
-	AddNpcMission (	885	 )
-	AddNpcMission (	888	 )
-	AddNpcMission (	891	 )
-	AddNpcMission (	892	 )
-	AddNpcMission (	1735 )
-	AddNpcMission (	1924 )
-	AddNpcMission (	1945 )
+	Talk( 1, "Neila: Ya, youЎ­meЎ­.thatЎ­ohЎ­.Sorry! Did I say anthing?" )
+
+	
+	AddNpcMission	(	870	)
+	AddNpcMission	(	875	)
+	AddNpcMission	(	876	)
+	AddNpcMission	(	880	)
+	AddNpcMission	(	882	)
+	AddNpcMission	(	885	)
+	AddNpcMission	(	888	)
+	AddNpcMission	(	891	)
+	AddNpcMission	(	892	)
+	AddNpcMission(	1735	)
+	AddNpcMission (	1924	)
+	AddNpcMission (	1945	)
+
+	
+
+
 end
+
+------------------------------------------------------------
+-- ЕБїЛ»ДД®-----їЛАтАтСЕ
+------------------------------------------------------------
 
 function r_talk122()
-	Talk( 1,  "Геля: Аргент известен как законодатель моды. Только пираты не следуют моде. " )
 
-	AddNpcMission (	428	 )
-	AddNpcMission (	812	 )
-	AddNpcMission (	1025 )
-	AddNpcMission (	1188 )
+	Talk( 1, "Geliya: Argent City is well known as a trendsetter. Those pirates cannot match it." )
+
+	AddNpcMission 	(428)
+	AddNpcMission 	(812)
+	AddNpcMission	(1025)
+	AddNpcMission	(1188)
+
+
 end
+
+------------------------------------------------------------
+-- ЕБїЛ»ДД®-----±ґїЛ
+------------------------------------------------------------
 
 function r_talk123()
-	Talk( 1,  "Бек: У меня есть брат по имени Хэм. Однако я более симпатичен. " )
+
+	Talk( 1, "Beck: I have a brother named Ham. However, I am cuter!" )
+
 end
+
+------------------------------------------------------------
+-- ЕБїЛ»ДД®-----єєД·
+------------------------------------------------------------
 
 function r_talk124()
-	Talk( 1,  "Хэм: У меня есть брат по имени Бек. Однако я более симпатичен. " )
 
-	AddNpcMission (	5645 )
-	AddNpcMission (	5646 )
+	Talk( 1, "Ham: I have a brother by the name of Beck. But I am the better half." )
+-----------------єєД·---------ЅрЕЈ
+	AddNpcMission	(5645)
+	AddNpcMission	(5646)
 end
+
+------------------------------------------------------------
+-- ЕБїЛ»ДД®-----°®¶ыУИАыЎ¤Оў·з
+------------------------------------------------------------
 
 function r_talk125()
-	Talk( 1,  "Влюбленный Юрий: Любовь так рядом, но все же пока... " )
+
+	Talk( 1, "Love Yuri: SighЎ­Love is so near yet so farЎ­SighЎ­" )
+
 end
+
+------------------------------------------------------------
+-- ЕБїЛ»ДД®-----Ю±Ат¶ы
+------------------------------------------------------------
 
 function r_talk126()
-	Talk( 1,  "Вилли: Во первых никогда не говорите что я жирный, во вторых никогда не говорите что я пухлый, в третьих никогда не говорите что я похож на свинью. Теперь можете говорить вы. " )
 
-	AddNpcMission (	685	 )
-	AddNpcMission (	688	 )
-	AddNpcMission (	690	 )
-	AddNpcMission (	1097 )
+	Talk( 1, "Willi: First! Never say that I am fat! Second! Never say that I am plump! Third! Don't tell me that I look like a pig! OkЎ­you can speak now." )
+
+	AddNpcMission 	(685)
+	AddNpcMission 	(688)
+	AddNpcMission 	(690)
+	AddNpcMission	(1097)
 	AddNpcMission ( 6034 )
 	AddNpcMission ( 6035 )
-end
 
+
+end
+------------------------------------------------------------
+-- ЕБїЛ»ДД®-----¶¬ґпГЧЖЕЖЕ
+------------------------------------------------------------
 function r_talk127()
-	Talk( 1,  "Бабушка Донг: Молодой человек, путешевствуйте пока вы молоды! " )
+Talk( 1, "Granny Dong: Young fellowЎ­explore while you are still young." )
 	
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 1557 )
@@ -4184,7 +7227,8 @@ function r_talk127()
 	TriggerCondition( 1, NoRecord, 1560 )
 	TriggerAction( 1, JumpPage, 2 )
 	TriggerFailure( 1, JumpPage, 3)
-	Text( 1,  "Привет!! ",MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Hello!",MultiTrigger, GetMultiTrigger(), 1 )
+
 
 	InitTrigger()
 	TriggerCondition( 1, HasMission, 1561 )
@@ -4194,616 +7238,981 @@ function r_talk127()
 	TriggerCondition( 1, NoRecord, 1561 )
 	TriggerAction( 1, JumpPage, 6 )
 	TriggerFailure( 1, JumpPage, 3)
-	Text( 1,  "Привет снова! ",MultiTrigger, GetMultiTrigger(), 1 )
-	Text( 1,  "Я только проходил мимо ",JumpPage, 3  )
+	Text( 1, "Hello again!",MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "I am only passing by",JumpPage, 3  )
 	
 	InitTrigger()
 	TriggerAction( 1, SetRecord, 1558 )
 	TriggerAction( 1, SetRecord, 1559 )
 	TriggerAction( 1, JumpPage, 4 )
-	Talk( 2,  "Бабушка Донг: Что появилось раньше - яйцо или курица? ")
-	Text( 2,  "Курица ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 2, "Granny Dong: Do you think egg come first or the chicken?")
+	Text(2, "Chicken first", MultiTrigger, GetMultiTrigger(), 1)
+
 
 	InitTrigger()
 	TriggerAction( 1, SetRecord, 1558 )
 	TriggerAction( 1, SetRecord, 1560 )
 	TriggerAction( 1, JumpPage, 5 )
-	Text( 2,  "Яйцо ", MultiTrigger, GetMultiTrigger(), 1)
+	Text(2, "Egg first", MultiTrigger, GetMultiTrigger(), 1)
 	
-	Talk( 3,  "Бабушка Донг: Молодой человек, я очень занята. Если нет ничего важного, то пожалуйста отойдите! ")
-	Talk( 10, "Бабушка Донг: Молодой человек, вы ответили неправильно! Подумайте снова прежде чем подходить. ")
+	Talk( 3, "Granny Dong: Young friends, Granny is very busy. If theres nothing important, please move away a little bit~~")
+	Talk( 10, "Granny Dong: Young friend, you have answered wrongly. Think it over before coming again.")
 
-	Talk( 4,  "Бабушка Донг: Поздравляю! Не плохо! ")
+	Talk( 4, "Granny Dong: You are gifted! Not bad!")
 
-	Talk( 5,  "Бабушка Донг: Может ли быть старчески маразм заразным? ")
+	Talk( 5, "Granny Dong: Can it be that Weird Grampa's disease is infecteous!?")
 	
+
 	InitTrigger()
 	TriggerAction( 1, SetRecord, 1562 )
 	TriggerAction( 1, SetRecord, 1563 )
 	TriggerAction( 1, JumpPage, 7 )
-	Talk( 6,  "Бабушка Донг: Кролик и черепаха учавствуют в гонке. Кто победит? ")
-	Text( 6,  "Черепаха ",MultiTrigger, GetMultiTrigger(), 1 )
-	Text( 6,  "Кролик ",JumpPage, 10  )
+	Talk( 6, "Granny Dong: A rabbit and a tortoise had a race. Who won?")
+	Text( 6, "turtle",MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 6, "Rabbit",JumpPage, 10  )
 
-	Talk( 7,  "Бабушка Донг: Конечно черепаха победит. Ведь черепаха, которая работает движется быстрее ветра. ")
-	Text( 7,  "Следующий вопрос ",JumpPage, 8  )
+	Talk( 7, "Granny Dong: Of course the tortoise won, because it's a tortoise that runs super fast.")
+	Text( 7, "Next question",JumpPage, 8  )
 	
+
 	InitTrigger()
 	TriggerAction( 1, SetRecord, 1562 )
 	TriggerAction( 1, SetRecord, 1564 )
 	TriggerAction( 1, JumpPage, 9 )
-	Talk( 8,  "Бабушка Донг: В гонке учавствуют кролик и черепаха в солнечных очках. Кто победит? ")
-	Text( 8,  "Черепаха в солнечных очках ",MultiTrigger, GetMultiTrigger(), 1 )
+	Talk( 8, "Granny Dong: A rabbit and a turtle with sunglasses in a race, who will be the winner?")
+	Text( 8, "Turtle with Sunglasses",MultiTrigger, GetMultiTrigger(), 1 )
 	
+
 	InitTrigger()
 	TriggerAction( 1, SetRecord, 1562 )
 	TriggerAction( 1, SetRecord, 1565 )
 	TriggerAction( 1, JumpPage, 9 )
-	Text( 8,  "Кролик ",MultiTrigger, GetMultiTrigger(), 1  )
+	Text( 8, "Rabbit",MultiTrigger, GetMultiTrigger(), 1  )
 
-	Talk( 9,  "Бабушка Донг: Кролик не победит, потому что черепаха в солнечных очках раллийный гонщик! ")-- Бывает же о_____О 
+	Talk( 9, "Granny Dong: The rabbit did not win. It is because the turtle with sunglasses is a speedo racer! Hoho!")
+	--Start( GetMultiTrigger(), 1 )
+	AddNpcMission 	(417)
+	AddNpcMission 	(674)
+	AddNpcMission 	(676)
+	AddNpcMission 	(681)
+	AddNpcMission	(1064)
+	AddNpcMission	(752)
 
-	AddNpcMission (	417	 )
-	AddNpcMission (	674	 )
-	AddNpcMission (	676	 )
-	AddNpcMission (	681	 )
-	AddNpcMission (	1064 )
-	AddNpcMission (	752	 )
-	AddNpcMission (	5153 )
-	AddNpcMission (	5154 )
-	AddNpcMission (	5155 )
-	AddNpcMission (	5156 )
-	AddNpcMission (	5157 )
-	AddNpcMission (	5159 )
-end
+	
+	------------------1.7
+	AddNpcMission (5153 )
+	AddNpcMission (5154 )
+	AddNpcMission (5155 )
+	AddNpcMission (5156 )
+	AddNpcMission (5157 )
+	AddNpcMission (5159 )
+	end
+
+------------------------------------------------------------
+-- ЕБїЛ»ДД®-----ВЮ±цЛ№Ў¤±і°ь
+------------------------------------------------------------
 
 function r_talk128()
-	Talk( 1,  "Робин: Когда я был маленький мой отец ложил меня в мой рюкзак и бродил по миру. Я хотел бы сделать также. " )
+
+	Talk( 1, "Robin: When I was small, my father would put me in his backpack and roam the world. I wanted to do the same tooЎ­" )
+
 end
+
+------------------------------------------------------------
+-- ЕБїЛ»ДД®-----ИрµГЎ¤Ж¤ёк
+------------------------------------------------------------
 
 function r_talk129()
-	Talk( 1,  "Дон Пит: Ах... Кто вы? Вы ищете меня? " )
 
-	AddNpcMission (	623	 )
-	AddNpcMission (	627	 )
-	AddNpcMission (	634	 )
-	AddNpcMission (	1031 )
-	AddNpcMission (	1194 )
-	AddNpcMission (	1591 )
-	AddNpcMission (	1905 )
-	AddNpcMission (	1941 )
-	AddNpcMission (	5583 )
-	AddNpcMission (	5584 )
+	Talk( 1, "Don Pitt: Ah Ha! How are you. Why have you come looking for me, Don Pitt!" )
+
+	AddNpcMission 	(623)
+	AddNpcMission 	(627)
+	AddNpcMission 	(634)
+	AddNpcMission	(1031)
+	AddNpcMission	(1194)
+	AddNpcMission(	1591	)
+	AddNpcMission (	1905	)
+	AddNpcMission (	1941	)
+
+	---------------°ЧСт
+	AddNpcMission	(5583)
+	AddNpcMission	(5584)
+
+
+
 end
+
+------------------------------------------------------------
+-- °ўАј±ИЛ№±щФ­-----ОВАтЎ¤±щИЄ
+------------------------------------------------------------
 
 function r_talk130()
-	Talk( 1,  "Вин: Мой дом находится в Ледыни. Вы его видели? " )
 
-	AddNpcMission (	5581 )
-	AddNpcMission (	5582 )
+	Talk( 1, "Wynne: My home is in Icicle Castle. Have you visited my house?" )
+---------------°ЧСт
+	AddNpcMission	(5581)
+	AddNpcMission	(5582)
 end
+
+------------------------------------------------------------
+-- °ўАј±ИЛ№±щФ­-----АЧЛ№Ў¤РЎіж
+------------------------------------------------------------
 
 function r_talk131()
-	Talk( 1,  "Лесси: Все люди меня называют маленьким червячком. Но я не буду оставаться маленьким навсегда. " )
 
-	AddNpcMission ( 5653 )
-	AddNpcMission ( 5654 )
+	Talk( 1, "Lessie: People always refer to me as a little wormЎ­But I will not stay this small foreverЎ­" )
+-----------------АЧЛ№Ў¤РЎіж---------ЅрЕЈ
+	AddNpcMission	(5653)
+	AddNpcMission	(5654)
 end
+
+------------------------------------------------------------
+-- °ўАј±ИЛ№±щФ­-----ґпГЧ¶ыЎ¤аЅаЅ
+------------------------------------------------------------
 
 function r_talk132()
-	Talk( 1,  "Додо: Додо, Додо, Додо... " )
 
-	AddNpcMission (	1061 )
-	AddNpcMission (	1007 )
-	AddNpcMission (	1062 )
-	AddNpcMission (	1117 )
-	AddNpcMission (	1171 )
+	Talk( 1, "Dodo: Dodo, Dodo, Dodo..." )
+	AddNpcMission	(1061)
+	AddNpcMission	(1007)
+	AddNpcMission	(1062)
+	AddNpcMission	(1117)
+	AddNpcMission	(1171)
+
+
 end
+
+------------------------------------------------------------
+-- °ўАј±ИЛ№±щФ­-----ЛчА­Д·Ў¤ИшјУ
+------------------------------------------------------------
 
 function r_talk133()
-	Talk( 1,  "Солару: Вы слышали о таинственном сундуке сокровищ? Я ищу его уже много лет. " )
 
-	AddNpcMission (	421	 )
-	AddNpcMission (	427	 )
-	AddNpcMission (	438	 )
-	AddNpcMission (	444	 )
-	AddNpcMission (	653	 )
-	AddNpcMission (	659	 )
-	AddNpcMission (	660	 )
-	AddNpcMission (	664	 )
-	AddNpcMission (	1151 )
-	AddNpcMission (	1583 )
-	AddNpcMission (	1913 )
-	AddNpcMission (	5657 )
-	AddNpcMission (	5658 )
+	Talk( 1, "Solaru: Have you heard of the TOP treasure chest? I have been looking for it for many many years!" )
+
+	AddNpcMission 	(421)
+	AddNpcMission 	(427)
+	AddNpcMission 	(438)
+	AddNpcMission 	(444)
+	AddNpcMission 	(653)
+	AddNpcMission 	(659)
+	AddNpcMission 	(660)
+	AddNpcMission 	(664)
+	AddNpcMission	(1151)
+	AddNpcMission(	1583	)
+	AddNpcMission (	1913	)
+
+
+-----------------ЛчА­Д·Ў¤ИшјУ---------ЅрЕЈ
+	AddNpcMission	(5657)
+	AddNpcMission	(5658)
+
+
+
 end
+
+------------------------------------------------------------
+-- °ўАј±ИЛ№±щФ­-----АЗСАА­Д·
+------------------------------------------------------------
 
 function r_talk134()
-	Talk( 1,  "Ламут: За 3 дня ходьбы я не вижу города. Я потерялся? " )
 
-	AddNpcMission (	1083 )
+	Talk( 1, "Lamut: I cannot see any city after three days of walkingЎ­.Am I lost again?" )
+	AddNpcMission	(1083)
+
 end
+
+------------------------------------------------------------
+-- °ўАј±ИЛ№±щФ­-----АЗСАА­Д·
+------------------------------------------------------------
 
 function r_talk135()
-	Talk( 1,  "Ирисис: Если вы не принесли мне письмо для Легендарного Принца, то лучше не говорите со мной. " )
 
-	AddNpcMission ( 1098 )
+	Talk( 1, "Irisis: If you never bring me a letter by the 'Legendary Prince Charming', don't talk to meЎ­" )
+	AddNpcMission	(1098)
+
 end
+
+
+------------------------------------------------------------
+-- °ўАј±ИЛ№±щФ­-----°¬ВЧДИ
+------------------------------------------------------------
 
 function r_talk136()
-	Talk( 1,  "Элуна: Я готовлюсь сегодня идти на распродажу. Если я опоздаю, то ничего не останется. " )
 
-	AddNpcMission ( 262  )
-	AddNpcMission ( 263  )
-	AddNpcMission ( 264  )
-	AddNpcMission ( 265  )
-	AddNpcMission (	1056 )
+	Talk( 1, "Eluna: I am preparing to go to the sales today! If I am late, nothing will be left!" )
+
+	AddNpcMission ( 262 )
+	AddNpcMission ( 263 )
+	AddNpcMission ( 264 )
+	AddNpcMission ( 265 )
+	AddNpcMission	(1056)
+
+
 end
+
+------------------------------------------------------------
+-- °ўАј±ИЛ№±щФ­-----єХ¶ыґпґп
+------------------------------------------------------------
 
 function r_talk137()
-	Talk( 1,  "Шереда: Скучно... Здесь очень скучно... " )
 
-	AddNpcMission (	1072 )
+	Talk( 1, "Shereda: Boring...this is really so boring..." )
+	AddNpcMission	(1072)
+
 end
+
+------------------------------------------------------------
+-- °ўАј±ИЛ№±щФ­-----ФјЙЄ·тЎ¤ЗЗ
+------------------------------------------------------------
 
 function r_talk138()
-	Talk( 1,  "Чао: Я ненавижу кальмаров. Они всегда брызгаются своими чернилами. " )
 
-	AddNpcMission (	1105 )
+	Talk( 1, "Ciao: I hate those squids! They always spray me with their ink!" )
+	AddNpcMission	(1105)
+
 end
+
+------------------------------------------------------------
+-- °ўАј±ИЛ№±щФ­-----ІЭЭ®УЕУЕ
+------------------------------------------------------------
 
 function r_talk139()
-	Talk( 1,  "Земляничка: Вы видели тех розовых поросят? Они самые вкусные в округе. " )
 
-	AddNpcMission (	5555 )
-	AddNpcMission (	5556 )
-	AddNpcMission (	5706 )
-	AddNpcMission (	5707 )
+	Talk( 1, "Strawberry: Have you seen those pinkish piglets? They are the tastiest around here." )
+---------------°ЧСт
+	AddNpcMission	(5555)
+	AddNpcMission	(5556)
+	----------ІЭЭ®УЕУЕ-------Л«ЧУ
+	AddNpcMission	(5706)
+	AddNpcMission	(5707)
 end
+
+------------------------------------------------------------
+-- °ўАј±ИЛ№±щФ­-----ТБОД
+------------------------------------------------------------
 
 function r_talk140()
-	Talk( 1,  "Ева: Привет, я Эве. Что вы здесь делаете? " )
+
+	Talk( 1, "Eve: Hi! I am Eve. What are you doing here?" )
+
 end
+
+------------------------------------------------------------
+-- °ўАј±ИЛ№±щФ­-----ЛХЙєДИ
+------------------------------------------------------------
 
 function r_talk141()
-	Talk( 1,  "Сюзанна: О мой Бог. Время пролетает так быстро. " )
+
+	Talk( 1, "Susana: Oh my god! Time is passing me by so fast!" )
+
 end
+
+------------------------------------------------------------
+-- °ўАј±ИЛ№±щФ­-----їЁЕµБЦ
+------------------------------------------------------------
 
 function r_talk142()
-	Talk( 1,  "Каролина: Я вегетарианец и меня кое что беспокоит. Катящаяся дыня это животное или растение? " )
+
+	Talk( 1, "Caroline: I am a vegetarian, hence theres something that troubles me. Is the rolling Melon an animal or vegetable?" )
+
 end
+
+------------------------------------------------------------
+-- °ўАј±ИЛ№±щФ­-----ХІД·Л№
+------------------------------------------------------------
 
 function r_talk143()
-	Talk( 1,  "Джеймсон: Я слышал что в мире есть говорящий ягненок. " )
+
+	Talk( 1, "Jameson: Rumored that there is a talking lamb in this worldЎ­" )
+
 end
+
+------------------------------------------------------------
+-- °ўАј±ИЛ№±щФ­-----В¶ОчАцАцСЕ
+------------------------------------------------------------
 
 function r_talk144()
-	Talk( 1,  "Люси: Привет посетитель! " )
+
+	Talk( 1, "Lucy: Hi! Visitor!" )
+
 end
+
+------------------------------------------------------------
+-- °ўАј±ИЛ№±щФ­-----УИАјґпїЛ
+------------------------------------------------------------
 
 function r_talk145()
-	Talk( 1,  "Юландор: Я всегда зарабатываю убивая монстров. Однако с недавних пор заметил что у них стал маленький кошелек. " )
+
+	Talk( 1, "Yulandor: I always try to earn more money by killing monsters. However, I discover that they have very small purse recentlyЎ­" )
+
 end
+
+------------------------------------------------------------
+-- °ўАј±ИЛ№±щФ­-----І©¶ы·ТДб
+------------------------------------------------------------
 
 function r_talk146()
-	Talk( 1,  "Профессор Фейн: Однажды я встретил русалку в море. Правда забыл спрсить где она взяла такие очаровательные реснички. " )
 
-	AddNpcMission (	622	 )
-	AddNpcMission (	624	 )
-	AddNpcMission (	628	 )
-	AddNpcMission (	630	 )
-	AddNpcMission (	636	 )
-	AddNpcMission (	1006 )
-	AddNpcMission (	1170 )
-	AddNpcMission (	1592 )
-	AddNpcMission (	1906 )
-	AddNpcMission (	1942 )
+	Talk( 1, "Professor Fenny: I met a mermaid once while out at sea. I forgot to ask her where she bought those alluring eyelashes." )
+
+	AddNpcMission 	(622)
+	AddNpcMission 	(624)
+	AddNpcMission 	(628)
+	AddNpcMission 	(630)
+	AddNpcMission 	(636)
+	AddNpcMission	(1006)
+	AddNpcMission	(1170)
+	AddNpcMission(	1592	)
+	AddNpcMission (	1906	)
+	AddNpcMission (	1942	)
 	AddNpcMission ( 6036 )
 	AddNpcMission ( 6037 )
+
+	
+
+
+
 end
+
+------------------------------------------------------------
+-- °ўАј±ИЛ№±щФ­-----МФМФ
+------------------------------------------------------------
 
 function r_talk147()
-	Talk( 1,  "Бэрри: Это небо такое синее! Синий океан, синий цвет... И настроение у меня синее синее. " )
 
-	AddNpcMission ( 401  )
-	AddNpcMission (	810	 )
-	AddNpcMission (	1040 )
-	AddNpcMission (	1203 )
-	AddNpcMission (	1433 )
-	AddNpcMission (	1909 )
-	AddNpcMission (	5579 )
-	AddNpcMission (	5580 )
+	Talk( 1, "Berry: This sky is so blue... BlueЎ­ OceanЎ­ BlueЎ­ BlueЎ­ Oh myЎ­ mood alsoЎ­ BlueЎ­ Blue!" )
+
+	AddNpcMission ( 401 )
+	AddNpcMission 	(810)
+	AddNpcMission	(1040)
+	AddNpcMission	(1203)
+	AddNpcMission(	1433	)
+	AddNpcMission (	1909	)
+
+	
+---------------°ЧСт
+	AddNpcMission	(5579)
+	AddNpcMission	(5580)
+
+
+
+
+
 end
+
+------------------------------------------------------------
+-- °ўАј±ИЛ№±щФ­-----їЖИрЖд
+------------------------------------------------------------
 
 function r_talk148()
-	Talk( 1,  "Кетан: Привет, я думаю почему тут нет луны. А вы? " )
+
+	Talk( 1, "Ketan: Hi, I am pondering why there isn't any moon here. What about you?" )
+
 end
+
+------------------------------------------------------------
+-- °ўАј±ИЛ№±щФ­-----ГЧРЄ¶ыГ·БЦ·Т
+------------------------------------------------------------
 
 function r_talk149()
-	Talk( 1,  "Миссис Элли: Мне нечего вам сказать... " )
+
+	Talk( 1, "Missy Elene: ..............(I don't have anything to say to you...)" )
+-------------ЗпµєїЄ·ў
+	--AddNpcMission 	(6182)
 end
+
+------------------------------------------------------------
+-- ±щАЗ±¤-----Л®КЦЎ¤°ЈµПјУ
+------------------------------------------------------------
 
 function r_talk156()
-	Talk( 1,  "Аякс: Привет! Я лучший моряк в округе! Нуждаетесь в моей помощи? " )
+
+	Talk( 1, "Ajax: Hi! I am the best sailor around here. Do you need my help?" )
+
 end
+
+------------------------------------------------------------
+-- №ЕАпї©АыІ№ёшХѕ-----БсБ«
+------------------------------------------------------------
 
 function r_talk157()
-	Talk( 1,  "Дуриан: Я всегда хочу есть и ем я много. Мне кажется это болезнь. " )
 
-	AddNpcMission (	419	 )
-	AddNpcMission (	460	 )
-	AddNpcMission (	600	 )
-	AddNpcMission (	604	 )
-	AddNpcMission (	606	 )
-	AddNpcMission (	611	 )
-	AddNpcMission (	614	 )
-	AddNpcMission (	619	 )
-	AddNpcMission (	1028 )
-	AddNpcMission (	1191 )
-	AddNpcMission (	1434 )
-	AddNpcMission (	1903 )
-	AddNpcMission (	5587 )
-	AddNpcMission (	5588 )
+	Talk( 1, "Durian: I am always hungry although I eat a lot. I guess it's an illness..." )
+
+	AddNpcMission 	(419)
+	AddNpcMission 	(460)
+	AddNpcMission 	(600)
+	AddNpcMission 	(604)
+	AddNpcMission 	(606)
+	AddNpcMission 	(611)
+	AddNpcMission 	(614)
+	AddNpcMission 	(619)
+	AddNpcMission	(1028)
+	AddNpcMission	(1191)
+	AddNpcMission(	1434	)
+	AddNpcMission (	1903	)
+
+	---------------°ЧСт
+	AddNpcMission	(5587)
+	AddNpcMission	(5588)
+
 	AddNpcMission ( 6042 )
 	AddNpcMission ( 6043 )
+
+
 end
 
+------------------------------------------------------------
+-- №ЕАпї©АыІ№ёшХѕ-----Б«ДИТМ
+------------------------------------------------------------
+
 function r_talk158()
-	Talk( 1,  "Лейна: Что вы хотите купить? " )
-	Text( 1,  "Торг ", BuyPage )
-	Text( 1,  "Ничего... ",CloseTalk )
+
+	Talk( 1, "Leyna: Wh...at...do...yyy...ou...wan...t...tooo...bbuy?" )
+	Text( 1, "Trade", BuyPage )
+	Text( 1, "Nothing...",CloseTalk )
 
 	InitTrade()
 	Other(	1847	)
 	Other(	1848	)
 	Other(	1849	)
 
-	AddNpcMission (	450	 )
-	AddNpcMission (	452	 )
-	AddNpcMission (	602	 )
-	AddNpcMission (	605	 )
-	AddNpcMission (	609	 )
-	AddNpcMission (	616	 )
-	AddNpcMission (	617	 )
-	AddNpcMission (	1435 )
-	AddNpcMission (	1904 )	
+	AddNpcMission 	(450)
+	AddNpcMission 	(452)
+	AddNpcMission 	(602)
+	AddNpcMission 	(605)
+	AddNpcMission 	(609)
+	AddNpcMission 	(616)
+	AddNpcMission 	(617)
+	AddNpcMission(	1435	)
+	AddNpcMission (	1904	)
+
+	
+
+
+
+	
 end
 
+------------------------------------------------------------
+-- НЯ¶ыЕµІ№ёшХѕ-----№ЕДОЛ№
+------------------------------------------------------------
+
 function r_talk159()
-	Talk( 1,  "Гидерий: Покупки и продажи, ищите меня. " )
-	Text( 1,  "Торг ", BuyPage )
-	Text( 1,  "Ничего... ",CloseTalk )
+
+	Talk( 1, "Guiderius: Buy or sell, you can come find me." )
+	Text( 1, "Trade", BuyPage )
+	Text( 1, "Nothing...",CloseTalk )
 
 	InitTrade()
 	Other(	1847	)
 	Other(	1848	)
 	Other(	1849	)
 	
-	AddNpcMission (	463	 )
-	AddNpcMission (	620	 )
-	AddNpcMission (	626	 )
-	AddNpcMission (	629	 )
-	AddNpcMission (	631	 )
-	AddNpcMission (	632	 )
-	AddNpcMission (	633	 )
-	AddNpcMission (	635	 )
-	AddNpcMission (	637	 )
-	AddNpcMission (	1015 )
-	AddNpcMission (	1178 )
-	AddNpcMission (	1593 )
-	AddNpcMission (	1907 )
-	AddNpcMission (	1943 )
+	AddNpcMission 	(463)
+	AddNpcMission 	(620)
+	AddNpcMission 	(626)
+	AddNpcMission 	(629)
+	AddNpcMission 	(631)
+	AddNpcMission 	(632)
+	AddNpcMission 	(633)
+	AddNpcMission 	(635)
+	AddNpcMission 	(637)
+	AddNpcMission	(1015)
+	AddNpcMission	(1178)
+	AddNpcMission(	1593	)
+	AddNpcMission (	1907	)
+	AddNpcMission (	1943	)
+
+	
+
+
 end
+
+------------------------------------------------------------
+-- ·ПїуІ№ёшХѕ-----АпїЁ¶ы
+------------------------------------------------------------
 
 function r_talk160()
-	Talk( 1,  "Кэль: Привет! Я стражник Кэль. Это место в безопасности! " )
 
-	AddNpcMission ( 223  )
-	AddNpcMission ( 224  )
-	AddNpcMission ( 225  )
-	AddNpcMission ( 226  )
-	AddNpcMission ( 227  )
-	AddNpcMission ( 228  )
-	AddNpcMission ( 229  )
-	AddNpcMission ( 230  )
-	AddNpcMission (	1055 )
-	AddNpcMission (	1217 )
-	AddNpcMission (	1432 )
-	AddNpcMission (	1908 )
+	Talk( 1, "Kal: Hi! I am Security - Kal! This place is dangerousЎ­" )
+
+	AddNpcMission ( 223 )
+	AddNpcMission ( 224 )
+	AddNpcMission ( 225 )
+	AddNpcMission ( 226 )
+	AddNpcMission ( 227 )
+	AddNpcMission ( 228 )
+	AddNpcMission ( 229 )
+	AddNpcMission ( 230 )
+	AddNpcMission	(1055)
+	AddNpcMission	(1217)
+	AddNpcMission(	1432	)
+	AddNpcMission (	1908	)
+
+	
+
+
+
+	
 end
+
+------------------------------------------------------------
+-- ·ПїуІ№ёшХѕ-----їу№¤ґу¶Зло
+------------------------------------------------------------
 
 function r_talk161()
-	Talk( 1,  "Шахтер - Дранки: Я так хочу есть... И кажется я потерял свою бутылку. " )
 
-	AddNpcMission ( 284  )
-	AddNpcMission ( 285  )
-	AddNpcMission ( 311  )
-	AddNpcMission (	5663 )
-	AddNpcMission (	5664 )
+	Talk( 1, "Drunky: GroanЎ­I am so hungryЎ­I lost my lunchboxЎ­SighЎ­" )
+
+	AddNpcMission ( 284 )
+	AddNpcMission ( 285 )
+	AddNpcMission ( 311 )
+	-----------------їу№¤ґу¶Зло---------ЅрЕЈ
+	AddNpcMission	(5663)
+	AddNpcMission	(5664)
 end
+
+------------------------------------------------------------
+-- ·ПїуІ№ёшХѕ-----№ЕБйѕ«
+------------------------------------------------------------
 
 function r_talk162()
-	Talk( 1,  "Грег: Привет, я Грег. Нужна моя помощь? " )
-	Text( 1,  "Торг ", BuyPage )
-	Text( 1,  "Ничего... ",CloseTalk )
+
+	Talk( 1, "Greg: Hi, I am Greg. Do you need my help?" )
+	Text( 1, "Trade", BuyPage )
+	Text( 1, "Nothing...",CloseTalk )
 
 	InitTrade()
 	Other(	1847	)
 	Other(	1848	)
 	Other(	1849	)
 
-	AddNpcMission (	455	 )
-	AddNpcMission (	461	 )
-	AddNpcMission (	811	 )
-	AddNpcMission (	814	 )
-	AddNpcMission (	1013 )
-	AddNpcMission (	1014 )
-	AddNpcMission (	1177 )
+	AddNpcMission 	(455)
+	AddNpcMission 	(461)
+	AddNpcMission 	(811)
+	AddNpcMission 	(814)
+	AddNpcMission	(1013)
+	AddNpcMission	(1014)
+	AddNpcMission	(1177)
+
+-----МъИЛБщПо
 	AddNpcMission ( 6121 )
 	AddNpcMission ( 6122 )
+
+	
 end
+
+------------------------------------------------------------
+-- ОВДГІ№ёшХѕ-----БХґп
+------------------------------------------------------------
 
 function r_talk163()
-	Talk( 1,  "Линда: Я не хочу работать, но мой начальник вынуждает меня работать каждый день. А я хочу большей зарплаты! " )
 
-	AddNpcMission (	1027 )
-	AddNpcMission (	1190 )
-	AddNpcMission (	5139 )
-	AddNpcMission (	5140 )
-	AddNpcMission (	5141 )
+	Talk( 1, "Linda: I don't want to work OT! But my boss force me to OT everydayЎ­I want a pay rise!" )
+	AddNpcMission	(1027)
+	AddNpcMission	(1190)
+----------------1.7
+	AddNpcMission (5139 )
+	AddNpcMission (5140 )
+	AddNpcMission (5141 )
 	AddNpcMission ( 6044 )
 	AddNpcMission ( 6045 )
+
 end
+
+------------------------------------------------------------
+-- ОВДГІ№ёшХѕ-----ґпґпВхСЗ
+------------------------------------------------------------
 
 function r_talk164()
-	Talk( 1,  "Дада: Привет мой друг. Вы приехали в столь опасное место не привезя с собой товара? " )
+
+	Talk( 1, "Dada: Hi my friend. How can you come to such a dangerous place without any supplies?" )
+
 end
+
+------------------------------------------------------------
+-- ОВДГІ№ёшХѕ-----№ЕБ¦№ы
+------------------------------------------------------------
 
 function r_talk165()
-	Talk( 1,  "Грег: Привет! Есть ли что то, что вам нужно? " )
-	Text( 1,  "Торг ", BuyPage )
-	Text( 1,  "Ничего... ",CloseTalk )
+
+	Talk( 1, "Gregg: Hi, is there anything you required?" )
+	Text( 1, "Trade", BuyPage )
+	Text( 1, "Nothing...",CloseTalk )
 
 	InitTrade()
 	Other(	1847	)
 	Other(	1848	)
 	Other(	1849	)
-
-	AddNpcMission (	5563 )
-	AddNpcMission (	5564 )
+	---------------°ЧСт
+	AddNpcMission	(5563)
+	AddNpcMission	(5564)
 end
+
+------------------------------------------------------------
+-- °НІјІ№ёшХѕ-----ДўДў
+------------------------------------------------------------
 
 function r_talk166()
-	Talk( 1,  "Момо: Привет, я Момо. У меня вы можете купить неплохую пищу! " )
-	Text( 1,  "Торг ", BuyPage )
-	Text( 1,  "Ничего... ",CloseTalk )
+
+	Talk( 1, "Momo: Hi! I am Momo. You can buy some delicious foodstuff from me." )
+	Text( 1, "Trade", BuyPage )
+	Text( 1, "Nothing...",CloseTalk )
 
 	InitTrade()
 	Other(	1847	)
 	Other(	1848	)
 	Other(	1849	)
 
-	AddNpcMission (	433	 )
-	AddNpcMission (	655	 )
-	AddNpcMission (	662	 )
-	AddNpcMission (	667	 )
-	AddNpcMission (	1143 )
-	AddNpcMission (	1585 )
-	AddNpcMission (	1915 )
-	AddNpcMission (	5577 )
-	AddNpcMission (	5578 )
+	AddNpcMission 	(433)
+	AddNpcMission 	(655)
+	AddNpcMission 	(662)
+	AddNpcMission 	(667)
+	AddNpcMission	(1143)
+	AddNpcMission(	1585	)
+	AddNpcMission (	1915	)
+
+	---------------°ЧСт
+	AddNpcMission	(5577)
+	AddNpcMission	(5578)
+
+
+
+
 end
+
+------------------------------------------------------------
+-- ЙіИЄІ№ёшХѕ-----О¬ДИ
+------------------------------------------------------------
 
 function r_talk167()
-	Talk( 1,  "Венона: Я скоро женюсь! Я хочу чтобы все разделили мою радость! " )
 
-	AddNpcMission (	418	 )
-	AddNpcMission (	641	 )
-	AddNpcMission (	650	 )
-	AddNpcMission (	1156 )
+	Talk( 1, "Wenona: I am getting married soon! I want everybody to share my joy!" )
+
+	AddNpcMission 	(418)
+	AddNpcMission 	(641)
+	AddNpcMission 	(650)
+	AddNpcMission	(1156)
+
+	
 end
+
+
+------------------------------------------------------------
+-- ЙіИЄІ№ёшХѕ-----·Ж·Ж
+------------------------------------------------------------
 
 function r_talk168()
-	Talk( 1,  "Фей Фей: Привет, я Фей Фей. " )
 
-	AddNpcMission (	422	 )
-	AddNpcMission (	639	 )
-	AddNpcMission (	648	 )
-	AddNpcMission (	1121 )
-	AddNpcMission (	1439 )
-	AddNpcMission (	1916 )
-	AddNpcMission (	5569 )
-	AddNpcMission (	5572 )
+	Talk( 1, "Fey Fey: Hi! My name is Fey Fey." )
+
+	AddNpcMission 	(422)
+	AddNpcMission 	(639)
+	AddNpcMission 	(648)
+	AddNpcMission	(1121)
+	AddNpcMission(	1439	)
+	AddNpcMission (	1916	)
+
+	---------------¶юФВ
+	--AddNpcMission (5503	)
+
+---------------°ЧСт
+	AddNpcMission	(5569)
+	AddNpcMission	(5572)
+
+	
 end
+
+------------------------------------------------------------
+-- ЙіИЄІ№ёшХѕ-----ВнВе
+------------------------------------------------------------
 
 function r_talk169()
-	Talk( 1,  "Маркус: Я могу пополнить ваши запасы. В чем вы нуждаетесь? " )
-	Text( 1,  "Торг ", BuyPage )
-	Text( 1,  "Ничего... ",CloseTalk )
+
+	Talk( 1, "Marcus: I can replenish your item. Need anything?" )
+	Text( 1, "Trade", BuyPage )
+	Text( 1, "Nothing...",CloseTalk )
 
 	InitTrade()
 	Other(	1847	)
 	Other(	1848	)
 	Other(	1849	)
 
-	AddNpcMission (	403	 )
-	AddNpcMission (	413	 )
-	AddNpcMission (	420	 )
-	AddNpcMission (	643	 )
-	AddNpcMission (	647	 )
-	AddNpcMission (	649	 )
-	AddNpcMission (	652	 )
-	AddNpcMission (	1140 )
-	AddNpcMission (	1440 )
-	AddNpcMission (	1917 )
-	AddNpcMission (	5124 )
-	AddNpcMission (	5125 )
-	AddNpcMission (	5126 )
+	AddNpcMission 	(403)
+	AddNpcMission 	(413)
+	AddNpcMission 	(420)
+	AddNpcMission 	(643)
+	AddNpcMission 	(647)
+	AddNpcMission 	(649)
+	AddNpcMission 	(652)
+	AddNpcMission	(1140)
+	AddNpcMission(	1440	)
+	AddNpcMission (	1917	)
+
+	----------------1.7
+	AddNpcMission (5124 )
+	AddNpcMission (5125 )
+	AddNpcMission (5126 )
 end
+
+------------------------------------------------------------
+-- °ўАј±ИЛ№І№ёшХѕ-----Цм±И
+------------------------------------------------------------
 
 function r_talk170()
-	Talk( 1,  "Зурби: Я всегда слышу зов моря. Я думаю там есть много интересного, что нужно исследовать. " )
 
-	AddNpcMission (	429	 )
-	AddNpcMission (	464	 )
-	AddNpcMission (	466	 )
-	AddNpcMission (	684	 )
-	AddNpcMission (	696	 )
-	AddNpcMission (	697	 )
-	AddNpcMission (	1108 )
-	AddNpcMission (	5136 )
-	AddNpcMission (	5137 )
-	AddNpcMission (	5138 )
-	AddNpcMission (	5647 )
-	AddNpcMission (	5648 )
+	Talk( 1, "Zurbi: I always hear the summon of the sea. I guess there are many beautiful things to explore in this world." )
+
+	AddNpcMission 	(429)
+	AddNpcMission 	(464)
+	AddNpcMission 	(466)
+	AddNpcMission 	(684)
+	AddNpcMission 	(696)
+	AddNpcMission 	(697)
+	AddNpcMission	(1108)
+
+----------------1.7
+	AddNpcMission (5136 )
+	AddNpcMission (5137 )
+	AddNpcMission (5138 )
+-----------------Цм±И---------ЅрЕЈ
+	AddNpcMission	(5647)
+	AddNpcMission	(5648)
 end
+
+------------------------------------------------------------
+-- ЙіИЄІ№ёшХѕ-----УИЛюАпДб
+------------------------------------------------------------
 
 function r_talk171()
-	Talk( 1,  "Алкар: Привет! Вы хотите немного хлеба? " )
-	Text( 1,  "Торг ", BuyPage )
-	Text( 1,  "Ничего... ",CloseTalk )
+
+	Talk( 1, "Ulkar: Hey! Do you want some bread?" )
+	Text( 1, "Trade", BuyPage )
+	Text( 1, "Nothing...",CloseTalk )
 
 	InitTrade()
 	Other(	1847	)
 	Other(	1848	)
 	Other(	1849	)
 
-	AddNpcMission (	423	 )
-	AddNpcMission (	440	 )
-	AddNpcMission (	446	 )
-	AddNpcMission (	462	 )
-	AddNpcMission (	683	 )
-	AddNpcMission (	687	 )
-	AddNpcMission (	692	 )
-	AddNpcMission (	695	 )
-	AddNpcMission (	1580 )
-	AddNpcMission (	1919 )
-	AddNpcMission (	1955 )
-	AddNpcMission (	5718 )
-	AddNpcMission (	5719 )
+	AddNpcMission 	(423)
+	AddNpcMission 	(440)
+	AddNpcMission 	(446)
+	AddNpcMission 	(462)
+	AddNpcMission 	(683)
+	AddNpcMission 	(687)
+	AddNpcMission 	(692)
+	AddNpcMission 	(695)
+	AddNpcMission(	1580	)
+	AddNpcMission (	1919	)
+	AddNpcMission (	1955	)
+
+	----------УИЛюАпДб-------Л«ЧУ
+	AddNpcMission	(5718)
+	AddNpcMission	(5719)
+
+
+
+
 end
+
+------------------------------------------------------------
+-- чјчГУЄµШІ№ёшХѕ-----РЮЛѕ
+------------------------------------------------------------
 
 function r_talk172()
-	Talk( 1,  "Зевс: Убивать и воровать презренно. " )
 
-	AddNpcMission (	802	 )
-	AddNpcMission (	807	 )
-	AddNpcMission (	1100 )
-	AddNpcMission (	1587 )
-	AddNpcMission (	1921 )
-	AddNpcMission (	1922 )
-	AddNpcMission (	5127 )
-	AddNpcMission (	5128 )
-	AddNpcMission (	5129 )
+	Talk( 1, "Xeus: Kill-stealing is despicable!" )
+
+	AddNpcMission 	(802)
+	AddNpcMission 	(807)
+	AddNpcMission	(1100)
+	AddNpcMission(	1587	)
+	AddNpcMission (	1921	)
+	AddNpcMission (	1922	)
+----------------1.7
+	AddNpcMission (5127 )
+	AddNpcMission (5128 )
+	AddNpcMission (5129 )
 	AddNpcMission ( 6046 )
 	AddNpcMission ( 6047 )
-	AddNpcMission (	5694 )
-	AddNpcMission (	5695 )
+
+	----------РЮЛѕ-------Л«ЧУ
+	AddNpcMission	(5694)
+	AddNpcMission	(5695)
+
+
 end
+
+------------------------------------------------------------
+-- чјчГУЄµШІ№ёшХѕ-----ОыОы№ю№ю
+------------------------------------------------------------
 
 function r_talk173()
-	Talk( 1,  "Хохо: Привет! Нуждаетесь в каких нибудь припасах? " )
-	Text( 1,  "Торг ", BuyPage )
-	Text( 1,  "Ничего... ",CloseTalk )
+
+	Talk( 1, "Hoho: Hi, I am incharge of replenishment. Do you need anything?" )
+	Text( 1, "Trade", BuyPage )
+	Text( 1, "Nothing...",CloseTalk )
 
 	InitTrade()
 	Other(	1847	)
 	Other(	1848	)
 	Other(	1849	)
 
-	AddNpcMission (	467	 )
-	AddNpcMission (	803	 )
-	AddNpcMission (	1588 )
-	AddNpcMission (	1923 )
-	AddNpcMission (	1944 )
+	AddNpcMission 	(467)
+	AddNpcMission 	(803)
+	AddNpcMission(	1588	)
+	AddNpcMission (	1923	)
+	AddNpcMission (	1944	)
+
+	
+
+
+
+
+
 end
+
+------------------------------------------------------------
+-- ±щј«І№ёшХѕ-----ГЧїЄАК·СВЮ
+------------------------------------------------------------
 
 function r_talk174()
-	Talk( 1,  "Миккилон: Мой отец восхищался великими художниками и назвал меня в честь одного из них. " )
 
-	AddNpcMission (	871	 )
-	AddNpcMission (	873	 )
-	AddNpcMission (	879	 )
-	AddNpcMission (	887	 )
-	AddNpcMission (	890	 )
-	AddNpcMission (	893	 )
-	AddNpcMission (	1737 )
-	AddNpcMission (	1926 )
-	AddNpcMission (	1947 )
+	Talk( 1, "Mekkilon: My father admired a famous artist and so he named me after him." )
+
+	
+	AddNpcMission	(	871	)
+	AddNpcMission	(	873	)
+	AddNpcMission	(	879	)
+	AddNpcMission	(	887	)
+	AddNpcMission	(	890	)
+	AddNpcMission	(	893	)
+	AddNpcMission(	1737	)
+	AddNpcMission (	1926	)
+	AddNpcMission (	1947	)
+
+	
+
+
+
 end
+
+------------------------------------------------------------
+-- ±щ¶јІ№ёшХѕ-----ДОДО
+------------------------------------------------------------
 
 function r_talk175()
-	Talk( 1,  "Нана: Я настолько глуп, что могу потеряться за пределами города. Конечно если со мной не будет проводника. " )
 
-	AddNpcMission (	405	 )
-	AddNpcMission (	432	 )
-	AddNpcMission (	668	 )
-	AddNpcMission (	672	 )
-	AddNpcMission (	673	 )
-	AddNpcMission (	677	 )
-	AddNpcMission (	1087 )
-	AddNpcMission (	1429 )
-	AddNpcMission (	1928 )
-	AddNpcMission (	5589 )
-	AddNpcMission (	5590 )
+	Talk( 1, "Nana: I guess I am stupidЎ­being lost just outside of the city. If only I have a automated guide." )
+
+	AddNpcMission 	(405)
+	AddNpcMission 	(432)
+	AddNpcMission 	(668)
+	AddNpcMission 	(672)
+	AddNpcMission 	(673)
+	AddNpcMission 	(677)
+	AddNpcMission	(1087)
+	AddNpcMission(	1429	)
+	AddNpcMission (	1928	)
+---------------°ЧСт
+	AddNpcMission	(5589)
+	AddNpcMission	(5590)
 	AddNpcMission ( 6050 )
 	AddNpcMission ( 6051 )
-	AddNpcMission (	5700 )
-	AddNpcMission (	5701 )
+	
+----------ДОДО-------Л«ЧУ
+	AddNpcMission	(5700)
+	AddNpcMission	(5701)
+
+
+
 end
 
+------------------------------------------------------------
+-- ±щ¶јІ№ёшХѕ-----№ЦЫЕТЇТЇ
+------------------------------------------------------------
+
 function r_talk176()
-	Talk( 1,  "Старик-предсказатель: Хоть я и выгляжу странно, но я являюсь местным целителем. " )
-	Text( 1,  "Торг ", BuyPage )
-	Text( 1,  "Ничего... ",CloseTalk )
+
+	Talk( 1, "Weird Grampa: Although I look strange, I am the healer around here. Any pretty ladies requires a check up?" )
+	Text( 1, "Trade", BuyPage )
+	Text( 1, "Nothing...",CloseTalk )
 
 	InitTrade()
 	Other(	1847	)
 	Other(	1848	)
 	Other(	1849	)
 
-	AddNpcMission (	430	 )
-	AddNpcMission (	434	 )
-	AddNpcMission (	670	 )
-	AddNpcMission (	671	 )
-	AddNpcMission (	679	 )
-	AddNpcMission (	682	 )
-	AddNpcMission (	1070 )
-	AddNpcMission (	1430 )
-	AddNpcMission (	1929 )
-	AddNpcMission (	5148 )
-	AddNpcMission (	5150 )
-	AddNpcMission (	5152 )
-	AddNpcMission (	5158 )
-	AddNpcMission (	5160 )
-	AddNpcMission (	5161 )
-	AddNpcMission (	5162 )
-	AddNpcMission (	5163 )
-	AddNpcMission (	5164 )
-	AddNpcMission (	5165 )
-	AddNpcMission (	5166 )
-	AddNpcMission (	5169 )
+	AddNpcMission 	(430)
+	AddNpcMission 	(434)
+	AddNpcMission 	(670)
+	AddNpcMission 	(671)
+	AddNpcMission 	(679)
+	AddNpcMission 	(682)
+	AddNpcMission	(1070)
+	AddNpcMission(	1430	)
+	AddNpcMission (	1929	)
+
+	---------------1.7
+	AddNpcMission (5148 )
+	AddNpcMission (5150 )
+	AddNpcMission (5152 )
+	AddNpcMission (5158 )
+	AddNpcMission (5160 )
+	AddNpcMission (5161 )
+	AddNpcMission (5162 )
+	AddNpcMission (5163 )
+	AddNpcMission (5164 )
+	AddNpcMission (5165 )
+	AddNpcMission (5166 )
+	AddNpcMission (5169 )
+
+
 end
+
+
+------------------------------------------------------------
+-- чјчГУЄµШІ№ёшХѕ-----°ўМ©
+------------------------------------------------------------
 
 function r_talk177()
-	Talk( 1,  "Тай: Я хочу организовать группу, состоящую из одних морских обитfтелей. " )
 
-	AddNpcMission (	805	 )
-	AddNpcMission (	806	 )
-	AddNpcMission (	1589 )
-	AddNpcMission (	1934 )
-	AddNpcMission (	1949 )
-	AddNpcMission (	5629 )
-	AddNpcMission (	5630 )
+	Talk( 1, "Tae: I want to organize a music band made up of sea animals. Let the mermaids do the singing and armored crab as the drummers. I will be the lead guitarist! Hehe!" )
+
+	AddNpcMission 	(805)
+	AddNpcMission 	(806)
+	AddNpcMission(	1589	)
+	AddNpcMission (	1934	)
+	AddNpcMission (	1949	)
+
+	-----------------°ўМ©---------ЅрЕЈ
+	AddNpcMission	(5629)
+	AddNpcMission	(5630)
+
+
+
+
+	
 end
 
-function r_talk221()
-	Talk( 1,  "Ламон: Я люблю собирать кораллы. У меня есть много уникальных. Хотите взглянуть? " )
-	Text( 1,  "Торг ", BuyPage )
-	Text( 1,  "Восстановление энергии коралла ", JumpPage, 2 )
-	Text( 1,  "Ничего... ",CloseTalk )
+------------------------------------------------------------
+-- µВ¶ыО¬ЖЅФ­-----±ґїЗЙМИЛЎ¤А­Д·
+------------------------------------------------------------
 
-	Talk( 2,  "Ламон: Коралл можно заряжать когда он опустеет. Коралл грозы заряжает гроза, коралл ветра - ветер, коралл тумана заряжается в тумане, а коралл удара можно зарядить в Веснограде. ")
+function r_talk221()
+
+	Talk( 1, "Lamon: I love to collect any type of Conch. I have lots of unique Conchs. Do you wish to have a look?" )
+	Text( 1, "Trade", BuyPage )
+	Text( 1, "Conch Energy Replenishment", JumpPage, 2 )
+	Text( 1, "Nothing...",CloseTalk )
+
+
+	Talk( 2, "Lamon: Corals can be recharged. In the sea, there are many regions. Wind corals need to go to Wind region, Thunder corals to Thunder region and Fog coral to Fog regions...I remember that there is a Thunder region near Argent at (2500, 2850). You can try it there. Remember to equip back the coral after it is recharged.")
+
 
 	InitTrade()
 	Weapon(	0817	)
@@ -4814,14 +8223,24 @@ function r_talk221()
 	Weapon(	0873	)
 	Weapon(	0635	)
 	Weapon(	0636	)
+-----------------±ґїЗЙМИЛЎ¤А­Д·---------ЅрЕЈ
+	AddNpcMission	(5637)
+	AddNpcMission	(5638)
 
-	AddNpcMission (	5637 )
-	AddNpcMission (	5638 )
+
 end
 
+
+
+
+------------------------------------------------------------
+-- °ЧТшіЗ-----·юЧ°µкЦъАнЎтЭнЭн
+------------------------------------------------------------
 function r_talk222()
-	Talk( 1,  "Биби: Привет! Я новый портной. Я продаю любые типы одежды! " )
-	Text( 1,  "Торг ", BuyPage )
+
+
+	Talk( 1, "Bebe: Hi, I am the new tailor around here! I sell all type of clothing for Explorer." )
+	Text( 1, "Trade", BuyPage )
 
 	InitTrade()
 	Defence(	0335	)
@@ -4884,52 +8303,78 @@ function r_talk222()
 	Defence(	0357	)
 	Defence(	0533	)
 	Defence(	0709	)
+----------------1.7
+	AddNpcMission (5118 )
+	AddNpcMission (5119 )
+	AddNpcMission (5120 )
 
-	AddNpcMission (	5118 )
-	AddNpcMission (	5119 )
-	AddNpcMission (	5120 )
 end
-
+------------------------------------------------------------
+-- ЗпЦ®µє-----АіДИ
+------------------------------------------------------------
 function r_talk223()
-	Talk( 1,  "Лана: Привет, я портальщик острова Осени. Чем я могу помочь? " )
-	Text( 1,  "Вернуться в Ледынь ", GoTo, 1318, 510,  "darkblue " )
+
+
+	Talk( 1, "Lanna: Hi! I am the Teleporter of Autumn Island. How can I help you?" )
+	Text( 1, "Return to Icicle City", GoTo, 1318, 510, "darkblue" )
+
 end
 
+
+------------------------------------------------------------
+-- ±щС©µє-----єЈµБЅЬАпГЧ
+------------------------------------------------------------
 function r_talk224()
-	Talk( 1,  "Пират Джереми: Привет! Я пират и я счастлив! " )
 
-	AddNpcMission ( 306  )
-	AddNpcMission ( 307  )
-	AddNpcMission ( 308  )
-	AddNpcMission (	5651 )
-	AddNpcMission (	5652 )
+
+	Talk( 1, "Pirate Jeremy: 'I'm a pirate! Lala! I'm a happy go lucky pirate! Oh yeah!'" )
+
+	AddNpcMission ( 306 )
+	AddNpcMission ( 307 )
+	AddNpcMission ( 308 )
+-----------------єЈµБЅЬАпГЧ---------ЅрЕЈ
+	AddNpcMission	(5651)
+	AddNpcMission	(5652)
 end
 
+------------------------------------------------------------
+-- ГщЙіµє-----ЅЬїЛґ¬і¤
+------------------------------------------------------------
 function r_talk225()
-	Talk( 1,  "Капитан Джек: Привет! Я богат, красив и знаменит! Меня все боготворят! " )
 
-	AddNpcMission ( 309  )
-	AddNpcMission ( 310  )
-	AddNpcMission ( 312  )
-	AddNpcMission ( 313  )
-	AddNpcMission ( 314  )
-	AddNpcMission ( 315  )
-	AddNpcMission ( 316  )
-	AddNpcMission ( 328  )
-	AddNpcMission ( 329  )
-	AddNpcMission ( 333  )
-	AddNpcMission ( 336  )
-	AddNpcMission ( 483  )
-	AddNpcMission ( 484  )
-	AddNpcMission ( 5639 )
-	AddNpcMission ( 5640 )
+
+	Talk( 1, "Captain Jack: Hoho! I am rich and handsome, the famous Jack that everybody idolize! Hoho!" )
+
+	AddNpcMission ( 309 )
+	AddNpcMission ( 310 )
+	AddNpcMission ( 312 )
+	AddNpcMission ( 313 )
+	AddNpcMission ( 314 )
+	AddNpcMission ( 315 )
+	AddNpcMission ( 316 )
+	AddNpcMission ( 328 )
+	AddNpcMission ( 329 )
+	AddNpcMission ( 333 )
+	AddNpcMission ( 336 )
+	AddNpcMission ( 483 )
+	AddNpcMission ( 484 )
+
+	-----------------ЅЬїЛґ¬і¤---------ЅрЕЈ
+	AddNpcMission	(5639)
+	AddNpcMission	(5640)
 end
 
+
+------------------------------------------------------------
+-- ±щАЗ±¤ПВіЗ-----ВіёсАј
+------------------------------------------------------------
 function r_talk226()
-	Talk( 1,  "Люк: Мой брат любит постоянно устраивать мне неприятности. " )
+
+
+	Talk( 1, "Luke: My brother loves to create trouble for meЎ­always expecting me to clear the mess. SighЎ­" )
 	
-	Talk( 2,  "Люк: Мой брат любит постоянно устраивать мне неприятности. " )
-	Text( 2,  "Я потерял кольцо которое ты мне дал ", JumpPage, 3)
+	Talk( 2, "Luke: My brother loves to create trouble for meЎ­always expecting me to clear the mess. SighЎ­")
+	Text( 2, "I lost the ring you gave me", JumpPage, 3)
 
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 50000 )
@@ -4937,15 +8382,16 @@ function r_talk226()
 	TriggerAction( 1, GiveItem, 4144, 1 , 4)
 	TriggerAction( 1, JumpPage, 4 )
 	TriggerFailure( 1, JumpPage, 5 )
-	Talk( 3,  "Люк: Вы потеряли такое дорогое кольцо? Заплатите мне 50000G и я сделаю его Вам ")
-	Text( 3,  "Хорошо, вот держи 50000 золота ", MultiTrigger, GetMultiTrigger(), 1 )
-	Text( 3,  "Это вымогательство! ", CloseTalk )
+	Talk( 3, "Luke: You lost such an expensive ring? Pay me 50000G and I will remake for you.")
+	Text( 3, "Okay, heres 50000G.", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 3, "This is extortion! I do not have so much", CloseTalk )
 
-	Talk( 4,  "Люк: Держите, это кольцо для Вас ")
+	Talk( 4, "Luke: Keep it well, this ring is for you")
 
-	Talk( 5,  "Люк: У Вас не достаточно золота ")
+	Talk( 5, "Luke: You don't seems to have enough gold...Its 50000G...")
 
 	InitTrigger()
+	-----------јмІвИООсДГБЛУгБЫЅдЦё,µ«КЗ¶ЄБЛІ»јыБЛ
 	TriggerCondition( 1, HasRecord, 260 )
 	TriggerCondition( 1, NoRecord, 262 )
 	TriggerCondition( 1, NoItem, 4144, 1 )
@@ -4954,97 +8400,146 @@ function r_talk226()
 	
 	Start( GetMultiTrigger(), 1 )
 
-	AddNpcMission ( 296  )
-	AddNpcMission ( 297  )
-	AddNpcMission ( 298  )
-	AddNpcMission ( 302  )
-	AddNpcMission ( 303  )
+	AddNpcMission ( 296 )
+	AddNpcMission ( 297 )
+	AddNpcMission ( 298 )
+	AddNpcMission ( 302 )
+	AddNpcMission ( 303 )
+
 end
 
+
+------------------------------------------------------------
+-- чјчГУЄµШІ№ёшХѕ-----їЛА­А­ґуК¦
+------------------------------------------------------------
 function r_talk227()
-	Talk( 1,  "Мастер Кера: Каждый думает что у меня сильная выдержка. Наверное потому что не имеют своей. " )
 
-	AddNpcMission ( 299  )
-	AddNpcMission ( 300  )
-	AddNpcMission ( 469  )
-	AddNpcMission ( 391  )
-	AddNpcMission (	5121 )
-	AddNpcMission (	5122 )
-	AddNpcMission (	5123 )
+	Talk( 1, "Master Kerra: Everyone thought that I have super powers. Actually, its because they do not have a strong faith." )
+
+	AddNpcMission ( 299 )
+	AddNpcMission ( 300 )
+	AddNpcMission ( 469 )
+	AddNpcMission ( 391 )
+	----------------1.7
+	AddNpcMission (5121 )
+	AddNpcMission (5122 )
+	AddNpcMission (5123 )
 end
 
+------------------------------------------------------------
+-- їЁ¶ыјУµВІ№ёшХѕ-----ИшДПЎ¤ёсБ¦µВ
+------------------------------------------------------------
 function r_talk228()
-	Talk( 1,  "Саймон Джилтер: И когда же я стану чиновником флота... Я же так очарователен. " )
+
+	Talk( 1, "Simon Gilter: SighЎ­When can I become an officier in the Navy? Am I not charming?" )
 	
-	AddNpcMission ( 837  )
-	AddNpcMission ( 838  )
-	AddNpcMission ( 839  )
+	AddNpcMission ( 837 )
+	AddNpcMission ( 838 )
+	AddNpcMission ( 839 )
+
 end
 
+------------------------------------------------------------
+-- їЁ¶ыјУµВІ№ёшХѕ-----єЈА¶Ў¤Оў·з
+------------------------------------------------------------
 function r_talk229()
-	Talk( 1,  "Азур Бриз: Пожалуйста не забудьте найти красивую веточку для меня. " )
 
-	AddNpcMission ( 840  )
-	AddNpcMission ( 5591 )
-	AddNpcMission ( 5592 )
+	Talk( 1, "Azur Breeze: Please remember to keep any nice looking branch for me." )
+
+	AddNpcMission ( 840 )
+---------------°ЧСт
+	AddNpcMission	(5591)
+	AddNpcMission	(5592)
 	AddNpcMission ( 6048 )
 	AddNpcMission ( 6049 )
+
 end
 
+------------------------------------------------------------
+-- їЁ¶ыјУµВІ№ёшХѕ-----ЩђЎ¤Д§Б¦
+------------------------------------------------------------
 function r_talk230()
-	Talk( 1,  "Са Мори: Нет в этом мире девушки красивее меня! " )
 
-	AddNpcMission ( 844  )
-	AddNpcMission ( 841  )
-	AddNpcMission ( 842  )
-	AddNpcMission ( 843  )
-	AddNpcMission (	5625 )
-	AddNpcMission (	5626 )
+	Talk( 1, "Sa Mori: Hohoho! There isn't any lady as beautiful and gentle as me in this world." )
+
+	AddNpcMission ( 844 )
+	AddNpcMission ( 841 )
+	AddNpcMission ( 842 )
+	AddNpcMission ( 843 )
+-----------------ЩђЎ¤Д§Б¦---------ЅрЕЈ
+	AddNpcMission	(5625)
+	AddNpcMission	(5626)
 end
 
+------------------------------------------------------------
+-- їЁ¶ыјУµВІ№ёшХѕ-----їЁРЭЎ¤ЛйКЇ
+------------------------------------------------------------
 function r_talk231()
-	Talk( 1,  "Кэрин Ливингстоун: Я ненавижу ту толстую старуху! До сих пор утверждает что она молода и красива. " )
 
-	AddNpcMission ( 845  )
-	AddNpcMission ( 846  )
-	AddNpcMission ( 847  )
-	AddNpcMission ( 848  )
-	AddNpcMission ( 5714 )
-	AddNpcMission ( 5715 )
+	Talk( 1, "Carin Livingstone: I hate that fat old granny over there. Still dare to claim that she is young and beautiful. Pukes!" )
+
+	AddNpcMission ( 845 )
+	AddNpcMission ( 846 )
+	AddNpcMission ( 847 )
+	AddNpcMission ( 848 )
+----------їЁРЭЎ¤ЛйКЇ-------Л«ЧУ
+	AddNpcMission	(5714)
+	AddNpcMission	(5715)
 end
 
+------------------------------------------------------------
+-- ±щј«І№ёшХѕ-----ИыО¬Ў¤Цм¶ы
+------------------------------------------------------------
 function r_talk232()
-	Talk( 1,  "Саша: Здесь очень сильный ветер и до моей кожи часто добирается песок. Это очень ее портит. " )
+
+	Talk( 1, "Sasha: The wind here is very big and my delicate skin often get expose to the sand particle in the wind. I use seaweed and mud found in Icespire to keep them in good condition. Do you want to try too." )
 	
-	AddNpcMission ( 877  )
-	AddNpcMission ( 883  )
-	AddNpcMission ( 884  )
+	AddNpcMission ( 877 )
+	AddNpcMission ( 883 )
+	AddNpcMission ( 884 )
+
+
 end
 
+------------------------------------------------------------
+-- ±щј«І№ёшХѕ-----ї­ОДЎ¤АЗ
+------------------------------------------------------------
 function r_talk233()
-	Talk( 1,  "Кэвин Вульф: Я волк блуждающий по пустыне. " )
 
-	AddNpcMission ( 881  )
+	Talk( 1, "Kevin Wolf: I am a wolf wandering in the lonely desertЎ­." )
+
+	AddNpcMission ( 881 )
 end
 
+------------------------------------------------------------
+-- °ЧТшіЗ-----і±Бч·ўРНК¦Ў¤їЁМШ
+------------------------------------------------------------
 function r_talk234()
-	Talk( 1,  "Парикмахер: Привет! Не желаете сменить свою прическу? " )
-	Text( 1,  "Я хочу сменить прическу ", JumpPage, 2)
+
+	Talk( 1, "Cartel: Hi! Want a change of hairstyle? Be hip and keep up with the trend!" )
+	Text( 1, "I want to change my hairstyle", JumpPage, 2)
 	
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1807, 1 )
 	TriggerAction( 1, OpenHair )
 	TriggerFailure( 1, JumpPage, 3 )
-	Talk( 2,  "Парикмахер: Отлично. Но вам потребуется Парикмахерская расписка! ")
-	Text( 2,  "Да, я знаю ", MultiTrigger, GetMultiTrigger(), 1)
-	Text( 2,  "Забудь ", CloseTalk )
+	Talk( 2, "Cartel: Acutally...I have not style any hair for a long time. But if you would like, I can change your hairdo for you. Just bring me a Hairstyling Voucher.")
+	Text( 2, "Yes, I am sure", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 2, "Forget it", CloseTalk )
 
-	Talk( 3,  "Парикмахер: У тебя нет Парикмахерской расписки! ")
+	Talk( 3, "Cartel: You do not seem to have any Hairstyling Voucher. I cannot style your hair yet.")
+
+	--AddNpcMission ( 6085 )
+
 end
 
+------------------------------------------------------------
+-- ·ПїуІ№ёшХѕ-----КОЖ·ЙМИЛЎ¤ІјїЁ
+------------------------------------------------------------
 function r_talk235()
-	Talk( 1,  "Пукан: Я продаю различные ожерелья и кольца. Может вас что то заинтересует? " )
-	Text( 1,  "Торг ", BuyPage )
+
+	Talk( 1, "Pucan: I have all sorts of valuable rings and necklaces. See if there is anything you like. My prices are the cheapest around here." )
+	Text( 1, "Trade", BuyPage )
 
 	InitTrade()
 	Defence(	4611	)
@@ -5057,11 +8552,16 @@ function r_talk235()
 	Defence(	4618	)
 	Defence(	4619	)
 	Defence(	4620	)
+
 end
 
+------------------------------------------------------------
+-- Аµ°ІЙ­БЦІ№ёшХѕ-----КОЖ·ЙМИЛЎ¤АпїЛ
+------------------------------------------------------------
 function r_talk236()
-	Talk( 1,  "Рикка: Я продаю разнообразные кольца и ожерелья. Посмотрите, возможно вас что-нибудь заинтересует. " )
-	Text( 1,  "Торг ", BuyPage )
+
+	Talk( 1, "Rikka: I have all sorts of valuable rings and necklaces. See if there is anything you like. My prices are the cheapest around here." )
+	Text( 1, "Trade", BuyPage )
 
 	InitTrade()
 	Defence(	4626	)
@@ -5075,13 +8575,18 @@ function r_talk236()
 	Defence(	4634	)
 	Defence(	4635	)
 
+	-----------------КОЖ·ЙМИЛЎ¤АпїЛ---------ЅрЕЈ
 	AddNpcMission	(5649)
 	AddNpcMission	(5650)
 end
 
+------------------------------------------------------------
+-- НЯ¶ыЕµІ№ёшХѕ-----КОЖ·ЙМИЛЎ¤·СА­Ап
+------------------------------------------------------------
 function r_talk237()
-	Talk( 1,  "Феррари: Я продаю разнообразные кольца и ожерелья. Посмотрите, возможно вас что-нибудь заинтересует. " )
-	Text( 1,  "Торг ", BuyPage )
+
+	Talk( 1, "Ferrari: I have here the best rings and necklace you can find. Have a look around and see if there is anything you like." )
+	Text( 1, "Trade", BuyPage )
 
 	InitTrade()
 	Defence(	4631	)
@@ -5094,11 +8599,16 @@ function r_talk237()
 	Defence(	4638	)
 	Defence(	4639	)
 	Defence(	4640	)
+
 end
 
+------------------------------------------------------------
+-- АЧцЄ±¤-----КОЖ·ЙМИЛЎ¤О¬їЛ¶а
+------------------------------------------------------------
 function r_talk238()
-	Talk( 1,  "Ветиго: Я продаю разнообразные кольца и ожерелья. Посмотрите, возможно вас что-нибудь заинтересует. " )
-	Text( 1,  "Торг ", BuyPage )
+
+	Talk( 1, "Wetigo: I have all sorts of valuable rings and necklaces. See if there is anything you like. My prices are the cheapest around here." )
+	Text( 1, "Trade", BuyPage )
 
 	InitTrade()
 	Defence(	4641	)
@@ -5120,11 +8630,16 @@ function r_talk238()
 	Defence(	4713	)
 	Defence(	4714	)
 	Defence(	4715	)
+
 end
 
+------------------------------------------------------------
+-- їЁ¶ыјУµВІ№ёшХѕ-----КОЖ·ЙМИЛЎ¤°¬¶ы
+------------------------------------------------------------
 function r_talk239()
-	Talk( 1,  "Ай: Я продаю разнообразные кольца и ожерелья. Посмотрите, возможно вас что-нибудь заинтересует. " )
-	Text( 1,  "Торг ", BuyPage )
+
+	Talk( 1, "Aii: I have all sort of valuable necklace and ring. Have a look to see if anything suits you." )
+	Text( 1, "Trade", BuyPage )
 
 	InitTrade()
 	Defence(	4651	)
@@ -5137,11 +8652,16 @@ function r_talk239()
 	Defence(	4658	)
 	Defence(	4659	)
 	Defence(	4660	)
+
 end
 
+------------------------------------------------------------
+-- °НІјІ№ёшХѕ-----КОЖ·ЙМИЛЎ¤°¬ВЧ
+------------------------------------------------------------
 function r_talk240()
-	Talk( 1,  "Аксесуары - Аллан: Я продаю разнообразные кольца и ожерелья. Посмотрите, возможно вас что-нибудь заинтересует. " )
-	Text( 1,  "Торг ", BuyPage )
+
+	Talk( 1, "Accessory - Dunman: I only sell valuable rings and necklace of the best quality. Have a look around. My prices are reasonable." )
+	Text( 1, "Trade", BuyPage )
 
 	InitTrade()
 	Defence(	4666	)
@@ -5162,11 +8682,16 @@ function r_talk240()
 	Defence(	4683	)
 	Defence(	4684	)
 	Defence(	4685	)
+
 end
 
+------------------------------------------------------------
+-- ±щј«І№ёшХѕ-----КОЖ·ЙМИЛЎ¤Ир¶ч
+------------------------------------------------------------
 function r_talk241()
-	Talk( 1,  "Дунман: Я продаю разнообразные кольца и ожерелья. Посмотрите, возможно вас что-нибудь заинтересует. " )
-	Text( 1,  "Торг ", BuyPage )
+
+	Talk( 1, "Accessory - Dunman: I only sell valuable rings and necklace of the best quality. Have a look around. My prices are reasonable." )
+	Text( 1, "Trade", BuyPage )
 
 	InitTrade()
 	Defence(	4686	)
@@ -5187,11 +8712,15 @@ function r_talk241()
 	Defence(	4703	)
 	Defence(	4704	)
 	Defence(	4705	)
-
+----------КОЖ·ЙМИЛЎ¤Ир¶ч-------Л«ЧУ
 	AddNpcMission	(5712)
 	AddNpcMission	(5713)
 end
 
+
+------------------------------------------------------------
+-- °ЧТшіЗ-----ЗеПґ»ъ
+------------------------------------------------------------
 function r_talk252()
 	
 	InitFuncList()
@@ -5279,8 +8808,9 @@ function r_talk252()
 	TriggerAction( 1, TakeItem, 3927, 1 )
 	TriggerAction( 1, RandFunction, GetFuncList(), GetNumFunc() )
 	TriggerFailure( 1, JumpPage, 2 )
-	Talk( 1,  "Это очень старый чистильщик, способный очистить любую грязь. " )
-	Text( 1,  "Очистить Грязь ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 1, "This is an old washer which can clean everything. Cost 200G everytime" )
+	Text( 1, "Clean Mud", MultiTrigger, GetMultiTrigger(), 1)
+	--Text( 1, "Clean the Christmas Box", JumpPage, 3)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2892, 1 )
@@ -5292,47 +8822,50 @@ function r_talk252()
 	TriggerAction( 1, GiveItem, 2893, 1 , 4)
 	TriggerAction( 1, JumpPage, 4)
 	TriggerFailure( 1, JumpPage, 2 )
-	Talk( 3,  "Фу... Какая грязная коробка. Чтобы ее почистить вам придется заплатить 10000 золота! " )
-	Text( 3,  "Очистить ", MultiTrigger, GetMultiTrigger(), 1)
-
-	Talk( 4,  "Какой красивый сундук! Открой и получишь сюрприз! " )
-
-	Talk( 2,  "Невозможно очистить. У вас недостаточно денег или нет предметов для очистки. " )
+	Talk( 3, "Wow! It's so dirty! Wash it in here , you've got to pay 10000 coin." )
+	Text( 3, "Confirm and Clean", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 4, "What a beautiful box! There must be a big surprise inside the box" )
+	Talk( 2, "Cleaning failed, not enough money or nothing to clean" )
 end
 
+
+------------------------------------------------------------
+-- їј№Е¶Уі¤-----їј№ЕС§јТ
+------------------------------------------------------------
 function r_talk253()
-	Talk( 1,  "Исследователь: Привет! Я отношусь к гильдии исследователей. Я долго изучал древние прокляться. Чем я могу помочь? " )
-	Text( 1,  "Избавится от печати огня ", JumpPage, 3)
+	
+	Talk( 1, "Researcher: Hi! I belong to a organization of professional researchers. I have studied a lot on ancient curse and spell. How can I help you?" )
+	Text( 1, "Regarding the Fire Seal", JumpPage, 3)
 
-	Talk( 3,  "Исследователь: Хорошо, я помогу вам. Эта печать очень древняя, снять ее можно только используя руны.  " )
-	Text( 3,  "Мантия тайного знания ", JumpPage, 6)
-	Text( 3,  "Посох миражей ", JumpPage, 7)
-	Text( 3,  "Посох исчезновения ", JumpPage, 8)
-	Text( 3,  "Покров исчезновения ", JumpPage, 9)
-	Text( 3,  "Плащ исчезновения ", JumpPage, 10)
-	Text( 3,  "Тату исчезновения ", JumpPage, 11)
-	Text( 3,  "Доспех исчезновения ", JumpPage, 12)
-	Text( 3,  "Дальше --> ", JumpPage, 4)
+	Talk( 3, "Researcher: Since you found me, I will not reject you. Those seals are of ancient bearing. Bring me the required runestones and I will uncurse the item for you." )
+	Text( 3, "Robe of the Arcane", JumpPage, 6)
+	Text( 3, "Staff of Mirage", JumpPage, 7)
+	Text( 3, "Staff of Evanescence", JumpPage, 8)
+	Text( 3, "Cloak of Evanescence", JumpPage, 9)
+	Text( 3, "Coat of Evanescence", JumpPage, 10)
+	Text( 3, "Tattoo of Evanescence", JumpPage, 11)
+	Text( 3, "Armor of Evanescence", JumpPage, 12)
+	Text( 3, "Next Page", JumpPage, 4)
 
-	Talk( 4,  "Исследователь: Хорошо, я помогу вам. Эта печать очень древняя, снять ее можно только используя руны. " )
-	Text( 4,  "Вопль исчезновения ", JumpPage, 13)
-	Text( 4,  "Рык исчезновения ", JumpPage, 14)
-	Text( 4,  "Танец исчезновения ", JumpPage, 15)
-	Text( 4,  "Зуб исчезновения ", JumpPage, 16)
-	Text( 4,  "Мантия оскорбления ", JumpPage, 17)
-	Text( 4,  "Рукавицы мсчезновения ", JumpPage, 18)
-	Text( 4,  "Поножи исчезновения ", JumpPage, 19)
-	Text( 4,  "Дальше --> ", JumpPage, 5)
+	Talk( 4, "Researcher: Since you found me, I will not reject you. Those seals are of ancient bearing. Bring me the required runestones and I will uncurse the item for you." )
+	Text( 4, "Bellow of Evanescence", JumpPage, 13)
+	Text( 4, "Roar of Evanescence", JumpPage, 14)
+	Text( 4, "Dance of Evanescence", JumpPage, 15)
+	Text( 4, "Tooth of Evanescence", JumpPage, 16)
+	Text( 4, "Robe of Malediction", JumpPage, 17)
+	Text( 4, "Gauntlets of Evanescence", JumpPage, 18)
+	Text( 4, "Greaves of Evanescence", JumpPage, 19)
+	Text( 4, "Next Page", JumpPage, 5)
 
-	Talk( 5,  "Исследователь: Хорошо, я помогу вам. Эта печать очень древняя, снять ее можно только используя руны. " )
-	Text( 5,  "Перчатки исчезновения ", JumpPage, 20)
-	Text( 5,  "Башмаки исчезновения ", JumpPage, 21)
-	Text( 5,  "Перчатки проклятья ", JumpPage, 22)
-	Text( 5,  "Сапоги оскорбления ", JumpPage, 23)
-	Text( 5,  "Перчатки тайного знания ", JumpPage, 24)
-	Text( 5,  "Сапоги тайного знания ", JumpPage, 25)
-	Text( 5,  "Тяжелые перчатки исчезновения ", JumpPage, 26)
-	Text( 5,  "Сапоги исчезновения ", JumpPage, 27)
+	Talk( 5, "Researcher: Since you found me, I will not reject you. Those seals are of ancient bearing. Bring me the required runestones and I will uncurse the item for you." )
+	Text( 5, "Gloves of Evanescence", JumpPage, 20)
+	Text( 5, "Shoes of Evanescence", JumpPage, 21)
+	Text( 5, "Gloves of Malediction", JumpPage, 22)
+	Text( 5, "Boots of Malediction", JumpPage, 23)
+	Text( 5, "Gloves of the Arcane", JumpPage, 24)
+	Text( 5, "Boots of the of the Arcane", JumpPage, 25)
+	Text( 5, "Heavy Gloves of Evanescence", JumpPage, 26)
+	Text( 5, "Boots of Evanescence", JumpPage, 27)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1912, 1 )
@@ -5347,8 +8880,8 @@ function r_talk253()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 791, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 6,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
-	Text( 6,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 6, "Researcher: To unseal the curse on Robe of the Arcane, you must bring me: Fire Sealed Robe of the Arcane, Fel Runestone x5, Ja Runestone x10, Tef Runestone x10 and also 600000G as fee." )
+	Text( 6, "Unseal curse on Robe of the Arcane", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1915, 1 )
@@ -5363,8 +8896,8 @@ function r_talk253()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 794, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 7,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
-	Text( 7,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 7, "Researcher: To unseal the curse on Staff of Mirage, you must bring me: Fire Sealed Staff of Mirage, Fel Runestone x5, Ja Runestone x10, Tef Runestone x10 and also 600000G as fee." )
+	Text( 7, "Unseal curse on Staff of Mirage", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1908, 1 )
@@ -5379,8 +8912,8 @@ function r_talk253()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 787, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 8,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
-	Text( 8,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 8, "Researcher: To unseal the curse on Staff of Evanescence, you must bring me: Fire Sealed Staff of Evanescence, Fel Runestone x5, Ja Runestone x10, Tef Runestone x10 and also 600000G as fee." )
+	Text( 8, "Unseal curse on Staff of Evanescence", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1926, 1 )
@@ -5395,8 +8928,8 @@ function r_talk253()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 805, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 9,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
-	Text( 9,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 9, "Researcher: To unseal the curse on Cloak of Evanescence, you must bring me: Fire Sealed Cloak of Evanescence, Fel Runestone x5, Ja Runestone x10, Tef Runestone x10 and also 600000G as fee." )
+	Text( 9, "Unseal curse on Cloak of Evanescence", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1900, 1 )
@@ -5411,8 +8944,8 @@ function r_talk253()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 779, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 10,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
-	Text( 10,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 10, "Researcher: To unseal the curse on Coat of Evanescence, you must bring me: Fire Sealed Coat of Evanescence, Fel Runestonex5, Ja Runestonex10, Tef Runestonex10 and also 600000G as fee." )
+	Text( 10, "Unseal curse on Coat of Evanescence", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1886, 1 )
@@ -5427,8 +8960,8 @@ function r_talk253()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 765, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 11,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
-	Text( 11,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 11, "Researcher: To unseal the curse on Tattoo of Evanescence, you must bring me: Fire Sealed Tattoo of Evanescence, Fel Runestone x5, Ja Runestone x10, Tef Runestone x10 and also 600000G as fee." )
+	Text( 11, "Unseal curse on Tattoo of Evanescence", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1889, 1 )
@@ -5443,8 +8976,8 @@ function r_talk253()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 768, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 12,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
-	Text( 12,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 12, "Researcher: To unseal the curse on Armor of Evanescenc, you must bring me: Fire Sealed Armor of Evanescence, Fel Runestone x5, Ja Runestone x10, Tef Runestone x10 and also 600000G as fee." )
+	Text( 12, "Unseal curse on Armor of Evanescence", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1904, 1 )
@@ -5459,8 +8992,8 @@ function r_talk253()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 783, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 13,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
-	Text( 13,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 13, "Researcher: To unseal the curse on Bellow of Evanescence, you must bring me: Fire Sealed Bellow of Evanescence, Fel Runestone x5, Ja Runestone x10, Tef Runestone x10 and also 600000G as fee." )
+	Text( 13, "Unseal curse on Bellow of Evanescence", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1893, 1 )
@@ -5475,8 +9008,8 @@ function r_talk253()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 772, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 14,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
-	Text( 14,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 14, "Researcher: To unseal the curse on Roar of Evanescence, you must bring me: Fire Sealed Roar of Evanescence, Fel Runestone x5, Ja Runestone x10, Tef Runestone x10 and also 600000G as fee." )
+	Text( 14, "Unseal curse on Roar of Evanescence", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1896, 1 )
@@ -5491,8 +9024,8 @@ function r_talk253()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 775, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 15,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
-	Text( 15,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 15, "Researcher: To unseal the curse on Dance of Evanescence, you must bring me: Fire Sealed Dance of Evanescence, Fel Runestone x5, Ja Runestone x10, Tef Runestone x10 and also 600000G as fee." )
+	Text( 15, "Unseal curse on Dance of Evanescence", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1922, 1 )
@@ -5507,8 +9040,8 @@ function r_talk253()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 801, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 16,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
-	Text( 16,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 16, "Researcher: To unseal the curse on Tooth of Evanescence, you must bring me: Fire Sealed Tooth of Evanescence, Fel Runestone x5, Ja Runestone x10, Tef Runestone x10 and also 600000G as fee." )
+	Text( 16, "Unseal curse on Tooth of Evanescence", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1918, 1 )
@@ -5523,9 +9056,9 @@ function r_talk253()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 797, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 17,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
-	Text( 17,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
-	
+	Talk( 17, "Researcher: To unseal the curse on Robe of Malediction, you must bring me: Fire Sealed Robe of Malediction, Fel Runestonex5, Ja Runestonex10, Tef Runestonex10 and also 600000G as fee." )
+	Text( 17, "Unseal curse on Robe of Malediction", MultiTrigger, GetMultiTrigger(), 1)
+
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1988, 1 )
 	TriggerCondition( 1, HasItem, 3433, 5 )
@@ -5539,8 +9072,8 @@ function r_talk253()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 0807, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 18,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
-	Text( 18,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 18, "Researcher: To unseal the curse on Gauntlets of Evanescence, you must bring me: Fire Sealed Boots of Malediction, Fel Runestone x5, Ja Runestone x10, Tef Runestone x10 and also 600000G as fee." )
+	Text( 18, "Unseal curse on Gauntlets of Evanescence", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1989, 1 )
@@ -5555,8 +9088,8 @@ function r_talk253()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 0808, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 19,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
-	Text( 19,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 19, "Researcher: To unseal the curse on Gauntlets of Evanescence, you must bring me: Fire Sealed Shoes of Evanescence, Fel Runestone x5, Ja Runestone x10, Tef Runestone x10 and also 600000G as fee." )
+	Text( 19, "Unseal curse on Greaves of Evanescence", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1990, 1 )
@@ -5571,8 +9104,8 @@ function r_talk253()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 0809, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 20,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
-	Text( 20,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 20, "Researcher: To unseal the curse on Gauntlets of Evanescence, you must bring me: Fire Sealed Greaves of Evanescence, Fel Runestone x5, Ja Runestone x10, Tef Runestone x10 and also 600000G as fee." )
+	Text( 20, "Unseal curse on Gloves of Evanescence", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1991, 1 )
@@ -5587,8 +9120,8 @@ function r_talk253()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 0810, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 21,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
-	Text( 21,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 21, "Researcher: To unseal the curse on Gauntlets of Evanescence, you must bring me: Fire Sealed Boots of Malediction, Fel Runestone x5, Ja Runestone x10, Tef Runestone x10 and also 600000G as fee." )
+	Text( 21, "Unseal curse on Shoes of Evanescence", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1992, 1 )
@@ -5603,8 +9136,9 @@ function r_talk253()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 0811, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 22,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
-	Text( 22,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 22, "Researcher: To unseal the curse on Gauntlets of Evanescence, you must bring me: Fire Sealed Heavy Gloves of Evanescence, Fel Runestone x5, Ja Runestone x10, Tef Runestone x10 and also 600000G as fee." )
+	Text( 22, "Unseal curse on Gloves of Malediction", MultiTrigger, GetMultiTrigger(), 1)
+
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1994, 1 )
@@ -5619,8 +9153,8 @@ function r_talk253()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 0813, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 23,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
-	Text( 23,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 23, "Researcher: To unseal the curse on Gauntlets of Evanescence, you must bring me: Fire Sealed Gloves of the Arcane, Fel Runestone x5, Ja Runestonex10, Tef Runestone x10 and also 600000G as fee." )
+	Text( 23, "Unseal curse on Boots of Malediction", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1993, 1 )
@@ -5635,8 +9169,8 @@ function r_talk253()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 0812, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 24,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
-	Text( 24,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 24, "Researcher: To unseal the curse on Gauntlets of Evanescence, you must bring me: Fire Sealed Boots of the of the Arcane, Fel Runestone x5, Ja Runestone x10, Tef Runestone x10 and also 600000G as fee." )
+	Text( 24, "Unseal curse on Gloves of the Arcane", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1995, 1 )
@@ -5651,8 +9185,8 @@ function r_talk253()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 0814, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 25,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
-	Text( 25,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 25, "Researcher: To unseal the curse on Gauntlets of Evanescence, you must bring me: Fire Sealed Heavy Gloves of Evanescence, Fel Runestone x5, Ja Runestone x10, Tef Runestone x10 and also 600000G as fee." )
+	Text( 25, "Unseal curse on Boots of the of the Arcane", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1996, 1 )
@@ -5667,8 +9201,8 @@ function r_talk253()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 0815, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 26,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
-	Text( 26,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 26, "Researcher: To unseal the curse on Gauntlets of Evanescence, you must bring me: Fire Sealed Gloves of Malediction, Fel Runestone x5, Ja Runestone x10, Tef Runestone x10 and also 600000G as fee." )
+	Text( 26, "Unseal curse on Heavy Gloves of Evanescence", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1997, 1 )
@@ -5683,28 +9217,35 @@ function r_talk253()
 	TriggerAction( 1, TakeItem, 3430, 10 )
 	TriggerAction( 1, GiveItem, 0877, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 27,  "Исследователь: Для снятия печати с этого предмета вам потребуется: запечатанный предмет, 5 рун Фэл, 10 рун Джа, 10 рун Тэф и 600000 золота. " )
-	Text( 27,  "Снять печать  ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 27, "Researcher: To unseal the curse on Gauntlets of Evanescence, you must bring me: Fire Sealed Gloves of the Arcane, Fel Runestone x5, Ja Runestonex10, Tef Runestone x10 and also 600000G as fee." )
+	Text( 27, "Unseal curse on Boots of Evanescence", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 30,  "Исследователь: Прошу прощения, но у вас нет всего необходимого. Я не могу снять печать. " )
+
+	Talk( 30, "Researcher: Sorry, you did not give me the correct items. I cannot break the seal for you without them." )
+
+
 end
 
+------------------------------------------------------------
+-- ·ПБйЦ®¶ј-----їј№ЕС§јТ
+------------------------------------------------------------
 function r_talk254()
-	Talk( 1,  "Исследователь: Привет! Я принадлежу к гильдии исследователей.Я занимаюсь исследованием Заброшенного города. Могу ли я чем то помочь? " )
-	Text( 1,  "Узнать о Заброшенном городе ", JumpPage, 2)
-
-	Talk( 2,  "Исследователь: Я занимаюсь исследованием Заброшенного города уже долгое время. Я умею снимать печати с найденных там проклятых вещей. " )
-	Text( 2,  "Снять печать ", JumpPage, 3)
 	
-	Talk( 3,  "Исследователь: В Заброшенном городе есть много оставленной запечатанной экипировки нежити. За годы работы я научился снимать печати с этих вещей. С чего вы хотите снять печать? " )
-	Text( 3,  "Зуб призрака ", JumpPage, 6)
-	Text( 3,  "Накидка нага ", JumpPage, 7)
-	Text( 3,  "Посох мстителя ", JumpPage, 8)
-	Text( 3,  "Меч печали ", JumpPage, 9)
-	Text( 3,  "Мантия смерти ", JumpPage, 10)
-	Text( 3,  "Касание смерти ", JumpPage, 11)
-	Text( 3,  "Мантия ядовитой ведьмы ", JumpPage, 12)
-	Text( 3,  "Доспех возвращенного ", JumpPage, 13)
+	Talk( 1, "Researcher: Hi, I belonged to an organization of professional researchers. I am responsible for the research of Forsaken City. Is there anything I can help you?" )
+	Text( 1, "Regarding Forsaken City", JumpPage, 2)
+
+	Talk( 2, "Researcher: I have been researching on Forsaken City for a long time. I can break the seal with the use of some powerful runestones." )
+	Text( 2, "Unseal curse", JumpPage, 3)
+	
+	Talk( 3, "Researcher: There are many hidden Undead Sealed equipments in Forsaken City. After many years of research. I am able to break the curse on these equipments. Do you wish to uncurse anything?" )
+	Text( 3, "Tooth of Specter", JumpPage, 6)
+	Text( 3, "Mantle of the Naga", JumpPage, 7)
+	Text( 3, "Staff of the Avenger", JumpPage, 8)
+	Text( 3, "Sword of Grief", JumpPage, 9)
+	Text( 3, "Robe of Death", JumpPage, 10)
+	Text( 3, "Touch of Death", JumpPage, 11)
+	Text( 3, "Robe of the Venom Witch", JumpPage, 12)
+	Text( 3, "Armor of Revenant", JumpPage, 13)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1920, 1 )
@@ -5719,8 +9260,8 @@ function r_talk254()
 	TriggerAction( 1, TakeItem, 3425, 10)
 	TriggerAction( 1, GiveItem, 799, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 6,  "Исследователь: Чтобы снять печать с этого предмета мне понадобится - запечатанный предмет, 5 рун Ял, 5 рун Эль, 10 рун Наль и 200000 золота. " )
-	Text( 6,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 6, "Researcher: To unseal the curse on Tooth of Specter, you must bring me:  Undead Sealed Tooth of Specter, Yal Runestone x5, El Runestone x5, Nal Runestone x10 and also 200000G as fee." )
+	Text( 6, "Unseal curse on Tooth of Specter", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1924, 1 )
@@ -5735,8 +9276,8 @@ function r_talk254()
 	TriggerAction( 1, TakeItem, 3425, 10)
 	TriggerAction( 1, GiveItem, 803, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 7,  "Исследователь: Чтобы снять печать с этого предмета мне понадобится - запечатанный предмет, 5 рун Ял, 5 рун Эль, 10 рун Наль и 200000 золота. " )
-	Text( 7,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 7, "Researcher: To unseal the curse on Mantle of the Naga, you must bring me: Undead Sealed Mantle of the Naga, Yal Runestone x5, El Runestone x5, Nal Runestone x10 and also 200000G as fee." )
+	Text( 7, "Unseal curse on Mantle of the Naga", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1906, 1 )
@@ -5751,8 +9292,8 @@ function r_talk254()
 	TriggerAction( 1, TakeItem, 3425, 10)
 	TriggerAction( 1, GiveItem, 785, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 8,  "Исследователь: Чтобы снять печать с этого предмета мне понадобится - запечатанный предмет, 5 рун Ял, 5 рун Эль, 10 рун Наль и 200000 золота. " )
-	Text( 8,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 8, "Researcher: To unseal the curse on Staff of the Avenger, you must bring me: Undead Sealed Staff of the Avenger, Yal Runestone x5, El Runestone x5, Nal Runestone x10 and also 200000G as fee." )
+	Text( 8, "Unseal curse on Staff of the Avenger", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1891, 1 )
@@ -5767,8 +9308,8 @@ function r_talk254()
 	TriggerAction( 1, TakeItem, 3425, 10)
 	TriggerAction( 1, GiveItem, 770, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 9,  "Исследователь: Чтобы снять печать с этого предмета мне понадобится - запечатанный предмет, 5 рун Ял, 5 рун Эль, 10 рун Наль и 200000 золота. " )
-	Text( 9,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 9, "Researcher: To unseal the curse on Sword of Grief, you must bring me: Undead Sealed Sword of Grief, Yal Runestone x5, El Runestone x5, Nal Runestone x10 and also 200000G as fee." )
+	Text( 9, "Unseal curse on Sword of Grief", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1898, 1 )
@@ -5783,8 +9324,8 @@ function r_talk254()
 	TriggerAction( 1, TakeItem, 3425, 10)
 	TriggerAction( 1, GiveItem, 777, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 10,  "Исследователь: Чтобы снять печать с этого предмета мне понадобится - запечатанный предмет, 5 рун Ял, 5 рун Эль, 10 рун Наль и 200000 золота. " )
-	Text( 10,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 10, "Researcher: To unseal the curse on Robe of Death, you must bring me: Undead Sealed Robe of Death, Yal Runestone x5, El Runestone x5, Nal Runestone x10 and also 200000G as fee." )
+	Text( 10, "Unseal curse on Robe of Death", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1902, 1 )
@@ -5799,8 +9340,8 @@ function r_talk254()
 	TriggerAction( 1, TakeItem, 3425, 10)
 	TriggerAction( 1, GiveItem, 781, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 11,  "Исследователь: Чтобы снять печать с этого предмета мне понадобится - запечатанный предмет, 5 рун Ял, 5 рун Эль, 10 рун Наль и 200000 золота. " )
-	Text( 11,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 11, "Researcher: To unseal the curse on Touch of Death, you must bring me: Undead Sealed Touch of Death, Yal Runestone x5, El Runestone x5, Nal Runestone x10 and also 200000G as fee" )
+	Text( 11, "Unseal curse on Touch of Death", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1910, 1 )
@@ -5815,8 +9356,8 @@ function r_talk254()
 	TriggerAction( 1, TakeItem, 3425, 10)
 	TriggerAction( 1, GiveItem, 789, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 12,  "Исследователь: Чтобы снять печать с этого предмета мне понадобится - запечатанный предмет, 5 рун Ял, 5 рун Эль, 10 рун Наль и 200000 золота. " )
-	Text( 12,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 12, "Researcher: To unseal the curse on Robe of the Venom Witch, you must bring me: Undead Sealed Robe of the Venom Witch, Yal Runestone x5, El Runestone x5, Nal Runestone x10 and also 200000G as fee." )
+	Text( 12, "Unseal curse on Robe of the Venom Witch", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1884, 1 )
@@ -5831,35 +9372,40 @@ function r_talk254()
 	TriggerAction( 1, TakeItem, 3425, 10)
 	TriggerAction( 1, GiveItem, 763, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 13,  "Исследователь: Чтобы снять печать с этого предмета мне понадобится - запечатанный предмет, 5 рун Ял, 5 рун Эль, 10 рун Наль и 200000 золота. " )
-	Text( 13,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 13, "Researcher: To unseal the curse on Armor of Revenant, you must bring me: Undead Sealed Armor of Revenant, Yal Runestone x5, El Runestone x5, Nal Runestone x10 and also 200000G as fee." )
+	Text( 13, "Unseal curse on Armor of Revenant", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 30,  "Исследователь: Простите, но у вас нет всех необходимых предметов. " )
+	Talk( 30, "Researcher: Sorry, you did not give me the correct items. I cannot break the seal for you without them." )
+
 end
 
+------------------------------------------------------------
+-- Д§·ЅКАЅз-----їј№ЕС§јТ
+------------------------------------------------------------
 function r_talk255()
-	Talk( 1,  "Исследователь: Привет! Я принадлежу к гильдии исследователей. Я занимаюсь исследованием проклятий Мира демонов. Могу я вам чем то помочь? " )
-	Text( 1,  "Узнать о Мире демонов ", JumpPage, 2)
-
-	Talk( 2,  "Исследователь: Я занимаюсь исследованиями Мира демонов уже многое время, и могу снимать проклятья с обнаруженных там вещей с помощью рун. " )
-	Text( 2,  "Снять печать ", JumpPage, 3)
 	
-	Talk( 3,  "Исследователь: В Мире демонов осталось много предметов, запечатанных льдом. Если у вас есть предмет с печатью льда, то я попробую распечатать его для вас. " )
-	Text( 3,  "Посох потаенного ", JumpPage, 6)
-	Text( 3,  "Накидка сфинкса ", JumpPage, 7)
-	Text( 3,  "Крис сфинкса ", JumpPage, 8)
-	Text( 3,  "Правосудие потаенного ", JumpPage, 9)
-	Text( 3,  "Аркебуз потаенного ", JumpPage, 10)
-	Text( 3,  "Накидка потаенного ", JumpPage, 11)
-	Text( 3,  "Плащ потаенного ", JumpPage, 12)
-	Text( 3,  "Дальше --> ", JumpPage, 4)
+	Talk( 1, "Researcher: Hi! I belong to an organization of professional researcher. I am responsible for the research of Demonic World. How may I help you?" )
+	Text( 1, "Regarding Demonic World", JumpPage, 2)
 
-	Talk( 4,  "Исследователь: В Мире демонов осталось много предметов, запечатанных льдом. Если у вас есть предмет с печатью льда, то я попробую распечатать его для вас. " )
-	Text( 4,  "Клинок потаенного ", JumpPage, 13)
-	Text( 4,  "Тату потаенного ", JumpPage, 14)
-	Text( 4,  "Доспех потаенного ", JumpPage, 15)
-	Text( 4,  "Мантия сфинкса ", JumpPage, 16)
-	Text( 4,  "Посох сфинкса ", JumpPage, 17)
+	Talk( 2, "Researcher: I have done research on Demonic World for a long time. If you need to unseal the curse on the items, bring me some runestones." )
+	Text( 2, "Unseal curse", JumpPage, 3)
+	
+	Talk( 3, "Researcher: In the Demonic World, there are many items being Ice sealed. After many years of research, I am able to break these seals by using some powerful runestones. Do you need to unseal anything?" )
+	Text( 3, "Staff of Enigma", JumpPage, 6)
+	Text( 3, "Mantle of the Sphinx", JumpPage, 7)
+	Text( 3, "Kris of the Sphinx", JumpPage, 8)
+	Text( 3, "Judgment of Enigma", JumpPage, 9)
+	Text( 3, "Rifle of Enigma", JumpPage, 10)
+	Text( 3, "Mantle of Enigma", JumpPage, 11)
+	Text( 3, "Robe of Enigma", JumpPage, 12)
+	Text( 3, "Next Page", JumpPage, 4)
+
+	Talk( 4, "Researcher: In the Demonic World, there are many items being Ice sealed. After many years of research, I am able to break these seals by using some powerful runestones. Do you need to unseal anything?" )
+	Text( 4, "Blade of Enigma", JumpPage, 13)
+	Text( 4, "Tattoo of Enigma", JumpPage, 14)
+	Text( 4, "Armor of Enigma", JumpPage, 15)
+	Text( 4, "Robe of the Sphinx", JumpPage, 16)
+	Text( 4, "Staff of the Sphinx", JumpPage, 17)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1909, 1 )
@@ -5874,8 +9420,8 @@ function r_talk255()
 	TriggerAction( 1, TakeItem, 3455, 20)
 	TriggerAction( 1, GiveItem, 788, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 6,  "Исследователь: Для снятия печати с этого предмета тебе нужно принести - запечатанный предмет, 5 рун Кэль, 10 рун Фа, 20 рун Тер и 800000 золота. " )
-	Text( 6,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 6, "Researcher: To unseal the curse on Staff of Enigma, you must bring me: Ice Sealed Staff of Enigma, Kal Runestone x5, Fa Runestone x10, Ter Runestone x20 and also 800000G as fee." )
+	Text( 6, "Unseal curse on Staff of Enigma", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1927, 1 )
@@ -5890,8 +9436,8 @@ function r_talk255()
 	TriggerAction( 1, TakeItem, 3455, 20)
 	TriggerAction( 1, GiveItem, 806, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 7,  "Исследователь: Для снятия печати с этого предмета тебе нужно принести - запечатанный предмет, 5 рун Кэль, 10 рун Фа, 20 рун Тер и 800000 золота. " )
-	Text( 7,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 7, "Researcher: To unseal the curse on Mantle of the Sphinx, you must bring me: Ice Sealed Mantle of the Sphinx, Kal Runestone x5, Fa Runestone x10, Ter Runestone x20 and also 800000G as fee." )
+	Text( 7, "Unseal curse on Mantle of the Sphinx", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1923, 1 )
@@ -5906,8 +9452,8 @@ function r_talk255()
 	TriggerAction( 1, TakeItem, 3455, 20)
 	TriggerAction( 1, GiveItem, 802, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 8,  "Исследователь: Для снятия печати с этого предмета тебе нужно принести - запечатанный предмет, 5 рун Кэль, 10 рун Фа, 20 рун Тер и 800000 золота. " )
-	Text( 8,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 8, "Researcher: To unseal the curse on Kris of the Sphinx, you must bring me: Ice Sealed Kris of the Sphinx, Kal Runestone x5, Fa Runestone x10, Ter Runestone x20 and also 800000G as fee." )
+	Text( 8, "Unseal curse on Kris of the Sphinx", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1894, 1 )
@@ -5922,8 +9468,8 @@ function r_talk255()
 	TriggerAction( 1, TakeItem, 3455, 20)
 	TriggerAction( 1, GiveItem, 773, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 9,  "Исследователь: Для снятия печати с этого предмета тебе нужно принести - запечатанный предмет, 5 рун Кэль, 10 рун Фа, 20 рун Тер и 800000 золота. " )
-	Text( 9,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 9, "Researcher: To unseal the curse on Judgment of Enigma, you must bring me: Ice Sealed Judgment of Enigma, Kal Runestonex5, Fa Runestonex10, Ter Runestonex20 and also 800000G as fee." )
+	Text( 9, "Unseal curse on Judgment of Enigma", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1905, 1 )
@@ -5938,8 +9484,8 @@ function r_talk255()
 	TriggerAction( 1, TakeItem, 3455, 20)
 	TriggerAction( 1, GiveItem, 784, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 10,  "Исследователь: Для снятия печати с этого предмета тебе нужно принести - запечатанный предмет, 5 рун Кэль, 10 рун Фа, 20 рун Тер и 800000 золота. " )
-	Text( 10,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 10, "Researcher: To unseal the curse on Rifle of Enigma, you must bring me: Ice Sealed Rifle of Enigma, Kal Runestone x5, Fa Runestone x10, Ter Runestone x20 and also 800000G as fee." )
+	Text( 10, "Unseal curse on Rifle of Enigma", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1901, 1 )
@@ -5954,8 +9500,8 @@ function r_talk255()
 	TriggerAction( 1, TakeItem, 3455, 20)
 	TriggerAction( 1, GiveItem, 780, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 11,  "Исследователь: Для снятия печати с этого предмета тебе нужно принести - запечатанный предмет, 5 рун Кэль, 10 рун Фа, 20 рун Тер и 800000 золота. " )
-	Text( 11,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 11, "Researcher: To unseal the curse on Mantle of Enigma, you must bring me: Ice Sealed Mantle of Enigma, Kal Runestone x5, Fa Runestone x10, Ter Runestone x20 and also 800000G as fee." )
+	Text( 11, "Unseal curse on Mantle of Enigma", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1913, 1 )
@@ -5970,8 +9516,8 @@ function r_talk255()
 	TriggerAction( 1, TakeItem, 3455, 20)
 	TriggerAction( 1, GiveItem, 792, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 12,  "Исследователь: Для снятия печати с этого предмета тебе нужно принести - запечатанный предмет, 5 рун Кэль, 10 рун Фа, 20 рун Тер и 800000 золота. " )
-	Text( 12,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 12, "Researcher: To unseal the curse on Robe of Enigma, you must bring me: Ice Sealed Robe of Enigma, Kal Runestonex5, Fa Runestonex10, Ter Runestonex20 and also 800000G as fee." )
+	Text( 12, "Unseal curse on Robe of Enigma", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1897, 1 )
@@ -5986,8 +9532,8 @@ function r_talk255()
 	TriggerAction( 1, TakeItem, 3455, 20)
 	TriggerAction( 1, GiveItem, 776, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 13,  "Исследователь: Для снятия печати с этого предмета тебе нужно принести - запечатанный предмет, 5 рун Кэль, 10 рун Фа, 20 рун Тер и 800000 золота. " )
-	Text( 13,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 13, "Researcher: To unseal the curse on Blade of Enigma, you must bring me: Ice Sealed Blade of Enigma, Kal Runestonex5, Fa Runestonex10, Ter Runestonex20 and also 800000G as fee." )
+	Text( 13, "Unseal curse on Blade of Enigma", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1887, 1 )
@@ -6002,8 +9548,8 @@ function r_talk255()
 	TriggerAction( 1, TakeItem, 3455, 20)
 	TriggerAction( 1, GiveItem, 766, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 14,  "Исследователь: Для снятия печати с этого предмета тебе нужно принести - запечатанный предмет, 5 рун Кэль, 10 рун Фа, 20 рун Тер и 800000 золота. " )
-	Text( 14,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 14, "Researcher: To unseal the curse on Tattoo of Enigma, you must bring me: Ice Sealed Tattoo of Enigma, Kal Runestone x5, Fa Runestone x10, Ter Runestone x20 and also 800000G as fee." )
+	Text( 14, "Unseal curse on Tattoo of Enigma", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1890, 1 )
@@ -6018,8 +9564,8 @@ function r_talk255()
 	TriggerAction( 1, TakeItem, 3455, 20)
 	TriggerAction( 1, GiveItem, 769, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 15,  "Исследователь: Для снятия печати с этого предмета тебе нужно принести - запечатанный предмет, 5 рун Кэль, 10 рун Фа, 20 рун Тер и 800000 золота. " )
-	Text( 15,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 15, "Researcher: To unseal the curse on Armor of Enigma, you must bring me: Ice Sealed Armor of Enigma, Kal Runestone x5, Fa Runestone x10, Ter Runestone x20 and also 800000G as fee." )
+	Text( 15, "Unseal curse on Armor of Enigma", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1919, 1 )
@@ -6034,8 +9580,8 @@ function r_talk255()
 	TriggerAction( 1, TakeItem, 3455, 20)
 	TriggerAction( 1, GiveItem, 798, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 16,  "Исследователь: Для снятия печати с этого предмета тебе нужно принести - запечатанный предмет, 5 рун Кэль, 10 рун Фа, 20 рун Тер и 800000 золота. " )
-	Text( 16,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 16, "Researcher: To unseal the curse on Robe of the Sphinx, you must bring me: Ice Sealed Robe of the Sphinx, Kal Runestonex5, Fa Runestonex10, Ter Runestonex20 and also 800000G as fee." )
+	Text( 16, "Unseal curse on Robe of the Sphinx", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1916, 1 )
@@ -6050,36 +9596,42 @@ function r_talk255()
 	TriggerAction( 1, TakeItem, 3455, 20)
 	TriggerAction( 1, GiveItem, 795, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 17,  "Исследователь: Для снятия печати с этого предмета тебе нужно принести - запечатанный предмет, 5 рун Кэль, 10 рун Фа, 20 рун Тер и 800000 золота. " )
-	Text( 17,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 17, "Researcher: To unseal the curse on Staff of the Sphinx, you must bring me: Ice Sealed Staff of the Sphinx, Kal Runestone x5, Fa Runestone x10, Ter Runestone x20 and also 800000G as fee." )
+	Text( 17, "Unseal curse on Staff of the Sphinx", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 30,  "Исследователь: Простите, но у вас нет всех необходимых предметов. " )
+	Talk( 30, "Researcher: Sorry, you did not give me the correct items. I cannot break the seal for you without them." )
+
 end
 
+
+------------------------------------------------------------
+-- Тх°µХУФу-----їј№ЕС§јТ¶Уі¤
+------------------------------------------------------------
 function r_talk256()
-	Talk( 1,  "Исследователь: Привет! Я принадлежу к гильдии исследователей. Я занимаюсь исследованиями проклятий Темной Топи. Могу я вам чем то помочь? " )
-	Text( 1,  "Узнать о Темной Топи ", JumpPage, 2)
-
-	Talk( 2,  "Исследователь: Я занимаюсь исследованиями Темной Топи уже долгое время. Чтобы снять печать с предметов Темной Топи вы должны принести мне некоторые руны. Кроме того если вы найдете немного Темного масла я могу изготовить для вас Огненное зернышко. " )
-	Text( 2,  "Снять печати", JumpPage, 3)
-	Text( 2,  "Узнать о Огненном зернышке ", JumpPage, 5)
 	
-	Talk( 3,  "Исследователь: В Темной Топи есть много предметов с печатью земли. За время работы там я научился снимать эти печати. Если у вас есть предмет с печатью земли, то я помогу вам. " )
-	Text( 3,  "Плащ призыва ", JumpPage, 6)
-	Text( 3,  "Тату проклятого воина ", JumpPage, 7)
-	Text( 3,  "Накидка проклятого пламени ", JumpPage, 8)
-	Text( 3,  "Посох заклинаний ", JumpPage, 9)
-	Text( 3,  "Посох Кабалы ", JumpPage, 10)
-	Text( 3,  "Мантия каббалы ", JumpPage, 11)
-	Text( 3,  "Клинок заклинаний ", JumpPage, 12)
-	Text( 3,  "Дальше --> ", JumpPage, 4)
+	Talk( 1, "Researcher: Hi, I belonged to an organization of profession researchers. I am responsible for the research of Forsaken City. Is there anything I can help you?" )
+	Text( 1, "Regarding Dark Swamp", JumpPage, 2)
 
-	Talk( 4,  "Исследователь: В Темной топи есть много предметов с печатью земли. За время работы там я научился снимать эти печати. Если у вас есть предмет с печатью земли, то я помогу вам. " )
-	Text( 4,  "Пояс заклинаний ", JumpPage, 13)
-	Text( 4,  "Большой меч заклинаний ", JumpPage, 14)
-	Text( 4,  "Зуб проклятого ", JumpPage, 15)
-	Text( 4,  "Пластинчатый доспех проклятого ", JumpPage, 16)
-	Text( 4,  "Поцелуй проклятого ", JumpPage, 17)
+	Talk( 2, "Researcher: I have done a research on Dark Swamp for a long time. To unseal the curse on those items, you must bring me some runestones. Also, if you found some Murky Oil, I can make some Fire Seed for you." )
+	Text( 2, "Unseal curse", JumpPage, 3)
+	Text( 2, "Regarding Fire Seed", JumpPage, 5)
+	
+	Talk( 3, "Researcher: In the Dark Swamp, there are many items being Earth sealed. After many years of research, I am able to break these seals by using some powerful runestones. Do you need to unseal anything?" )
+	Text( 3, "Coat of Invocation", JumpPage, 6)
+	Text( 3, "Tattoo of the Cursed Warrior", JumpPage, 7)
+	Text( 3, "Mantle of the Cursed Flame", JumpPage, 8)
+	Text( 3, "Staff of Incantation", JumpPage, 9)
+	Text( 3, "Staff of Abraxas", JumpPage, 10)
+	Text( 3, "Robe of Abraxas", JumpPage, 11)
+	Text( 3, "Blade of Incantation", JumpPage, 12)
+	Text( 3, "Next Page", JumpPage, 4)
+
+	Talk( 4, "Researcher: In the Dark Swamp, there are many items being Earth sealed. After many years of research, I am able to break these seals by using some powerful runestones. Do you need to unseal anything?" )
+	Text( 4, "Corset of Incantation", JumpPage, 13)
+	Text( 4, "Greatsword of Incantation", JumpPage, 14)
+	Text( 4, "Tooth of the Cursed", JumpPage, 15)
+	Text( 4, "Platemail of the Cursed Soul", JumpPage, 16)
+	Text( 4, "Kiss of the Cursed", JumpPage, 17)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3930, 5 )
@@ -6092,8 +9644,8 @@ function r_talk256()
 	TriggerAction( 1, TakeItem, 3932, 5 )
 	TriggerAction( 1, GiveItem, 3934, 1, 4 )
 	TriggerFailure( 1, JumpPage, 31 )
-	Talk( 5,  "Исследователь: Для изготовления Огненного зернышка необходимо: 5 Темное масло, 1 Зажигалка, 5 Клочок ткани. " )
-	Text( 5,  "Сделать Огненное зернышко ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 5, "Researcher: To make a Fire Seed, you will need: Murky Oil x5, Fire Starter x1, Cloth Strip x5 and 200G." )
+	Text( 5, "Make Fire Seed", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1911, 1 )
@@ -6108,8 +9660,8 @@ function r_talk256()
 	TriggerAction( 1, TakeItem, 3429, 5 )
 	TriggerAction( 1, GiveItem, 790, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 6,  "Исследователь: Для снятия печати с этого предмета мне необходимо - запечатанный предмет, 5 рун Лам, 10 рун Сол, 5 рун Кам и 400000 золота. " )
-	Text( 6,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 6, "Researcher: To unseal the curse on Coat of Invocation, you must bring me: Earth Sealed Coat of Invocation, Lum Runestone x5, Sol Runestone x10, Cam Runestone x5 and also 400000G as fee." )
+	Text( 6, "Unseal curse on Coat of Invocation", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1885, 1 )
@@ -6124,8 +9676,8 @@ function r_talk256()
 	TriggerAction( 1, TakeItem, 3429, 5 )
 	TriggerAction( 1, GiveItem, 764, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 7,  "Исследователь: Для снятия печати с этого предмета мне необходимо - запечатанный предмет, 5 рун Лам, 10 рун Сол, 5 рун Кам и 400000 золота. " )
-	Text( 7,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 7, "Researcher: To unseal the curse on Tattoo of the Cursed Warrior, you must bring me: Earth Sealed Tattoo of the Cursed Warrior, Lum Runestone x5, Sol Runestone x10, Cam Runestone x5 and also 400000G as fee." )
+	Text( 7, "Unseal curse on Tattoo of the Cursed Warrior", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1925, 1 )
@@ -6140,8 +9692,8 @@ function r_talk256()
 	TriggerAction( 1, TakeItem, 3429, 5 )
 	TriggerAction( 1, GiveItem, 804, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 8,  "Исследователь: Для снятия печати с этого предмета мне необходимо - запечатанный предмет, 5 рун Лам, 10 рун Сол, 5 рун Кам и 400000 золота. " )
-	Text( 8,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 8, "Researcher: To unseal the curse on Mantle of the Cursed Flame, you must bring me: Earth Sealed Mantle of the Cursed Flame, Lum Runestone x5, Sol Runestone x10, Cam Runestone x5 and also 400000G as fee." )
+	Text( 8, "Unseal curse on Mantle of the Cursed Flame", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1907, 1 )
@@ -6156,8 +9708,8 @@ function r_talk256()
 	TriggerAction( 1, TakeItem, 3429, 5 )
 	TriggerAction( 1, GiveItem, 786, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 9,  "Исследователь: Для снятия печати с этого предмета мне необходимо - запечатанный предмет, 5 рун Лам, 10 рун Сол, 5 рун Кам и 400000 золота. " )
-	Text( 9,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 9, "Researcher: To unseal the curse on Staff of Incantation, you must bring me: Earth Sealed Staff of Incantation, Lum Runestonex5, Sol Runestonex10, Cam Runestonex5 and also 400000G as fee." )
+	Text( 9, "Unseal curse on Staff of Incantation", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1914, 1 )
@@ -6172,8 +9724,8 @@ function r_talk256()
 	TriggerAction( 1, TakeItem, 3429, 5 )
 	TriggerAction( 1, GiveItem, 793, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 10,  "Исследователь: Для снятия печати с этого предмета мне необходимо - запечатанный предмет, 5 рун Лам, 10 рун Сол, 5 рун Кам и 400000 золота. " )
-	Text( 10,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 10, "Researcher: To unseal the curse on Staff of Incantation, you must bring me: Earth Sealed Staff of Incantation, Lum Runestonex5, Sol Runestonex10, Cam Runestonex5 and also 400000G as fee." )
+	Text( 10, "Unseal curse on Staff of Abraxas", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1917, 1 )
@@ -6188,8 +9740,8 @@ function r_talk256()
 	TriggerAction( 1, TakeItem, 3429, 5 )
 	TriggerAction( 1, GiveItem, 796, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 11,  "Исследователь: Для снятия печати с этого предмета мне необходимо - запечатанный предмет, 5 рун Лам, 10 рун Сол, 5 рун Кам и 400000 золота. " )
-	Text( 11,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 11, "Researcher: To unseal the curse on Robe of Abraxas, you must bring me: Earth Sealed Robe of Abraxas, Lum Runestone x5, Sol Runestone x10, Cam Runestone x5 and also 400000G as fee." )
+	Text( 11, "Unseal curse on Robe of Abraxas", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1895, 1 )
@@ -6204,8 +9756,8 @@ function r_talk256()
 	TriggerAction( 1, TakeItem, 3429, 5 )
 	TriggerAction( 1, GiveItem, 774, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 12,  "Исследователь: Для снятия печати с этого предмета мне необходимо - запечатанный предмет, 5 рун Лам, 10 рун Сол, 5 рун Кам и 400000 золота. " )
-	Text( 12,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 12, "Researcher: To unseal the curse on Blade of Incantation, you must bring me: Earth Sealed Blade of Incantation, Lum Runestone x5, Sol Runestone x10, Cam Runestone x5 and also 400000G as fee." )
+	Text( 12, "Unseal curse on Blade of Incantation", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1899, 1 )
@@ -6220,8 +9772,8 @@ function r_talk256()
 	TriggerAction( 1, TakeItem, 3429, 5 )
 	TriggerAction( 1, GiveItem, 778, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 13,  "Исследователь: Для снятия печати с этого предмета мне необходимо - запечатанный предмет, 5 рун Лам, 10 рун Сол, 5 рун Кам и 400000 золота. " )
-	Text( 13,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 13, "Researcher: To unseal the curse on Corset of Incantation, you must bring me: Earth Sealed Corset of Incantation, Lum Runestone x5, Sol Runestone x10, Cam Runestone x5 and also 400000G as fee." )
+	Text( 13, "Unseal curse on Corset of Incantation", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1892, 1 )
@@ -6236,8 +9788,8 @@ function r_talk256()
 	TriggerAction( 1, TakeItem, 3429, 5 )
 	TriggerAction( 1, GiveItem, 771, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 14,  "Исследователь: Для снятия печати с этого предмета мне необходимо - запечатанный предмет, 5 рун Лам, 10 рун Сол, 5 рун Кам и 400000 золота. " )
-	Text( 14,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 14, "Researcher: To unseal the curse on Greatsword of Incantation, you must bring me: Earth Sealed Greatsword of Incantation, Lum Runestone x5, Sol Runestone x10, Cam Runestone x5 and also 400000G as fee." )
+	Text( 14, "Unseal curse on Greatsword of Incantation", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1921, 1 )
@@ -6252,8 +9804,8 @@ function r_talk256()
 	TriggerAction( 1, TakeItem, 3429, 5 )
 	TriggerAction( 1, GiveItem, 800, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 15,  "Исследователь: Для снятия печати с этого предмета мне необходимо - запечатанный предмет, 5 рун Лам, 10 рун Сол, 5 рун Кам и 400000 золота. " )
-	Text( 15,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 15, "Researcher: To unseal the curse on Tooth of the Cursed, you must bring me: Earth Sealed Tooth of the Cursed, Lum Runestonex5, Sol Runestonex10, Cam Runestonex5 and also 400000G as fee." )
+	Text( 15, "Unseal curse on Tooth of the Cursed", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1888, 1 )
@@ -6268,8 +9820,8 @@ function r_talk256()
 	TriggerAction( 1, TakeItem, 3429, 5 )
 	TriggerAction( 1, GiveItem, 767, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 16,  "Исследователь: Для снятия печати с этого предмета мне необходимо - запечатанный предмет, 5 рун Лам, 10 рун Сол, 5 рун Кам и 400000 золота. " )
-	Text( 16,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 16, "Researcher: To unseal the curse on Platemail of the Cursed Soul, you must bring me: Earth Sealed Platemail of the Cursed Soul, Lum Runestone x5, Sol Runestone x10, Cam Runestone x5 and also 400000G as fee." )
+	Text( 16, "Unseal curse on Platemail of the Cursed Soul", MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1903, 1 )
@@ -6284,150 +9836,250 @@ function r_talk256()
 	TriggerAction( 1, TakeItem, 3429, 5 )
 	TriggerAction( 1, GiveItem, 782, 1, 4 )
 	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 17,  "Исследователь: Для снятия печати с этого предмета мне необходимо - запечатанный предмет, 5 рун Лам, 10 рун Сол, 5 рун Кам и 400000 золота. " )
-	Text( 17,  "Снять печать ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 17, "Researcher: To unseal the curse on Kiss of the Cursed, you must bring me: Earth Sealed Kiss of the Cursed, Lum Runestone x5, Sol Runestone x10, Cam Runestone x5 and also 400000G as fee." )
+	Text( 17, "Unseal curse on Kiss of the Cursed", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 30,  "Исследователь: Простите, но у вас нет всех необходимых предметов. " )
+	Talk( 30, "Researcher: Sorry, you did not give me the correct items. I cannot break the seal for you without them." )
 
-	Talk( 31,  "Исследователь: Простите, но у вас нет всех необходимых предметов. " )
+	Talk( 31, "Researcher: Sorry. You need to pass me Murky Oil x5, Fire Starter x1, Cloth Strip x5 and 200G to make a Fire Seed." )
+
+
 end
 
-function r_talk242()
-	Talk( 14,  "Бинго: Дайте мне расписку для получения самоцвета высокого класса. " )
 
-	InitTrigger() 
+------------------------------------------------------------
+-- °ЧТшіЗ-----йД№ы
+------------------------------------------------------------
+function r_talk242()
+	Talk( 14, "Bingo: Give me a Christmas Gem Voucher, and you will get a high quality gem." )
+	InitTrigger() --ёЯј¶±¦КЇ¶Т»»ИЇ
 	TriggerCondition( 1, HasItem,2899, 1 )
 	TriggerCondition( 1, HasLeaveBagGrid, 3 )
 	TriggerCondition( 1, KitbagLock, 0 )
 	TriggerAction( 1, TakeItem, 2899, 1 )
 	TriggerAction( 1, GiveItem, 0860, 3, 101 )
 	TriggerFailure( 1, JumpPage, 15 )
-	Text( 14,  "Получить 3 Самоцвета ветра ",MultiTrigger, GetMultiTrigger(), 1) 
-
-	InitTrigger() 
+	Text( 14, "Exchanged 3 Gem of the Wind.",MultiTrigger, GetMultiTrigger(), 1) 
+	InitTrigger() --ёЯј¶±¦КЇ¶Т»»ИЇ
 	TriggerCondition( 1, HasItem,2899, 1 )
 	TriggerCondition( 1, HasLeaveBagGrid, 3 )
 	TriggerCondition( 1, KitbagLock, 0 )
 	TriggerAction( 1, TakeItem, 2899, 1 )
 	TriggerAction( 1, GiveItem, 0861, 3,101 )
 	TriggerFailure( 1, JumpPage, 15 )
-    Text( 14,  "Получить 3 Самоцвета удара ",MultiTrigger, GetMultiTrigger(), 1)
-	
-	InitTrigger()
+        Text( 14, "Redeem 3 Gem of Striking",MultiTrigger, GetMultiTrigger(), 1) 
+
+	InitTrigger() --ёЯј¶±¦КЇ¶Т»»ИЇ
 	TriggerCondition( 1, HasItem,2899, 1 )
 	TriggerCondition( 1, HasLeaveBagGrid, 3 )
 	TriggerCondition( 1, KitbagLock, 0 )
 	TriggerAction( 1, TakeItem, 2899, 1 )
 	TriggerAction( 1, GiveItem, 0862, 3,101 )
 	TriggerFailure( 1, JumpPage, 15 )
-    Text( 14,  "Получить 3 Самоцвета колосса ",MultiTrigger, GetMultiTrigger(), 1) 
+        Text( 14, "Exchanged 3 Gem of Colossus",MultiTrigger, GetMultiTrigger(), 1) 
 
-	InitTrigger() 
+	InitTrigger() --ёЯј¶±¦КЇ¶Т»»ИЇ
 	TriggerCondition( 1, HasItem,2899, 1 )
 	TriggerCondition( 1, HasLeaveBagGrid, 3 )
 	TriggerCondition( 1, KitbagLock, 0 )
 	TriggerAction( 1, TakeItem, 2899, 1 )
 	TriggerAction( 1, GiveItem, 0863, 3,101 )
 	TriggerFailure( 1, JumpPage, 15 )
-    Text( 14,  "Получить 3 Самоцвета ярости ",MultiTrigger, GetMultiTrigger(), 1) 
-
-	InitTrigger() 
+        Text( 14, "Exchanged 3 Gem of Rage",MultiTrigger, GetMultiTrigger(), 1) 
+	InitTrigger() --ёЯј¶±¦КЇ¶Т»»ИЇ
 	TriggerCondition( 1, HasItem,2899, 1 )
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
 	TriggerCondition( 1, KitbagLock, 0 )
 	TriggerAction( 1, TakeItem, 2899, 1 )
 	TriggerAction( 1, GiveItem, 1012, 1,101 )
 	TriggerFailure( 1, JumpPage, 15 )
-    Text( 14,  "Получить 1 Самоцвет души ",MultiTrigger, GetMultiTrigger(), 1) 
+        Text( 14, "Redeem 1 Gem of Soul",MultiTrigger, GetMultiTrigger(), 1) 
+
+	Talk( 15, "Redemption failed. You do not seem to have any Christmas Gem Voucher or your inventory has been binded. " )
+	Talk( 16, "Merry Christmas!" )
+
+	Talk( 1, "Bingo: I have the latest news around here and it is reliable. Do you wish to hear a little?")
+	--Text( 1, "Pirate Voucher", JumpPage, 17 )
+	Text( 1, "Christmas Gem Voucher", JumpPage, 14 )
+	Text( 1, "Unique Gem Voucher", JumpPage, 12 )
+	Text( 1, "Redeem Lv 1 Refining Gem Voucher", JumpPage, 2 )
+	Text( 1, "Redeem Lv 2 Refining Gem Voucher", JumpPage, 3 )
+	Text( 1, "Refining Gem Voucher", JumpPage, 4 )
+        Text( 1, "Gem Voucher", JumpPage, 5 )
+        Text( 1, "Combine Wishing Stone", JumpPage, 6 )
+--	Text( 1, "ФВ±э¶Т»»", JumpPage, 20 )
+
+
+--	Talk( 20, "йД№ы:ДгУРіФІ»НкµДФВ±эВр?ФЪОТХвАпїЙТФ¶Т»»Рн¶аєГ¶«Оч." )
+--	InitTrigger() --99ёцЈєГФЦ®Лш10ёц
+--	TriggerCondition( 1, HasItem,3915, 99 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerAction( 1, TakeItem, 3915, 99 )
+--	TriggerAction( 1, GiveItem, 2440, 10, 4 )
+--	TriggerFailure( 1, JumpPage, 21 )
+--	Text( 20, "¶Т»»ГФЦ®Лш10ёц",MultiTrigger, GetMultiTrigger(), 1) 
 	
-	Talk( 15,  "Бинго: Обмен невозможен! У вас нет расписки или заблокирован инвентарь  " )
+--	InitTrigger() --100ёцЈєІЖё»1ёц
+--	TriggerCondition( 1, HasItem,3915, 100 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerAction( 1, TakeItem, 3915, 100 )
+--	TriggerAction( 1, GiveItem, 3096, 1,4 )
+--	TriggerFailure( 1, JumpPage, 21 )
+--       Text( 20, "¶Т»»ІЖё»Фц·щЖч1ёц",MultiTrigger, GetMultiTrigger(), 1) 
+
+--	InitTrigger() --200ёцЈєІШ±¦Нј1ёц
+--	TriggerCondition( 1, HasItem,3915, 200 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerAction( 1, TakeItem, 3915, 200 )
+--	TriggerAction( 1, GiveItem, 1092, 1,4 )
+--	TriggerFailure( 1, JumpPage, 21 )
+--       Text( 20, "¶Т»»ІШ±¦Нј1ёц",MultiTrigger, GetMultiTrigger(), 1) 
+
+--	InitTrigger() --300ёцЈє99°ь1ёц
+--	TriggerCondition( 1, HasItem,3915, 300 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerAction( 1, TakeItem, 3915, 300 )
+--	TriggerAction( 1, GiveItem, 1095, 1,4 )
+--	TriggerFailure( 1, JumpPage, 21 )
+--       Text( 20, "¶Т»»99°ь1ёц",MultiTrigger, GetMultiTrigger(), 1) 
 	
-	Talk( 16,  "С Новым годом! " )
+--	InitTrigger() --2000ёцЈєјУДЙЦ®ЙсЈЁѕ«ЙсјУ5Ј©
+--	TriggerCondition( 1, HasItem,3915, 2000 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerAction( 1, TakeItem, 3915, 2000 )
+--	TriggerAction( 1, GiveItem, 1012, 1,4 )
+--	TriggerFailure( 1, JumpPage, 21 )
+--       Text( 20, "¶Т»»јУДЙЦ®Йс1їЕ",MultiTrigger, GetMultiTrigger(), 1) 
+
+--	InitTrigger() --2000ёцЈєСЧУсЈЁБ¦БїјУ5Ј©
+--	TriggerCondition( 1, HasItem,3915, 2000 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerAction( 1, TakeItem, 3915, 2000 )
+--	TriggerAction( 1, GiveItem, 863, 1,4 )
+--	TriggerFailure( 1, JumpPage, 21 )
+--       Text( 20, "¶Т»»СЧУс1їЕ",MultiTrigger, GetMultiTrigger(), 1) 
+
+--	InitTrigger() --2000ёцЈєСТУсЈЁМеЦКјУ5Ј©
+--	TriggerCondition( 1, HasItem,3915, 2000 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerAction( 1, TakeItem, 3915, 2000 )
+--	TriggerAction( 1, GiveItem, 862, 1,4 )
+--	TriggerFailure( 1, JumpPage, 21 )
+--       Text( 20, "¶Т»»СТУс1їЕ",MultiTrigger, GetMultiTrigger(), 1) 
+
+--	InitTrigger() --2000ёцЈєУҐСЫКЇЈЁЧЁЧўјУ5Ј©
+--	TriggerCondition( 1, HasItem,3915, 2000 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerAction( 1, TakeItem, 3915, 2000 )
+--	TriggerAction( 1, GiveItem, 861, 1,4 )
+--	TriggerFailure( 1, JumpPage, 21 )
+--       Text( 20, "¶Т»»УҐСЫКЇ1їЕ",MultiTrigger, GetMultiTrigger(), 1) 
+
+--	InitTrigger() --2000ёцЈє·зБйКЇЈЁГфЅЭјУ5Ј©
+--	TriggerCondition( 1, HasItem,3915, 2000 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerAction( 1, TakeItem, 3915, 2000 )
+--	TriggerAction( 1, GiveItem, 860, 1,4 )
+--	TriggerFailure( 1, JumpPage, 21 )
+--       Text( 20, "¶Т»»·зБйКЇ1їЕ",MultiTrigger, GetMultiTrigger(), 1) 
+
+--	InitTrigger() --3000ёцЈє65 BOSSТВ·ю1јю
+--	TriggerCondition( 1, HasItem,3915,3000 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerAction( 1, TakeItem, 3915, 3000)
+--	TriggerAction( 1, GiveItem, 241, 1, 4 )
+--	TriggerFailure( 1, JumpPage, 21 )
+--      Text( 20, "¶Т»»65 BOSSТВ·ю1јю",MultiTrigger, GetMultiTrigger(), 1) 
+
+--	Talk( 21, "¶Т»»К§°Ь,ДъЙнЙПєГПсГ»УРЧг№»µДФВ±э°Ў,»тХЯ±і°ьТСЛш»тГ»УРїХёс!" )
+
+	--Text( 1, "Exchange Lantern", JumpPage, 7 )
+	--Text( 1, "»сµГ"ИэФВѕ«Бй"", JumpPage, 10 )
+      
 	
-	Talk( 1,  "Бинго: Привет! Я отдающая долги Бинго. У вас есть что то для меня? ")
-	Text( 1,  "Расписка на Рождественский самоцвет ", JumpPage, 14 )
-    Text( 1,  "Расписка на самоцвет ", JumpPage, 5 )
-	Text( 1,  "Расписка на уникальный самоцвет ", JumpPage, 12 )
-	Text( 1,  "Расписка на Очищающий самоцвет 1 уровня ", JumpPage, 2 )
-	Text( 1,  "Расписка на Очищающий самоцвет 2 уровня ", JumpPage, 3 )
-	Text( 1,  "Расписка на Очищающий самоцвет ", JumpPage, 4 )
-	Text( 1,  "Дальше --> ", JumpPage, 21 )
+	Talk( 2, "Bingo: Pass me one Lv 1 Refining Gem Voucher to exchange for a Lv 1 Refining Gem. Also, you might obtain an additional random Lv1 Attribute Gem.")
+	Text( 2, "Confirm to redeem", TransferDiamond, 1)
 
-	Talk( 21,  "Бинго: Привет! Я отдающая долги Бинго. У вас есть что то для меня? ")
-	Text( 21,  "Пиратская расписка ", JumpPage, 17 )
-    Text( 21,  "Объединить Камень желаний ", JumpPage, 6 )
-	Text( 21,  "Обменять Лунный пирог ", JumpPage, 20 )		
-	Text( 21,  "Получить Мартовскую фею ", JumpPage, 10 )
-	Text( 21,  "<-- Назад ", JumpPage, 1 )
+	Talk( 3, "Bingo: Bring me a Lv 2 Refining Gem Voucher to exchange for a Lv 2 Refining Gem. You might also obtain an additional random Lv 2 Attribute Gem.")
+	Text( 3, "Confirm to redeem", TransferDiamond, 2)
 
-	Talk( 2,  "Бинго: Дай мне расписку на Очищающий самоцвет 1 уровня для получения очищающего самоцвета, а также еще 1 случайного самоцвета 1 уровня. ")
-	Text( 2,  "Обменять ", TransferDiamond, 1)
+	Talk( 4, "Bingo: Pass me one Refining Gem Voucher to exchange for a Lv 1 Refining Gem")
+	Text( 4, "Confirm to redeem", TransferDiamond, 3)
 
-	Talk( 3,  "Бинго: Дай мне расписку на Очищающий самоцвет 2 уровня для получения очищающего самоцвета, а также еще 1 случайного самоцвета 2 уровня. ")
-	Text( 3,  "Обменять ", TransferDiamond, 2)
+	Talk( 5, "Bingo: Bring me a Gem Voucher in exchange for a Lv 1 Gem.")
+	Text( 5, "Confirm to redeem", TransferDiamond, 4)
 
-	Talk( 4,  "Бинго: Дай мне расписку на очищающий самоцвет для получения 1 очищающего самоцвета 1 уровня ")
-	Text( 4,  "Обменять ", TransferDiamond, 3)
 
-	Talk( 5,  "Бинго: Дай мне 1 расписку на самоцвет для получения 1 случайного самоцвета 1 уровня ")
-	Text( 5,  "Обменять ", TransferDiamond, 4)
 
-	Talk( 17,  "Бинго: У вас есть Пиратская расписка? ")
-
-	InitTrigger()
+	Talk( 17, "Bingo: Do you have Pirate Vouchers?")
+	
+	InitTrigger()--¶Т»»"IPOD"¶Т»»ИЇ
 	TriggerCondition( 1, HasItem, 2238, 1 )
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
 	TriggerCondition( 1, KitbagLock, 0 )
 	TriggerAction( 1, TakeItem, 2238, 1 )
  	TriggerAction( 1, GiveItem, 2306, 1 ,4)
 	TriggerFailure( 1, JumpPage, 18 )
-	Text( 17,  "У меня есть пиратская расписка 8 ",MultiTrigger, GetMultiTrigger(), 1)
+	Text( 17, "I have Pirate Voucher 8",MultiTrigger, GetMultiTrigger(), 1)
 
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2240, 1 )
-	TriggerCondition( 1, HasLeaveBagGrid, 1 )
-	TriggerCondition( 1, KitbagLock, 0 )
-	TriggerAction( 1, TakeItem, 2240, 1 )
- 	TriggerAction( 1, GiveItem, 1028, 1 ,4)
-	TriggerAction( 1,JumpPage, 19 )
-	TriggerFailure( 1, JumpPage, 18 )
-	Text( 17,  "У меня есть пиратская расписка 6 ",MultiTrigger, GetMultiTrigger(), 1)
-	Text( 17,  "У меня есть пиратская расписка 6 ",JumpPage, 19)
 
-	Talk( 19,  "Бинго: Вы хотите обменять? ")
-	Text( 19,  "Обменять ",GetChaName_5, 1)
+	--InitTrigger()--¶Т»»Д¦Б¦·ыКЇ
+	--TriggerCondition( 1, HasItem, 2240, 1 )
+	--TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	--TriggerCondition( 1, KitbagLock, 0 )
+	--TriggerAction( 1, TakeItem, 2240, 1 )
+ 	--TriggerAction( 1, GiveItem, 1028, 1 ,4)
+	--TriggerAction( 1,JumpPage, 19 )------------------
+	--TriggerFailure( 1, JumpPage, 18 )
+	--Text( 17, "I have Pirate Voucher 6",MultiTrigger, GetMultiTrigger(), 1)
 
-	InitTrigger()
+	Text( 17, "I have Pirate Voucher 6",JumpPage, 19)
+	Talk(19,"Do you wish to exchange?")
+	Text( 19, "Confirm to exchange",GetChaName_5, 1)
+
+	InitTrigger()--¶Т»»ѕ«БйУІ±Т99ёц
 	TriggerCondition( 1, HasItem, 2237, 1 )
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
 	TriggerCondition( 1, KitbagLock, 0 )
 	TriggerAction( 1, TakeItem, 2237, 1 )
  	TriggerAction( 1, GiveItem, 855, 99 ,4)
 	TriggerFailure( 1, JumpPage, 18 )
-	Text( 17,  "У меня есть пиратская расписка 9 ",MultiTrigger, GetMultiTrigger(), 1)
+	Text( 17, "I have Pirate Voucher 9",MultiTrigger, GetMultiTrigger(), 1)
 
-	InitTrigger()
+	InitTrigger()-- ¶Т»»ЦэФмНјЦЅ"Encrypted Blueprint"Ј±ХЕ
 	TriggerCondition( 1, HasItem, 2239, 1 )
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
 	TriggerCondition( 1, KitbagLock, 0 )
 	TriggerAction( 1, TakeItem, 2239, 1 )
  	TriggerAction( 1, GiveItem, 1001, 1 ,4)
 	TriggerFailure( 1, JumpPage, 18 )
-	Text( 17,  "У меня есть пиратская расписка 7 ",MultiTrigger, GetMultiTrigger(), 1)
+	Text( 17, "I have Pirate Voucher 7",MultiTrigger, GetMultiTrigger(), 1)
 
-	InitTrigger()
+	InitTrigger()--¶Т»»јУЛЩіЙі¤№ы1ёц
 	TriggerCondition( 1, HasItem, 2241, 1 )
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
 	TriggerCondition( 1, KitbagLock, 0 )
 	TriggerAction( 1, TakeItem, 2241, 1 )
  	TriggerAction( 1, GiveItem, 0578, 1 ,4)
 	TriggerFailure( 1, JumpPage, 18 )
-	Text( 17,  "У меня есть пиратская расписка 5 ",MultiTrigger, GetMultiTrigger(), 1)
-	Text( 17,  "Общая сумма пиратских расписок ", GetChaName_4, 1)
+	Text( 17, "I have Pirate Voucher 5",MultiTrigger, GetMultiTrigger(), 1)
+	Text( 17, "Total amount of other Pirate Voucher", GetChaName_4, 1)
 
-	Talk( 18,  "Бинго: Кажется вы не имеете подходящую пиратскую расписку. Убедитесь также что ваш инвентарь не заблокирован и имеется хотя бы одно свободное место. ")
 
- 	InitTrigger() 
+
+	Talk( 18, "Bingo: You do not seem to have the suitable Pirate Voucher. Please check to see if your inventory is binded and that theres a least 1 empty slot.")
+
+ 	InitTrigger() --єПіЙРнФёКЇ
 	TriggerCondition( 1, HasItem, 3905, 5 )
 	TriggerCondition( 1, HasItem, 3907, 1 )
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
@@ -6436,11 +10088,27 @@ function r_talk242()
 	TriggerAction( 1, TakeItem, 3907, 1 )
  	TriggerAction( 1, GiveItem, 3906, 1 ,4)
 	TriggerFailure( 1, JumpPage, 8 )
-	Talk( 6,  "Бинго: Принесите мне 5 Темных камней желанийи 1 Катализатор ковки для обмена на 1 Искрящийся камень желаний ")
-	Text( 6,  "Комбинировать ",MultiTrigger, GetMultiTrigger(), 1)        
+	Talk( 6, "Bingo: Bring me 5 Dark Wishing Stone and 1 Welding Catalyst, I will make 1 Sparkling Wishing Stone for you.")
+	Text( 6, "Confirm to combine",MultiTrigger, GetMultiTrigger(), 1)        
  	
-	Talk( 8,  "Бинго: Вы не имеете нужное количество Темных камней желаний или Катализаторов ковки. Убедитесь также что у вас имеется хотя бы 1 свободное место в инвентаре. ")
-	InitTrigger() 
+--	InitTrigger() --¶Ф»»µЖБэ
+--	TriggerCondition( 1, HasItem, 3904, 15 )
+--	TriggerCondition( 1, HasItem, 3911, 15 )
+--	TriggerCondition( 1, HasItem, 4450, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerAction( 1, TakeItem, 3904, 15 )
+--	TriggerAction( 1, TakeItem, 3911, 15 )
+--	TriggerAction( 1, TakeItem, 4450, 1 )
+ --	TriggerAction( 1, GiveItem, 3342, 1 ,4)
+--	TriggerFailure( 1, JumpPage, 9 ) 
+--	Talk( 7, "Bingo: Give me 15 pieces of Red Paper, 15 sticks of Bamboo Stick and 1 Strange Candle to exchange for a Lantern.")
+--	Text( 7, "Confirm trade",MultiTrigger, GetMultiTrigger(), 1) 
+ --    
+	Talk( 8, "Bingo: You seems to lack Wishing Stones and Welding Catalyst! Please make sure that your inventory is not binded and has at least 1 empty slot.")
+--	Talk( 9, "Bingo: You do not seem to have enough of Red Paper, Bamboo Stick or Strange Candle!")
+
+	InitTrigger() --¶Т»»ИэФВѕ«Бй
 	TriggerCondition( 1, HasItem, 3342, 2 )
 	TriggerCondition( 1, HasItem, 3337, 1 )
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
@@ -6449,935 +10117,686 @@ function r_talk242()
 	TriggerAction( 1, TakeItem, 3337, 1 )
 	TriggerAction( 1, GiveItem, 3335, 1 ,4)
 	TriggerFailure( 1, JumpPage, 11 ) 
-	Talk( 10,  "Бинго: Принесите мне 2 Светильника и 1 Душу феи для обмена на Мартовскую фею. Душу феи можно найти у Уиткомбы в Бухте Хафта. ")
-	Text( 10,  "Обменять ",MultiTrigger, GetMultiTrigger(), 1) 
+	Talk( 10, "Bingo: Bring me 2 Lantern and 1 Fairy Soul to exchange for a Fairy March. Question regarding Fairy Soul? Go to 'Hafta Haven' and look for 'Harbor Operator - Whitcombe'.")
+	Text( 10, "Confirm trade",MultiTrigger, GetMultiTrigger(), 1) 
    
-	Talk( 11,  "У вас нет всего необходимого для обмена. Возможно также у вас нет свободных мест в инвентаре или он заблокирован. ")
-
-	Talk( 12,  "Бинго: Дайте мне 1 расписку на уникальный самоцвет для обмена на уникальный самоцвет. ")
-	InitTrigger() 
-	TriggerCondition( 1, HasItem, 0333, 1 )
-	TriggerCondition( 1, HasLeaveBagGrid, 1 )
-	TriggerCondition( 1, KitbagLock, 0 )
-    TriggerAction( 1, TakeItem, 0333, 1 )
-	TriggerAction( 1, GiveItem, 0863, 1,101 )
-	TriggerFailure( 1, JumpPage, 13 ) 
-    Text( 12,  "Получить самоцвет ярости ",MultiTrigger, GetMultiTrigger(), 1) 
-
-	InitTrigger() 
-	TriggerCondition( 1, HasItem, 0333, 1 )
-	TriggerCondition( 1, HasLeaveBagGrid,1 )
-	TriggerCondition( 1, KitbagLock, 0 )
-    TriggerAction( 1, TakeItem, 0333, 1 )
-	TriggerAction( 1, GiveItem, 1012, 1,101 )
-	TriggerFailure( 1, JumpPage, 13 ) 
-    Text( 12,  "Получить самоцвет души ",MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger() 
-	TriggerCondition( 1, HasItem, 0333, 1 )
-	TriggerCondition( 1, HasLeaveBagGrid, 1 )
-	TriggerCondition( 1, KitbagLock, 0 )
-    TriggerAction( 1, TakeItem, 0333, 1 )
-	TriggerAction( 1, GiveItem, 0862, 1,101 )
-	TriggerFailure( 1, JumpPage, 13 ) 
-    Text( 12,  "Получить самоцвет колосса ",MultiTrigger, GetMultiTrigger(), 1) 
-
-	InitTrigger() 
-	TriggerCondition( 1, HasItem, 0333, 1 )
-	TriggerCondition( 1, HasLeaveBagGrid, 1)
-	TriggerCondition( 1, KitbagLock, 0 )
-    TriggerAction( 1, TakeItem, 0333, 1 )
-	TriggerAction( 1, GiveItem, 0861, 1,101 )
-	TriggerFailure( 1, JumpPage, 13 ) 
-    Text( 12,  "Получить самоцвет удара ",MultiTrigger, GetMultiTrigger(), 1) 
+	Talk( 11, "Bingo: Fairy March requires 2 Lanterns and 1 Fairy Soul. Please make sure that your inventory is not binded and has at least 1 empty inventory slot.")
 	
-	InitTrigger() 
+	Talk( 12, "Bingo: Give me 1 Unique Gem Voucher to exchange for 3 x 1 of the following four gems.")
+
+	InitTrigger() --ёЯј¶±¦КЇ¶Т»»ИЇ
 	TriggerCondition( 1, HasItem, 0333, 1 )
-	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 3 )
 	TriggerCondition( 1, KitbagLock, 0 )
-    TriggerAction( 1, TakeItem, 0333, 1 )
-	TriggerAction( 1, GiveItem, 0860, 1, 101 )
+        TriggerAction( 1, TakeItem, 0333, 1 )
+	TriggerAction( 1, GiveItem, 0860, 3, 101 )
 	TriggerFailure( 1, JumpPage, 13 ) 
-	Text( 12,  "Получить самоцвет ветра ",MultiTrigger, GetMultiTrigger(), 1) 
+	Text( 12, "Redeem Gem of the Wind",MultiTrigger, GetMultiTrigger(), 1) 
 
-	Talk( 13,  "Бинго: У вас нет расписки на уникальный самоцвет! Возможно также ваш инвентарь переполнен или заблокирован. ")
+	InitTrigger() --ёЯј¶±¦КЇ¶Т»»ИЇ
+	TriggerCondition( 1, HasItem, 0333, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 3)
+	TriggerCondition( 1, KitbagLock, 0 )
+        TriggerAction( 1, TakeItem, 0333, 1 )
+	TriggerAction( 1, GiveItem, 0861, 3,101 )
+	TriggerFailure( 1, JumpPage, 13 ) 
+        Text( 12, "Redeem Gem of Striking",MultiTrigger, GetMultiTrigger(), 1) 
 
-	Talk( 20,  "Бинго: Я обожаю Лунные пироги? У вас есть? Я дам за них превосходный товар " )
-	InitTrigger() 
-	TriggerCondition( 1, HasItem,3095, 99 )
+	InitTrigger() --ёЯј¶±¦КЇ¶Т»»ИЇ
+	TriggerCondition( 1, HasItem, 0333, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid,3 )
+	TriggerCondition( 1, KitbagLock, 0 )
+        TriggerAction( 1, TakeItem, 0333, 1 )
+	TriggerAction( 1, GiveItem, 0862, 3,101 )
+	TriggerFailure( 1, JumpPage, 13 ) 
+        Text( 12, "Redeem Gem of Colossus",MultiTrigger, GetMultiTrigger(), 1) 
+
+	InitTrigger() --ёЯј¶±¦КЇ¶Т»»ИЇ
+	TriggerCondition( 1, HasItem, 0333, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 3 )
+	TriggerCondition( 1, KitbagLock, 0 )
+        TriggerAction( 1, TakeItem, 0333, 1 )
+	TriggerAction( 1, GiveItem, 0863, 3,101 )
+	TriggerFailure( 1, JumpPage, 13 ) 
+        Text( 12, "Redeem Gem of Rage",MultiTrigger, GetMultiTrigger(), 1) 
+
+	Talk( 13, "Bingo: You do not seem to have any Unique Gem Voucher. Please make sure that your inventory is not binded and has at least 3 empty inventory slots.")
+	Talk( 20, "Bingo: Do you have many moon cakes? You can exchange much great stuff from me." )
+	InitTrigger() --99ёцЈєГФЦ®Лш10ёц
+	TriggerCondition( 1, HasItem,3915, 99 )
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
 	TriggerCondition( 1, KitbagLock, 0 )
 	TriggerAction( 1, TakeItem, 3915, 99 )
 	TriggerAction( 1, GiveItem, 2440, 10, 4 )
 	TriggerFailure( 1, JumpPage, 21 )
-	Text( 20,  "Обменять 99 пирогов на Супер усилитель стремлений ",MultiTrigger, GetMultiTrigger(), 1) 
-
-	InitTrigger() 
-	TriggerCondition( 1, HasItem,3097, 99 )
+	Text( 20, "Exchange 10 Locks of Mystic",MultiTrigger, GetMultiTrigger(), 1) 
+	
+	InitTrigger() --100ёцЈєІЖё»1ёц
+	TriggerCondition( 1, HasItem,3915, 100 )
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
 	TriggerCondition( 1, KitbagLock, 0 )
 	TriggerAction( 1, TakeItem, 3915, 100 )
 	TriggerAction( 1, GiveItem, 3096, 1,4 )
 	TriggerFailure( 1, JumpPage, 21 )
-	Text( 20,  "Обменять 99 пирогов на Большой усилитель удачи ",MultiTrigger, GetMultiTrigger(), 1) 
+	Text( 20, "Exchange one Amplifier of Luck",MultiTrigger, GetMultiTrigger(), 1) 
 
-	Talk( 21,  "Бинго: У вас нет необходимого количества предметов! Возможно также ваш инвентарь переполнен или заблокирован. ") 
+	InitTrigger() --200ёцЈєІШ±¦Нј1ёц
+	TriggerCondition( 1, HasItem,3915, 200 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 3915, 200 )
+	TriggerAction( 1, GiveItem, 1092, 1,4 )
+	TriggerFailure( 1, JumpPage, 21 )
+	Text( 20, "Exchange one Treasure Map",MultiTrigger, GetMultiTrigger(), 1) 
+
+	InitTrigger() --300ёцЈє99°ь1ёц
+	TriggerCondition( 1, HasItem,3915, 300 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 3915, 300 )
+	TriggerAction( 1, GiveItem, 1095, 1,4 )
+	TriggerFailure( 1, JumpPage, 21 )
+	Text( 20, "Exchange one 99 Parcel",MultiTrigger, GetMultiTrigger(), 1) 
+	
+	InitTrigger() --2000ёцЈєјУДЙЦ®ЙсЈЁѕ«ЙсјУ5Ј©
+	TriggerCondition( 1, HasItem,3915, 2000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 3915, 2000 )
+	TriggerAction( 1, GiveItem, 1012, 1,4 )
+	TriggerFailure( 1, JumpPage, 21 )
+	Text( 20, "Exchange one Gem of Soul",MultiTrigger, GetMultiTrigger(), 1) 
+
+	Text( 20, "Next page", JumpPage, 22 )
+
+	Talk( 22, "Bingo: Do you have many moon cakes? You can exchange much great stuff from me." )
+
+	InitTrigger() --2000ёцЈєСЧУсЈЁБ¦БїјУ5Ј©
+	TriggerCondition( 1, HasItem,3915, 2000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 3915, 2000 )
+	TriggerAction( 1, GiveItem, 863, 1,4 )
+	TriggerFailure( 1, JumpPage, 21 )
+	Text( 22, "Exchange one Gem of Rage",MultiTrigger, GetMultiTrigger(), 1) 
+
+	InitTrigger() --2000ёцЈєСТУсЈЁМеЦКјУ5Ј©
+	TriggerCondition( 1, HasItem,3915, 2000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 3915, 2000 )
+	TriggerAction( 1, GiveItem, 862, 1,4 )
+	TriggerFailure( 1, JumpPage, 21 )
+	Text( 22, "Exchange one Gem of Colossus",MultiTrigger, GetMultiTrigger(), 1) 
+
+	InitTrigger() --2000ёцЈєУҐСЫКЇЈЁЧЁЧўјУ5Ј©
+	TriggerCondition( 1, HasItem,3915, 2000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 3915, 2000 )
+	TriggerAction( 1, GiveItem, 861, 1,4 )
+	TriggerFailure( 1, JumpPage, 21 )
+	Text( 22, "Exchange one Gem of Striking",MultiTrigger, GetMultiTrigger(), 1) 
+
+	InitTrigger() --2000ёцЈє·зБйКЇЈЁГфЅЭјУ5Ј©
+	TriggerCondition( 1, HasItem,3915, 2000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 3915, 2000 )
+	TriggerAction( 1, GiveItem, 860, 1,4 )
+	TriggerFailure( 1, JumpPage, 21 )
+	Text( 22, "Exchange one Gem of Wind",MultiTrigger, GetMultiTrigger(), 1) 
+
+	InitTrigger() --3000ёцЈє65 BOSSТВ·ю1јю
+	TriggerCondition( 1, HasItem,3915,3000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 3915, 3000)
+	TriggerAction( 1, GiveItem, 241, 1, 4 )
+	TriggerFailure( 1, JumpPage, 21 )
+	Text( 22, "Exchange one Lvl65 Boss armor",MultiTrigger, GetMultiTrigger(), 1) 
+
+	Text( 22, "Last page", JumpPage, 20 )
+
+	Talk( 21, "Exchange failed. It seems that you have not either enough moon cakes or any blank inventory slot!" )	
+	----------------------------------------30ёцФВ±э
+	--InitFuncList()
+	--AddFuncList( GiveItem, 374, 1, 7 )
+	--AddFuncList( GiveItem, 361, 1, 7 )
+	--AddFuncList( GiveItem, 314, 1, 7 )
+	--AddFuncList( GiveItem, 298, 1, 7 )
+	--AddFuncList( GiveItem, 339, 1, 7 )
+	--AddFuncList( GiveItem, 354, 1, 7 )
+
+--	InitTrigger()
+--	TriggerCondition( 1, HasItem, 3915, 30 )
+--	TriggerAction( 1, TakeItem, 3915, 30 )
+--	TriggerAction( 1, RandFunction, GetFuncList(), GetNumFunc() )
+--	TriggerFailure( 1, JumpPage, 11 )
+--	Talk( 3, "Bingo: 30 Mooncakes to exchange for a Lv 35 armor of your class. Confirm?")
+--	Text( 3, "I am sure",MultiTrigger, GetMultiTrigger(), 1)
+--	Text( 3, "Forget it then",CloseTalk )
+
 end
---------------------------------------------------------------------------------------------------------------------
---													r_talk (Конец)												  --
---------------------------------------------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------------------------------------------
---													mmm_talk (Начало)											  --
---------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------
+-- °ЧТшіЗ-----»о¶ЇЧЁФ±
+------------------------------------------------------------
 function mmm_talk01()
-	Talk( 1,  "Распространитель новостей: Обо всех готовящихся или проводимых мероприятиях вы можете узнать у меня. ")
+	Talk( 1, "You can learn all kinds of on-going events of Tales of Pirates from me. Select the topic you interested in from followed list, you will see the brief introduction of the event.Pay attention to the offical site http://top.igg.com/index.php for more detail.")
+--	Text( 1, bganswer1_13, JumpPage, 13)
+--	Text( 1, bganswer1_14, JumpPage, 14)
+--	Text( 1, bganswer1_15, JumpPage, 15)
+--	Text( 1, bganswer1_16, JumpPage, 16)
+--	Text( 1, bganswer1_17, JumpPage, 17)
+--	Text( 1, "Lucky Alphabet Card Exchange" ,JumpPage, 18 )
 
-	InitTrigger()
+
+
+	----------------11.20-11.26	
+	InitTrigger()						----50WєЈµБ±Т
 	TriggerCondition( 1, CheckZMKTime )
-	TriggerCondition( 1, HasItem, 3869, 1 )
-	TriggerCondition( 1, HasItem, 3864, 1 )
-	TriggerCondition( 1, HasItem, 3865, 1 )
+	TriggerCondition( 1, HasItem, 3869, 1 )			----t
+	TriggerCondition( 1, HasItem, 3864, 1 )			----0
+	TriggerCondition( 1, HasItem, 3865, 1 )			----p
 
 	TriggerAction( 1, TakeItem,   3869, 1 )
 	TriggerAction( 1, TakeItem,   3864, 1 )
 	TriggerAction( 1, TakeItem,   3865, 1 )
 	TriggerAction( 1, AddMoney, 500000)
 	TriggerFailure( 1, JumpPage, 19 )
-	Talk( 18,  "Распространитель новостей: Эта неделя удачливая для ковки. ")
-	Text( 18,  "Обменять ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 18, "Pappa: This week's lucky combination is: top. Exchangable for 500000G.")
+	Text(18, "Confirm to redeem", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 19,  "Распространитель новостей: Ты имеешь все карты при себе? Пожалуйста поверьте заблокирован ли у вас инвентарь! ")
+	Talk( 19, "Pappa: Do you have enough Cards on you? Please check if your inventory is binded!Available on ET Mon. Wed. and Fri.")
+
+
+
+
+	----------------11.27-12.3
+--	InitTrigger()					----10ёцЙсПЙЅ¬№ы
+--	TriggerCondition( 1, CheckZMKTime )
+--	TriggerCondition( 1, HasItem, 3858, 1 )			----i
+--	TriggerCondition( 1, HasItem, 3856, 2 )			----g
+--	TriggerCondition( 1, HasItem, 3869, 1 )			----t
+--	TriggerCondition( 1, HasItem, 3864, 1 )			----0
+--	TriggerCondition( 1, HasItem, 3865, 1 )			----p
+--
+--	TriggerAction( 1, TakeItem,   3858, 1 )
+--	TriggerAction( 1, TakeItem,   3856, 2 )
+--	TriggerAction( 1, TakeItem,   3869, 1 )
+--	TriggerAction( 1, TakeItem,   3864, 1 )
+--	TriggerAction( 1, TakeItem,   3865, 1 )
+--	TriggerAction( 1, GiveItem, 3844, 10, 4)
+--	TriggerFailure( 1, JumpPage, 19 )
+--	Talk( 18, "Pappa: This week's lucky combination is: iggtop. Exchangable for 10 Heaven's Berry.")
+--	Text(18, "Confirm to redeem", MultiTrigger, GetMultiTrigger(), 1)
+
+
+	---------------12.4-12.10
+--	InitTrigger()						----МжЙнНЮНЮ10ёц+5ёцЙсПЙЅ¬№ы
+--	TriggerCondition( 1, CheckZMKTime )
+--	TriggerCondition( 1, HasItem, 3857, 1 )			----h
+--	TriggerCondition( 1, HasItem, 3864, 2 )			----0
+--	TriggerCondition( 1, HasItem, 3869, 2 )			----t
+--	TriggerCondition( 1, HasItem, 3865, 1 )			----p
+--
+--	TriggerAction( 1, TakeItem, 3857, 1 )			----h
+--	TriggerAction( 1, TakeItem, 3864, 2 )			----0
+--	TriggerAction( 1, TakeItem, 3869, 2 )			----t
+--	TriggerAction( 1, TakeItem, 3865, 1 )			----p
+--	TriggerAction( 1, GiveItem, 3844, 5, 4)
+--	TriggerAction( 1, GiveItem, 3846, 10, 4)
+--	TriggerFailure( 1, JumpPage, 19 )
+--	Talk( 18, "Pappa: This week's lucky combination is: hottop. Exchangable for 10 Voodoo Doll and 5 Heaven's Berry.")
+--	Text(18, "Confirm to redeem", MultiTrigger, GetMultiTrigger(), 1)
+
+	---------------12.11-12.17
+--	InitTrigger()						----єЪБъ
+--	TriggerCondition( 1, CheckZMKTime )
+--	TriggerCondition( 1, HasItem, 3869, 2 )			----t
+--	TriggerCondition( 1, HasItem, 3850, 2 )			----a
+--	TriggerCondition( 1, HasItem, 3861, 1 )			----l
+--	TriggerCondition( 1, HasItem, 3854, 2 )			----e
+--	TriggerCondition( 1, HasItem, 3868, 2 )			----s
+--	TriggerCondition( 1, HasItem, 3864, 1 )			----o
+--	TriggerCondition( 1, HasItem, 3855, 1 )			----f
+--	TriggerCondition( 1, HasItem, 3865, 1 )			----p
+--	TriggerCondition( 1, HasItem, 3858, 1 )			----i
+--	TriggerCondition( 1, HasItem, 3867, 1 )			----r
+--
+--	TriggerAction( 1, TakeItem, 3869, 2 )			----t
+--	TriggerAction( 1, TakeItem, 3850, 2 )			----a
+--	TriggerAction( 1, TakeItem, 3861, 1 )			----l
+--	TriggerAction( 1, TakeItem, 3854, 2 )			----e
+--	TriggerAction( 1, TakeItem, 3868, 2 )			----s
+--	TriggerAction( 1, TakeItem, 3864, 1 )			----o
+--	TriggerAction( 1, TakeItem, 3855, 1 )			----f
+--	TriggerAction( 1, TakeItem, 3865, 1 )			----p
+--	TriggerAction( 1, TakeItem, 3858, 1 )			----i
+--	TriggerAction( 1, TakeItem, 3867, 1 )			----r
+--	TriggerAction( 1, GiveItem, 0845, 1, 4)
+--	TriggerAction( 1, GiveItem, 0846, 1, 4)
+--	TriggerAction( 1, GiveItem, 0847, 1, 4)
+--	TriggerAction( 1, GiveItem, 0848, 1, 4)
+--	Talk( 18, "Pappa: This week's lucky combination is: talesofpirates. Exchangable for A set of Black Dragon apparel.")
+--	Text(18, "Confirm to redeem", MultiTrigger, GetMultiTrigger(), 1)
+
+--	Talk( 13, bgtalk13)
+--	Talk( 14, bgtalk14)
+--	Talk( 15, bgtalk15)
+--	Talk( 16, bgtalk16)
+--	Talk( 17, bgtalk17)
+
+end 
+------------------------------------------------------------
+-- °ЧТшіЗ-----ЗьФ­
+------------------------------------------------------------
+function mmm_talk02()
+	Talk( 1, "Qu Yuan: A long journey home...Sigh...")
+	--AddNpcMission ( 902 )
+	--AddNpcMission ( 903 )
+	--AddNpcMission ( 904 )
+end
+-----------------------------------------------------------
+---Йіб°іЗ---іиОп№ЬАнФ±Ў¤АКДГ¶И
+-----------------------------------------------------------
+function e_talk01 ()
+	Talk( 1, "Pet Assistant - Langa: Demonic fruit determines which type of fairy that will be conceived and the type of fairy determines what attributes the player will gain when the fairy possession skill is used. After marriage, the parent pet fairies will each drop by 4 levels. Do you wish to know more?" )
+	Text( 1, "Features of new generation fairies" ,JumpPage, 2)
+	Text( 1, "Conditions to concieve fairies", JumpPage, 3)
+	Text( 1, "Fairies marriage", OpenEidolonMetempsychosis )
+	Talk( 2, "Pet Assistant - Langa: New generation of pet fairies can learn Self Destruct and Possession. Fairy of Strength, Fairy of Constitution, Fairy of Accuracy, Fairy of Spirit and Fairy of Agility can all raise a character's attribute respectively. Fairy of Luck and Fairy of Evil can increases a character's drop rate and experience gain respectively and Mordo Junior has the ability of both Luck and Evil Fairy, and also other hidden ability.")	
+	Talk( 3, "Pet Assistant - Langa: Level of normal fairies affects a baby fairy greatly. I have much information about fairies. Please do check them out.")
+	Text( 3, "Conditions to conceieve a Fairy of Strength", JumpPage, 4  )
+	Text( 3, "Conditions to conceieve a Fairy of Constitution", JumpPage, 5  )
+	Text( 3, "Conditions to conceieve a Fairy of Accuracy", JumpPage, 6  )
+	Text( 3, "Conditions to conceieve a Fairy of Spirit", JumpPage, 7  )
+	Text( 3, "Conditions to conceieve a Fairy of Agility", JumpPage, 8  )
+	Text( 3, "Conditions to conceieve a Fairy of Luck", JumpPage, 9 )
+	Text( 3, "Conditions to conceieve a Fairy of Evil", JumpPage, 10 )
+	Text( 3, "Conditions to conceieve a Mordo Junior", JumpPage, 11 )	
+	Talk(  4, "Pet Assistant - Langa: To conceive a Fairy of Strength requires: Two Lv20 and above normal pet fairies, 1 Demonic Fruit of Strength, 10 Arabic Pearl Fragment, 10 Wailing Warrior Carcass and some gold")
+	Talk(  5, "Pet Assistant - Langa: The conditions to grow Fairy of Constitution is: 2 fairy with Lv not lower than 20,  1 Demonic Fruit of Courage. Inventory must contain 10 Cracked Arabic Pearl, 10 Sorrow Archer Carcass and some Gold.")
+	Talk(  6, "Pet Assistant - Langa: Conditions to grow Fairy of Accuracy: 2 fairys of Lv not lower than 20, 1 Demonic Fruit of Energy. Your inventory must have 10 Fish Spike, 10 Mud Chunk and some Gold.")
+	Talk(  7, "Pet Assistant - Langa: To conceive a Fairy of Spirit requires: Two Lv20 and above normal pet fairies, 1 Demonic Fruit of Intellect, 10 Polliwog Tail, 10 Wailing Archer Carcass and some gold")
+	Talk(  8, "Pet Assistant - Langa: To conceive a Fairy of Agility requires: Two Lv20 and above normal pet fairies, 1 Demonic Fruit of Aberrant, 10 Shark Fin, 10 Swamp Wood and some gold.")
+	Talk(  9, "Pet Assistant - Langa: To conceive a Fairy of Luck requires:  Two Lv20 and above normal pet fairies, 1 Demonic Fruit of Acidity, 10 Tasty Squid Meat, 10 Sorrow Warrior Carcass and some gold")
+	Talk(  10, "Pet Assistant - Langa: To conceive a Fairy of Evil requires: Two Lv20 and above normal pet fairies, 1 Demonic Fruit of Mystery, 10 Sparkling Arabic Pearl Fragments, 10 Mud Slice and some gold")
+	Talk(  11, "Pet Assistant - Langa: Requirements to conceive Mordo Junior, A Mordo fairy who marry another Mordo will give birth to a Mordo Junior at 100% success rate and it has nothing to do with Demonic Fruit. The probability of giving birth to a Mordo Junior when a Mordo and other fairies marry will depend on their level.")
+
+-----------eleven
+	AddNpcMission ( 5019 )
+	AddNpcMission ( 5032 )
+
+	--------------------1.7
+	AddNpcMission ( 5080	)
+	AddNpcMission ( 5081	)
+	AddNpcMission ( 5082	)
+	AddNpcMission ( 5083	)
+	AddNpcMission (5117 )
+	AddNpcMission (5142 )
+	AddNpcMission (5149 )
 end 
 
-function mmm_talk02()
-	Talk( 1,  "Ку Ян: Эх... Снова длинная поездка домой... ")
-end
-
-function mmm_talk04()
-	Talk( 1,  "Ученик кузнеца: Привет! Расскажи про что ты хочешь узнать! " )
-	Text( 1,  "Как вставлять самоцветы? ", JumpPage, 2 )
-	Text( 1,  "Как объединить самоцветы? ", JumpPage, 3 )
-	Text( 1,  "Как делать слот? ", JumpPage, 7 )
-	Text( 1,  "Ничего... ",CloseTalk )
-
-	Talk( 2,  "Ученик кузнеца: Для вставки самоцвета в предмете должен быть сделан слот. В один слот нельзя вставлять самоцветы разного типа, также в один предмет нельзя вставлять два одинаковых самоцвета в разные слоты. Для вставки самоцвета необходимо иметь Очищающий самоцвет. Самоцветы придают предмету новые свойства. Однако стоимость вставки самоцвета очень высока. Еще что нибудь интересует?" )
-	Text( 2,  "Что такое Очищающий самоцвет? ", JumpPage, 4)
-	Text( 2,  "Что такое самоцвет? ", JumpPage, 5)
-	Text( 2,  "Какова вероятность успешности вставки самоцвета? ", JumpPage, 6)
-	
-	Talk( 3,  "Ученик кузнеца: Для объединения двух самоцветов в один более высокого уровня вам потребуется Объединяющий свиток. Единственный человек, который умеет объединять самоцветы - Бакалейщик Амос из Шайтана. " )
-	
-	Talk( 4,  "Ученик кузнеца: Очищающий самоцвет это катализатор, без которого невозможно вставить самоцвет в слот. Уровень Очищающего самоцвета должен быть равен уровню вставляемого самоцвета. Очищающий самоцвет можно получить выполняя некоторые задания или при убийстве монстров. " )
-
-	Talk( 5,  "Ученик кузнеца: Самоцветы при вставке в предмет дают ему новые свойства. Есть несколько основных типов самоцыетов: огонь - означает атаку, вода - защиту, а свет - духовный самоцвет. Самоцветы можно получить за некоторые задания или при убийстве монстров. " )
-
-	Talk( 6,  "Ученик кузнеца: Каждый уровень вставляемого самоцвета повышает уровень предмета на один. Чем выше уровень предмета, тем ниже шанс вставки самоцвета. Чтобы повысить шанс вставки используются особые катализаторы. При провале предмет теряет свой уровень и получает первоначальный. Максимально возможный уровень предмета - 27. " )
-	
-	Talk( 7,  "Ученик кузнеца: Для изготовления одного слота вам потребуется 1 Катализатор снаряжения и 1 Стабилизатор снаряжения. Их можно получить у некоторых торговцев или обменять на расписку. " )
-end
---------------------------------------------------------------------------------------------------------------------
---													mmm_talk (Конец)											  --
---------------------------------------------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------------------------------------------
---													el_talk (Начало)											  --
---------------------------------------------------------------------------------------------------------------------
+------------------------------С°ХТТЕК§µД°®Зй
 function el_talk01()
-	Talk( 1,  "Маленькая рыбка: Вернитесь скорее, я не справлюсь с этим один... ")	
+	Talk( 1, "Little Fish: Be back fast! I can't handle it aloneЎ­..")	
 	AddNpcMission ( 907 )
 	AddNpcMission ( 911 )
 	AddNpcMission ( 912 )
 	AddNpcMission ( 917 )
 end
-
 function el_talk02()
-	Talk( 1,  "Бабочка: Я близкий друг Цветочка... ")
+	Talk( 1, "Butterfly: I am a close friend of Flower...")
 	AddNpcMission ( 908 )
 	AddNpcMission ( 909 )
 	AddNpcMission ( 910 )
 end
-
+-----------------------------------------------------------
+---°ЧТш---ЙсГШЖЕЖЕ
+-----------------------------------------------------------
+-------------------------------------°®ЗйЦШЙъ
 function el_talk03()
-	Talk( 1,  "Таинственная бабуля: Я не понимаю что во мне такого таинственного... ")	
+	Talk( 1, "Mysterious Granny: I do not understand what is so mysterious about meЎ­")	
 	AddNpcMission ( 918 )
+--------eleven
 	AddNpcMission ( 5018 )
 	AddNpcMission ( 5020 )
 	AddNpcMission ( 5021)
 	AddNpcMission ( 5022)
 end
-
-function el_talk04()
-	Talk( 1,  "Тощий рабочий: Эх... Ох... Кто бы мог помочь мне... " )
+-----------------------------------------------------------
+---ґє·зХт---ЙсГШµДВЇЧУ
+-----------------------------------------------------------
+function star_talk02 ()
+	Talk( 1, "Furnace: What are you looking at! Never seen such a beautiful furnace?" )
+	Text( 1, "Function Introduction", JumpPage, 2 )
+	Text( 1, "Special set upgrade", OpenItemTiChun )
+	Text( 1, "Coral recharge", OpenItemEnergy )
+	Text( 1, "Extract Gem", OpenGetStone )
+	Text( 1, "Repair Lifeskill tools", OpenItemFix )
+	Talk( 2, "Furnace of Immortality: I won't say anymore. Try it out yourself!" )
+	Text( 2, "Upgrade introduction for kylin set, Black Dragon set and lvl 70 BOSS set.", JumpPage, 3)
+	Text( 2, "Introduction to coral charging", JumpPage, 4 )
+	Text( 2, "Introduction of gem extraction", JumpPage, 5 )
+	Text( 2, "Repair Tools Introduction", JumpPage, 6)
+	Talk( 3, "Furnace of Immortality: This function can upgrade Kylin set, Black Dragon set and also upgrade Lv 70 Boss equipment into Lv 75 Death equipment (Boss). You will required corresponding item to undergo upgrade. Apparel image will not be retained but gem forged into equipment will remain unchanged." )
+	Talk( 4, "Furnace of Immortality: Use battery to recharge the energy of your corals. Rechargeable Battery can recharge 50 to 1000 points of energy while a Super Rechargeable Battery can recharge up to 1500 points of energy. Battery disappears upon usage!" )
+	Talk( 5, "Furnace of Immortality: According to Gem position, extracting from top to bottom. Gem level extract will be the same as displayed in the socket and the level of gem will decrease by 1 upon extraction. Each extraction requires 1 Blacksmith's Pliers.")
+	Text( 5, "Extract gem sample", JumpPage, 7 )
+	Talk( 6, "Furnace of Immortality: Repair damaged Crystal Cauldron, Black Hole Crystal, Anti Matter Crystal and Particle Crystal. Require 1 fixing tool. Guaranteed to look like new!" )
+	Talk( 7, "Furnace of Immortality: Taking a 3 sockets Wyrm Sword as an example, first socket forged with Lv3 Gem of Rage, second socket forged with Lv2 Furious Gem and third socket forged with Lv1 Eye of Black Dragon. During extraction, only Lv3 Gem of Rage will be extracted, and first socket will be reduced to Lv2 Gem of Rage. The other 2 sockets will not be affected. Note: Extraction starts from first socket in descending order." )
+end 
+-----------------------------------------------------------
+---°ЧТш---ЕцЕцАЦ
+-----------------------------------------------------------
+function star_talk03 ()
+	Talk( 1, "Lucky Chance: Hi, I advised you to leave some empty slots in your inventory before playing. You might win something great!" )
+	Text( 1, "Playing Lucky Chance", JumpPage, 2 )
+	Text( 1, "Try your luck, play a round!", OpenTiger )
+	Talk( 2, "Lucky Chance: Each try requires 5 Fairy Coins. You can try multiple times. The more you try, the higher your chance of winning!" )
+end 
+--------------------------------------СЄРИµДёЯёъР¬
+function el_talk04 ()
 	
+	Talk( 1, "Skinny Worker: Sigh...Sigh...Oh god, who can take revenge for meЎ­" )-------------(2249,2705)
 	AddNpcMission ( 919 )
 end
 
-function el_talk05()
-	Talk( 1,  "Рождественская Ель: С Новым годом тебя! Каждая добрая душа получит благословление! " )
-	Text( 1,  "Получить благословление ",JumpPage, 2  )
+-----------------------------------------------------------
+---УЎµЪ°ІДЙЎ¤ЗнЛ№
+-----------------------------------------------------------
+function llleo_talk01()
+	Talk( 1, "Indianna Jones: Through the Crescent Canyon till the Shrine, immortality in the name of the Goddess...I have found a secret of Demonic World. Do you wish to know?" )
+	Text( 1, "The Other Secret", JumpPage, 2)
+
+	Talk( 2, "Indianna Jones: Rumor has it that Demonic World is made up of 2 dimension, meaning that there will be 2 of you at each demension at the same moment. I found the other demension by chance and also a new way to unseal those uniques equipment from Demonic World. Those researchers do not know of this yet. If you wish to try my method, I might consider" )
+	Text( 2, "Unseal", JumpPage, 3)
 	
-	Talk( 2,  "Рождественская Ель: Вы хотите получить ваше благословление? Это потребует 1 Рождественскую открытку и 1000 золота. " )
-	Text( 2,  "Я хочу получить свое благословление ",JumpPage, 3  )
+	Talk( 3, "Indianna Jones: To unseal a unique equipment requires great energy consumption. Only those useless researchers will use multiple runestones to draw on their energy. I only need 1 special runestone to unseal it. Bring me 1 Morph Runestone and I will help you to unseal your equipment." )
+	Text( 3, "Staff of Enigma", JumpPage, 6)
+	Text( 3, "Mantle of the Sphinx", JumpPage, 7)
+	Text( 3, "Kris of the Sphinx", JumpPage, 8)
+	Text( 3, "Judgment of Enigma", JumpPage, 9)
+	Text( 3, "Rifle of Enigma", JumpPage, 10)
+	Text( 3, "Mantle of Enigma", JumpPage, 11)
+	Text( 3, "Robe of Enigma", JumpPage, 12)
+	Text( 3, "Next Page", JumpPage, 4)
 
-	Text( 3, "Я хочу получить благословление ",  GetChaName_0, 1)
-	Text( 3,  "Дальше --> ",JumpPage, 6  )
+	Talk( 4, "Indianna Jones: To unseal a unique equipment requires great energy consumption. Only those useless researchers will use multiple runestones to draw on their energy. I only need 1 special runestone to unseal it. Bring me 1 Morph Runestone and I will help you to unseal your equipment." )
+	Text( 4, "Blade of Enigma", JumpPage, 13)
+	Text( 4, "Tattoo of Enigma", JumpPage, 14)
+	Text( 4, "Armor of Enigma", JumpPage, 15)
+	Text( 4, "Robe of the Sphinx", JumpPage, 16)
+	Text( 4, "Staff of the Sphinx", JumpPage, 17)
 
-	Talk( 6,  "Рождественская Ель: Да благославит вас Бог в этом году! Пусть вам улыбается удача! ")
-	Text( 6, "Я хочу получить благословление ",  GetChaName_1, 1)
-	Text( 6,  "Дальше --> ",JumpPage, 7  )
-	Text( 6,  "<-- Назад ",JumpPage, 3  )
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1909, 1 )
+	TriggerCondition( 1, HasItem, 1028, 1 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1909, 1 )
+	TriggerAction( 1, TakeItem, 1028, 1  )
+	TriggerAction( 1, GiveItem, 788, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 6, "Indianna Jones: To unseal the curse on Staff of Enigma, you must bring me: Ice Sealed Staff of Enigma, Morph Runestone x1 and also 800000G as fee." )
+	Text( 6, "Unseal curse on Staff of Enigma", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 7,  "Рождественская Ель: Да благославит вас Бог в этом году! Пусть вам улыбается удача! ")
-	Text( 7,  "Я хочу получить благословление ",  GetChaName_2, 1)
-	Text( 7,  "Дальше --> ",JumpPage, 8  )
-	Text( 7,  "<-- Назад ",JumpPage, 6  )
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1927, 1 )
+	TriggerCondition( 1, HasItem, 1028, 1 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1927, 1 )
+	TriggerAction( 1, TakeItem, 1028, 1  )
+	TriggerAction( 1, GiveItem, 806, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 7, "Indianna Jones: To unseal the curse on Mantle of the Sphinx, you must bring me: Ice Sealed Mantle of the Sphinx, Morph Runestone x1 and also 800000G as fee" )
+	Text( 7, "Unseal curse on Mantle of the Sphinx", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 8,  "Рождественская Ель: Да благославит вас Бог в этом году! Пусть вам улыбается удача! ")
-	Text( 8,  "Я хочу получить благословление ",  GetChaName_3, 1)
-	Text( 8,  "<-- Назад ",JumpPage, 7  )
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1923, 1 )
+	TriggerCondition( 1, HasItem, 1028, 1 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1923, 1 )
+	TriggerAction( 1, TakeItem, 1028, 1  )
+	TriggerAction( 1, GiveItem, 802, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 8, "Indianna Jones: To unseal the curse on Kris of the Sphinx, you must bring me: Ice Sealed Kris of the Sphinx, Morph Runestone x1 and also 800000G as fee." )
+	Text( 8, "Unseal curse on Kris of the Sphinx", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1894, 1 )
+	TriggerCondition( 1, HasItem, 1028, 1 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1894, 1 )
+	TriggerAction( 1, TakeItem, 1028, 1  )
+	TriggerAction( 1, GiveItem, 773, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 9, "Indianna Jones: To unseal the curse on Judgment of Enigma, you must bring me: Ice Sealed Judgment of Enigma, Morph Runestone x1 and also 800000G as fee." )
+	Text( 9, "Unseal curse on Judgment of Enigma", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1905, 1 )
+	TriggerCondition( 1, HasItem, 1028, 1 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1905, 1 )
+	TriggerAction( 1, TakeItem, 1028, 1  )
+	TriggerAction( 1, GiveItem, 784, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 10, "Indianna Jones: To unseal the curse on Rifle of Enigma, you must bring me: Ice Sealed Rifle of Enigma, Morph Runestone x1 and also 800000G as fee" )
+	Text( 10, "Unseal curse on Rifle of Enigma", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1901, 1 )
+	TriggerCondition( 1, HasItem, 1028, 1 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1901, 1 )
+	TriggerAction( 1, TakeItem, 1028, 1  )
+	TriggerAction( 1, GiveItem, 780, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 11, "Indianna Jones: To unseal the curse on Mantle of Enigma, you must bring me: Ice Sealed Mantle of Enigma, Morph Runestone x1 and also 800000G as fee." )
+	Text( 11, "Unseal curse on Mantle of Enigma", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1913, 1 )
+	TriggerCondition( 1, HasItem, 1028, 1 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1913, 1 )
+	TriggerAction( 1, TakeItem, 1028, 1  )
+	TriggerAction( 1, GiveItem, 792, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 12, "Indianna Jones: To unseal the curse on Robe of Enigma, you must bring me: Ice Sealed Robe of Enigma, Morph Runestone x1 and also 800000G as fee." )
+	Text( 12, "Unseal curse on Robe of Enigma", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1897, 1 )
+	TriggerCondition( 1, HasItem, 1028, 1 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1897, 1 )
+	TriggerAction( 1, TakeItem, 1028, 1  )
+	TriggerAction( 1, GiveItem, 776, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 13, "Indianna Jones: To unseal the curse on Blade of Enigma, you must bring me: Ice Sealed Blade of Enigma, Morph Runestone x1 and also 800000G as fee." )
+	Text( 13, "Unseal curse on Blade of Enigma", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1887, 1 )
+	TriggerCondition( 1, HasItem, 1028, 1 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1887, 1 )
+	TriggerAction( 1, TakeItem, 1028, 1  )
+	TriggerAction( 1, GiveItem, 766, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 14, "Indianna Jones: To unseal the curse on Tattoo of Enigma, you must bring me: Ice Sealed Tattoo of Enigma, Morph Runestone x1 and also 800000G as fee." )
+	Text( 14, "Unseal curse on Tattoo of Enigma", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1890, 1 )
+	TriggerCondition( 1, HasItem, 1028, 1 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1890, 1 )
+	TriggerAction( 1, TakeItem, 1028, 1  )
+	TriggerAction( 1, GiveItem, 769, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 15, "Indianna Jones: To unseal the curse on Armor of Enigma, you must bring me: Ice Sealed Armor of Enigma, Morph Runestone x1 and also 800000G as fee." )
+	Text( 15, "Unseal curse on Armor of Enigma", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1919, 1 )
+	TriggerCondition( 1, HasItem, 1028, 1 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1919, 1 )
+	TriggerAction( 1, TakeItem, 1028, 1  )
+	TriggerAction( 1, GiveItem, 798, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 16, "Indianna Jones: To unseal the curse on Robe of the Sphinx, you must bring me: Ice Sealed Robe of the Sphinx, Morph Runestone x1 and also 800000G as fee." )
+	Text( 16, "Unseal curse on Robe of the Sphinx", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1916, 1 )
+	TriggerCondition( 1, HasItem, 1028, 1 )
+	TriggerCondition( 1, HasMoney, 800000 )
+	TriggerAction( 1, TakeMoney, 800000 )
+	TriggerAction( 1, TakeItem, 1916, 1 )
+	TriggerAction( 1, TakeItem, 1028, 1  )
+	TriggerAction( 1, GiveItem, 795, 1, 4 )
+	TriggerFailure( 1, JumpPage, 30 )
+	Talk( 17, "Indianna Jones: To unseal the curse on Staff of the Sphinx, you must bring me: Ice Sealed Staff of the Sphinx, Morph Runestone x1 and also 800000G as fee." )
+	Text( 17, "Unseal curse on Staff of the Sphinx", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 30, "Indianna Jones: Sorry, you do not have the required items. I cannot unseal it for you." )
+
 end
 
-function el_talk07()
-	InitTrigger()
-	TriggerCondition( 1, HasMission, 1300 )
-	TriggerCondition( 1, LvCheck,  "> ", 74 )
-	TriggerCondition( 1, HasCredit,9999 )
-	TriggerCondition( 1, NoRecord, 1300 )
-	TriggerCondition( 1, NoRecord, 1301 )
-	TriggerAction( 1, JumpPage, 2 )
-	TriggerFailure( 1, CloseTalk  )
-	Talk( 1,  "Хаскинсон: Я машина смерти! Не заговаривай со мной если у тебя меньше 75 уровня и 9999 очков репутации. " )
-	Text( 1,  "Привет! ",MultiTrigger, GetMultiTrigger(), 1 )
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ВТ¶·№ЬАнФ±
+function kk_talk01 ()
+	
+	Talk( 1, "Chaos Administrator: Only the strongest can survive in combat and only the strongest will be respected." )
+	Text( 1, "Apply for redemption", JumpPage ,7)
+	Text( 1, "Check Chaos ranking", Garner2GetWiner)
+	Text( 1, "Apply to enter Ranking List", Garner2RequestReorder)
+--	Text( 1, "You received Chaos Manual", Change_FightingBook)
+--	Text( 1, "About Chaos manual", JumpPage ,2)
+	Text( 1, "About Chaos ranking", JumpPage ,3)
+	Text( 1, "Regarding Chaos Argent", JumpPage ,13)
+	
+	Talk( 2, "Chaos Administrator: If you do not have the Mark of Honor, this Chaos Manual will record all your Honor points. If you have the Mark of Honor, this book will replace your former Mark of Honor and record all your Honor. Your existing points will not vanish and will be recorded on this book." )
+	Text(2,"Comfirm",Change_FightingBook)
 
-	Talk( 2,  "Хаскинсон: Чтобы получить фрагменты вы должны ответить на несколько вопросов! Какая из этих историй связана с поисками пропавшего мальчика? " )
-	Text( 2,  "Отравление еды ",JumpPage, 3  )
-	Text( 2,  "Пропавшие инструменты ",JumpPage, 4  )
-	Text( 2,  "Причина сумасшествия ",JumpPage, 3  )
-	Text( 2,  "Убийство грибов ",JumpPage, 32  )
+	Talk( 3, "Chaos Administrator: All adventurers that have gone through combat in Chaos Argent will be ranked accordingly. However, only the top 5 with the highest Chaos points will be listed." )
+	Text(3,"About Chaos points",JumpPage ,4)
+	Text(3,"About Chaos equipment",JumpPage ,6)
 
-	Talk( 3,  "Хаскинсон: Не будьте так высокомерны! Дальше... Кто любит Эндрю? " )
-	Text( 3,  "Кодди ",JumpPage, 4  )
-	Text( 3,  "Жоу ",JumpPage, 32  )
-	Text( 3,  "Маленькая рыбка ",JumpPage,5  )
-	Text( 3,  "Ян Бин ",JumpPage, 2  )
-	Text( 3,  "Хами ",JumpPage, 4  )
-	Text( 3,  "Ли Жанг Йонг ",JumpPage, 4  )
 
-	Talk( 4,  "Хаскинсон: Что из ниже перечисленного является ингридиентом для производства?" )
-	Text( 4,  "Темная кровь выползня и Чистая вода ",JumpPage, 5  )
-	Text( 4,  "Шкура кровавого выползня и Чай-бодрячок ",JumpPage, 5  )
-	Text( 4,  "Кровь зловещего выползня и Стимулятор ",JumpPage, 2  )
-	Text( 4,  "Кровь прозрачного выползня и Чистая вода ",JumpPage, 32 )
-	Text( 4,  "Толстый хвост прозрач. выползня ",JumpPage, 6  )
-	Text( 4,  "Чай-бодрячок и Стимулятор ",JumpPage, 19  )
-	Text( 4,  "Кровь зловещего выползня ",JumpPage, 5  )
+	Talk( 4, "Chaos Administrator: You can gain Chaos points in Chaos Argent by defeating players around your level. It will be recorded in your Medal of Valor." )
+	Talk( 6, "Chaos Administrator: Including of Chaos Framestone, Chaos Clawstone, Chaos Pawstone, this set of equipment has high attribute bonus and other hidden ability. These abilities will be activated according to your ranking on the list." )
+	
+	Talk( 7, "Chaos Administrator: Come to me if you want to exchange for good things." )
+	Text(7,"Redeem Standard Chaos Voucher",JumpPage ,8)
+	Text(7,"Redeem Chaos Chest",JumpPage ,9)
+	Text(7,"Exchanged for King of the Ring Emblem",JumpPage ,10)
+	Text(7,"Redeem Guide",SendExchangeXData)
+	Text(7,"Redeem Symbol of Honor",JumpPage ,12)
 
-	Talk( 5,  "Хаскинсон: Любовный подарок от таинственной бабушки это...? " )
-	Text( 5,  "Кристальная слеза ",JumpPage, 32  )
-	Text( 5,  "Слеза Камня правды ",JumpPage, 6  )
-	Text( 5,  "Камень Ланга ",JumpPage, 3  )
-	Text( 5,  "Янтарная слеза ",JumpPage, 22  )
-	Text( 5,  "Сад камня Кануна ",JumpPage, 7  )
-	Text( 5,  "Слеза Кары ",JumpPage, 7  )
-	Text( 5,  "Слеза первой любви ",JumpPage, 32  )
+	--¶Т»»ЛщРиОпЖ· ID,КэБї,¶Т»»ЛщµГОпЖ·КэБї,ёіУиµДЦµ
+	InitExchangeX()
 
-	Talk( 6,  "Хаскинсон: Какие отношения между Анубисом и Ричи? " )
-	Text( 6,  "Отец и сын ",JumpPage, 4  )
-	Text( 6,  "Дед и внук ",JumpPage, 8  )
-	Text( 6,  "Братья ",JumpPage, 7  )
-	Text( 6,  "Любимые ",JumpPage, 32  )
-	Text( 6,  "Нет отношений ",JumpPage, 32  )
-	Text( 6,  "Дальние родственники ",JumpPage, 32  )
-	Text( 6,  "Кузены ",JumpPage, 7  )
-	Text( 6,  "Сестры ",JumpPage, 7  )
-
-	Talk( 7,  "Хаскинсон: Для чего используют Демонический фрукт? " )
-	Text( 7,  "Для свадьбы фей ",JumpPage, 32  )
-	Text( 7,  "Как Яблоко ",JumpPage, 8  )
-	Text( 7,  "Для демонов ",JumpPage, 9  )
-	Text( 7,  "Для управления фруктами демонов ",JumpPage, 5  )
-	Text( 7,  "Для закалки ",JumpPage, 32  )
-
-	Talk( 8,  "Хаскинсон: Кем Голди работал раньше? " )
-	Text( 8,  "Мясником ",JumpPage, 3  )
-	Text( 8,  "Звездой кино ",JumpPage, 32  )
-	Text( 8,  "Преподавателем ",JumpPage, 32  )
-	Text( 8,  "Моделью ",JumpPage, 9  )
-	Text( 8,  "ГМом ",JumpPage, 7  )
-	Text( 8,  "Директором компании ",JumpPage, 9  )
-
-	Talk( 9,  "Хаскинсон: Какое утверждение из ниже указанных верное? " )
-	Text( 9,  "Вы будете сожалеть выбрав меня ",JumpPage, 4  )
-	Text( 9,  "Хами - незаконный мын Санг Ди ",JumpPage, 10 )
-	Text( 9,  "Белди не умеет печь пироги ",JumpPage, 32  )
-	Text( 9,  "Санг Ди живет дольше Таинственной бабушки ",JumpPage, 23 )
-	Text( 9,  "Верховный жрец был раньше пиратом ",JumpPage, 6  )
-
-	Talk( 10,  "Хаскинсон: Торговец Черного рынка был обычным. Это было...  " )
-	Text( 10,  "10 лет назад ",JumpPage, 5  )
-	Text( 10,  "Полгода назад ",JumpPage, 5  )
-	Text( 10,  "Когда он торговал антиквариатом ",JumpPage, 32 )
-	Text( 10,  "Когда он только пришел в Ледынь ",JumpPage, 8  )
-	Text( 10,  "Прежде чем он влюбился в Донну ",JumpPage, 11  )
-	Text( 10,  "После того как был брошен Донной",JumpPage, 32  )
-	Text( 10,  "Когда учился в институте Торговцев Черного рынка ",JumpPage, 8  )
-
-	Talk( 11,  "Хаскинсон: Как вы думаете какой НПС Паппа? " )
-	Text( 11,  "25 летний симпатичный парень ",JumpPage, 32 )
-	Text( 11,  "Нежная девушка ",JumpPage, 30  )
-	Text( 11,  "Жестокая девочка-сорванец ",JumpPage, 13  )
-	Text( 11,  "Страшный брачный аферист ",JumpPage, 2  )
-	Text( 11,  "Счастливая симпатичная девушка ",JumpPage, 13  )
-	Text( 11,  "Очаровательный идол ",JumpPage, 32  )
-	Text( 11,  "Нет правильных ответов. ",JumpPage, 28  )
-
-	Talk( 30,  "Хаскинсон: Вы очень глубоко заблуждаетесь!"  )
-	Text( 30,  "Далее --> ",JumpPage, 32  )
-
-	Talk( 31,  "Хаскинсон: Не позволяйте ей узнать что вы выбрали этот ответ!" )
-	Text( 31,  "Далее --> ",JumpPage, 32  )
-
-	Talk( 13,  "Хаскинсон: Что из ниже сказанного неверно? " )
-	Text( 13,  "Клещи кузнеца необходимы для извлечения ",JumpPage, 5 )
-	Text( 13,  "Каждый самоцвет извлекается поочередно ",JumpPage, 3 )
-	Text( 13,  "Число слотов не изменяется после извлечения самоцвета ",JumpPage, 32 )
-	Text( 13,  "Стоимисть извлечения- уровень предмета*1000 золота ",JumpPage, 14 )
-	Text( 13,  "Вы можете начать извлекать только из 1 слота ",JumpPage, 10 )
-	Text( 13,  "Уровень извлеченного самоцвета ниже чем вставленного в слот ",JumpPage, 14 )
-	Text( 13,  "Все вышеназванное неверно ",JumpPage, 8 )
-
-	Talk( 14,  "Хаскинсон: Кто знает тайну самородной серы? " )
-	Text( 14,  "Хьюстон ",JumpPage, 4 )
-	Text( 14,  "Ланга и Таинственная бабушка ",JumpPage, 32 )
-	Text( 14,  "Морской принци и Лазурная сирена ",JumpPage, 7 )
-	Text( 14,  "Дитто и Таинственная бабушка ",JumpPage, 15 )
-	Text( 14,  "Дитто и Ланга ",JumpPage, 15 )
-	Text( 14,  "Таинственная бабушка и Морской принц ",JumpPage, 8 )
-	Text( 14,  "Хьюстон и Морской принц ",JumpPage, 12 )
-	Talk( 15,  "Хаскинсон: какая из нижеуказанных трав имеет побочный эффект? " )
-
-	Text( 15,  "Восстанавливающее зелье ",JumpPage,13 )
-	Text( 15,  "Оживляющий клевер ",JumpPage, 32 )
-	Text( 15,  "Капсула памяти ",JumpPage, 16 )
-	Text( 15,  "Отворотное зелье ",JumpPage, 5 )
-	Text( 15,  "Суп памяти ",JumpPage, 4 )
-	Text( 15,  "Волшебная костная мука ",JumpPage, 16 )
-	Text( 15,  "Защитное средство ",JumpPage, 9 )
-
-	Talk( 16,  "Хаскинсон: Что правильно? " )
-	Text( 16,  "Таинственная бабушка: Я люблю Ланга ",JumpPage, 32 )
-	Text( 16,  "Генерал Вильям: Маска Зорро не у меня. ",JumpPage, 17 )
-	Text( 16,  "Ланга: Таинственная бабуля не в моем сердце.",JumpPage, 17 )
-	Text( 16,  "Паппа: Я была красавицей прежде чем стала пингвином. ",JumpPage, 5 )
-	Text( 16,  "Санг Ди: Я знаю как говорить на языке, который не понимают люди. ",JumpPage, 10 )
-	Text( 16,  "Мордо младший: У меня родители не только Мордо ",JumpPage, 15 )
-
-	Talk( 17,  "Хаскинсон: Вы любите играть в эту игру? " )
-	Text( 17,  "Люблю ",JumpPage, 32 )
-	Text( 17,  "Я очень люблю ",JumpPage, 32 )
-	Text( 17,  "Я обожаю ",JumpPage, 32 )
-	Text( 17,  "Я люблю! ",JumpPage, 32 )
-	Text( 17,  "Я люблю!! ",JumpPage, 18 )
-	Text( 17,  "Я люблю!!! ",JumpPage, 5 )
-	Text( 17,  "Пока еще люблю... ",JumpPage, 15 )
-
-	Talk( 18,  "Хаскинсон: Какую вредную привычку имеет верховный жрец? " )
-	Text( 18,  "Плакать ",JumpPage, 5 )
-	Text( 18,  "Ковыряться в носу ",JumpPage, 14 )
-	Text( 18,  "Подглядывать ",JumpPage, 2 )
-	Text( 18,  "Пить ",JumpPage, 9 )
-	Text( 18,  "Курить ",JumpPage, 12 )
-	Text( 18,  "Играть в азартные игры ",JumpPage, 10 )
-	Text( 18,  "Ходить в туалет ",JumpPage, 12 )
-	Text( 18,  "Мыть руки ",JumpPage, 4 )
-
-	Talk( 19,  "Хаскинсон: Вы уверены насчет своего выбора? " )
-	Text( 19,  "Я уверен ",JumpPage, 21  )
-	Text( 19,  "Я выбрал неверно ",JumpPage, 20  )
-	Text( 19,  "Я должен подумать ",JumpPage, 32  )
-
-	Talk( 20,  "Хаскинсон: Пожалуйста пробуйте снова " )
-	Text( 20,  "Дальше -->",JumpPage, 3  )
-
-	Talk( 21,  "Хаскинсон: Уверенность это главное для пирата! " )
-	Text( 21,  "Подтвердить ",JumpPage, 5  )
-
-	Talk( 22,  "Хаскинсон: Вы уверены насчет своего выбора? " )
-	Text( 22,  "Я уверен ",JumpPage, 24  )
-	Text( 22,  "Я выбрал неверно ",JumpPage, 20  )
-	Text( 22,  "Я должен подумать ",JumpPage, 32  )
-
-	Talk( 23,  "Хаскинсон: Вы уверены насчет своего выбора? " )
-	Text( 23,  "Я уверен ",JumpPage, 25  )
-	Text( 23,  "Я выбрал неверно ",JumpPage, 8  )
-	Text( 23,  "Я должен подумать ",JumpPage, 32  )
-
-	Talk( 24,  "Хаскинсон: Вера - это главное чтобы стать пиратом! ")
-	Text( 24,  "Дальше -->",JumpPage, 6   )
-
-	Talk( 25,  "Хаскинсон: Пожалуйста используйте мозг. Не всегда выбирайте тот же ответ! ")
-	Text( 25,  "Дальше -->",JumpPage, 32  )
-
-	Talk( 26,  "Хаскинсон: Вы уверены насчет своего выбора? " )
-	Text( 26,  "Я уверен ",JumpPage, 28  )
-	Text( 26,  "Я выбрал неверно ",JumpPage, 27  )
-	Text( 26,  "Я должен подумать ",JumpPage, 32  )
-
-	Talk( 27,  "Хаскинсон: Это движение позволит вам сэкономить время. "   )
-	Text( 27,  "Дальше -->",JumpPage, 12  )
-
-	Talk( 28,  "Хаскинсон: Вы слишком самонадеянны. Это не достоинство пирата. "  )
-	Text( 28,  "Дальше -->",JumpPage, 32  )
-
-	InitTrigger()
-	TriggerCondition( 1, HasMission, 1300 )
-	TriggerCondition( 1, NoRecord, 1300 )
-	TriggerAction( 1, SetRecord, 1301 )
-	TriggerAction( 1, JumpPage, 29 )
-	Talk( 12,  "Хаскинсон: Я думаю эти загадки интересны. Вы хотите попробовать? "  )
-	Text( 12,  "Хочу ",MultiTrigger, GetMultiTrigger(), 1  )
-	Text( 12,  "Нет ",JumpPage, 2  )
-
-	Talk( 29,  "Хаскинсон: Поздравляю! Ваша мудрость дарует вам фрагменты! Идите и докажите свою силу. " )
-
-	Talk( 32,  "Хаскинсон: Вы так глупы? " )
-	Text( 32,  "Нет, я хочу попробовать снова! ",JumpPage, 2  )
-	Text( 32,  "Я глупец, пожалуй лучше уйду. ",CloseTalk  )
-	AddNpcMission (	6001 )
-	AddNpcMission (	6002 )
-	AddNpcMission (	5823 )
-	AddNpcMission (	5824 )	
-end 
-
-function el_talk08()
-	Talk( 1,  "Томас Туту: Организовываем тур! 3 дня и 2 ночи в Пещере демонов. Действуют скидки! " )
-
-	InitTrigger()
-	TriggerCondition( 1, HasMission, 1424 )
-	TriggerCondition( 1, HasMission, 1414 )
-	TriggerCondition( 1, NoRecord, 1424 )
-	TriggerAction( 1, JumpPage, 2 )
-	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Ответить на вопросы ",MultiTrigger, GetMultiTrigger(), 1 )
-
-	InitTrigger()
-	TriggerAction( 1, GoTo, 2232, 2809, "garner")
-	Talk( 2, "Как называется эта книга?")
-	Text( 2, "Несчастная любовь ",MultiTrigger, GetMultiTrigger(), 1)
+	ExchangeDataX(	2608	,	100	,	2682	,	1	,	1)
+	ExchangeDataX(	2609	,	100	,	2683	,	1	,	1)
+	ExchangeDataX(	2609	,	1000	,	2684	,	1	,	1)
+	ExchangeDataX(	2608	,	100	,	2692	,	1	,	1)
+	ExchangeDataX(	2609	,	100	,	2693	,	1	,	1)
+	ExchangeDataX(	2609	,	1000	,	2694	,	1	,	1)
+	ExchangeDataX(	2608	,	100	,	2702	,	1	,	1)
+	ExchangeDataX(	2609	,	100	,	2703	,	1	,	1)
+	ExchangeDataX(	2609	,	1000	,	2704	,	1	,	1)
+	ExchangeDataX(	2608	,	100	,	2712	,	1	,	1)
+	ExchangeDataX(	2609	,	100	,	2713	,	1	,	1)
+	ExchangeDataX(	2609	,	1000	,	2714	,	1	,	1)
 	
 	InitTrigger()
-	TriggerAction( 1, GoTo, 2232, 2809, "garner")
-	Text( 2, "Сражения Аскарона ",MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerAction( 1, JumpPage, 4)
-	Text( 2, "Возрождение моей истории ",MultiTrigger, GetMultiTrigger(), 1)		--Верно
-
-	Talk( 3, "Я читаю, не мешай мне.")
-
-	InitTrigger()
-	TriggerAction( 1, JumpPage, 5)
-	Talk( 4, "Кто автор этой книги?")
-	Text( 4, "Том Луо ",MultiTrigger, GetMultiTrigger(), 1)		--Верно
-
-	InitTrigger()
-	TriggerAction( 1, GoTo, 2232, 2809, "garner")
-	Text( 4, "Том Джек ",MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerAction( 1, GoTo, 2232, 2809, "garner")
-	Text( 4, "Старик Пачкуля ",MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerAction( 1, GoTo, 2232, 2809, "garner")
-	Talk( 5, "Сколько страниц в книге?")
-	Text( 5, "5321",MultiTrigger, GetMultiTrigger(), 1 )
-
-	InitTrigger()
-	TriggerAction( 1, SetRecord, 1429)
-	TriggerAction( 1, JumpPage, 6)
-	Text( 5, "5321",MultiTrigger, GetMultiTrigger(), 1 )
-	
-	InitTrigger()
-	TriggerAction( 1, GoTo, 2232, 2809, "garner")
-	Text( 5, "5132",MultiTrigger, GetMultiTrigger(), 1 )
-
-	Talk( 6, "Поздравляю, всё правильно!")
-
-	AddNpcMission ( 6095 )
-	AddNpcMission ( 6096 ) 
-	AddNpcMission (	6010 )
-	AddNpcMission (	6011 )
-	AddNpcMission (	6012 )
-	AddNpcMission (	6013 )
-	AddNpcMission (	6014 )
-end
-
--------------------------------------------
---                Майлада                --
--------------------------------------------
--- Служит для:                           --
--- * Покупки билетов на посещение церкви --
--- * Проведения аукционов на церковь     --
--- * Покупки приглашений на свадьбу      --
--------------------------------------------
-function el_talk09()
-	
-	Talk( 1, "\204\224\233\235\224\228\224: \225\238\227 \236\232\235\238\241\229\240\228\229\237. \223 \239\240\232\227\235\224\248\224\254 \242\229\225\255 \237\224 \209\226\255\242\243\254 \231\229\236\235\254 \232\236\229\237\229\236 \241\226\238\229\227\238 \227\238\241\239\238\228\232\237\224!" )
-	Text( 1, "\206 \214\229\240\234\226\232", JumpPage, 17)	
-
-	Talk( 17, "\204\224\233\235\224\228\224: \213\238\247\229\248\252 \224\240\229\237\228\238\226\224\242\252 \214\229\240\234\238\226\252? \223 \236\238\227\243 \241\228\229\235\224\242\252 \241\229\227\238\228\237\255 \241\234\232\228\234\243." )
-	Text( 17, "\202\240\224\242\234\238\229 \238\239\232\241\224\237\232\229 \246\229\240\234\226\232", JumpPage, 6)
-	Text( 17, "\214\229\240\234\238\226\237\224\255 \241\242\224\226\234\224", ListAuction)
-	Text( 17, "\202\243\239\232\242\252 \225\232\235\229\242 \226 \246\229\240\234\238\226\252", JumpPage, 2 )
-	Text( 17, "\202\243\239\232\242\252 \239\240\232\227\235\224\248\229\237\232\255", JumpPage, 5)
-
-	InitTrigger()
-	TriggerCondition( 1, HasMoney,5000 )
-	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerCondition( 1, HasItem, 1031, 1 )
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
-	TriggerAction( 1, TakeMoney, 5000 )
-	TriggerAction(1, GiveItem, 3024, 1 , 4)
-	TriggerAction( 1, JumpPage, 3)
-	TriggerFailure( 1, JumpPage, 4 )
-	Talk(2, "\204\224\233\235\224\228\224: \214\229\240\234\238\226\252 \253\242\238 \236\229\241\242\238 \227\228\229 \237\224\247\232\237\224\229\242\241\255 \241\247\224\241\242\252\229, \227\228\229 \235\254\225\238\226\252 \253\242\238 \227\235\224\226\237\238\229. \207\240\232\245\238\228\232 \237\224 \253\234\241\234\243\240\241\232\254 \234\224\230\228\251\233 \239\238\237\229\228\229\235\252\237\232\234 \241 17:00 \228\238 17:10. \225\232\235\229\242 \241\242\238\232\242 \226\241\229\227\238 5000 \231\238\235\238\242\251\245.")
-	Text(2, "\207\238\228\242\226\229\240\228\232\242\252 \239\238\234\243\239\234\243",  MultiTrigger, GetMultiTrigger(), 1)
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 1031, 1 )
+	TriggerAction( 1, GiveItem, 2609, 1, 4 )
+	TriggerFailure( 1, JumpPage, 11 )
+	Talk( 8, "Chaos Administrator: 1 Saint of the Ring Emblem is enough" )
+	Text( 8, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk(3, "\207\240\232\227\235\224\248\224\229\236 \237\224 \253\234\241\234\243\240\241\232\254 \226\238 \226\240\229\236\229\237\232.")
-	Talk(4, "\204\224\233\235\224\228\224: \211 \242\229\225\255 \237\229\228\238\241\242\224\242\238\247\237\238 \231\238\235\238\242\224! \200\235\232 \231\224\225\235\238\234\232\240\238\226\224\237 \232\237\226\229\237\242\224\240\252. \207\238\236\237\232, \237\243\230\237\224 1 \239\243\241\242\224\255 \255\247\229\233\234\224.")
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1032, 1 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 1032, 1 )
+	TriggerAction( 1, GiveItem, 1134, 1, 4 )
+	TriggerFailure( 1, JumpPage, 11 )
+	Talk( 9, "Chaos Arena Administrator: 1 King of the Ring Emblem will be enough." )
+	Text( 9, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 1031, 5 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 1031, 5 )
+	TriggerAction( 1, GiveItem, 1032, 1, 4 )
+	TriggerFailure( 1, JumpPage, 11 )
+	Talk( 10, "Chaos Administrator: I need 5 Saint of the Ring Emblem" )
+	Text( 10, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 11, "Chaos Administrator: Come and find me after assembling the necessary items. Your inventory must have 1 free slot and not binded." )
 	
-	Talk( 5, "\204\224\233\235\224\228\224: \208\224\231\240\229\248\229\237\232\229 \214\229\240\234\226\232 \236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \228\235\255 \239\238\235\243\247\229\237\232\255 \241\238\238\242\226\229\242\241\242\226\243\254\249\232\245 \239\240\232\227\235\224\241\232\242\229\235\252\237\251\245 \225\232\235\229\242\238\226. \202\224\230\228\251\229 10 \234\243\241\238\247\234\238\226 \239\240\232\227\235\224\241\232\242\229\235\252\237\238\227\238 \225\232\235\229\242\224 \241\238\241\242\224\226\235\255\254\242 \229\228\232\237\238\229 \246\229\235\238\229. 50 000 \231\238\235\238\242\251\245 \228\238\235\230\237\238 \225\251\242\252 \243\239\235\224\247\229\237\238 \231\224 1 \248\242\243\234\243. \207\240\232\227\235\224\241\232 \228\240\243\231\229\233 \237\224 \226\229\247\229\240\232\237\234\243!" )
-	Text( 5, "\207\238\228\242\226\229\240\228\232\242\252 \239\238\234\243\239\234\243", ChangeItem, 1)
+	InitTrade()
+	Other(	1847	)
+	Other(	1848	)
+	Other(	1849	)
+	Other(	3143	)
+	Talk( 12, "Chaos Administrator: The Symbols of Honor are Heart of Sparkle, Heart of Glory and Heart of Splendor. They required 200, 2000, 20000 reputation points respectively." )
+	Text( 12, "Obtain Chaos Heart of Sparkle", Change_shanyao)
+	Text( 12, "Received Chaos Heart of Honor.", Change_rongyao)
+	Text( 12, "Obtained Chaos Heart of Splendor", Change_huihuang)
+
+	Talk( 13, "Chaos Administrator: Chaos Argent will allow players to engage in combat and enjoy PvP battles! To enter, players need to be at least Lv 20, possess 20 Honor points, 30 Reputation points and some gold. It will be open PK upon entering the area. If level differences of two players are less than 15, the one defeated will lose 1 Honor and the winner will obtain 1 Chaos point. If the defeated player is 15 levels higher, he will lose 2 Honor instead and the winner will obtain 2 Chaos points. When the combat ends, the survivor will recieve gold as reward. If there are 5 or less survivors, each will obtain 1 Saint of the Ring Emblem. If there is only 1 survivor, he/she will obtain additional gold and a King of the Ring Emblem. Note: Please leave 1 empty inventory slot before participating." )
 	
-	Talk( 6, "\204\224\233\235\224\228\224: \206 \247\229\236 \242\251 \245\238\247\229\248\252 \243\231\237\224\242\252?" )
-	Text( 6, "\206 \239\238\241\229\249\229\237\232\232", JumpPage, 7)
-	Text( 6, "\206 \214\229\240\234\238\226\237\238\236 \224\243\234\246\232\238\237\229", JumpPage, 8)
-	Text( 6, "\206\225 \232\241\239\238\235\252\231\238\226\224\237\232\232 \246\229\240\226\234\232", JumpPage, 9)
-	Text( 6, "\206 \208\224\231\240\229\248\229\237\232\232 \214\229\240\234\226\232", JumpPage, 10)
-
-	Talk( 7, "\204\224\233\235\224\228\224: \200\227\240\238\234\232 \234\238\242\238\240\251\229 \234\243\239\232\235\232 \225\232\235\229\242\251 \226 \246\229\240\234\238\226\252 \236\238\227\243\242 \239\238\241\229\242\232\242\252 \229\229 \241 17:00 \228\238 17:10 \234\224\230\228\251\233 \239\238\237\229\228\229\235\252\237\232\234.")
-	Text( 7, "\207\238\228\242\226\229\240\228\232\242\252", CloseTalk)
-	Text( 7, "\205\224\231\224\228", JumpPage, 6)
-
-	Talk( 8, "\204\224\233\235\224\228\224: \214\229\240\234\238\226\237\251\233 \192\243\234\246\232\238\237 \239\240\238\245\238\228\232\242 \241 18:00 \228\238 20:30 \234\224\230\228\251\233 \239\238\237\229\228\229\235\252\237\232\234. \204\232\237\232\236\224\235\252\237\251\233 \248\224\227 \224\243\234\246\232\238\237\224: \209\242\224\226\238\247\237\224\255 \234\224\240\242\238\247\234\224. \214\229\240\229\236\238\237\232\232 \239\240\238\226\238\228\255\242\241\255 \239\238 2 \234\224\230\228\251\233 \226\251\245\238\228\237\238\233.")
-	Text( 8, "\207\238\228\242\226\229\240\228\232\242\252", CloseTalk)
-	Text( 8, "\205\224\231\224\228", JumpPage, 6)
-
-	Talk( 9, "\204\224\233\235\224\228\224: \214\229\240\234\238\226\237\251\233 \192\243\234\246\232\238\237 \239\238\228\229\235\229\237 \237\224 4 \239\229\240\232\238\228\224. \207\238\225\229\228\232\242\229\235\252 \239\238\235\243\247\224\229\242 \208\224\231\240\229\248\229\237\232\229 \214\229\240\234\226\232 \232 10 \239\240\232\227\235\224\241\232\242\229\235\252\237\251\245 \225\232\235\229\242\238\226.")
-	Text( 9, "\207\238\228\242\226\229\240\228\232\242\252", CloseTalk)
-	Text( 9, "\205\224\231\224\228", JumpPage, 6)
-
-	Talk( 10, "\204\224\233\235\224\228\224: \208\224\231\240\229\248\229\237\232\229 \214\229\240\234\226\232 \239\238\231\226\238\235\232\242 \234\243\239\232\242\252 \239\240\232\227\235\224\241\232\242\229\235\252\237\251\229 \225\232\235\229\242\251, \228\226\238\233\237\238\229 \237\224\230\224\242\232\229 \239\238 \208\224\231\240\229\248\229\237\232\254 \239\229\240\229\236\229\241\242\232\242 \242\229\225\255 \226 \246\229\240\234\238\226\252. \209\239\243\241\242\255 2 \247\224\241\224 \226\241\229 \243\247\224\241\242\237\232\234\232 \225\243\228\243\242 \226\238\231\226\240\224\249\229\237\251 \226 \216\224\233\242\224\237.")
-	Text( 10, "\207\238\228\242\226\229\240\228\232\242\252", CloseTalk)
-	Text( 10, "\205\224\231\224\228", JumpPage, 6)
+	
 	
 end 
 
-function el_talk11()
-	Talk( 1, "Лури: Добро Пожаловать в Абаддон 7! Хоть Абаддон и страшный, но тут куча возможностей. Абаддон это рай для отважных искателей приключений." )
-end 
-
-function el_talk12()
-	Talk( 1, "Анита: 15 слоев ада, чтобы многие люди которые выжили, оставили там после себя кошмар, только у сельнейшего может быть много чести." ) --Бред, но пофиг оО
-end 
-
-function el_talk13()
-	Talk( 1, "°®µВ»Є:З§ДкµДАъК·±»ЛкФВіѕ°ЈЛщВсФб,Фшѕ­НЕЅб¶шё»ИДµДјУДЙґуВЅТСІ»ёґґжФЪ.Л­»№јЗµГїЁА­Е®ЙсНтДкЗ°ОЄЛэ°®ИЛЛщБфПВµДµгµг±щАб!")
-	Text( 1, "¶Т»»ЙсЖь±¦Пд", JumpPage, 2)
-	
-	Talk( 2, "°®µВ»Є:З§Дк±щАбКЗКШОА°®ИЛµДґзґзПаЛј,ЕуУС!ИзИфДгУРРДїъМЅЕ®Йс·бё»µДѕ«ЙсКАЅз,ЗлґшЙП1ёцЗйЦ®йдєН1ёцДЙїЁ·ыКЇАґ¶Т»»ХвГФК§µДЙсЖь±¦ІШ°Й!")	
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 3827, 1)
-	TriggerCondition( 1, HasItem, 3457, 1)
-	TriggerCondition(1, HasLeaveBagGrid, 1)
-	TriggerCondition(1, KitbagLock, 0 )
-	TriggerAction(1, TakeItem, 3827, 1)
-	TriggerAction(1, TakeItem, 3457, 1)
-	TriggerAction(1, GiveItem, 0145, 1, 4)
-	TriggerFailure(1, JumpPage, 3)
-	Text( 2, "Confirm to redeem", MultiTrigger, GetMultiTrigger(), 1) 	
-
-	Talk( 3, "ЕуУС,ЙсБйІ»ИЭЩфдВ,ИзИфДгЙнЙП»№ОґУРЗйЦ®йдєНДЙїЁ·ыКЇ»тКЗДгµД±і°ьёсТСВъ,Зл°ІѕІµДАлїЄ.")
-end
-
-function el_talk14()
-	Talk( 1, "µВВіїЛ:єЩєЩ,ЅьАґМЅС°ґуєЈµБНхВЮЙ­ТЕБф±¦ІШµДИЛЗчЦ®ИфрН,ИґІ»ЦЄД§·Ѕ¶юІгТюІШЧЕТ»ёцѕЄМмµДГШГЬ!ХвАпµДѕЮИЛКЧБмЙнЙПБчМКЧЕД¦¶ыїЛЧеИЛµДСЄТє,ДЗР©Т°ВщµДјТ»пФЪ·ЦБСНБµШК±,І»ЦЄґУНх№¬АпµББЛ¶аЙЩПЎХдТм±¦!")
-	
-	Text( 1, "¶Т»»°ФНх±¦Пд", JumpPage, 2)
-
-	Talk( 2, "µВВіїЛ:ЕуУС,ЕуУС!РЧГНµДД§¶ыїЛИЛГ»°СДгПЕ»µ°Й?КІГґ?ДгЛµДгУРРЕРД°СЛыЙ±ЛА?!ХжКЗЕе·юЕе·ю!ОТГГГГЧоЅьФЪСРЦЖТ»±ъ»рСжЙсЖч,ј±РиХвН·ѕЮИЛЙнЙПµД1ёцѕЮИЛКЧБмПоБґєН1ёцДЙїЁ·ыКЇЧцФ­БП!Из№ыДгДЬ°СХвБЅСщ¶«ОчХТАґ,ОТЅ«ФщУлДг:ОТГГГГЗЧКЦґёБ¶µД°ФНх±¦Пд,єЩєЩ,Ап±ЯµД±¦±ґїЙКЗГГГГ±ПЙъКХВјµДѕ«»Є!!")	
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 3826, 1)
-	TriggerCondition( 1, HasItem, 3457, 1)
-	TriggerCondition(1, HasLeaveBagGrid, 1)
-	TriggerCondition(1, KitbagLock, 0 )
-	TriggerAction(1, TakeItem, 3826, 1)
-	TriggerAction(1, TakeItem, 3457, 1)
-	TriggerAction(1, GiveItem, 0146, 1, 4)
-	TriggerFailure(1, JumpPage, 3)
-	Text(2,"Confirm to redeem", MultiTrigger, GetMultiTrigger(), 1) 	
-
-	Talk( 3, "°ҐСЅ°ҐСЅ,Дгѕ№И»»№Г»КХјЇµЅѕЮИЛКЧБмПоБґєНДЙїЁ·ыКЇ»тКЗДг±і°ьМ«ВъБЛ!ДЗёПЅфМУ°Й!!!Д¦¶ыїЛЧеѕЮИЛ·ўЖр»рАґїЙКЗК®·ЦРЧє·аё!")
-end
-
-function el_talk15()
-	Talk( 1, "Д§·ЁК¦ПДМм: ОТµДЕуУСЕбГО±»Д§НхВеїЛІРИМµДЙ±є¦БЛЎЈУВёТµДХЅКї,Из№ыДгДЬ№»ОЄОТХТ»Шґъ±нОТЕуУСБй»кµДЖЯёцЧЦДёP-E-I-M-E-N-GЎЈОТЅ«»б°СОТКХІШ¶аДкµДД§·ЁєРЛНёшДгЎЈ")
-
-	AddNpcMission ( 6139 )
-	AddNpcMission ( 6161 )
-	AddNpcMission ( 6166 )
-end
-
-function el_talk16()
-	Talk( 1, "ВеїЛјТµДКШГЕИЛ: ОТКЗВеїЛґуИЛµДЦТКµјТЖН,ЛдИ»ЛыєЬІРИМ,µ«КЗХвІўІ»·Б°­ОТРАЙНЛыµДДЬБ¦єНЙнІД.")
-	Text( 1, "ОТТЄИҐјЕДЇЦ®Лю1ІгЈЎ", JumpPage, 2 )
-
-	InitTrigger()
-	TriggerCondition( 1, HasMission,1213 )
-	TriggerAction( 1, GoTo, 352, 378, "lonetower")
-	TriggerFailure( 1, JumpPage, 3 )
-	Talk( 2, "ВеїЛјТµДКШГЕИЛ:јЕДЇЦ®ЛюЦ®ЛщТФјЕДЇКЗТтОЄГ»УРјёёц»оИЛ" )
-	Text( 2, "Teleport",MultiTrigger, GetMultiTrigger(), 1 )
-
-
-	Talk( 3, "ВеїЛјТµДКШГЕИЛ:ЕуУСДг»№Г»ЅУ КШГЕИЛНёВ¶µДРЕПў ХвёцИООс°Й?" )
-
-	AddNpcMission ( 6140 )
-end
-
-function el_talk17()
-	Talk( 1, " ВеїЛјТµДДРУ¶: ЦЪЛщЦЬЦЄ,Т»ДїБЛИ»,ОТ±ИВеїЛЛ§,ОЄКІГґЛыµДЗйИЛГЗІ»ХвСщПл......")
-	Text( 1, "ОТТЄИҐКҐБЦЈЎ", JumpPage, 2 )
-
-	InitTrigger()
-	TriggerAction( 1, GoTo, 275, 1775, "garner")
-	Talk( 2, "ВеїЛјТµДДРУ¶:УРїХіЈАґНж,№В¶АµДК±єтЎўїмАЦµДК±єтєНІ»ЦЄµАКЗ·сїмАЦµДК±єт..." )
-	Text( 2, "Teleport",MultiTrigger, GetMultiTrigger(), 1 )
-
-	AddNpcMission ( 6141 )
-	AddNpcMission ( 6142 )
-	AddNpcMission ( 6143 )
-end
-
-function el_talk18()
-	Talk( 1, "ВеїЛјТµДЕ®У¶: ЧчОЄТ»ёцЕ®У¶І»ДЬІ»№ШЧўЧФјєЦчИЛµДЛЅЙъ»о,·сФтИХЧУ»бёьјУОЮБД.")
-
-	AddNpcMission ( 6144 )
-	AddNpcMission ( 6145 )
-	AddNpcMission ( 6146 )
-end
-
-function el_talk19()
-	Talk( 1, " ВеїЛјТµДРЎГШ: ОТЦЄµАОТЖЇББ,І»ТЄґ№ПСОТ.")
-
-	AddNpcMission ( 6147 )
-	AddNpcMission ( 6148 )
-	AddNpcMission ( 6149 )	
-end
-
-function el_talk20()
-	Talk( 1, "ВеїЛјТµДКШ»¤ХЯ: КШ»¤ХЯКЗУГАґЧрѕґµД.ВеїЛКІГґК±єтІЕДЬГч°ЧХвёцµААнДШ")
-
-	AddNpcMission ( 6150 )
-	AddNpcMission ( 6151 )
-	AddNpcMission ( 6152 )
-end
-
-function el_talk21()
-	Talk( 1, "ВеїЛјТµД№ЬјТ: №ЬјТ№ЬјТ,ЦчИЛІ»№ЬѕНКЗОТµДјТ.")
-
-	AddNpcMission ( 6153 )
-	AddNpcMission ( 6154 )
-	AddNpcMission ( 6155 )
-end
-
-function el_talk22()
-	Talk( 1, "Д§НхВеїЛµДЗйИЛ: ОТїЙДЬІ»КЗRockЧоГААцµДЗйИЛ,µ«Т»¶ЁКЗЧо»ЁРДµДТ»ёц.")
-
-	AddNpcMission ( 6156 )
-	AddNpcMission ( 6157 )
-	AddNpcMission ( 6158 )
-
-end
-
-function el_talk23()
-	Talk( 1, "ВеїЛјТµДНъІЖ: НфНфНфНфНфНфНф...ДгНф,ОТНф,ґујТНф!")
-
-	AddNpcMission ( 6159 )
-	AddNpcMission ( 6160 )
-end
-
-function el_talk24()
-	Talk( 1, "ЗпµєµјУОРЎЅг: ЅрЗпЧйНЕУО!»¶У­АґµЅЗпµє,ЅсМмКЗОТµЪТ»ґОµјУО,ЧЈФёДгФЪХвАп¶И№эТ»¶ООВЬ°ГАєГµДК±№в.Р»Р»!")
-
-	AddNpcMission ( 6162 )
-	AddNpcMission ( 6163 )
-	AddNpcMission ( 6164 )
-	AddNpcMission ( 6165 )
-end
-
-function el_talk25()
-	Talk( 1, "ОчГЕЗм: ОчГЕОТЖдКµКЗёцХэѕ­ИЛ,°®Т»ёцИЛУРКІГґґн?Из№ыУРАґЙъ,ОТПЈНыФЪЛщУРДРИЛЦ®З°УцµЅЛэ.")
-
-	AddNpcMission ( 6176 )
-	AddNpcMission ( 6178 )
-	AddNpcMission ( 6181 )
-	AddNpcMission ( 6183 )	
-end
-
-function el_talk26()
-	Talk( 1, " ПДµєґ«ЛНК№Ў¤°¬ГЙ: ТтОЄОТ°®ЙПВГРР,ЛщТФОТЧцБЛґ«ЛНК№,ЛН±рИЛИҐВГРР.")
-	Text( 1, "ОТТЄИҐЗпµє!", JumpPage, 2 )
-
-	InitTrigger()
-	TriggerCondition( 1, HasMoney, 500 )
-	TriggerAction( 1, TakeMoney, 500 )
-	TriggerAction( 1, GoTo, 2414,3174, "darkblue")
-	TriggerFailure( 1, JumpPage, 3 )
-	Talk( 2, "ПДµєґ«ЛНК№Ў¤°¬ГЙ:К±їМПнКЬИЛЙъµДГАѕ°..." )
-	Text( 2, "Teleport",MultiTrigger, GetMultiTrigger(), 1 )
-
-	Talk( 3, "ПДµєґ«ЛНК№Ў¤°¬ГЙ:ЕуУС,ДгєГґхТІґш500їйіцГЕ°Ў!·сФт±рИЛ»бИПОЄДгГ»ГжЧУ" )
-end
-
-function el_talk27()
-	Talk( 1, "ВуИр: КҐµ®їмАЦ!ФёДгµГµЅКАЙПЧоХжЦїГАєГµДЧЈёЈ.ПлТЄДГµЅЧоУХИЛµДКҐµ®АсОпВр?ИҐЙМіЗВтТ»ХЕКҐµ®»¤ЛНЧКёсЦ¤ДгѕНїЙТФФЪОТХвАпЅУИЎ»¤ЛНКҐµ®АПИЛµДИООсБЛ.")
-end
-
-function el_talk28()
-	Talk( 1, "їЛИрЛ№ДЄЛ№: КҐµ®їмАЦ!ДгМэЛµ№эКҐµ®ґеВр?ДЗКЗТ»ёцідВъїмАЦµДМмМГ.")
-end
-
-function el_talk29()
-	Talk( 1, "міР»МШ:КҐµ®їмАЦ!»ЄАцОВЬ°µДКҐµ®ЅЪФхГґїЙТФГ»УРГАО¶µДКҐµ®СзДШ?" )		
-	Text(1, "Cooking delicious turkey meat", JumpPage, 2)
-	Text(1, "Cook Christmas Dinner", JumpPage, 5)
-	
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2886, 10 )
-	TriggerCondition( 1, HasMoney, 10000 )
-	TriggerCondition( 1, HasLeaveBagGrid, 1 )
-	TriggerCondition( 1, KitbagLock, 0 )
-	TriggerAction( 1, TakeMoney, 10000 )
-	TriggerAction( 1, TakeItem, 2886,10 )
-	TriggerAction( 1, GiveItem, 2895, 1 , 4)
-	TriggerAction( 1, JumpPage, 3 )
-	TriggerFailure( 1, JumpPage, 4)
-	Talk( 2, "міР»МШ:ОТРиТЄФ­ІДБП10ёц»рј¦Ив,µ±И»Дг»№ТЄЦ§ё¶ёшОТ10000єЈµБ±ТµДРБїа·С")
-	Text(2, "Confirm to cook",  MultiTrigger, GetMultiTrigger(), 1)
-
-	Talk(3, "міР»МШ:ХвКЗОТѕ«РДЕлµчµДГАО¶»рј¦Ив,ёПїміўіў,О¶µАФхГґСщ?" )
-
-	Talk( 5, "міР»МШ:ЧцКҐµ®ґуІНа¶,ГїИЛЦ»ПЮИэґОЕ¶!")
-	Text( 5, "The first Christmas Cooking Contest",  JumpPage, 6)
-	Text( 5, "Second Set of Christmas Dinner",  JumpPage, 7)
-	Text( 5, "Third time making Christmas Dinner", JumpPage, 8)
-
-	InitTrigger()
-	TriggerCondition( 1, NoRecord, 815 )
-	TriggerCondition( 1, HasItem, 2895, 10 )
-	TriggerCondition( 1, HasItem, 2894, 1 )
-	TriggerCondition( 1, HasMoney, 10000 )
-	TriggerCondition( 1, HasLeaveBagGrid, 1 )
-	TriggerCondition( 1, KitbagLock, 0 )
-	TriggerAction( 1, TakeMoney, 10000 )
-	TriggerAction( 1, TakeItem, 2895,10 )
-	TriggerAction( 1, TakeItem, 2894,1 )
-	TriggerAction( 1, GiveItem, 2898, 1 , 4)
-	TriggerAction( 1, SetRecord, 815 )
-	TriggerAction( 1, JumpPage, 12 )
-	TriggerFailure( 1, JumpPage, 9 )
-	Talk( 6, "To make a good Christmas Dinner is not simple. I required 10 slices of Tasty Turkey Meat and 1 Christmas Rose. Christmas Rose seems to be found in the Item Mall. Beside paying me 10000G for the troublle, you can only make the Christmas Dinner 3 times.")
-	Text( 6, "Confirm to cook",  MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasRecord, 815 )
-	TriggerCondition( 1, NoRecord, 816 )
-	TriggerCondition( 1, HasItem, 2895, 10 )
-	TriggerCondition( 1, HasItem, 2894, 1 )
-	TriggerCondition( 1, HasMoney,1000000 )
-	TriggerCondition( 1, HasLeaveBagGrid, 1 )
-	TriggerCondition( 1, KitbagLock, 0 )
-	TriggerAction( 1, TakeMoney, 1000000 )
-	TriggerAction( 1, TakeItem, 2895,10 )
-	TriggerAction( 1, TakeItem, 2894,1 )
-	TriggerAction(1, GiveItem, 2898, 1 , 4)
-	TriggerAction( 1, SetRecord, 816 )
-	TriggerAction( 1, JumpPage, 12 )
-	TriggerFailure( 1, JumpPage, 10 )
-	Talk( 7, "Making Christmas Dinner again? I required 10 slices of Tasty Turkey Meat and 1 Christmas Rose. Christmas Rose seems to be found in the Item Mall. Beside paying me 1000000G for the troublle, you can only make the Christmas Dinner 3 times.")
-	Text( 7, "Confirm to cook",  MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasRecord, 816 )
-	TriggerCondition( 1, NoRecord, 817 )
-	TriggerCondition( 1, HasItem, 2895, 10 )
-	TriggerCondition( 1, HasItem, 2894, 1 )
-	TriggerCondition( 1, HasMoney, 10000000 )
-	TriggerCondition( 1, HasLeaveBagGrid, 1 )
-	TriggerCondition( 1, KitbagLock, 0 )
-	TriggerAction( 1, TakeMoney, 10000000 )
-	TriggerAction( 1, TakeItem, 2895,10 )
-	TriggerAction( 1, TakeItem, 2894,1 )
-	TriggerAction( 1, GiveItem, 2898, 1 , 4)
-	TriggerAction( 1, SetRecord, 817 )
-	TriggerAction( 1, JumpPage, 12 )
-	TriggerFailure( 1, JumpPage,11 )
-	Talk( 8,  "Making Christmas Dinner again? I required 10 slices of Tasty Turkey Meat and 1 Christmas Rose. Christmas Rose seems to be found in the Item Mall. Besides paying me 10000G for the troublle, you can only make the Christmas Dinner 3 times.")
-	Text( 8,  "Confirm to cook",  MultiTrigger, GetMultiTrigger(), 1)
-	Talk( 9,  "міР»МШ:ДъЙнЙПЛЖєхГ»УРЧг№»УГАґЕлЦЖµДОпЖ·»тЅрЗ®°Ў!ДъµД±і°ьЦБЙЩТЄУРТ»ёцїХёсЕ¶.ДгИ·¶ЁКЗµЪТ»ґОЧцКҐµ®ґуІНВр?Ц»ДЬЧц3ґО.")
-	Talk( 10, "міР»МШ:ДъЙнЙПЛЖєхГ»УРЧг№»УГАґЕлЦЖµДОпЖ·»тЅрЗ®°Ў!ДъµД±і°ьЦБЙЩТЄУРТ»ёцїХёсЕ¶.ДгИ·¶ЁКЗµЪ¶юґОЧцКҐµ®ґуІНВр?Ц»ДЬЧц3ґОЕ¶.")
-	Talk( 11, "міР»МШ:ДъЙнЙПЛЖєхГ»УРЧг№»УГАґЕлЦЖµДОпЖ·»тЅрЗ®°Ў!ДъµД±і°ьЦБЙЩТЄУРТ»ёцїХёсЕ¶.ДгИ·¶ЁКЗµЪИэґОЧцКҐµ®ґуІНВр?Ц»ДЬЧц3ґОЕ¶.")
-	Talk( 4,  "міР»МШ:ДъЙнЙПЛЖєхГ»УРЧг№»УГАґЕлЦЖµДОпЖ·»тЅрЗ®°Ў!ЗлИ·±ЈДъµД±і°ьОґЛш¶Ё,ІўЗТЦБЙЩТЄУРТ»ёцїХёсЕ¶.")
-	Talk( 12, "міР»МШ:ХвКЗОТѕ«РДЕлµчµДКҐµ®ґуІН,ёПїміўіў,О¶µАФхГґСщ?" )
-	AddNpcMission ( 6191 )
-end 
-
-function el_talk30()
-	
-	InitFuncList()
-	AddFuncList( GiveItem,	0817	,	1	,	4)
-	AddFuncList( GiveItem,	0818	,	1	,	4)
-	AddFuncList( GiveItem,	0819	,	1	,	4)
-	AddFuncList( GiveItem,	0867	,	1	,	4)
-	AddFuncList( GiveItem,	0868	,	1	,	4)
-	AddFuncList( GiveItem,	0869	,	1	,	4)
-	AddFuncList( GiveItem,	0872	,	1	,	4)
-	AddFuncList( GiveItem,	0873	,	1	,	4)
-	AddFuncList( GiveItem,	0874	,	1	,	4)
-	AddFuncList( GiveItem,	1630	,	2	,	4)
-	AddFuncList( GiveItem,	1631	,	1	,	4)
-	AddFuncList( GiveItem,	1632	,	1	,	4)
-	AddFuncList( GiveItem,	1633	,	2	,	4)
-	AddFuncList( GiveItem,	1634	,	1	,	4)
-	AddFuncList( GiveItem,	1635	,	1	,	4)
-	AddFuncList( GiveItem,	1636	,	2	,	4)
-	AddFuncList( GiveItem,	1637	,	1	,	4)
-	AddFuncList( GiveItem,	1638	,	1	,	4)
-	AddFuncList( GiveItem,	1639	,	2	,	4)
-	AddFuncList( GiveItem,	1640	,	1	,	4)
-	AddFuncList( GiveItem,	1641	,	1	,	4)
-	AddFuncList( GiveItem,	1642	,	2	,	4)
-	AddFuncList( GiveItem,	1643	,	1	,	4)
-	AddFuncList( GiveItem,	1644	,	1	,	4)
-	AddFuncList( GiveItem,	3360	,	1	,	4)
-	AddFuncList( GiveItem,	3361	,	1	,	4)
-	AddFuncList( GiveItem,	3362	,	1	,	4)
-	AddFuncList( GiveItem,	3363	,	1	,	4)
-	AddFuncList( GiveItem,	3364	,	1	,	4)
-	AddFuncList( GiveItem,	3365	,	1	,	4)
-	AddFuncList( GiveItem,	3366	,	1	,	4)
-	AddFuncList( GiveItem,	3367	,	1	,	4)
-	AddFuncList( GiveItem,	3425	,	1	,	4)
-	AddFuncList( GiveItem,	3426	,	1	,	4)
-	AddFuncList( GiveItem,	3427	,	1	,	4)
-	AddFuncList( GiveItem,	3428	,	1	,	4)
-	AddFuncList( GiveItem,	3429	,	1	,	4)
-	AddFuncList( GiveItem,	3430	,	1	,	4)
-	AddFuncList( GiveItem,	3431	,	1	,	4)
-	AddFuncList( GiveItem,	3432	,	1	,	4)
-	AddFuncList( GiveItem,	3433	,	1	,	4)
-	AddFuncList( GiveItem,	1804	,	1	,	4)
-	AddFuncList( GiveItem,	1805	,	1	,	4)
-	AddFuncList( GiveItem,	1806	,	1	,	4)
-	AddFuncList( GiveItem,	1807	,	1	,	4)
-	AddFuncList( GiveItem,	1808	,	1	,	4)
-	AddFuncList( GiveItem,	1809	,	1	,	4)
-	AddFuncList( GiveItem,	1810	,	1	,	4)
-	AddFuncList( GiveItem,	1811	,	1	,	4)
-	AddFuncList( GiveItem,	1787	,	1	,	4)
-	AddFuncList( GiveItem,	1788	,	1	,	4)
-	AddFuncList( GiveItem,	1789	,	1	,	4)
-	AddFuncList( GiveItem,	1790	,	1	,	4)
-	AddFuncList( GiveItem,	1791	,	1	,	4)
-	AddFuncList( GiveItem,	1792	,	1	,	4)
-	AddFuncList( GiveItem,	1793	,	1	,	4)
-	AddFuncList( GiveItem,	3930	,	1	,	4)
-	AddFuncList( GiveItem,	3931	,	1	,	4)
-	AddFuncList( GiveItem,	3932	,	1	,	4)
-	AddFuncList( GiveItem,	3930	,	1	,	4)
-	AddFuncList( GiveItem,	3931	,	1	,	4)
-	AddFuncList( GiveItem,	3932	,	1	,	4)
-	AddFuncList( GiveItem,	3930	,	1	,	4)
-	AddFuncList( GiveItem,	3931	,	1	,	4)
-	AddFuncList( GiveItem,	3932	,	1	,	4)
-	AddFuncList( GiveItem,	3930	,	1	,	4)
-	AddFuncList( GiveItem,	3931	,	1	,	4)
-	AddFuncList( GiveItem,	3932	,	1	,	4)
-	AddFuncList( GiveItem,	3930	,	1	,	4)
-	AddFuncList( GiveItem,	3931	,	1	,	4)
-	AddFuncList( GiveItem,	3932	,	1	,	4)
-	AddFuncList( GiveItem,	3930	,	1	,	4)
-	AddFuncList( GiveItem,	3930	,	1	,	4)
-	AddFuncList( GiveItem,	3931	,	1	,	4)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 3927, 1 )
-	TriggerCondition( 1, HasMoney, 200 )
-	TriggerCondition( 1, HasLeaveBagGrid, 2 )
-	TriggerCondition( 1, KitbagLock, 0 )
-	TriggerAction( 1, TakeMoney, 200 )
-	TriggerAction( 1, TakeItem, 3927, 1 )
-	TriggerAction( 1, RandFunction, GetFuncList(), GetNumFunc() )
-	TriggerFailure( 1, JumpPage, 2 )
-	Talk( 1, "КҐµ®їмАЦ!ХвКЗТ»МЁ№ЕАПµДЗеПґ»ъ,ФЪХвАпїЙТФПґµУДгµДТ»ЗР,ДгРиТЄЗеПґГґ?ГїґО200G." )
-	Text( 1, "Cleanse Mud", MultiTrigger, GetMultiTrigger(), 1)
-	Text( 1, "Cleanse Christmas Box", JumpPage, 3)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 2892, 1 )
-	TriggerCondition( 1, HasMoney, 10000 )
-	TriggerCondition( 1, HasLeaveBagGrid, 1 )
-	TriggerCondition( 1, KitbagLock, 0 )
-	TriggerAction( 1, TakeMoney, 10000 )
-	TriggerAction( 1, TakeItem, 2892, 1 )
-	TriggerAction( 1, GiveItem, 2893, 1 , 4)
-	TriggerAction( 1, JumpPage, 4)
-	TriggerFailure( 1, JumpPage, 2 )
-	Talk( 3, "Woah! What a dirty box! You need to pay 10000G to clean such a dirty box." )
-	Text( 3, "Comfirm to clean", MultiTrigger, GetMultiTrigger(), 1)
-	Talk( 4, "What a beautiful chest! Open it for some surprises" )
-	Talk( 2, "Failed to clean the item. Insufficient gold or does not possess the required item" )
-	AddNpcMission ( 6195 )
-end
---------------------------------------------------------------------------------------------------------------------
---													el_talk (Конец)											  	  --
---------------------------------------------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------------------------------------------
---													b_talk (Начало)											  	  --
---------------------------------------------------------------------------------------------------------------------
-function b_talk25()
+function b_talk25 ()
 	Popup( LifeSkillBegin , 3 )	
+
 end 
 
-function b_talk26()
+function b_talk26 ()
 	Popup( LifeSkillBegin , 2 )	
+
 end 
 
-function b_talk27()
+function b_talk27 ()
 	Popup( LifeSkillBegin , 0 )
 end 
 
-function b_talk28()
+function b_talk28 ()
 	Popup( LifeSkillBegin , 1 )	
+
 end 
---------------------------------------------------------------------------------------------------------------------
---													b_talk (Конец)											  	  --
---------------------------------------------------------------------------------------------------------------------
 
-
---------------------------------------------------------------------------------------------------------------------
---													leo_talk (Начало)											  --
---------------------------------------------------------------------------------------------------------------------
 function leo_talkaa()
-	Talk( 1, "Возьмусь за любую работу! Качество гарантирую!" )
-	Text( 1, "Посмотреть ассортимент ", SendExchangeXData)
+	Talk( 1, "Will accept all sort of project! Workmanship guarantee!" )
+	Text( 1, "Have a look at your item.", SendExchangeXData)
 
+	
+	--¶Т»»ЛщРиОпЖ· ID,КэБї,¶Т»»ЛщµГОпЖ·КэБї,ёіУиµДЦµ
 	InitExchangeX()
 
 	ExchangeDataX(	3989	,	99	,	3999	,	20	,	1)
@@ -7390,12 +10809,15 @@ function leo_talkaa()
 	ExchangeDataX(	3996	,	99	,	4006	,	20	,	1)
 	ExchangeDataX(	3997	,	99	,	4007	,	20	,	1)
 	ExchangeDataX(	3998	,	99	,	4008	,	20	,	1)
+
 end
 
 function leo_talkbb()
-	Talk( 1, "Не приходи, если у тебя нет денег!" )
-	Text( 1, "У меня есть только деньги.", SendExchangeXData)
+	Talk( 1, "Selling stones! Do not come if you have no money!" )
+	Text( 1, "I only have money.", SendExchangeXData)
 
+	
+	--¶Т»»ЛщРиОпЖ· ID,КэБї,¶Т»»ЛщµГОпЖ·КэБї,ёіУиµДЦµ
 	InitExchangeX()
 
 	ExchangeDataX(	4029	,	99	,	4039	,	20	,	1)
@@ -7418,87 +10840,76 @@ function leo_talkbb()
 	ExchangeDataX(	2815	,	99	,	1775	,	20	,	1)
 	ExchangeDataX(	1674	,	99	,	1767	,	20	,	1)
 	ExchangeDataX(	4832	,	99	,	2901	,	20	,	1)
+
 end
 
 function leo_talkcc()
-	Talk( 1,  "Не покупайте ничего у Торговца черного рынка. Он жульничает! Лучше покупайте у меня." )
-	Text( 1,  "Дайте взглянуть на ваши вещи. ", SendExchangeXData)
+	Talk( 1, "Never buy anything from the Black Market Merchant beside me, he will scam you of your money. Take a look at my things instead." )
+	Text( 1, "Let me take a look at your item.", SendExchangeXData)
+	--Text( 1, "99ёцѕ«БйУІ±Т=1ёц±¦КЇ¶Т»»ИЇ", JumpPage, 2 )
 	
 	InitExchangeX()
-	ExchangeDataX(	855		,	60	,	2617	,	1	,	1)
+	ExchangeDataX(	855	,	60	,	2617	,	1	,	1)
 	ExchangeDataX(	2588	,	3	,	2619	,	1	,	1)
 	ExchangeDataX(	2588	,	20	,	2622	,	1	,	1)
 	ExchangeDataX(	2589	,	5	,	2624	,	1	,	1)
 	ExchangeDataX(	2588	,	3	,	2640	,	1	,	1)
-	ExchangeDataX(	855		,	60	,	2641	,	1	,	1)
+	ExchangeDataX(	855	,	60	,	2641	,	1	,	1)
 	ExchangeDataX(	2588	,	20	,	2642	,	1	,	1)
 	ExchangeDataX(	2588	,	20	,	2643	,	1	,	1)
 	ExchangeDataX(	2588	,	50	,	2644	,	1	,	1)
 	ExchangeDataX(	2588	,	50	,	2649	,	1	,	1)
-	ExchangeDataX(	855		,	100	,	1055	,	1	,	1)
+	ExchangeDataX(	855	,	100	,	1055	,	1	,	1)
 	ExchangeDataX(	2588	,	100	,	1056	,	1	,	1)
-	ExchangeDataX(	855		,	100	,	1058	,	1	,	1)
+	ExchangeDataX(	855	,	100	,	1058	,	1	,	1)
 	ExchangeDataX(	2588	,	100	,	1059	,	1	,	1)
-	ExchangeDataX(	855		,	100	,	1061	,	1	,	1)
+	ExchangeDataX(	855	,	100	,	1061	,	1	,	1)
 	ExchangeDataX(	2588	,	100	,	1062	,	1	,	1)
-	ExchangeDataX(	855		,	100	,	1064	,	1	,	1)
+	ExchangeDataX(	855	,	100	,	1064	,	1	,	1)
 	ExchangeDataX(	2588	,	100	,	1065	,	1	,	1)
-	ExchangeDataX(	855		,	10	,	2680	,	1	,	1)
-	ExchangeDataX(	855		,	50	,	2681	,	1	,	1)
-	ExchangeDataX(	855		,	300	,	2682	,	1	,	1)
+	ExchangeDataX(	855	,	10	,	2680	,	1	,	1)
+	ExchangeDataX(	855	,	50	,	2681	,	1	,	1)
+	ExchangeDataX(	855	,	300	,	2682	,	1	,	1)
 	ExchangeDataX(	2588	,	10	,	2683	,	1	,	1)
 	ExchangeDataX(	2588	,	50	,	2684	,	1	,	1)
 	ExchangeDataX(	2588	,	300	,	2685	,	1	,	1)
-	ExchangeDataX(	855		,	10	,	2690	,	1	,	1)
-	ExchangeDataX(	855		,	50	,	2691	,	1	,	1)
-	ExchangeDataX(	855		,	300	,	2692	,	1	,	1)
+	ExchangeDataX(	855	,	10	,	2690	,	1	,	1)
+	ExchangeDataX(	855	,	50	,	2691	,	1	,	1)
+	ExchangeDataX(	855	,	300	,	2692	,	1	,	1)
 	ExchangeDataX(	2588	,	10	,	2693	,	1	,	1)
 	ExchangeDataX(	2588	,	50	,	2694	,	1	,	1)
 	ExchangeDataX(	2588	,	300	,	2695	,	1	,	1)
-	ExchangeDataX(	855		,	10	,	2700	,	1	,	1)
-	ExchangeDataX(	855		,	50	,	2701	,	1	,	1)
-	ExchangeDataX(	855		,	300	,	2702	,	1	,	1)
+	ExchangeDataX(	855	,	10	,	2700	,	1	,	1)
+	ExchangeDataX(	855	,	50	,	2701	,	1	,	1)
+	ExchangeDataX(	855	,	300	,	2702	,	1	,	1)
 	ExchangeDataX(	2588	,	10	,	2703	,	1	,	1)
 	ExchangeDataX(	2588	,	50	,	2704	,	1	,	1)
 	ExchangeDataX(	2588	,	300	,	2705	,	1	,	1)
-	ExchangeDataX(	855		,	10	,	2710	,	1	,	1)
-	ExchangeDataX(	855		,	50	,	2711	,	1	,	1)
-	ExchangeDataX(	855		,	300	,	2712	,	1	,	1)
+	ExchangeDataX(	855	,	10	,	2710	,	1	,	1)
+	ExchangeDataX(	855	,	50	,	2711	,	1	,	1)
+	ExchangeDataX(	855	,	300	,	2712	,	1	,	1)
 	ExchangeDataX(	2588	,	10	,	2713	,	1	,	1)
 	ExchangeDataX(	2588	,	50	,	2714	,	1	,	1)
 	ExchangeDataX(	2588	,	300	,	2715	,	1	,	1)
+
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 0855, 99 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeItem, 0855, 99 )
+	TriggerAction( 1, GiveItem, 3886, 1, 4 )
+	TriggerAction( 1, JumpPage, 4 )
+	TriggerFailure( 1, JumpPage, 3 )
+	Talk( 2, "єЪКРЙМИЛ:ДкЗбИЛ,ОТФЪСРЦЖРВІъЖ·ЎЈРиТЄґуБїѕ«БйУІ±Т,ДгїЙТФ°пОТКХјЇВр?ОТУГХдІШµД±¦±ґёъДг»»ЎЈ" )
+	Text( 2, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 3, "єЪКРЙМИЛ:КХЖл¶«ОчєуФЩАґХТОТ°Й,»№УРДгТЄ±ЈЦ¤ДгµД±і°ьЦБЙЩУРТ»ёцїХёс.ЗТґ¦ФЪОґЛш¶ЁµДЧґМ¬" )
+	Talk( 4, "єЪКРЙМИЛ:Р»Р»Дг,УВКї!ХвКЗёшДгµД±Ёік!" )
+
 end
-
-function Leo_talkQ()
-	Talk(1, "Представитель порядка, закона и правосудия! Я помогу вам связаться с ГМом.")
-	Text(1, "Узнать подробности ",JumpPage,2)
-	Text(1, "Задать вопрос " , OpenGMSend)
-	Text(1, "Проверить ответы " , OpenGMRecv)
-
-	Talk(2, "Я помощник ГМов. Я передаю им вопросы и возвращаю назад ответы от них. Вопрос не должен иметь больше 256 знаков или 128 слов. Одновременно вы можете задать лишь 1 вопрос. Пока вы не получите на него ответа задать другой вы не сможете. Пожалуйста задавайте вопросы только касательно игры!")
-	Text(2, "Я понял " , CloseTalk)
-end
-
-function leo_talkzz()
-	Talk( 1, "Привет! Я НПС поддержки. Я помогаю игрокам решить некоторые проблемы.")
-	Text( 1, "Неверное количество очков Хаоса ",JumpPage,2)
-	Text( 1, "Проблема с Картой перерождения ",JumpPage,3)
-
-	Talk( 3, "Привет! У вас проблема с Картой перерождения? Такое иногда случается. У меня вы можете восстановить свою карту.")
-	Text( 3, "Восстановить ",GetChaName_25, 1) 
-
-	Talk( 2, "Если у вас проблема с очками Хаоса, то я могу их сбросить до нуля.")
-	Text( 2, "Сбросьте очки Хаоса ",PKPointToZero)
-	Text( 2, "Нет, у меня все в порядке ",CloseTalk)
-end
---------------------------------------------------------------------------------------------------------------------
---													leo_talk (Конец)											  --
---------------------------------------------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------------------------------------------
---													max_talka (Начало)											  --
---------------------------------------------------------------------------------------------------------------------
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<єПіЙЅйЙЬФ±
+-----ЅйЙЬФ±-А¶
 function max_talka1()
 	Talk( 1, "Assistant - Blue: Hi, I am Assistant - Blue. I can help you with any problem encountered while using Substance Analyzation Tool. How may I help you?" )
 	Text( 1, "What is Substance Analyzation Tool?", JumpPage ,2)
@@ -7543,13 +10954,14 @@ function max_talka1()
 
 end
 
+-----уф»рЖЕЖЕ
 function max_talka2()
 	Talk( 1, "Matchstick Granny: Hello young man, I'm matchstick Granny. When I was young, I was the most famous chef! Haha! What can I do for you?" )
 	Text( 1, "I would like to know where I can cook", JumpPage ,2)
 	Text( 1, "Can I learn cooking?", JumpPage ,3)
 	Text( 1, "Can you teach me how to cook?", JumpPage ,4)
 	Text( 1, "Are the things made that special?", JumpPage ,5)
-	Text( 1, "I am only passing by", JumpPage ,6)
+	Text( 1, "I am only passing byЎ­", JumpPage ,6)
 
 	Talk( 2, "Matchstick Granny: We should treasure the world limited resource - Fire. It can allow us to cook tasty dishes." )
 	Text( 2, "Enquire about other questions", JumpPage ,1)
@@ -7559,7 +10971,7 @@ function max_talka2()
 	Text( 3, "I would like to enquire about other questions", JumpPage ,1)
 	Text( 3, "Thank you Granny, I understand now.", CloseTalk)
 
-	Talk( 4, "Matchstick Granny: Cooking is a great skill. You should be thankful to our God for being able to use such powers. Firstly, you need to have a fairy, cooking recipe, cooking tools and lastly, ingredients for cooking. Next you need to place the things in their respective places. Remember not to place them wrongly. Once everything is ready, you can start cooking. The fire must be controlled nicely, or the things might get burnt. Wastage of food is a sin!" )
+	Talk( 4, " Matchstick Granny: Cooking is a great skill. You should be thankful to our God for being able to use such powers. Firstly, you need to have a fairy, cooking recipe, cooking tools and lastly, ingredients for cooking. Next you need to place the things in their respective places. Remember not to place them wrongly. Once everything is ready, you can start cooking. The fire must be controlled nicely, or the things might get burnt. Wastage of food is a sin!" )
 	Text( 4, "When will the fire be just nice?", JumpPage ,7)
 	Text( 4, "I would like to enquire about other questions", JumpPage ,1)
 	Text( 4, "Thank you Granny, I understand now.", CloseTalk)
@@ -7577,12 +10989,14 @@ function max_talka2()
 
 end
 
+-----ИЫВЇјјК¦Ў¤Г·їЛ
 function max_talka3()
 	Talk( 1, "Furnace Artificer - Mel: Hi! Looking for me?" )
 	Text( 1, "Tell me what can the Furnace do", JumpPage ,2)
 	Text( 1, "How to use the Furnace?", JumpPage ,3)
 	Text( 1, "Can tell me the secret of the Furnace?", JumpPage ,4)
 	Text( 1, "I'm just passing through.", JumpPage ,5)
+
 
 	Talk( 2, "Furnace Artificer - Mel: Haha want to forge your own weapon and equipments? Then this is a must. Its an inheritance from my father. Its said that my father used this to forge a whole nation's army's equipment." )
 	Text( 2, "I would like to enquire about other questions", JumpPage ,1)
@@ -7600,11 +11014,12 @@ function max_talka3()
 	Text( 7, "I would like to enquire about other questions", JumpPage ,1)
 	Text( 7, "So this is it. I understand now.", CloseTalk)
 
-	Talk( 5, "Furnace Artificer - Mel: Are you Wolf? Passing by here?")
-	Text( 5, "I am only passing by", CloseTalk)
+	Talk( 5, "Furnace Artificer - Mel: ...Are you Wolf? Passing by here?")
+	Text( 5, "I am only passing byЎ­", CloseTalk)
 
 end
 
+-----СРѕїЙъ
 function max_talka4()
 	Talk( 1, "Graduate: Hi, is there anything I can do for you?" )
 	Text( 1, "What is it above you", JumpPage ,2)
@@ -7612,6 +11027,7 @@ function max_talka4()
 	Text( 1, "How do Substance Generator work?", JumpPage ,4)
 	Text( 1, "What item can it generate?", JumpPage ,5)
 	Text( 1, "I'm just passing through.", JumpPage ,6)
+
 
 	Talk( 2, "Graduate: This is our latest invention: Substance Generator. We can now refine metals with it!" )
 	Text( 2, "I would like to enquire about other questions", JumpPage ,1)
@@ -7630,41 +11046,636 @@ function max_talka4()
 	Text( 5, "I would like to enquire about other questions", JumpPage ,1)
 	Text( 5, "So this is it. I understand now.", CloseTalk)
 
-	Talk( 6, "Graduate: Looks like you are")
-	Text( 6, "I am really only passing by", CloseTalk)
+	Talk( 6, "Graduate: Looks like you areЎ­")
+	Text( 6, "I am really only passing byЎ­", CloseTalk)
 
 	Talk( 7, "Graduate: As we are not the Almighty, what we create are not perfect. To distinguish the quality of the product we have seperate it accordingly in ascending order:                  Thank you     Abysmal                            Terrible                           Bad                                  Poor                            Mediocre                          Fair                              Good                                Great                              Superb                            Perfect .")
 	Text( 7, "I would like to enquire about other questions", JumpPage ,1)
 	Text( 7, "So this is it. I understand now.", CloseTalk)
 end
---------------------------------------------------------------------------------------------------------------------
---													max_talka (Конец)											  --
---------------------------------------------------------------------------------------------------------------------
+
+---------------------КҐµ®ґеµДКҐµ®Кч
+function el_talk05 ()
+	
+	Talk( 1, "Christmas Tree: Merry Christmas to you! Each blessing that comes from the heart will hold true" )
+	Text( 1, "Select blessing",JumpPage, 2  )
+	
+	Talk ( 2, "Christmas Tree: Do you want to dedicate your blessing? Every dedication requires a Christmas Card and 1000G." )
+	Text( 2, "µЪТ»МхЧЈёЈ",JumpPage, 3  )
+	Text( 2, "µЪ¶юМхЧЈёЈ",JumpPage, 4 )
+	Text( 2, "µЪИэМхЧЈёЈ",JumpPage, 5 )
+	Text( 2, "µЪЛДМхЧЈёЈ",JumpPage, 6 )
+	Text( 2, "µЪОеМхЧЈёЈ",JumpPage, 7 )
+	Text( 2, "µЪБщМхЧЈёЈ",JumpPage, 8 )
+	Text( 2, "µЪЖЯМхЧЈёЈ",JumpPage, 9 )
+
+	
+	Talk( 3, "°ЧС©Ж®Ж®,В№БеПцПц,МрГЫµДЖЅ°ІТ№УЦАґµЅ,РЎКЦ°Ъ°Ъ,ОиЧЛВьВь,їмАЦµДКҐµ®ЅЪИХ¶аГАєГ.")
+	Text(3,"Confirm to broadcast this blessing",  GetChaName_0, 1)
+	Text( 3, "Return",JumpPage, 2  )
+
+	Talk( 4, "ГїТ»¶дС©»ЁЖ®ПВ,ГїТ»ёцСМ»рИјЖр,ГїТ»ГлК±јдБч¶Ї,ГїТ»·ЭЛјДоґ«ЛН,¶јґъ±нЧЕОТПлТЄЛНДгµДГїТ»ёцЧЈёЈ,КҐµ®їмАЦ!")
+	Text(4,"Confirm to broadcast this blessing",  GetChaName_1, 1)
+	Text( 4, "Return",JumpPage, 2  )
+
+	Talk( 5, "ОТУРТ»ёцГААцµДФёНы:ТФЗ°µДКҐµ®ЅЪ,ЧЬКЗИПОЄКҐµ®АПИЛІ»»бЅ«ЧоєГµДАсОпЅµБЩёшОТ,µ«ЅсДкµДКҐµ®ЅЪІ»Н¬,УРДгµДµЅАґ,ИГОТУАФ¶јЗЧЎЅсМм.")
+	Text(5,"Confirm to broadcast this blessing",  GetChaName_2, 1)
+	Text( 5, "Return",JumpPage, 2  )
+
+	Talk( 6, "КҐµ®ЅЪµЅБЛ,ПтЦ§іЦОТµДЕуУСєНОТЛщ°®µДЕуУСЛµЙщёРР»,ёРР»ДгЧЯЅшОТµДЙъ»о,ОТ»бѕЎОТЧоґуµДЕ¬Б¦ёшДгОЮПЮµДїмАЦ!")
+	Text(6,"Confirm to broadcast this blessing",  GetChaName_3, 1)
+	Text( 6, "Return",JumpPage, 2 )
+
+	Talk( 7, "КҐµ®ЅЪ¶јµЅБЛ,ДЬІ»ДЬФЪПВёцКҐµ®ЅЪЦ®З°±рФЩИГОТµ±ВТ¶·Ц®Нх,№¤»бХЅІ»ТЄґОґО¶јУ®,ЙПМм,ґНУиОТТ»ёцЗїѕўµД¶ФКЦ°Й,°ўГЕЎ­Ў­")
+	Text(7,"Confirm to broadcast this blessing",  GetChaName_26, 1)
+	Text( 7, "Return",JumpPage, 2 )
+
+	Talk( 8, "№юАпВ·СЗ,ВиВиЯдСЅ,Цч°ЎЎ­Ў­ґНОТТ»ёцж¤°Й")
+	Text(8,"Confirm to broadcast this blessing",  GetChaName_27, 1)
+	Text( 8, "Return",JumpPage, 2 )
+
+	Talk( 9, "КҐµ®ЅЪµЅБЛ,ЧЈёЈЧФјєєГФЛМмМмЅ»Ј¬Йъ»оІЅІЅёЯЈ¬ІКЖ±ЖЪЖЪЦРЈ¬ґтЕЖґОґОУ®Ј¬їЪО¶¶Щ¶ЩєГЈ¬ИфёТ°СОТНьЈ¬РЎРД°¤№ч°ф ")
+	Text(9,"Confirm to broadcast this blessing",  GetChaName_28, 1)
+	Text( 9, "Return",JumpPage, 2 )
+---------------------------------------------------------------------------------------------------------------	
+end
 
 
---------------------------------------------------------------------------------------------------------------------
---													amon_talk (Начало)											  --
---------------------------------------------------------------------------------------------------------------------
-function amon_talk1()
+
+----------------------------------------»фЅрЛ№-------------------------
+--------------------------------јЕДЇЦ®Лю6Іг(51300,26900)
+--------------------------------------eleven------------------------------------------
+function el_talk07 ()
+
+	InitTrigger()
+	TriggerCondition( 1, HasMission, 1300 )
+	TriggerCondition( 1, LvCheck, ">", 74 )
+	TriggerCondition( 1, HasCredit,9999 )
+	TriggerCondition( 1, NoRecord, 1300 )
+	TriggerCondition( 1, NoRecord, 1301 )
+	TriggerAction( 1, JumpPage, 2 )
+	TriggerFailure( 1, CloseTalk  )
+
+	Talk( 1, "Huckinson: I am a killing machine! Spare nobody! I do gossip sometimes. Do not talk to me if you are below Lv 75 and lower than 9999 reputation points!" )
+	Text( 1, "Hi!",MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 2, "Huckinson: To get the fragments you must answer a few questions. Which of the story quest below is connected to the missing boy quest?" )
+	Text( 2, "Food Poisoning",JumpPage, 3  )
+	Text( 2, "The Lost Tool",JumpPage, 4  )
+	Text( 2, "A Crazy Reason",JumpPage, 3  )---------
+	Text( 2, "Kill the Shrooms",JumpPage, 32  )
+
+	Talk( 3, "Huckinson: Do not be too arrogant. I ask you about some gossip instead. Who is the lover of Andrew?" )
+	Text( 3, "Coddy",JumpPage, 4  )
+	Text( 3, "Zhou",JumpPage, 32  )
+	Text( 3, "Little Fish",JumpPage,5  )
+	Text( 3, "Yuan Bin",JumpPage, 2  )
+	Text( 3, "Hami",JumpPage, 4  )--------------
+	Text( 3, "Li Zhang Zhong",JumpPage, 4  )
+
+	Talk( 4, "Huckinson: Which of these below are material for manufacturing" )
+	Text( 4, "Murky Polliwog Blood and Pure Water",JumpPage, 5  )
+	Text( 4, "Blood Red Polliwog skin and Energetic Tea",JumpPage, 5  )
+	Text( 4, "Evil Polliwog Blood and Incitant",JumpPage, 2  )
+	Text( 4, "Transparent Polliwog Blood and Pure Water",JumpPage, 32 )
+	Text( 4, "Thick Transparent Polliwog Tail",JumpPage, 6  )
+	Text( 4, "Energetic Tea and Incitant",JumpPage, 19  )-----------
+	Text( 4, "Evil Polliwog Blood",JumpPage, 5  )
+
+
+	Talk( 5, "Huckinson: The love keepsake of the myterious granny is...?" )
+	Text( 5, "Crystal Tears",JumpPage, 32  )
+	Text( 5, "Tear Soothstone",JumpPage, 6  )
+	Text( 5, "Stone of Langa",JumpPage, 3  )
+	Text( 5, "Amber Tear",JumpPage, 22  )----------
+	Text( 5, "Garden of Eve stone",JumpPage, 7  )
+	Text( 5, "Tears of Kara",JumpPage, 7  )
+	Text( 5, "Stone of First Love",JumpPage, 32  )
+
+	Talk( 6, "Huckinson: What is the relationship between the Richies and Anubis?" )
+	Text( 6, "Father and Son Relationship",JumpPage, 4  )
+	Text( 6, "grandparents and grandchildren relationship",JumpPage, 8  )
+	Text( 6, "brothers",JumpPage, 7  )
+	Text( 6, "Lover",JumpPage, 32  )
+	Text( 6, "No relation",JumpPage, 32  )
+	Text( 6, "Distance relative",JumpPage, 32  )
+	Text( 6, "Cousin Relationship",JumpPage, 7  )-----------------
+	Text( 6, "Sisters",JumpPage, 7  )
+
+	Talk( 7, "Huckinson: Demonic Fruit will change into what?" )
+	Text( 7, "Fairy Baby",JumpPage, 32  )
+	Text( 7, "Normal Apple",JumpPage, 8  )----------
+	Text( 7, "Devil",JumpPage, 9  )
+	Text( 7, "Running Demonic Fruit",JumpPage, 5  )
+	Text( 7, "harden",JumpPage, 32  )
+
+	Talk( 8, "Huckinson: What is Goldie now working as?" )
+	Text( 8, "butcher",JumpPage, 3  )
+	Text( 8, "Movie star",JumpPage, 32  )
+	Text( 8, "Face dot teacher",JumpPage, 32  )
+	Text( 8, "Body Art Model",JumpPage, 9  )--------
+	Text( 8, "GM",JumpPage, 7  )
+	Text( 8, "Company Boss",JumpPage, 9  )
+
+	Talk( 9, "Huckinson: Which of the option below is correct?" )
+	Text( 9, "You will regret choosing me.",JumpPage, 4  )
+	Text( 9, "Hami is the illegitimate son of Sang Di",JumpPage, 10 )-----------
+	Text( 9, "Beldi do not know how to make cakes",JumpPage, 32  )
+	Text( 9, "Sang Di will live longer than Mysterious Granny",JumpPage, 23 )
+	Text( 9, "The High Priest was once a pirate",JumpPage, 6  )
+
+	Talk( 10, "Huckinson: Black Market merchant used to be common. That was " )
+	Text( 10, "10 years ago",JumpPage, 5  )
+	Text( 10, "Half a year ago",JumpPage, 5  )
+	Text( 10, "While he is trading in antique",JumpPage, 32 )
+	Text( 10, "When he just arrived at Icicle City",JumpPage, 8  )
+	Text( 10, "Before he fell in love with Donna.",JumpPage, 11  )-----------
+	Text( 10, "After he has been ditched by Donna",JumpPage, 32  )
+	Text( 10, "When he is studying in Black Market University",JumpPage, 8  )
+
+
+	Talk( 11, "Huckinson: NPC secrets revealed! What sort of person do you think NPC Pappa is?" )
+	Text( 11, "25 years old handsome guy",JumpPage, 32 )
+	Text( 11, "gentle lady",JumpPage, 30  )
+	Text( 11, "Fierce tom-boy",JumpPage, 13  )
+	Text( 11, "Scary Marriage Whacko",JumpPage, 2  )
+	Text( 11, "Happy Pretty Girl",JumpPage, 13  )---------------
+	Text( 11, "Charming Idol",JumpPage, 32  )
+	Text( 11, "No correct option",JumpPage, 28  )
+
+	Talk( 30, "Huckinson: You have a deep misunderstanding of her"  )
+	Text( 30, "Next",JumpPage, 32  )
+	Talk( 31, "Huckinson: Don't let her know that you have chosen this answer" )
+	Text( 31, "Next",JumpPage, 32  )
+
+
+
+	--Talk( 12, "Huckinson: Which of the below description is wrong?" )
+	--Text( 12, "Minelli is the High Priest's secretary",JumpPage, 32 )
+	--Text( 12, "You can win Black Dragon equipment from Lucky Chance",JumpPage, 3 )
+	--Text( 12, "Ditto knows how to concort the Reverse Love Potion.",JumpPage,8 )
+	--Text( 12, "Roland is the most desired lover",JumpPage, 10 )
+	--Text( 12, "Kentaro feels that Mas is a very clever person",JumpPage, 13 )---------------
+	--Text( 12, "Horrific Cursed Corpse is near Ascaron at (360, 1340)",JumpPage, 5 )
+	--Text( 12, "Merman Prince used to be just a frog",JumpPage, 13 )
+	--Text( 12, "Minelli used to be Carsise's lover",JumpPage, 13 )
+
+	Talk( 13, "Huckinson: Regarding gem extraction, which of these stated below is wrong?" )
+	Text( 13, "Blacksmith's Plier is the tool for extraction",JumpPage, 5 )
+	Text( 13, "Each piece of equipment will follow a sequence to extract",JumpPage, 3 )
+	Text( 13, "Socket number will not change after extraction but Plier will disappear after usage",JumpPage, 32 )
+	Text( 13, "Collection Fee= Equipment refining level * 1000G",JumpPage, 14 )
+	Text( 13, "You can only extract one from each socket",JumpPage, 10 )
+	Text( 13, "Level of gem extracted is 1 level lower than original gem forged into socket",JumpPage, 14 )-----------------
+	Text( 13, "The 3rd option is correct",JumpPage, 8 )
+
+	Talk( 14, "Huckinson: Who knows the secret of the Brimstone?" )
+	Text( 14, "Houston",JumpPage, 4 )
+	Text( 14, "Langa and the Mysterious Granny",JumpPage, 32 )
+	Text( 14, "Merman Prince and Azure Siren",JumpPage, 7 )
+	Text( 14, "Ditto and Mystery Granny",JumpPage, 15 )
+	Text( 14, "Ditto and Langa",JumpPage, 15 )-----------------
+	Text( 14, "Mysterious Granny and the Merman Prince",JumpPage, 8 )
+	Text( 14, "Houston and the Merman Prince",JumpPage, 12 )
+
+
+	Talk( 15, "Huckinson: Which herbs stated below has side effect?" )
+	Text( 15, "Restoration Potion",JumpPage,13 )
+	Text( 15, "Revival Clover",JumpPage, 32 )
+	Text( 15, "Memory Capsule",JumpPage, 16 )--------------
+	Text( 15, "Reverse Love Potion",JumpPage, 5 )
+	Text( 15, "Memory Soup",JumpPage, 4 )
+	Text( 15, "Sorcerer's bone powder.",JumpPage, 16 )
+	Text( 15, "Preservative",JumpPage, 9 )
+
+	Talk( 16, "Huckinson: Whos lying?" )
+	Text( 16, "Mysterious Granny: I love Langa.",JumpPage, 32 )
+	Text( 16, "General William: Mask of Zorro is not with me",JumpPage, 17 )-----------
+	Text( 16, "Langa: Mysterious Granny is not the one in my heart",JumpPage, 17 )
+	Text( 16, "Pappe: I am a beautiful woman before I turned into a penguin!",JumpPage, 5 )
+	Text( 16, "Sang Di: I know how to speak the language that humans don't understand.",JumpPage, 10 )
+	Text( 16, "Mordo Junior: My parents aren't all Mordos",JumpPage, 15 )
+
+	Talk( 17, "Huckinson: Do you like to play Tales of Pirates?" )
+	Text( 17, "I like it",JumpPage, 32 )
+	Text( 17, "I like it very much",JumpPage, 32 )
+	Text( 17, "I like it very much",JumpPage, 32 )
+	Text( 17, "I like it!",JumpPage, 32 )
+	Text( 17, "I like it!",JumpPage, 18 )-----------------
+	Text( 17, "I like it!!!",JumpPage, 5 )
+	Text( 17, "I still likes it.",JumpPage, 15 )
+
+	Talk( 18, "Huckinson: The High Priest has what bad habit?" )
+	Text( 18, "Tear footskin",JumpPage, 5 )
+	Text( 18, "Dig Nose",JumpPage, 14 )
+	Text( 18, "Peep",JumpPage, 2 )
+	Text( 18, "Drunkyard",JumpPage, 9 )
+	Text( 18, "Smoke Addict",JumpPage, 12 )
+	Text( 18, "Gamble Addict",JumpPage, 10 )
+	Text( 18, "Squat in toilet",JumpPage, 12 )------------------
+	Text( 18, "Wash hand",JumpPage, 4 )
+
+
+	Talk( 19, "Huckinson: Are you sure about your option?" )
+	Text( 19, "I am sure",JumpPage, 21  )
+	Text( 19, "I chose wrongly just now.",JumpPage, 20  )
+	Text( 19, "I need to consider",JumpPage, 32  )
+
+	Talk( 20, "Huckinson: Please be steadyЎ­" )
+	Text( 20, "Next",JumpPage, 3  )
+
+	Talk( 21, "Huckinson: Confidence is important to a pirate!" )
+	Text( 21, "Comfirm",JumpPage, 5  )
+
+	Talk( 22, "Huckinson: Are you sure about your option?" )
+	Text( 22, "I am sure",JumpPage, 24  )
+	Text( 22, "I chose wrongly just now.",JumpPage, 20  )
+	Text( 22, "I need to consider",JumpPage, 32  )
+
+
+	Talk( 23, "Huckinson: Are you sure about your option?" )
+	Text( 23, "I am sure",JumpPage, 25  )
+	Text( 23, "I chose wrongly just now.",JumpPage, 8  )
+	Text( 23, "I need to consider",JumpPage, 32  )
+
+	Talk( 24, "Huckinson: Confidence is the basic requirement to be a pirate!")
+	Text( 24, "Next",JumpPage, 6   )
+	Talk( 25, "Huckinson: Please use your brain. Don't always choose the same answer. Who told you that you must believe me? I'm talking about having confidence!")
+	Text( 25, "Next",JumpPage, 32  )
+
+	Talk( 26, "Huckinson: Are you sure about your option?" )
+	Text( 26, "I am sure",JumpPage, 28  )
+	Text( 26, "I chose wrongly just now.",JumpPage, 27  )
+	Text( 26, "I need to consider",JumpPage, 32  )
+
+	Talk( 27, "Huckinson: This move allow you to save lots of time"   )
+	Text( 27, "Next",JumpPage, 12  )
+
+	Talk( 28, "Huckinson: You are too over-confident. That's not a pirate's virtue."  )
+	Text( 28, "Next",JumpPage, 32  )
+
+
+
+	InitTrigger()
+	TriggerCondition( 1, HasMission, 1300 )
+	TriggerCondition( 1, NoRecord, 1300 )
+	TriggerAction( 1, SetRecord, 1301 )
+	TriggerAction( 1, JumpPage, 29 )
+	
+	Talk( 12, "Huckinson: I believe that these riddles are interesting. Do you wish to try?"  )
+	Text( 12, "want",MultiTrigger, GetMultiTrigger(), 1  )
+	Text( 12, "No",JumpPage, 2  )
+
+	Talk( 29, "Huckinson: Congratulations! Your wisdom has enabled you to join the quest for the fragments. Now go and prove your strength!" )
+
+	Talk(32, "Huckinson: Are you stupid?" )
+	Text( 32, "Not me. I want to try again.",JumpPage, 2  )
+	Text( 32, "I'm stupid, I quit!",CloseTalk  )
+	AddNpcMission	(6001)
+	AddNpcMission	(6002)
+
+	-------------»фЅрЛ№-------ѕЮР·
+	AddNpcMission	(5823)
+	AddNpcMission	(5824)
+	
+		
+end 
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<»фЅрЛ№
+
+
+
+----------------------------------------НРВнЛ№Ў¤НјНј-------------------------
+--------------------------------Д§·ЅКАЅз¶юІг(26600,25900)
+--------------------------------------eleven------------------------------------------
+
+function el_talk08 ()
+
+
+	Talk( 1, "Tomas Tutu: Organising tour! 3 days 2 night at Icy Devil Cave! Discount for members!" )
+
+	InitTrigger()
+	TriggerCondition( 1, HasMission, 1424 )
+	TriggerCondition( 1, HasMission, 1414 )
+	TriggerCondition( 1, NoRecord, 1424 )
+	TriggerAction( 1, JumpPage, 2 )
+	TriggerFailure( 1, JumpPage, 3 )
+	Text( 1, "Answer question",MultiTrigger, GetMultiTrigger(), 1 )
+
+	InitTrigger()
+	TriggerAction( 1, GoTo, 2232, 2809, "garner")
+	Talk( 2, "What's the name of this book? If you answer wrong I'll teleport you away.")
+	Text( 2, "My Battle history",MultiTrigger, GetMultiTrigger(), 1 )
+	
+	InitTrigger()
+	TriggerAction( 1, GoTo, 2232, 2809, "garner")
+	Text( 2, "My bad luck history",MultiTrigger, GetMultiTrigger(), 1 )
+
+	InitTrigger()
+	TriggerAction( 1, JumpPage, 4)
+	Text( 2, "My rebirth history",MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 3, "I'm reading books, don't come disturb me.")
+
+	InitTrigger()
+	TriggerAction( 1, JumpPage, 5)
+	Talk( 4, "Who is the author of this book? Note: I will teleport you away if you answer wrongly.")
+	Text( 4, "Thomas Riedel Mahero",MultiTrigger, GetMultiTrigger(), 1 )
+
+	InitTrigger()
+	TriggerAction( 1, GoTo, 2232, 2809, "garner")
+	Text( 4, "Who's the author for this book? If you answer wrong I'll teleport you away.",MultiTrigger, GetMultiTrigger(), 1 )
+
+	InitTrigger()
+	TriggerAction( 1, GoTo, 2232, 2809, "garner")
+	Text( 4, "Thomas Riedel Mafuro",MultiTrigger, GetMultiTrigger(), 1 )
+
+	InitTrigger()
+	TriggerAction( 1, GoTo, 2232, 2809, "garner")
+	Talk( 5, "How many pages are in this book? Answer wrong and I'll teleport you out of this place.")
+	Text( 5, "5321page",MultiTrigger, GetMultiTrigger(), 1 )
+
+	InitTrigger()
+	TriggerAction( 1, SetRecord, 1429)
+	TriggerAction( 1, JumpPage, 6)
+	Text( 5, "Page 5321",MultiTrigger, GetMultiTrigger(), 1 )
+	
+	InitTrigger()
+	TriggerAction( 1, GoTo, 2232, 2809, "garner")
+	Text( 5, "Page 5132",MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 6, "Congratlations for answering them all correctly! It seems like you're a careful person and continue reading books in the future.")
+
+	AddNpcMission ( 6095 )
+	AddNpcMission ( 6096 )
+
+	 
+	 AddNpcMission	(6010)
+	AddNpcMission	(6011)
+	AddNpcMission	(6012)
+	AddNpcMission	(6013)
+	AddNpcMission	(6014)
+
+	end
+	-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<НРВнЛ№Ў¤НјНј
+	
+	--ЙсК№
+	
+function Leo_talkQ()
+	Talk(1,"Representative of order, protector of love and justice! I am the Online GM, maning my post to help those in need...")
+	Text(1,"Regarding Online GM",JumpPage,2)
+	Text(1,"Submit question" , OpenGMSend)
+	Text(1,"Check on reply" , OpenGMRecv)
+	
+	Talk(2," I'm the online GM. Here, I relay the questions of the players to the GM in real life. At the same time, I'll relay the replies back to the players. When asking questions, please take note of the following:                                    1) Every player can only ask 1 question and have to wait for the reply before asking another.                                                                                        2)The questions cannot infringe upon the rules and regulations of the game     3)Content should be within 16-256 letters or 8-128 words.                                  4)Please do not ask questions not related to the game. Thank You!")
+	Text(2,"I understand" , CloseTalk)
+end
+
+
+-------------------------bargi-----------------------------
+function smzh_talk ()
+
+	Talk( 1, "Mystery Grocer: Young man, do not be fooled so easily by illusions!!!" )
+	Text( 1, "Trade", BuyPage)
+	Text( 1, "Repair", OpenRepair)
+
+	InitTrade()
+	Other(	1847	)
+	Other(	1848	)
+	Other(	1849	)
+	Other(	3143	)
+	Other(	637	)
+	Other(	819	)
+	Other(	869	)
+	Other(	874	)
+
+
+end 
+
+function leo_talkzz()
+	Talk(1,"Hi, I am an online support NPC. I will help players clear some of their query or issue. Please select the following options")
+	Text( 1,"Event of Chaos points abnormality",JumpPage,2)
+	Text( 1,"Rebirth card event",JumpPage,3)
+	 
+	Talk(3, "Hi, did your Rebirth Card changed to a rock? I guess that happens when it is exposed to radiation. Do you wish to restore your Rebirth Card here")
+	Text( 3, "Confirm to reset",GetChaName_25, 1) 
+	
+	Talk(2,"If you encounter abnormality in your Chaos points, please reset it to zero")
+	Text(2,"My Chaos points are abnormal. I wish to reset",PKPointToZero)
+	Text(2,"Don't know what are you talking about",CloseTalk)
+end
+	
+
+
+
+------------------------------------------------------------
+----							--
+----							--
+----		Йіб°іЗ[ЅММГРЮЕ®.Г·А­ґп]			--
+----							--
+----		82271,353453				--
+------------------------------------------------------------
+-------------------------------------------------------------ХвАпїЄКјP»°БДМм
+--function el_talk09 ()
+--	
+--	Talk( 1, "Г·А­ґп:Йс°®КАИЛ,ОТТФЦчµДГыТеСыЗлДгИҐКҐµШ." )
+--	Text( 1, "Church bidding", ListAuction)
+--	Text( 1, "Buy Church Visit Ticket", JumpPage,2 )
+--	Text( 1, "Buy invitiations", JumpPage, 5)
+--
+--
+--	InitTrigger()
+--	TriggerCondition( 1, HasMoney,5000 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerAction( 1, TakeMoney, 5000 )
+--	TriggerAction(1, GiveItem, 3013, 1 , 4)
+--	TriggerAction( 1, JumpPage, 3)
+--	TriggerFailure( 1, JumpPage, 4 )
+--	Talk(2, "Mulida: Holy and Sacred church is a place of where happiness begins, and where love gets witnessed. You're welcome to take a tour with a ticket, one ticket only costs 5000 gold.")
+--	Text( 2, "confirm buying",  MultiTrigger, GetMultiTrigger(), 1)
+--
+--	Talk(3, "Mulida: Welcome you to take a tour on time anytime")
+--	Talk(4, "Mulida: You don't seem to have enough money on you! Or you bag is already locked, please make you have 1 empty space inside your inventory")
+--	
+--	Talk( 5, "Meridar: Church permit will allow you to purchase invitation cards, each stack of 10 cost 50000G. Invite your friends now!" )
+--	Text( 5, "confirm buying", ChangeItem, 1  )
+--	
+--	
+--end 
+
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Г·А­ґп
+	
+-----------------------------Ф№ДоІЭ
+function ync_talk ()
+	Talk( 1, "What are you looking at? Stare longer and I will hit you")
+
+	InitTrigger()
+	TriggerCondition( 1, HasMission, 1403 )
+	TriggerCondition( 1, HasRecord, 1402 )
+	TriggerCondition( 1, NoRecord, 1403 )
+	TriggerCondition( 1, NoRecord, 1404 )
+	TriggerAction( 1, JumpPage, 2 )
+	TriggerFailure( 1, JumpPage, 3 )
+	Text( 1, "Answer question",MultiTrigger, GetMultiTrigger(), 1 )
+
+	InitTrigger()
+	TriggerAction( 1, SetRecord, 1404 )
+	TriggerAction( 1, SetRecord, 1405 )
+	Talk( 2, "WhyЎ­Why must always kill us shrub familyЎ­Do you know how many people in total in this world kills us shrubs and steal our items for their quest?")
+	Text( 2, "quantity 11",MultiTrigger, GetMultiTrigger(), 1 )
+
+	InitTrigger()
+	TriggerAction( 1, SetRecord, 1404 )
+	TriggerAction( 1, SetRecord, 1406 )
+	Text( 2, "quantity 12",MultiTrigger, GetMultiTrigger(), 1  )
+
+	InitTrigger()
+	TriggerAction( 1, SetRecord, 1404 )
+	TriggerAction( 1, SetRecord, 1406 )
+	Text( 2, "quantity 13",MultiTrigger, GetMultiTrigger(), 1  )
+
+	InitTrigger()
+	TriggerAction( 1, SetRecord, 1404 )
+	TriggerAction( 1, SetRecord, 1407 )
+	Text( 2, "I don't care what you got",MultiTrigger, GetMultiTrigger(), 1  )
+
+	Talk( 3, "I have to get my revenge! You stay away.")
+
+	AddNpcMission ( 6072 )
+	AddNpcMission ( 6073 )
+	AddNpcMission ( 6074 )
+	AddNpcMission ( 6075 )
+	AddNpcMission ( 6076 )
+	AddNpcMission ( 6077 )
+
+end
+
+--------------------------------------ЦШЙЛµДОЮГыХЅКї
+
+function Zs_Soldier ()
+	Talk( 1, "Becareful friend, and don't wake that big lizard.")
+
+
+	AddNpcMission ( 6098 )
+	AddNpcMission ( 6099 )
+end
+---------------------------------------------------------
+--							--
+--							--
+--		µШУь7Іг[А­Ир]			--
+--							--
+--		190, 181				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function el_talk11 ()
+	
+	Talk( 1, "Lurie: Welcome to Abaddon Level 7! Although Abaddon is scary, but is filled with opportunities. Abaddon is heaven for brave adventurers." )
+--	Text( 1, "Please click here once", JumpPage,2 )
+--	
+--	
+--	InitTrigger()
+--	TriggerCondition( 1, NoRecord, 1154 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerAction(1, GiveItem, 3877, 1 , 4)
+--	TriggerAction( 1, SetRecord, 1154 )
+--	TriggerAction( 1, JumpPage, 3)
+--	TriggerFailure( 1, JumpPage, 4 )
+--	Talk( 2, "Lurie: Friend, to honour your bravery into the abaddon, I'll give you a present, but only one chance per person!")
+--	Text( 2, "I accept",  MultiTrigger, GetMultiTrigger(), 1)
+--	Text( 2,"Thank you, I'm just passing by.",CloseTalk)
+--
+--	Talk(3, "Lurie: Brave warrior, my friend Anita at the 15th floor of Abaddon have a bigger surprise for you, don't miss it!")
+--	Talk(4, "Lurie: Please confirm your bag is not locked, and make sure you have one space in your inventory. Present can only be claimed once!")
+--	
+end 
+
+-----<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ВЮА­
+
+---------------------------------------------------------
+--							--
+--							--
+--		µШУь15Іг[ПЈ¶ыЛю]			--
+--							--
+--		314, 303				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function el_talk12 ()
+	
+	Talk( 1, "Abaddon level 15 have give many people a haunting nightmare, only the real champion will obtain honour." )
+--	Text( 1, "Please click here once", JumpPage,2 )
+--	
+--	
+--	InitTrigger()
+--	TriggerCondition( 1, NoRecord, 1155 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerAction(1, GiveItem, 0853, 1 , 4)
+--	TriggerAction( 1, SetRecord, 1155 )
+--	TriggerAction( 1, JumpPage, 3)
+--	TriggerFailure( 1, JumpPage, 4 )
+--	Talk( 2, "Anita: Friend, anyone who dares challenge Abaddon level 15 is entited to get a present from me. You only have one chance though!")
+--	Text( 2, "I accept",  MultiTrigger, GetMultiTrigger(), 1)
+--	Text( 2,"Thank you, I'm just passing by.",CloseTalk)
+--
+--	Talk(3, "Anita: Friend, when on the road to exploring Abaddon, there's no loser. Going forward is a hero's destiny.")
+--	Talk(4, "Anita: Please confirm your inventory is not locked or you have one free space inside your inventory. You can only claim the present once!")
+	
+end 
+
+
+---------------------------------------------------------
+--							--
+--							--
+--		ґє·зХт[ФВАП]			--
+--							--
+--		3228,2508				--
+----------------------------------------------------------
+function amon_talk1 ()
 	Talk( 1, "ФВАП: Т»ёщємПЯ,БЅґ¦ЗйФµ.µАІ»НкИЛјдЗйКВ.")
+
+
+	--AddNpcMission ( 5736 )
+	--AddNpcMission ( 5737 )
 end
 
-function amon_talk2()
+---------------------------------------------------------
+--							--
+--							--
+--		ПДµє[ЕЈАЙ]			--
+--							--
+--		3670,2636			--
+----------------------------------------------------------
+function amon_talk2 ()
 	Talk( 1, "ЕЈАЙ: ПаѕЫ¶М,ТшєУі¤.УЖУЖИµЗЕВ·,АґИЛВ·,АлИЛВ·.")
+
+
+	--AddNpcMission ( 5738 )
+	--AddNpcMission ( 5739 )
 end
 
-function amon_talk3()
+---------------------------------------------------------
+--							--
+--							--
+--		МмМГ[ЦЇЕ®]			--
+--							--
+--		1599,909			--
+----------------------------------------------------------
+function amon_talk3 ()
 	Talk( 1, "ЦЇЕ®: ПаѕЫ¶М,ЛјДоі¤.УЖУЖИµЗЕВ·,АлИЛВ·,АґИЛВ·.")
+
+
+	--AddNpcMission ( 5740 )
+	
 end
---------------------------------------------------------------------------------------------------------------------
---													amon_talk (Конец)											  --
---------------------------------------------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------------------------------------------
---													dina_talk (Начало)											  --
---------------------------------------------------------------------------------------------------------------------
-function dina_talk01()
+---------------------------------------------------------
+--							--
+--							--
+--		°ЧТш[РЈі¤АЧЕµ]			--
+--							--
+--		2232,2781			--
+----------------------------------------------------------
+function dina_talk01 ()
 	Talk( 1, "РЈі¤АЧЕµ: КојЩТСѕ­№эИҐЈ¬БЅёцФВµДі¤јЩЦ®єуЈ¬У­АґБЛРВµДС§ЖЪЎЈ")
 
 	AddNpcMission ( 6127 )
@@ -7672,9 +11683,17 @@ function dina_talk01()
 	AddNpcMission ( 6129 )
 	AddNpcMission ( 6130 )
 	AddNpcMission ( 6131 )
-end
 
-function dina_talk02()
+		
+end
+-----------------------------------------------------------
+----							--
+----							--
+----		Йіб°[°єАтДИАПК¦]			--
+----							--
+----		871,3581			--
+------------------------------------------------------------
+function dina_talk02 ()
 	Talk( 1, "°єАтДИАПК¦: РВС§ЖЪЈ¬РВїЄКјЈ¬С§ОЮЦ№ѕі~")
 	
 	InitTrigger()
@@ -7801,9 +11820,17 @@ function dina_talk02()
 	AddNpcMission ( 6134 )
 	AddNpcMission ( 6135 )
 	AddNpcMission ( 6136 )
-end
 
-function dina_talk03()
+
+end
+-----------------------------------------------------------
+----							--
+----							--
+--		±щј«[ївА­НРЛ№1]			--
+--							--
+--		2646,671			--
+----------------------------------------------------------
+function dina_talk03 ()
 	Talk( 1, "ївА­НРЛ№:ОыОы,ІВІВДЗёцІЕКЗХжХэµДОТ!ІВґнБЛїЙКЗТЄ±»ОТёП»Ш°ЧТшіЗµДЕ¶.")
 
 	InitTrigger()
@@ -7831,7 +11858,14 @@ function dina_talk03()
 
 end
 
-function dina_talk04()
+---------------------------------------------------------
+--							--
+--							--
+--		±щј«[ївА­НРЛ№2]			--
+--							--
+--		2718,586			--
+----------------------------------------------------------
+function dina_talk04 ()
 	Talk( 1, "ївА­НРЛ№:ОыОы,ІВІВДЗёцІЕКЗХжХэµДОТ!ІВґнБЛїЙКЗТЄ±»ОТёП»Ш°ЧТшіЗµДЕ¶.")
 
 	InitTrigger()
@@ -7859,7 +11893,14 @@ function dina_talk04()
 
 end
 
-function dina_talk05()
+---------------------------------------------------------
+--							--
+--							--
+--		±щј«[ївА­НРЛ№3]			--
+--							--
+--		2714,699			--
+----------------------------------------------------------
+function dina_talk05 ()
 	Talk( 1, "ївА­НРЛ№:ОыОы,ІВІВДЗёцІЕКЗХжХэµДОТ!ІВґнБЛїЙКЗТЄ±»ОТёП»Ш°ЧТшіЗµДЕ¶.")
 
 	InitTrigger()
@@ -7886,7 +11927,14 @@ function dina_talk05()
 	AddNpcMission ( 6137 )
 end
 
-function dina_talk06()
+---------------------------------------------------------
+--							--
+--							--
+--		±щј«[ївА­НРЛ№4]			--
+--							--
+--		2609,607			--
+----------------------------------------------------------
+function dina_talk06 ()
 	Talk( 1, "ївА­НРЛ№:ОыОы,ІВІВДЗёцІЕКЗХжХэµДОТ!ІВґнБЛїЙКЗТЄ±»ОТёП»Ш°ЧТшіЗµДЕ¶.")
 
 	InitTrigger()
@@ -7912,14 +11960,9 @@ function dina_talk06()
 	AddNpcMission ( 6137 )
 
 end
---------------------------------------------------------------------------------------------------------------------
---													dina_talk (Конец)											  --
---------------------------------------------------------------------------------------------------------------------
 
---------------------------------------------------------------------------------------------------------------------
---													reading_talk (Начало)										  --
---------------------------------------------------------------------------------------------------------------------
-function reading_talk01()
+-----------------------¶БКйПµНі
+function reading_talk01 ()
 	Talk( 1 , "Tester: I am the tester in Argent City. I will assist you when taking your tests. Put your Student card in your bag before starting the tests.")
 	
 	InitTrigger()
@@ -7942,7 +11985,7 @@ function reading_talk01()
 	AddNpcMission ( 112 )
 end
 
-function reading_talk02()
+function reading_talk02 ()
 	Talk( 1, "Promotion Examination Officer: I am the Promotion Examination Officer in Icicle City. I sell test papers for the Promotion Examination.")
 
 	InitTrigger()
@@ -7990,20 +12033,642 @@ function reading_talk02()
 	AddNpcMission ( 6138 )
 
 end
---------------------------------------------------------------------------------------------------------------------
---													reading_talk (Конец)										  --
---------------------------------------------------------------------------------------------------------------------
 
 
---------------------------------------------------------------------------------------------------------------------
---													Xmas_talk (Начало)											  --
---------------------------------------------------------------------------------------------------------------------
-function Xmas_talk01()
-	Talk( 1, "Leader of Xmas Commerce Chamber: Merry Christmas I've prepared lots of things for this Christmas. Do you want to have a look?")
-	Text( 1, "Let me see what you have." , JumpPage , 2 )
-	Text( 1, "Forget about it. I don't have time.", CloseTalk )
+----------------------------------------------------------
+--							--
+--							--
+--		Йіб°іЗ[ЅММГРЮЕ®.Г·А­ґп]			--
+--							--
+--		82271,353453				--
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function el_talk09 ()
+	
+	Talk( 1, "Г·А­ґп:Йс°®КАИЛ,ОТТФЦчµДГыТеСыЗлДгИҐКҐµШ." )
+	Text( 1, "№ШУЪЅММГ", JumpPage, 17)	
 
-	Talk( 2, "Only Christmas Coins and Fairy Coins can be used here.")
+	Talk( 17, "Г·А­ґп:ДгТЄЧвЅиЅММГВрЈїЅсМмХэєГУРґтХЫ»о¶ЇЕ¶." )
+
+	Text( 17, "ХчУГЅММГјтЅй", JumpPage, 6)
+	Text( 17, "Church bidding", ListAuction)
+	Text( 17, "Buy Church Visit Ticket", JumpPage,2 )
+	Text( 17, "Buy invitiations", JumpPage, 5)
+
+
+
+
+	InitTrigger()
+	TriggerCondition( 1, HasMoney,5000 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerAction( 1, TakeMoney, 5000 )
+	TriggerAction(1, GiveItem, 3024, 1 , 4)
+	TriggerAction( 1, JumpPage, 3)
+	TriggerFailure( 1, JumpPage, 4 )
+	Talk(2, "Г·А­ґп:ЙсКҐµдСЕµДЅММГКЗРТёЈїЄКјµДµШ·Ѕ,КЗ°®ЗйЧЇСПµДјыЦ¤.ГїЦЬТ»Нн17:00~17:10»¶У­іЦЖ±ІО№Ы,ГїХЕІО№ЫГЕЖ±Ц»Ри5000УОП·±Т")
+	Text( 2, "confirm buying",  MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk(3, "Mulida: Welcome you to take a tour on time anytime")
+	Talk(4, "Г·А­ґп:ДъЙнЙПЛЖєхГ»УРЧг№»µДЅр±Т°Ў!»тХЯДъµД±і°ьТСЛш¶Ё,Зл±ЈЦ¤±і°ьДЪБфУРТ»ёцїХёс")
+	
+	Talk( 5, "Г·А­ґп:УГЅММГК№УГЦ¤КйѕНїЙТФ№єВт¶ФУ¦ЅММГµДЗлјн,Гї10Г¶ЗлјнОЄ1Чй,ГїЧй5НтУОП·±Т.СыЗлДъµДЕуУСІОјУѕЫ»б°Й!" )
+	Text( 5, "confirm buying", ChangeItem, 1  )
+	
+	Talk( 6, "Г·А­ґп:ДгПлБЛЅвДЗТ»Ії·Ц?" )
+	Text( 6, "№ШУЪІО№Ы", JumpPage, 7)
+	Text( 6, "№ШУЪЅММГѕєЕД", JumpPage, 8)
+	Text( 6, "№ШУЪЅММГК№УГИЁ", JumpPage, 9)
+	Text( 6, "№ШУЪЅММГК№УГЦ¤Кй", JumpPage, 10)
+
+	Talk( 7, "Г·А­ґп:№єВтІО№ЫГЕЖ±µДЕуУСУЪГїЦЬТ»Нн17:00~17:10ІО№ЫЅММГ.")
+	Text( 7, "Comfirm", CloseTalk)
+	Text( 7, "Return", JumpPage, 6)
+
+	Talk( 8, "Г·А­ґп:ѕєЕДК±јд:УЪГїЦЬТ»НнЙП18:00~20:30Ц®јдФЪОТХвАпЅшРРЅММГѕєЕД.ѕєЕДМхјю:РЇґшЅММГѕє±кїЁ1·Э.ѕєЕДіЎґО:ЅММГГїРЗЖЪіцЧвБЅИХ,їЙіР°мЛДіЎµдАс.РЗЖЪБщБЅіЎ,Ас°ЭМмБЅіЎ.ГїіЎ2ёцРЎК±,іЎґОУЙѕєЕДК±¶Оѕц¶Ё.")
+	Text( 8, "Comfirm", CloseTalk)
+	Text( 8, "Return", JumpPage, 6)
+
+	Talk( 9, "Г·А­ґп:№І·Ц4ёцК±¶ОѕєЕД,¶ФУ¦К±¶ОДЪіцјЫЧоёЯµДЕуУСЅ«»сµГЅММГК№УГИЁ,ОЄѕє±кіЙ№¦ХЯ°д·ўЅММГК№УГЦ¤Кй,»№Ѕ«ФщЛН10Г¶Злјн.")
+	Text( 9, "Comfirm", CloseTalk)
+	Text( 9, "Return", JumpPage, 6)
+
+	Talk( 10, "Г·А­ґп:Ц¤КйЧчУГ:ЖѕёГЦ¤Кй·ЅїЙ№єВтЗлјн;µдАсК±¶ОДЪЛ«»чёГЦ¤КйЅшИлЅММГ.ФЪЅММГК№УГЦ¤КйЙП±кКѕµДК±јдєуБЅРЎК±,ЧФ¶ЇЅ«ЛщУРФЪіЎИЛФ±ґ«ЛН»ШЙіб°іЗ.")
+	Text( 10, "Comfirm", CloseTalk)
+	Text( 10, "Return", JumpPage, 6)
+end 
+
+----------------------------------------------------------
+--							--
+--							--
+--		Д§·Ѕ1Іг¶Т»»Ф±[°®µВ»Є]			--
+--							--
+--		26600,23000			--
+----------------------------------------------------------
+function el_talk13 ()
+	Talk( 1, "°®µВ»Є:З§ДкµДАъК·±»ЛкФВіѕ°ЈЛщВсФб,Фшѕ­НЕЅб¶шё»ИДµДјУДЙґуВЅТСІ»ёґґжФЪ.Л­»№јЗµГїЁА­Е®ЙсНтДкЗ°ОЄЛэ°®ИЛЛщБфПВµДµгµг±щАб!")
+	Text( 1, "¶Т»»ЙсЖь±¦Пд", JumpPage, 2)
+	
+	Talk( 2, "°®µВ»Є:З§Дк±щАбКЗКШОА°®ИЛµДґзґзПаЛј,ЕуУС!ИзИфДгУРРДїъМЅЕ®Йс·бё»µДѕ«ЙсКАЅз,ЗлґшЙП1ёцЗйЦ®йдєН1ёцДЙїЁ·ыКЇАґ¶Т»»ХвГФК§µДЙсЖь±¦ІШ°Й!")	
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3827, 1)              -------------ЗйЦ®йд
+	TriggerCondition( 1, HasItem, 3457, 1)              --------------ДЙїЁ·ыКЇ
+	TriggerCondition(1, HasLeaveBagGrid, 1)
+	TriggerCondition(1, KitbagLock, 0 )
+	TriggerAction(1, TakeItem, 3827, 1)
+	TriggerAction(1, TakeItem, 3457, 1)
+	TriggerAction(1, GiveItem, 0145, 1, 4)              ----------ЙсЖь±¦Пд
+	TriggerFailure(1, JumpPage, 3)
+	Text(2,"Confirm to redeem", MultiTrigger, GetMultiTrigger(), 1) 	
+
+	Talk( 3, "ЕуУС,ЙсБйІ»ИЭЩфдВ,ИзИфДгЙнЙП»№ОґУРЗйЦ®йдєНДЙїЁ·ыКЇ»тКЗДгµД±і°ьёсТСВъ,Зл°ІѕІµДАлїЄ.")
+
+end
+
+----------------------------------------------------------
+--							--
+--							--
+--		Д§·Ѕ2Іг¶Т»»Ф±[µВВіїЛ]			--
+--							--
+--		26600,23000			--
+----------------------------------------------------------
+function el_talk14 ()
+	Talk( 1, "µВВіїЛ:єЩєЩ,ЅьАґМЅС°ґуєЈµБНхВЮЙ­ТЕБф±¦ІШµДИЛЗчЦ®ИфрН,ИґІ»ЦЄД§·Ѕ¶юІгТюІШЧЕТ»ёцѕЄМмµДГШГЬ!ХвАпµДѕЮИЛКЧБмЙнЙПБчМКЧЕД¦¶ыїЛЧеИЛµДСЄТє,ДЗР©Т°ВщµДјТ»пФЪ·ЦБСНБµШК±,І»ЦЄґУНх№¬АпµББЛ¶аЙЩПЎХдТм±¦!")
+	
+	Text( 1, "¶Т»»°ФНх±¦Пд", JumpPage, 2)
+
+	Talk( 2, "µВВіїЛ:ЕуУС,ЕуУС!РЧГНµДД§¶ыїЛИЛГ»°СДгПЕ»µ°Й?КІГґ?ДгЛµДгУРРЕРД°СЛыЙ±ЛА?!ХжКЗЕе·юЕе·ю!ОТГГГГЧоЅьФЪСРЦЖТ»±ъ»рСжЙсЖч,ј±РиХвН·ѕЮИЛЙнЙПµД1ёцѕЮИЛКЧБмПоБґєН1ёцДЙїЁ·ыКЇЧцФ­БП!Из№ыДгДЬ°СХвБЅСщ¶«ОчХТАґ,ОТЅ«ФщУлДг:ОТГГГГЗЧКЦґёБ¶µД°ФНх±¦Пд,єЩєЩ,Ап±ЯµД±¦±ґїЙКЗГГГГ±ПЙъКХВјµДѕ«»Є!!")	
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3826, 1)             ------------ѕЮИЛКЧБмПоБґ
+	TriggerCondition( 1, HasItem, 3457, 1)             ------------ДЙїЁ·ыКЇ
+	TriggerCondition(1, HasLeaveBagGrid, 1)
+	TriggerCondition(1, KitbagLock, 0 )
+	TriggerAction(1, TakeItem, 3826, 1)
+	TriggerAction(1, TakeItem, 3457, 1)
+	TriggerAction(1, GiveItem, 0146, 1, 4)              ----------°ФНх±¦Пд
+	TriggerFailure(1, JumpPage, 3)
+	Text(2,"Confirm to redeem", MultiTrigger, GetMultiTrigger(), 1) 	
+
+	Talk( 3, "°ҐСЅ°ҐСЅ,Дгѕ№И»»№Г»КХјЇµЅѕЮИЛКЧБмПоБґєНДЙїЁ·ыКЇ»тКЗДг±і°ьМ«ВъБЛ!ДЗёПЅфМУ°Й!!!Д¦¶ыїЛЧеѕЮИЛ·ўЖр»рАґїЙКЗК®·ЦРЧє·аё!")
+
+end
+
+
+---------------------------------------------------------
+--							--
+--							--
+--		°ЧТш[Д§·ЁК¦ПДМм]			--
+--							--
+--		2229,2782			--
+----------------------------------------------------------
+function el_talk15 ()
+	Talk( 1, "Д§·ЁК¦ПДМм: ОТµДЕуУСЕбГО±»Д§НхВеїЛІРИМµДЙ±є¦БЛЎЈУВёТµДХЅКї,Из№ыДгДЬ№»ОЄОТХТ»Шґъ±нОТЕуУСБй»кµДЖЯёцЧЦДёP-E-I-M-E-N-GЎЈОТЅ«»б°СОТКХІШ¶аДкµДД§·ЁєРЛНёшДгЎЈ")
+
+	AddNpcMission ( 6139 )
+	AddNpcMission ( 6161 )
+	AddNpcMission ( 6166 )
+		
+end
+
+
+---------------------------------------------------------
+--							--
+--							--
+--		јУДЙКҐБЦ[ВеїЛјТµДКШГЕИЛ]			--
+--							--
+--		271Ј¬1775			--
+----------------------------------------------------------
+function el_talk16 ()
+	
+	Talk( 1, "ВеїЛјТµДКШГЕИЛ: ОТКЗВеїЛґуИЛµДЦТКµјТЖН,ЛдИ»ЛыєЬІРИМ,µ«КЗХвІўІ»·Б°­ОТРАЙНЛыµДДЬБ¦єНЙнІД.")
+	Text( 1, "ОТТЄИҐјЕДЇЦ®Лю1ІгЈЎ", JumpPage, 2 )
+
+	InitTrigger()
+	TriggerCondition( 1, HasMission,1213 )
+	TriggerAction( 1, GoTo, 352, 378, "lonetower")
+	TriggerFailure( 1, JumpPage, 3 )
+	Talk( 2, "ВеїЛјТµДКШГЕИЛ:јЕДЇЦ®ЛюЦ®ЛщТФјЕДЇКЗТтОЄГ»УРјёёц»оИЛ" )
+	Text( 2, "Teleport",MultiTrigger, GetMultiTrigger(), 1 )
+
+
+	Talk( 3, "ВеїЛјТµДКШГЕИЛ:ЕуУСДг»№Г»ЅУ КШГЕИЛНёВ¶µДРЕПў ХвёцИООс°Й?" )
+	AddNpcMission ( 6140 )
+	
+end
+
+---------------------------------------------------------
+--							--
+--							--
+--		јЕДЇЦ®Лю1Іг[ВеїЛјТµДДРУ¶]			--
+--							--
+--		260,257			--
+----------------------------------------------------------
+function el_talk17 ()
+	Talk( 1, " ВеїЛјТµДДРУ¶: ЦЪЛщЦЬЦЄ,Т»ДїБЛИ»,ОТ±ИВеїЛЛ§,ОЄКІГґЛыµДЗйИЛГЗІ»ХвСщПл......")
+	Text( 1, "ОТТЄИҐКҐБЦЈЎ", JumpPage, 2 )
+
+	InitTrigger()
+	TriggerAction( 1, GoTo, 275, 1775, "garner")
+	Talk( 2, "ВеїЛјТµДДРУ¶:УРїХіЈАґНж,№В¶АµДК±єтЎўїмАЦµДК±єтєНІ»ЦЄµАКЗ·сїмАЦµДК±єт..." )
+	Text( 2, "Teleport",MultiTrigger, GetMultiTrigger(), 1 )
+
+	AddNpcMission ( 6141 )
+	AddNpcMission ( 6142 )
+	AddNpcMission ( 6143 )
+	
+end
+
+---------------------------------------------------------
+--							--
+--							--
+--		јЕДЇЦ®Лю2Іг[ВеїЛјТµДЕ®У¶]			--
+--							--
+--		151Ј¬134			--
+----------------------------------------------------------
+function el_talk18 ()
+	Talk( 1, "ВеїЛјТµДЕ®У¶: ЧчОЄТ»ёцЕ®У¶І»ДЬІ»№ШЧўЧФјєЦчИЛµДЛЅЙъ»о,·сФтИХЧУ»бёьјУОЮБД.")
+
+
+	AddNpcMission ( 6144 )
+	AddNpcMission ( 6145 )
+	AddNpcMission ( 6146 )
+	
+end
+
+---------------------------------------------------------
+--							--
+--							--
+--		јЕДЇЦ®Лю3Іг[ВеїЛјТµДРЎГШ]			--
+--							--
+--		63Ј¬311			--
+----------------------------------------------------------
+function el_talk19 ()
+	Talk( 1, " ВеїЛјТµДРЎГШ: ОТЦЄµАОТЖЇББ,І»ТЄґ№ПСОТ.")
+
+
+	AddNpcMission ( 6147 )
+	AddNpcMission ( 6148 )
+	AddNpcMission ( 6149 )
+	
+end
+
+---------------------------------------------------------
+--							--
+--							--
+--		јЕДЇЦ®Лю4Іг[ВеїЛјТµДКШ»¤ХЯ]			--
+--							--
+--		261Ј¬70			--
+----------------------------------------------------------
+function el_talk20 ()
+	Talk( 1, "ВеїЛјТµДКШ»¤ХЯ: КШ»¤ХЯКЗУГАґЧрѕґµД.ВеїЛКІГґК±єтІЕДЬГч°ЧХвёцµААнДШ")
+
+
+	AddNpcMission ( 6150 )
+	AddNpcMission ( 6151 )
+	AddNpcMission ( 6152 )
+	
+end
+
+---------------------------------------------------------
+--							--
+--							--
+--		јЕДЇЦ®Лю5Іг[ВеїЛјТµД№ЬјТ]			--
+--							--
+--		542Ј¬54			--
+----------------------------------------------------------
+function el_talk21 ()
+	Talk( 1, "ВеїЛјТµД№ЬјТ: №ЬјТ№ЬјТ,ЦчИЛІ»№ЬѕНКЗОТµДјТ.")
+
+
+	AddNpcMission ( 6153 )
+	AddNpcMission ( 6154 )
+	AddNpcMission ( 6155 )
+end
+
+---------------------------------------------------------
+--							--
+--							--
+--		јЕДЇЦ®Лю6Іг[Д§НхВеїЛµДЗйИЛ]			--
+--							--
+--		541Ј¬268			--
+----------------------------------------------------------
+function el_talk22 ()
+	Talk( 1, "Д§НхВеїЛµДЗйИЛ: ОТїЙДЬІ»КЗRockЧоГААцµДЗйИЛ,µ«Т»¶ЁКЗЧо»ЁРДµДТ»ёц.")
+
+
+	AddNpcMission ( 6156 )
+	AddNpcMission ( 6157 )
+	AddNpcMission ( 6158 )
+	
+end
+
+---------------------------------------------------------
+--							--
+--							--
+--		µШУь4Іг[ВеїЛјТµДНъІЖ]			--
+--							--
+--		154,912			--
+----------------------------------------------------------
+function el_talk23 ()
+	Talk( 1, "ВеїЛјТµДНъІЖ: НфНфНфНфНфНфНф...ДгНф,ОТНф,ґујТНф!")
+
+
+	AddNpcMission ( 6159 )
+	AddNpcMission ( 6160 )
+
+end
+
+---------------------------------------------------------
+--							--
+--							--
+--		Зпµє[ЗпµєµјУОРЎЅг]			--
+--							--
+--		2423,3186			--
+----------------------------------------------------------
+function el_talk24 ()
+	Talk( 1, "ЗпµєµјУОРЎЅг: ЅрЗпЧйНЕУО!»¶У­АґµЅЗпµє,ЅсМмКЗОТµЪТ»ґОµјУО,ЧЈФёДгФЪХвАп¶И№эТ»¶ООВЬ°ГАєГµДК±№в.Р»Р»!")
+
+
+	AddNpcMission ( 6162 )
+	AddNpcMission ( 6163 )
+	AddNpcMission ( 6164 )
+	AddNpcMission ( 6165 )
+	
+end
+
+---------------------------------------------------------
+--							--
+--							--
+--		±щАЗ[АсЖ·ЕЙЛНЧЁФ±]			--
+--							--
+--		1307,500			--
+----------------------------------------------------------
+function pre_talk()
+	Talk( 1, "ДгєГ,ОТКЗАсЖ·ЕЙЛНЧЁФ±,ЧЁГЕёєФрЕЙЛНАсЖ·ёшґујТµД,ПЈНыДгГЗДЬПІ»¶.")
+	InitTrigger()
+	TriggerCondition( 1, HasNoItem,  1872 )
+	TriggerCondition(1, HasLeaveBagGrid, 1)
+	TriggerAction( 1, GiveItem, 1872, 1, 4)
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1, "БмИЎѕ«БйУІ±Т±¦Пд", MultiTrigger, GetMultiTrigger(), 1) 
+
+	InitTrigger()
+	TriggerCondition( 1, HasNoItem,  1570 )
+	TriggerCondition(1, HasLeaveBagGrid, 1)
+	TriggerAction( 1, GiveItem, 1570, 1, 4)
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1, "БмИЎѕ«Бй»ФУЎ±¦Пд", MultiTrigger, GetMultiTrigger(), 1) 
+
+	InitTrigger()
+	TriggerCondition( 1, HasNoItem,  1571 )
+	TriggerCondition(1, HasLeaveBagGrid, 1)
+	TriggerAction( 1, GiveItem, 1571, 1, 4)
+	TriggerFailure( 1, JumpPage, 2 )
+	Text( 1, "БмИЎѕ«БйНх»ФУЎ±¦Пд", MultiTrigger, GetMultiTrigger(), 1) 
+
+	Talk( 2, "Дг±і°ьДЪТСѕ­УРёГЦЦАаРНµД±¦ПдБЛ,І»РиТЄФЩБмИЎ,ТІУРїЙДЬДгµД±і°ьГ»їХёсБЛ.")
+end
+
+-----------------------------------------------------------------------------
+-- °ЧТшіЗ-----ЛДЛТРЎјвµ¶єЕЎўЙєєчєЕЎўѕЮѕЁєЕЈЁЕдєПіМРтРЮёДµДґ¬ІХ·З·ЁµАѕЯОКМвЈ©
+-----------------------------------------------------------------------------
+
+function k_talk001()
+
+	Talk( 1, "... ..." )
+
+end
+
+
+---------------------------------------------------------
+--							--
+--							--
+--		ПДµє[ОчГЕЗм]			--
+--							--
+--		3734Ј¬2661			--
+----------------------------------------------------------
+function el_talk25 ()
+	Talk( 1, "ОчГЕЗм: ОчГЕОТЖдКµКЗёцХэѕ­ИЛ,°®Т»ёцИЛУРКІГґґн?Из№ыУРАґЙъ,ОТПЈНыФЪЛщУРДРИЛЦ®З°УцµЅЛэ.")
+
+---------------------ЗпµєїЄ·ў
+	AddNpcMission ( 6176 )
+	AddNpcMission ( 6178 )
+	AddNpcMission ( 6181 )
+	AddNpcMission ( 6183 )
+	
+end
+
+---------------------------------------------------------
+--							--
+--							--
+--		ПДµєґ«ЛНК№Ў¤°¬ГЙ			--
+--							--
+--		3714Ј¬2664			--
+----------------------------------------------------------
+function el_talk26 ()
+	Talk( 1, " ПДµєґ«ЛНК№Ў¤°¬ГЙ: ТтОЄОТ°®ЙПВГРР,ЛщТФОТЧцБЛґ«ЛНК№,ЛН±рИЛИҐВГРР.")
+	Text( 1, "ОТТЄИҐЗпµє!", JumpPage, 2 )
+
+	InitTrigger()
+	TriggerCondition( 1, HasMoney, 500 )
+	TriggerAction( 1, TakeMoney, 500 )
+	TriggerAction( 1, GoTo, 2414,3174, "darkblue")
+	TriggerFailure( 1, JumpPage, 3 )
+	Talk( 2, "ПДµєґ«ЛНК№Ў¤°¬ГЙ:К±їМПнКЬИЛЙъµДГАѕ°..." )
+	Text( 2, "Teleport",MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 3, "ПДµєґ«ЛНК№Ў¤°¬ГЙ:ЕуУС,ДгєГґхТІґш500їйіцГЕ°Ў!·сФт±рИЛ»бИПОЄДгГ»ГжЧУ" )
+end
+
+----------------------------------------------------------
+
+	--КҐµ®ґе[міР»МШ]		
+
+--		221150,278125				
+----------------------------------------------------------
+-----------------------------------------------------------ХвАпїЄКјP»°БДМм
+function el_talk29 ()
+	
+	
+	Talk( 1, "міР»МШ:КҐµ®їмАЦ!»ЄАцОВЬ°µДКҐµ®ЅЪФхГґїЙТФГ»УРГАО¶µДКҐµ®СзДШ?" )		
+
+	
+	Text(1, "Cooking delicious turkey meat", JumpPage, 2)
+	Text(1, "Cook Christmas Dinner", JumpPage, 5)
+	
+	
+---------------------ЕлµчГАО¶µД»рј¦Ив
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2886, 10 )
+	TriggerCondition( 1, HasMoney, 10000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeMoney, 10000 )
+	TriggerAction( 1, TakeItem, 2886,10 )
+	TriggerAction( 1, GiveItem, 2895, 1 , 4)
+	TriggerAction( 1, JumpPage, 3 )
+	TriggerFailure( 1, JumpPage, 4)
+	Talk( 2, "міР»МШ:ОТРиТЄФ­ІДБП10ёц»рј¦Ив,µ±И»Дг»№ТЄЦ§ё¶ёшОТ10000єЈµБ±ТµДРБїа·С")
+	Text(2, "Confirm to cook",  MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk(3, "міР»МШ:ХвКЗОТѕ«РДЕлµчµДГАО¶»рј¦Ив,ёПїміўіў,О¶µАФхГґСщ?" )
+
+	Talk( 5, "міР»МШ:ЧцКҐµ®ґуІНа¶,ГїИЛЦ»ПЮИэґОЕ¶!")
+	Text(5, "The first Christmas Cooking Contest",  JumpPage, 6)
+	Text(5, "Second Set of Christmas Dinner",  JumpPage, 7)
+	Text(5, "Third time making Christmas Dinner", JumpPage, 8)
+	---------------------ЕлµчКҐµ®ґуІН
+	InitTrigger()
+	TriggerCondition( 1, NoRecord, 815 )
+	TriggerCondition( 1, HasItem, 2895, 10 )
+	TriggerCondition( 1, HasItem, 2894, 1 )
+	TriggerCondition( 1, HasMoney, 10000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeMoney, 10000 )
+	TriggerAction( 1, TakeItem, 2895,10 )
+	TriggerAction( 1, TakeItem, 2894,1 )
+	TriggerAction( 1, GiveItem, 2898, 1 , 4)
+	TriggerAction( 1, SetRecord, 815 )
+	TriggerAction( 1, JumpPage, 12 )
+	TriggerFailure( 1, JumpPage, 9 )
+	Talk( 6, "To make a good Christmas Dinner is not simple. I required 10 slices of Tasty Turkey Meat and 1 Christmas Rose. Christmas Rose seems to be found in the Item Mall. Beside paying me 10000G for the troublle, you can only make the Christmas Dinner 3 times.")
+	Text( 6, "Confirm to cook",  MultiTrigger, GetMultiTrigger(), 1)
+
+	
+
+	---------------------ЕлµчКҐµ®ґуІН
+	InitTrigger()
+	TriggerCondition( 1, HasRecord, 815 )
+	TriggerCondition( 1, NoRecord, 816 )
+	TriggerCondition( 1, HasItem, 2895, 10 )
+	TriggerCondition( 1, HasItem, 2894, 1 )
+	TriggerCondition( 1, HasMoney,1000000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeMoney, 1000000 )
+	TriggerAction( 1, TakeItem, 2895,10 )
+	TriggerAction( 1, TakeItem, 2894,1 )
+	TriggerAction(1, GiveItem, 2898, 1 , 4)
+	TriggerAction( 1, SetRecord, 816 )
+	TriggerAction( 1, JumpPage, 12 )
+	TriggerFailure( 1, JumpPage, 10 )
+	Talk(7, "Making Christmas Dinner again? I required 10 slices of Tasty Turkey Meat and 1 Christmas Rose. Christmas Rose seems to be found in the Item Mall. Beside paying me 1000000G for the troublle, you can only make the Christmas Dinner 3 times.")
+	Text( 7, "Confirm to cook",  MultiTrigger, GetMultiTrigger(), 1)
+
+	---------------------ЕлµчКҐµ®ґуІН
+	InitTrigger()
+	TriggerCondition( 1, HasRecord, 816 )
+	TriggerCondition( 1, NoRecord, 817 )
+	TriggerCondition( 1, HasItem, 2895, 10 )
+	TriggerCondition( 1, HasItem, 2894, 1 )
+	TriggerCondition( 1, HasMoney, 10000000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeMoney, 10000000 )
+	TriggerAction( 1, TakeItem, 2895,10 )
+	TriggerAction( 1, TakeItem, 2894,1 )
+	TriggerAction( 1, GiveItem, 2898, 1 , 4)
+	TriggerAction( 1, SetRecord, 817 )
+	TriggerAction( 1, JumpPage, 12 )
+	TriggerFailure( 1, JumpPage,11 )
+	Talk(8, "Making Christmas Dinner again? I required 10 slices of Tasty Turkey Meat and 1 Christmas Rose. Christmas Rose seems to be found in the Item Mall. Besides paying me 10000G for the troublle, you can only make the Christmas Dinner 3 times.")
+	Text( 8, "Confirm to cook",  MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 9, "міР»МШ:ДъЙнЙПЛЖєхГ»УРЧг№»УГАґЕлЦЖµДОпЖ·»тЅрЗ®°Ў!ДъµД±і°ьЦБЙЩТЄУРТ»ёцїХёсЕ¶.ДгИ·¶ЁКЗµЪТ»ґОЧцКҐµ®ґуІНВр?Ц»ДЬЧц3ґО.")
+	Talk( 10, "міР»МШ:ДъЙнЙПЛЖєхГ»УРЧг№»УГАґЕлЦЖµДОпЖ·»тЅрЗ®°Ў!ДъµД±і°ьЦБЙЩТЄУРТ»ёцїХёсЕ¶.ДгИ·¶ЁКЗµЪ¶юґОЧцКҐµ®ґуІНВр?Ц»ДЬЧц3ґОЕ¶.")
+	Talk( 11, "міР»МШ:ДъЙнЙПЛЖєхГ»УРЧг№»УГАґЕлЦЖµДОпЖ·»тЅрЗ®°Ў!ДъµД±і°ьЦБЙЩТЄУРТ»ёцїХёсЕ¶.ДгИ·¶ЁКЗµЪИэґОЧцКҐµ®ґуІНВр?Ц»ДЬЧц3ґОЕ¶.")
+	Talk( 4, "міР»МШ:ДъЙнЙПЛЖєхГ»УРЧг№»УГАґЕлЦЖµДОпЖ·»тЅрЗ®°Ў!ЗлИ·±ЈДъµД±і°ьОґЛш¶Ё,ІўЗТЦБЙЩТЄУРТ»ёцїХёсЕ¶.")
+	Talk(12, "міР»МШ:ХвКЗОТѕ«РДЕлµчµДКҐµ®ґуІН,ёПїміўіў,О¶µАФхГґСщ?" )
+	AddNpcMission ( 6191 )
+end 
+
+------------------------------------------------------------
+-- КҐµ®ґе-----КҐµ®АПИЛµДПґТВ»ъ
+------------------------------------------------------------
+function el_talk30()
+	
+	InitFuncList()
+	AddFuncList( GiveItem,	0817	,	1	,	4)
+	AddFuncList( GiveItem,	0818	,	1	,	4)
+	AddFuncList( GiveItem,	0819	,	1	,	4)
+	AddFuncList( GiveItem,	0867	,	1	,	4)
+	AddFuncList( GiveItem,	0868	,	1	,	4)
+	AddFuncList( GiveItem,	0869	,	1	,	4)
+	AddFuncList( GiveItem,	0872	,	1	,	4)
+	AddFuncList( GiveItem,	0873	,	1	,	4)
+	AddFuncList( GiveItem,	0874	,	1	,	4)
+	AddFuncList( GiveItem,	1630	,	2	,	4)
+	AddFuncList( GiveItem,	1631	,	1	,	4)
+	AddFuncList( GiveItem,	1632	,	1	,	4)
+	AddFuncList( GiveItem,	1633	,	2	,	4)
+	AddFuncList( GiveItem,	1634	,	1	,	4)
+	AddFuncList( GiveItem,	1635	,	1	,	4)
+	AddFuncList( GiveItem,	1636	,	2	,	4)
+	AddFuncList( GiveItem,	1637	,	1	,	4)
+	AddFuncList( GiveItem,	1638	,	1	,	4)
+	AddFuncList( GiveItem,	1639	,	2	,	4)
+	AddFuncList( GiveItem,	1640	,	1	,	4)
+	AddFuncList( GiveItem,	1641	,	1	,	4)
+	AddFuncList( GiveItem,	1642	,	2	,	4)
+	AddFuncList( GiveItem,	1643	,	1	,	4)
+	AddFuncList( GiveItem,	1644	,	1	,	4)
+	AddFuncList( GiveItem,	3360	,	1	,	4)
+	AddFuncList( GiveItem,	3361	,	1	,	4)
+	AddFuncList( GiveItem,	3362	,	1	,	4)
+	AddFuncList( GiveItem,	3363	,	1	,	4)
+	AddFuncList( GiveItem,	3364	,	1	,	4)
+	AddFuncList( GiveItem,	3365	,	1	,	4)
+	AddFuncList( GiveItem,	3366	,	1	,	4)
+	AddFuncList( GiveItem,	3367	,	1	,	4)
+	AddFuncList( GiveItem,	3425	,	1	,	4)
+	AddFuncList( GiveItem,	3426	,	1	,	4)
+	AddFuncList( GiveItem,	3427	,	1	,	4)
+	AddFuncList( GiveItem,	3428	,	1	,	4)
+	AddFuncList( GiveItem,	3429	,	1	,	4)
+	AddFuncList( GiveItem,	3430	,	1	,	4)
+	AddFuncList( GiveItem,	3431	,	1	,	4)
+	AddFuncList( GiveItem,	3432	,	1	,	4)
+	AddFuncList( GiveItem,	3433	,	1	,	4)
+	AddFuncList( GiveItem,	1804	,	1	,	4)
+	AddFuncList( GiveItem,	1805	,	1	,	4)
+	AddFuncList( GiveItem,	1806	,	1	,	4)
+	AddFuncList( GiveItem,	1807	,	1	,	4)
+	AddFuncList( GiveItem,	1808	,	1	,	4)
+	AddFuncList( GiveItem,	1809	,	1	,	4)
+	AddFuncList( GiveItem,	1810	,	1	,	4)
+	AddFuncList( GiveItem,	1811	,	1	,	4)
+	AddFuncList( GiveItem,	1787	,	1	,	4)
+	AddFuncList( GiveItem,	1788	,	1	,	4)
+	AddFuncList( GiveItem,	1789	,	1	,	4)
+	AddFuncList( GiveItem,	1790	,	1	,	4)
+	AddFuncList( GiveItem,	1791	,	1	,	4)
+	AddFuncList( GiveItem,	1792	,	1	,	4)
+	AddFuncList( GiveItem,	1793	,	1	,	4)
+	AddFuncList( GiveItem,	3930	,	1	,	4)
+	AddFuncList( GiveItem,	3931	,	1	,	4)
+	AddFuncList( GiveItem,	3932	,	1	,	4)
+	AddFuncList( GiveItem,	3930	,	1	,	4)
+	AddFuncList( GiveItem,	3931	,	1	,	4)
+	AddFuncList( GiveItem,	3932	,	1	,	4)
+	AddFuncList( GiveItem,	3930	,	1	,	4)
+	AddFuncList( GiveItem,	3931	,	1	,	4)
+	AddFuncList( GiveItem,	3932	,	1	,	4)
+	AddFuncList( GiveItem,	3930	,	1	,	4)
+	AddFuncList( GiveItem,	3931	,	1	,	4)
+	AddFuncList( GiveItem,	3932	,	1	,	4)
+	AddFuncList( GiveItem,	3930	,	1	,	4)
+	AddFuncList( GiveItem,	3931	,	1	,	4)
+	AddFuncList( GiveItem,	3932	,	1	,	4)
+	AddFuncList( GiveItem,	3930	,	1	,	4)
+	AddFuncList( GiveItem,	3930	,	1	,	4)
+	AddFuncList( GiveItem,	3931	,	1	,	4)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3927, 1 )
+	TriggerCondition( 1, HasMoney, 200 )
+	TriggerCondition( 1, HasLeaveBagGrid, 2 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeMoney, 200 )
+	TriggerAction( 1, TakeItem, 3927, 1 )
+	TriggerAction( 1, RandFunction, GetFuncList(), GetNumFunc() )
+	TriggerFailure( 1, JumpPage, 2 )
+	Talk( 1, "КҐµ®їмАЦ!ХвКЗТ»МЁ№ЕАПµДЗеПґ»ъ,ФЪХвАпїЙТФПґµУДгµДТ»ЗР,ДгРиТЄЗеПґГґ?ГїґО200G." )
+	Text( 1, "Cleanse Mud", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 1, "Cleanse Christmas Box", JumpPage, 3)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 2892, 1 )
+	TriggerCondition( 1, HasMoney, 10000 )
+	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+	TriggerCondition( 1, KitbagLock, 0 )
+	TriggerAction( 1, TakeMoney, 10000 )
+	TriggerAction( 1, TakeItem, 2892, 1 )
+	TriggerAction( 1, GiveItem, 2893, 1 , 4)
+	TriggerAction( 1, JumpPage, 4)
+	TriggerFailure( 1, JumpPage, 2 )
+	Talk( 3, "Woah! What a dirty box! You need to pay 10000G to clean such a dirty box." )
+	Text( 3, "Comfirm to clean", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 4, "What a beautiful chest! Open it for some surprises" )
+	Talk( 2, "Failed to clean the item. Insufficient gold or does not possess the required item" )
+	AddNpcMission ( 6195 )
+end
+
+
+---------------------------------------------------------
+--							--
+--							--
+--		±щАЗ±¤[КҐµ®АПИЛВуИр]			--
+--							--
+--		ЈЁ1216Ј¬550Ј©			--
+----------------------------------------------------------
+function el_talk27 ()
+	Talk( 1, "ВуИр: КҐµ®їмАЦ!ФёДгµГµЅКАЙПЧоХжЦїГАєГµДЧЈёЈ.ПлТЄДГµЅЧоУХИЛµДКҐµ®АсОпВр?ИҐЙМіЗВтТ»ХЕКҐµ®»¤ЛНЧКёсЦ¤ДгѕНїЙТФФЪОТХвАпЅУИЎ»¤ЛНКҐµ®АПИЛµДИООсБЛ.")
+	--------------»¤ЛНКҐµ®АПИЛ
+	--AddNpcMission	(6185)
+end
+
+
+---------------------------------------------------------
+--							--
+--							--
+--		±щј«І№ёшХѕ[КҐµ®АПИЛїЛИрЛ№ДЄЛ№]		--
+--							--
+--		ЈЁ2111Ј¬557Ј©			--
+----------------------------------------------------------
+function el_talk28 ()
+	Talk( 1, "їЛИрЛ№ДЄЛ№: КҐµ®їмАЦ!ДгМэЛµ№эКҐµ®ґеВр?ДЗКЗТ»ёцідВъїмАЦµДМмМГ.")
+	--------------»¤ЛНКҐµ®АПИЛ
+	--AddNpcMission	(6186)
+
+end
+
+---------------------------------КҐµ®ЙМИЛРР»б»бі¤
+function Xmas_talk01 ()
+	Talk( 1, "КҐµ®ЙМИЛРР»б»бі¤:Merry Christmas~ОТОЄХвёцГААцµДКҐµ®ЅЪЧј±ёБЛєЬ¶аµД»хОпЕ¶,ДгУРРЛИ¤ПлїґТ»ПВВр?")
+	Text( 1, "ИГОТїґїґДгХвУРКІГґєГ¶«Оч°Й." , JumpPage , 2 )
+	Text( 1, "ЛгБЛЈ¬ОТГ»їХїґ", CloseTalk )
+
+	Talk( 2, "ОТХвАпµД№жѕШєН±рµДµШ·ЅїЙІ»Т»СщЕ¶,Ц»їЙТФК№УГКҐµ®УІ±ТАґ№єВт.")
 	Text( 2, "Power of Frost", JumpPage , 3)
 	Text( 2, "Power of Thunder", JumpPage , 4)
 	Text( 2, "Power of Wind", JumpPage , 5)
@@ -8210,7 +12875,8 @@ function Xmas_talk01()
 	Talk( 26, "Дг±і°ьДЪєГПуГ»УРЧг№»µДКҐµ®УІ±ТЕ¶,ТІУРїЙДЬДгµД±і°ьГ»їХёс»т±і°ьТСЛш.")
 end
 
-function Xmas_talk02()
+-------------------------------------------------------------------КҐµ®ФУ»хЙМA
+function Xmas_talk02 ()
 	Talk( 1, "КҐµ®ФУ»хЙМ:КҐµ®ЅЪµЅА­~ОТОЄХвёцОВЬ°µДКҐµ®Чј±ёБЛєЬ¶а»хОп,УРРЛИ¤їґТ»ПВВр?ДгїП¶Ё»бПІ»¶µД!")
 	Text( 1, "ИГОТїґїґДгХвУРКІГґєГ¶«Оч°Й." , JumpPage , 2 )
 	Text( 1, "ЛгБЛЈ¬ОТГ»їХїґ", CloseTalk )
@@ -8395,7 +13061,8 @@ function Xmas_talk02()
 	AddNpcMission ( 6197 )
 end
 
-function Xmas_talk03()
+-------------------------------------------------------------------КҐµ®ФУ»хЙМB
+function Xmas_talk03 ()
 	Talk( 1, "КҐµ®АсЖ·ЙМ:Merry Christmas~ОТОЄХвёцГААцµДКҐµ®ЅЪЧј±ёБЛєЬ¶аµД»хОпЕ¶,ДгУРРЛИ¤ПлїґТ»ПВВр?")
 	Text( 1, "ИГОТїґїґДгХвУРКІГґєГ¶«Оч°Й." , JumpPage , 2 )
 	Text( 1, "ЛгБЛЈ¬ОТГ»їХїґ", CloseTalk )
@@ -8578,8 +13245,8 @@ function Xmas_talk03()
 
 	Talk( 26, "Дг±і°ьДЪєГПуГ»УРЧг№»µДКҐµ®УІ±ТЕ¶,ТІУРїЙДЬДгµД±і°ьГ»їХёс»т±і°ьТСЛш.")
 end
-
-function Xmas_talk04()
+-------------------------------------------------------------------КҐµ®ЙМИЛЎ¤ОТРРОТїб
+function Xmas_talk04 ()
 	Talk( 1, "КҐµ®ЙМИЛЎ¤ОТРРОТїб:АґАґАґ,ВтБЛОТµД¶«ОчЅсДкµДКҐµ®ЅЪДгЅ«ОЮ±ИРТёЈ,І»ТЄУМФҐАІ,АґїґПВ°Й~")
 	Text( 1, "ИГОТїґїґДгХвУРКІГґєГ¶«Оч°Й." , JumpPage , 2 )
 	Text( 1, "ЛгБЛЈ¬ОТГ»їХїґ", CloseTalk )
@@ -8728,7 +13395,8 @@ function Xmas_talk04()
 	AddNpcMission ( 6199 )
 end
 
-function Xmas_talk05()
+-------------------------------------------------------------------КҐµ®ЙМИЛЎ¤ОТїбОТРР
+function Xmas_talk05 ()
 	Talk( 1, "КҐµ®ЙМИЛЎ¤ОТїбОТРР:ДгєГСЅ,КҐµ®їмАЦ!ОТєЬїбКЗ°Й,ОТµД¶«Оч±ИОТёьїб,АґїґПВ°Й~")
 	Text( 1, "ИГОТїґїґДгХвУРКІГґєГ¶«Оч°Й." , JumpPage , 2 )
 	Text( 1, "ЛгБЛЈ¬ОТГ»їХїґ", CloseTalk )
@@ -8876,7 +13544,8 @@ function Xmas_talk05()
 	Talk( 26, "Дг±і°ьДЪєГПуГ»УРЧг№»µДКҐµ®УІ±ТЕ¶,ТІУРїЙДЬДгµД±і°ьГ»їХёс»т±і°ьТСЛш.")
 end
 
-function Xmas_talk06()
+-------------------------------------------------------------------КҐµ®ЙМИЛЎ¤С§ХЯ
+function Xmas_talk06 ()
 	Talk( 1, "КҐµ®ЙМИЛЎ¤С§ХЯ:Merry Christmas~ОТОЄХвёцГААцµДКҐµ®ЅЪЧј±ёБЛєЬ¶аµД»хОпЕ¶,ДгУРРЛИ¤ПлїґТ»ПВВр?")
 	Text( 1, "ИГОТїґїґДгХвУРКІГґєГ¶«Оч°Й." , JumpPage , 2 )
 	Text( 1, "ЛгБЛЈ¬ОТГ»їХїґ", CloseTalk )
@@ -9112,10 +13781,50 @@ function Xmas_talk06()
 	Talk( 26, "Дг±і°ьДЪєГПуГ»УРЧг№»µДКҐµ®УІ±ТЕ¶,ТІУРїЙДЬДгµД±і°ьГ»їХёс»т±і°ьТСЛш.")
 end
 
-function Xmas_talk07()
+----------------------------------------------------КҐµ®ґеїЖ¶ч
+function Xmas_talk07 ()
 	Talk ( 1, "ОТМЦСбХвКҐЅаС©°ЧµД¶¬Мм.ЕуУСЈ¬ОЄКІГґІ»ЕЧЖъХвР©ОЮБДµДЗмЧЈ»о¶ЇіцИҐЙ±ВѕТ»·¬ДШ?°ЧТш,±щАЗєНЙіб°іЗНвУРРн¶аµД»рј¦,чзВ№єНС©ИЛ,ИҐёЙµфЛыГЗ,И»єу°СЦ¤ѕЭґш»ШАґЈ¬ОТІ»»бїчґэДгµД.")
+--	Text ( 1, "ОТґшАґБЛТ»°Щёц»рј¦µДУрГ«", JumpPage, 2)
+--	Text ( 1, "ОТґшАґБЛТ»°ЩёцчзВ№µДјвЅЗ", JumpPage, 3)
+--	Text ( 1, "ОТґшАґБЛТ»°ЩёцС©ИЛµДСЫЗт", JumpPage, 4)
 	Text ( 1, "ОТПлИҐКҐµ®ѕєјјіЎ", JumpPage, 5)
 	Text ( 1, "ОЄКІГґОТГЗТЄЙ±ВѕХвР©їЙБЇµД№ЦОпДШ?", JumpPage, 10)
+
+--	Talk ( 2, "ДгИ·¶ЁТЄУГХвТ»°Щёц»рј¦µДУрГ«ёъОТ»»Т»ёцКҐµ®АсєРВр?")
+--	InitTrigger()
+--	TriggerCondition( 1, HasItem, 2879, 100 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerAction( 1, TakeItem, 2879, 100 )
+--	TriggerAction( 1, GiveItem, 2882, 1, 4 )
+--	TriggerAction( 1, CpHuojiNum )
+--	TriggerAction( 1, JumpPage, 6 )
+--	TriggerFailure( 1, JumpPage, 7 )
+--	Text ( 2, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+--
+--	Talk ( 3, "ДгИ·¶ЁТЄУГХвТ»°ЩёцчзВ№µДјвЅЗёъОТ»»Т»ёцКҐµ®АсєРВр?")
+--	InitTrigger()
+--	TriggerCondition( 1, HasItem, 2881, 100 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerAction( 1, TakeItem, 2881, 100 )
+--	TriggerAction( 1, GiveItem, 2882, 1, 4 )
+--	TriggerAction( 1, CpMiluNum )
+--	TriggerAction( 1, JumpPage, 6 )
+--	TriggerFailure( 1, JumpPage, 7 )
+--	Text ( 3, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
+--
+--	Talk ( 4, "ДгИ·¶ЁТЄУГХвТ»°ЩёцС©ИЛµДСЫЗтОТ»»Т»ёцКҐµ®АсєРВр?")
+--	InitTrigger()
+--	TriggerCondition( 1, HasItem, 2880, 100 )
+--	TriggerCondition( 1, HasLeaveBagGrid, 1 )
+--	TriggerCondition( 1, KitbagLock, 0 )
+--	TriggerAction( 1, TakeItem, 2880, 100 )
+--	TriggerAction( 1, GiveItem, 2882, 1, 4 )
+--	TriggerAction( 1, CpXuerenNum )
+--	TriggerAction( 1, JumpPage, 6 )
+--	TriggerFailure( 1, JumpPage, 7 )
+--	Text ( 4, "Confirm to exchange", MultiTrigger, GetMultiTrigger(), 1)
 
 	Talk ( 5, "ОТГЗТ»№ІУР5ёцѕєјјіЎ,ДгПлИҐДДТ»ёцДШ?")
 	Text ( 5, "КҐµ®ѕєјјіЎA", GoTosdBoss, 1 )
@@ -9137,7 +13846,8 @@ function Xmas_talk07()
 	AddNpcMission ( 6204 )
 end
 
-function Xmas_talk08()
+----------------------------------------------------КҐµ®ґеКҐµ®АПИЛ
+function Xmas_talk08 ()
 	Talk ( 1, "КҐµ®АПИЛ:єЗєЗ~КҐµ®їмАЦ~~ОТХвАпїЙТФОЄґујТ¶Т»»КҐµ®ґеЧЁУГµД№єОпУІ±Т,Из№ыДгПлФЪХвёцКҐµ®ґеАпShoppingµД»°ДЗѕНХТОТєГБЛ.")
 
 	Text ( 1, "ОТПл¶Т»»КҐµ®НтФЄУІ±Т", JumpPage, 2)
@@ -9198,98 +13908,12 @@ function Xmas_talk08()
 	AddNpcMission ( 6202 )
 end
 
-function Xmas_talk09()
-	Talk ( 1, "КҐµ®уф»рФЪ»¶їмµДМш¶ЇЧЕ~")
-	AddNpcMission ( 6203 )
-end
-
-function Xmas_talk10()
-	Talk ( 1, "НБЦшїс»¶ХЯ:ОЄБЛХвГААц»¶АЦµДЅЪИХ,АґєНОТГЗТ»ЖрО§ЧЕуф»рМшОи°Й!")
-end
-
-function Xmas_talk11()
-	Talk ( 1, "НБЦшїс»¶ХЯ:С©»Ё...Оиµё...уф»р...»рј¦...С©ИЛ...КҐµ®Кч...АсОп...»№УР±ИХвёьНкГАµДКҐµ®ЅЪВр?")
-end
-
-function Xmas_talk12()
-	Talk ( 1, "НБЦшїс»¶ХЯ:»№КЗО§ЧЕуф»р±ИЅПЕЇєН°Ў!ЕуУСЈ¬ТЄІ»ТЄАґТ»Жрїѕ»б»р,МшёцОиДШ?")
-end
-
-function Xmas_talk13()
-	Talk ( 1, "НБЦшїс»¶ХЯ:ОТ»№КЗѕхµГОТµДОиЧЛІЕКЗЧо°фµДЈ¬ДгІ»ХвСщИПОЄВр?")
-end
-
-function Xmas_talk14()
-	Talk ( 1, "НБЦшїс»¶ХЯ:ЅсМмµДНнІНКЗКІГґДШ?»бУРПгЕзЕзµД»рј¦Вр?єГПлДоВиВиµДКЦТХ°Ў.")
-end
-
-function Xmas_talk15()
-	Talk ( 1, "НБЦшїс»¶ХЯ:ЛдИ»І»М«ПІ»¶Хвє®АдµДМмЖш,І»№эКҐµ®ЅЪµД·ХО§ХжєГ°Ў!єГїЄРД°Ў!")
-end
-
-function Xmas_talk16()
-	Talk ( 1, "РЎВ№°Я±И:Г»Аґ№эКҐµ®ґеГґ?ДгХжВдОй,ёжЛЯДг№ю,КҐµ®ґеЦРјдУРїГєЬґуµДКҐµ®Кч,ґ«Лµ¶ФХвКҐµ®КчРнФёКЗєЬБйСйµД.їмИҐКФКФ°Й~~~!№ю№ю,ЧЈДгКҐµ®їмАЦ!")
-end
-
-function Xmas_talk17()
-	Talk ( 1, "±щБъИш·ЖА­:±рј·ОТ°Ў!РЎРДОТ·ў»рЧбДгГЗЕ¶!")
-end
-
-function Xmas_talk18()
-	Talk ( 1, "РЎјЄГЧ:О№О№,±рµІЧЎОТВп,ОТТІПлТЄТ»·ЭАсОп!ѕНТ»·Э,їЙТФВр?")
-end
-
-function Xmas_talk19()
-	Talk ( 1, "їмАЦµДС©НЮНЮ:ІЁ¶ыПИЙъ!ДгµДїЪґьАп¶јЧ°БЛР©КІГґ°Ў?УРМрМрµДМЗ№ыВр?УРЖЇББµДНжѕЯВр?")
-end
-
-function Xmas_talk20()
-	Talk ( 1, "РЎГЁРБЛї:¶Ј¶Јµ±,¶Ј¶Јµ±,Бе¶щПм¶Јµ±~~~!№ю№ю.ЅсДкТ»¶ЁКЗёцїмАЦµДКҐµ®ЅЪ,ёжЛЯДгёцГШГЬЕ¶.ѕЭЛµКҐµ®ЅЪµ±МмОзТ№12µгµДК±єт,ЙсГШµДДжЧЄКҐµ®ґеИлїЪ»біцПЦФЪґеАп.±рНьБЛИҐїґїґЕ¶~~јЗµГ¶аґ©µг.")
-end
-
-function Xmas_talk21()
-	Talk ( 1, "·ЙРЬГЁЕЙґп:УРЗЙїЛБ¦О¶µАµДЦсЛсВр?ёшОТТ»Р©!!")
-end
-
-function Xmas_talk22()
-	Talk ( 1, "Little Louise: Christmas is coming! See, this is a brand new navy hat my mother bought for me, isn't it handsome?")
-end
-
-function Xmas_talk23()
-	Talk ( 1, "Пол: Ох, хорошо, хорошо. Я обещаю, что все получат подарок.")
-end
-
-function Xmas_talk24()
-	Talk ( 1, "Маленький Том: Anyone want to have a snowball fight with me? I will play the role of the general. I know I'll be stronger than Kuen, who is next to the fountain under the Christmas tree. Believe me I'll prove myself to be the better mark.")
-	AddNpcMission ( 6205 )
-end
-
-function Xmas_talk25()
-	Talk( 1, "С Новым Годом! Добро Пожаловать в Новогоднюю Деревню. Вы можете мне задать вопросы о Новогодней Деревне.")
-	Text( 1, "Новогодний ивент ",JumpPage, 2  )
-	Text( 1, "Что можно купить в Новогодней Деревне?",JumpPage, 3  )
-	Text( 1, "Новогодняя Арена ",JumpPage, 4 )
-
-	Talk( 2, "Is your Christmas box dirty? Find the cleaner at (83,39) to clear it for you. Do you want a turkey dinner? Go find Physhed at (220,40). Do you want to give out Christmas wishes? Go find a Christmas tree at (144,158). Do you know all about that? Then return now.")
-	Text( 2, "Return",JumpPage, 1  )
-
-	Talk( 3, "Around (132,246) is a big fair, you can buy many many, peculiar items there. Before go there you should change your Gold into Xmas Coins with Santa Claus(146,171) because the sales staff won't accept your gold. Go shopping now.")
-	Text( 3, "Return",JumpPage, 1  )
-
-	Talk( 4, "It is said that there is a horrible BOSS in Xmas Arena, but in order to summon him we need more sacrifices. You can go and find Kuen to tell him about it.")
-	Text( 4, "Return",JumpPage, 1  )
-end
---------------------------------------------------------------------------------------------------------------------
---													Xmas_talk (Конец)											  --
---------------------------------------------------------------------------------------------------------------------
-
---------------------------------------------------------------------------------------------------------------------
---													movexmas_talk (Начало)										  --
---------------------------------------------------------------------------------------------------------------------
+-----------------------------------------±щАЗ±¤КҐµ®ґеґ«ЛНК№
 function movexmas_talk()
-	Talk ( 1, "Порталщик Новгодней Деревни: С Новым Годом! Вы хотите отправиться в Новогоднюю Деревню? Если Вы скажите мне, то я Вас телепортирую туда.")
-	Text ( 1, "Я думаю, что я хочу в Новогоднюю Деревню.", JumpPage, 2)
-	Text ( 1, "Нет, спасибо.", CloseTalk)
+	Talk ( 1, "КҐµ®ґеґ«ЛНК№:Merry Christmas~ПлИҐКҐµ®ґеВрЈїПлИҐДгѕНЛµ°Ў,ДгІ»ЛµОТФхГґЦЄµАДШ?І»їЙДЬЛµДгІ»ПлИҐОТЖ«Ж«ЛНДгИҐ,ТІІ»їЙДЬДгПлИҐОТЖ«Ж«І»ЛНДгµД!")
+	Text ( 1, "ОТПлИҐКҐµ®ґе", JumpPage, 2)
+	Text ( 1, "ХвИЛєГВЮаВ,ОТ»№КЗЧЯБЛ", CloseTalk)
+
 
 	InitTrigger()
 	TriggerCondition( 1, LvCheck, "<", 11 )
@@ -9298,10 +13922,10 @@ function movexmas_talk()
 	TriggerAction( 2, TakeMoney, 500 )
 	TriggerAction( 2, GoTo, 144,136, "07xmas")
 	TriggerFailure( 2, JumpPage, 3 )
-	Talk( 2, "Новогодняя Деревня сейчас открыта. Стоимость телепорта 500 золота. Если Вы меньше 10го уровня, то я Вас телепортирую бесплатно.")
-	Text( 2, "Отправиться ",MultiTrigger, GetMultiTrigger(), 2 )
+	Talk( 2, "ГААцµДКҐµ®ґеПЦФЪХэФЪїЄ·ЕЖЪјд,Ц»ТЄЦ§ё¶ЗшЗш500єЈµБ±ТОТѕНїЙТФЛНДг№эИҐ,Из№ыДгКЗ10ј¶ТФПВµДРВКЦµД»°ОТїЙТФГв·СОЄДг·юОсЕ¶.")
+	Text( 2, "Teleport",MultiTrigger, GetMultiTrigger(), 2 )
 
-	Talk( 3, "Порталщик Новгодней Деревни: У Вас не хватает денег.")
+	Talk( 3, "КҐµ®ґеґ«ЛНК№:Г»З®Вр?ДЗєЬ±§ЗёІ»ДЬОЄДг·юОсБЛЕ¶.")
 	AddNpcMission ( 6190 )
 	AddNpcMission ( 6192 )
 	AddNpcMission ( 6194 )
@@ -9310,1113 +13934,630 @@ function movexmas_talk()
 	AddNpcMission ( 6200 )
 end
 
-function movexmas_talk01()
-	Talk ( 1, "С Новым Годом!Вы хотите обратно в Новогоднюю Деревню? Это совершенно бесплатно!")
-	Text ( 1, "Я хочу обратно в Новогоднюю Дерверню", JumpPage, 2)
+---------------------------------------КҐµ®ѕєјјіЎґ«ЛНК№
+function movexmas_talk01 ()
+	Talk ( 1, "КҐµ®їмАЦ~ДгПл»ШµЅКҐµ®ґеВр?І»ФЩ¶аНж»бБЛВр?ДЗєГ,ОТХвАпµД·юОсїЙКЗИ«Гв·СµДЕ¶!")
+	Text ( 1, "ОТПл»ШКҐµ®ґе", JumpPage, 2)
+
 
 	InitTrigger()
 	TriggerAction( 1, GoTo, 144,136, "07xmas")
-	Talk( 2, "Вы готовы?")
-	Text( 2, "Телепортироваться!",MultiTrigger, GetMultiTrigger(), 1 )
+	Talk( 2, "Чј±ёєГБЛВр?.")
+	Text( 2, "Teleport",MultiTrigger, GetMultiTrigger(), 1 )
 end
---------------------------------------------------------------------------------------------------------------------
---													movexmas_talk (Конец)										  --
---------------------------------------------------------------------------------------------------------------------
 
-
---------------------------------------------------------------------------------------------------------------------
---													peter_talk (Начало)											  --
---------------------------------------------------------------------------------------------------------------------
-function peter_talk01()
-	Talk( 1, "Аде: Я не думаю что я глупый. Мой IQ 180!")
-end
-
-function peter_talk02()
-	Talk( 1, "Турист Эмма: I enjoy Christmas here with the others. It's the most relaxing thing for me in the whole year because during these joyous days I can forget all of the everyday chaos. I'll tell you a secret, I'll be playing Santa Claus and giving out the presents later. See whether or not you can recognize me.")
-end
-
-function peter_talk03()
-	Talk( 1, "Selin's Father: Tell your father what I've told you. Your father should give you pin money on Christmas. And tell him he should take care of his kids. Or he will lose you, just like me. I lost my boy!")
-end
-
-function peter_talk04()
-	Talk( 1, "Tourist Wednue: Hey! Merry Christmas! You come here to celebrate Christmas, right? Me too! Go to visit Xmas Merchant he owns lots of interesting items.")
-end
-
-function peter_talk05()
-	Talk( 1, "Дядя Харкен: О да! Новый Год! Ха ха ха ха...")
-end
-
-function peter_talk06()
-	Talk( 1, "Hip-Hop Fascinator: Come on! Want to be eye-catching on Christmas day? Play it cool with sun-glasses? No, no, no, let me tell you, it's really cool to have a Santa Claus costume.")
-end
-
-function peter_talk07()
-	Talk( 1, "Captain Kalimi: You don't think the children at sea can receive Christmas gifts? Don't worry, Santa Claus will send gifts to every child.")
-end
-
-function peter_talk08()
-	Talk( 1, "Sailor Aini: The captain is so kind that he permitted us to join the party. Oh, that's great!")
-end
-
-function peter_talk09()
-	Talk( 1, "Colonel Karee: Oh, cold is nothing in this great festival. I would love to play with my kids, but I'm a soldier, I have responsibilities. I hope you have a good time!")
-end
-
-function peter_talk10()
-	Talk( 1, "Seaman: I promise everyone can enjoy Christmas Day here. Why? Don't you see the baton in my hand?")
-end
-
-function peter_talk11()
-	Talk( 1, "Tourist Rolince:I love Christmas very much, and I like playing here, so many sweeties.  Do you want to give me a Xmas present?")
-end
-
-function peter_talk12()
-	Talk( 1, "Vendor Judy: If I could earn a living by touring around with my wares, then I would.  But I am also happy here; I just love to see the look on people's faces when they find the perfect gift for someone, on my stall.")
-end
-
-function peter_talk13()
-	Talk( 1, "Vendor Natcher: Have you ever been to Cupid Isle? If not, you must buy this keepsake. If you did, you should also buy it for Christmas.")
-end
-
-function peter_talk14()
-	Talk( 1, "Xmas Isle Vendor Romon: All people are willing to buy gifts in winter.")
-end
-
-function peter_talk15()
-	Talk( 1, "Xmas Isle Vendor Yeya: Hey! Merry Christmas! What about these clothes?")
-end
-
-function peter_talk16()
-	Talk( 1, "Bonfire Elder: take a look at flames. It reminds me of bonfire party when I was young. So young man, you must cherish now what you have.")
-end
-
-function peter_talk17()
-	Talk( 1, "Graybeard Noot: How old do think I am? Anyway it doesn't matter, we are all children compared with Santa Claus. You don't believe I'm a child? Why not have a snowball fight with me?")
-end
-
-function peter_talk18()
-	Talk( 1, "Granny Kela: AhAh We should help everyone who comes here to celebrate Christmas. If you don't know how to get there, you can ask me. I'll tell you.")
-end
-
-function peter_talk19()
-	Talk( 1, "Red Beard Raystom: Oh,It's been so long since I last talked with a real person!...Who are you? What do I want to ask you... ")
-end
-
-function peter_talk20()
-	Talk( 1, "Vendor Carten: Wow, Merry Christmas! You like Christmas so much then why not hold a balloon in your hand? It's said that Santa Claus will give gifts to the children who have balloons first!")
-end
-
-function peter_talk21()
-	Talk( 1, "Selina: Wooh, I want my dad, I just got a cake from Santa Claus, but where is my dad?")
-end
-
-function peter_talk22()
-	Talk( 1, "Short-tail Carsi: I have received gifts before, but this Christmas I will look for gifts. I know that the gift sent by Santa Claus is the same as the one my father bought.")
-end
-
-function peter_talk23()
-	Talk( 1, "Силвин: С Новым Годом! У Вас нет фейерверков? Почему бы Вам не сходить и купить немного на рынке, ниже центра Новогодней Деревни?.")
-end
-
-function peter_talk24()
-	Talk( 1, "Оми: A saying in the East goes, there is money and beauty in books. So I recommend that you learn a reading skill first.")
-end
-
-function peter_talk25()
-	Talk( 1, "Зое: Я скажу тебе по секрету.  Вы видите то место с воздушными шариками?  Они продают очень полезные вещи, которые могут помочь искателям приключений, как Вы!")
-end
-
-function peter_talk26()
-	Talk( 1, "Марк: Привет, я Марк, я всегда хочу тепло приветсвовать туристов.")
-end
-
-function peter_talk27()
-	Talk( 1, "Lique: Someone said that I should stay in the  kitchen. But I think this is Santa Claus's idea to make everybody around me laugh, which makes me happy. Merry Christmas. Remember, you have met short Lique in street this Christmas.")
-end
-
-function peter_talk28()
-	Talk( 1, "Вера: Я низкая? Хмм...Я лучший ассистент Деда Мороза!")
-end
-
-function peter_talk29()
-	Talk( 1, "Xmas Snowman Raygreen: I must keep silent. But I wish you Merry Christmas.")
+-------------------------------------ТФПВОЄНБЦшїс»¶ХЯ--------bragi
+function Xmas_talk09 ()
+	Talk ( 1, "КҐµ®уф»рФЪ»¶їмµДМш¶ЇЧЕ~")
+	AddNpcMission ( 6203 )
 end
 
-function peter_talk30()
-	Talk( 1, "Xmas Snowman Kargreen: Hello! Merry Christmas! Have you heard of a captain tracked by a stone? Not yet? You should catch up with Santa Claus, he can tell you tonight.")
+function Xmas_talk10 ()
+	Talk ( 1, "НБЦшїс»¶ХЯ:ОЄБЛХвГААц»¶АЦµДЅЪИХ,АґєНОТГЗТ»ЖрО§ЧЕуф»рМшОи°Й!")
 end
 
-function peter_talk31()
-	Talk( 1, "Little Joy: Haven't you thought about capturing the Santa Claus and keeping him in your house? I used to do it but failed. Now I've got a good idea to capture him. I'll tell you tomorrow.")
+function Xmas_talk11 ()
+	Talk ( 1, "НБЦшїс»¶ХЯ:С©»Ё...Оиµё...уф»р...»рј¦...С©ИЛ...КҐµ®Кч...АсОп...»№УР±ИХвёьНкГАµДКҐµ®ЅЪВр?")
 end
 
-function peter_talk32()
-	Talk( 1, "Молочный Мальчик: Хо! Хо! Хо! Дед Мороз подарил мне мой любимый вид кофе.")-- WTF?о_____________О ппц его зовут
+function Xmas_talk12 ()
+	Talk ( 1, "НБЦшїс»¶ХЯ:»№КЗО§ЧЕуф»р±ИЅПЕЇєН°Ў!ЕуУСЈ¬ТЄІ»ТЄАґТ»Жрїѕ»б»р,МшёцОиДШ?")
 end
 
-function peter_talk33()
-	Talk( 1, "Stupid John: Merry Christmas, people always call me John, you may know my nickname, in fact, I'm no fool, I know that Little Joy will try to capture Santa Claus.")
+function Xmas_talk13 ()
+	Talk ( 1, "НБЦшїс»¶ХЯ:ОТ»№КЗѕхµГОТµДОиЧЛІЕКЗЧо°фµДЈ¬ДгІ»ХвСщИПОЄВр?")
 end
 
-function peter_talk34()
-	Talk( 1, "Milu Joker: You know, I have a companion who is good at running, once they were running so fast that they were dubbed the Express Highway.")
+function Xmas_talk14 ()
+	Talk ( 1, "НБЦшїс»¶ХЯ:ЅсМмµДНнІНКЗКІГґДШ?»бУРПгЕзЕзµД»рј¦Вр?єГПлДоВиВиµДКЦТХ°Ў.")
 end
 
-function peter_talk35()
-	Talk( 1, "Grandmother Michia: On Christmas night, you must hang your stockings on the Christmas tree for Santa to place gifts in.")
+function Xmas_talk15 ()
+	Talk ( 1, "НБЦшїс»¶ХЯ:ЛдИ»І»М«ПІ»¶Хвє®АдµДМмЖш,І»№эКҐµ®ЅЪµД·ХО§ХжєГ°Ў!єГїЄРД°Ў!")
 end
 
-function peter_talk36()
-	Talk( 1, "Clergyman Illuson: If you have 10 true friends, you own the world. God bless you! My friend!")
+-------------------------------------ТФПВОЄРЎ¶ЇОпИє------bragi
+function Xmas_talk16 ()
+	Talk ( 1, "РЎВ№°Я±И:Г»Аґ№эКҐµ®ґеГґ?ДгХжВдОй,ёжЛЯДг№ю,КҐµ®ґеЦРјдУРїГєЬґуµДКҐµ®Кч,ґ«Лµ¶ФХвКҐµ®КчРнФёКЗєЬБйСйµД.їмИҐКФКФ°Й~~~!№ю№ю,ЧЈДгКҐµ®їмАЦ!")
 end
 
-function peter_talk37()
-	Talk( 1, "Carew: Don't waste your time every night. Tonight we'll have a good party. Join us, this Christmas will be the best.")
+function Xmas_talk17 ()
+	Talk ( 1, "±щБъИш·ЖА­:±рј·ОТ°Ў!РЎРДОТ·ў»рЧбДгГЗЕ¶!")
 end
 
-function peter_talk38()
-	Talk( 1, "Booggie: You know what. I have heard tell of something called the All-round Gem that can be used to make its user more powerful. You can ask Miree about it.")
+function Xmas_talk18 ()
+	Talk ( 1, "РЎјЄГЧ:О№О№,±рµІЧЎОТВп,ОТТІПлТЄТ»·ЭАсОп!ѕНТ»·Э,їЙТФВр?")
 end
 
-function peter_talk39()
-	Talk( 1, "Renaldo: I have a wish: I want my boss to pay me more and I want to have payed holiday!...But please don't let my boss know what I have said.")
+function Xmas_talk19 ()
+	Talk ( 1, "їмАЦµДС©НЮНЮ:ІЁ¶ыПИЙъ!ДгµДїЪґьАп¶јЧ°БЛР©КІГґ°Ў?УРМрМрµДМЗ№ыВр?УРЖЇББµДНжѕЯВр?")
 end
 
-function peter_talk40()
-	Talk( 1, "Klell: Happy holiday! But we should all pay attention to safety. I don't want anyone going to hospital just because of carelessness.")
+function Xmas_talk20 ()
+	Talk ( 1, "РЎГЁРБЛї:¶Ј¶Јµ±,¶Ј¶Јµ±,Бе¶щПм¶Јµ±~~~!№ю№ю.ЅсДкТ»¶ЁКЗёцїмАЦµДКҐµ®ЅЪ,ёжЛЯДгёцГШГЬЕ¶.ѕЭЛµКҐµ®ЅЪµ±МмОзТ№12µгµДК±єт,ЙсГШµДДжЧЄКҐµ®ґеИлїЪ»біцПЦФЪґеАп.±рНьБЛИҐїґїґЕ¶~~јЗµГ¶аґ©µг.")
 end
 
-function peter_talk41()
-	Talk( 1, "Deekos: So much snow! How can I clear it alone? I want I can get a Snow Shifter as a Christmas gift!")
+function Xmas_talk21 ()
+	Talk ( 1, "·ЙРЬГЁЕЙґп:УРЗЙїЛБ¦О¶µАµДЦсЛсВр?ёшОТТ»Р©!!")
 end
 
-function peter_talk42()
-	Talk( 1, "Poolo: I realize that we should enjoy everyday we have. So I think that it's a great blessing to spend Christmas here. So merry Christmas! And enjoy your life, friend.")
+function Xmas_talk22 ()
+	Talk ( 1, "РЎВ·ТЧЛї:КҐµ®ЅЪї©!!ДгГЗїґ,ХвКЗОТВиВи°пОТРВВтµДєЈѕьГ±ЧУ,єЬЖЇББ°Й!")
 end
 
-function peter_talk43()
-	Talk( 1, "Winnie: I've dreamed of becoming a Navigator. I will sail my ship faster than Santa Claus. In that case, Santa Claus would ask me to help him deliver gifts.")
+function Xmas_talk23 ()
+	Talk ( 1, "ІЁ¶ыПИЙъ:єГµДєГµДєўЧУГЗ,ОТХвЧј±ёБЛєЬ¶аАсОп,ГїёцИЛ¶ј»бУРµД,І»ТЄј·Е¶!")
 end
 
-function peter_talk44()
-	Talk( 1, "Gafee: How do you celebrate the wonderful Christmas? I just want to sit on the sofa, watch TV and enjoy Italian spaghetti!")
+function Xmas_talk24 ()
+	Talk ( 1, "РЎМАД·:УРЛ­ФёТвєНОТТ»ЖрИҐґтС©ХМµДВр?І»№эПИЛµєГ,ОТТЄЧцЅ«ѕь!!!ЦХУРТ»МмОТ»бі¬№эїЖ¶чµД,ґшЧЕ»рј¦УрГ«ИҐХТЛыЦ¤ГчОТµДКµБ¦,ѕНКЗФЪКҐµ®ґеЦРПВ·ЅЕзИЄЙПГжµДДЗёцјТ»п.")
+	AddNpcMission ( 6205 )
 end
 
-function peter_talk45()
-	Talk( 1, "Troublesome Suosuo: Where am I from? Where do roses in Winter come from? Where are Snowman and Little Milu from? I know what the answers are. I just want to know whether you know them or not?")
-end
-
-function peter_talk46()
-	Talk( 1, "Оскар: It's the Christmas season. I must spend some time with my kids snowball fighting and enjoying our delicious turkey.")
-end
-
-function peter_talk47()
-	Talk( 1, "Кае: Это мои первые минуты Нового года. Дед Мороз,большая и красивая новогодняя ёлка. Видели Вы Деда Мороза?")
-end
---------------------------------------------------------------------------------------------------------------------
---													peter_talk (Конец)											  --
---------------------------------------------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------------------------------------------
---													church_talk (Начало)										  --
---------------------------------------------------------------------------------------------------------------------
-function church_talk01()
-	Talk (1, "Свидетель: Привет. За 200 золотых я могу устроить для жениха с невестой грандиозный салют. Хочешь?")
-
-	InitTrigger()
-	TriggerCondition( 1, HasMoney, 200 )
-	TriggerAction( 1, TakeMoney, 200)
-	TriggerAction( 1, FireworksChurch )
-	TriggerFailure( 1, JumpPage, 3)
-
-	Text (1, "Конечно! ", MultiTrigger, GetMultiTrigger(), 1)
-	Text (1, "Нет, спасибо. ", CloseTalk)
-
-	Talk (3, "Свидетель: Извините, но у Вас нет денег. ")
-	Text (3, "До свидания. ", CloseTalk)
-end
-
-function church_talk02()
-	Talk (1, "Свидетельница: Привет. За 200 золотых я могу устроить для жениха с невестой грандиозный салют. Хочешь? ")
-
-	InitTrigger()
-	TriggerCondition( 1, HasMoney, 200 )
-	TriggerAction( 1, TakeMoney, 200)
-	TriggerAction( 1, FireworksChurch )
-	TriggerFailure( 1, JumpPage, 3)
-
-	Text (1, "Конечно! ", MultiTrigger, GetMultiTrigger(), 1)
-	Text (1, "Нет, спасибо. ", CloseTalk)
-
-	Talk (3, "Свидетельца: Извините, но у Вас нет денег. ")
-	Text (3, "До свидания. ", CloseTalk)
-end
-
-function church_talk03()
-	Talk( 1, "Первосященник: Добро пожаловть в Церковь. Давайте начнем церемонию. ")
-	Text( 1, "Начать церемонию ", JumpPage, 2)
-
-	Talk( 2, "Первосвященник: Берешь ли ты в законные жены(мужья) этого человека? Согласен(а) ли ты и в горе и в радости быть с ним? " )
-	Text( 2, "Да. Я согласен(а). ", Marry)
-	Text( 2, "Мне надо подумать... ", CloseTalk)
-end
-
-function church_talk04()
-	Talk( 1, "Прихожанка: Добрый день! А Вы на свадьбу? Не желаете сделать сюрприз молодоженам? ")
-	Text( 1, "Какой? ", JumpPage, 2)
-	Text( 1, "Нет, спасибо. ", CloseTalk)
-
-	Talk( 2, "Прихожанка: У меня есть уникальные свитки вызова. Я очень дешего их отдаю. ")
-	Text( 2, "Цветочный шар ", JumpPage, 3)
-	Text( 2, "Расписка на игру с Шариками ", JumpPage, 4)
-
-	Talk( 3, "Прихожанка: Брачный аферист очень агресивен. Если его ударить, он не отстанет от Вас. Будьте осторожны! ")
-
-	InitTrigger()
-	TriggerCondition( 1, KitbagLock, 0 )
-	TriggerCondition( 1, HasLeaveBagGrid, 1 )
-	TriggerCondition( 1, HasMoney, 75000 )
-	TriggerAction( 1, TakeMoney, 75000 )
-	TriggerAction( 1, GiveItem , 3080 , 1 , 4 )
-	TriggerFailure( 1, JumpPage, 5 )
-	Text( 3, "Купить за 75.000 золотых ", MultiTrigger, GetMultiTrigger(), 1)
-	Text( 3, "Назад ", JumpPage, 2)
-
-	Talk( 4, "Прихожанка: Воздушные шары... Я очень люблю украшать ими свой дом. А Вы когда-нибудь пробывали? ")
-
-	InitTrigger()
-	TriggerCondition( 1, KitbagLock, 0 )
-	TriggerCondition( 1, HasLeaveBagGrid, 1 )
-	TriggerCondition( 1, HasMoney, 75000 )
-	TriggerAction( 1, TakeMoney, 75000 )
-	TriggerAction( 1, GiveItem , 3083 , 1 , 4 )
-	TriggerFailure( 1, JumpPage, 5 )
-	Text( 4, "Купить за 75.000 золотых ", MultiTrigger, GetMultiTrigger(), 1)
-	Text( 4, "Назад ", JumpPage, 2)
-
-	Talk( 5, "Прихожанка: Как вы смеете обманывать? Здесь! В Церкви! ")
-	Text( 5, "Извините ", CloseTalk)
-end
---------------------------------------------------------------------------------------------------------------------
---													church_talk (Конец)											  --
---------------------------------------------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------------------------------------------
---													star_talk (Начало)											  --
---------------------------------------------------------------------------------------------------------------------
-function star_talk02()
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[ґфґфµДґфґф]			--
+--							--
+--		3901, 4301			--
+----------------------------------------------------------
+function peter_talk01 ()
+	Talk( 1, "ґфґфµДґфґф: ±рїґОТЅРґфґфЈ¬ЖдКµОТТ»µгТІІ»ґфЈ¬ОТµДЦЗЙМїЙКЗёЯґп180Е¶ЈЎ")
 
-	Talk( 1, "Очаг бессмертия: Чего пялишся? Впервые перед таким прекрасным очагом?" )
-	Text( 1, "Разъяснение функции ", JumpPage, 2)
-	Text( 1, "Набор Цилимя, набор Чёрного дракона и улучшеный главный набор ", OpenItemTiChun )
-	Text( 1, "Перезарядка коралла ", OpenItemEnergy )
-	Text( 1, "Извлечение самоцвета ", OpenGetStone )
-	Text( 1, "Ремон инструментов основных навыков ", OpenItemFix )
-
-	Talk( 2, "Очаг бессмертия: Больше я ничего не скажу. Потрудись сам!" )
-	Text( 2, "Руководство по улучшению наборов ", JumpPage, 3)
-	Text( 2, "Предисловие к зарядке кораллов ", JumpPage, 4)
-	Text( 2, "Информация об извлечении самоцветов ", JumpPage, 5)
-	Text( 2, "Про инструменты для ремонта ", JumpPage, 6)
-
-	Talk( 3, "Очаг бессмертия: Эта функция позволяет улучшать наборы Кайлин и Черного Дракона, а так же Босс-снаряжение 70 ур. до Снаряжения Смерти 75 ур.(Босс). Можно улучшить соответствующий предмет по запросу. Внешний вид изменится, но закрепленный на снаряжении самоцвет останется прежним." )
-
-	Talk( 4, "Очаг бессмертия: Используйте батарейку для пополнения энергии кораллов. Перезаряжаемая батарейка способна восстановить от 50 до 1000 очков энергии, а Перезаряжаемая супербатарея - до 1500 очков энергии. После использования батарейка исчезает!" )
-
-	Talk( 5, "Очаг бессмертия: извлекать соответственно положению самоцветов, сверху вниз. Уровень извлеченных самоцветов уменьшится на 1 при извлечении. Для каждого извлечения требуются 1 Клещи кузнеца.")
-	Text( 5, "Извлечь образец камня ", JumpPage, 7)
-
-	Talk( 6, "Очаг бессмертия: Здесь можно починить повреждённые Кристальный котёл, Кристалл чёрной дыры, Кристалл антиматерии и Кристал частиц. Необходим 1 ремонтный инструмент. Будет как новенький!")
-
-	Talk( 7, "Очаг бессмертия: Возьмём, например, Меч Дракона с 3 слотами: в первом слоте - Самоцвет Ярости 3 ур., во втором слоте Самоцвет Бешенства 2 ур., а в третьем - Глаз Чёрного Дракона 1 ур. При извлечении будет извлечен только Самоцвет Ярости 3 ур." )
-end 
-
-function star_talk03()
-	Talk( 1, "Счастливый шанс: Привет, я бы посоветовал вам оставить пустые слоты в инвентаре перед игрой. Вы можете выиграть что-то ценное!" )
-	Text( 1, "Узнать о игре ", JumpPage, 2)
-	Text( 1, "Играть ", OpenTiger )
-	Talk( 2, "Счастливый шанс: Чтобы играть вам нужно 5 монет феи. Вы можете играть несколько раз. Чем больше вы будете пытаться, тем выше ваши шансы на победу!" )
 end
---------------------------------------------------------------------------------------------------------------------
---													star_talk (Конец)											  --
---------------------------------------------------------------------------------------------------------------------
-
-
---------------------------------------------------------------------------------------------------------------------
---											Одиночные_функции (Начало)											  --
---------------------------------------------------------------------------------------------------------------------
-function n_talk13()
-	Talk (1, "Сумасшедший Прапорщик: Ха-ха-ха ~ Война... война... ~ Я люблю войну!")
-	
-	-- Мирная угроза
-	AddNpcMission(7001)
-	-- Секретная директива
-	AddNpcMission(7002)
-	-- Любовь? Война!
-	AddNpcMission(7003)
-	-- Торжество справедливости
-	AddNpcMission(7004)
-end
-
-function e_talk01()
-	Talk( 1, "Ланга: Адский фрукт определяет, какого типа будет новая фея, а тип феи определяет, какие характеристики получит игрок при использовании навыка обладания феей. После бракосочетания феи-родители теряют по 4 уровня. Хочешь узнать что-то ещё?" )
-	Text( 1, "Особенности нового поколения фей " ,JumpPage, 2)
-	Text( 1, "Условия получения нового поколения фей ", JumpPage, 3)
-	Text( 1, "Свадьба фей ", OpenEidolonMetempsychosis )
-
-	Talk( 2, "Ланга: Новое поколение фей обучится Самоуничтожению и Обладанию. Фея силы, Фея телосложения, Фея точности, Фея духа и Фея ловкости могут улучшать соответствующие параметры персонажа. Фея Удачи и Фея зла могут увеличивать вероятность нахождения трофеев и скорость получения опыта соответственно, а Мордо Младший обладает способностями как Феи Зла, так и Феи удачи, равно как и скрытыми свойствами.")	
-
-	Talk( 3, "Ланга: Уровень обычных фей сильно влияет на новорожденных фей. Я много знаю о феях. Пожалуйста, проверяйте их.")
-	Text( 3, "Условия для получения Феи Силы ", JumpPage, 4  )
-	Text( 3, "Условия для создания Феи Телосложения ", JumpPage, 5  )
-	Text( 3, "Условия для рождения Феи Меткости ", JumpPage, 6  )
-	Text( 3, "Условия для создания Феи Духа ", JumpPage, 7  )
-	Text( 3, "Условия для получения Феи Ловкости ", JumpPage, 8  )
-	Text( 3, "Условия для получения Феи Удачи ", JumpPage, 9)
-	Text( 3, "Условия для получения Феи Зла ", JumpPage, 10)
-	Text( 3, "Условия для создания Мордо Младшего ", JumpPage, 11)	
-
-	Talk( 4, "Ланга: Чтобы сотворить Фею Силы, потребуется две феи не ниже 20 ур., 1 Адский фрукт силы, 10 Обломков арабской жемчужины, 10 Трупов стенающих воинов и немного золота.")
 
-	Talk( 5, "Ланга: Чтобы вырастить Фею Телосложения понадобятся 2 феи не ниже 20 ур., 1 Адский фрукт отваги , 10 Треснутых арабских жемчужин, 10 Трупов печального лучника и немного золота.")
-
-	Talk( 6, "Ланга: Вот что нужно, чтобы вырастить Фею Точности: 2 феи не ниже 20 ур. и 1 Адский фрукт энергии. Вдобавок в твоём рюкзаке должно быть 10 Рыбьих шипов, 10 Грязных колод и немного золота.")
-
-	Talk( 7, "Ланга: Чтобы сотворить Фею Духа требуется две обычных ручных феи не ниже 20 ур., 1 Адский фрукт интеллекта, 10 Хвостов Выползня, 10 Трупов стенающих лучников и немного золота.")
-
-	Talk( 8, "Ланга: Чтобы создать Фею Ловкости, понадобится две обычных ручных феи не ниже 20 ур., 1 Адский Фрукт заблуждения, 10 Акульих плавников, 10 Болотных деревьев и немного золота.")
-
-	Talk( 9, "Ланга: Чтобы сотворить Фею Удачи требуется две обычных ручных феи не ниже 20 ур., 1 Адский Фрукт кислоты, Вкусное мясо кальмара (10), 10 Трупов Печальных воинов и немного золота.")
-
-	Talk( 10, "Ланга: Чтобы сотворить Фею Зла требуется две обычных ручных феи не ниже 20 ур., 1 Адский Фрукт тайны, 10 Частей Искрящейся арабской Жемчужины, 10 Комков грязи и немного золота.")
-
-	Talk( 11, "Ланга: Фрукт тут ни при чём. Вероятность рождения Мордо Младшего от сочетания феи Мордо с другими феями зависит от их уровня.")
-
-	AddNpcMission ( 5019 )
-	AddNpcMission ( 5032 )
-	AddNpcMission ( 5080	)
-	AddNpcMission ( 5081	)
-	AddNpcMission ( 5082	)
-	AddNpcMission ( 5083	)
-	AddNpcMission (5117 )
-	AddNpcMission (5142 )
-	AddNpcMission (5149 )
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[УОїНЎ¤ТБВк]			--
+--							--
+--		10802, 5602             		--
+----------------------------------------------------------
+function peter_talk02 ()
+	Talk( 1, "УОїНЎ¤ТБВк:№эЅЪµДК±єт,·ЕПВЛщУРµД·ЧИЕ,АґХвАпєНґујТТ»Жр№эКҐµ®,КЗОТТ»ДкЦРЧоЗбЛЙµДКВ,Рк,І»ТЄёжЛЯ±рИЛОТКЗЛ­,Т»»бОТ»№ТЄИҐ°зіЙКҐµ®АПИЛ·ўЅ±Ж·ДШ,µЅК±єтїґДгДЬІ»ДЬИПіцОТАґ,№ю№ю№юЎЈ")
 end
 
-function k_talk001()
-	Talk( 1, "... ..." )
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[ОчБЦµД°Ц°Ц]		--
+--							--
+--		11803, 6103			        --
+----------------------------------------------------------
+function peter_talk03 ()
+	Talk( 1, "ОчБЦµД°Ц°Ц:ёжЛЯДгµД°Ц°Ц,ѕНЛµОТЛµµД,КҐµ®ЅЪёГёшєўЧУГЗБг»ЁЗ®,ТтОЄДгЧЬВтІ»И«ЛщУРЛыГЗ°®іФµДМЗ№ы,µ±И»,»№УРТ»ѕд,їґєГЧФјєµДєўЧУ,ЗЖ,ОТµДОчБЦѕНёъ¶ЄБЛЎЈ")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[УОїНЎ¤ОВЕ¬]			--
+--							--
+--		5904, 4704			--
+----------------------------------------------------------
+function peter_talk04 ()
+	Talk( 1, "УОїНЎ¤ОВЕ¬: аЛ!КҐµ®їмАЦ,ДгТ»¶ЁєНОТТ»СщКЗАґХвАп№эКҐµ®µД°Й?№ю№ю,їмИҐХТКҐµ®ЙМИЛ,ЛыГЗУРєГ¶аєЬмЕµД¶«ОчДШ!")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[№юёщґуКе]			--
+--							--
+--		3001 Ј¬11701			--
+----------------------------------------------------------
+function peter_talk05 ()
+	Talk( 1, "№юёщґуКе: №ю№ю!№ю№ю!КҐµ®ЅЪ°ЎЎЈ№ю№ю,ОТТ»їЄРДѕНЦ»»б`№ю№ю`№ю№ю№юЎЈ")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[Оы№юРЎЧУ]			--
+--							--
+--		7031, 4902			--
+----------------------------------------------------------
+function peter_talk06 ()
+	Talk( 1, "Оы№юРЎЧУ: come on!КҐµ®ДгёГФхГґмЕ?ґчЖрД«ѕµАґЧ°їб?І»І»І»,ИГОТёжЛЯДг,ґ©Т»МЧКҐµ®АПИЛµДТВ·юІЕїбЎЈ")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[їЁАыГЧґ¬і¤]			--
+--							--
+--		3101, 11901			--
+----------------------------------------------------------
+function peter_talk07 ()
+	Talk( 1, "їЁАыГЧґ¬і¤: Дг»іТЙєЈЙПµДєўЧУГЗКХІ»µЅКҐµ®АсОп?·ЕРД,КҐµ®АПИЛ»бИГєўЧУ¶јВъТвµД!")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[ґ¬Ф±°¬Дб]			--
+--							--
+--		4401, 8401			--
+----------------------------------------------------------
+function peter_talk08 ()
+	Talk( 1, "ґ¬Ф±°¬Дб: ґ¬і¤ХжКЗґу·ўґИ±ЇБЛ,НщДкµДКҐµ®ЅЪОТЦ»ДЬЖЇ°ЎЖЇ°Ў,ХвґОЦХУЪґшОТАґХвАпІОјУКҐµ®ѕЫ»бБЛ!М«ёЯРЛБЛЎЈ")
+end
+
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[ЙПОѕїЁАп]			--
+--							--
+--		25801, 23101			--
+----------------------------------------------------------
+function peter_talk09 ()
+	Talk( 1, "ЙПОѕїЁАп: ХвАпµДЅЪИХЖш·Х»бИГДгНьјЗБЛ¶¬МмµДґжФЪ,ХжПлєНєўЧУГЗТ»ЖрНж°Ў,їЙКЗЙнОЄѕьИЛ,ОТУРЧФјєµДЦ°Фр,ЧЈДгНжµГїЄРД!")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[єЈѕьКї±ш]			--
+--							--
+--		19401, 3901			--
+----------------------------------------------------------
+function peter_talk10 ()
+	Talk( 1, "єЈѕьКї±ш: ОТёТ±ЈЦ¤,ґујТФЪХвАп¶јїЙТФѕЎЗйµДПнКЬКҐµ®µДїмАЦ,ѕш¶ФІ»»бУРІ»їЄРДµДКВ·ўЙъ,ДгОКОЄКІГґ?Г»їґјыОТКЦАпµДѕЇ№чГґ!")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[УОїНЎ¤ВЮБХЛ№]			--
+--							--
+--		7301, 23601			        --
+----------------------------------------------------------
+function peter_talk11 ()
+	Talk( 1, "УОїНЎ¤ВЮБХЛ№: ОТПІ»¶КҐµ®ЅЪ,ОТПІ»¶ФЪХвАпНж,єГ¶аїЙ°®µД¶«¶«аё,ДгПлВтТ»јюКҐµ®АсОпЛНёшОТГґ?")
+end
+
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[РЎМЇ··ЦмµП]			--
+--							--
+--		13901, 6101			--
+----------------------------------------------------------
+function peter_talk12 ()
+	Talk( 1, "РЎМЇ··ЦмµП: Из№ыУОНжДЬ№»Ч¬µЅЗ®,ОТТІІ»УГ°ЪМЇБЛ,єЗєЗ,µ«КЗОТ°ЪїґµЅ№ЛїНВтµЅіЖРДµД¶«ОчК±їЄРДµДСщЧУ,ОТѕНѕхµГЦµЎЈ")
+end
+
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[РЎМЇ··ЗР¶ы]			--
+--							--
+--		3301, 21601			        --
+----------------------------------------------------------
+function peter_talk13 ()
+	Talk( 1, "РЎМЇ··ЗР¶ы:ДгИҐ№эХж°®µєГґ?Из№ыДгГ»ИҐ№э,ДЗТ»¶ЁТЄВтВтХвёцјНДоЖ·,ДгЛµДгИҐ№эБЛ?ДЗѕНёьёГВтХвёцЧцКҐµ®јНДоЖ·БЛ°Ў!")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µєРЎМЇ··ВЮГЕ			--
+--							--
+--		8701, 20401			         --
+----------------------------------------------------------
+function peter_talk14 ()
+	Talk( 1, "КҐµ®µєРЎМЇ··ВЮГЕ: ¶¬МмµДК±єт,Ц»УРЅЪИХАсЖ·КЗЛщУРИЛїП»ЁЗ®µДЎЈ")
+end
+ 
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µєРЎМЇ··Т®СЗ			--
+--							--
+--		25501, 12401    			--
+----------------------------------------------------------
+function peter_talk15 ()
+	Talk( 1, "КҐµ®µєРЎМЇ··Т®СЗ: аЛ!КҐµ®їмАЦ!ЗЖОТґ©µДХвЙнТВ·юєГїґГґ?")
+end
+
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[уф»рАПИЛ]			--
+--							--
+--		24801, 9801			        --
+----------------------------------------------------------
+function peter_talk16 ()
+	Talk( 1, "уф»рАПИЛ: їґДЗємємµД»рСж°Й,ХыёцКҐµ®µДТ№їХЅ«±»ЛьХХББ,Гїµ±ХвК±єтОТѕНПлЖрБЛДкЗбК±О§ЧЕуф»рМшОиµДЗйѕ°ЎЈТЄХдП§ПЦФЪ°ЎЎЈ")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[°ЧєъЧУВіМШ]			--
+--							--
+--		13001,23601			--
+----------------------------------------------------------
+function peter_talk17 ()
+	Talk( 1, "°ЧєъЧУВіМШ:ДгѕхµГОТУР¶аґу?ФЪКҐµ®АПИЛГжЗ°ОТГЗ¶јКЗєўЧУВп,ОТїЙХжКЗєўЧУЕ¶,І»РЕОТГЗАґґтС©ХМЎЈ")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[АПМ«М«їЛА­]			--
+--							--
+--		23901, 22701	         		--
+----------------------------------------------------------
+function peter_talk18 ()
+	Talk( 1, "АПМ«М«їЛА­: аЛ!аЛ!ёГ»эј«µД°пЦъАґ№эКҐµ®ЅЪµДИЛГЗ°Ў!ОТїЙКЗёцИИРДі¦,ДДАпµДВ·ДгТЄКЗІ»ЦЄµАѕНХТОТ!")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[ємєъЧУАЧ¶Щ]			--
+--							--
+--		24601, 19701			--
+----------------------------------------------------------
+function peter_talk19 ()
+	Talk( 1, "ємєъЧУАЧ¶Щ: ЯА?ДгТЄєНОТЛµ»°?Ян,ОТєЬѕГГ»єНИЛЅ»МёБЛ,ЙПґОєНИЛЛµ»°КЗКІГґК±єт?Ў­Ў­Ян?ДгКЗЛ­?ДгТЄєНОТЛµ»°?Ў­ЯАЎ­ОТПлОКДгКІГґАґЧЕЎ­")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[РЎМЇ··УИїЁµ¤]			--
+--							--
+--		23201, 20001			--
+----------------------------------------------------------
+function peter_talk20 ()
+	Talk( 1, "РЎМЇ··УИїЁµ¤: HOoooo,КҐµ®ЅЪїмАЦ!їґДгХвГґПІ»¶КҐµ®ЅЪ,ОЄКІГґІ»ДГёцЖшЗтДШ?МэЛµКҐµ®АПИЛПИёшДГЖшЗтµДєўЧУ·ўАсОпЕ¶!")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[РЎМФЖшОчБЦ]			--
+--							--
+--		22801, 5401			--
+----------------------------------------------------------
+function peter_talk21 ()
+	Talk( 1, "РЎМФЖшОчБЦ:ОШЎ­ОТТЄ°Ц°ЦЎ­ОТБмµЅБЛКҐµ®АПИЛµДµ°ёв,їЙКЗИґХТІ»µЅ°Ц°ЦБЛЎ­")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[¶МОІ°НїЁЛ№]			--
+--							--
+--		25601, 4301			--
+----------------------------------------------------------
+function peter_talk22 ()
+	Talk( 1, "¶МОІ°НїЁЛ№:ТФЗ°КҐµ®ЅЪѕНКЗКХАсОп,Хв»ШОТТЄЧФјєИҐХТАсОп,КҐµ®АПИЛЛНµДАсОпЧЬКЗєН°Ц°ЦЗ°БЅМмНµНµВт»ШјТµДТ»Сщ,ОТ¶јЦЄµА,Ачє¦°Й?")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[РЎЕ®єўОч¶ыОД]			--
+--							--
+--		21501, 4101			--
+----------------------------------------------------------
+function peter_talk23 ()
+	Talk( 1, "РЎЕ®єўОч¶ыОД:Уґ~~КҐµ®їмАЦ!Т»ЖрїЄРДµД№эЅЪ°Й!КІГґ?ДгГ»СМ»Ё?єЩєЩ,ёжЛЯДгЕ¶,їЙТФИҐКҐµ®ґеЦРСлПВ·ЅµДКРіЎИҐ№єВт~~~»№УРєЬ¶аЖдЛыґтХЫЙМЖ·.јЗµГИҐїґїґЕ¶.")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[Е·ГЧ]			--
+--							--
+--		20601, 7601			--
+----------------------------------------------------------
+function peter_talk24 ()
+	Talk( 1, "Е·ГЧ:ФЪ№ЕАПµД¶«·ЅУРТ»ѕдГыСФ,КйЦРЧФУР»ЖЅрОЭ,КйЦРЧФУРСХИзУс.їмµгИҐС§ёц¶БКйјјДЬКФКФ°Й!")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[ЧфД·]			--
+--							--
+--		19401, 23501			--
+----------------------------------------------------------
+function peter_talk25 ()
+	Talk( 1, "ЧфД·: ёжЛЯДгёцГШГЬ,їмИҐДЗ±Я,¶Ф,Т»¶СЖшЗтµДµШ·Ѕ,ДЗ±ЯУРєЬ¶аєГ¶«ОчВфДШ!")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[ВнїЛ]			--
+--							--
+--		19401, 20101			--
+----------------------------------------------------------
+function peter_talk26 ()
+	Talk( 1, "ВнїЛ:їґјыУОїНОТѕН»бЦч¶Ї¶ФЛыГЗЛµ~аЛ~~ОТКЗВнїЛ~ЎЈ")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[БЦїЛ]			        --
+--							--
+--		17301, 23501		         	--
+----------------------------------------------------------
+function peter_talk27 ()
+	Talk( 1, "БЦїЛ: УРИЛЛµОТІ»ёГґУіш·їАпЕЬіцАґЎ­ОТПлХвКЗКҐµ®АПИЛµДµгЧУ,їґЧЕґујТФЪОТЦЬО§Р¦µД¶ЗЧУНґ,ОТТІР¦µДЦ±І»ЖрСьБЛ,КҐµ®їмАЦ!јЗЧЎ°Ў,ЅсДкµДКҐµ®,Дгїґјы№э°«¶¬№ПБЦїЛФЪЅЦЙП!")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[ОДДИ]			--
+--							--
+--		15701, 23401			--
+----------------------------------------------------------
+function peter_talk28 ()
+	Talk( 1, "ОДДИ: ОТі¤µД°«Гґ?ОТКЗКҐµ®АПИЛЧоєГµДЦъКЦДШ!")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[КҐµ®С©ИЛАЧёсБЦ]			--
+--							--
+--		15101, 25901			        --
+----------------------------------------------------------
+function peter_talk29 ()
+	Talk( 1, "КҐµ®С©ИЛАЧёсБЦ: ОТІ»ёГЛµ»°,µ«КЗ,»№КЗЧЈДгКҐµ®їмАЦ!")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[КҐµ®С©ИЛїЁёсБЦ]			--
+--						 	--
+--		6601, 8301			        --
+----------------------------------------------------------
+function peter_talk30 ()
+	Talk( 1, "КҐµ®С©ИЛїЁёсБЦ: HELLO!!КҐµ®їмАЦ,ДгЦЄµАФшѕ­УРёцґ¬і¤±»КЇН·ёъЧЩµД№ККВГґ?№ю№ю,»№Г»Мэ№э°Ў?ДЗЅсНнДгїЙТЄЧҐЧЕКҐµ®АПИЛёшДгЅІ,НнЙПДг»бР¦РСµД!!")
+end
+
+
+
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[КҐµ®ґеЦёµјФ±]		--
+--						 	--
+--		                         	        --
+----------------------------------------------------------
+function Xmas_talk25 ()
+	Talk( 1, "КҐµ®їмАЦ!»¶У­АґµЅГААцµДКҐµ®ґе,ОТїЙКЗХвАпµДНтКВНЁ,УРКІГґІ»ЦЄµАµДѕЎ№ЬОКОТ°Й")
+	Text( 1, "КҐµ®ґеµД»о¶Ї",JumpPage, 2  )
+	Text( 1, "КҐµ®ґеїЙТФВтµЅКІГґ",JumpPage, 3  )
+	Text( 1, "КҐµ®ѕєјјіЎ",JumpPage, 4 )
+
+	Talk( 2, "ДгµДКҐµ®АсєРФаБЛВр?ХТЗеПґ»ъ(83,39)°Й......ДгПліФ»рј¦ґуІНВр?ХТміР»МШ(220,40)°Й......ДгПлµгІҐЧЈёЈВр?ЗлХТКҐµ®Кч(144,158)°Й......¶јБЛЅвБЛВр?їмµг·µ»Ш°Й....")
+	Text( 2, "Return",JumpPage, 1  )
+
+	Talk( 3, "ДгїЙТФµЅ(132,246)ёЅЅь,ДЗАпУРТ»ёцєЬґуµДјЇКР,їЙТФВтµЅєЬ¶аґ«ЛµЦРµД¶«¶«Е¶ЎЈІ»№эДгПИТЄµЅКҐµ®АПИЛ(146,171)°СєЈµБ±Т»»іЙКҐµ®УІ±ТЈ¬ОТГЗµДУЄТµФ±їЙКЗІ»ДЬЦ±ЅУКХЗ®µДЎ­Ў­їмИҐЗА№є°Й")
+	Text( 3, "Return",JumpPage, 1  )
+
+	Talk( 4, "ѕЭЛµКҐµ®ѕєјјіЎАпУРј«ЖдїЦІАµДBOSS,І»№эєГПу»№Г»УРЧг№»µД№©Ж·АґХЩ»ЅЛьГЗ,ДгїЙТФµЅ(146,252)ХТїЖ¶чОКОК!")
+	Text( 4, "Return",JumpPage, 1  )
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[РЎАЦДб]			--
+--						 	--
+--		9801, 23501			        --
+----------------------------------------------------------
+function peter_talk31 ()
+	Talk( 1, "РЎАЦДб:ДгУРПл№эНнЙПФЪКҐµ®АПИЛЛНАсОпµДК±єт°СЛыЧҐЧЎСшФЪјТАпГґ?ОТѕНКФ№э,їЙП§К§°ЬБЛ,І»№эЅсНнОТПлµД°м·Ёѕш¶ФДЬЧҐЧЎЛы,ПлЦЄµАКІГґ°м·Ё?µЅБЛГчМмІЕДЬёжЛЯДг! ")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[ДГМъРЎЧУ]			--
+--						 	--
+--		14501, 26802			        --
+----------------------------------------------------------
+function peter_talk32 ()
+	Talk( 1, "ДГМъРЎЧУ:Е¶єр~КҐµ®АПИЛёшОТґшАґБЛТ»ґуН°ОТЧо°®µДДГМъ,Хыёц¶¬МмОТ¶јКЗЧоРТёЈµДАІ!КҐµ®ЅЪНтЛк~")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[±їµ°ФјєІ]			--
+--						 	--
+--		18101, 23903			        --
+----------------------------------------------------------
+function peter_talk33 ()
+	Talk( 1, "±їµ°ФјєІ:аЛ~КҐµ®їмАЦ~±рИЛ¶јЅРОТФјєІ,ДгїЙДЬТІЦЄµАОТµДНвєЕ,µ«КЗОТІ»±їµД,ОТ¶јЦЄµАРЎАЦДбЅсНнУР°м·ЁЧҐЧЎКҐµ®АПИЛµДКВДШ!")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[ЛµР¦»°µДчзВ№]			--
+--						 	--
+--		22201, 22804			        --
+----------------------------------------------------------
+function peter_talk34 ()
+	Talk( 1, "ЛµР¦»°µДчзВ№:ДгМэЛµБЛВр?ОТУРТ»ёцН¬°й,ЛьК®·ЦЙГі¤±јЕЬ,УРТ»ґОЛьФЅЕЬФЅїм,Ѕб№ыѕН±діЙБЛёЯЛЩ№«В·!")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[ГЧЖжСЗНвЖЕ]			--
+--						 	--
+--		24801, 8105			        --
+----------------------------------------------------------
+function peter_talk35 ()
+	Talk( 1, "ГЧЖжСЗНвЖЕ:КҐµ®ЅЪµДНнЙП,ДгїЙТ»¶ЁТЄјЗµГ°СНаЧУ№ТФЪКҐµ®КчЙПЕ¶,КҐµ®АПИЛ»бёшДгЛНАґАсОпµД.")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[ТБВіЙ­ЅМКї]			--
+--						 	--
+--		5501, 19506			        --
+----------------------------------------------------------
+function peter_talk36 ()
+	Talk( 1, "ТБВіЙ­ЅМКї:УРТ»ёцХжРДЕуУСѕНЧг№»БЛ,УРК®ёцХжХэµДЕуУС,ДгѕНМмПВОЮµР.Т®ЛЦ±ЈУУДг,ОТµДЕуУС.")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[їЁВі]			--
+--						 	--
+--		11301, 23907			        --
+----------------------------------------------------------
+function peter_talk37 ()
+	Talk( 1, "їЁВі: ГїМмНнЙП±р±§ЧЕµзКУПыДҐК±јдАІ~ЅсНн»»µг»ЁСщ,єНЕуУСГЗТ»ЖрѕЫ»б°Й!Т»ёцИЛµДКҐµ®ЅЪЧЬКЗДЦІ»ЖрАґ,ОТѕНФЪіўКФЧЕёД±дДШ.")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[ІјЖж]			--
+--						 	--
+--		26301, 17308			        --
+----------------------------------------------------------
+function peter_talk38 ()
+	Talk( 1, "ІјЖж: ДгЦЄµАВр?ѕЭЛµУРТ»ЦЦЅРЧцНтДЬ±¦КЇµД¶«Оч,ѕЭЛµїЙТФИГК№УГХЯ±дµДёьЗїґу,ѕЯМеµДЗйїцДгїЙТФХТ±щАЗµДВуИрОКПВ!")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[АпДЙ¶а]			--
+--						 	--
+--		17401, 6009			        --
+----------------------------------------------------------
+function peter_talk39 ()
+	Talk( 1, "АпДЙ¶а:їґЧЕИЛГЗ¶јФЪµгІҐЧЈёЈ,ОТТІєЬПлµгІҐТ»ѕдРДАп»°ЈєОТТЄјУ№«ЧК!ОТТЄґшРЅ·ЕјЩ!ОТТЄДГЅ±Ѕр!Ў­»№УР,±рИГАП°еЦЄµАКЗОТЛµµД.")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[їЛАі¶ы]			--
+--						 	--
+--		3401, 20011			        --
+----------------------------------------------------------
+function peter_talk40 ()
+	Talk( 1, "їЛАі¶ы: ЅЪИХЛдИ»їмАЦ~µ«КЗТІТЄЧўТв°ІИ«Е¶!ОТїЙІ»ПлТ»ґуФзѕНФЪТЅФєАпїґµЅУРІЎИЛФЪ! ")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[µПїЙЛ№]			--
+--						 	--
+--		7401, 20511			        --
+----------------------------------------------------------
+function peter_talk41 ()
+	Talk( 1, "µПїЙЛ№:єГ¶аµДС©°Ў,ДСµАХвГґґуµДµШ·Ѕ¶јТЄОТАґЙЁВр?ОТПЈНыХвёцКҐµ®ЅЪОТДЬµГµЅµДАсОпКЗТ»МЁіэС©»ъ!")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[ЖХВЮ]			--
+--						 	--
+--		20901, 21912			        --
+----------------------------------------------------------
+function peter_talk42 ()
+	Talk( 1, "ЖХВЮ: ґУєЈЙПОЮѕЎµДЖЇІґµЅПЦФЪХѕФЪДгµДГжЗ°,ОТ¶®µГБЛЙъ»оТЄХдП§ПЦФЪ,ДЬХѕФЪВЅµШЙП№эКҐµ®ЅЪ,КµФЪКЗјюЦµµГЗмЧЈµДКВ,ОТ»б¶ФГїёцИЛґуЙщµДЧЈёЈ!ПнКЬПЦФЪµДЙъ»о°Й!КҐµ®їмАЦ!")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[ОВДбАц]			--
+--						 	--
+--		26401, 13813			        --
+----------------------------------------------------------
+function peter_talk43 ()
+	Talk( 1, "ОВДбАц: ОТТ»Ц±Плµ±Т»ГыєЅєЈјТ!ОТТЄИГОТµДґ¬їЄµД±ИКҐµ®АПИЛ·ЙЖрАґ»№ТЄїм!Ѕ«АґКҐµ®АПИЛ»№ТЄ°ЭНРОТ°пЛыФЛЛНАсОпДШ.")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[јУ·Ж]			--
+--						 	--
+--		24801, 8114			        --
+----------------------------------------------------------
+function peter_talk44 ()
+	Talk( 1, "јУ·Ж: ЦЄµАКҐµ®ЅЪёГФхГґ№эВр?ОТѕхµГЧшФЪИнИнµДЙі·ўЙП,їґµзКУ,іФТвґуАыЗ§ІгГжІЕКЗЧо°фµД!")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[ОКМвРЎ¶а¶а]			--
+--						 	--
+--		26101, 8915			        --
+----------------------------------------------------------
+function peter_talk45 ()
+	Talk( 1, "ОКМвРЎ¶а¶а: ОТґУДДАпАґµД?¶¬МмµДГµ№е»ЁФхГґАґµД?РЎС©ИЛєНРЎчзВ№іиОпКЗФхГґАґµД?Ян,ХвР©ОТ¶јЦЄµА,ОТЦ»КЗПлМэМэДгЦЄІ»ЦЄµА.")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[°ВЛ№їЁ]			--
+--						 	--
+--		19301, 4016			        --
+----------------------------------------------------------
+function peter_talk46 ()
+	Talk( 1, "°ВЛ№їЁ: КҐµ®ЅЪµЅБЛ,ѕНЛгКЗЧчОЄЧоО°ґуµДГ°ПХјТµДОТТІУ¦ёГНЈПВАґєНєўЧУГЗґтґтС©ХМ,єГєГПнКЬТ»ПВГАО¶µД»рј¦БЛ°Й.")
+end
+
+--------------------------------------------------------
+--							--
+--							--
+--		КҐµ®µє[ІКТГ]			--
+--						 	--
+--		19101, 8417			        --
+----------------------------------------------------------
+function peter_talk47 ()
+	Talk( 1, "ІКТГ: ХвѕНКЗКҐµ®ЅЪВр?ОТ»№КЗµЪТ»ґО№эХвёцЅЪИХДШ~І»№эДЗёцКҐµ®АПИЛЕЦєхєхµДХжїЙ°®,»№УРДЗїГґуґуµДКҐµ®КчТІєГЖЇББЕ¶,ДгИҐїґБЛВр?")
 end
-
-function llleo_talk01()
-	Talk( 1, "Indianna Jones: Through the Crescent Canyon till the Shrine, immortality in the name of the Goddess...I have found a secret of Demonic World. Do you wish to know?" )
-	Text( 1, "The Other Secret", JumpPage, 2)
-
-	Talk( 2, "Indianna Jones: Rumor has it that Demonic World is made up of 2 dimension, meaning that there will be 2 of you at each demension at the same moment. I found the other demension by chance and also a new way to unseal those uniques equipment from Demonic World. Those researchers do not know of this yet. If you wish to try my method, I might consider" )
-	Text( 2, "Unseal", JumpPage, 3)
-	
-	Talk( 3, "Indianna Jones: To unseal a unique equipment requires great energy consumption. Only those useless researchers will use multiple runestones to draw on their energy. I only need 1 special runestone to unseal it. Bring me 1 Morph Runestone and I will help you to unseal your equipment." )
-	Text( 3, "Staff of Enigma", JumpPage, 6)
-	Text( 3, "Mantle of the Sphinx", JumpPage, 7)
-	Text( 3, "Kris of the Sphinx", JumpPage, 8)
-	Text( 3, "Judgment of Enigma", JumpPage, 9)
-	Text( 3, "Rifle of Enigma", JumpPage, 10)
-	Text( 3, "Mantle of Enigma", JumpPage, 11)
-	Text( 3, "Robe of Enigma", JumpPage, 12)
-	Text( 3, "Next Page", JumpPage, 4)
-
-	Talk( 4, "Indianna Jones: To unseal a unique equipment requires great energy consumption. Only those useless researchers will use multiple runestones to draw on their energy. I only need 1 special runestone to unseal it. Bring me 1 Morph Runestone and I will help you to unseal your equipment." )
-	Text( 4, "Blade of Enigma", JumpPage, 13)
-	Text( 4, "Tattoo of Enigma", JumpPage, 14)
-	Text( 4, "Armor of Enigma", JumpPage, 15)
-	Text( 4, "Robe of the Sphinx", JumpPage, 16)
-	Text( 4, "Staff of the Sphinx", JumpPage, 17)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 1909, 1 )
-	TriggerCondition( 1, HasItem, 1028, 1 )
-	TriggerCondition( 1, HasMoney, 800000 )
-	TriggerAction( 1, TakeMoney, 800000 )
-	TriggerAction( 1, TakeItem, 1909, 1 )
-	TriggerAction( 1, TakeItem, 1028, 1  )
-	TriggerAction( 1, GiveItem, 788, 1, 4 )
-	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 6, "Indianna Jones: To unseal the curse on Staff of Enigma, you must bring me: Ice Sealed Staff of Enigma, Morph Runestone x1 and also 800000G as fee." )
-	Text( 6, "Unseal curse on Staff of Enigma", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 1927, 1 )
-	TriggerCondition( 1, HasItem, 1028, 1 )
-	TriggerCondition( 1, HasMoney, 800000 )
-	TriggerAction( 1, TakeMoney, 800000 )
-	TriggerAction( 1, TakeItem, 1927, 1 )
-	TriggerAction( 1, TakeItem, 1028, 1  )
-	TriggerAction( 1, GiveItem, 806, 1, 4 )
-	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 7, "Indianna Jones: To unseal the curse on Mantle of the Sphinx, you must bring me: Ice Sealed Mantle of the Sphinx, Morph Runestone x1 and also 800000G as fee" )
-	Text( 7, "Unseal curse on Mantle of the Sphinx", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 1923, 1 )
-	TriggerCondition( 1, HasItem, 1028, 1 )
-	TriggerCondition( 1, HasMoney, 800000 )
-	TriggerAction( 1, TakeMoney, 800000 )
-	TriggerAction( 1, TakeItem, 1923, 1 )
-	TriggerAction( 1, TakeItem, 1028, 1  )
-	TriggerAction( 1, GiveItem, 802, 1, 4 )
-	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 8, "Indianna Jones: To unseal the curse on Kris of the Sphinx, you must bring me: Ice Sealed Kris of the Sphinx, Morph Runestone x1 and also 800000G as fee." )
-	Text( 8, "Unseal curse on Kris of the Sphinx", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 1894, 1 )
-	TriggerCondition( 1, HasItem, 1028, 1 )
-	TriggerCondition( 1, HasMoney, 800000 )
-	TriggerAction( 1, TakeMoney, 800000 )
-	TriggerAction( 1, TakeItem, 1894, 1 )
-	TriggerAction( 1, TakeItem, 1028, 1  )
-	TriggerAction( 1, GiveItem, 773, 1, 4 )
-	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 9, "Indianna Jones: To unseal the curse on Judgment of Enigma, you must bring me: Ice Sealed Judgment of Enigma, Morph Runestone x1 and also 800000G as fee." )
-	Text( 9, "Unseal curse on Judgment of Enigma", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 1905, 1 )
-	TriggerCondition( 1, HasItem, 1028, 1 )
-	TriggerCondition( 1, HasMoney, 800000 )
-	TriggerAction( 1, TakeMoney, 800000 )
-	TriggerAction( 1, TakeItem, 1905, 1 )
-	TriggerAction( 1, TakeItem, 1028, 1  )
-	TriggerAction( 1, GiveItem, 784, 1, 4 )
-	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 10, "Indianna Jones: To unseal the curse on Rifle of Enigma, you must bring me: Ice Sealed Rifle of Enigma, Morph Runestone x1 and also 800000G as fee" )
-	Text( 10, "Unseal curse on Rifle of Enigma", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 1901, 1 )
-	TriggerCondition( 1, HasItem, 1028, 1 )
-	TriggerCondition( 1, HasMoney, 800000 )
-	TriggerAction( 1, TakeMoney, 800000 )
-	TriggerAction( 1, TakeItem, 1901, 1 )
-	TriggerAction( 1, TakeItem, 1028, 1  )
-	TriggerAction( 1, GiveItem, 780, 1, 4 )
-	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 11, "Indianna Jones: To unseal the curse on Mantle of Enigma, you must bring me: Ice Sealed Mantle of Enigma, Morph Runestone x1 and also 800000G as fee." )
-	Text( 11, "Unseal curse on Mantle of Enigma", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 1913, 1 )
-	TriggerCondition( 1, HasItem, 1028, 1 )
-	TriggerCondition( 1, HasMoney, 800000 )
-	TriggerAction( 1, TakeMoney, 800000 )
-	TriggerAction( 1, TakeItem, 1913, 1 )
-	TriggerAction( 1, TakeItem, 1028, 1  )
-	TriggerAction( 1, GiveItem, 792, 1, 4 )
-	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 12, "Indianna Jones: To unseal the curse on Robe of Enigma, you must bring me: Ice Sealed Robe of Enigma, Morph Runestone x1 and also 800000G as fee." )
-	Text( 12, "Unseal curse on Robe of Enigma", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 1897, 1 )
-	TriggerCondition( 1, HasItem, 1028, 1 )
-	TriggerCondition( 1, HasMoney, 800000 )
-	TriggerAction( 1, TakeMoney, 800000 )
-	TriggerAction( 1, TakeItem, 1897, 1 )
-	TriggerAction( 1, TakeItem, 1028, 1  )
-	TriggerAction( 1, GiveItem, 776, 1, 4 )
-	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 13, "Indianna Jones: To unseal the curse on Blade of Enigma, you must bring me: Ice Sealed Blade of Enigma, Morph Runestone x1 and also 800000G as fee." )
-	Text( 13, "Unseal curse on Blade of Enigma", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 1887, 1 )
-	TriggerCondition( 1, HasItem, 1028, 1 )
-	TriggerCondition( 1, HasMoney, 800000 )
-	TriggerAction( 1, TakeMoney, 800000 )
-	TriggerAction( 1, TakeItem, 1887, 1 )
-	TriggerAction( 1, TakeItem, 1028, 1  )
-	TriggerAction( 1, GiveItem, 766, 1, 4 )
-	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 14, "Indianna Jones: To unseal the curse on Tattoo of Enigma, you must bring me: Ice Sealed Tattoo of Enigma, Morph Runestone x1 and also 800000G as fee." )
-	Text( 14, "Unseal curse on Tattoo of Enigma", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 1890, 1 )
-	TriggerCondition( 1, HasItem, 1028, 1 )
-	TriggerCondition( 1, HasMoney, 800000 )
-	TriggerAction( 1, TakeMoney, 800000 )
-	TriggerAction( 1, TakeItem, 1890, 1 )
-	TriggerAction( 1, TakeItem, 1028, 1  )
-	TriggerAction( 1, GiveItem, 769, 1, 4 )
-	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 15, "Indianna Jones: To unseal the curse on Armor of Enigma, you must bring me: Ice Sealed Armor of Enigma, Morph Runestone x1 and also 800000G as fee." )
-	Text( 15, "Unseal curse on Armor of Enigma", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 1919, 1 )
-	TriggerCondition( 1, HasItem, 1028, 1 )
-	TriggerCondition( 1, HasMoney, 800000 )
-	TriggerAction( 1, TakeMoney, 800000 )
-	TriggerAction( 1, TakeItem, 1919, 1 )
-	TriggerAction( 1, TakeItem, 1028, 1  )
-	TriggerAction( 1, GiveItem, 798, 1, 4 )
-	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 16, "Indianna Jones: To unseal the curse on Robe of the Sphinx, you must bring me: Ice Sealed Robe of the Sphinx, Morph Runestone x1 and also 800000G as fee." )
-	Text( 16, "Unseal curse on Robe of the Sphinx", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 1916, 1 )
-	TriggerCondition( 1, HasItem, 1028, 1 )
-	TriggerCondition( 1, HasMoney, 800000 )
-	TriggerAction( 1, TakeMoney, 800000 )
-	TriggerAction( 1, TakeItem, 1916, 1 )
-	TriggerAction( 1, TakeItem, 1028, 1  )
-	TriggerAction( 1, GiveItem, 795, 1, 4 )
-	TriggerFailure( 1, JumpPage, 30 )
-	Talk( 17, "Indianna Jones: To unseal the curse on Staff of the Sphinx, you must bring me: Ice Sealed Staff of the Sphinx, Morph Runestone x1 and also 800000G as fee." )
-	Text( 17, "Unseal curse on Staff of the Sphinx", MultiTrigger, GetMultiTrigger(), 1)
-
-	Talk( 30, "Indianna Jones: Sorry, you do not have the required items. I cannot unseal it for you." )
-end
-
-function kk_talk01()
-	Talk( 1,  "Администратор Хаоса: В бою выживают лишь сильнейшие, и лишь сильнейшие получают уважение. " )
-	Text( 1,  "Получить награды ", JumpPage ,7)
-	Text( 1,  "Посмотреть ТОП Хаоса ", Garner2GetWiner)
-	Text( 1,  "Войти в ТОП Хаоса ", Garner2RequestReorder)
-	Text( 1,  "Узнать о ранге Хаоса ", JumpPage ,3)
-	Text( 1,  "Узнать о Хаосе Города Счастья ", JumpPage ,13)
-	
---	Talk( 2,  "Администратор Арены: Чтобы получить Медаль отваги вы должны быть 25 уровня и заплатить 50000 золота. Медаль отваги записывает все ваши победы и поражения в бою. После получения ее нельзя будет уничтожить. " )
---	Text( 2,  "Получить Медаль отваги ",Change_FightingBook)
-
-	Talk( 3,  "Администратор Хаоса: Оцениваются все участники сражения, однако войти в список могут лишь пятеро сильнейших. " )
-	Text( 3,  "Узнать об очках Хаоса ",JumpPage ,4)
-	Text( 3,  "Узнать об экипировке Хаоса ",JumpPage ,6)
-
-
-	Talk( 4,  "Администратор Хаоса: Вы можете получать очки Хаоса побеждая противников примерно вашего уровня. Все очки записываются в вашу Медаль отваги. " )
-
-	Talk( 6,  "Администратор Хаоса: Набор Хаоса включает в себя Огненный камень Хаоса, Каменную руку Хаоса и Каменную ногу Хаоса. При ношении полного набора можно получить определенный бонус в зависимости от положение в ТОП Хаоса. " )
-	
-	Talk( 7,  "Администратор Хаоса: Обращайтесь ко мне, если хотите получить ценные вещи. " )
-	Text( 7,  "Получить Стандартную расписку Хаоса ",JumpPage ,8)
-	Text( 7,  "Получить Сундук Хаоса ",JumpPage ,9)
-	Text( 7,  "Обменять на Эмблему короля ринга ",JumpPage ,10)
-	Text( 7,  "Получить гайд ",SendExchangeXData)
-	Text( 7,  "Получить Символ Чести ",JumpPage ,12)
-
-	InitExchangeX()
-
-	ExchangeDataX(	2608	,	100	,	2682	,	1	,	1)
-	ExchangeDataX(	2609	,	100	,	2683	,	1	,	1)
-	ExchangeDataX(	2609	,	1000	,	2684	,	1	,	1)
-	ExchangeDataX(	2608	,	100	,	2692	,	1	,	1)
-	ExchangeDataX(	2609	,	100	,	2693	,	1	,	1)
-	ExchangeDataX(	2609	,	1000	,	2694	,	1	,	1)
-	ExchangeDataX(	2608	,	100	,	2702	,	1	,	1)
-	ExchangeDataX(	2609	,	100	,	2703	,	1	,	1)
-	ExchangeDataX(	2609	,	1000	,	2704	,	1	,	1)
-	ExchangeDataX(	2608	,	100	,	2712	,	1	,	1)
-	ExchangeDataX(	2609	,	100	,	2713	,	1	,	1)
-	ExchangeDataX(	2609	,	1000	,	2714	,	1	,	1)
-	
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 1031, 1 )
-	TriggerCondition( 1, HasLeaveBagGrid, 1 )
-	TriggerCondition( 1, KitbagLock, 0 )
-	TriggerAction( 1, TakeItem, 1031, 1 )
-	TriggerAction( 1, GiveItem, 2609, 1, 4 )
-	TriggerFailure( 1, JumpPage, 11 )
-	Talk( 8,  "Администратор Хаоса: Необходима 1 Святой эмблема кольца " )
-	Text( 8,  "Обменять ", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 1032, 1 )
-	TriggerCondition( 1, HasLeaveBagGrid, 1 )
-	TriggerCondition( 1, KitbagLock, 0 )
-	TriggerAction( 1, TakeItem, 1032, 1 )
-	TriggerAction( 1, GiveItem, 1134, 1, 4 )
-	TriggerFailure( 1, JumpPage, 11 )
-	Talk( 9,  "Chaos Администратор Арены: Необходима 1 Эмблема короля ринга " )
-	Text( 9,  "Обменять ", MultiTrigger, GetMultiTrigger(), 1)
-
-	InitTrigger()
-	TriggerCondition( 1, HasItem, 1031, 5 )
-	TriggerCondition( 1, HasLeaveBagGrid, 1 )
-	TriggerCondition( 1, KitbagLock, 0 )
-	TriggerAction( 1, TakeItem, 1031, 5 )
-	TriggerAction( 1, GiveItem, 1032, 1, 4 )
-	TriggerFailure( 1, JumpPage, 11 )
-	Talk( 10,  "Администратор Хаоса: Необходимо 5 Святых эмблем кольца" )
-	Text( 10,  "Обменять ", MultiTrigger, GetMultiTrigger(), 1)
-
-	Talk( 11,  "Администратор Хаоса: Найдите меня как соберете все необходимые предметы. Также не забудьте освободить 1 Свободное место в инвентаре. " )
-	
-	InitTrade()
-	Other(	1847	)
-	Other(	1848	)
-	Other(	1849	)
-	Other(	3143	)
-	Talk( 12,  "Администратор Хаоса: Символы Чести это Сердце Искры, Отважное сердце и Сердце великолепия. Они требуют для получения 200, 2000 и 20000 очков репутации соответственно. " )
-	Text( 12,  "Получить Сердце искры ", Change_shanyao)
-	Text( 12,  "Получить Отважное сердце ", Change_rongyao)
-	Text( 12,  "Получить Сердце великолепия ", Change_huihuang)
-
-	Talk( 13,  "Администратор Хаоса: Хаос Города Счастья позволяет игрокам проводть свободные сражения на своей территории. Чтобы войти в Хаос Города Счастья игрок должен быть как минимум 20 уровня и больше, и небольшое количество золота. " )
-end
-
-function smzh_talk()
-	Talk( 1, "Таинственный бакалейщик: Молодой человек! Не поддавайтесь иллюзиям!" )
-	Text( 1, "Торг ", BuyPage)
-	Text( 1, "Ремонт ", OpenRepair)
-
-	InitTrade()
-	Other(	1847 )
-	Other(	1848 )
-	Other(	1849 )
-	Other(	3143 )
-	Other(	637	 )
-	Other(	819	 )
-	Other(	869	 )
-	Other(	874	 )
-end 
-
-function ync_talk()
-	Talk( 1, "Коварный куст: Что ты на меня смотришь? Если не уйдешь, я тебя ударю.")
-
-	InitTrigger()
-	TriggerCondition( 1, HasMission, 1403 )
-	TriggerCondition( 1, HasRecord, 1402 )
-	TriggerCondition( 1, NoRecord, 1403 )
-	TriggerCondition( 1, NoRecord, 1404 )
-	TriggerAction( 1, JumpPage, 2 )
-	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Ответить на вопрос ",MultiTrigger, GetMultiTrigger(), 1 )
-
-	InitTrigger()
-	TriggerAction( 1, SetRecord, 1404 )
-	TriggerAction( 1, SetRecord, 1405 )
-	Talk( 2, "Почему... Почему нас всегда убивают? Ты знаешь, сколько месяцев мы растем? А потом приходят сборщики трав и...")
-	Text( 2, "11",MultiTrigger, GetMultiTrigger(), 1 )
-
-	InitTrigger()
-	TriggerAction( 1, SetRecord, 1404 )
-	TriggerAction( 1, SetRecord, 1406 )
-	Text( 2, "12",MultiTrigger, GetMultiTrigger(), 1  )
-
-	InitTrigger()
-	TriggerAction( 1, SetRecord, 1404 )
-	TriggerAction( 1, SetRecord, 1406 )
-	Text( 2, "13",MultiTrigger, GetMultiTrigger(), 1  )
-
-	InitTrigger()
-	TriggerAction( 1, SetRecord, 1404 )
-	TriggerAction( 1, SetRecord, 1407 )
-	Text( 2, "Мне всё равно ",MultiTrigger, GetMultiTrigger(), 1  )
-
-	Talk( 3, "Я должен отомстить!")
-
-	AddNpcMission ( 6072 )
-	AddNpcMission ( 6073 )
-	AddNpcMission ( 6074 )
-	AddNpcMission ( 6075 )
-	AddNpcMission ( 6076 )
-	AddNpcMission ( 6077 )
-end
-
-function Zs_Soldier()
-	Talk( 1, "Будьте тише и осторожней, а то эта большая ящерица проснётся!")
-
-	AddNpcMission ( 6098 )
-	AddNpcMission ( 6099 )
-end
-
-function pre_talk()
-	Talk( 1, "ДгєГ,ОТКЗАсЖ·ЕЙЛНЧЁФ±,ЧЁГЕёєФрЕЙЛНАсЖ·ёшґујТµД,ПЈНыДгГЗДЬПІ»¶.")
-	InitTrigger()
-	TriggerCondition( 1, HasNoItem,  1872 )
-	TriggerCondition(1, HasLeaveBagGrid, 1)
-	TriggerAction( 1, GiveItem, 1872, 1, 4)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "БмИЎѕ«БйУІ±Т±¦Пд", MultiTrigger, GetMultiTrigger(), 1) 
-
-	InitTrigger()
-	TriggerCondition( 1, HasNoItem,  1570 )
-	TriggerCondition(1, HasLeaveBagGrid, 1)
-	TriggerAction( 1, GiveItem, 1570, 1, 4)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "БмИЎѕ«Бй»ФУЎ±¦Пд", MultiTrigger, GetMultiTrigger(), 1) 
-
-	InitTrigger()
-	TriggerCondition( 1, HasNoItem,  1571 )
-	TriggerCondition(1, HasLeaveBagGrid, 1)
-	TriggerAction( 1, GiveItem, 1571, 1, 4)
-	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "БмИЎѕ«БйНх»ФУЎ±¦Пд", MultiTrigger, GetMultiTrigger(), 1) 
-
-	Talk( 2, "Дг±і°ьДЪТСѕ­УРёГЦЦАаРНµД±¦ПдБЛ,І»РиТЄФЩБмИЎ,ТІУРїЙДЬДгµД±і°ьГ»їХёсБЛ.")
-end
-
-function BT_NpcSale001()
-	Talk( 1,  "Бабушка Нилла: Добрый вечер! У меня для Вас в продаже лучшие вещи! Надеюсь Вам понравится! " )
-	Text( 1,  "Торг ", BuyPage )
-
-	InitTrade()
-	Defence(	0290	)
-	Defence(	0466	)
-	Defence(	0642	)
-	Defence(	0296	)
-	Defence(	0472	)
-	Defence(	0648	)
-	Defence(	0291	)
-	Defence(	0467	)
-	Defence(	0643	)
-	Defence(	0297	)
-	Defence(	0473	)
-	Defence(	0649	)
-	Defence(	0293	)
-	Defence(	0469	)
-	Defence(	0645	)
-	Defence(	0298	)
-	Defence(	0474	)
-	Defence(	0650	)
-	Defence(	0300	)
-	Defence(	0476	)
-	Defence(	0652	)
-	Defence(	0301	)
-	Defence(	0477	)
-	Defence(	0653	)
-	Defence(	0228	)
-	Defence(	0229	)
-	Defence(	0230	)
-	Defence(	0295	)
-	Defence(	0471	)
-	Defence(	0647	)
-	Defence(	0302	)
-	Defence(	0478	)
-	Defence(	0654	)
-	Defence(	0299	)
-	Defence(	0475	)
-	Defence(	0651	)
-	Defence(	0303	)
-	Defence(	0479	)
-	Defence(	0655	)
-
-	AddNpcMission ( 705 )	
-end
-
-function BT_NewUser001()
-	Talk( 1,  "Сина: Привет! Я наставница Аргента! Если есть вопросы - обращайся! " )
-	Text( 1,  "Звезда Единства ", JumpPage, 31 )
-	Text( 1,  "Узнать о Аргенте ", JumpPage, 4 )
-	Text( 1,  "Узнать о классах и атрибутах ", JumpPage, 11 )
-	Text( 1,  "Узнать координаты монстров ", JumpPage, 30 )
-	Text( 1,  "Спасибо, я все понял ",  CloseTalk)
-
-	Talk( 4,  "Сина: Аргент это лучший торговый город. Только тут можно найти лучшие редкие товары! " )
-	Text( 4,  "Узнать об оружейном магазине ", JumpPage, 5 )
-	Text( 4,  "Узнать о магазине доспехов ", JumpPage, 7 )
-	Text( 4,  "Узнать о магазине предметов ", JumpPage, 8 )
-	Text( 4,  "Узнать о магазине портальщиках ", JumpPage, 9 )
-	Text( 4,  "Узнать о лечении ", JumpPage, 10 )
-
-	Talk( 5,  "Сина: В Аргенте оружием заведует кузнец Голди. Ищи его в северно-восточной части города. " )
-	Text( 5,  "Унать о других продавцах ", JumpPage, 4 )
-	Text( 5,  "Спасибо, я все понял ",  CloseTalk )
-
-	Talk( 7,  "Сина: Если тебе нужны доспехи, то ты найдешь их у портного в северо-западной части города. " )
-	Text( 7,  "Унать о других продавцах ", JumpPage, 4 )
-	Text( 7,  "Спасибо, я все понял ",  CloseTalk )
-
-	Talk( 8,  "Сина: Всегда самый лучший товар можно найти у Заморского купца. Он находится на нижней стороне фонтана. " )
-	Text( 8,  "Унать о других продавцах ", JumpPage, 4 )
-	Text( 8,  "Спасибо, я все понял ",  CloseTalk )
-
-	Talk( 9,  "Сина: С помощью портальщиков можно отправится в любой из существующих городов. Ищи портальщика у восточного выхода из города. " )
-	Text( 9,  "Унать о других продавцах ", JumpPage, 4 )
-	Text( 9,  "Спасибо, я все понял ",  CloseTalk )
-
-	Talk( 10,  "Сина: Если тебе нужна медсестра, то она с восточной стороны от фонтана. " )
-	Text( 10,  "Унать о других продавцах ", JumpPage, 4 )
-	Text( 10,  "Спасибо, я все понял ", CloseTalk)
-
-	
-	InitTrigger()
-	TriggerCondition( 1, NoRecord, 700 )
-	TriggerCondition( 1, HasMission, 700 )
-	TriggerCondition( 1, NoFlag, 700, 10 )
-	TriggerAction( 1, SetFlag, 700, 10)
-	TriggerAction( 1, JumpPage, 12 )
-	TriggerFailure( 1, JumpPage, 12 )
-	Talk( 11,  "Сина: Я могу тебе подробнее рассказать о классах и атрибутах. Что тебя интересует? " )
-	Text( 11,  "Узнать о классах ", JumpPage, 12)
-	Text( 11,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 11,  "Спасибо, я все понял ", JumpPage, 6 )
-
-	InitTrigger()
-	TriggerCondition( 1, NoRecord, 700 )
-	TriggerCondition( 1, HasMission, 700 )
-	TriggerCondition( 1, NoFlag, 700, 20 )
-	TriggerAction( 1, SetFlag, 700, 20)
-	TriggerAction( 1, JumpPage, 13 )
-	TriggerFailure( 1, JumpPage, 13 )
-
-	Talk( 12,  "Сина: Всего существует 4 базовых класса, у каждого из них свои особенности. Про какой класс ты хотел бы узнать? " )
-	Text( 12,  "Узнать о мечниках ", JumpPage, 14 )
-	Text( 12,  "Узнать об охотниках ", JumpPage, 15 )
-	Text( 12,  "Узнать об исследователях ", JumpPage, 17 )
-	Text( 12,  "Узнать об знахарках ", JumpPage, 18 )
-	Text( 12,  "Я все понял. Хочу узнать кое что другое. ", JumpPage, 11 )
-
-	Talk( 13,  "Сина: Всего существует 5 базовых атрибута. Каждый атрибут может иметь максимальное значение в 100. У новичка все атрибуты равны 5. Каждый уровень вам будет выдаваться еще 1 пункт атрибута и навыка. В начале игры у вас есть 5 свободных пункта, которые вы можете рас " )
-	Text( 13,  "Узнать о силе ", JumpPage, 21 )
-	Text( 13,  "Узнать о ловкости ", JumpPage, 22 )
-	Text( 13,  "Узнать о телосложении ", JumpPage, 23 )
-	Text( 13,  "Узнать о духе ", JumpPage, 24 )
-	Text( 13,  "Узнать о точности ", JumpPage, 26 )
-	Text( 13,  "Я все понял. Хочу узнать кое что другое. ", JumpPage, 11 )
-
-	Talk( 14,  "Сина: Мечники имеют самое высокое физическое сопротивление. Мечником может стать только Ланс. " )
-	Text( 14,  "Узнать о других классах ", JumpPage, 12)
-	Text( 14,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 14,  "Спасибо, я все понял ", JumpPage, 27)
-
-	Talk( 15,  "Сина: Охотники это единственный класс, способный использовать в бою оружие с дистанционным уроном. Охотником могут стать только Ланс или Филисс. " )
-	Text( 15,  "Узнать о других классах ", JumpPage, 12)
-	Text( 15,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 15,  "Спасибо, я все понял ", JumpPage, 27)
-
-	Talk( 17,  "Сина: Исследователь это лучший класс для исследования моря. Исследователем может стать только Филисс, Ланс или Ами. " )
-	Text( 17,  "Узнать о других классах ", JumpPage, 12)
-	Text( 17,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 17,  "Спасибо, я все понял ", JumpPage, 27)
-
-	Talk( 18,  "Сина: Знахарки это приверженцы культа Богини Кары, за это им дарована огромная магическая сила. Стать знахаркой могут лишь Филисс или Ами. " )
-	Text( 18,  "Узнать о других классах ", JumpPage, 12)
-	Text( 18,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 18,  "Спасибо, я все понял ", JumpPage, 27)
-
-	Talk( 21,  "Сина: Сила влияет на физический урон. " )
-	Text( 21,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 21,  "Узнать о других классах ", JumpPage, 12)
-	Text( 21,  "Спасибо, я все понял ", JumpPage, 27)
-
-	Talk( 22,  "Сина: Ловкость влияет на уклонение и скорость атаки. " )
-	Text( 22,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 22,  "Узнать о других классах ", JumpPage, 12)
-	Text( 22,  "Спасибо, я все понял ", JumpPage, 27)
-
-	Talk( 23,  "Сина: Телосложение влияет на количество жизни и защиту " )
-	Text( 23,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 23,  "Узнать о других классах ", JumpPage, 12)
-	Text( 23,  "Спасибо, я все понял ", JumpPage, 27)
-
-	Talk( 24,  "Сина: Дух влияет на количество маны, магическую защиту и силу некоторых способностей. " )
-	Text( 24,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 24,  "Узнать о других классах ", JumpPage, 12)
-	Text( 24,  "Спасибо, я все понял ", JumpPage, 27)
-
-	Talk( 26,  "Сина: Точность влияет на шанс урона и силу дистанционной атаки. " )
-	Text( 26,  "Узнать о других атрибутах ", JumpPage, 13)
-	Text( 26,  "Узнать о других классах ", JumpPage, 12)
-	Text( 26,  "Спасибо, я все понял ", JumpPage, 27)
-
-	Talk( 27,  "Сина: Хорошо, ищи меня снова если возникнут вопросы. ")
-	
-	Talk( 28,  "Сина: Поздравляю! Теперь тебе все известно об основных классах и атрибутах. Если возникнут новые вопросы - обращайся. " )
-	Text( 28,  "Узнать о Аргенте ", JumpPage, 4 )
-	Text( 28,  "Узнать о классах и атрибутах ", JumpPage, 11 )
-	Text( 28,  "Спасибо, я все понял ",  CloseTalk)
-
-	Talk( 29,  "Сина: Поздравляю! По достижении 10 уровня ты сможешь выбрать для себя првый класс. " )
-	Text( 29,  "Я бы хотел кое о чем спросить ", JumpPage, 4 )
-	Text( 29,  "Узнать о классах и атрибутах ", JumpPage, 11 )
-	Text( 29,  "Спасибо, я все понял ",  CloseTalk )
-
-	Talk( 30,  "Сина: Чтобы узнать координаты монстров обращайся к Пьянчуге Энтони в Баре Аргента. " )
-	
-	InitTrigger()
-	TriggerCondition( 1, NoItem, 1034, 1 )
-	TriggerCondition( 1, NoItem, 1033, 1 )
-	TriggerCondition( 1, BankNoItem, 1034, 1 )
-	TriggerCondition( 1, BankNoItem, 1033, 1 )
-	TriggerCondition( 1, EquipNoItem, 1034, 1 )
-	TriggerCondition( 1, EquipNoItem, 1033, 1 )
-
-	TriggerCondition( 1, LvCheck, "<", 41 )
-	TriggerAction( 1, GiveItem, 1033, 1, 4 )
-	TriggerFailure( 1, JumpPage, 6 )
-	Talk( 31,  "Сина: Звезда Единства - таинственный предмет из другого мира. Она способна накапливать опыт своего владельца, а затем при некоторых условиях отдавать весь накопленный опыт обратно. Кроме того по достижении 41 уровня вы сможете обменять Звезду Единства на экипировку своего класса на 50 уровень. " )
-	Text( 31,  "Получить Звезду Единства ",MultiTrigger, GetMultiTrigger(), 1)
-	Text( 31,  "Обменять Звезду Единства ",JumpPage, 32 )
-
-	Talk( 32,  "Сина: Спасибо за использование наших продуктов. По достижении 41 уровня вы можете обменять Звезду Единства на экипировку своего класса на 50 уровень. Вас это интересует? ")
-	Text( 32,  "Получить оружие класса ", Transfer_TeamStar, 1)
-
-	Talk( 6,  "Сина: Простите, но вы не подходите по требованию. " )
-
-	AddNpcMission ( 701  )
-	AddNpcMission ( 702  )
-	AddNpcMission ( 704  )
-	AddNpcMission ( 706  )
-	AddNpcMission ( 708  )
-	AddNpcMission ( 200  )
-	AddNpcMission (	402	 )
-	AddNpcMission (	50	 )
-	AddNpcMission (	51	 )
-	AddNpcMission (	61	 )
-	AddNpcMission (	62	 )
-	AddNpcMission (	63	 )
-	AddNpcMission (	64	 )
-	AddNpcMission (	65	 )
-	AddNpcMission (	82	 )
-
-	MisListPage(28)
-	MisListPage(29)
-end
-
-function r_trade01()
-	Talk( 1, "Голди: Привет! У меня всегда есть первосортное оружие для тебя! " )
-	Text( 1, "Торг ", BuyPage)
-	Text( 1, "Ремонт ", OpenRepair)
-	Text( 1, "Ковка ", JumpPage, 2)
-	Text( 1, "Комбинирование ", JumpPage,3)
-
-	Talk( 2, "Голди: Ковка? Этим занимается только кузнец в Шайтане.")
-	
-	Talk( 3, "Голди: Хочешь соединить что-нибудь? Насколько я понимаю, тебе понадобится свиток ковки со списком небходимых предметов. Собери все, что понадобится, и поговори с Бакалейщиком - Амосом из Шайтана. Только он владеет искусством соединения.")
-
-	InitTrade()
-	Weapon(	0008	)
-	Weapon(	0196	)
-	Weapon(	0197	)
-	Weapon(	0198	)
-	Weapon(	0001	)
-	Weapon(	0010	)
-	Weapon(	0002	)
-	Weapon(	0011	)
-	Weapon(	0003	)
-	Weapon(	0012	)
-	Weapon(	0013	)
-	Weapon(	0014	)
-	Weapon(	0022	)
-	Weapon(	0005	)
-	Weapon(	0023	)
-	Weapon(	1388	)
-	Weapon(	1389	)
-	Weapon(	1390	)
-	Weapon(	1391	)
-	Weapon(	1392	)
-	Weapon(	1395	)
-	Weapon(	1396	)
-	Weapon(	1397	)
-	Weapon(	1398	)
-	Weapon(	1399	)
-	Weapon(	0121	)
-	Weapon(	0122	)
-	Weapon(	0123	)
-	Weapon(	0124	)
-	Weapon(	0125	)
-	Weapon(	0126	)
-	Weapon(	0015	)
-	Weapon(	0020	)
-	Weapon(	0016	)
-	Weapon(	0021	)
-	Weapon(	0004	)
-	Weapon(	1370	)
-	Weapon(	1371	)
-	Weapon(	1372	)
-	Weapon(	1373	)
-	Weapon(	1377	)
-	Weapon(	1378	)
-	Weapon(	1379	)
-	Weapon(	1380	)
-	Weapon(	1381	)
-	Weapon(	1382	)
-	Weapon(	1386	)
-	Weapon(	1387	)
-	Weapon(	0073	)
-	Weapon(	0080	)
-	Weapon(	0074	)
-	Weapon(	0081	)
-	Weapon(	0075	)
-	Weapon(	0082	)
-	Weapon(	0076	)
-	Weapon(	0083	)
-	Weapon(	0077	)
-	Weapon(	0084	)
-	Weapon(	1415	)
-	Weapon(	1416	)
-	Weapon(	1417	)
-	Weapon(	1418	)
-	Weapon(	1419	)
-	Weapon(	1422	)
-	Weapon(	1423	)
-	Weapon(	1424	)
-	Weapon(	1425	)
-	Weapon(	1426	)
-	Weapon(	1443	)
-	Weapon(	1444	)
-	Weapon(	1445	)
-	Weapon(	1446	)
-	Weapon(	1447	)
-	Weapon(	1450	)
-	Weapon(	1451	)
-	Weapon(	1452	)
-	Weapon(	1460	)
-	Weapon(	1461	)
-	
-	AddNpcMission ( 703  )
-	AddNpcMission (	1044 )
-	AddNpcMission (	1096 )
-	AddNpcMission (	1155 )
-	AddNpcMission (	1207 )
-	AddNpcMission (	58	 )
-	AddNpcMission (	59	 )
-	AddNpcMission (	60	 )
-	AddNpcMission (	1221 )
-end
-
-----------------------------------------------
---                Священник                 --
-----------------------------------------------
--- Служит для выдачи Свадебных сертификатов --
-----------------------------------------------
-function wedding_npc01()
-
-	Talk(1, "\209\226\255\249\229\237\237\232\234: \207\240\232\226\229\242\241\242\226\243\254, \255 \240\229\227\232\241\242\240\232\240\243\254 \225\240\224\234." )
-    Text(1, "\223 \245\238\247\243 \243\231\237\224\242\252 \242\240\229\225\238\226\224\237\232\255 \234 \225\240\224\234\243.", JumpPage, 2)
-	Text(1, "\223 \245\238\247\243 \231\224\240\229\227\232\241\242\240\232\240\238\226\224\242\252 \225\240\224\234.", JumpPage, 3)
-	Text(1, "\199\224\240\229\227\232\241\242\240\232\240\238\226\224\242\252\241\255 \239\238\231\230\229.", CloseTalk)
-	
-	
-	Talk(2, "\210\240\229\225\238\226\224\237\232\255: 1. \211 \236\238\235\238\228\238\230\229\237\238\226 \228\238\235\230\237\251 \225\251\242\252 \202\238\235\252\246\224 \209\226\255\242\238\227\238 \194\224\235\229\237\242\232\237\224. 2. \204\238\235\238\228\238\230\229\237\251 \196\238\235\230\237\251 \225\251\242\252 \226 \227\240\243\239\239\229. 3. \202\224\230\228\251\233 \228\238\235\230\229\237 \239\240\232\237\229\241\242\232 10 \236\232\235\235\232\238\237\238\226 \231\238\235\238\242\251\245. 4. \202\224\230\228\251\233 \228\238\235\230\229\237 \239\238\235\243\247\232\242\252 \232 \238\242\234\240\251\242\252 \241\226\238\232 \241\243\237\228\243\234\232 \244\229\233.")
-	Text(2, "\213\238\240\238\248\238, \255 \239\238\237\255\235. \199\224\240\229\227\232\241\242\240\232\240\243\233\242\229!", JumpPage, 3)
-	Text(2, "\196\224\233\242\229 \239\238\228\243\236\224\242\252...", CloseTalk)
-	
-	
-	Talk(3, "\209\226\255\249\229\237\237\232\234: \197\241\235\232 \242\251 \227\238\242\238\226, \239\238\230\224\235\243\233\241\242\224, \239\238\228\242\226\229\240\228\232. \207\238\241\235\229 \240\229\227\232\241\242\240\224\246\232\232 \242\251 \239\238\235\243\247\232\248\252 \209\226\224\228\229\225\237\251\233 \209\229\240\242\232\244\232\234\224\242. \209 \237\232\236 \236\238\230\237\238 \237\224\247\224\242\252 \246\229\240\229\236\238\237\232\254 \241\226\224\228\252\225\251 \243 \194\238\235\248\229\225\237\232\234\224 \215\232\242\224\237\224")
-	
-	InitTrigger()
-	TriggerCondition(1, GiveWeddingCertificate)
-	TriggerAction(1, JumpPage, 4)
-	TriggerFailure(1, JumpPage, 5)
-	Text(3, "\207\238\228\242\226\229\240\228\232\242\252", MultiTrigger, GetMultiTrigger(), 1)
-	Text(3, "\196\224\233\242\229 \229\249\229 \240\224\231 \239\238\228\243\236\224\242\252.", CloseTalk)
-	
-	
-	Talk(4, "\209\226\255\249\229\237\237\232\234: \207\238\231\228\240\224\226\235\255\254! \210\251 \242\238\235\252\234\238 \247\242\238 \239\238\235\243\247\232\235 \209\226\224\228\229\225\237\251\233 \241\229\240\242\232\244\232\234\224\242! \221\242\238 \241\224\236\251\233 \239\229\240\226\251\233 \248\224\227 \234 \225\240\224\234\243. \210\229\239\229\240\252 \238\247\229\240\229\228\252 \242\226\238\229\233 \239\238\235\238\226\232\237\234\232, \229\241\235\232 \243 \237\229\229 \226\241\229 \229\249\229 \237\229\242 \209\226\224\228\229\225\237\238\227\238 \241\229\240\242\232\244\232\234\224\242\224...")
-	Text(4, "\209\239\224\241\232\225\238!", CloseTalk)
-	
-	
-	Talk(5, "\209\226\255\249\229\237\237\232\234: \205\229 \226\241\229 \242\240\229\225\238\226\224\237\232\255 \241\238\225\235\254\228\229\237\251! \207\238\230\224\235\243\233\241\242\224, \238\231\237\224\234\238\236\252\241\255 \241 \242\240\229\225\238\226\224\237\232\255\236\232 \234 \225\240\224\234\243.")
-	Text(5, "\211\231\237\224\242\252 \241 \242\240\229\225\238\226\224\237\232\255\236\232 \234 \225\240\224\234\243.", JumpPage, 2)
-	Text(5, "\199\224\240\229\227\232\241\242\240\232\240\238\226\224\242\252\241\255 \239\238\231\230\229.", CloseTalk)
-
-end
---------------------------------------------------------------------------------------------------------------------
---											Одиночные_функции (Конец)											  --
---------------------------------------------------------------------------------------------------------------------

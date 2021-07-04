@@ -1,24 +1,28 @@
-print( "‡ £àã§ª  Ctrl.lua" )
+--´ËÎÄ¼þÖÐ£¬·²ÊÇ¿ÉÄÜ±»¶à´ÎÖ´ÐÐµÄº¯Êý£¬º¯ÊýÃû¶¼Òª¼ÓÉÏµØÍ¼ÃûÇ°×º
 
 function config(map)
-    MapCanSavePos(map, 0)
-    MapCanPK(map, 1)
-    MapCopyNum(map, 1)
-    MapCopyStartType(map, 1)
-    SingleMapCopyPlyNum(map, 300)
+    MapCanSavePos(map, 0) --ÉèÖÃµØÍ¼ÊÇ·ñ±£´æ½ÇÉ«Î»ÖÃ£¨µØÍ¼£¬×ø±ê£¬·½Ïò£©£¬´ËÉèÖÃÓ°Ïì¸ÃµØÍ¼µÄËùÓÐ¸±±¾
+    MapCanPK(map, 1) --ÉèÖÃµØÍ¼ÊÇ·ñ¿ÉÒÔPK£¬´ËÉèÖÃÓ°Ïì¸ÃµØÍ¼µÄËùÓÐ¸±±¾
+    MapCopyNum(map, 1) --ÉèÖÃµØÍ¼µÄ¸±±¾ÊýÄ¿£¬Èç¹û²»µ÷ÓÃ¸ÃÓï¾ä£¬ÔòÊ¹ÓÃÄ¬ÈÏÖµ1
+    MapCopyStartType(map, 1) --ÉèÖÃµØÍ¼Á¢¼´¿ªÊ¼
+    SingleMapCopyPlyNum(map, 300)   --ÉèÖÃÒ»¸ö¸±±¾µÄÍæ¼ÒÊý
     MapCanTeam(map , 1)
     MapType ( map , 2 )
 end
 
-function get_map_entry_pos_secretgarden()
+
+function get_map_entry_pos_secretgarden()   --ÉèÖÃÈë¿ÚµÄÎ»ÖÃµÄ×ø±ê£¨×ø±ê£¨Ã×£©£©
+
 	local POS_X=832
 	local POS_Y=3760
 	return POS_X , POS_Y
+
 end
 
 function init_entry(map)
-    SetMapEntryMapName(map, "magicsea")
-    SetMapEntryTime(map, "2005/8/30/19/0", "1/0/0", "0/2/0", "0/2/0")
+    SetMapEntryMapName(map, "magicsea") --ÉèÖÃÈë¿ÚµÄÎ»ÖÃ£¨µØÍ¼Ãû£¬×ø±ê£¨Ã×£©£©
+    SetMapEntryTime(map, "2005/8/30/19/0", "1/0/0", "0/2/0", "0/2/0") --ÉèÖÃÈë¿ÚµÄÊ±¼ä£¬µØÍ¼¶ÔÏó£¬Ê×´Î¿ªÆôÊ±¼ä£¨Äê/ÔÂ/ÈÕ/Ê±/·Ö£©£¬ÒÔºóÔÙ´Î¿ªÆôµÄ¼ä¸ô£¨ÈÕ/Ê±/·Ö£¬È«£°±íÊ¾Ö»ÓÐÊ×´Î¿ªÆô£©£¬Ã¿´Î¿ªÆôµ½Èë¿ÚÏûÊ§µÄ¼ä¸ô£¨ÈÕ/Ê±/·Ö£¬È«£°±íÊ¾ÓÀ²»ÏûÊ§£©£¬Ã¿´Î¿ªÆôµ½µØÍ¼¹Ø±ÕµÄ¼ä¸ô£¨ÈÕ/Ê±/·Ö£¬È«£°±íÊ¾ÓÀ²»¹Ø±Õ£©¡£¡£
+
 end
 
 function after_enter_secretgarden( role , map_copy )
@@ -70,27 +74,29 @@ function map_copy_run_secretgarden( map_copy )
 		local GuildName_Blue = GetGuildName ( BlueSide_GuildID )
 		if CheckMonsterDead ( BlueSide_BaseRole ) == 1 then
 			
-			local Notice_all = "Ïîçäðàâëÿåì ãèëüäèþ ["..GuildName_Red.."] ñ ïîáåäîé íàä ["..GuildName_Blue.."]. Ýòî äîñòîéíàÿ ïîáåäà!"
+			local Notice_all = "Congratulates \"["..GuildName_Red.."]\" Guild has defeated \"["..GuildName_Blue.."]\" Guild! Let us congratulate them on their victory!"
 			Notice ( Notice_all )
+			--LG( "GHZ_WINER" ,GuildName_Red, GuildName_Blue)
 			PK_Win_CountNum = PK_Win_CountNum - 1
 			PK_JJHY_Winner = GuildName_Red
 			PK_JJHY_Loser = GuildName_Blue
-			SetMapCopyParam2(map_copy, 5, 1)
+			SetMapCopyParam2(map_copy, 5, 1) --ºì·½Ê¤Àû
 
 		end
 
 		if CheckMonsterDead ( RedSide_BaseRole ) == 1 then
-			local Notice_all = "Ïîçäðàâëÿåì ãèëüäèþ ["..GuildName_Blue.."] ñ ïîáåäîé íàä ["..GuildName_Red.."]. Ýòî äîñòîéíàÿ ïîáåäà!"
+			local Notice_all = "Congratulates \"["..GuildName_Blue.."]\" Guild has defeated \"["..GuildName_Red.."]\" guild, the truth has proved that \"["..GuildName_Blue.."]\" Guild is the real victor! Let us congratulates them!"
 			Notice ( Notice_all )
+			--LG( "GHZ_WINER" ,GuildName_Blue, GuildName_Red)
 			PK_Win_CountNum = PK_Win_CountNum - 1
 			PK_JJHY_Winner = GuildName_Blue
 			PK_JJHY_Loser = GuildName_Red
-			SetMapCopyParam2(map_copy, 5, 2)
+			SetMapCopyParam2(map_copy, 5, 2) --À¶·½Ê¤Àû
 		end
 		
 		if CheckMonsterDead ( BlueSide_LCRole ) == 1 then
 			if BlueSide_LCNotice == 0 then
-				local Notice_all = "Ïàêãàóç ãèëüäèè ["..GuildName_Blue.."] áûë óíè÷òîæåí. Çàùèòà áàçû çàìåòíî ïîíèæåíà."
+				local Notice_all = "["..GuildName_Blue.."]'s Granary has been destroyed, defense of base is greatly reduced"
 				Notice ( Notice_all )
 				AddState( BlueSide_BaseRole , BlueSide_BaseRole , STATE_PKLC, 10 , -1 )
 				BlueSide_LCNotice = 1
@@ -99,7 +105,7 @@ function map_copy_run_secretgarden( map_copy )
 		
 		if CheckMonsterDead ( RedSide_LCRole ) == 1 then
 			if RedSide_LCNotice == 0 then
-				local Notice_all = "Ïàêãàóç ãèëüäèè ["..GuildName_Red.."] áûë óíè÷òîæåí. Çàùèòà áàçû çàìåòíî ïîíèæåíà."
+				local Notice_all = "["..GuildName_Red.."]'s Granary has been destroyed, defense of base is greatly reduced"
 				Notice ( Notice_all )
 				AddState( RedSide_BaseRole , RedSide_BaseRole , STATE_PKLC, 10 , -1 )
 				RedSide_LCNotice = 1
@@ -109,7 +115,7 @@ function map_copy_run_secretgarden( map_copy )
 
 		if CheckMonsterDead ( BlueSide_DYKRole ) == 1 then
 			if BlueSide_DYKNotice == 0 then
-				local Notice_all = "Ñêëàä áîåïðèïàñîâ ãèëüäèè ["..GuildName_Blue.."] áûë óíè÷òîæåí. Ñèëà àòàêè âàøèõ çàùèòíûõ áàøåí çàìåòíî ïîíèæåíà."
+				local Notice_all = "["..GuildName_Blue.."]'s ammunition warehouse has been destroyed, attack of base is greatly reduced"
 				Notice ( Notice_all )
 				AddState( BlueSide_BaseRole , BlueSide_BaseRole , STATE_PKDYK, 10 , -1 )
 				BlueSide_DYKNotice = 1
@@ -118,7 +124,7 @@ function map_copy_run_secretgarden( map_copy )
 
 		if CheckMonsterDead ( RedSide_DYKRole ) == 1 then
 			if RedSide_DYKNotice == 0 then
-				local Notice_all = "Ñêëàä áîåïðèïàñîâ ãèëüäèè ["..GuildName_Red.."] áûë óíè÷òîæåí. Ñèëà àòàêè âàøèõ çàùèòíûõ áàøåí çàìåòíî ïîíèæåíà."
+				local Notice_all = "["..GuildName_Red.."]'s ammunition warehouse has been destroyed, attack of base is greatly reduced"
 				Notice ( Notice_all )
 				AddState( RedSide_BaseRole , RedSide_BaseRole , STATE_PKDYK, 10 , -1 )
 				RedSide_DYKNotice = 1
@@ -128,7 +134,7 @@ function map_copy_run_secretgarden( map_copy )
 		
 		local Count = PK_Win_CountNum / 5
 		if Count == math.floor ( Count ) then
-			local Notice_all = "Ïîçäðàâëÿåì, ["..PK_JJHY_Winner.."], âû ïîáåäèëè â ýòîì áîþ ãèëüäèþ ["..PK_JJHY_Loser.."]. [Ñàä Ýäåëü] áóäåò çàêðûò ÷åðåç "..PK_Win_CountNum.." ñåêóíä."
+			local Notice_all = "Congratulates \"["..PK_JJHY_Winner.."]\" Guild has defeated \"["..PK_JJHY_Loser.."]\"Guild, [Garden of Edel] will be"..PK_Win_CountNum.." secs will close"
 			Notice ( Notice_all )
 		end
 		PK_Win_CountNum = PK_Win_CountNum - 1
@@ -141,6 +147,7 @@ function map_copy_run_secretgarden( map_copy )
 	end
 end
 
+--Ã¿5ÃëÖ´ÐÐÒ»´ÎµÄ
 function map_run_secretgarden( map )
 	local GuildLevel = 0
 	GuildLevel = GetFightGuildLevel ( )
@@ -152,10 +159,14 @@ function map_run_secretgarden( map )
 	end
 end
 
+--µØÍ¼¹Ø±ÕÊ±Ö´ÐÐ
 function map_copy_close_secretgarden ( map_copy )
 	local winner = 	GetMapCopyParam2( map_copy, 5 )
 	local RedSide_GuildID = GetMapCopyParam2(map_copy, 3 )
 	local BlueSide_GuildID = GetMapCopyParam2(map_copy, 4 )
+	--local GuildName_Red = GetGuildName( RedSide_GuildID )
+	--local GuildName_Blue = GetGuildName ( BlueSide_GuildID )
+
 	if winner == 1 then
 		EndGuildChallenge ( RedSide_GuildID , BlueSide_GuildID , 1 )
 		LG( "PK_JJHY","Victory to the Defending Champion" )
@@ -165,18 +176,25 @@ function map_copy_close_secretgarden ( map_copy )
 	elseif winner == 0 then
 		EndGuildChallenge ( RedSide_GuildID , BlueSide_GuildID , 1 )
 		LG( "PK_JJHY","Victory to the Defending Champion" )
+		--local Notice_all = "¹§Ï²"["..GuildName_Red.."]"¹«»áÔÚ¹«»áÌôÕ½ÈüÖÐÕ½Ê¤ÁË"["..GuildName_Blue.."]"¹«»á£¬×£ºØËûÃÇÔÚ¼¤ÁÒµÄÌôÕ½ÈüÖÐÎÀÃá³É¹¦¡£"
+		--Notice ( Notice_all )
 	else
 		LG( "PK_JJHY","Victory determination error" )
 	end
 end
+		
+--µØÍ¼¿ª¹ØÅÐ¶Ï¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function can_open_entry_secretgarden( map ) 
+--	local time = GetTickCount ( ) 
 	local Now_Week = GetNowWeek()
 	if Now_Week >=5 and Now_Week < 7 then
 		return 1
 	end
+
 	if Now_Week == 0 then
 		return 1
 	end
+
 	return 0 
 end 

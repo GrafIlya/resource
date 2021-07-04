@@ -1,30 +1,40 @@
-print( "‡ Јаг§Є  NPCScript04.lua" )
+--------------------------------------------------------------------------
+--									--
+--									--
+--NPCScript04.lua Created by Robin 2006.1.21.	--
+--									--
+--									--
+--------------------------------------------------------------------------
+print( "loading NPCScript04.lua" )
 
---------------------------
---	Список сокращений	--
---------------------------
-jp				= JumpPage
-amp				= AutoMissionPage
-ct				= CloseTalk
-am				= AddMission
-MissionCheck 	= HasFlag
-mc				= MissionCheck
+jp= JumpPage
+amp=AutoMissionPage
+ct=CloseTalk
+am=AddMission
+MissionCheck = HasFlag
+mc=MissionCheck
 
---------------------------------------------------------------------------------------------------------------------
---													b_talk (Начало)												  --
---------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------
+-- ґє·зХт МъЅіЎ¤ОдцО
+------------------------------------------------------------
+
 function b_talk1()
-	Talk( 1, "Ву Ксин: Изумрудное лезвие в левой руке, нож Голиафа в правой руке, шлем дракона на голове. Ничто меня не остановит! " )
-	Text( 1, "Торг ", BuyPage )
-	Text( 1, "Ремонт ", OpenRepair)
-	Text( 1, "Узнать о вставке самоцветов ", JumpPage, 2)
-	Text( 1, "Узнать о комбинировании ", JumpPage, 3)
 
-	Talk( 2, "Ву Ксин: Вставка самоцветов? Только кузнец Шайтана знает о ней! " )
 
-	Talk( 3, "Ву Ксин: Комбинирование? Советую обратиться к бакалейщику Амосу в Шайтане. Он должен знать об этом! " )
+	Talk( 1, "Wu Xin: \"Emerald Blade on my left, Galiant Sword on my right, Dragon Crown on my headЎ­Nothing can stop me!\"" )
+	Text( 1, "Trade", BuyPage )
+	Text( 1, "Repair", OpenRepair)
+	Text( 1, "Regarding Forging", JumpPage, 2)
+	Text( 1, "Regarding Combining", JumpPage, 3)
 
-	Talk( 4, "Ву Ксин: Мая твая не панимать! " )
+	Talk( 2, "Wu Xin: Forging? Only the blacksmith of Shaitan City knows the secret." )
+
+	Talk( 3, "Wu Xin: You wish to combine something? From what I understand, you need a combination scroll and it will list the required items. Collect the items needed and talk to Grocer - Amos in Shaitan City. He is the only person who knows how to combine." )
+	
+	Talk( 4, "Blacksmith - Wu Xin: \"Ў­Ў­Ў­Ў­Ў­Ў­^$&#&^%Ў­Ў­Ў­Ў­Ў­Ў­\"" )
+
+
 
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 330 )
@@ -32,6 +42,7 @@ function b_talk1()
 	TriggerCondition( 2, NoRecord, 330 )
 	TriggerAction( 2, JumpPage, 4 )
 	Start( GetMultiTrigger(), 2 )
+
 
 	InitTrade()
 	Weapon(	0023	)
@@ -51,16 +62,29 @@ function b_talk1()
 	Weapon(	0045	)
 	Weapon(	1414	)
 
-	AddNpcMission ( 393  )
-    AddNpcMission ( 567  )
-	AddNpcMission (	5817 )
-	AddNpcMission (	5818 )
+
+	AddNpcMission ( 393 )
+        AddNpcMission ( 567 )
+
+	-------------МъЅіЎ¤ОдцО-------ѕЮР·
+	AddNpcMission	(5817)
+	AddNpcMission	(5818)
 end
 
-function b_talk2()
-	Talk( 1, "Лонг Ер: Добрый день. Вы можете ознакомиться с ассортиментом нашего товара. Вас что нибудь заинтерисовало? ")
 
-	Talk( 2, "Лонг Ер: Мая твая не панимать! " )
+------------------------------------------------------------
+-- ґє·зХт їНХ»АП°еЎ¤БъЕ®ЈЁВф»ШёґЖ·)
+------------------------------------------------------------
+
+function b_talk2()
+
+
+	Talk( 1, "Long Er: \"Welcome! We have all type of crusine for you to choose from. Anything to your liking?\"")
+	--Text( 1, "Trade", BuyPage )
+	
+	Talk( 2, "Long Er: \"Ў­Ў­Ў­Ў­Ў­Ў­^$&#&^%Ў­Ў­Ў­Ў­Ў­Ў­\"" )
+
+
 
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 330 )
@@ -68,6 +92,7 @@ function b_talk2()
 	TriggerCondition( 2, NoRecord, 330 )
 	TriggerAction( 2, JumpPage, 2 )
 	Start( GetMultiTrigger(), 2 )
+
 
    	InitTrade()
 	Other(	1078	)
@@ -80,22 +105,39 @@ function b_talk2()
 	AddNpcMission ( 536 )
 	AddNpcMission ( 537 )
 	AddNpcMission ( 538 )
-    AddNpcMission ( 569 )
+        AddNpcMission ( 569 )
+
+
+	-------------їНХ»АП°еЎ¤БъЕ®-------ѕЮР·
 	AddNpcMission	(5819)
 	AddNpcMission	(5820)
+-------------їНХ»АП°еЎ¤БъЕ®-------ЗпµєїЄ·ў
+	--AddNpcMission	(6174)
+	--AddNpcMission	(6175)
+
 end
 
-function b_talk3()
-	Talk( 1, "Луна: Хм... Кажется кто то имеет такое же имя как и я. Думаю стоит предъявить иск о нарушении авторских прав! " )
-	Text( 1, "Торг ", BuyPage )
+------------------------------------------------------------
+-- ґє·зХт ФУ»хЙМИЛЎ¤ВіДИ¶щ(Вф·Й»ъЖ±)
+------------------------------------------------------------
 
-	Talk( 2, "Луна: Мая твая не панимать! " )
+function b_talk3()
+
+
+	Talk( 1, "Luna: \"HmmЎ­Someone seems be have the same name as meЎ­.I might sue that person for copyrights infringement!\"" )
+	Text( 1, "Trade", BuyPage )
+	Talk( 2, "Luna: \"Ў­Ў­Ў­Ў­Ў­Ў­^$&#&^%Ў­Ў­Ў­Ў­Ў­Ў­\"" )
+
+
+
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 330 )
 	TriggerAction( 1, JumpPage, 1 )
 	TriggerCondition( 2, NoRecord, 330 )
 	TriggerAction( 2, JumpPage, 2 )
 	Start( GetMultiTrigger(), 2 )
+
+
 
 	InitTrade()
 	Other(	3141	)
@@ -108,40 +150,56 @@ function b_talk3()
 	AddNpcMission ( 519 )
 	AddNpcMission ( 525 )
 	AddNpcMission ( 526 )
-    AddNpcMission ( 564 )
+	--AddNpcMission ( 535 )
+        AddNpcMission ( 564 )
+
+	-------------ФУ»хЙМИЛЎ¤ВіДИ¶щ-------ѕЮР·
 	AddNpcMission	(5821)
 	AddNpcMission	(5822)
+
+
 end
 
+------------------------------------------------------------
+-- ґє·зХт ГіТЧЙМИЛЎ¤УНАоЈЁєЅєЈГіТЧЖ·
+------------------------------------------------------------
+
 function b_talk4()
-	Talk( 1, "Юрий: Ты не слышал о Фонтане Жизни? О Дьявольском отродье? Что? Не слышал? А о Маджонге? Боже мой...Какой же ты искатель приключений?" )
+
+
+	Talk( 1, "Yuri: \"Have you heard of Fountain of Life before?Devil Beast? What! You know nothing? How about Mahjong? Oh manЎ­What sort of adventurer are you?\"" )
+	--Text( 1, "Trade", BuyPage )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 13 )
 	TriggerAction( 1, TradeBerthList, 13 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Talk( 2, "Юрий: Простите, но у вас нет корабля в доке Веснограда. Я не могу произвести торг! " )
+	--Text( 1, "Cargo Trade", MultiTrigger, GetMultiTrigger(), 1 )
+	--Text( 1, "Regarding High Lv Commerce Permit",JumpPage, 3)
+	
+	Talk( 2, "Yuri: Sorry! Your ship is not docked in Spring Harbor. Unable to trade." )
+	
+	Talk( 3, "Hi! If you want to get rich, then you will need a \"Commerce Permit!\" With it you can have more products for commerce trade and also reduce your capital to maximize your profits! Currently, players can only obtain Commerce Permit from Shaitan Trading Post.")
+	Text( 3, "Regarding Tax Rate",JumpPage, 7)
+	Text( 3, "Low Lv Commerce Permit",JumpPage, 4)
+	Text( 3, "Mid Lv Commerce Permit",JumpPage, 5)
+	Text( 3, "High Lv Commerce Permit",JumpPage, 6)
+	
 
-	Talk( 3, "Юрий: Привет! Если вы хотите торговать, то вы нуждаетесь в торговой лицензии. Узнать о торговой лицензии можно у купца Шайтана.")
-	Text( 3, "Узнать о налоге ",JumpPage, 7)
-	Text( 3, "Лицензия низкого уровня ",JumpPage, 4)
-	Text( 3, "Лицензия стандартного уровня ",JumpPage, 5)
-	Text( 3, "Лицензия высшего уровня ",JumpPage, 6)
+	Talk( 4, "Low Lv Commerce Permit is easy to obtain. When you reaches Lv 20, go to the trading post in Shaitan and complete a simple task to have one.")
+	Talk( 5, "When you reaches Lv 40 and reduces your tax rate to 20%, you can go to Shaitan Trading Post and obtain a Mid Lv Commerce Permit.")
+	Talk( 6, "When you have reached level 60 and possess a Commerce Permit with 10% tax, you can activate the quest for High Lv Commerce.")
+	Talk( 7, "Check your Commerce Permit to see the current Tax Rate imposed on your product when you sell it to any trader. Complete some quest at Shaitan Trading Post to reduce the Tax Rate.")
+	Talk( 8, "Yuri: \"Ў­Ў­Ў­Ў­Ў­Ў­^$&#&^%Ў­Ў­Ў­Ў­Ў­Ў­\"" )
 
-	Talk( 4, "Юрий: Лицензию низкого уровня получить несложно. Для этого вам надо быть не менее 20 уровня и найти купца Шайтана.")
 
-	Talk( 5, "Юрий: Чтобы получить лицензию стандартного уровня вы должны быть не менее 40 уровня и иметь не больше 20% налога.")
 
-	Talk( 6, "Юрий: Чтобы получить лицензию высшего уровня вы должны быть не менее 60 уровня и иметь не больше 10% налога.")
-
-	Talk( 7, "Юрий: Текущий уровень налога вы можете увидеть на вашей торговой лицензии. Он влияет на стоимость покупки и продажи товара торговцам.")
-
-	Talk( 8, "Юрий: Мая твая не панимать! " )
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 330 )
 	TriggerAction( 1, JumpPage, 1 )
 	TriggerCondition( 2, NoRecord, 330 )
 	TriggerAction( 2, JumpPage, 8 )
 	Start( GetMultiTrigger(), 2 )
+
 
 	InitGoods()
 	SaleGoodsData(	0	,	4573	,	900	,	279	,	62	)
@@ -152,6 +210,7 @@ function b_talk4()
 	SaleGoodsData(	2	,	4578	,	240	,	522	,	116	)
 	SaleGoodsData(	3	,	4579	,	60	,	589	,	131	)
 	SaleGoodsData(	3	,	4580	,	40	,	648	,	144	)
+
 	BuyGoodsData(0,	4581	,	-1	,	542	,	121	)
 	BuyGoodsData(0,	4583	,	-1	,	724	,	161	)
 	BuyGoodsData(0,	4585	,	-1	,	846	,	188	)
@@ -175,6 +234,7 @@ function b_talk4()
 	BuyGoodsData(0,	4549	,	-1	,	500	,	0	)
 	BuyGoodsData(0,	4548	,	-1	,	300	,	0	)
 	BuyGoodsData(0,	4551	,	-1	,	20	,	0	)
+
 	InitTrigger()
 	TriggerAction( 1, AddNpcTrigger, 51, TE_GAMETIME, TT_CYCLETIME, 30, 0 )
 	SetNpcTrigger( GetTrigger( 1 ) )
@@ -185,33 +245,54 @@ function b_talk4()
 	AddNpcMission ( 545 )
 	AddNpcMission ( 546 )
 	AddNpcMission ( 547 )
-    AddNpcMission ( 572 )
+        AddNpcMission ( 572 )
+
+	-------------ГіТЧЙМИЛЎ¤УНАо-------ѕЮР·
 	AddNpcMission	(5825)
 	AddNpcMission	(5826)
+
+
 end
 
+------------------------------------------------------------
+-- ґє·зХт ґ«ЛНК№Ў¤ґєАт
+------------------------------------------------------------
+
 function b_talk5()
-	local ReSelectTalk = "Я должен подумать "
+	--ИЎПыґ«ЛН·µ»ШСЎФсґ«ЛНµШµгµД¶Ф»°ДЪИЭєНТіГж±аєЕ
+	local ReSelectTalk = "I need to reconsiderЎ­"
 	local ReSelectPage = 1
-	local CancelSelectTalk = "Забудь! Я остаюсь здесь "
+
+	--ИЎПыґ«ЛНєННЛіцґ«ЛНµД¶Ф»°єНТіГж±аєЕ
+	local CancelSelectTalk = "Forget itЎ­I will stay here"
 	local CancelSelectPage = 7
+
+	--µШНјГыіЖРЕПў
 	local CurMapName1 = "garner"
 	local CurMapName2 = "magicsea"
 	local CurMapName5 = "darkblue"
+
+	--°ЧТшЦ®іЗЧш±к
 	local GoTo01X = 2231
 	local GoTo01Y = 2788
 	local GoTo01M = CurMapName1
+
+	--Йіб°Ц®іЗЧш±к
 	local GoTo02X = 890
 	local GoTo02Y = 3575
 	local GoTo02M = CurMapName2
+
+	--±щАЗ±¤Чш±к
 	local GoTo04X = 1318
 	local GoTo04Y = 510
 	local GoTo04M = CurMapName5
-	Talk( 1, "Чун Ли: Я горжусь что не остался на небесах " )
-	Text( 1, "В Аргент ", JumpPage, 2 )
-	Text( 1, "В Шайтан ", JumpPage, 3 )
-	Text( 1, "В Ледынь ", JumpPage, 4 )
-	Text( 1, "Записать точку возвращения ", JumpPage, 5 )
+
+	Talk( 1, "Chun Li: \"I am proud that I did not leave anyone in the sky \"" )
+	Text( 1, "Go to Argent City!", JumpPage, 2 )
+	Text( 1, "Go to Shaitan City!", JumpPage, 3 )
+	Text( 1, "Go to Icicle City!", JumpPage, 4 )
+	Text( 1, "Record Spawn point", JumpPage, 5 )
+	
 	InitTrigger()
 	TriggerCondition( 1, LvCheck, "<", 11 )
 	TriggerAction( 1, GoTo, GoTo01X, GoTo01Y, GoTo01M )
@@ -219,9 +300,11 @@ function b_talk5()
 	TriggerAction( 2, TakeMoney, 500 )
 	TriggerAction( 2, GoTo, GoTo01X, GoTo01Y, GoTo01M )
 	TriggerFailure( 2, JumpPage, 6 )
-	Talk( 2, "Переместить в Аргент? Нет проблем. Стоимость 500 золотых! " )
-	Text( 2, "Переместить ",MultiTrigger, GetMultiTrigger(), 2 ) 
+	Talk( 2, "Teleports to Argent City? No problem! Please pay 500G. Free for players Lv 10 and below!" )
+	Text( 2, "Teleport",MultiTrigger, GetMultiTrigger(), 2 ) 
 	Text( 2, CancelSelectTalk, JumpPage , CancelSelectPage )
+
+
 	InitTrigger()
 	TriggerCondition( 1, LvCheck, "<", 11 )
 	TriggerAction( 1, GoTo, GoTo02X, GoTo02Y, GoTo02M )
@@ -229,9 +312,11 @@ function b_talk5()
 	TriggerAction( 2, TakeMoney, 500 )
 	TriggerAction( 2,  GoTo, GoTo02X, GoTo02Y, GoTo02M )
 	TriggerFailure( 2, JumpPage, 6 )
-	Talk( 3, "Переместить в Шайтан? Нет проблем. Стоимость 500 золотых! " )
-	Text( 3, "Переместить ",MultiTrigger, GetMultiTrigger(), 2)
+	Talk( 3, "I just love Shaitan City! Please pay 500G! Players Lv 10 and below free of charge!" )
+	Text( 3, "Teleport",MultiTrigger, GetMultiTrigger(), 2)
 	Text( 3, CancelSelectTalk, JumpPage , CancelSelectPage )
+
+
 	InitTrigger()
 	TriggerCondition( 1, LvCheck, "<", 11 )
 	TriggerAction( 1, GoTo, GoTo04X, GoTo04Y, GoTo04M )
@@ -239,19 +324,21 @@ function b_talk5()
 	TriggerAction( 2, TakeMoney, 500 )
 	TriggerAction( 2, GoTo, GoTo04X, GoTo04Y, GoTo04M )
 	TriggerFailure( 2, JumpPage, 6 )
-	Talk( 4, "Переместить в Ледынь? Нет проблем. Стоимость 500 золотых! " )
-	Text( 4, "Переместить ",MultiTrigger, GetMultiTrigger(), 2)
+	Talk( 4, "Teleport to Icicle City? No problem! Please pay 500G! Players Lv 10 and below free!" )
+	Text( 4, "Teleport",MultiTrigger, GetMultiTrigger(), 2)
 	Text( 4, CancelSelectTalk, JumpPage , CancelSelectPage )
 
-	Talk( 5, "Чун Ли: Хотите записать точку возвращения в Веснограде? " )
-	Text( 5, "Да, пожалуйста запишите. ", SetSpawnPos, "Spring Town" )
-	Text( 5, "Нет, спасибо ",CloseTalk )
+	Talk( 5, "Chun Li: Want to record in Spring Town? Is that correct?" )
+	Text( 5, "Yes. Please record.", SetSpawnPos, "Spring Town" )
+	Text( 5, "No, thank you",CloseTalk )
 
-	Talk( 6, "Простите, но у вас недостаточно денег для телепортации " )
+	Talk( 6, "Sorry! You do not have enough gold to teleport." )
 
-	Talk( 7, "Обратитесь ко мне если вновь потребуется помощь! ", CloseTalk )
+	Talk( 7, "Remember to look for me if you need teleportation services", CloseTalk )
+	Talk( 8, "Chun Li: \"Ў­Ў­Ў­Ў­Ў­Ў­^$&#&^%Ў­Ў­Ў­Ў­Ў­Ў­\"" )
 
-	Talk( 8, "Чун Ли: Мая твая не панимать! " )
+
+
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 330 )
 	TriggerAction( 1, JumpPage, 1 )
@@ -260,85 +347,280 @@ function b_talk5()
 	Start( GetMultiTrigger(), 2 )
 
 	AddNpcMission ( 397 )
-	AddNpcMission ( 559 )
-
+	 AddNpcMission ( 559 )
 	MisListPage(8)
 
+	------------- ґ«ЛНК№Ў¤ґєАт-------ѕЮР·
 	AddNpcMission	(5827)
 	AddNpcMission	(5828)	
+
 end
 
+------------------------------------------------------------
+-- ґє·зХт ЛгГьПИЙъЎ¤ЛгЖЖМм
+------------------------------------------------------------
+
 function b_talk6()
-	Talk( 1, "Фокус Покус: Привет! Я вижу сегодня вам улыбается удача! Я продам вам пиратское руководство всего за 500 золотых! " )
-	Text( 1, "Мне надо 1 жребий удачи ", JumpPage, 2 )
-	Text( 1, "Мне надо 1 жребий фортуны ", JumpPage, 3 )
-	Text( 1, "Сделка со смертью ", JumpPage, 6 )
 
-	Talk( 6, "Фокус Покус: Тьма это маска смерти. Что вы хотите выкупить? ")
-	Text( 6, "Силуэт смерти ",JumpPage,7)
-	Text( 6, "Проклятье ", JumpPage,8)
-	Text( 6, "Душу ", JumpPage,9)
 
-	Talk( 7, "Фокус Покус: 1 Меланхолия Барона-фантома, 1 Меланхолия Огненного демона, 1 Меланхолия Дикого зверя, 1 Меланхолия Тайрана, 1 Меланхолия Отчаяния, 1 Меланхолия Дракана и 1 Меланхолия Тидаля в обмен на 1 Силуэт смерти. ")
-	Text( 7, "Обменять ",GetChaName_7, 1) 
+	Talk( 1, "Hocus Pocus: \"Hello there! I can see that you are blessed by the deities and fortune is smiling upon you. Since this is your lucky day, I will sell you a Pirate Manual for 500G. How is it?\"" )
+	Text( 1, "I want 1 Career Lot", JumpPage, 2 )
+	Text( 1, "I want 1 Fortune Lot", JumpPage, 3 )
+	Text( 1, "Bargain of Death", JumpPage, 6 )
 
-	Talk( 8, "Фокус Покус: Добрый ребенок не будет идти вокруг проклятья других. ")
-	Text( 8, "Проклятье Хардина ",JumpPage,11)
-	Text( 8, "Проклятье Тьмы ", JumpPage,12)
-	Text( 8, "Проклятье Бездны ", JumpPage,13)
-	Text( 8, "Проклятье Абисса ", JumpPage,14)
-	Text( 8, "Проклятье Стикса ", JumpPage,15)
-	Text( 8, "Проклятье Асура ", JumpPage,16)
+	Talk( 6, "Hocus Pocus: Darkness is the mask of DeathЎ­ What do you want to redeem?")
+	Text( 6, "Silhouette of Death",JumpPage,7)
+	Text( 6, "Curse series", JumpPage,8)
+	Text( 6, "Soul Series", JumpPage,9)
 
-	Talk( 11, "Фокус Покус: 1 Волос смерти, 1 Зуб смерти, 1 Глаз смерти, 1 Сердце смерти и 1 Запечатанную душу Хардина в обмен на 1 проклятье Хардина. ")
-	Text( 11, "Обменять ",GetChaName_8, 1) 
 
-	Talk( 12, "Фокус Покус: 1 Волос смерти, 1 Зуб смерти, 1 Глаз смерти, 1 Сердце смерти и 1 Запечатанную душу Тьмы в обмен на 1 проклятье Тьмы. ")
-	Text( 12, "Обменять ",GetChaName_9, 1)
+	--InitTrigger() --¶Т»»ЛАЙсµДТЕИЭ
+	--TriggerCondition( 1, HasItem, 2846, 1 )
+	--TriggerCondition( 1, HasItem, 2847, 1 )
+	--TriggerCondition( 1, HasItem, 2848, 1 )
+	--TriggerCondition( 1, HasItem, 2849, 1 )
+	--TriggerCondition( 1, HasItem, 2850, 1 )
+	--TriggerCondition( 1, HasItem, 2851, 1 )
+	--TriggerCondition( 1, HasItem, 2852, 1 )
+	--TriggerCondition( 1, HasItem, 2853, 1 )
 
-	Talk( 13, "Фокус Покус: 1 Волос смерти, 1 Зуб смерти, 1 Глаз смерти, 1 Сердце смерти и 1 Запечатанную душу Бездны в обмен на 1 проклятье Бездны. ")
-	Text( 13, "Обменять ",GetChaName_10, 1) 
+       -- TriggerAction( 1, TakeItem,  2846, 1 )
+	--TriggerAction( 1, TakeItem,  2847, 1 )
+	--TriggerAction( 1, TakeItem,  2848, 1 )
+	--TriggerAction( 1, TakeItem,  2849, 1 )
+	--TriggerAction( 1, TakeItem,  2850, 1 )
+	--TriggerAction( 1, TakeItem,  2851, 1 )
+	--TriggerAction( 1, TakeItem,  2852, 1 )
+	--TriggerAction( 1, TakeItem,  2853, 1 )
+	--TriggerAction( 1, GiveItem,2934, 1,4 )
+	--TriggerFailure( 1, JumpPage, 10 ) 
+	Talk(7, "Hocus Pocus: 1 Melancholy of Phantom Baron, 1 Melancholy of Demon Flame, 1 Melancholy of Evil Beast, 1 Melancholy of Tyran, 1 Melancholy of Phoenix, 1 Melancholy of Despair, 1 Melancholy of Drakan and 1 Melancholy of Tidal= 1 Silhouette of Death.")
+	Text( 7, "Confirm to redeem",GetChaName_7, 1) 
 
-	Talk( 14, "Фокус Покус: 1 Волос смерти, 1 Зуб смерти, 1 Глаз смерти, 1 Сердце смерти и 1 Запечатанную душу Абисса в обмен на 1 проклятье Абисса. ")
-	Text( 14, "Обменять ",GetChaName_11, 1) 
+	Talk( 8, "Hocus Pocus: A kind child will not go around cursing othersЎ­")
+	Text( 8, "Curse of Hardin",JumpPage,11)
+	Text( 8, "Curse of Darkness", JumpPage,12)
+	Text( 8, "Curse of Abaddon", JumpPage,13)
+	Text( 8, "Curse of Abyss", JumpPage,14)
+	Text( 8, "Curse of Styx", JumpPage,15)
+	Text( 8, "Curse of Asura", JumpPage,16)
 
-	Talk( 15, "Фокус Покус: 1 Волос смерти, 1 Зуб смерти, 1 Глаз смерти, 1 Сердце смерти и 1 Запечатанную душу Стикса в обмен на 1 проклятье Стикса. ")
-	Text( 15, "Обменять ",GetChaName_12, 1) 
 
-	Talk( 16, "Фокус Покус: 1 Волос смерти, 1 Зуб смерти, 1 Глаз смерти, 1 Сердце смерти и 1 Запечатанную душу Асура в обмен на 1 проклятье Асура. ")
-	Text( 16, "Обменять ",GetChaName_13, 1) 
 
-	Talk( 9, "Фокус Покус: Я слышал душа человека весит меньше грамма... Интересно сколько весит душа смерти. ")
-	Text( 9, "Душа Хардина ",JumpPage,17)
-	Text( 9, "Душа Тьмы ", JumpPage,18)
-	Text( 9, "Душа Бездны ", JumpPage,19)
-	Text( 9, "Душа Абисса ", JumpPage,20)
-	Text( 9, "Душа Стикса ", JumpPage,21)
-	Text( 9, "Душа Асура ", JumpPage,22)
-	Text( 9, "Душа Черного дракона ", JumpPage,23)
+	--InitTrigger() --¶Т»»№юµПЛ№µДЧзЦд
+	
+	--TriggerCondition( 1, HasItem, 2854, 1 )
+	--TriggerCondition( 1, HasItem, 2855, 1 )
+	--TriggerCondition( 1, HasItem, 2856, 1 )
+	--TriggerCondition( 1, HasItem, 2857, 1 )
+	--TriggerCondition( 1, HasItem, 2927, 1 )
+      
+	--TriggerAction( 1, TakeItem,  2854, 1 )
+	--TriggerAction( 1, TakeItem,  2855, 1 )
+	--TriggerAction( 1, TakeItem,  2856, 1 )
+	--TriggerAction( 1, TakeItem,  2857, 1 )
+	--TriggerAction( 1, TakeItem,  2927, 1 )
+	--TriggerAction( 1, GiveItem,2935, 1,4 )
+	--TriggerFailure( 1, JumpPage, 10 ) 
+	Talk(11, "Hocus Pocus: 1 Fur of Death, 1 Tooth of Death, 1 Eye of Death, 1 Heart of Death and 1 Sealed Soul of Hardin= 1 Curse of Hardin")
+	Text( 11, "Confirm to redeem",GetChaName_8, 1) 
 
-	Talk( 17, "Фокус Покус: 1 Силуэт смерти и 1 Проклятье Хардина в обмен на 1 Душу Хардина ")
-	Text( 17, "Обменять ",GetChaName_14, 1) 
 
-	Talk( 18, "Фокус Покус: 1 Силуэт смерти и 1 Проклятье Тьмы в обмен на 1 Душу Тьмы ")
-	Text( 18, "Обменять ",GetChaName_15, 1) 
+--InitTrigger() --¶Т»»єЪ°µµДЧзЦд	
+--TriggerCondition( 1, HasItem, 2854, 1 )
+--TriggerCondition( 1, HasItem, 2855, 1 )
+--TriggerCondition( 1, HasItem, 2856, 1 )
+--TriggerCondition( 1, HasItem, 2857, 1 )
+--TriggerCondition( 1, HasItem, 2928, 1 )
+--
+--TriggerAction( 1, TakeItem,  2854, 1 )
+--TriggerAction( 1, TakeItem,  2855, 1 )
+--TriggerAction( 1, TakeItem,  2856, 1 )
+--TriggerAction( 1, TakeItem,  2857, 1 )
+--TriggerAction( 1, TakeItem,  2928, 1 )
+--TriggerAction( 1, GiveItem,2936, 1,4 )
+--TriggerFailure( 1, JumpPage, 10 ) 
+	Talk(12, "Hocus Pocus: 1 Fur of Death, 1 Tooth of Death, 1 Eye of Death, 1 Heart of Death and 1 Sealed Soul of Darkness= 1 Curse of Darkness")
+	Text( 12, "Confirm to redeem",GetChaName_9, 1) 
 
-	Talk( 19, "Фокус Покус: 1 Силуэт смерти и 1 Проклятье Бездны в обмен на 1 Душу Бездны ")
-	Text( 19, "Обменять ",GetChaName_16, 1)  
 
-	Talk( 20, "Фокус Покус: 1 Силуэт смерти и 1 Проклятье Абисса в обмен на 1 Душу Абисса ")
-	Text( 20, "Обменять ",GetChaName_17, 1)
+--InitTrigger() --¶Т»»µШУьµДЧзЦд
 
-	Talk( 21, "Фокус Покус: 1 Силуэт смерти и 1 Проклятье Стикса в обмен на 1 Душу Стикса ")
-	Text( 21, "Обменять ",GetChaName_18, 1)
+--TriggerCondition( 1, HasItem, 2854, 1 )
+--TriggerCondition( 1, HasItem, 2855, 1 )
+--TriggerCondition( 1, HasItem, 2856, 1 )
+--TriggerCondition( 1, HasItem, 2857, 1 )
+--TriggerCondition( 1, HasItem, 2929, 1 )
 
-	Talk( 22, "Фокус Покус: 1 Силуэт смерти и 1 Проклятье Асура в обмен на 1 Душу Асура ")
-	Text( 22, "Обменять ",GetChaName_19, 1) 
+--TriggerAction( 1, TakeItem,  2854, 1 )
+--TriggerAction( 1, TakeItem,  2855, 1 )
+--TriggerAction( 1, TakeItem,  2856, 1 )
+--TriggerAction( 1, TakeItem,  2857, 1 )
+--TriggerAction( 1, TakeItem,  2929, 1 )
+--TriggerAction( 1, GiveItem,2937, 1,4 )
+--TriggerFailure( 1, JumpPage, 10 ) 
+	Talk(13, "Hocus Pocus: 1 Fur of Death, 1 Tooth of Death, 1 Eye of Death, 1 Heart of Death and 1 Sealed Soul of Abaddon = 1 Curse of Abaddon")
+	Text( 13, "Confirm to redeem",GetChaName_10, 1) 
 
-	Talk( 23, "Фокус Покус: 1 Душа Тьмы, 1 Душа Асура, 1 Душа Хардина, 1 Душа Бездны, 1 Душа Абисса, 1 Душа Стикса, 1 Силуэт смерти и 1 Смех Черного дракона в обмен на 1 Душу Черного дракона. ")
-	Text( 23, "Обменять ",GetChaName_20, 1)
 
-	Talk( 10, "У вас нет всех необходимых компонентов для обмена, или у вас недостаточно мест в инвентаре. Возможно также ваш инвентарь заблокирован. " )
+
+--InitTrigger() --¶Т»»УДЪ¤µДЧзЦд
+--TriggerCondition( 1, HasItem, 2854, 1 )
+--TriggerCondition( 1, HasItem, 2855, 1 )
+--TriggerCondition( 1, HasItem, 2856, 1 )
+--TriggerCondition( 1, HasItem, 2857, 1 )
+--TriggerCondition( 1, HasItem, 2931, 1 )
+
+--TriggerAction( 1, TakeItem,  2854, 1 )
+--TriggerAction( 1, TakeItem,  2855, 1 )
+--TriggerAction( 1, TakeItem,  2856, 1 )
+--TriggerAction( 1, TakeItem,  2857, 1 )
+--TriggerAction( 1, TakeItem,  2931, 1 )
+--TriggerAction( 1, GiveItem,2939, 1,4 )
+--TriggerFailure( 1, JumpPage, 10 ) 
+	Talk(14, "Hocus Pocus: 1 Fur of Death, 1 Tooth of Death, 1 Eye of Death, 1 Heart of Death and 1 Sealed Soul of Abyss= 1 Curse of Abyss")
+	Text( 14, "Confirm to redeem",GetChaName_11, 1) 
+
+--	InitTrigger() --¶Т»»Ъ¤єУµДЧзЦд
+--TriggerCondition( 1, HasItem, 2854, 1 )
+--TriggerCondition( 1, HasItem, 2855, 1 )
+--TriggerCondition( 1, HasItem, 2856, 1 )
+--TriggerCondition( 1, HasItem, 2857, 1 )
+--TriggerCondition( 1, HasItem, 2932, 1 )
+--
+--TriggerAction( 1, TakeItem,  2854, 1 )
+--TriggerAction( 1, TakeItem,  2855, 1 )
+--TriggerAction( 1, TakeItem,  2856, 1 )
+--TriggerAction( 1, TakeItem,  2857, 1 )
+--TriggerAction( 1, TakeItem,  2932, 1 )
+--TriggerAction( 1, GiveItem,2940, 1,4 )
+--TriggerFailure( 1, JumpPage, 10 ) 
+	Talk(15, "Hocus Pocus: 1 Fur of Death, 1 Tooth of Death, 1 Eye of Death, 1 Heart of Death and 1 Sealed Soul of Styx= 1 Curse of Styx")
+	Text( 15, "Confirm to redeem",GetChaName_12, 1) 
+
+
+
+--InitTrigger() --¶Т»»РЮВЮµДЧзЦд
+--TriggerCondition( 1, HasItem, 2854, 1 )
+--TriggerCondition( 1, HasItem, 2855, 1 )
+--TriggerCondition( 1, HasItem, 2856, 1 )
+--TriggerCondition( 1, HasItem, 2857, 1 )
+--TriggerCondition( 1, HasItem, 2930, 1 )
+--
+--TriggerAction( 1, TakeItem,  2854, 1 )
+--TriggerAction( 1, TakeItem,  2855, 1 )
+--TriggerAction( 1, TakeItem,  2856, 1 )
+--TriggerAction( 1, TakeItem,  2857, 1 )
+--TriggerAction( 1, TakeItem,  2930, 1 )
+--TriggerAction( 1, GiveItem,2938, 1,4 )
+--TriggerFailure( 1, JumpPage, 10 ) 
+	Talk(16, "Hocus Pocus: 1 Fur of Death, 1 Tooth of Death, 1 Eye of Death, 1 Heart of Death and 1 Sealed Soul of Asura= 1 Curse of Asura")
+	Text( 16, "Confirm to redeem",GetChaName_13, 1) 
+
+
+	Talk( 9, "Hocus Pocus: I heard human souls weigh 0.1g. I wonder how heavy does the soul of Death weighs.")
+	Text( 9, "Soul of Hardin",JumpPage,17)
+	Text( 9, "Soul of Darkness", JumpPage,18)
+	Text( 9, "Soul of Abaddon", JumpPage,19)
+	Text( 9, "Soul of Abyss", JumpPage,20)
+	Text( 9, "Soul of Styx", JumpPage,21)
+	Text( 9, "Soul of Asura", JumpPage,22)
+	Text( 9, "Soul of Black Dragon", JumpPage,23)
+
+
+--InitTrigger() --¶Т»»№юµПЛ№µД»кЖЗ
+--TriggerCondition( 1, HasItem, 2934, 1 )
+--TriggerCondition( 1, HasItem, 2935, 1 )
+--TriggerAction( 1, TakeItem,  2934, 1 )
+--TriggerAction( 1, TakeItem,  2935, 1 )
+--TriggerAction( 1, GiveItem,2562, 1,4 )
+--TriggerFailure( 1, JumpPage, 10 ) 
+	Talk(17, "Hocus Pocus: 1 Silhouette of Death + 1 Curse of Hardin= 1 Soul of Hardin")
+	Text( 17, "Confirm to redeem",GetChaName_14, 1) 
+--
+--
+--InitTrigger() --¶Т»»єЪ°µµД»кЖЗ
+--TriggerCondition( 1, HasItem, 2934, 1 )
+--TriggerCondition( 1, HasItem, 2936, 1 )
+--TriggerAction( 1, TakeItem,  2934, 1 )
+--TriggerAction( 1, TakeItem,  2936, 1 )
+--TriggerAction( 1, GiveItem,2563, 1,4 )
+	--TriggerFailure( 1, JumpPage, 10 ) 
+	Talk(18, "Hocus Pocus: 1 Silhouette of Death + 1 Curse of Darkness= 1 Soul of Darkness")
+	Text( 18, "Confirm to redeem",GetChaName_15, 1) 
+
+
+
+--InitTrigger() --¶Т»»µШУьµД»кЖЗ
+--TriggerCondition( 1, HasItem, 2934, 1 )
+--TriggerCondition( 1, HasItem, 2937, 1 )
+--TriggerAction( 1, TakeItem,  2934, 1 )
+--TriggerAction( 1, TakeItem,  2937, 1 )
+--TriggerAction( 1, GiveItem,2564, 1,4 )
+--TriggerFailure( 1, JumpPage, 10 ) 
+	Talk(19, "Hocus Pocus: 1 Silhouette of Death + 1 Curse of Abaddon= 1 Soul of Abaddon")
+	Text( 19, "Confirm to redeem",GetChaName_16, 1) 
+--
+--
+--
+--InitTrigger() --¶Т»»УДЪ¤µД»кЖЗ
+--TriggerCondition( 1, HasItem, 2934, 1 )
+--TriggerCondition( 1, HasItem, 2939, 1 )
+--TriggerAction( 1, TakeItem,  2934, 1 )
+--	TriggerAction( 1, TakeItem,  2939, 1 )
+--TriggerAction( 1, GiveItem,2566, 1,4 )
+--TriggerFailure( 1, JumpPage, 10 ) 
+	Talk(20, "Hocus Pocus: 1 Silhouette of Death + 1 Curse of Abyss= 1 Soul of Abyss")
+	Text( 20, "Confirm to redeem",GetChaName_17, 1) 
+--
+--
+--InitTrigger() --¶Т»»Ъ¤єУµД»кЖЗ
+--TriggerCondition( 1, HasItem, 2934, 1 )
+--TriggerCondition( 1, HasItem, 2940, 1 )
+--TriggerAction( 1, TakeItem,  2934, 1 )
+--TriggerAction( 1, TakeItem,  2940, 1 )
+--TriggerAction( 1, GiveItem,2567, 1,4 )
+--TriggerFailure( 1, JumpPage, 10 ) 
+	Talk(21, "Hocus Pocus: 1 Silhouette of Death + 1 Curse of Styx = 1 Soul of Styx")
+	Text( 21, "Confirm to redeem",GetChaName_18, 1) 
+--
+--
+
+--InitTrigger() --¶Т»»РЮВЮµД»кЖЗ
+--TriggerCondition( 1, HasItem, 2934, 1 )
+--TriggerCondition( 1, HasItem, 2938, 1 )
+--TriggerAction( 1, TakeItem,  2934, 1 )
+--TriggerAction( 1, TakeItem,  2938, 1 )
+--TriggerAction( 1, GiveItem,2565, 1,4 )
+--TriggerFailure( 1, JumpPage, 10 ) 
+	Talk(22, "Hocus Pocus: 1 Silhouette of Death + 1 Curse of Asura= 1 Soul of Asura")
+	Text( 22, "Confirm to redeem",GetChaName_19, 1) 
+--
+--InitTrigger() --¶Т»»єЪБъµД»кЖЗ
+--TriggerCondition( 1, HasItem, 2562, 1 )
+--TriggerCondition( 1, HasItem, 2563, 1 )
+--TriggerCondition( 1, HasItem, 2564, 1 )
+--TriggerCondition( 1, HasItem, 2565, 1 )
+--TriggerCondition( 1, HasItem, 2566, 1 )
+--TriggerCondition( 1, HasItem, 2567, 1 )
+--TriggerCondition( 1, HasItem, 2933, 1 )
+--TriggerCondition( 1, HasItem, 2934, 1 )
+--
+--TriggerAction( 1, TakeItem,  2562, 1 )
+--TriggerAction( 1, TakeItem,  2563, 1 )
+--TriggerAction( 1, TakeItem,  2564, 1 )
+--TriggerAction( 1, TakeItem,  2565, 1 )
+--TriggerAction( 1, TakeItem,  2566, 1 )
+--TriggerAction( 1, TakeItem,  2567, 1 )
+--TriggerAction( 1, TakeItem,  2933, 1 )
+--TriggerAction( 1, TakeItem,  2934, 1 )
+--TriggerAction( 1, GiveItem,2404, 1,4 )
+--TriggerFailure( 1, JumpPage, 10 ) 
+	Talk(23, "Hocus Pocus: 1 Soul of Darkness, 1 Soul of Asura, 1 Soul of Hardin, 1 Soul of Abaddon, 1 Soul of Abyss, 1 Soul of Styx, 1 Silhouette of Death and 1 Titter of Black Dragon= 1 Soul of Black Dragon")
+	Text( 23, "Confirm to redeem",GetChaName_20, 1) 
+
+	Talk( 10, "You do not have the items required for exchanging, or your inventory might be binded or you do not have sufficient inventory slots." )
+
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 5000 )
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
@@ -346,8 +628,9 @@ function b_talk6()
 	TriggerAction( 1, TakeMoney, 5000)
 	TriggerAction( 1, GiveItem, 3086,1, 4 )
 	TriggerFailure( 1, JumpPage, 5 )
-	Talk( 2, "Жребий удачи? С вас 5000 золота! " )
-	Text( 2, "Получить ",MultiTrigger, GetMultiTrigger(), 1 ) 
+	Talk( 2, "Career Lot? 5000G please!" )
+	Text( 2, "Ok, I give you 5000G",MultiTrigger, GetMultiTrigger(), 1 ) 
+
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 5000 )
 	TriggerCondition( 1, HasLeaveBagGrid, 1 )
@@ -355,21 +638,23 @@ function b_talk6()
 	TriggerAction( 1, TakeMoney, 5000)
 	TriggerAction( 1, GiveItem, 3087,1, 4 )
 	TriggerFailure( 1, JumpPage, 5 )
-	Talk( 3, "Жребий фортуны? С вас 5000 золота! " )
-	Text( 3, "Получить ",MultiTrigger, GetMultiTrigger(), 1 )
+	Talk( 3, "Buying a Fortune Lot? 5000G!" )
+	Text( 3, "Ok, I give you 5000G",MultiTrigger, GetMultiTrigger(), 1 ) 
+	
+	Talk( 4, "Hocus Pocus: \"Ў­Ў­Ў­Ў­Ў­Ў­^$&#&^%Ў­Ў­Ў­Ў­Ў­Ў­\"" )
 
-	Talk( 4, "Фокус Покус: Мая твая не панимать! " )
+	Talk( 5, "You do not have enough gold, inventory space or your inventory has been binded" )
 
-	Talk( 5, "У вас недостаточно денег, или у вас недостаточно мест в инвентаре. Возможно также ваш инвентарь заблокирован." )
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 330 )
 	TriggerAction( 1, JumpPage, 1 )
 	TriggerCondition( 2, NoRecord, 330 )
 	TriggerAction( 2, JumpPage, 4 )
 	Start( GetMultiTrigger(), 4 )
-
+	
 	AddNpcMission ( 520 )
-    AddNpcMission ( 900 )
+        AddNpcMission ( 900 )
+---------------------РВАъК·ИООс
 	AddNpcMission(	5065)
 	AddNpcMission(	595	)
 	AddNpcMission(	599	)
@@ -378,14 +663,24 @@ function b_talk6()
 	AddNpcMission(	5002	)
 	AddNpcMission(	5003 )
 	AddNpcMission(	5066)
+
+	------------- ЛгГьПИЙъЎ¤ЛгЖЖМм-------ѕЮР·
 	AddNpcMission	(5829)
 	AddNpcMission	(5830)	
+
 end
+------------------------------------------------------------
+-- ґє·зХт ѕЖµкАП°еЎ¤ЕбµЩ
+------------------------------------------------------------
 
 function b_talk7()
-	Talk( 1, "Санг Ди: Парни! Приготовтесь принимать гостей! " )
-   	
-	Talk( 2, "Санг Ди: Мая твая не панимать! " )
+
+
+	Talk( 1, "Sang Di: \"Hey guys! Come to receive the guest!\"" )
+   	--Text( 1, "Trade", BuyPage )
+	
+	Talk( 2, "Sang Di: \"Ў­Ў­Ў­Ў­Ў­Ў­^$&#&^%Ў­Ў­Ў­Ў­Ў­Ў­\"" )
+
 	InitTrade()
 	Other(	1084	)
 	Other(	1085	)
@@ -393,12 +688,15 @@ function b_talk7()
 	Other(	1088	)
 	Other(	1089	)
 	Other(	1090	) 
+
+
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 330 )
 	TriggerAction( 1, JumpPage, 1 )
 	TriggerCondition( 2, NoRecord, 330 )
 	TriggerAction( 2, JumpPage, 2 )
 	Start( GetMultiTrigger(), 2 )
+
 
 	AddNpcMission ( 392 )
 	AddNpcMission ( 514 )
@@ -409,8 +707,9 @@ function b_talk7()
 	AddNpcMission ( 548 )
 	AddNpcMission ( 550 )
 	AddNpcMission ( 551 )
-    AddNpcMission ( 558 )
-    AddNpcMission ( 571 )
+       AddNpcMission ( 558 )
+       AddNpcMission ( 571 )
+------------РВФцАъК·ИООс
 	AddNpcMission(	592	)
 	AddNpcMission(	5004	)
 	AddNpcMission(	5005	)
@@ -420,71 +719,89 @@ function b_talk7()
 	AddNpcMission(	5043	)
 	AddNpcMission(	5054	)
 	AddNpcMission(	5055	)
+
+	------------- ѕЖµкАП°еЎ¤ЕбµЩ-------ѕЮР·
 	AddNpcMission	(5831)
 	AddNpcMission	(5832)
+
 end
 
+------------------------------------------------------------
+-- ґє·зХт ёЫїЪЦё»УЎ¤ЛЄЖж
+------------------------------------------------------------
+
 function b_talk8()
-	Talk( 1, "Шуанг: Починка корабля? Заправка? ЧТо вам угодно? " )
+
+
+	Talk( 1, "Shuang: \"Sailing? Salvage? Repair? Refuel?\"" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 13 )
 	TriggerAction( 1, LuanchBerthList, 13, 3426, 2575, 180 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в плавание ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerCondition( 2, HasBoatInBerth, 13 )
 	TriggerAction( 2, RepairBerthList, 13 )
 	TriggerFailure( 2, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerCondition( 2, HasBoatInBerth, 13 )
 	TriggerAction( 2, SupplyBerthList, 13 )
 	TriggerFailure( 2, JumpPage, 5 )
-	Text( 1, "Заправить ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasDeadBoatInBerth, 13 )
 	TriggerAction( 1, SalvageBerthList, 13 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Text( 1, "Восстановить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Salvage Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
+	
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	Talk( 4, "Sorry! I only repair ships docked in this harbor. Please pay 1000G." )
+	Talk( 5, "Sorry, you need to dock your ship in our harbor in order to refuel. Please pay 200G" )
+	Talk( 6, "Sorry! We only salvage ships docked in our harbor. You have to pay a fee of 1000G." )
+	Talk( 7, "Shuang: \"Ў­Ў­Ў­Ў­Ў­Ў­^$&#&^%Ў­Ў­Ў­Ў­Ў­Ў­\"" )
 
-	Talk( 3, "Простите, но у вас в этом порту не записано судно! " )
-
-	Talk( 4, "Простите, я ремонтирую лишь суда приписанные к этому порту. Стоимость 1000 золотых! " )
-
-	Talk( 5, "Простите, но я заправляю суда лишь приписанные к этому порту. Стоимость 500 золотых! " )
-
-	Talk( 6, "Простите, но я востанавливаю суда лишь приписанные к этому порту. Стоимость 1000 золотых! " )
-
-	Talk( 7, "Шуанг: Мая твая не панимать! " )
 
 	AddNpcMission ( 398 )
 	AddNpcMission ( 565 )
+
+	------------- ёЫїЪЦё»УЎ¤ЛЄЖж-------ѕЮР·
 	AddNpcMission	(5833)
 	AddNpcMission	(5834)
+
 end
 
+------------------------------------------------------------
+-- ґє·зХт ТшРРЧЬ№ЬЎ¤НхД«
+------------------------------------------------------------
+
 function b_talk9()
-	Talk( 1, "Ванг Мо: Вы хотите что то оставить на хранение? " )
+
+
+	Talk( 1, "Wang Mo: \"YouЎ­look familiar? Do you have anything that requires storage?\"" )
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 200 )
 	TriggerAction( 1, TakeMoney, 200 )
 	TriggerAction( 1, OpenBank )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Хранилище (200 золотых)", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 1, "Vault (200G Fee)", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 2, "Sorry! You do not have enough gold to pay the fee to access the bank." )
+	Talk( 3, "Wang Mo: \"Ў­Ў­Ў­Ў­Ў­Ў­^$&#&^%Ў­Ў­Ў­Ў­Ў­Ў­\"" )
 
-	Talk( 2, "Простите, но у вас недостаточно денег для доступа к банку! " )
 
-	Talk( 3, "Ванг Мо: Мая твая не панимать! " )
+
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 330 )
 	TriggerAction( 1, JumpPage, 1 )
 	TriggerCondition( 2, NoRecord, 330 )
 	TriggerAction( 2, JumpPage, 3 )
 	Start( GetMultiTrigger(), 2 )
+
+
 
 	AddNpcMission ( 399 )
 	AddNpcMission ( 510 )
@@ -493,28 +810,49 @@ function b_talk9()
 	AddNpcMission ( 513 )
 	AddNpcMission ( 543 )
 	AddNpcMission ( 544 )
-    AddNpcMission ( 570 )
+        AddNpcMission ( 570 )
+
+	------------- ТшРРЧЬ№ЬЎ¤НхД«-------ѕЮР·
 	AddNpcMission	(5839)
 	AddNpcMission	(5840)
 end
 
+------------------------------------------------------------
+-- ґє·зХт ОА±шЎ¤ХФЗ®Лп
+------------------------------------------------------------
+
 function b_talk10()
-	Talk( 1, "Жао: Я так голоден! Когда же наконец обед? " )
-	Talk( 2, "Жао: Мая твая не панимать! " )
+
+
+	Talk( 1, "Zhao: \"So hungryЎ­What time is my dinner arrivingЎ­?\"" )
+	Talk( 2, "Zhao: \"Ў­Ў­Ў­Ў­Ў­Ў­^$&#&^%Ў­Ў­Ў­Ў­Ў­Ў­\"" )
+
+
+
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 330 )
 	TriggerAction( 1, JumpPage, 1 )
 	TriggerCondition( 2, NoRecord, 330 )
 	TriggerAction( 2, JumpPage, 2 )
 	Start( GetMultiTrigger(), 2 )
+
+	------------- ОА±шЎ¤ХФЗ®Лп-------ѕЮР·
 	AddNpcMission	(5835)
 	AddNpcMission	(5836)
+
 end
 
-function b_talk11()
-	Talk( 1, "Жоу: Один плюс один равняется двум? Или не двум? Не обращайте внимание, я говорю сам с собой. " )
+------------------------------------------------------------
+-- ґє·зХт ОА±шЎ¤ЦЬОвЦЈ
+------------------------------------------------------------
 
-	Talk( 2, "Жоу: Мая твая не панимать! " )
+function b_talk11()
+
+
+	Talk( 1, "Zhou: \"1 plus 1equals 2? Not 2? 2? Actually I am only talking to myself. You don't have to be so worked up. Equals 2? Not equals 2Ў­? \"" )
+	Talk( 2, "Zhou: \"Ў­Ў­Ў­Ў­Ў­Ў­^$&#&^%Ў­Ў­Ў­Ў­Ў­Ў­\"" )
+
+
 
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 330 )
@@ -522,18 +860,29 @@ function b_talk11()
 	TriggerCondition( 2, NoRecord, 330 )
 	TriggerAction( 2, JumpPage, 2 )
 	Start( GetMultiTrigger(), 2 )
+
 	AddNpcMission ( 531 )
 	AddNpcMission ( 532 )
 	AddNpcMission ( 533 )
 	AddNpcMission ( 534 )
+
+	------------- ОА±шЎ¤ЦЬОвЦЈ-------ѕЮР·
 	AddNpcMission	(5837)
 	AddNpcMission	(5838)
+
 end
+
+------------------------------------------------------------
+-- ґє·зХт ЗаДкДРЧУЎ¤БчФЖ
+------------------------------------------------------------
 
 function b_talk12()
-	Talk( 1, "Клауд: Вы встречали Мисти? Она моя девушка! " )
 
-	Talk( 2, "Клауд: Мая твая не панимать! " )
+
+	Talk( 1, "Cloud: \"Have you seen Misty? She is my girlfriend.\"" )
+	Talk( 2, "Cloud: \"Ў­Ў­Ў­Ў­Ў­Ў­^$&#&^%Ў­Ў­Ў­Ў­Ў­Ў­\"" )
+
+
 
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 330 )
@@ -541,17 +890,27 @@ function b_talk12()
 	TriggerCondition( 2, NoRecord, 330 )
 	TriggerAction( 2, JumpPage, 2 )
 	Start( GetMultiTrigger(), 2 )
+         
+	 AddNpcMission ( 533 )
+	 AddNpcMission ( 563 )
 
-	AddNpcMission ( 533 )
-	AddNpcMission ( 563 )
+	------------- ЗаДкДРЧУЎ¤БчФЖ-------ѕЮР·
 	AddNpcMission	(5841)
 	AddNpcMission	(5842)
+
 end
+
+------------------------------------------------------------
+-- ґє·зХт ЗаДкЕ®ЧУЎ¤Л®Он
+------------------------------------------------------------
 
 function b_talk13()
-	Talk( 1, "Мисти: Вы встречали Клауда? Он мой парень!" )
 
-	Talk( 2, "Мисти: Мая твая не панимать! " )
+
+	Talk( 1, "Misty: \"Have you seen Cloud? He is my boyfriend\"" )
+	Talk( 2, "Misty: \"Ў­Ў­Ў­Ў­Ў­Ў­^$&#&^%Ў­Ў­Ў­Ў­Ў­Ў­\"" )
+
+
 
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 330 )
@@ -559,14 +918,24 @@ function b_talk13()
 	TriggerCondition( 2, NoRecord, 330 )
 	TriggerAction( 2, JumpPage, 2 )
 	Start( GetMultiTrigger(), 2 )
+
+	------------- ЗаДкЕ®ЧУЎ¤Л®Он-------ѕЮР·
 	AddNpcMission	(5843)
 	AddNpcMission	(5844)
+
 end
+
+------------------------------------------------------------
+-- ґє·зХт ЦРДкДРЧУЎ¤±ИёЗ
+------------------------------------------------------------
 
 function b_talk14()
-	Talk( 1, "Билл: Проблема? Какая проблема? Я зарабатываю миллионы каждую секунду! Не тревожьте меня!" )
 
-	Talk( 2, "Билл: Мая твая не панимать! " )
+
+	Talk( 1, "Bill: \"Trouble? No trouble? I am earning millions each second! Do not disturb me!\"" )
+	Talk( 2, "Bill: \"Ў­Ў­Ў­Ў­Ў­Ў­^$&#&^%Ў­Ў­Ў­Ў­Ў­Ў­\"" )
+
+
 
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 330 )
@@ -574,16 +943,27 @@ function b_talk14()
 	TriggerCondition( 2, NoRecord, 330 )
 	TriggerAction( 2, JumpPage, 2 )
 	Start( GetMultiTrigger(), 2 )
-    
-	AddNpcMission ( 568 )
+
+        AddNpcMission ( 568 )
+
+	------------- ЦРДкДРЧУЎ¤±ИёЗ-------ѕЮР·
 	AddNpcMission	(5847)
 	AddNpcMission	(5848)
+
+
 end
+
+------------------------------------------------------------
+-- ґє·зХт ЦРДкЕ®ЧУЎ¤НхИШ
+------------------------------------------------------------
 
 function b_talk15()
-	Talk( 1, "Ванг Ронг: Я не разбираюсь в военном искусстве. Пожалуйста не измывайтесь надо мной... " )
 
-	Talk( 2, "Ванг Ронг: Мая твая не панимать! " )
+
+	Talk( 1, "Wang Rong: \"I does not know any martial art. Don't bully meЎ­\"" )
+	Talk( 2, "Wang Rong: \"Ў­Ў­Ў­Ў­Ў­Ў­^$&#&^%Ў­Ў­Ў­Ў­Ў­Ў­\"" )
+
+
 
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 330 )
@@ -592,14 +972,23 @@ function b_talk15()
 	TriggerAction( 2, JumpPage, 2 )
 	Start( GetMultiTrigger(), 2 )
 
+	------------- ЦРДкЕ®ЧУЎ¤НхИШ-------ѕЮР·
 	AddNpcMission	(5845)
 	AddNpcMission	(5846)
+
 end
 
-function b_talk16()
-	Talk( 1, "Якамото: Разве вы не видете что мы грабители? " )
+------------------------------------------------------------
+-- ґє·зХт ¶«·ЅєЈµБЎ¤БеЧфМпЙЅ
+------------------------------------------------------------
 
-	Talk( 2, "Якамото: Мая твая не панимать! " )
+function b_talk16()
+
+
+	Talk( 1, "Yakamoto: \"SeriouslyЎ­can't you see that we are robbers? \"" )
+	Talk( 2, "Yakamoto: \"Ў­Ў­Ў­Ў­Ў­Ў­^$&#&^%Ў­Ў­Ў­Ў­Ў­Ў­\"" )
+
+
 
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 330 )
@@ -607,28 +996,37 @@ function b_talk16()
 	TriggerCondition( 2, NoRecord, 330 )
 	TriggerAction( 2, JumpPage, 2 )
 	Start( GetMultiTrigger(), 2 )
-
+-----------------¶«·ЅєЈµБЎ¤БеЧфМпЙЅ---------ЅрЕЈ
 	AddNpcMission	(5641)
 	AddNpcMission	(5642)
+
+	------------- ¶«·ЅєЈµБЎ¤БеЧфМпЙЅ-------ѕЮР·
 	AddNpcMission	(5849)
 	AddNpcMission	(5850)
+
 end
 
-function b_talk17()
-	Talk( 1, "Парикмахер: Нужна помощь? " )
-	Text( 1, "Я хочу сменить прическу ", JumpPage, 2)
+------------------------------------------------------------
+-- ґє·зХт і±БчАн·ўК¦
+------------------------------------------------------------
 
+function b_talk17()
+
+
+	Talk( 1, "Hairstylist: \"BraidЎ­Ў­\"" )
+        Text( 1, "I want to change my hairstyle", JumpPage, 2)
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 1807, 1 )
 	TriggerAction( 1, OpenHair )
 	TriggerFailure( 1, JumpPage, 3 )
-	Talk( 2, "Парикмахер: Вы желаете сменить прическу? Вам потребуется Парикмахерская расписка! ")
-	Text( 2, "Да, я знаю ", MultiTrigger, GetMultiTrigger(), 1)
-	Text( 2, "Нет, спасибо ", CloseTalk )
+	Talk( 2, "Hairstylist: Want a change of hairstyle? Let me have a look at your Hairstyling Coupon.")
+	Text( 2, "Yes I'm sure", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 2, "Forget it, let me think it over.", CloseTalk )
 
-	Talk( 3, "Парикмахер: У вас нет расписки, я не могу сменить прическу! ")
+	Talk( 3, "Hairstylist: You don't seem to possess Hairstyling Voucher. I cannot style your hair.")
+	Talk( 4, "Hairstylist: \"Ў­Ў­Ў­Ў­Ў­Ў­^$&#&^%Ў­Ў­Ў­Ў­Ў­Ў­\"" )
 
-	Talk( 4, "Парикмахер: Мая твая не панимать! " )
+
 
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 330 )
@@ -644,14 +1042,25 @@ function b_talk17()
 	AddNpcMission	(6007)
 	AddNpcMission	(6008)
 	AddNpcMission	(6009)
+
+
+	-------------єЈёЫЦё»УЎ¤ПДФЖ-------ѕЮР·
 	AddNpcMission	(5851)
 	AddNpcMission	(5852)
+
 end
 
-function b_talk18()
-	Talk( 1, "Хамми: Уууууу " )
+------------------------------------------------------------
+-- ґє·зХт Ѕ©К¬Ў¤ЕбУАѕь
+------------------------------------------------------------
 
-	Talk( 2, "Хамми: Мая твая не панимать! " )
+function b_talk18()
+
+
+	Talk( 1, "Hami: \"Ў­Ў­\"" )
+	Talk( 2, "Hami: \"Ў­Ў­Ў­Ў­Ў­Ў­^$&#&^%Ў­Ў­Ў­Ў­Ў­Ў­\"" )
+
+
 
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 330 )
@@ -659,23 +1068,38 @@ function b_talk18()
 	TriggerCondition( 2, NoRecord, 330 )
 	TriggerAction( 2, JumpPage, 2 )
 	Start( GetMultiTrigger(), 2 )
-
+	
 	AddNpcMission ( 515 )
 	AddNpcMission ( 518 )
 	AddNpcMission ( 524 )
 end
 
+------------------------------------------------------------
+--єЪБъіІСЁ Т»Ігto¶юІг
+------------------------------------------------------------
+
 function b_talk21()
-	local ReSelectTalk = "Я должен подумать "
+
+
+	--ИЎПыґ«ЛН·µ»ШСЎФсґ«ЛНµШµгµД¶Ф»°ДЪИЭєНТіГж±аєЕ
+	local ReSelectTalk = "I need to reconsiderЎ­"
 	local ReSelectPage = 1
-	local CancelSelectTalk = "Забудь! Я остаюсь здесь. "
+
+	--ИЎПыґ«ЛНєННЛіцґ«ЛНµД¶Ф»°єНТіГж±аєЕ
+	local CancelSelectTalk = "Forget itЎ­I will stay here"
 	local CancelSelectPage = 5
+
+	--µШНјГыіЖРЕПў
 	local CurMapName = "eastgoaf"
+
+
+	--єЪБъіІСЁ¶юІгЧш±к
 	local GoTo01X = 767
 	local GoTo01Y = 602
 	local GoTo01M = CurMapName
-	Talk( 1, "Защитная статуя: Богиней запечатана сама смерть внутри меня! " )
-	Text( 1, "Перейти в Логово Дракона 2 ", JumpPage, 2 )
+
+	Talk( 1, "Guardian Statue: \"I am the Goddess that sealed Death within.\"" )
+	Text( 1, "Go to Black Dragon Lair 2!", JumpPage, 2 )
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 179,1 )
@@ -686,87 +1110,151 @@ function b_talk21()
 	TriggerAction( 1, TakeItem, 3085,1 )
 	TriggerAction( 1, GoTo, GoTo01X, GoTo01Y, GoTo01M )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 2, "Для перемещения в Логово Дракона 2 необходимо 1 Печать Анубиса, 1 Маску короля мумий и 1 Вечный двигатель! " )
-	Text( 2, "Переместить ",MultiTrigger, GetMultiTrigger(), 2 )  
+	Talk( 2, "Teleport to Black Dragon Lair 2 requires 1<ySigil of Anubis>, 1 <yMask of Mummy King> and 1 <yTimeless Machine>!" )
+	Text( 2, "Teleport",MultiTrigger, GetMultiTrigger(), 2 ) 
 	Text( 2, CancelSelectTalk, JumpPage , CancelSelectPage )
+	
+	Talk( 3, "Guardian Statue: \"Ў­Ў­Ў­Ў­Ў­Ў­^$&#&^%Ў­Ў­Ў­Ў­Ў­Ў­\"" )
 
-	Talk( 3, "Защитная статуя: Мая твая не панимать! " )
+
+
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 330 )
 	TriggerAction( 1, JumpPage, 1 )
 	TriggerCondition( 2, NoRecord, 330 )
 	TriggerAction( 2, JumpPage, 3 )
 	Start( GetMultiTrigger(), 3 )
-	Talk( 4, "Простите, но у вас нет всех 3 необходимых предмета! " )
 
-	Talk( 5, "Ищите меня снова если решите войти в логово смерти! ", CloseTalk )
+	Talk( 4, "Sorry, you have not collect all 3 items!" )
+
+	Talk( 5, "Remember to look for me again if you need to teleport", CloseTalk )
 end
 
+------------------------------------------------------------
+--єЪБъіІСЁ ¶юІгtoТ»Іг
+------------------------------------------------------------
+
 function b_talk22()
-	local ReSelectTalk = "Я должен подумать "
+
+
+	--ИЎПыґ«ЛН·µ»ШСЎФсґ«ЛНµШµгµД¶Ф»°ДЪИЭєНТіГж±аєЕ
+	local ReSelectTalk = "I need to reconsiderЎ­"
 	local ReSelectPage = 1
-	local CancelSelectTalk = "Забудь! Я остаюсь здесь. "
+
+	--ИЎПыґ«ЛНєННЛіцґ«ЛНµД¶Ф»°єНТіГж±аєЕ
+	local CancelSelectTalk = "Forget itЎ­I will stay here"
 	local CancelSelectPage = 4
+
+	--µШНјГыіЖРЕПў
 	local CurMapName = "eastgoaf"
+
+
+	--єЪБъіІСЁИэІгЧш±к
 	local GoTo01X = 847
 	local GoTo01Y = 247
 	local GoTo01M = CurMapName
-	Talk( 1, "Защитная статуя: Богиня запечатала саму смерть внутри меня! " )
-	Text( 1, "Перейти в Логово Дракона 1 !", JumpPage, 2 )
+
+	Talk( 1, "Guardian Statue: \"I am the Goddess that sealed Death within.\"" )
+	Text( 1, "Go to Black Dragon Lair 1!", JumpPage, 2 )
 
 	InitTrigger()
 	TriggerAction( 1, GoTo, GoTo01X, GoTo01Y, GoTo01M )
-	Talk( 2, "Вы точно хотите выйти? " )
-	Text( 2, "Переместить ",MultiTrigger, GetMultiTrigger(), 2 ) 
+	Talk( 2, "Do you wish to go out?" )
+	Text( 2, "Teleport",MultiTrigger, GetMultiTrigger(), 2 ) 
 	Text( 2, CancelSelectTalk, JumpPage , CancelSelectPage )
+	
+	Talk( 3, "Guardian Statue: \"Ў­Ў­Ў­Ў­Ў­Ў­^$&#&^%Ў­Ў­Ў­Ў­Ў­Ў­\"" )
 
-	Talk( 3, "Защитная статуя: Мая твая не панимать! " )
+
+
 	InitTrigger()
 	TriggerCondition( 1, HasRecord, 330 )
 	TriggerAction( 1, JumpPage, 1 )
 	TriggerCondition( 2, NoRecord, 330 )
 	TriggerAction( 2, JumpPage, 3 )
 	Start( GetMultiTrigger(), 3 )
-	Talk( 4, "Найдите меня снова если решите выйти ", CloseTalk )
+
+	Talk( 4, "Remember to look for me again if you need to teleport", CloseTalk )
+
+
+
 end
 
+------------------------------------------------------------
+--єЪБъіІСЁ ¶юІгtoИэІг
+------------------------------------------------------------
+
 function b_talk23()
+
+	--µШНјГыіЖРЕПў
 	local CurMapName = "eastgoaf"
+
+
+	--єЪБъіІСЁИэІгЧш±к
 	local GoTo01X = 772
 	local GoTo01Y = 722
 	local GoTo01M = CurMapName
+
+
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 182,1 )
+	--TriggerAction( 1, TakeItem, 1091,1 )
 	TriggerAction( 1, GoTo, GoTo01X, GoTo01Y, GoTo01M )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 1, "Защитная статуя: Богиней запечатана сама смерть внутри меня! " )
-	Text( 1, "Перейти в Логово Дракона 3 ", MultiTrigger, GetMultiTrigger(), 1 )
+	Talk( 1, "Guardian Statue: \"I am the Goddess that sealed Death within.\"" )
+	Text( 1, "Go to Black Dragon Lair 3!", MultiTrigger, GetMultiTrigger(), 1 )
 
-	Talk( 4, "Проход запечатан. Вам необходим Ключ Дракона чтобы пройти!" )
+	--Talk( 3, "Guardian Statue: \"Ў­Ў­Ў­Ў­Ў­Ў­^$&#&^%Ў­Ў­Ў­Ў­Ў­Ў­\"" )
+	--InitTrigger()
+--	TriggerCondition( 1, HasRecord, 330 )
+--	TriggerAction( 1, JumpPage, 1 )
+--	TriggerCondition( 2, NoRecord, 330 )
+--	TriggerAction( 2, JumpPage, 3 )
+--	Start( GetMultiTrigger(), 3 )
+
+	Talk( 4, "Statue is being sealed. You need a <Dragon Key> to access it" )
+
+--	Talk( 4, "The statue emits a energy shield to keep me away. Looks like I am not strong enough to break it yet. I must think of other ways." )
+
+
 end
 
+------------------------------------------------------------
+--єЪБъ±¦Пд
+------------------------------------------------------------
+
 function b_talk24()
+
+--	InitFuncList()
+--	AddFuncList( GiveItem,	110	,	1	,	4)
+--	AddFuncList( GiveItem,	112	,	1	,	4)
+--	AddFuncList( GiveItem,	114	,	1	,	4)
+--	AddFuncList( GiveItem,	116	,	1	,	4)
+--	AddFuncList( GiveItem,	118	,	1	,	4)
+--	AddFuncList( GiveItem,	120	,	1	,	4)
+--	AddFuncList( GiveItem,	151	,	1	,	4)
+
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 182, 1 )
 	TriggerAction( 1, TakeItem, 182, 1 )
 	TriggerAction( 1, AddMoney, 10000000 )
+--	TriggerAction( 1, RandFunction, GetFuncList(), GetNumFunc() )
 	TriggerAction(1, GiveItem, 0266, 1, 4)
 	TriggerFailure( 1, JumpPage, 2 )
-	Talk( 1, "Это таинственный сундук и кажется он заперт... " )
-	Text( 1, "Открыть ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 1, "This is a mysterious chest. It seems to be lockedЎ­" )
+	Text( 1, "Forbidden words", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 2, "Не могу открыть! Кажется нужен ключ... " )
+	Talk( 2, "Failed to open. It seems that some sort of key is needed" )
+
 end
---------------------------------------------------------------------------------------------------------------------
---													b_talk (Конец)												  --
---------------------------------------------------------------------------------------------------------------------
 
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  МъЅі
+------------------------------------------------------------
 
---------------------------------------------------------------------------------------------------------------------
---													l_talk (Начало)												  --
---------------------------------------------------------------------------------------------------------------------
 function l_talk01()
-	Talk(1, "Джек Воробей и я были здесь почти месяц, но не сумели найти выход... И я не знаю где мой любимый теперь. Я ненавижу это место! ")
+	Talk(1, "Jack Arrow and I have been here for almost a month but failed to find the way out. And I don't know where is my loved one now! Arrgh! I hate this hellish place!")
+
 	AddNpcMission(894)
 	AddNpcMission(487)
 	AddNpcMission(504)
@@ -776,10 +1264,16 @@ function l_talk01()
 	AddNpcMission(581)
 	AddNpcMission(582)
 	AddNpcMission(583)
+
 end
 
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  ЅЬїЛК·ЕЙВЮ
+------------------------------------------------------------
+
 function l_talk02()
-	Talk(1, "Ходят слухи что Барбороса получил свою силу из за проклятья! Здесь больше не безопасно, и эти монстры далеко не вегетарианцы. Будь осторожен! ")
+	Talk(1, "Rumored that Barborosa got his monstrous power from the curse. This place is no longer safe, please be careful and these monsters aren't vegetarian.")
+
 	AddNpcMission(895)
 	AddNpcMission(896)
 	AddNpcMission(482)
@@ -790,11 +1284,19 @@ function l_talk02()
 	AddNpcMission(584)
 	AddNpcMission(585)
 	AddNpcMission(586)
+
+	----єЈёЫЦё»УЎ¤ІјЕ¦--------ЅЬїЛК·ЕЙВЮ
+	
 	AddNpcMission	(5676)
 end
 
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  ЕµБй¶ЩЅ«ѕь
+------------------------------------------------------------
+
 function l_talk03()
-	Talk(1, "Проклятый Джек! Если бы он не украл наше военное судно, то я бы не оказался в этой адской бездне! ")
+	Talk(1, "Damn Jack! If he did not steal our war galley, I would not be stuck in this hellhole")
+
 	AddNpcMission(897)
 	AddNpcMission(898)
 	AddNpcMission(899)
@@ -807,11 +1309,17 @@ function l_talk03()
 	AddNpcMission(578)
 	AddNpcMission(589)
 	AddNpcMission(590)
+
 end
 
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  ТБАцЙЇ°Ч
+------------------------------------------------------------
+
 function l_talk04()
-	Talk( 1, "Где я? Как я оказалась здесь? О Марк! ...Плач... ")
-	Text( 1, "Торг ", BuyPage )
+	Talk(1, "Where am I? How did I ended up here? Mark! SobЎ­SobЎ­")
+	Text( 1, "Trade", BuyPage )
+
 	InitTrade()
 	Other(	3141	)
 	Other(	4602	)
@@ -826,212 +1334,244 @@ function l_talk04()
 	AddNpcMission(587)
 	AddNpcMission(588)
 	AddNpcMission(591)
+
+	---------------°ЧСт
 	AddNpcMission	(5573)
 	AddNpcMission	(5574)
+
+	-----------------ТБАцЙЇ°Ч---------ЅрЕЈ
 	AddNpcMission	(5661)
 	AddNpcMission	(5662)
+
+	-----------------УВХЯКФБ¶
 	AddNpcMission( 6171 )
 	AddNpcMission( 6172 )
 end
---------------------------------------------------------------------------------------------------------------------
---													l_talk (Конец)												  --
---------------------------------------------------------------------------------------------------------------------
 
-
---------------------------------------------------------------------------------------------------------------------
---													mmm_talk (Начало)											  --
---------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  ІШ±¦єЈНе±±єЈёЫЦё»УЎ¤ЕнДб
+------------------------------------------------------------
 function mmm_talk06()
-	Talk( 1, "Пенни: Желаете отправиться в путь? " )
+
+	Talk( 1, "Penny: Dock? Set sail? Salvage? Repair? Refuel?" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 12 )
 	TriggerAction( 1, LuanchBerthList, 12, 650,999, 180 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в плавание ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerCondition( 2, HasBoatInBerth, 12 )
 	TriggerAction( 2, RepairBerthList, 12 )
 	TriggerFailure( 2, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerCondition( 2, HasBoatInBerth, 12 )
 	TriggerAction( 2, SupplyBerthList, 12 )
 	TriggerFailure( 2, JumpPage, 5 )
-	Text( 1, "Заправить ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasDeadBoatInBerth, 12 )
 	TriggerAction( 1, SalvageBerthList, 12 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Text( 1, "Восстановить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Salvage Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 	
-	Talk( 3, "Простите, но в этом порту нет вашего судна! " )
-	Talk( 4, "Простите, но я ремонтирую суда лишь приписанные к этому порту! Стоимость 1000 золотых. " )
-	Talk( 5, "Простите, но я заправляю суда лишь приписанные к этому порту! Стоимость 200 золотых. " )
-	Talk( 6, "Простите, но я восстанавливаю суда лишь приписанные к этому порту! Стоимость 1000 золотых. " )
-	Talk( 7, "Пенни: Мая твая не панимать! " )
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	Talk( 4, "Sorry! I only repair ships docked in this harbor. Please pay 1000G." )
+	Talk( 5, "Sorry, you need to dock your ship in our harbor in order to refuel. Please pay 200G" )
+	Talk( 6, "Sorry! We only salvage ships docked in our harbor. You have to pay a fee of 1000G." )
+	Talk( 7, "Shuang: \"Ў­Ў­Ў­Ў­Ў­Ў­^$&#&^%Ў­Ў­Ў­Ў­Ў­Ў­\"" )
+
+
+
+
 end
 
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  ІШ±¦єЈНеДПєЈёЫЦё»УЎ¤ї­Жж
+------------------------------------------------------------
 function mmm_talk05()
-	Talk( 1, "Кэтчи: Вы хотите отправиться в плавание? " )
+
+	Talk( 1, "Catchy: Dock? Set sail? Salvage? Repair? Refuel?" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 12 )
 	TriggerAction( 1, LuanchBerthList, 12, 625,925, 180 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в плавание ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerCondition( 2, HasBoatInBerth, 12 )
 	TriggerAction( 2, RepairBerthList, 12 )
 	TriggerFailure( 2, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerCondition( 2, HasBoatInBerth, 12 )
 	TriggerAction( 2, SupplyBerthList, 12 )
 	TriggerFailure( 2, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasDeadBoatInBerth, 12 )
 	TriggerAction( 1, SalvageBerthList, 12 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Text( 1, "Восстановить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Salvage Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 	
-	Talk( 3, "Простите, но в этом порту нет вашего судна! " )
-	Talk( 4, "Простите, но я ремонтирую суда лишь приписанные к этому порту! Стоимость 1000 золотых. " )
-	Talk( 5, "Простите, но я заправляю суда лишь приписанные к этому порту! Стоимость 200 золотых. " )
-	Talk( 6, "Простите, но я восстанавливаю суда лишь приписанные к этому порту! Стоимость 1000 золотых. " )
-	Talk( 7, "Кэтчи: Мая твая не панимать! " )
-end
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	Talk( 4, "Sorry! I only repair ships docked in this harbor. Please pay 1000G." )
+	Talk( 5, "Sorry, you need to dock your ship in our harbor in order to refuel. Please pay 200G" )
+	Talk( 6, "Sorry! We only salvage ships docked in our harbor. You have to pay a fee of 1000G." )
+	Talk( 7, "Catchy: ..................^$&#&^%.................." )
 
+
+
+
+end
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  чјчГєЈёЫЦё»У
+------------------------------------------------------------
 function mmm_talk07()
-	Talk( 1, "Командующий портом: Вы хотите отправиться в плавание? " )
+Talk( 1, "Seaport Commander: Dock? Set sail? Salvage? Repair? Refuel?" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 12 )
 	TriggerAction( 1, LuanchBerthList, 12, 620,628, 180 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в плавание ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerCondition( 2, HasBoatInBerth, 12 )
 	TriggerAction( 2, RepairBerthList, 12 )
 	TriggerFailure( 2, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerCondition( 2, HasBoatInBerth, 12 )
 	TriggerAction( 2, SupplyBerthList, 12 )
 	TriggerFailure( 2, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasDeadBoatInBerth, 12 )
 	TriggerAction( 1, SalvageBerthList, 12 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Text( 1, "Восстановить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Salvage Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 	
-	Talk( 3, "Простите, но в этом порту нет вашего судна! " )
-	Talk( 4, "Простите, но я ремонтирую суда лишь приписанные к этому порту! Стоимость 1000 золотых. " )
-	Talk( 5, "Простите, но я заправляю суда лишь приписанные к этому порту! Стоимость 200 золотых. " )
-	Talk( 6, "Простите, но я восстанавливаю суда лишь приписанные к этому порту! Стоимость 1000 золотых. " )
-	Talk( 7, "Командующий портом: Мая твая не панимать! " )
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	Talk( 4, "Sorry! I only repair ships docked in this harbor. Please pay 1000G." )
+	Talk( 5, "Sorry, you need to dock your ship in our harbor in order to refuel. Please pay 200G" )
+	Talk( 6, "Sorry! We only salvage ships docked in our harbor. You have to pay a fee of 1000G." )
+	Talk( 7, "Seaport Commander: ..................^$&#&^%.................." )
 end
-
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  ЙсГШИЛіцєЈИЛ
+------------------------------------------------------------
 function mmm_talk08()
-Talk( 1, "Таинственный моряк: Вы хотите отправиться в плавание? " )
+Talk( 1, "Mysterious Sailor: Dock? Set sail? Salvage? Repair? Refuel?" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 12 )
 	TriggerAction( 1, LuanchBerthList, 12, 380,161, 180 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в плавание ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerCondition( 2, HasBoatInBerth, 12 )
 	TriggerAction( 2, RepairBerthList, 12 )
 	TriggerFailure( 2, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerCondition( 2, HasBoatInBerth, 12 )
 	TriggerAction( 2, SupplyBerthList, 12 )
 	TriggerFailure( 2, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasDeadBoatInBerth, 12 )
 	TriggerAction( 1, SalvageBerthList, 12 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Text( 1, "Восстановить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Salvage Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 	
-	Talk( 3, "Простите, но в этом порту нет вашего судна! " )
-	Talk( 4, "Простите, но я ремонтирую суда лишь приписанные к этому порту! Стоимость 1000 золотых. " )
-	Talk( 5, "Простите, но я заправляю суда лишь приписанные к этому порту! Стоимость 200 золотых. " )
-	Talk( 6, "Простите, но я восстанавливаю суда лишь приписанные к этому порту! Стоимость 1000 золотых. " )
-	Talk( 7, "Таинственный моряк: Мая твая не панимать! " )
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	Talk( 4, "Sorry! I only repair ships docked in this harbor. Please pay 1000G." )
+	Talk( 5, "Sorry, you need to dock your ship in our harbor in order to refuel. Please pay 200G" )
+	Talk( 6, "Sorry! We only salvage ships docked in our harbor. You have to pay a fee of 1000G." )
+	Talk( 7, "Mysterious Sailor: ..................^$&#&^%.................." )
 end
-
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  єЈѕь»щµШєЈёЫЦё»У
+------------------------------------------------------------
 function mmm_talk09()
-	Talk( 1, "Командующий портом: Вы хотите отправиться в плавание? " )
+Talk( 1, "Seaport Commander: Dock? Set sail? Salvage? Repair? Refuel?" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 12 )
 	TriggerAction( 1, LuanchBerthList, 12, 1070,212, 180 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в плавание ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerCondition( 2, HasBoatInBerth, 12 )
 	TriggerAction( 2, RepairBerthList, 12 )
 	TriggerFailure( 2, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerCondition( 2, HasBoatInBerth, 12 )
 	TriggerAction( 2, SupplyBerthList, 12 )
 	TriggerFailure( 2, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasDeadBoatInBerth, 12 )
 	TriggerAction( 1, SalvageBerthList, 12 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Text( 1, "Восстановить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Salvage Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 	
-	Talk( 3, "Простите, но в этом порту нет вашего судна! " )
-	Talk( 4, "Простите, но я ремонтирую суда лишь приписанные к этому порту! Стоимость 1000 золотых. " )
-	Talk( 5, "Простите, но я заправляю суда лишь приписанные к этому порту! Стоимость 200 золотых. " )
-	Talk( 6, "Простите, но я восстанавливаю суда лишь приписанные к этому порту! Стоимость 1000 золотых. " )
-	Talk( 7, "Командующий портом: Мая твая не панимать! " )
+	Talk( 3, "Sorry, you do not have a ship at the harbor or it was sunken. Please salvage it before setting sail again!" )
+	Talk( 4, "Sorry! I only repair ships docked in this harbor. Please pay 1000G." )
+	Talk( 5, "Sorry, you need to dock your ship in our harbor in order to refuel. Please pay 200G" )
+	Talk( 6, "Sorry! We only salvage ships docked in our harbor. You have to pay a fee of 1000G." )
+	Talk( 7, "Seaport Commander: Ў­Ў­Ў­Ў­Ў­Ў­^$&#&^%Ў­Ў­Ў­Ў­Ў­Ў­" )
 end
-
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  ґт°ьИЛЎ¤ґчЖХ
+------------------------------------------------------------
 function mmm_talk10()
-	Talk( 1, "Забу: Здравствуйте! Я местный фрахтовщик. Могу я чем то помочь? " )
+Talk( 1, "Zabu: Hi! I am the Freights NPC here. I can help you load the products up your ship if it is docked in this harbor" )
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 12)
 	TriggerAction( 1, PackBagList, 12, RES_WOOD, 1 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Загрузить древесину ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Load Wood", MultiTrigger, GetMultiTrigger(), 1 )
+
 	InitTrigger()
 	TriggerCondition( 1, HasBoatInBerth, 12)
 	TriggerAction( 1, PackBagList, 12, RES_MINE, 3 )
 	TriggerFailure( 1, JumpPage, 2 )
-	Text( 1, "Загрузить кристаллы ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Load Crystal", MultiTrigger, GetMultiTrigger(), 1 )
 
-	Talk( 2, "Забу: Протите, но у вас нет судна в этом порту! " )
+	Talk( 2, "Zabu:  Hi! You do not have any ship docked at this harbor" )
+
 end
-
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  µШУьґ«ЛНК№
+------------------------------------------------------------
 function mmm_talk11()
+	--µШНјГыіЖРЕПў
 	local CurMapName = "jialebi" 
+
+	--єЪБъіІСЁИэІгЧш±к
 	local GoTo01X = 190
 	local GoTo01Y = 815
 	local GoTo01M = CurMapName
+
+
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2438,20 )
 	TriggerCondition( 1, HasItem, 2419,15 )
@@ -1041,23 +1581,44 @@ function mmm_talk11()
 	TriggerAction( 1, TakeItem, 2386,15 )
 	TriggerAction( 1, GoTo, GoTo01X, GoTo01Y, GoTo01M )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 1, "Портальщик Абаддона: Вы хотите войти в Абаддон? Будьте готовы принести мне 20 Золотых монет, 15 Пиратских костей и 20 Душ нежити. " )
-	Text( 1, "Войти в Абаддон 1 ", MultiTrigger, GetMultiTrigger(), 1 )
+	Talk( 1, "Abaddon Teleporter: Want to go to Abaddon? Be prepared. Bring me 20 <Gold Coins>, 15 <Pirate's Bones> and 15 <Souls of Undead> and I will send you down." )
+	Text( 1, "Go to Abaddon 1", MultiTrigger, GetMultiTrigger(), 1 )
 
-	Talk( 4, "Возвращайтесь как соберете все предметы! " )
+	--Talk( 3, "Guardian Statue: \"Ў­Ў­Ў­Ў­Ў­Ў­^$&#&^%Ў­Ў­Ў­Ў­Ў­Ў­\"" )
+
+--InitTrigger()
+--	TriggerCondition( 1, HasRecord, 330 )
+--	TriggerAction( 1, JumpPage, 1 )
+--	TriggerCondition( 2, NoRecord, 330 )
+--	TriggerAction( 2, JumpPage, 3 )
+--	Start( GetMultiTrigger(), 3 )
+
+	Talk( 4, "Come back again after you have the required items" )
+
+--	Talk( 4, "The statue emits a energy shield to keep me away. Looks like I am not strong enough to break it yet. I must think of other ways." )
+
+---------------°ЧСт
 	AddNpcMission	(5593)
 	AddNpcMission	(5594)
 end
-
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  МмМГґ«ЛНК№
+------------------------------------------------------------
 function mmm_talk12()
+--µШНјГыіЖРЕПў
 	local CurMapName = "jialebi" 
+
+
+	--єЪБъіІСЁИэІгЧш±к
 	local GoTo01X = 1604
 	local GoTo01Y = 906
 	local GoTo01M = CurMapName
-	Talk( 1, "Небесный портальщик: Я посыльный Богини. Вы должны пройти через меня, чтобы попасть на Небеса! Там Богиня вознаградит вас в зависимости от вашей чести. Больше честь - выше награда! " )
-	Text( 1, "Я прошел через Ад! ", JumpPage, 2 )
-	Text( 1, "Я получил Покровительство Богини ", JumpPage, 3 )
-	Text( 1, "Я слышал у вас есть нечто полезное? ", JumpPage, 7 )
+
+	Talk( 1, "Heaven Teleporter: I am a messenger of the Goddess. You have to go through me to go to Heaven. On a side note, Goddess will award you according to your Honor value. A higher Honor value will earn you greater rewards." )
+	Text( 1, "I have been through hell", JumpPage, 2 )
+	Text( 1, "I have obtained Goddess's Favor", JumpPage, 3 )
+	Text( 1, "I heard that you have some other good items too", JumpPage, 7 )
+
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2488,1 )
 	TriggerCondition( 1, HasItem, 2489,1 )
@@ -1069,22 +1630,25 @@ function mmm_talk12()
 	TriggerAction( 1, TakeItem, 2436,1 )
 	TriggerAction( 1, GoTo, GoTo01X, GoTo01Y, GoTo01M )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 2, "Небесный портальщик: Хотите войти на Небеса? Тогда вы должны собрать 1 Кость мумии, 1 Душу мертвого солдата, 1 Сердце фараона и 1 Святую библию! " )
-	Text( 2, "Я хочу войти на Небеса! ", MultiTrigger, GetMultiTrigger(), 1 )
+	Talk( 2, "Heaven Teleporter: Want to go to Heaven? Then you would have to collect for me 1 Bone of Mummy, 1 Soul of Corpse Soldier, 1 Heart of Pharoah and 1 Holy Bible." )
+	Text( 2, "I want to go to Heaven now", MultiTrigger, GetMultiTrigger(), 1 )
+
+
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 0938,1 )
 	TriggerAction( 1, TakeItem, 0938,1 )
 	TriggerAction( 1, GoTo, GoTo01X, GoTo01Y, GoTo01M )
 	TriggerFailure( 1, JumpPage, 5 )
-	Talk( 3, "Небесный портальщик: У вас есть Покровительство Богини? Тогда не смею вас задерживать! " )
-	Text( 3, "Я хочу войти на Небеса! ", MultiTrigger, GetMultiTrigger(), 1 )
-	Text( 3, "Узнать о Покровительстве Богини ", JumpPage, 6 )
+	Talk( 3, "Heaven Teleporter: You have the Goddess's Favor? I will send you in now." )
+	Text( 3, "I want to go to Heaven now", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 3, "Regarding Goddess's Favor", JumpPage, 6 )
+	
 
-	Talk( 4, "Возвращайся как соберешь все нужные предметы! " )
 
-	Talk( 5, "У тебя нет покровительства Богини! " )
+	Talk( 4, "Come back again after you have the required items" )
+	Talk( 5, "Goddess's Favor is not obtainable by everyone" )
+	Talk( 6, "Goddess's Favor is left by the Goddess to help low level players to enter Heaven. Only players below Lv 60 can obtain it." )
 
-	Talk( 6, "Богиней было оставлено покровительство на земле, чтобы игроки могли войти на Небеса!" )
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3457, 5 )
 	TriggerCondition( 1, HasItem, 2386, 10 )
@@ -1092,32 +1656,38 @@ function mmm_talk12()
 	TriggerAction( 1, TakeItem, 2386, 10 )
 	TriggerAction( 1, GiveItem, 0271, 1, 4 )
 	TriggerFailure( 1, JumpPage, 8 )
-	Talk( 7, "Небесный портальщик: Ангельские кости - сокровище оставленное Богиней. Вы получите его в обмен на 10 Душ нежити и 5 рун Кэль. " )
-	Text( 7, "Получить Ангельские кости ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 7, "Heaven Teleporter: Angelic Dice is a treasure that is left by the Goddess. You will need to give me 10 Soul of Undead and 5 Kal Runestones in exchange" )
+	Text( 7, "Obtained Angelic Dice", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 8, "Возвращайся как соберешь все нужные предметы! " )
+	Talk( 8, "Heaven Teleporter: Come back again after you have the required items" )
+---------------°ЧСт
 	AddNpcMission	(5595)
 	AddNpcMission	(5596)
+
 	AddNpcMission ( 6056 )
 	AddNpcMission ( 6057 )
 	AddNpcMission ( 6058 )
 	AddNpcMission ( 6059 )
 	AddNpcMission ( 6060 )
+----------МмМГґ«ЛНК№-------Л«ЧУ-------------------04
 	AddNpcMission	(5726)
 	AddNpcMission	(5727)
+
 end
-
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  ГФК§µДїј№Е¶УіЙФ±A
+------------------------------------------------------------
 function mmm_talk13()
-	Talk( 1, "Растерянный исследователь A: У меня есть кое что для вас. Желаете взглянуть?" )
-	Text( 1, "Получить вещи из таинственного набора", JumpPage, 2)
+	Talk( 1, "Bewildered Researcher A: Hi, I have been lost for a long time. I got some good stuff with me, do you wish to do an exchange?" )
+	Text( 1, "Redeem Secrets set item", JumpPage, 2)
 
-	Talk( 2, "Растерянный исследователь A: Эти замечательные вещи так же известны как Набор Цунами!" )
-	Text( 2, "Выкупить Таинственный доспех (Ланс Воитель)", JumpPage, 3)
-	Text( 2, "Выкупить Таинственные перчатки (Ланс Воитель)", JumpPage, 4)
-	Text( 2, "Выкупить Таинственные сапоги (Ланс Воитель)", JumpPage, 5)
-	Text( 2, "Выкупить Дракан (Ланс Воитель)", JumpPage, 6)
+	Talk( 2, "Bewildered Researcher A: These good items are also known as Tsunami set!" )
+	Text( 2, "Redeem Armor of Secrets (Lance Crusader)", JumpPage, 3)
+	Text( 2, "Redeem Gloves of Secrets (Lance Crusader)", JumpPage, 4)
+	Text( 2, "Redeem Boots of Secrets (Lance Crusader)", JumpPage, 5)
+	Text( 2, "Redeem Drakan (Lance Crusader)", JumpPage, 6)
 
-	Talk( 3, "Растерянный исследователь A: Чтобы получить Таинственный Доспех необходимо: 1 Личина камня пелены, 30 Радужных Фруктов, 20 Кож животного, 10 Блестящей ткани и 100000 золота ")
+	Talk(3,"To redeem Armor of Secrets requires 1 Guise Veilstone, 30 Rainbow Fruit, 20 Animal Skin, 10 Splendor Cloth and 100000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2467, 1 )
 	TriggerCondition( 1, HasItem, 3121, 30 )
@@ -1129,11 +1699,12 @@ function mmm_talk13()
 	TriggerAction( 1, TakeItem, 1608, 20 )
 	TriggerAction( 1, TakeItem, 3385, 10 )
 	TriggerAction( 1, TakeMoney, 100000 )
+
 	TriggerAction( 1, GiveItem, 0396, 1 , 4)
 	TriggerFailure( 1, JumpPage, 7 )
-	Text( 3, "Получить Таинственный Доспех", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 3, "Obtained Armor of Secrets", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 4, "Растерянный исследователь A: Чтобы получить Таинственные Перчатки необходимо: 1 Чернильный камень, 30 Радужных Фруктов, 20 Тяжелых панцирей, 10 Частей элемента земли и 50000 золота ")
+	Talk(4,"To redeem Gloves of Secrets requires 1 Avow Blotstone, 30 Rainbow Fruit, 20 Hard Shell, 10 Earthen Element Fragment and 50000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2473, 1 )
 	TriggerCondition( 1, HasItem, 3121, 30 )
@@ -1145,11 +1716,12 @@ function mmm_talk13()
 	TriggerAction( 1, TakeItem, 1614, 20 )
 	TriggerAction( 1, TakeItem, 1658, 10 )
 	TriggerAction( 1, TakeMoney, 50000 )
+
 	TriggerAction( 1, GiveItem, 0588, 1 , 4)
 	TriggerFailure( 1, JumpPage, 7)
-	Text( 4, "Получить Таинственные Перчатки", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 4, "Obtained Gloves of Secrets ", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 5, "Растерянный исследователь A: Чтобы получить Таинственные Сапоги необходимо: 1 Тень-камень миражей, 30 Радужных фруктов, 20 Особого газа, 10 Жемчужин и 50000 золота ")
+	Talk(5,"To redeem Boots of Secrets requires 1 Mirage Shadestone, 30 Rainbow Fruit, 20 Special Gas, 10 Pearl and 50000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2479, 1 )
 	TriggerCondition( 1, HasItem, 3121, 30 )
@@ -1161,11 +1733,12 @@ function mmm_talk13()
 	TriggerAction( 1, TakeItem, 1657, 20 )
 	TriggerAction( 1, TakeItem, 3361, 10 )
 	TriggerAction( 1, TakeMoney, 50000 )
+
 	TriggerAction( 1, GiveItem, 0748, 1 , 4)
 	TriggerFailure( 1, JumpPage, 7 )
-	Text( 5, "Получить Таинственные Сапоги", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 5, "Obtained Boots of Secrets", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 6, "Растерянный исследователь A: Чтобы получить Дракан необходимо: 1 Демонический рудный камень, 30 Кристаллов агата, 20 Расширителей, 10 Волшебных костей и 100000 золота ")
+	Talk(6,"To redeem Drakan requires 1 Demonic Orestone, 30 Agate Crystal, 20 Extender, 10 Magical Bone and 100000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2463, 1 )
 	TriggerCondition( 1, HasItem, 3380, 30 )
@@ -1177,24 +1750,27 @@ function mmm_talk13()
 	TriggerAction( 1, TakeItem, 1652, 20 )
 	TriggerAction( 1, TakeItem, 1626, 10 )
 	TriggerAction( 1, TakeMoney, 100000 )
+
 	TriggerAction( 1, GiveItem, 0114, 1 , 4)
 	TriggerFailure( 1, JumpPage, 7 )
-	Text( 6, "Получить Дракан", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 6, "Obtained Drakan", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 7, "Растерянный исследователь A: Извини, но на данный момент у тебя нет необходимых предметов чтобы совершить обмен ")
+	Talk(7,"Sorry, you do not have the required items to redeem")
 end
-
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  ГФК§µДїј№Е¶УіЙФ±B
+------------------------------------------------------------
 function mmm_talk14()
-	Talk( 1, "Растерянный исследователь B: У меня есть кое что для вас. Желаете взглянуть?" )
-	Text( 1, "Получить вещи из Олимпийского набора ", JumpPage, 2)
+	Talk( 1, "Bewildered Researcher B: Hi, I have been lost for a long time. I got some good stuff with me, do you wish to do an exchange?" )
+	Text( 1, "Redeem Olympus set", JumpPage, 2)
 
-	Talk( 2, "Растерянный исследователь В: Эти замечательные вещи так же известны как Набор Олимпа!" )
-	Text( 2, "Выкупить Олимпийский доспех (Карциз Чемпион)", JumpPage, 3)
-	Text( 2, "Выкупить Рукавицы Олимпа (Карциз Чемпион)", JumpPage, 4)
-	Text( 2, "Выкупить Поножи Олимпа (Карциз Чемпион)", JumpPage, 5)
-	Text( 2, "Выкупить Колосс (Карциз Чемпион)", JumpPage, 6)
+	Talk( 2, "Bewildered Researcher B: These good items are also known as Olympus set!" )
+	Text( 2, "Redeem Armor of Olympus (Carsise Champion)", JumpPage, 3)
+	Text( 2, "Redeem Gauntlets of Olympus (Carsise Champion)", JumpPage, 4)
+	Text( 2, "Redeem Greaves of Olympus (Carsise Champion)", JumpPage, 5)
+	Text( 2, "Redeem Colossus (Carsise Champion)", JumpPage, 6)
 
-	Talk( 3, "Растерянный исследователь B: Чтобы получить Олимпийский доспех необходимо: 1 Мифический огненный камень, 30 Волшебных ветвей, 20 Кож животного, 10 Блестящих тканей и 100000 золота ")
+	Talk(3,"To redeem Armor of Olympus requires 1 Myth Flamestone, 30 Magical Branches, 20 Animal Skins, 10 Splendor Cloths and 100000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2468, 1 )
 	TriggerCondition( 1, HasItem, 1593, 30 )
@@ -1206,11 +1782,12 @@ function mmm_talk14()
 	TriggerAction( 1, TakeItem, 1608, 20 )
 	TriggerAction( 1, TakeItem, 3385, 10 )
 	TriggerAction( 1, TakeMoney, 100000 )
+
 	TriggerAction( 1, GiveItem, 0398, 1 , 4)
 	TriggerFailure( 1, JumpPage, 7 )
-	Text( 3, "Получить Олимпийский доспех ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 3, "Obtained Armor of Olympus", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 4, "Растерянный исследователь B: Чтобы получить Рукавицы Олимпа необходимо: 1 Радужный камень истины, 30 Волшебных ветвей, 20 Тяжелых панцирей, 10 Частей элемента земли и 50000 золотых ")
+	Talk(4,"To redeem Gauntlets of Olympus requires 1 Rainbow Soothstone, 30 Magical Branch, 20 Hard Shell, 10 Earthen Element Fragment and 50000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2478, 1 )
 	TriggerCondition( 1, HasItem, 1593, 30 )
@@ -1222,11 +1799,12 @@ function mmm_talk14()
 	TriggerAction( 1, TakeItem, 1614, 20 )
 	TriggerAction( 1, TakeItem, 1658, 10 )
 	TriggerAction( 1, TakeMoney, 50000 )
+
 	TriggerAction( 1, GiveItem, 0604, 1 , 4)
 	TriggerFailure( 1, JumpPage, 7 )
-	Text( 4, "Получить Рукавицы Олимпа ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 4, "Obtained Gauntlets of Olympus", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 5, "Растерянный исследователь B: Чтобы получить Поножи Олимпа необходимо: 1 Духовный рудный камень, 30 Волшебных ветвей, 20 Особых газа, 10 Жемчужин и 50000 золотых ")
+	Talk(5,"To redeem Greaves of Olympus requires 1 Spirit Orestone, 30 Magical Branch, 20 Special Gas, 10 Pearl and 50000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2484, 1 )
 	TriggerCondition( 1, HasItem, 1593, 30 )
@@ -1238,11 +1816,12 @@ function mmm_talk14()
 	TriggerAction( 1, TakeItem, 1657, 20 )
 	TriggerAction( 1, TakeItem, 3361, 10 )
 	TriggerAction( 1, TakeMoney, 50000 )
+
 	TriggerAction( 1, GiveItem, 0830, 1 , 4)
 	TriggerFailure( 1, JumpPage, 7 )
-	Text( 5, "Получить Поножи Олимпа ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 5, "Obtained Greaves of Olympus", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 6, "Растерянный исследователь B: Чтобы получить Колосс необходимо: 1 Тающий огненный камень, 30 Кристаллов агата, 20 Расширителей, 10 Волшебных костей и 100000 золотых ")
+	Talk(6,"To redeem Colossus requires 1 Thaw Finestone, 30 Agate Crystal, 20 Extender, 10 Magical Bone and 100000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2464, 1 )
 	TriggerCondition( 1, HasItem, 3380, 30 )
@@ -1254,26 +1833,29 @@ function mmm_talk14()
 	TriggerAction( 1, TakeItem, 1652, 20 )
 	TriggerAction( 1, TakeItem, 1626, 10 )
 	TriggerAction( 1, TakeMoney, 100000 )
+
 	TriggerAction( 1, GiveItem, 0116, 1 , 4)
 	TriggerFailure( 1, JumpPage, 7 )
-	Text( 6, "Получить Колосс ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 6, "Obtained Colossus", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 7, "Растерянный исследователь B: Извини, но на данный момент у тебя нет необходимых предметов чтобы совершить обмен ")
+	Talk(7,"Sorry, you do not have the required items to redeem")
 end
-
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  ГФК§µДїј№Е¶УіЙФ±C
+------------------------------------------------------------
 function mmm_talk15()
-	Talk( 1, "Растерянный исследователь C: У меня есть кое что для вас. Желаете взглянуть?" )
-	Text( 1, "Выкупить набор Повелителя Драконов ", JumpPage, 2)
-	Text( 1, "Выкупить набор Цунами ", JumpPage, 9)
+	Talk( 1, "Bewildered Researcher C: Hi, I have been lost for a long time. I got some good stuff with me, do you wish to do an exchange?" )
+	Text( 1, "Redeem Dragon Lord set", JumpPage, 2)
+	Text( 1, "Redeem Tsunami set", JumpPage, 9)
 
-	Talk( 2, "Растерянный исследователь C: Эти замечательные вещи так же известны как Набор Олимпа!" )
-	Text( 2, "Выкупить Костюм повелителя драконов (Ами Покоритель Морей)", JumpPage, 3)
-	Text( 2, "Выкупить Перчатки повелителя драконов (Ами Покоритель Морей)", JumpPage, 4)
-	Text( 2, "Выкупить Сапоги повелителя драконов (Ами Покоритель Морей)", JumpPage, 5)
-	Text( 2, "Выкупить Шлем повелителя драконов (Ами Покоритель Морей)", JumpPage, 6)
-	Text( 2, "Выкупить Расщепленная душа (Ами Покоритель Морей)", JumpPage, 7)
+	Talk( 2, "Bewildered Researcher C: These good items are also known as Dragon Lord set!" )
+	Text( 2, "Redeem Dragon Lord Costume (Ami Voyager)", JumpPage, 3)
+	Text( 2, "Redeem Dragon Lord Muffs (Ami Voyager)", JumpPage, 4)
+	Text( 2, "Redeem Dragon Lord Shoes (Ami Voyager)", JumpPage, 5)
+	Text( 2, "Redeem Dragon Lord Cap (Ami Voyager)", JumpPage, 6)
+	Text( 2, "Redeem Riven Soul (Ami Voyager)", JumpPage, 7)
 
-	Talk(3,"Растерянный исследователь C: Чтобы получить Костюм повелителя драконов необходимо: 1 Изящный камень зверя, 30 Радужных стакана, 20 Кож животного, 10 Блестящей ткани и 100000 золота")
+	Talk(3,"To redeem Dragon Lord Costume requires 1 Beastie Finestone, 30 Rainbow Glass, 20 Animal Skin, 10 Splendor Cloth and 100000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2472, 1 )
 	TriggerCondition( 1, HasItem, 1778, 30 )
@@ -1285,11 +1867,12 @@ function mmm_talk15()
 	TriggerAction( 1, TakeItem, 1608, 20 )
 	TriggerAction( 1, TakeItem, 3385, 10 )
 	TriggerAction( 1, TakeMoney, 100000 )
+
 	TriggerAction( 1, GiveItem, 0413, 1 , 4)
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 3, "Получить Костюм повелителя драконов", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 3, "Obtained Dragon Lord Costume", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 4, "Растерянный исследователь C: Чтобы получить Перчатки повелителя драконов необходимо: 1 Зубной камень зверя, 30 Радужных стакана, 20 Тяжелых панцирей, 10 Части элемента земли и 50000 золотых ")
+	Talk(4,"To redeem Dragon Lord Muffs requires 1 Beastie Toothstone, 30 Rainbow Glass, 20 Hard Shell, 10 Earthen Element Fragment and 50000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2477, 1 )
 	TriggerCondition( 1, HasItem, 1778, 30 )
@@ -1301,11 +1884,12 @@ function mmm_talk15()
 	TriggerAction( 1, TakeItem, 1614, 20 )
 	TriggerAction( 1, TakeItem, 1658, 10 )
 	TriggerAction( 1, TakeMoney, 50000 )
+
 	TriggerAction( 1, GiveItem, 0602, 1 , 4)
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 4, "Получить Перчатки повелителя драконов", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 4, "Obtained Dragon Lord Muffs", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 5, "Растерянный исследователь C: Чтобы получить Сапоги повелителя драконов необходимо: 1 Рудный камень кадавра, 30 Радужных стаканов, 20 Особого газа, 10 Жемчужин и 50000 Золотых ")
+	Talk(5,"To redeem Dragon Lord Shoes requires 1 Cadavar Orestone, 30 Rainbow Glass, 20 Special Gas, 10 Pearl and 50000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2483, 1 )
 	TriggerCondition( 1, HasItem, 1778, 30 )
@@ -1317,11 +1901,12 @@ function mmm_talk15()
 	TriggerAction( 1, TakeItem, 1657, 20 )
 	TriggerAction( 1, TakeItem, 3361, 10 )
 	TriggerAction( 1, TakeMoney, 50000 )
+
 	TriggerAction( 1, GiveItem, 0824, 1 , 4)
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 5, "Получить Сапоги повелителя драконов", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 5, "Obtained Dragon Lord Shoes ", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 6, "Растерянный исследователь C: Чтобы получить Шлем повелителя драконов необходимо: 1 Отталкивающий камень зверей, 30 Радужных стаканов, 20 Животворных каменей, 10 Метеоритов и 50000 золотых ")
+	Talk(6,"To redeem Dragon Lord Cap requires 1 Beastie Borestone, 30 Rainbow Glass, 20 Life Stones, 10 Meteorites and 50000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2487, 1 )
 	TriggerCondition( 1, HasItem, 1778, 30 )
@@ -1333,11 +1918,12 @@ function mmm_talk15()
 	TriggerAction( 1, TakeItem, 1631, 20 )
 	TriggerAction( 1, TakeItem, 3391, 10 )
 	TriggerAction( 1, TakeMoney, 50000 )
+
 	TriggerAction( 1, GiveItem, 2223, 1 , 4)
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 6, "Получить Шлем повелителя драконов", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 6, "Obtained Dragon Lord Cap ", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 7, "Растерянный исследователь C: Чтобы получить Расщепленная душа необходимо: 1 Слезный камень истины, 30 Кристаллов агата, 20 Расширителей, 10 Волшебных костей и 100000 Золотых ")
+	Talk(7,"To redeem Riven Soul requires 1 Tear Soothstone, 30 Agate Crystal, 20 Extender, 10 Magical Bone and 100000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2466, 1 )
 	TriggerCondition( 1, HasItem, 3380, 30 )
@@ -1349,19 +1935,20 @@ function mmm_talk15()
 	TriggerAction( 1, TakeItem, 1652, 20 )
 	TriggerAction( 1, TakeItem, 1626, 10 )
 	TriggerAction( 1, TakeMoney, 100000 )
+
 	TriggerAction( 1, GiveItem, 0151, 1 , 4)
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 7, "Получить Расщепленная душа", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 7, "Obtained Riven Soul", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 8, "Растерянный исследователь C: Извини, но на данный момент у тебя нет необходимых предметов чтобы совершить обмен ")
+	Talk(8,"Sorry, you do not have the required items to redeem")
 
-	Talk( 9, "Растерянный исследователь C: Эти замечательные вещи так же известны как Набор Цунами!" )
-	Text( 9, "Выкупить Мантия цунами (Ланс, Филлис Покоритель Морей)", JumpPage, 10)
-	Text( 9, "Выкупить Перчатки цунами (Ланс, Филлис Покоритель Морей)", JumpPage, 11)
-	Text( 9, "Выкупить Башмаки цунами (Ланс, Филлис Покоритель Морей)", JumpPage, 12)
-	Text( 9, "Выкупить Расщепленная душа (Ланс, Филлис Покоритель Морей)", JumpPage, 7)
+	Talk( 9, "Bewildered Researcher C: These good items are also known as Tsunami set!" )
+	Text( 9, "Redeem Tsunami Robe (Lance, Phyllis Voyager)", JumpPage, 10)
+	Text( 9, "Redeem Tsunami Gloves (Lance, Phyllis Voyager)", JumpPage, 11)
+	Text( 9, "Redeem Tsunami Shoes (Lance, Phyllis Voyager)", JumpPage, 12)
+	Text( 9, "Redeem Riven Soul (Lance, Phyllis Voyager)", JumpPage, 7)
 
-	Talk( 10, "Растерянный исследователь C: Чтобы получить Мантию цунами необходимо: 1 Изящный камень зверя, 30 Кристаллов агата, 20 Кож животного, 10 Части элемента земли и 100000 Золотых ")
+	Talk(10,"To redeem Tsunami Robe requires 1 Beastie Finestone, 30 Agate Crystal, 20 Animal Skin, 10 Earthen Element Fragment and 100000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2472, 1 )
 	TriggerCondition( 1, HasItem, 3380, 30 )
@@ -1373,11 +1960,12 @@ function mmm_talk15()
 	TriggerAction( 1, TakeItem, 1608, 20 )
 	TriggerAction( 1, TakeItem, 1658, 10 )
 	TriggerAction( 1, TakeMoney, 100000 )
+
 	TriggerAction( 1, GiveItem, 0411, 1 , 4)
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 10, "Получить Мантию цунами", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 10, "Obtained Tsunami Robe", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 11, "Растерянный исследователь C: Чтобы получить Перчатки цунами необходимо: 1 Нефрит Зеста, 30 Кристаллов кварца, 20 Расширителей, 10 Части элемента земли и 50000 Золотых ")
+	Talk(11,"To redeem Tsunami Gloves requires 1 Zest Jadestone, 30 Quartz Crystals, 20 Extender, 10 Earthen Element Fragment and 50000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2474, 1 )
 	TriggerCondition( 1, HasItem, 1699, 30 )
@@ -1389,11 +1977,12 @@ function mmm_talk15()
 	TriggerAction( 1, TakeItem, 1652, 20 )
 	TriggerAction( 1, TakeItem, 1658, 10 )
 	TriggerAction( 1, TakeMoney, 50000 )
+
 	TriggerAction( 1, GiveItem, 0600, 1 , 4)
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 11, "Получить Перчатки цунами ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 11, "Obtained Tsunami Gloves", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 12, "Растерянный исследователь C: Чтобы получить Башмаки цунами необходимо: 1 Тень-камень миражей, 30 Кристаллов агата, 20 Животворных каменей, 10 Части элемента земли и 50000 Золотых ")
+	Talk(12,"To redeem Tsunami Shoes requires 1 Mirage Shadestone, 30 Agate Crystal, 20 Life Stone, 10 Earthen Element Fragment and 50000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2479, 1 )
 	TriggerCondition( 1, HasItem, 3380, 30 )
@@ -1405,24 +1994,28 @@ function mmm_talk15()
 	TriggerAction( 1, TakeItem, 1631, 20 )
 	TriggerAction( 1, TakeItem, 1658, 10 )
 	TriggerAction( 1, TakeMoney, 50000 )
+
 	TriggerAction( 1, GiveItem, 0760, 1 , 4)
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 12, "Получить Башмаки цунами ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 12, "Obtained Tsunami Shoes", MultiTrigger, GetMultiTrigger(), 1)
 end
 
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  ГФК§µДїј№Е¶УіЙФ±D
+------------------------------------------------------------
 function mmm_talk26()
-	Talk( 1, "Растерянный исследователь D: У меня есть кое что для вас. Желаете взглянуть?" )
-	Text( 1, "Выкупить набор Рыбной Феи ", JumpPage, 2)
-	Text( 1, "Выкупить набор феи ", JumpPage, 9)
+	Talk( 1, "Bewildered Researcher D: Hi, I have been lost for a long time. I got some good stuff with me, do you wish to do an exchange?" )
+	Text( 1, "Redeem Fish Fairy set", JumpPage, 2)
+	Text( 1, "Redeem Faerie set", JumpPage, 9)
 
-	Talk( 2, "Растерянный исследователь D: Эти замечательные вещи так же известны как Набор Рыбной Феи!" )
-	Text( 2, "Выкупить Костюм рыбной феи (Ами Целитель)", JumpPage, 3)
-	Text( 2, "Выкупить Перчатки рыбной феи (Ами Целитель)", JumpPage, 4)
-	Text( 2, "Выкупить Башмаки рыбной феи (Ами Целитель)", JumpPage, 5)
-	Text( 2, "Выкупить Шапочка рыбной феи (Ами Целитель)", JumpPage, 6)
-	Text( 2, "Выкупить Посох уважения (Ами Целитель)", JumpPage, 7)
+	Talk( 2, "Bewildered Researcher D: These good items are also known as Fish Fairy set!" )
+	Text( 2, "Redeem Fish Fairy Costume (Ami Cleric)", JumpPage, 3)
+	Text( 2, "Redeem Fish Fairy Muffs (Ami Cleric)", JumpPage, 4)
+	Text( 2, "Redeem Fish Fairy Shoes (Ami Cleric)", JumpPage, 5)
+	Text( 2, "Redeem Fish Fairy Cap (Ami Cleric)", JumpPage, 6)
+	Text( 2, "Redeem Revered Staff (Ami Cleric)", JumpPage, 7)
 
-	Talk( 3, "Растерянный исследователь D: Чтобы получить Костюм рыбной феи необходимо: 1 Ссохшийся деб-камень, 30 Осколков животворного камня, 20 Кож животного, 10 Блестящих тканей и 100000 Золотых ")
+	Talk(3,"To redeem Fish Fairy Costume requires 1 Searing Debstone, 30 Life Stone Fragment, 20 Animal Skin, 10 Splendor Cloth and 100000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2471, 1 )
 	TriggerCondition( 1, HasItem, 1630, 30 )
@@ -1434,11 +2027,12 @@ function mmm_talk26()
 	TriggerAction( 1, TakeItem, 1608, 20 )
 	TriggerAction( 1, TakeItem, 3385, 10 )
 	TriggerAction( 1, TakeMoney, 100000 )
+
 	TriggerAction( 1, GiveItem, 0408, 1 , 4)
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 3, "Получить Костюм рыбной феи ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 3, "Obtained Fish Fairy Costume", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 4, "Растерянный исследователь D: Чтобы получить Перчатки рыбной феи необходимо: 1 Темный камень истины, 30 Осколков животворного камня, 20 Тяжелых панцирей, 10 Части элемента земли и 50000 Золотых ")
+	Talk(4,"To redeem Fish Fairy Muffs requires 1 Dark Soothstone, 30 Life Stone Fragment, 20 Hard Shell, 10 Earthen Element Fragment and 50000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2476, 1 )
 	TriggerCondition( 1, HasItem, 1630, 30 )
@@ -1450,11 +2044,12 @@ function mmm_talk26()
 	TriggerAction( 1, TakeItem, 1614, 20 )
 	TriggerAction( 1, TakeItem, 1658, 10 )
 	TriggerAction( 1, TakeMoney, 50000 )
+
 	TriggerAction( 1, GiveItem, 0598, 1 , 4)
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 4, "Получить Перчатки рыбной феи ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 4, "Obtained Fish Fairy Muffs", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 5, "Растерянный исследователь D: Чтобы получить Башмаки рыбной феи необходимо: 1 Жемчужный камень истины, 30 Осколков животворного камня, 20 Особого газа, 10 Жемчужин и 50000 Золотых ")
+	Talk(5,"To redeem Fish Fairy Shoes requires 1 Pearl Soothstone, 30 Life Stone Fragment, 20 Special Gas, 10 Pearl and 50000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2482, 1 )
 	TriggerCondition( 1, HasItem, 1630, 30 )
@@ -1466,11 +2061,12 @@ function mmm_talk26()
 	TriggerAction( 1, TakeItem, 1657, 20 )
 	TriggerAction( 1, TakeItem, 3361, 10 )
 	TriggerAction( 1, TakeMoney, 50000 )
+
 	TriggerAction( 1, GiveItem, 0758, 1 , 4)
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 5, "Получить Башмаки рыбной феи ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 5, "Obtained Fish Fairy Shoes", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 6, "Растерянный исследователь D: Чтобы получить Шапочка рыбной феи необходимо: 1 Океанский струнный камень, 30 Осколков животворного камня, 20 Животворных каменей, 10 Метеоритов и 50000 Золотых ")
+	Talk(6,"To redeem Fish Fairy Cap requires 1 Oceanic Gutstone, 30 Life Stone Fragment, 20 Life Stone, 10 Meteorite and 50000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2486, 1 )
 	TriggerCondition( 1, HasItem, 1630, 30 )
@@ -1482,11 +2078,12 @@ function mmm_talk26()
 	TriggerAction( 1, TakeItem, 1631, 20 )
 	TriggerAction( 1, TakeItem, 3391, 10 )
 	TriggerAction( 1, TakeMoney, 50000 )
+
 	TriggerAction( 1, GiveItem, 2221, 1 , 4)
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 6, "Получить Шапочка рыбной феи ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 6, "Obtained Fish Fairy Cap", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 7, "Растерянный исследователь D: Чтобы получить Посох уважения необходимо: 1 Божественный аргиллит, 30 Кристаллов агата, 20 Расширителей, 10 Волшебных костей и 100000 Золотых ")
+	Talk(7,"To redeem Revered Staff requires 1 Goddess Mudstone, 30 Agate Crystal, 20 Extender, 10 Magical Bone and 100000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2461, 1 )
 	TriggerCondition( 1, HasItem, 3380, 30 )
@@ -1498,19 +2095,20 @@ function mmm_talk26()
 	TriggerAction( 1, TakeItem, 1652, 20 )
 	TriggerAction( 1, TakeItem, 1626, 10 )
 	TriggerAction( 1, TakeMoney, 100000 )
+
 	TriggerAction( 1, GiveItem, 0110, 1 , 4)
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 7, "Получить Посох уважения ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 7, "Obtained Revered Staff", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 8, "Растерянный исследователь D: Извини, но на данный момент у тебя нет необходимых предметов чтобы совершить обмен ")
+	Talk(8,"Sorry, you do not have the required items to redeem")
 
-	Talk( 9, "Растерянный исследователь D: Эти замечательные вещи так же известны как набор Феи!" )
-	Text( 9, "Выкупить Халат феи (Филлис Целитель)", JumpPage, 10)
-	Text( 9, "Выкупить Сказочные перчатки (Филлис Целитель)", JumpPage, 11)
-	Text( 9, "Выкупить Башмачки феи (Филлис Целитель)", JumpPage, 12)
-	Text( 9, "Выкупить Посох уважения (Филлис Целитель)", JumpPage, 7)
+	Talk( 9, "Bewildered Researcher D: These good items are also known as Faerie set!" )
+	Text( 9, "Redeem Faerie Robe (Phyllis Cleric)", JumpPage, 10)
+	Text( 9, "Redeem Faerie Gloves (Phyllis Cleric) ", JumpPage, 11)
+	Text( 9, "Redeem Faerie Shoes (Phyllis Cleric)", JumpPage, 12)
+	Text( 9, "Redeem Revered Staff (Phyllis Cleric)", JumpPage, 7)
 
-	Talk(10,"Растерянный исследователь D: Чтобы получить Халат феи необходимо: 1 Мифический огненный камень, 30 Осколков животворного камня, 20 Животворных каменей, 10 Жемчужин и 100000 Золотых ")
+	Talk(10,"To redeem Faerie Robe requires 1 Myth Flamestone, 30 Life Stone Fragment, 20 Life Stone, 10 Pearl and 100000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2468, 1 )
 	TriggerCondition( 1, HasItem, 1630, 30 )
@@ -1522,11 +2120,12 @@ function mmm_talk26()
 	TriggerAction( 1, TakeItem, 1631, 20 )
 	TriggerAction( 1, TakeItem, 3361, 10 )
 	TriggerAction( 1, TakeMoney, 100000 )
+
 	TriggerAction( 1, GiveItem, 0406, 1 , 4)
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 10, "Получить Выкупить Халат феи ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 10, "Obtained Faerie Robe", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 11, "Растерянный исследователь D: Чтобы получить Сказочные перчатки необходимо: 1 Темный камень истины, 30 Кристаллов агата, 20 Кож животного, 10 Блестящих тканей и 50000 Золотых ")
+	Talk(11,"To redeem Faerie Gloves requires 1 Dark Soothstone, 30 Agate Crystal, 20 Animal Skin, 10 Splendor Cloth and 50000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2476, 1 )
 	TriggerCondition( 1, HasItem, 3380, 30 )
@@ -1538,11 +2137,12 @@ function mmm_talk26()
 	TriggerAction( 1, TakeItem, 1608, 20 )
 	TriggerAction( 1, TakeItem, 3385, 10 )
 	TriggerAction( 1, TakeMoney, 50000 )
+
 	TriggerAction( 1, GiveItem, 0596, 1 , 4)
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 11, "Получить Сказочные перчатки ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 11, "Obtained Faerie Gloves", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 12, "Растерянный исследователь D: Чтобы получить Башмачки феи необходимо: 1 Слезный камень богини, 30 Осколков животворного камня, 20 Животворных каменей, 10 Жемчужин и 50000 Золотых ")
+	Talk(12,"To redeem Faerie Shoes requires 1 Goddess Tearstone, 30 Life Stone Fragment, 20 Life Stone, 10 Pearl and 50000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2480, 1 )
 	TriggerCondition( 1, HasItem, 1630, 30 )
@@ -1554,24 +2154,28 @@ function mmm_talk26()
 	TriggerAction( 1, TakeItem, 1631, 20 )
 	TriggerAction( 1, TakeItem, 3361, 10 )
 	TriggerAction( 1, TakeMoney, 50000 )
+
 	TriggerAction( 1, GiveItem, 0756, 1 , 4)
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 12, "Получить Башмачки феи ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 12, "Obtained Faerie Shoes", MultiTrigger, GetMultiTrigger(), 1)
 end
 
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  ГФК§µДїј№Е¶УіЙФ±E
+------------------------------------------------------------
 function mmm_talk27()
-	Talk( 1, "Растерянный исследователь E: У меня есть кое что для вас. Желаете взглянуть?" )
-	Text( 1, "Выкупить набор Загадочной Панды ", JumpPage, 2)
-	Text( 1, "Выкупить набор Мудреца ", JumpPage, 9)
+	Talk( 1, "Bewildered Researcher E: Hi, I have been lost for a long time. I got some good stuff with me. Do you wish to do an exchange?" )
+	Text( 1, "Redeem Panda set", JumpPage, 2)
+	Text( 1, "Redeem Sage set", JumpPage, 9)
 
-	Talk( 2, "Растерянный исследователь E: Эти замечательные вещи так же известны как набор Загадочной Панды!" )
-	Text( 2, "Выкупить Костюм загадочной панды (Ами Колдунья)", JumpPage, 3)
-	Text( 2, "Выкупить Перчатки загадочной панды (Ами Колдунья)", JumpPage, 4)
-	Text( 2, "Выкупить Башмаки загадочной панды (Ами Колдунья)", JumpPage, 5)
-	Text( 2, "Выкупить Мистическая шапочка панды  (Ами Колдунья)", JumpPage, 6)
-	Text( 2, "Выкупить Малиновая ветвь (Ами Колдунья)", JumpPage, 7)
+	Talk( 2, "Bewildered Researcher E: These good items are also known as Panda set!" )
+	Text( 2, "Redeem Mystic Panda Costume (Ami Seal Master)", JumpPage, 3)
+	Text( 2, "Redeem Mystic Panda Gloves (Ami Seal Master)", JumpPage, 4)
+	Text( 2, "Redeem Mystic Panda Shoes (Ami Seal Master)", JumpPage, 5)
+	Text( 2, "Redeem Mystic Panda Cap (Ami Seal Master)", JumpPage, 6)
+	Text( 2, "Redeem Crimson Rod (Ami Seal Master)", JumpPage, 7)
 
-	Talk( 3, "Растерянный исследователь E: Чтобы получить Костюм загадочной панды необходимо: 1 Мутный Нефрит, 30 Кристаллов кварца, 20 Кож животного, 10 Блестящих тканей и 100000 Золотых ")
+	Talk(3,"To redeem Mystic Panda Costume requires 1 Dim Jadestone, 30 Quartz Crystal, 20 Animal Skin, 10 Splendor Cloth and 100000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2470, 1 )
 	TriggerCondition( 1, HasItem, 1699, 30 )
@@ -1586,9 +2190,9 @@ function mmm_talk27()
 
 	TriggerAction( 1, GiveItem, 0404, 1 , 4)
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 3, "Получить Костюм загадочной панды ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 3, "Obtained Mystic Panda Costume", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 4, "Растерянный исследователь E: Чтобы получить Перчатки загадочной панды необходимо: 1 Камень мира, 30 Кристаллов кварца, 20 Тяжелых панцирей, 10 Части элемента земли и 50000 Золотых ")
+	Talk(4,"To redeem Mystic Panda Gloves requires 1 Worldstone, 30 Quartz Crystal, 20 Hard Shell, 10 Earthen Element Fragment and 50000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2475, 1 )
 	TriggerCondition( 1, HasItem, 1699, 30 )
@@ -1603,9 +2207,9 @@ function mmm_talk27()
 
 	TriggerAction( 1, GiveItem, 0594, 1 , 4)
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 4, "Получить Перчатки загадочной панды ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 4, "Obtained Mystic Panda Gloves", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 5, "Растерянный исследователь E: Чтобы получить Башмаки загадочной панды необходимо: 1 Кристалл сионского камня, 30 Кристаллов кварца, 20 Особого газа, 10 Жемчужин и 50000 Золотых ")
+	Talk(5,"To redeem Mystic Panda Shoes requires 1 Crystal Zionstone, 30 Quartz Crystal, 20 Special Gas, 10 Pearl and 50000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2481, 1 )
 	TriggerCondition( 1, HasItem, 1699, 30 )
@@ -1620,9 +2224,9 @@ function mmm_talk27()
 
 	TriggerAction( 1, GiveItem, 0754, 1 , 4)
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 5, "Получить Башмаки загадочной панды ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 5, "Obtained Mystic Panda Shoes", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 6, "Растерянный исследователь E: Чтобы получить Мистическую шапочку панды необходимо: 1 Небесный тень-камень, 30 Кристаллов кварца, 20 Животворных каменей, 10 Метеоритов и 50000 Золотых ")
+	Talk(6,"To redeem Mystic Panda Cap requires 1 Sky Shadestone, 30 Quartz Crystals, 20 Life Stones, 10 Meteorites and 50000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2485, 1 )
 	TriggerCondition( 1, HasItem, 1699, 30 )
@@ -1637,9 +2241,9 @@ function mmm_talk27()
 
 	TriggerAction( 1, GiveItem, 2219, 1 , 4)
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 6, "Получить Мистическую шапочку панды ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 6, "Obtained Mystic Panda Cap", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 7, "Растерянный исследователь E: Чтобы получить Малиновую ветвь необходимо: 1 Потертый рудный камень, 30 Кристаллов агата, 20 Расширителей, 10 Волшебных костей и 100000 Золотых ")
+	Talk(7,"To redeem Crimson Rod requires 1 Abrade Orestone, 30 Agate Crystal, 20 Extender, 10 Magical Bone and 100000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2462, 1 )
 	TriggerCondition( 1, HasItem, 3380, 30 )
@@ -1654,17 +2258,17 @@ function mmm_talk27()
 
 	TriggerAction( 1, GiveItem, 0112, 1 , 4)
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 7, "Получить Малиновую ветвь ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 7, "Obtained Crimson Rod", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 8, "Растерянный исследователь E: Извини, но на данный момент у тебя нет необходимых предметов чтобы совершить обмен ")
+	Talk(8,"Sorry, you do not have the required items to redeem")
 
-	Talk( 9, "Растерянный исследователь E: Эти замечательные вещи так же известны как набор Мудреца!" )
-	Text( 9, "Выкупить Плащ мудреца (Филлис Колдунья)", JumpPage, 10)
-	Text( 9, "Выкупить Перчатки мудреца (Филлис Колдунья)", JumpPage, 11)
-	Text( 9, "Выкупить Сапоги мудреца (Филлис Колдунья)", JumpPage, 12)
-	Text( 9, "Выкупить Малиновую ветвь (Филлис Колдунья)", JumpPage, 7)
+	Talk( 9, "Bewildered Researcher E: These good items are also known as Sage set!" )
+	Text( 9, "Redeem Robe of the Sage (Phyllis Seal Master)", JumpPage, 10)
+	Text( 9, "Redeem Gloves of the Sage (Phyllis Seal Master)", JumpPage, 11)
+	Text( 9, "Redeem Boots of the Sage (Phyllis Seal Master)", JumpPage, 12)
+	Text( 9, "Redeem Crimson Rod (Phyllis Seal Master)", JumpPage, 7)
 
-	Talk( 10, "Растерянный исследователь E: Чтобы получить Плащ мудреца необходимо: 1 Мутный Нефрит, 30 Кристаллов кварца, 20 Тяжелых панцирей, 10 Блестящих тканей и 100000 Золотых ")
+	Talk(10,"To redeem Robe of the Sage requires 1 Dim Jadestone, 30 Quartz Crystal, 20 Hard Shell, 10 Splendor Cloth and 100000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2470, 1 )
 	TriggerCondition( 1, HasItem, 1699, 30 )
@@ -1679,9 +2283,9 @@ function mmm_talk27()
 
 	TriggerAction( 1, GiveItem, 0402, 1 , 4)
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 10, "Получить Плащ мудреца ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 10, "Obtained Robe of the Sage", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 11, "Растерянный исследователь E: Чтобы получить Перчатки мудреца необходимо: 1 Радужный камень истины, 30 Осколков животворного камня, 20 Расширителей, 10 Жемчужин и 50000 Золотых ")
+	Talk(11,"To redeem Gloves of the Sage requires 1 Rainbow Soothstone, 30 Life Stone Fragment, 20 Extender, 10 Pearl and 50000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2478, 1 )
 	TriggerCondition( 1, HasItem, 1630, 30 )
@@ -1696,9 +2300,9 @@ function mmm_talk27()
 
 	TriggerAction( 1, GiveItem, 0592, 1 , 4)
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 11, "Получить Перчатки мудреца ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 11, "Obtained Gloves of the Sage", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 12, "Растерянный исследователь E: Чтобы получить Сапоги мудреца необходимо: 1 Жемчужный камень истины, 30 Кристаллов агата, 20 Кож животного, 10 Волшебных костей и 50000 Золотых ")
+	Talk(12,"To redeem Boots of the Sage requires 1 Pearl Soothstone, 30 Agate Crystal, 20 Animal Skin, 10 Magical Bone and 50000")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2482, 1 )
 	TriggerCondition( 1, HasItem, 3380, 30 )
@@ -1713,20 +2317,23 @@ function mmm_talk27()
 
 	TriggerAction( 1, GiveItem, 0752, 1 , 4)
 	TriggerFailure( 1, JumpPage, 8 )
-	Text( 12, "Получить Сапоги мудреца ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 12, "Obtained Boots of the Sage", MultiTrigger, GetMultiTrigger(), 1)
 end
 
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  ГФК§µДїј№Е¶УіЙФ±F
+------------------------------------------------------------
 function mmm_talk28()
-	Talk( 1, "Растерянный исследователь F: У меня есть кое что для вас. Желаете взглянуть?" )
-	Text( 1, "Выкупить набор Аполлона ", JumpPage, 2)
+	Talk( 1, "Bewildered Researcher F: Hi, I have been lost for a long time. I got some good stuff with me, do you wish to do an exchange?" )
+	Text( 1, "Redeem Apollo set", JumpPage, 2)
 
-	Talk( 2, "Растерянный исследователь F: Эти замечательные вещи так же известны как набор Аполлона!" )
-	Text( 2, "Выкупить Камзол Аполлона (Ланс, Филлис Стрелок)", JumpPage, 3)
-	Text( 2, "Выкупить Перчатки Аполлона (Ланс, Филлис Стрелок)", JumpPage, 4)
-	Text( 2, "Выкупить Сапоги Аполлона (Ланс, Филлис Стрелок)", JumpPage, 5)
-	Text( 2, "Выкупить Сумерки (Ланс, Филлис Стрелок)", JumpPage, 6)
+	Talk( 2, "Bewildered Researcher F: These good items are also known as Apollo set!" )
+	Text( 2, "Redeem Vest of Apollo (Lance, Phyllis Sharpshooter)", JumpPage, 3)
+	Text( 2, "Redeem Gloves of Apollo (Lance, Phyllis Sharpshooter) ", JumpPage, 4)
+	Text( 2, "Redeem Boots of Apollo (Lance, Phyllis Sharpshooter)", JumpPage, 5)
+	Text( 2, "Redeem Twilight (Lance, Phyllis Sharpshooter)", JumpPage, 6)
 
-	Talk(3,"Растерянный исследователь F: Чтобы получить Камзол Аполлона необходимо: 1 Кровавый камень Хирво, 30 Проясняющих кристалла, 20 Кож животного, 10 Блестящих тканей и 100000 Золотых ")
+	Talk(3,"To redeem Vest of Apollo requires 1 Hervo Bloodstone, 30 Clarity Crystal, 20 Animal Skin, 10 Splendor Cloth and 100000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2469, 1 )
 	TriggerCondition( 1, HasItem, 3364, 30 )
@@ -1738,11 +2345,12 @@ function mmm_talk28()
 	TriggerAction( 1, TakeItem, 1608, 20 )
 	TriggerAction( 1, TakeItem, 3385, 10 )
 	TriggerAction( 1, TakeMoney, 100000 )
+
 	TriggerAction( 1, GiveItem, 0400, 1 , 4)
 	TriggerFailure( 1, JumpPage, 7 )
-	Text( 3, "Получить Камзол Аполлона ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 3, "Obtained Vest of Apollo", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 4, "Растерянный исследователь F: Чтобы получить Перчатки Аполлона необходимо: 1 Нефрит Зеста, 30 Проясняющих кристалла, 20 Тяжелых панцирей, 10 Части элемента земли и 50000 Золотых ")
+	Talk(4,"To redeem Gloves of Apollo requires 1 Zest Jadestone, 30 Clarity Crystals, 20 Hard Shells, 10 Earthen Element Fragments and 50000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2474, 1 )
 	TriggerCondition( 1, HasItem, 3364, 30 )
@@ -1754,11 +2362,12 @@ function mmm_talk28()
 	TriggerAction( 1, TakeItem, 1614, 20 )
 	TriggerAction( 1, TakeItem, 1658, 10 )
 	TriggerAction( 1, TakeMoney, 50000 )
+
 	TriggerAction( 1, GiveItem, 0590, 1 , 4)
 	TriggerFailure( 1, JumpPage, 7 )
-	Text( 4, "Получить Перчатки Аполлона ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 4, "Obtained Gloves of Apollo", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 5, "Растерянный исследователь F: Чтобы получить Сапоги Аполлона необходимо: 1 Слезный камень богини, 30 Проясняющих кристалла, 20 Особого газа, 10 Жемчужин и 50000 Золотых ")
+	Talk(5,"To redeem Boots of Apollo requires 1 Goddess Tearstone, 30 Clarity Crystal, 20 Special Gas, 10 Pearl and 50000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2480, 1 )
 	TriggerCondition( 1, HasItem, 3364, 30 )
@@ -1770,11 +2379,12 @@ function mmm_talk28()
 	TriggerAction( 1, TakeItem, 1657, 20 )
 	TriggerAction( 1, TakeItem, 3361, 10 )
 	TriggerAction( 1, TakeMoney, 50000 )
+
 	TriggerAction( 1, GiveItem, 0750, 1 , 4)
 	TriggerFailure( 1, JumpPage, 7 )
-	Text( 5, "Получить Сапоги Аполлона ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 5, "Obtained Boots of Apollo", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 6, "Растерянный исследователь F: Чтобы получить Сумерки необходимо: 1 Океанский Камень душ, 30 Кристаллов агата, 20 Расширителей, 10 Волшебных костей и 100000 Золотых ")
+	Talk(6,"To redeem Twilight requires 1 Oceanic Soulstone, 30 Agate Crystal, 20 Extender, 10 Magical Bone and 100000G")
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2465, 1 )
 	TriggerCondition( 1, HasItem, 3380, 30 )
@@ -1786,129 +2396,183 @@ function mmm_talk28()
 	TriggerAction( 1, TakeItem, 1652, 20 )
 	TriggerAction( 1, TakeItem, 1626, 10 )
 	TriggerAction( 1, TakeMoney, 100000 )
+
 	TriggerAction( 1, GiveItem, 0118, 1 , 4)
 	TriggerFailure( 1, JumpPage, 7 )
-	Text( 6, "Получить Сумерки ", MultiTrigger, GetMultiTrigger(), 1)
+	Text( 6, "Obtained Twilight", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk(7,"Растерянный исследователь F: Извини, но на данный момент у тебя нет необходимых предметов чтобы совершить обмен ")
+	Talk(7,"Sorry, you do not have the required items to redeem")
 end
-
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  ВЅµШТ»Ігґ«ЛНК№
+------------------------------------------------------------
 function mmm_talk16()
+	--µШНјГыіЖРЕПў
 	local CurMapName = "jialebi"
+
+
+	--єЈѕьВлН·Чш±к
 	local GoTo01X = 1250
 	local GoTo01Y = 1010
 	local GoTo01M = CurMapName
-	Talk( 1, "Портальщик на суше: Хотите узнать, что находится внизу? Заплати мне 5000 Золотых и я дам тебе пройти!" )
-	Text( 1, "Вот! Держи свои деньги.", JumpPage, 2 )
-	Text( 1, "Я не стану тебе платить!", JumpPage, 3 )
+
+	Talk( 1, "Want to find out what is underneath? Pay me 5000G and I will send you in!" )
+	Text( 1, "Vile merchant! Never mind...I will pay", JumpPage, 2 )
+	Text( 1, "Forget it! I do not have enough money to go", JumpPage, 3 )
+
 	InitTrigger()
 	TriggerCondition(1,HasMoney,5000)
 	TriggerAction(1,TakeMoney,5000)
 	TriggerAction( 1, GoTo, GoTo01X, GoTo01Y, GoTo01M )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 2, "Портальщик на суше: Проход ведет в док Мертвых Душ. Достаточно ли ты храбр, чтобы войти?" )
-	Text( 2, "Подтвердить.", MultiTrigger,GetMultiTrigger(), 1)
+	Talk( 2, "Below leads to the Underground Dock of the Deathsouls. Are you brave enough to enter?" )
+	Text( 2, "Yes! Go to Underground Dock!", MultiTrigger,GetMultiTrigger(), 1)
 
-	Talk( 3, "Портальщик на суше: Уйди нищий!" )
-	Talk( 4, "Портальщик на суше: У Вас недостаточно золота.", CloseTalk)
+	Talk( 3, "Go away beggar!" )
+	Talk( 4, "You do not have enough gold", CloseTalk)
 end
-
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  КµСйКТїґКШИЛA
+------------------------------------------------------------
 function mmm_talk17()
+	--µШНјГыіЖРЕПў
 	local CurMapName = "jialebi"
+
+	--КµСйКТAЧш±к
 	local GoTo01X = 968
 	local GoTo01Y = 828
 	local GoTo01M = CurMapName
-	Talk( 1, "Хранитель исследований A: Хотите узнать, что там внутри? Заплати мне 5000 Золотых и я дам тебе пройти!" )
-	Text( 1, "Вот! Держи свои деньги.", JumpPage, 2 )
-	Text( 1, "Забудь! Я не стану платить.", JumpPage, 3 )
+
+	Talk( 1, "Want to find out what is inside? Pay me 5000G and I will send you in!" )
+	Text( 1, "Vile merchant! Never mind...I will pay", JumpPage, 2 )
+	Text( 1, "Forget it! I do not have enough money to go", JumpPage, 3 )
+	
 	InitTrigger()
 	TriggerCondition(1,HasMoney,5000)
 	TriggerAction(1,TakeMoney,5000)
 	TriggerAction( 1, GoTo, GoTo01X, GoTo01Y, GoTo01M )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 2, "Хранитель исследований A: Проход ведет в док Мертвых Душ. Достаточно ли ты храбр, чтобы войти?" )
-	Text( 2, "Исследовать комнату А! ", MultiTrigger,GetMultiTrigger(), 1)
 
-	Talk( 3, "Хранитель исследований A: Уйди нищий!" )
-	Talk( 4, "Хранитель исследований A: У Вас недостаточно золота.", CloseTalk)
+	Talk( 2, "The Research Room of the Deathsouls is on the inside. Do you dare to enter?" )
+	Text( 2, "Go to Research Room A!", MultiTrigger,GetMultiTrigger(), 1)
+
+	Talk( 3, "Go away beggar!" )
+	Talk( 4, "You do not have enough gold", CloseTalk)
 end
-
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  КµСйКТїґКШИЛB2386
+------------------------------------------------------------
 function mmm_talk18()
+	--µШНјГыіЖРЕПў
 	local CurMapName = "jialebi"
+
+
+	--КµСйКТBЧш±к
 	local GoTo01X = 968
 	local GoTo01Y = 906
 	local GoTo01M = CurMapName
-	Talk( 1, "Хранитель исследований B: Вы хотите знать, что там внутри? Принесите мне 20 Душ Нежити и я пропущу вас." )
-	Text( 1, "Дай пройти.", JumpPage, 2 )
-	Text( 1, "Забудь об этом! Я не хочу идти.", JumpPage, 3 )
+
+	Talk( 1, "Do you wish to know what is inside? Bring me 20 Soul of Undead and I will let you in!" )
+	Text( 1, "Bring me in", JumpPage, 2 )
+	Text( 1, "Forget it! I do not want to go", JumpPage, 3 )
+
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 2386, 20 )
 	TriggerAction( 1, TakeItem, 2386, 20 )
 	TriggerAction( 1, GoTo, GoTo01X, GoTo01Y, GoTo01M )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 2, "Хранитель исследований B: Этот путь ведет к Командиру Мертвых Душ. Вы все еще хотите войти?" )
-	Text( 2, "Исследовать комнату В!", MultiTrigger, GetMultiTrigger(), 1 )
 
-	Talk( 3, "Хранитель исследований B: Уйди отсюда трус!" )
-	Talk( 4, "Хранитель исследований B: У тебя нет 20 Душ Нежити.", CloseTalk)
+	Talk( 2, "Research Room B consists of a terrifying Deathsoul Commander. Do you still wish to enter?" )
+	Text( 2, "Go to Research Room B!", MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 3, "Go away beggar!" )
+	Talk( 4, "You have not collect 20 Souls of Undead", CloseTalk)
 end
-
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  КµСйКТїґКШИЛC
+------------------------------------------------------------
 function mmm_talk19()
+	--µШНјГыіЖРЕПў
 	local CurMapName = "jialebi"
+
+
+	--КµСйКТCЧш±к
 	local GoTo01X = 968
 	local GoTo01Y = 993
 	local GoTo01M = CurMapName
-	Talk( 1, "Хранитель исследований C: Хотите узнать, что там внутри? Заплатите мне 5000 Золотых и я позволю вам пройти." )
-	Text( 1, "Дай пройти.", JumpPage, 2 )
-	Text( 1, "Забудь об этом! Я передумал идти.", JumpPage, 3 )
+
+	Talk( 1, "Want to find out what is inside? Pay me 5000G and I will send you in!" )
+	Text( 1, "Vile merchant! Never mind...I will pay", JumpPage, 2 )
+	Text( 1, "Forget it! I do not have enough money to go", JumpPage, 3 )
+
 	InitTrigger()
 	TriggerCondition(1,HasMoney,5000)
 	TriggerAction(1,TakeMoney,5000)
 	TriggerAction( 1, GoTo, GoTo01X, GoTo01Y, GoTo01M )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 2, "Хранитель исследований C: Этот путь ведет в Комнату С." )
-	Text( 2, "Исследовать Комнату С.", MultiTrigger, GetMultiTrigger(), 1 )
 
-	Talk( 3, "Хранитель исследований C: Уйди нищий!" )
-	Talk( 4, "Хранитель исследований C: Вам не хватает золота.", CloseTalk)
+	Talk( 2, "Research Room C is on the other side" )
+	Text( 2, "Yes! Go to Research Room C!", MultiTrigger, GetMultiTrigger(), 1 )
+
+	Talk( 3, "Go away beggar!" )
+	Talk( 4, "You do not have enough gold", CloseTalk)
 end
-
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  µШПВґ¬ОлКШОА
+------------------------------------------------------------
 function mmm_talk20()
+	--µШНјГыіЖРЕПў
 	local CurMapName = "jialebi"
+
+
+	--КµСйКТЧш±к
 	local GoTo01X = 1076
 	local GoTo01Y = 869
 	local GoTo01M = CurMapName
-	Talk( 1, "Док Стюарт: Хотите знать, что там внутри?" )
-	Text( 1, "Что там находится?", JumpPage, 2 )
-	Text( 1, "Не хочу знать.", JumpPage, 3 )
+
+	Talk( 1, "Want to know what is inside?" )
+	Text( 1, "What is underneath?", JumpPage, 2 )
+	Text( 1, "I do not wish to know", JumpPage, 3 )
+
 	InitTrigger()
 	TriggerCondition(1,HasItem , 2408,1)
 	TriggerCondition(1,HasItem , 2409,1)
 	TriggerCondition(1,HasItem , 2410,1)
 	TriggerCondition(1,HasItem , 2411,1)
 	TriggerCondition(1,HasItem , 2412,1)
+
 	TriggerAction(1,TakeItem,2408,1)
 	TriggerAction(1,TakeItem,2409,1)
 	TriggerAction(1,TakeItem,2410,1)
 	TriggerAction(1,TakeItem,2411,1)
 	TriggerAction(1,TakeItem,2412,1)
+
 	TriggerAction( 1, GoTo, GoTo01X, GoTo01Y, GoTo01M )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 2, "Док Стюарт: Внутри находится Зал Мертвых Душ, чтобы туда пройти, соберите полный комплект паролей: AB, BC, CD, DE, EF." )
-	Text( 2, "Приступить к исследованию.", MultiTrigger, GetMultiTrigger(), 1 )
-	Talk( 3, "Док Стюарт: ......Пока!" )
-	Talk( 4, "Док Стюарт: Вы не добыли нужные пароли.", CloseTalk)
-end
+	Talk( 2, "On the inside will be the Research Room of the Deathsouls. Many dangers lie in it and if you wish to enter, collect the full set of Passwords: AB, BC, CD, DE, EF." )
+	Text( 2, "Go to Research Room!", MultiTrigger, GetMultiTrigger(), 1 )
 
+	Talk( 3, "......Bye!" )
+	Talk( 4, "You have not finish collecting all the Passwords", CloseTalk)
+end
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  µШУьТ»ІгБ¶УьИЛ
+------------------------------------------------------------
 function mmm_talk22()
+	--µШНјГыіЖРЕПў
 	local CurMapName = "jialebi"
+
+
+	--µШУь¶юІгЧш±к
 	local GoTo01X = 79
 	local GoTo01Y = 823
 	local GoTo01M = CurMapName
-	Talk( 1, "Хотите знать что там? Заплатите мне 500G и я Вас отправлю туда. " )
-	Text( 1, "Хочу в Абаддон 2! ", JumpPage, 2 )
-	Text( 1, "Забудь! У меня мало денег... ", JumpPage, 3 )
-	Text( 1, "Я слышал, что здесь у вас есть хорошие вещи ", JumpPage, 5 )
+
+
+	Talk( 1, "Want to find out what is inside? Pay me 5000G and I will send you in!" )
+	Text( 1, "Vile merchant! Never mind...I will pay", JumpPage, 2 )
+	Text( 1, "Forget it! I do not have enough money to go", JumpPage, 3 )
+	Text( 1, "I heard that you have some good items here", JumpPage, 5 )
 
 
 	InitTrigger()
@@ -1917,250 +2581,299 @@ function mmm_talk22()
 	TriggerAction( 1, GoTo, GoTo01X, GoTo01Y, GoTo01M )
 	TriggerFailure( 1, JumpPage, 4 )
 
-	Talk( 2, "Полетели в Абаддон 2?" )
-	Text( 2, "Да!", MultiTrigger, GetMultiTrigger(), 1 )
+	Talk( 2, "Go to Abaddon 2?" )
+	Text( 2, "Yes! Go to Abaddon 2!", MultiTrigger, GetMultiTrigger(), 1 )
 	
-	Talk( 3, "Уходи нищий! " )
-	Talk( 4, "Сам такой! " ,CloseTalk)
+	Talk( 3, "Go away beggar!" )
+	Talk( 4, "You do not have enough gold" ,CloseTalk)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3457, 1 )
 	TriggerAction( 1, TakeItem, 3457, 1 )
 	TriggerAction( 1, GiveItem, 0267, 1, 4 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Talk( 5, "Привет! Да у меня есть некотторые вещи, но ты должен принести 1 руну Кель чтобы я тебе их показал " )
-	Text( 5, "Получить огнетворную силу. ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 5, "Abaddon 1 Warden: Hi, I got some good stuff with me but don't expect me to give it for free. Bring me 1 Kal Runestone and I might reconsider" )
+	Text( 5, "Obtain Power of Flame", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 6, "Подойдите потом, когда у Вас появятся нужные вещи. " )
+	Talk( 6, "Abaddon 1 Warden: Come back again after you have the required items" )
 end
-
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  µШУь¶юІгБ¶УьИЛ
+------------------------------------------------------------
 function mmm_talk23()
+	--µШНјГыіЖРЕПў
 	local CurMapName = "jialebi"
+
+
+	--µШУьТ»ІгЧш±к
 	local GoTo01X = 199
 	local GoTo01Y = 824
 	local GoTo01M = CurMapName
+
+	--µШУьИэІгЧш±к
 	local GoTo02X = 70
 	local GoTo02Y = 952
 	local GoTo02M = CurMapName
-	Talk( 1, "Хотите знать что там? Заплатите мне 500G и я Вас отправлю туда. " )
-	Text( 1, "В Абаддон 1 ", JumpPage, 2 )
-	Text( 1, "В Абаддон 3 ", JumpPage, 3 )
-	Text( 1, "Я слышал, что у вас есть хорошие вещи здесь ", JumpPage, 5 )
+
+
+	Talk( 1, "Want to find out what is inside? Pay me 5000G and I will send you in!" )
+	Text( 1, "Go to Abaddon 1", JumpPage, 2 )
+	Text( 1, "Go to Abaddon 3", JumpPage, 3 )
+	Text( 1, "I heard that you have some good items here", JumpPage, 5 )
 
 	InitTrigger()
 	TriggerCondition(1,HasMoney,5000)
 	TriggerAction(1,TakeMoney,5000)
 	TriggerAction( 1, GoTo, GoTo01X, GoTo01Y, GoTo01M )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 2, "Вы хотите попасть в Абаддон 1? " )
-	Text( 2, "Да! ", MultiTrigger, GetMultiTrigger(), 1 )
+	Talk( 2, "Do you wish to go to Abaddon 1?" )
+	Text( 2, "Go to Abaddon 1", MultiTrigger, GetMultiTrigger(), 1 )
 
 	InitTrigger()
 	TriggerCondition(2,HasMoney,5000)
 	TriggerAction(2,TakeMoney,5000)
 	TriggerAction( 2, GoTo, GoTo02X, GoTo02Y, GoTo02M )
 	TriggerFailure( 2, JumpPage, 4 )
-	Talk( 3, "Вы точно хотите в Абаддон 3?" )
-	Text( 3, "Да!", MultiTrigger, GetMultiTrigger(),2 )
+	Talk( 3, "Go to Abaddon 3?" )
+	Text( 3, "Yes! Go to Abaddon 3!", MultiTrigger, GetMultiTrigger(),2 )
 	
-	Talk( 4, "У Вас мало золота! " ,CloseTalk)
+	Talk( 4, "You do not have enough gold" ,CloseTalk)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3457, 1 )
 	TriggerAction( 1, TakeItem, 3457, 1 )
 	TriggerAction( 1, GiveItem, 0268, 1, 4 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Talk( 5, "Привет! Да у меня есть некотторые вещи, но ты должен принести 1 руну Кель чтобы я тебе их показал " )
-	Text( 5, "Получить Мощь Ветра ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 5, "Abaddon 2 Warden: Hi, I got some good stuff with me but don't expect me to give it for free. Bring me 1 Kal Runestone and I might reconsider" )
+	Text( 5, "Obtained Power of Wind", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 6, "Подойдите потом, когда у Вас появятся нужные вещи. " )
+	Talk( 6, "Abaddon 2 Warden: Come back again after you have the required items" )
 end
-
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  µШУьИэІгБ¶УьИЛ
+------------------------------------------------------------
 function mmm_talk24()
+
+	--µШНјГыіЖРЕПў
 	local CurMapName = "jialebi"
+
+
+	--µШУь¶юІгЧш±к
 	local GoTo01X = 79
 	local GoTo01Y = 823
 	local GoTo01M = CurMapName
+
+	--µШУьЛДІгЧш±к
 	local GoTo02X = 209
 	local GoTo02Y = 955
 	local GoTo02M = CurMapName
-	Talk( 1, "Хотите знать что там? Заплатите мне 500G и я Вас отправлю туда. " )
-	Text( 1, "В Абаддон 2 ", JumpPage, 2 )
-	Text( 1, "В Абаддон 4 ", JumpPage, 3 )
-	Text( 1, "Я слышал, что у вас есть хорошие вещи здесь ", JumpPage, 5 )
+
+
+	Talk( 1, "Want to find out what is inside? Pay me 5000G and I will send you in!" )
+	Text( 1, "Go to Abaddon 2", JumpPage, 2 )
+	Text( 1, "Go to Abaddon 4", JumpPage, 3 )
+	Text( 1, "I heard that you have some good items here", JumpPage, 5 )
 
 	InitTrigger()
 	TriggerCondition(1,HasMoney,5000)
 	TriggerAction(1,TakeMoney,5000)
 	TriggerAction( 1, GoTo, GoTo01X, GoTo01Y, GoTo01M )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 2, "Вы точно хотите отправиться в Абаддон 2?" )
-	Text( 2, "Да! ", MultiTrigger, GetMultiTrigger(), 1 )
+	Talk( 2, "Go to Abaddon 2?" )
+	Text( 2, "Yes! Go to Abaddon 2!", MultiTrigger, GetMultiTrigger(), 1 )
 
 	InitTrigger()
 	TriggerCondition(2,HasMoney,5000)
 	TriggerAction(2,TakeMoney,5000)
 	TriggerAction( 2, GoTo, GoTo02X, GoTo02Y, GoTo02M )
 	TriggerFailure( 2, JumpPage, 4 )
-	Talk( 3, "Вы точно хотите отправиться в Абаддон 4?" )
-	Text( 3, "Да ", MultiTrigger, GetMultiTrigger(), 2 )
+	Talk( 3, "Do you wish to go to Abaddon 4?" )
+	Text( 3, "Go to Abaddon 4", MultiTrigger, GetMultiTrigger(), 2 )
 	
-	Talk( 4, "У Вас мало золота " ,CloseTalk)
+	Talk( 4, "You do not have enough gold" ,CloseTalk)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3457, 1 )
 	TriggerAction( 1, TakeItem, 3457, 1 )
 	TriggerAction( 1, GiveItem, 0269, 1, 4 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Talk( 5, "Привет! Да у меня есть некотторые вещи, но ты должен принести 1 руну Кель чтобы я тебе их показал " )
-	Text( 5, "Получить Силу Грома ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 5, "Abaddon 3 Warden: Hi, I got some good stuff with me but don't expect me to give it for free. Bring me 1 Kal Runestone and I might reconsider" )
+	Text( 5, "Power of Thunder", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 6, "Подойдите потом, когда у Вас появятся нужные вещи. " )
+	Talk( 6, "Abaddon 3 Warden: Come back again after you have the required items" )
 end
-
+------------------------------------------------------------
+-- јУАХ±ИєЈµБ°ж±ѕ -----  µШУьЛДІгБ¶УьИЛ
+------------------------------------------------------------
 function mmm_talk25()
+
+		--µШНјГыіЖРЕПў
 	local CurMapName = "jialebi"
 
+
+	--µШУьИэІгЧш±к
 	local GoTo01X = 70
 	local GoTo01Y = 952
 	local GoTo01M = CurMapName
 
+	--ІШ±¦єЈНеЧш±к
 	local GoTo02X = 690
 	local GoTo02Y = 1043
 	local GoTo02M = CurMapName
 
-	Talk( 1, "Хотите знать что там? Заплатите мне 500G и я Вас отправлю туда. " )
-	Text( 1, "Хочу в Абаддон 3 ", JumpPage, 2 )
-	Text( 1, "Я хочу оставить это адское место ", JumpPage, 3 )
-	Text( 1, "Я слышал, что у вас есть хорошие вещи здесь ", JumpPage, 5 )
+
+	Talk( 1, "Want to find out what is inside? Pay me 5000G and I will send you in!" )
+	Text( 1, "Go back to Abaddon 3", JumpPage, 2 )
+	Text( 1, "I want to leave this hellish place", JumpPage, 3 )
+	Text( 1, "I heard that you have some good items here", JumpPage, 5 )
 
 	InitTrigger()
 	TriggerCondition(1,HasMoney,5000)
 	TriggerAction(1,TakeMoney,5000)
 	TriggerAction( 1, GoTo, GoTo01X, GoTo01Y, GoTo01M )
 	TriggerFailure( 1, JumpPage, 4 )
-	Talk( 2, "Отправиться в Аббадон 3?" )
-	Text( 2, "Да!", MultiTrigger, GetMultiTrigger(), 1 )
+	Talk( 2, "Go to Abaddon 3?" )
+	Text( 2, "Yes! Go to Abaddon 3!", MultiTrigger, GetMultiTrigger(), 1 )
 
 	InitTrigger()
 	TriggerCondition(2,HasMoney,5000)
 	TriggerAction(2,TakeMoney,5000)
 	TriggerAction( 2, GoTo, GoTo02X, GoTo02Y, GoTo02M )
 	TriggerFailure( 2, JumpPage, 4 )
-	Talk( 3, "Вы хотите уйти отсюда??" )
-	Text( 3, "Да! Выпустите меня! ", MultiTrigger, GetMultiTrigger(), 2 )
+	Talk( 3, "Do you wish to go out?" )
+	Text( 3, "Yes! Let me out!", MultiTrigger, GetMultiTrigger(), 2 )
 	
-	Talk( 4, "У Вас не хватает золота " ,CloseTalk)
+	Talk( 4, "You do not have enough gold" ,CloseTalk)
 
 	InitTrigger()
 	TriggerCondition( 1, HasItem, 3457, 1 )
 	TriggerAction( 1, TakeItem, 3457, 1 )
 	TriggerAction( 1, GiveItem, 0270, 1, 4 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Talk( 5, "Привет! Да у меня есть некотторые вещи, но ты должен принести 1 руну Кель чтобы я тебе их показал " )
-	Text( 5, "Получить Силу Мороза ", MultiTrigger, GetMultiTrigger(), 1)
+	Talk( 5, "Abaddon 4 Warden: Hi, I got some good stuff with me but don't expect me to give it for free. Bring me 1 Kal Runestone and I might reconsider" )
+	Text( 5, "Power of Frost", MultiTrigger, GetMultiTrigger(), 1)
 
-	Talk( 6, "Подойдите потом, когда у Вас появятся нужные вещи. " )
+	Talk( 6, "Abaddon 4 Warden: Come back again after you have the required items" )
 end
 
+
+------------------------------------------------------------
+-- ІШ±¦єЈНе ґ«ЛНК№
+------------------------------------------------------------
+
 function mmm_talk29()
-	local ReSelectTalk = "Мне нужно подумать "
+	--ИЎПыґ«ЛН·µ»ШСЎФсґ«ЛНµШµгµД¶Ф»°ДЪИЭєНТіГж±аєЕ
+	local ReSelectTalk = "I need to reconsiderЎ­"
 	local ReSelectPage = 1
 
-	local CancelSelectTalk = "Я остануь здесь "
+	--ИЎПыґ«ЛНєННЛіцґ«ЛНµД¶Ф»°єНТіГж±аєЕ
+	local CancelSelectTalk = "Forget itЎ­I will stay here"
 	local CancelSelectPage = 7
 
+	--µШНјГыіЖРЕПў
 	local CurMapName1 = "garner"
 	local CurMapName2 = "magicsea"
 	local CurMapName5 = "darkblue"
 
+	--°ЧТшЦ®іЗЧш±к
 	local GoTo01X = 2231
 	local GoTo01Y = 2788
 	local GoTo01M = CurMapName1
 
+	--Йіб°Ц®іЗЧш±к
 	local GoTo02X = 890
 	local GoTo02Y = 3575
 	local GoTo02M = CurMapName2
 
+	--±щАЗ±¤Чш±к
 	local GoTo04X = 1318
 	local GoTo04Y = 510
 	local GoTo04M = CurMapName5
 
-	Talk( 1, "Вы хотите выйти из красивейших мест Сокровищ Залива?" )
-	Text( 1, "В Аргент", JumpPage, 2 )
-	Text( 1, "В Шайтан!", JumpPage, 3 )
-	Text( 1, "В Ледынь!", JumpPage, 4 )
-	Text( 1, "Записать точку возраждения ", JumpPage, 5 )
+	Talk( 1, "Teleporter: Do you wish to leave the beautiful Treasure Gulf?" )
+	Text( 1, "Go to Argent City!", JumpPage, 2 )
+	Text( 1, "Go to Shaitan City!", JumpPage, 3 )
+	Text( 1, "Go to Icicle City!", JumpPage, 4 )
+	Text( 1, "Record Spawn point", JumpPage, 5 )
 	
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 500 )
 	TriggerAction( 1, TakeMoney, 500 )
 	TriggerAction( 1, GoTo, GoTo01X, GoTo01Y, GoTo01M )
 	TriggerFailure( 1, JumpPage, 6 )
-	Talk( 2, "Переместить Вас в Аргент? Нет проблем! Пожалуйста заплатите 500G." )
-	Text( 2, "Переместить ",MultiTrigger, GetMultiTrigger(), 2 ) 
+	Talk( 2, "Teleports to Argent City? No problem! Please pay 500G." )
+	Text( 2, "Teleport",MultiTrigger, GetMultiTrigger(), 2 ) 
 	Text( 2, CancelSelectTalk, JumpPage , CancelSelectPage )
+
 
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 500 )
 	TriggerAction( 1, TakeMoney, 500 )
 	TriggerAction( 1,  GoTo, GoTo02X, GoTo02Y, GoTo02M )
 	TriggerFailure( 2, JumpPage, 6 )
-	Talk( 3, "Я люблю Шайтан! Пожалуйста заплатите 500G" )
-	Text( 3, "Переместить ",MultiTrigger, GetMultiTrigger(), 2)
+	Talk( 3, "I love Shaitan City! Please pay 500G" )
+	Text( 3, "Teleport",MultiTrigger, GetMultiTrigger(), 2)
 	Text( 3, CancelSelectTalk, JumpPage , CancelSelectPage )
+
 
 	InitTrigger()
 	TriggerCondition( 1, HasMoney, 500 )
 	TriggerAction( 1, TakeMoney, 500 )
 	TriggerAction( 1, GoTo, GoTo04X, GoTo04Y, GoTo04M )
 	TriggerFailure( 1, JumpPage, 6 )
-	Talk( 4, "Переместить в Ледынь? Нет проблем! Пожалуйста заплатите 500G." )
-	Text( 4, "Переместить ",MultiTrigger, GetMultiTrigger(), 2)
+	Talk( 4, "Teleports to Icicle City? No problem! Please pay 500G." )
+	Text( 4, "Teleport",MultiTrigger, GetMultiTrigger(), 2)
 	Text( 4, CancelSelectTalk, JumpPage , CancelSelectPage )
 
-	Talk( 6, "Прости, но у тебя не хватает золота для перемещения." )
+	Talk( 6, "Sorry! You do not have enough gold to teleport." )
 
-	Talk( 7, "Незабудте заглянуть ко мне если захотите уйти отсюда ", CloseTalk )
-	Talk( 8, "Мая твая не панимать! " )
+	Talk( 7, "Remember to look for me if you need teleportation services", CloseTalk )
+	Talk( 8, "..................^$&#&^%.................." )
+
+
 
 	InitTrigger()
 	TriggerAction( 1, JumpPage, 1 )
 	TriggerAction( 2, JumpPage, 8 )
 	Start( GetMultiTrigger(), 2 )
+
+	
+
 end
 
+
+-- Е®Йс
+------------------------------------------------------------
+
+	
 function mmm_talk30()
+
 	local CurMapName1 = "garner"
 	local CurMapName2 = "magicsea"
 	local CurMapName5 = "darkblue"
 
+	--°ЧТшЦ®іЗЧш±к
 	local GoTo01X = 2231
 	local GoTo01Y = 2788
 	local GoTo01M = CurMapName1	
 
-	Talk( 1, "Богиня: Хотите получить от меня награду? Ответь на несколько моих вопросов, но имей в виду, я не терплю лжи. " )
-	Text( 1, "Я готов ", JumpPage, 2 )
-	Text( 1, "Я не буду отвечать на эти скучные вопросы ", CloseTalk )
-
-	InitTrigger()
-	TriggerCondition( 1, HasRecord, 1322 )
-	TriggerAction ( 1, JumpPage, 25 )
-	TriggerFailure( 1, JumpPage, 26 )
-	Text( 1, "Сердце разума", MultiTrigger, GetMultiTrigger() ,1 )
+	Talk( 1, "Goddess: It must be tough on you making your way here. Want a reward from me? Sure, answer a few questions. But keep in mind to be honest." )
+	Text( 1, "I am ready", JumpPage, 2 )
+	Text( 1, "I have some special request to make.", JumpPage, 17 )
+	Text( 1, "I will not answer these boring questions.", CloseTalk )
 
 	InitTrigger()
 	TriggerAction( 1, GoTo, 631, 927, "jialebi" )
-	Text( 1, "Отправь меня пожалуйста на Остров Сокровищ ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "I will return to Treasure Gulf", MultiTrigger, GetMultiTrigger(), 1 )
 	
-	Talk( 2, "Богиня: Каждый может получить от меня награду в зависимости от уровня персонажа. Пожалуйста выбирите Ваш уровень. Помните, я не терплю лжи. " )
+	Talk( 2, "Goddess: Everyone can only select rewards according to their levels. Please select your level in the option below. Remember, dishonesty does not pay." )
 	InitTrigger()
 	TriggerCondition( 1, LvCheck, "<", 41 )
 	TriggerCondition( 1, LvCheck, ">", 14 )
 	TriggerAction ( 1, JumpPage, 4 )
 	TriggerFailure( 1, JumpPage, 16 )
 	
-	Text( 2, "Мой уровень 15-40",MultiTrigger, GetMultiTrigger() ,1)
+	Text( 2, "Lv 15 - Lv 40",MultiTrigger, GetMultiTrigger() ,1)
 
 	InitTrigger()
 	TriggerCondition( 1, LvCheck, ">", 40 )
@@ -2168,190 +2881,208 @@ function mmm_talk30()
 	TriggerAction ( 1, JumpPage, 5 )
 	TriggerFailure( 1, JumpPage, 16 )
 
-	Text( 2, "Мой уровень 41-60",MultiTrigger, GetMultiTrigger(), 1)
+	Text( 2, "Lv 41 - Lv 60",MultiTrigger, GetMultiTrigger(), 1)
 
 	InitTrigger()
 	TriggerCondition( 1, LvCheck, ">", 60 )
 	TriggerAction ( 1, JumpPage, 6 )
 	TriggerFailure( 1, JumpPage, 16 )
-	Text( 2, "Мой уровень больше 60",MultiTrigger, GetMultiTrigger(), 1)
+	Text( 2, "Lv 60 and above",MultiTrigger, GetMultiTrigger(), 1)
 
 
-	Talk( 4, "Богиня: Похоже, вы совершенно честный. Я могу обменять ваши очки чести в золото или опыт. Если вы готовы посвятить все очки чести мне, вы можете получить сюрприз. " )
-	Text( 4, "Поменять очки Чести на Золото ", JumpPage, 7 )
-	Text( 4, "Поменять очки Чести на Опыт ", JumpPage, 8 )
-	Text( 4, "Посвятить всю честь Богини ", JumpPage, 9 )
+	Talk( 4, "Goddess: Seems like you are quite honest. I can convert your Honor points into gold or experience. If you are willing to dedicate all of your Honor points, you might even receive a surprise reward." )
+	Text( 4, "Exchange Honor for gold", JumpPage, 7 )
+	Text( 4, "Exchange Honor for experience", JumpPage, 8 )
+	Text( 4, "I wish to dedicate all my Honor to the Goddess", JumpPage, 9 )
 
 
-	Talk( 5, "Богиня: Похоже, вы совершенно честный. Я могу обменять ваши очки чести в золото или опыт. Если вы готовы посвятить все очки чести мне, вы можете получить сюрприз. " )
-	Text( 5, "Поменять очки Чести на Золото", JumpPage, 10 )
-	Text( 5, "Поменять очки Чести на Опыт", JumpPage, 11 )
-	Text( 5, "Посвятить всю честь Богини", JumpPage, 12 )
+	Talk( 5, "Goddess: Seems like you are quite honest. I can convert your Honor points into gold or experience. If you are willing to dedicate all of your Honor points, you might even receive a surprise reward." )
+	Text( 5, "Exchange Honor for gold", JumpPage, 10 )
+	Text( 5, "Exchange Honor for experience", JumpPage, 11 )
+	Text( 5, "I wish to dedicate all my Honor to the Goddess", JumpPage, 12 )
 
-	Talk( 6, "Богиня: Похоже, вы совершенно честный. Я могу обменять ваши очки чести в золото или опыт. Если вы готовы посвятить все очки чести мне, вы можете получить сюрприз. " )
-	Text( 6, "Поменять очки Чести на Золото", JumpPage, 13 )
-	Text( 6, "Поменять очки Чести на Опыт", JumpPage, 14 )
-	Text( 6, "Посвятить всю честь Богини", JumpPage, 15 )
+	Talk( 6, "Goddess: Seems like you are quite honest. I can convert your Honor points into gold or experience. If you are willing to dedicate all of your Honor points, you might even receive a surprise reward." )
+	Text( 6, "Exchange Honor for gold", JumpPage, 13 )
+	Text( 6, "Exchange Honor for experience", JumpPage, 14 )
+	Text( 6, "I wish to dedicate all my Honor to the Goddess", JumpPage, 15 )
 
 		InitFuncList()
 	AddFuncList( CreditExchange,0 )
-	Talk( 7, "Богиня: Вы хотите обменять все очки Чести на Золото? Все очки накопленные Вами будут потеряны." )
-	Text( 7, "Обменять ", MultiFunc, GetFuncList(), GetNumFunc() ) 
-	Text( 7,"Позвольте мне ещё подумать ",JumpPage , 4 )
+	Talk( 7, "Goddess: Do you wish to dedicate all your Honor to the Goddess in exchange for gold? All Honor points gained by you all these while will be gone." )
+	Text( 7, "I want to exchange", MultiFunc, GetFuncList(), GetNumFunc() ) 
+	Text( 7,"Let me think again",JumpPage , 4 )
 
 	InitFuncList()
 	AddFuncList( CreditExchange,3 )
-	Talk( 8, "Богиня: Вы хотите обменять все очки Чести на Опыт? Все очки накопленные Вами будут потеряны." )
-	Text( 8, "Обменять ", MultiFunc, GetFuncList(), GetNumFunc() ) 
-	Text( 8,"Позвольте мне ещё подумать ",JumpPage , 4 )
+	Talk( 8, "Goddess: Do you wish to dedicate all your Honor to the Goddess in exchange for experience? All Honor points gained by you all these while will be gone." )
+	Text( 8, "I want to exchange", MultiFunc, GetFuncList(), GetNumFunc() ) 
+	Text( 8,"Let me think again",JumpPage , 4 )
 
 	InitFuncList()
-	AddFuncList( CreditExchange, 6 )
-	Talk( 9, "Богиня: Вы хотите посвятить всю Честь Богини? Все очки накопленные Вами будут потеряны, и вы можете даже ничего не получить взамен." )
-	Text( 9, "Обменять ", MultiFunc, GetFuncList(), GetNumFunc() ) 
-	Text( 9,"Позвольте мне ещё подумать ",JumpPage , 4 )
+	AddFuncList( CreditExchange, 6 )--¶Ф»»З®
+	Talk( 9, "Goddess: Do you wish to dedicate all your Honor to the Goddess? All Honor points gained by you all these while will be gone and you might not even get anything in return." )
+	Text( 9, "I want to exchange", MultiFunc, GetFuncList(), GetNumFunc() ) 
+	Text( 9,"Let me think again",JumpPage , 4 )
 
 
 	InitFuncList()
 	AddFuncList( CreditExchange,1 )
-	Talk( 10, "Богиня: Вы хотите обменять все очки Чести на Золото? Все очки накопленные Вами будут потеряны." )
-	Text( 10, "Обменять ", MultiFunc, GetFuncList(), GetNumFunc() ) 
-	Text( 10,"Позвольте мне ещё подумать ",JumpPage , 4 )
+	Talk( 10, "Goddess: Do you wish to dedicate all your Honor to the Goddess in exchange for gold? All Honor points gained by you all these while will be gone." )
+	Text( 10, "I want to exchange", MultiFunc, GetFuncList(), GetNumFunc() ) 
+	Text( 10,"Let me think again",JumpPage , 4 )
 
 	InitFuncList()
 	AddFuncList( CreditExchange,4 )
-	Talk( 11, "Богиня: Вы хотите обменять все очки Чести на Опыт? Все очки накопленные Вами будут потеряны." )
-	Text( 11, "Обменять ", MultiFunc, GetFuncList(), GetNumFunc() ) 
-	Text( 11,"Позвольте мне ещё подумать ",JumpPage , 4 )
+	Talk( 11, "Goddess: Do you wish to dedicate all your Honor to the Goddess in exchange for experience? All Honor points gained by you all these while will be gone." )
+	Text( 11, "I want to exchange", MultiFunc, GetFuncList(), GetNumFunc() ) 
+	Text( 11,"Let me think again",JumpPage , 4 )
 
 	InitFuncList()
-	AddFuncList( CreditExchange, 7 )
-	Talk( 12, "Богиня: Вы хотите посвятить всю Честь Богини? Все очки накопленные Вами будут потеряны, и вы можете даже ничего не получить взамен." )
-	Text( 12, "Обменять ", MultiFunc, GetFuncList(), GetNumFunc() ) 
-	Text( 12,"Позвольте мне ещё подумать ",JumpPage , 4 )
+	AddFuncList( CreditExchange, 7 )--¶Ф»»З®
+	Talk( 12, "Goddess: Do you wish to dedicate all your Honor to the Goddess? All Honor points gained by you all these while will be gone and you might not even get anything in return." )
+	Text( 12, "I want to exchange", MultiFunc, GetFuncList(), GetNumFunc() ) 
+	Text( 12,"Let me think again",JumpPage , 4 )
 
 	InitFuncList()
 	AddFuncList( CreditExchange,2 )
-	Talk( 13, "Богиня: Вы хотите обменять все очки Чести на Золото? Все очки накопленные Вами будут потеряны." )
-	Text( 13, "Обменять ", MultiFunc, GetFuncList(), GetNumFunc() ) 
-	Text( 13,"Позвольте мне ещё подумать ",JumpPage , 4 )
+	Talk( 13, "Goddess: Do you wish to dedicate all your Honor to the Goddess in exchange for gold? All Honor points gained by you all these while will be gone." )
+	Text( 13, "I want to exchange", MultiFunc, GetFuncList(), GetNumFunc() ) 
+	Text( 13,"Let me think again",JumpPage , 4 )
 
 	InitFuncList()
 	AddFuncList( CreditExchange,5 )
-	Talk( 14, "Богиня: Вы хотите обменять все очки Чести на Опыт? Все очки накопленные Вами будут потеряны." )
-	Text( 14, "Обменять ", MultiFunc, GetFuncList(), GetNumFunc() ) 
-	Text( 14,"Позвольте мне ещё подумать ",JumpPage , 4 )
+	Talk( 14, "Goddess: Do you wish to dedicate all your Honor to the Goddess in exchange for experience? All Honor points gained by you all these while will be gone." )
+	Text( 14, "I want to exchange", MultiFunc, GetFuncList(), GetNumFunc() ) 
+	Text( 14,"Let me think again",JumpPage , 4 )
 
 	InitFuncList()
 	AddFuncList( CreditExchange, 8 )
-	Talk( 15, "Богиня: Вы хотите посвятить всю Честь Богини? Все очки накопленные Вами будут потеряны, и вы можете даже ничего не получить взамен." )
-	Text( 15, "Обменять ", MultiFunc, GetFuncList(), GetNumFunc() ) 
-	Text( 15,"Позвольте мне ещё подумать ",JumpPage , 4 )
+	Talk( 15, "Goddess: Do you wish to dedicate all your Honor to the Goddess? All Honor points gained by you all these while will be gone and you might not even get anything in return." )
+	Text( 15, "I want to exchange", MultiFunc, GetFuncList(), GetNumFunc() ) 
+	Text( 15,"Let me think again",JumpPage , 4 )
 
-	Talk( 16, "Богиня: Я знаю, что ваше сердце лжёт. Не пытайся меня обмануть. Я даю тебе ещё один шанс, не подведи меня." )
+	Talk( 16, "Goddess: I know what your heart is telling you. Do not try to belittle me or you will be seeking death. I shall grant you another chance. Do not let me down." )
 
 	InitTrigger()
 	TriggerAction( 1, GoTo, GoTo01X, GoTo01Y, GoTo01M )
-	Text( 16, "Я всегда говорю правду", MultiTrigger, GetMultiTrigger(), 1 )
-	Text( 16, "Пожалуйста, простите мое невежество",JumpPage , 2 )
+	Text( 16, "I stand by my decision and I had not lied.", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 16,"Please forgive my ignorance. Allow me to reselect.",JumpPage , 2 )
 
-	Talk( 25, "Богиня: Теперь ты должен ответить на следующие вопросы без колебания. Только если ты ответишь правильно на все вопросы, ты пройдешь испытание.")
-	Text( 25, "Да, я могу начать сейчас.", JumpPage, 27)
-	Text( 25, "Нет, мне нужно время.", CloseTalk )
 	
-	Talk( 26, "Богиня: Если ты не завершил выполнение задания или твой инвентарь полон, я не смогу отдать тебе Сердце Мудрости.")
-	Text( 26, "Закрыть ", CloseTalk )
+	Talk( 17, "Goddess: I have some mystical precious stone with me at the moment. The effect will be remarkable if put to the correct use. Hope that you have some use for them. My messenger has discovered even more amazing stones during her time on the land. She will bring some of it back soon. Look for me again if you need more." )
+	Text( 17, "Hephaestus Framestone (Champion )", JumpPage, 18)
+	Text( 17, "Hermes Framestone (Crusader )", JumpPage, 19)
+	Text( 17, "Apollo Framestone (Sharpshooter )", JumpPage, 20)
+	Text( 17, "Poseidon Framestone (Voyager )", JumpPage, 21)
+	Text( 17, "Hestia Framestone (Cleric )", JumpPage, 22)
+	Text( 17, "Athena Framestone (Seal Master)", JumpPage, 23)  
 	
-	Talk( 27, "Богиня: В каком городе проводились Олимпийские Игры 2008?")
-	Text( 27, "Афины ", JumpPage, 28)
-	Text( 27, "Пекин ", JumpPage, 29)
-	Text( 27, "Шанхай ", JumpPage, 28)
-	Text( 27, "Сидней ", JumpPage, 28)
-	
-	Talk( 28, "Богиня: Прости, ты ошибся. Возвращайся, когда найдешь правильный ответ.")
-	Text( 28, "Закрыть ", CloseTalk )
-	
-	Talk( 29, "Богиня: Когда началось закрытое бета-тестирование Пиратии-Онлайн? ")
-	Text( 29, "Июнь 2007 года ", JumpPage, 28)
-	Text( 29, "Ноябрь 2007 года ", JumpPage, 28)
-	Text( 29, "Август 2006 года ", JumpPage, 28)
-	Text( 29, "Август 2007 года ", JumpPage, 30)
-	Text( 29, "Январь 2008 года ", JumpPage, 28)
-	
-	Talk( 30, "Богиня: Что символизируют пять олимпийских колец? ")
-	Text( 30, "Они символизируют силу пяти океанов ", JumpPage, 28)
-	Text( 30, "Они символизируют пять Олимпийских добродетелей ", JumpPage, 28)
-	Text( 30, "Они символизируют единство пяти континентов ", JumpPage, 31)
-	Text( 30, "Они символизируют единство пяти народов ", JumpPage, 28)
-	
-	Talk( 31, "Богиня: Сколько судов находятся в порту Морского Флота? ")
-	Text( 31, "1 ", JumpPage, 28)
-	Text( 31, "2 ", JumpPage, 32)
-	Text( 31, "3 ", JumpPage, 28)
-	Text( 31, "4 ", JumpPage, 28)
-		
-	Talk( 32, "Ты закончил испытания. Принеси Сердце Мудрости, Сердце Верности, Сердце Бесстрашия, Любящее Сердце и Священный факел офицеру связи. ")
 	InitTrigger()
-	TriggerCondition( 1, HasRecord, 1322 )
-	TriggerCondition( 1, HasLeaveBagGrid, 1 )
-	TriggerAction( 1, ClearRecord, 1322 )
-	TriggerAction( 1, GiveItem, 5801, 1, 4 )
-	TriggerAction( 1, SetRecord, 1323 )
-	TriggerFailure( 1, JumpPage, 26 )
-	Text( 32, "Хорошо, я уже ухожу. ", MultiTrigger, GetMultiTrigger(), 1 )
-	Text( 32, "Закрыть ", CloseTalk )
+	TriggerCondition( 1, HasItem, 3457, 5 )
+	TriggerCondition( 1, LvCheck, ">", 59 )
+	TriggerAction( 1, TakeItem, 3457, 5 )
+	TriggerAction( 1, GiveItem, 2530, 1, 4 )
+	TriggerFailure( 1, JumpPage, 24 )
+	Talk( 18, "Goddess: When you have reached Lv 60 and bring me 5 Kal Runestone, I will give you the stone in return." )
+	Text( 18, "Obtained Hephaestus Framestone", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3457, 5 )
+	TriggerCondition( 1, LvCheck, ">", 59 )
+	TriggerAction( 1, TakeItem, 3457, 5 )
+	TriggerAction( 1, GiveItem, 2533, 1, 4 )
+	TriggerFailure( 1, JumpPage, 24 )
+	Talk( 19, "Goddess: When you have reached Lv 60 and bring me 5 Kal Runestone, I will give you the stone in return." )
+	Text( 19, "Obtained Hermes Framestone", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3457, 5 )
+	TriggerCondition( 1, LvCheck, ">", 59 )
+	TriggerAction( 1, TakeItem, 3457, 5 )
+	TriggerAction( 1, GiveItem, 2536, 1, 4 )
+	TriggerFailure( 1, JumpPage, 24 )
+	Talk( 20, "Goddess: When you have reached Lv 60 and bring me 5 Kal Runestone, I will give you the stone in return." )
+	Text( 20, "Obtained Apollo Framestone", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3457, 5 )
+	TriggerCondition( 1, LvCheck, ">", 59 )
+	TriggerAction( 1, TakeItem, 3457, 5 )
+	TriggerAction( 1, GiveItem, 2539, 1, 4 )
+	TriggerFailure( 1, JumpPage, 24 )
+	Talk( 21, "Goddess: When you have reached Lv 60 and bring me 5 Kal Runestone, I will give you the stone in return." )
+	Text( 21, "Obtained Poseidon Framestone", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3457, 5 )
+	TriggerCondition( 1, LvCheck, ">", 59 )
+	TriggerAction( 1, TakeItem, 3457, 5 )
+	TriggerAction( 1, GiveItem, 2542, 1, 4 )
+	TriggerFailure( 1, JumpPage, 24 )
+	Talk( 22, "Goddess: When you have reached Lv 60 and bring me 5 Kal Runestone, I will give you the stone in return." )
+	Text( 22, "Obtained Hestia Framestone", MultiTrigger, GetMultiTrigger(), 1)
+
+	InitTrigger()
+	TriggerCondition( 1, HasItem, 3457, 5 )
+	TriggerCondition( 1, LvCheck, ">", 59 )
+	TriggerAction( 1, TakeItem, 3457, 5 )
+	TriggerAction( 1, GiveItem, 2545, 1, 4 )
+	TriggerFailure( 1, JumpPage, 24 )
+	Talk( 23, "Goddess: When you have reached Lv 60 and bring me 5 Kal Runestone, I will give you the stone in return." )
+	Text( 23, "Obtained Athena Framestone", MultiTrigger, GetMultiTrigger(), 1)
+
+	Talk( 24, "Goddess: When you have reached Lv 60 and bring me 5 Kal Runestone, I will give you something in return.")
+
+
+	
 	AddNpcMission(6000)
+
+
 end
---------------------------------------------------------------------------------------------------------------------
---													mmm_talk (Конец)											  --
---------------------------------------------------------------------------------------------------------------------
 
-
---------------------------------------------------------------------------------------------------------------------
---													dydz_talk (Начало)											  --
---------------------------------------------------------------------------------------------------------------------
 function dydz_talk()
-	Talk( 1, "Бродяга Абаддона: Если вы дорожите своей жизнью, то убирайтесь побыстрее от сюда. " )
+
+
+	Talk( 1, "Abaddon Vagabond: \"If you treasured your life, leave now! I have seen too much adventurers like you!\"" )
 	InitTrigger()
 	TriggerCondition( 1, HasAllBoatInBerth, 12 )
 	TriggerAction( 1, LuanchBerthList, 12, 40,74, 180 )
 	TriggerFailure( 1, JumpPage, 3 )
-	Text( 1, "Отправиться в плавание ", MultiTrigger, GetMultiTrigger(), 1 )
+	Text( 1, "Set sail", MultiTrigger, GetMultiTrigger(), 1 )
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, RepairBoat )
 	TriggerCondition( 2, HasBoatInBerth, 12 )
 	TriggerAction( 2, RepairBerthList, 12 )
 	TriggerFailure( 2, JumpPage, 4 )
-	Text( 1, "Починить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Repair Ship", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasLuanchOut )
 	TriggerAction( 1, SupplyBoat )
 	TriggerCondition( 2, HasBoatInBerth, 12 )
 	TriggerAction( 2, SupplyBerthList, 12 )
 	TriggerFailure( 2, JumpPage, 5 )
-	Text( 1, "Заправить судно ", MultiTrigger, GetMultiTrigger(), 2 ) 
+	Text( 1, "Refuel", MultiTrigger, GetMultiTrigger(), 2 ) 
 	InitTrigger()
 	TriggerCondition( 1, HasDeadBoatInBerth, 12 )
 	TriggerAction( 1, SalvageBerthList, 12 )
 	TriggerFailure( 1, JumpPage, 6 )
-	Text( 1, "Восстановить судно ", MultiTrigger, GetMultiTrigger(), 1 ) 
+	Text( 1, "Salvage Ship", MultiTrigger, GetMultiTrigger(), 1 ) 
 	
-	Talk( 3, "Диспетчер порта абаддона: Что вы думаете? У вас нет лодки, на которой можно отсправиться в плавание. А теперь проваливай, если вам дорога ваша жизнь!" )
-	
-	Talk( 4, "Диспетчер порта абаддона: Не думайте, что ваша лодка будет отремонтирован бесплатно здесь. Пришвартуйте ваши лодки и приготовьтесь уплатить 1000 золотых." )
-	
-	Talk( 5, "Диспетчер порта абаддона: Не думайте, что ваша лодка будет заправлена бесплатно здесь. Пришвартуйте ваши лодки и приготовьтесь уплатить 200 золотых." )
-	
-	Talk( 6, "Диспетчер порта абаддона: Простите, но я восстанавливаю суда лишь приписанные к этому порту! Стоимость 1000 золотых." )
-	
-	Talk( 7, "Диспетчер порта абаддона: Мая твая не панимать! " )
+	Talk( 3, "What are you thinking? You don't have a boat that you can use anymore. Now scram if you value your life!" )
+	Talk( 4, "Don't think that your boat will be repaired for free here. Dock your boat and prepare a fee of 1000G." )
+	Talk( 5, "Don't think you can refuel your ship here for free. Dock your ship and prepare a fee of 200G." )
+	Talk( 6, "Sorry! We only salvage ships docked in our harbor. You have to pay a fee of 1000G." )
+	Talk( 7, "Abaddon Vagabond: \"Ў­Ў­Ў­Ў­Ў­Ў­^$&#&^%Ў­Ў­Ў­Ў­Ў­Ў­\"" )
+
 end
 
+
 function dysr_talk ()
-	Talk( 1, "Купец Абаддона: По команде господина моего, Лорда - Смерти. Я здесь, чтобы помочь вам храбрым воинам, и быть свидетелем вашей смерти. Ха-ха!" )
-	Text( 1, "Торг ", BuyPage)
-	Text( 1, "Ремонт ", OpenRepair)
+
+	Talk( 1, "Abaddon Merchant: On command of my lord, Death. I am here to provide help to you brave warriors, and to witness your deaths. Haha!" )
+	Text( 1, "Trade", BuyPage)
+	Text( 1, "Repair", OpenRepair)
 
 	InitTrade()
 	Other(	1847	)
@@ -2362,75 +3093,92 @@ function dysr_talk ()
 	Other(	819	)
 	Other(	869	)
 	Other(	874	)
-end
---------------------------------------------------------------------------------------------------------------------
---													dydz_talk (Конец)											  --
---------------------------------------------------------------------------------------------------------------------
 
 
---------------------------------------------------------------------------------------------------------------------
---											Одиночные_функции (Начало)											  --
---------------------------------------------------------------------------------------------------------------------
+end 
+
+
 function zsts_talk()
-	Talk( 1, "Ангел перерождения: Только самые лучшие и элитные Флотилии или Пираты смогут переродится!")
-	Text( 1, "Подробнее о Перерождение ", JumpPage, 2)
-	Text( 1, "Я хочу Переродиться ", JumpPage, 6)
+	Talk( 1, "Rebirth Angel: Only the best and elite Navy or Pirates will have a chance to get rebirth!")
+	Text( 1, "More about rebirth", JumpPage, 2)
+	Text( 1, "I wish to be rebirth", JumpPage, 6)
 
-	Talk( 2, "Ангел перерождения: Что вы хотите узнать?")
-	Text( 2, "Классы после перерождения?", JumpPage, 3)
-	Text( 2, "Что будет с очками статов, и очками умений после перерождения?", JumpPage, 4)
-	Text( 2, "Какие условия перерождения?", JumpPage, 5)
+	Talk( 2, "Rebirth Angel: What do you need to know?")
+	Text( 2, "Classes after rebirth", JumpPage, 3)
+	Text( 2, "Regarding stats and skill points after rebirth", JumpPage, 4)
+	Text( 2, "Regarding conditions of rebirth", JumpPage, 5)
+	
+	Talk( 3, "Players can reselect their class after rebirth: Lance can become Crusader, Voyager or Sharpshooter. Carsise can become Champion. Phyllis can become Cleric, Seal Master, Voyager or Sharpshooter. Ami can become Cleric, Seal Master or Voyager")
+	Text( 3, "Thank you, I understand", CloseTalk)
 
-	Talk( 3, "Ангел перерождения: Игроки могут повторно выбрать класс после перерождения: Ланс может стать Воителем, Покорителем морей или Стрелком. Карциз может стать чемпионом. Филлис может стать Цилителем, Колдуньей, Покорителем морей или Стрелком. Ами может стать Целителем, Колдуньей или Покорителем морей.")
-	Text( 3, "Спасибо, я все понял ", CloseTalk)
+	Talk( 4, "All attributes will be resetted upon rebirth and all additional stat points gained from Career Lot or Birthday Cake will remained for reallocation. Also, all skill will be resetted and skill points will be returned for reallocation.")
+	Text( 4, "Thank you, I understand", CloseTalk)
 
-	Talk( 4, "Ангел перерождения: Все очки статов и умений будут сброшены и вы сможете заного их перераспределить.")
-	Text( 4, "Спасибо, я все понял ", CloseTalk)
+	Talk( 5, "To be rebirth, you will need to complete quest Phoenix Rebirth which can be activated at the Goddess. Look for me after you obtained the Rebirth Stone or you can come directly to me if you have the Rebirth Card.")
+	Text( 5, "Thank you, I understand", CloseTalk)
 
-	Talk( 5, "Ангел перерождения: Перерождение могут пройти лишь те кто пройдёт квест Перерождение Феникса, который можно получить у богини, после которого вы получите камень перерождения. Также вы можете переродится с помощью карты перерождения, для этого после её использования подойдите сразу ко мне.")
-	Text( 5, "Спасибо, я все понял ", CloseTalk)
-
-	Talk( 6, "Ангел перерождения: Кем бы вы хотели стать после перерождения?" )
-	Text( 6, "Стать Воителем, чтобы нести справедливость и мир ",  GetChaName1_born, 1)
-	Text( 6, "Стать Чемпионом, чтобы защишать своих спутников ",  GetChaName2_born, 1)
-	Text( 6, "Стать Покорителем морей, чтобы бороздить моря ",  GetChaName3_born, 1)
-	Text( 6, "Стать Стрелком, чтобы победить всех врагов ",  GetChaName4_born, 1)
-	Text( 6, "Стать Целителем, чтобы исцелять ближних ", GetChaName5_born, 1)
-	Text( 6, "Стать Колдуньей, чтобы делать все что угодно ", GetChaName6_born, 1)
+	Talk( 6, "Goddess: What would you like to be after rebirth" )
+	Text( 6, "Crusader to uphold justice and peace",  GetChaName1_born, 1)
+	Text( 6, "Champion to protect companion",  GetChaName2_born, 1)
+	Text( 6, "Voyager to sail the seas",  GetChaName3_born, 1)
+	Text( 6, "Sharpshooter to vanquish all enemies",  GetChaName4_born, 1)
+	Text( 6, "Cleric to heal the sick", GetChaName5_born, 1)
+	Text( 6, "Seal Master to do anything", GetChaName6_born, 1)
 
 	AddNpcMission ( 6071 )
+
 end
 
-function k_talk002()
-	Talk (1, "Страж Бермуд: Везде море, вокруг этой гористой зелёной земли одно море, находясь здесь забываешь как течёт время! Вы сможете передать Привет моим друзьям из далека, если вы найдете место, называемое Весноградом, пожалуйста? Может тогда они заберут меня домой.") 
-	Text( 1, "Обменять Сундук Бермуд ", JumpPage, 2)
+------------------------------------------------------------
+--ІШ±¦єЈНе °ЩДЅґуКШ»¤ХЯЈЁ66900Ј¬106400Ј©
+------------------------------------------------------------
 
-	Talk (2, "Страж Бермуд: Я Страж Бермуд, Я живу здесь уже много лет, и всё время без еды, дайте мне расписку на кусок Кекса!")
+function k_talk002()
+
+
+	Talk( 1, "°ЩДЅґуКШ»¤ХЯ:Ў°єЈµДДЗ±ЯКЗёьТЈФ¶µДєЈ,ЙЅµДѕЎН·КЗёьІФґдµДЙЅ,ОТФзТСНьИґєОДкєОФВєОИХБчВдµЅґЛ!АґЧФФ¶·ЅµДЕуУС,Из№ыДгДЬХТµЅТ»ёцЅРґє·зХтµДµШ·Ѕ,ЗлЙУЙПТ»Г¶ЛјПзХЯµДЧЈёЈ.Ў±" )
+	Text( 1, "¶Т»»°ЩДЅґу±¦Пд", JumpPage, 2)
+
+	Talk( 2, "°ЩДЅґуКШ»¤ХЯ:ОТКЗ°ЩДЅґуµДКШ»¤ХЯ,ОТБчАЛµЅХвАпТСѕ­єЬ¶аДкБЛ,ХвГґ¶аДкФЪµєЙПГ»УРКіОпідјў,ЗлёшОТТ»ХЕЎ°µ°ёвЖ·іўИЇЎ±°Й!")	
 	InitTrigger()
-	TriggerCondition( 1, HasItem, 1097, 1)             
+	TriggerCondition( 1, HasItem, 1097, 1)             ------------µ°ёвЖ·іўИЇ
 	TriggerCondition(1, HasLeaveBagGrid, 1)
 	TriggerCondition(1, KitbagLock, 0 )
 	TriggerAction(1, TakeItem, 1097, 1)
-	TriggerAction(1, GiveItem, 1104, 1, 4)              
+	TriggerAction(1, GiveItem, 1104, 1, 4)              ----------°ЩДЅґу±¦Пд
 	TriggerFailure(1, JumpPage, 3)
-	Text( 2, "Вот держи ", MultiTrigger, GetMultiTrigger(), 1)
+	Text(2,"Confirm to redeem", MultiTrigger, GetMultiTrigger(), 1) 	
 
-	Talk(3, "Страж Бермуд: Вы смеётесь надо мной? Я голоден, и вы не можете мне ничем помочь, досвидания!") 
+	Talk( 3, "ДгБ¬Т»ёцБчАЛХЯµДРДФё¶јІ»ВъЧг,ОТТ»¶ЁТЄ!!ТЄіН·ЈДг!ОШОШОШ... ...ДкЗбИЛ,Из№ыДг±і°ьёсТСВъ»тКЗЛшЙПБЛ,ОТТІОЮ·ЁЖ·іўµЅГАО¶µДµ°ёв!")
 
-	Text( 1, "Получить ФастФуд ", JumpPage, 4)
+	Text( 1, "¶Т»»10ёціЙі¤їмІН", JumpPage, 4)
 
-	Talk(4, "Страж Бермуд: Я Страж Бермуд, Я живу здесь уже много лет, и всё время без еды, дайте мне Супер-Суши!") 
+	Talk( 4, "°ЩДЅґуКШ»¤ХЯ:ОТКЗ°ЩДЅґуµДКШ»¤ХЯ,ОТБчАЛµЅХвАпТСѕ­єЬ¶аДкБЛ,ХвГґ¶аДкФЪµєЙПГ»УРїЙїЪµДКіОп,ЗлёшОТТ»ёцЎ°і¬ј¶КЩЛѕЎ±Ж·іўТ»ПВ°Й!")
 	InitTrigger()
-	TriggerCondition( 1, HasItem, 2989, 1)             
+	TriggerCondition( 1, HasItem, 2989, 1)             ------------і¬ј¶КЩЛѕ
 	TriggerCondition(1, HasLeaveBagGrid, 1)
 	TriggerCondition(1, KitbagLock, 0 )
 	TriggerAction(1, TakeItem, 2989, 1)
-	TriggerAction(1, GiveItem, 0992, 10, 4)              
+	TriggerAction(1, GiveItem, 0992, 10, 4)              ----------іЙі¤їмІН10ёц
 	TriggerFailure(1, JumpPage, 5)
-	Text( 4, "Вот держи ", MultiTrigger, GetMultiTrigger(), 1)
+	Text(4,"Confirm to redeem", MultiTrigger, GetMultiTrigger(), 1) 	
 
-	Talk( 5, "Страж Бермуд: Вы смеётесь надо мной? Я голоден, и вы не можете мне ничем помочь, досвидания!") 
+	Talk( 5, "ПЦФЪµДДкЗбИЛаё,їИїИ... ...ФхГґЙнЙПТ»СщєГіФµДТІІ»ґш?ЗлЧРПёјмІйПВДгµД±і°ьКЗ·сУРїХО»»тКЗ±і°ьТСЙПЛш!")
+
 end
---------------------------------------------------------------------------------------------------------------------
---											Одиночные_функции (Конец)											  --
---------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,482 +1,749 @@
-print( "‡ £àã§ª  ItemEffect.lua" )
-
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- Íåèçâåñòíî (Öåëåáíûå\âîññòàíàâëèâàþùèå âåùè)
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-function hp_med_min( role , Item )
-	local hp = GetChaAttr( role , ATTR_HP )
+function hp_med_min( role , Item ) --[[ÃÔÄãhp»Ø¸´Ò©Æ·¹«Ê½]]--
+	--LuaPrint("Enter function hp_med_min() --[[mini HP recovery potion formula]]--") 
+	local hp = GetChaAttr( role , ATTR_HP ) 
 	local con = Con(role)
-	if hp <= 0 then
+	--LG("Potion Usage", "Current HP= ", hp , "\n" ) 
+	if hp <= 0 then --ÈËÎïËÀÍöÊ±²»¿ÉÊ¹ÓÃ
+		--LuaPrint("Character dead or illegal HP value")  
+		--LG("Potion Usage", "Character dead or illegal HP value","\n" )  
 		return 
 	end 
-	hp_resume = 20 +con*5
+	hp_resume = 20 +con*5 
 	hp = hp + hp_resume 
-	mxhp = GetChaAttr( role , ATTR_MXHP)
-	if hp > mxhp then
-		 hp = mxhp
+	mxhp = GetChaAttr( role , ATTR_MXHP) 
+	if hp > mxhp then --¼Ó³¬¹ý×î´óhpÊ±·µ»ØÎª×î´óhp
+		 hp = mxhp 
+		 --LG("Potion Usage", "Max HP cap reached", "\n" ) 
 	 end 
-	SetCharaAttr(hp, role, ATTR_HP)
+		--LG("Potion Usage", "HP recovered to", hp ,"\n" ) 
+	SetCharaAttr(hp, role, ATTR_HP) 
+	--LuaPrint("Out function hp_med_min() --[[mini HP recovery potion formula]]--") 
 end 
 
-function hp_med_small(role, Item )
+function hp_med_small(role, Item ) --[[Ð¡ÐÍÑªÆ¿¹«Ê½]]--
+	--LuaPrint("Enter function hp_med_small() --[[small HP potion formula]]--") 
 	local hp = GetChaAttr(role, ATTR_HP)
 	local con = Con(role)
-	if hp <= 0 then
-	end 
-	hp_resume = 20+ con*5
-	hp = hp + hp_resume 
-	mxhp = GetChaAttr(role,ATTR_MXHP)
-	if hp > mxhp then
-		hp = mxhp 
-	end 
-	SetCharaAttr(hp, role, ATTR_HP) 
-end 
-
-function hp_med_middle( role , Item )
-	local hp = GetChaAttr(role, ATTR_HP) 
+	--LG("Potion Usage", "Current HP= ", hp , "\n" ) 
 	if hp <= 0 then 
+		--LuaPrint("Character dead or illegal HP value")  return 
+		--LG("Potion Usage", "Character dead or illegal HP value","\n" )  
 	end 
-	hp_resume = 800 
+	hp_resume = 20+ con*5  
 	hp = hp + hp_resume 
 	mxhp = GetChaAttr(role,ATTR_MXHP) 
-	 if hp > mxhp then
+	if hp > mxhp then --¼Ó³¬¹ý×î´óhpÊ±·µ»ØÎª×î´óhp
 		hp = mxhp 
+		--LG("Potion Usage", "Max HP cap reached", "\n" ) 
 	end 
+		--LG("Potion Usage", "HP recovered to", hp ,"\n" ) 
 	SetCharaAttr(hp, role, ATTR_HP) 
+	--LuaPrint("Out function hp_med_small() --[[small HP potion formula]]--") 
 end 
 
-function hp_med_large( role , Item )
+
+
+
+
+----[[Ãæ°ü¹«Ê½]]--¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
+function ItemUse_BREAD (role, Item ) --[[Ãæ°ü¹«Ê½]]--
 	local hp = GetChaAttr(role, ATTR_HP) 
+	--LG("Potion Usage", "Current HP= ", hp , "\n" ) 
 	if hp <= 0 then 
-	end 
-	local mxhp = GetChaAttr(role, ATTR_MXHP) 
-	hp_resume = 0.2 * mxhp 
-	hp = hp + hp_resume 
-	mxhp = GetChaAttr(role,ATTR_MXHP) 
-	if hp > mxhp then
-		hp = mxhp 
-	end 
-	SetCharaAttr(hp, role, ATTR_HP) 
-end 
-
-function hp_med_super( role , Item )
-	local hp = GetChaAttr(role, ATTR_HP) 
-	if hp <= 0 then 
-	end 
-	local mxhp = GetChaAttr(role, ATTR_MXHP) 
-	hp_resume = 0.8 * mxhp  
-	hp = hp + hp_resume 
-	mxhp = GetChaAttr(role,ATTR_MXHP) 
-	if hp > mxhp then
-		hp = mxhp 
-	end 
-	SetCharaAttr(hp, role, ATTR_HP) 
-end 
-
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- Öåëåáíûå\âîññòàíàâëèâàþùèå âåùè (Õëåá, ßáëîêî, Êåêñ, Òèàìàðèí è ò.ä.) 
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
--- Õëåá
-function ItemUse_BREAD (role, Item )
-	local hp = GetChaAttr(role, ATTR_HP) 
-	if hp <= 0 then   
+		--LuaPrint("Character dead or illegal HP value")  return 
+		--LG("Potion Usage", "Character dead or illegal HP value","\n" )  
 	end 
 	hp_resume = 80    
 	hp = hp + hp_resume 
 	mxhp = GetChaAttr(role,ATTR_MXHP) 
-	if hp > mxhp then
+	if hp > mxhp then --¼Ó³¬¹ý×î´óhpÊ±·µ»ØÎª×î´óhp
 		hp = mxhp 
-	end  
+		--LG("Potion Usage", "Max HP cap reached", "\n" ) 
+	end 
+		--LG("Potion Usage", "HP recovered to", hp ,"\n" ) 
 	SetCharaAttr(hp, role, ATTR_HP) 
+	--LuaPrint("Out function hp_med_small() --[[Elven Fruit formula]]--") 
 end 
 
--- ßáëîêî
-function ItemUse_APPLE ( role , Item )
-	local hp = GetChaAttr(role, ATTR_HP)  
-	if hp <= 0 then   
+----[[Æ»¹û¹«Ê½]]--¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
+function ItemUse_APPLE ( role , Item )  --[[Æ»¹û¹«Ê½]]--
+	local hp = GetChaAttr(role, ATTR_HP) 
+	--LG("Potion Usage", "Current HP= ", hp , "\n" ) 
+	if hp <= 0 then 
+		--LuaPrint("Character dead or illegal HP value")  return 
+		--LG("Potion Usage", "Character dead or illegal HP value","\n" )  
 	end 
-		hp_resume = 20    
+	hp_resume = 20    
 	hp = hp + hp_resume 
 	mxhp = GetChaAttr(role,ATTR_MXHP) 
-	if hp > mxhp then 
+	if hp > mxhp then --¼Ó³¬¹ý×î´óhpÊ±·µ»ØÎª×î´óhp
 		hp = mxhp 
+		--LG("Potion Usage", "Max HP cap reached", "\n" ) 
 	end 
+		--LG("Potion Usage", "HP recovered to", hp ,"\n" ) 
 	SetCharaAttr(hp, role, ATTR_HP) 
+	--LuaPrint("Out function hp_med_small( role )  --[[Elven Fruit formula]]--") 
 end 
 
--- Êåêñ
-function ItemUse_CAKE ( role , Item )
-	local hp = GetChaAttr(role, ATTR_HP)  
-	if hp <= 0 then  
+------[[Íë×Ð³á¹«Ê½]]--¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+--
+--function ItemUse_WANZICHI ( role , Item )  --[[Íë×Ð·¹¹«Ê½]]--
+--	local hp = GetChaAttr(role, ATTR_HP) 
+--	--LG("Potion Usage", "Current HP= ", hp , "\n" ) 
+--	if hp <= 0 then 
+--		--LuaPrint("Character dead or illegal HP value")  return 
+--		--LG("Potion Usage", "Character dead or illegal HP value","\n" )  
+--	end 
+--	hp_resume = 400    
+--	hp = hp + hp_resume 
+--	mxhp = GetChaAttr(role,ATTR_MXHP) 
+--	if hp > mxhp then --¼Ó³¬¹ý×î´óhpÊ±·µ»ØÎª×î´óhp
+--		hp = mxhp 
+--		--LG("Potion Usage", "Max HP cap reached", "\n" ) 
+--	end 
+--		--LG("Potion Usage", "HP recovered to", hp ,"\n" ) 
+--	SetCharaAttr(hp, role, ATTR_HP) 
+--	--LuaPrint("Out function hp_med_small( role )  --[[Elven Fruit formula]]--") 
+--end 
+----[[µ°¸â¹«Ê½]]--¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
+function ItemUse_CAKE ( role , Item )  --[[µ°¸â¹«Ê½]]--
+	local hp = GetChaAttr(role, ATTR_HP) 
+	--LG("Potion Usage", "Current HP= ", hp , "\n" ) 
+	if hp <= 0 then 
+		--LuaPrint("Character dead or illegal HP value")  return 
+		--LG("Potion Usage", "Character dead or illegal HP value","\n" )  
 	end 
 	hp_resume = 180   
 	hp = hp + hp_resume 
 	mxhp = GetChaAttr(role,ATTR_MXHP) 
-	if hp > mxhp then
+	if hp > mxhp then --¼Ó³¬¹ý×î´óhpÊ±·µ»ØÎª×î´óhp
 		hp = mxhp 
+		--LG("Potion Usage", "Max HP cap reached", "\n" ) 
 	end 
+		--LG("Potion Usage", "HP recovered to", hp ,"\n" ) 
 	SetCharaAttr(hp, role, ATTR_HP) 
+	--LuaPrint("Out function hp_med_small( role )  --[[Elven Fruit formula]]--") 
 end 
+--function ItemUse_CAKE ( role )
+--	local str = GetChaAttr( role , ATTR_BSTR )
+--	local ap = GetChaAttr( role , ATTR_AP )
+--	SystemNotice ( role , "strength before edit is"..str )
+--	SystemNotice ( role , "attribute before editing is"..ap )
+--	if str <= 5 then 
+--		SystemNotice ( role , "You do not have enough points to reset. Reset failed" )
+--		return
+--	end
+--	local str_dif = 1
+--	local ap_dif = 1
+--	str = str - str_dif
+--	ap = ap + 1
+--	
+--	SystemNotice ( role , "strength before edit is"..str )
+--	SystemNotice ( role , "attribute point edited as"..ap )
+--	SetCharaAttr ( str , role , ATTR_BSTR )
+--	SetCharaAttr ( ap , role , ATTR_AP )
+--end
 
--- Ýëüôèéñêèé ôðóêò
-function ItemUse_JLG( role , Item )
-	local hp = GetChaAttr(role, ATTR_HP)  
+-- function ItemUse_CAKE ( role )  --[[µ°¸â¹«Ê½]]--
+--	local cha = TurnToCha ( cha ) 
+--	local x_give = 0 
+--	local y_give = 0 
+--	local script_count = CheckBagItem ( cha , 887 )					--¼ì²é±³°üÖÐ¶Ò»»È¯ÊýÁ¿
+--	local DiamondId = Roll_DiamondId ( cha )						--Ëæ»ú¶Ò»»±¦Ê¯µÄÖÖÀà
+--	if script_count >= 1 then 
+--		x_del = DelBagItem ( cha , 887 , 1 ) 
+--		if x_del == 1 then 
+--			x_give = GiveItem ( cha , 0 , DiamondId , 1 , 101 )				--¶Ò»»±¦Ê¯
+--
+--			y_give = GiveItem ( cha , 0 , 885 , 1 , 101 )					--¶Ò»»¾«Á¶Ê¯
+--
+--
+--		else 
+--			SystemNotice ( cha , "Unable to deduct Gem Voucher" ) 
+--		end 
+--	else 
+--		SystemNotice ( cha , "You need to have a Lv 1 Gem Voucher in order to redeem"  ) 
+--	end 
+--	if x_give == 1 and y_give ==1 then 
+--		return 1 
+--	else 
+--		return 0 
+--	end 
+--end 
+--
+--
+--
+
+
+
+----[[¾«Áé¹û¹«Ê½]]--¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
+function ItemUse_JLG( role , Item )  --[[¾«Áé¹û¹«Ê½]]--
+	local hp = GetChaAttr(role, ATTR_HP) 
+	--LG("Potion Usage", "Current HP= ", hp , "\n" ) 
 	if hp <= 0 then 
+		--LuaPrint("Character dead or illegal HP value")  return 
+		--LG("Potion Usage", "Character dead or illegal HP value","\n" )  
 	end 
 	hp_resume = 15   
 	hp = hp + hp_resume 
 	mxhp = GetChaAttr(role,ATTR_MXHP) 
-	if hp > mxhp then
+	if hp > mxhp then --¼Ó³¬¹ý×î´óhpÊ±·µ»ØÎª×î´óhp
 		hp = mxhp 
+		--LG("Potion Usage", "Max HP cap reached", "\n" ) 
 	end 
+		--LG("Potion Usage", "HP recovered to", hp ,"\n" ) 
 	SetCharaAttr(hp, role, ATTR_HP) 
+	--LuaPrint("Out function hp_med_small( role )  --[[Elven Fruit formula]]--") 
 end 
 
--- Êðàñíûé ôèíèê
-function ItemUse_SZ ( role , Item )
+
+function ItemUse_SZ ( role , Item )  --[[É³Ôæ]]--
 	local hp = GetChaAttr(role, ATTR_HP) 
+	--LG("Potion Usage", "Current HP= ", hp , "\n" ) 
 	if hp <= 0 then 
+		--LuaPrint("Character dead or illegal HP value")  return 
+		--LG("Potion Usage", "Character dead or illegal HP value","\n" )  
 	end 
 	hp_resume = 20   
 	hp = hp + hp_resume 
 	mxhp = GetChaAttr(role,ATTR_MXHP) 
-	if hp > mxhp then
+	if hp > mxhp then --¼Ó³¬¹ý×î´óhpÊ±·µ»ØÎª×î´óhp
 		hp = mxhp 
+		--LG("Potion Usage", "Max HP cap reached", "\n" ) 
 	end 
+		--LG("Potion Usage", "HP recovered to", hp ,"\n" ) 
 	SetCharaAttr(hp, role, ATTR_HP) 
+	--LuaPrint("Out function hp_med_small( role )  --[[Elven Fruit formula]]--") 
 end 
 
--- Ãðèá
-function ItemUse_MG ( role , Item )
+
+
+function ItemUse_MG ( role , Item )  --[[Ä¢¹½]]--
 	local hp = GetChaAttr(role, ATTR_HP) 
+	--LG("Potion Usage", "Current HP= ", hp , "\n" ) 
 	if hp <= 0 then 
+		--LuaPrint("Character dead or illegal HP value")  return 
+		--LG("Potion Usage", "Character dead or illegal HP value","\n" )  
 	end 
 	hp_resume = 35  
 	hp = hp + hp_resume 
 	mxhp = GetChaAttr(role,ATTR_MXHP) 
-	if hp > mxhp then
+	if hp > mxhp then --¼Ó³¬¹ý×î´óhpÊ±·µ»ØÎª×î´óhp
 		hp = mxhp 
+		--LG("Potion Usage", "Max HP cap reached", "\n" ) 
 	end 
+		--LG("Potion Usage", "HP recovered to", hp ,"\n" ) 
 	SetCharaAttr(hp, role, ATTR_HP) 
+	--LuaPrint("Out function hp_med_small( role )  --[[Elven Fruit formula]]--") 
 end 
 
--- Ïëîä äóðìàíà
-function ItemUse_MTLG ( role , Item )
+
+
+
+function ItemUse_MTLG ( role , Item )  --[[ÂüÍÓÂÞ¹û]]--
 	local hp = GetChaAttr(role, ATTR_HP) 
+	--LG("Potion Usage", "Current HP= ", hp , "\n" ) 
 	if hp <= 0 then 
+		--LuaPrint("Character dead or illegal HP value")  return 
+		--LG("Potion Usage", "Character dead or illegal HP value","\n" )  
 	end 
 	hp_resume = 40  
 	hp = hp + hp_resume 
 	mxhp = GetChaAttr(role,ATTR_MXHP) 
-	if hp > mxhp then
+	if hp > mxhp then --¼Ó³¬¹ý×î´óhpÊ±·µ»ØÎª×î´óhp
 		hp = mxhp 
+		--LG("Potion Usage", "Max HP cap reached", "\n" ) 
 	end 
+		--LG("Potion Usage", "HP recovered to", hp ,"\n" ) 
 	SetCharaAttr(hp, role, ATTR_HP) 
+	--LuaPrint("Out function hp_med_small( role )  --[[Elven Fruit formula]]--") 
 end 
 
--- Ëåäÿíîé ôðóêò
-function ItemUse_BG ( role , Item )
+
+function ItemUse_BG ( role , Item )  --[[±ù¹û]]--
 	local hp = GetChaAttr(role, ATTR_HP) 
-	if hp <= 0 then  
+	--LG("Potion Usage", "Current HP= ", hp , "\n" ) 
+	if hp <= 0 then 
+		--LuaPrint("Character dead or illegal HP value")  return 
+		--LG("Potion Usage", "Character dead or illegal HP value","\n" )  
 	end 
 	hp_resume = 50 
 	hp = hp + hp_resume 
 	mxhp = GetChaAttr(role,ATTR_MXHP) 
-	if hp > mxhp then
+	if hp > mxhp then --¼Ó³¬¹ý×î´óhpÊ±·µ»ØÎª×î´óhp
 		hp = mxhp 
+		--LG("Potion Usage", "Max HP cap reached", "\n" ) 
 	end 
+		--LG("Potion Usage", "HP recovered to", hp ,"\n" ) 
 	SetCharaAttr(hp, role, ATTR_HP) 
+	--LuaPrint("Out function hp_med_small( role )  --[[Elven Fruit formula]]--") 
 end 
 
--- Ðàäóæíûé ôðóêò
-function ItemUse_WCG( role , Item )
+
+
+function ItemUse_WCG( role , Item )  --[[Îå²Ê¹û]]--
 	local hp = GetChaAttr(role, ATTR_HP) 
+	--LG("Potion Usage", "Current HP= ", hp , "\n" ) 
 	if hp <= 0 then 
+		--LuaPrint("Character dead or illegal HP value")  return 
+		--LG("Potion Usage", "Character dead or illegal HP value","\n" )  
 	end 
 	hp_resume = 108 
 	hp = hp + hp_resume 
 	mxhp = GetChaAttr(role,ATTR_MXHP) 
-	if hp > mxhp then
+	if hp > mxhp then --¼Ó³¬¹ý×î´óhpÊ±·µ»ØÎª×î´óhp
 		hp = mxhp 
+		--LG("Potion Usage", "Max HP cap reached", "\n" ) 
 	end 
+		--LG("Potion Usage", "HP recovered to", hp ,"\n" ) 
 	SetCharaAttr(hp, role, ATTR_HP) 
+	--LuaPrint("Out function hp_med_small( role )  --[[Elven Fruit formula]]--") 
 end 
 
--- Ñîê ýëüôèéñêîãî ôðóêòà
-function ItemUse_JLGZ( role , Item )
+
+function ItemUse_JLGZ( role , Item )  --[[¾«Áé¹ûÖ­]]--
 	local hp = GetChaAttr(role, ATTR_HP) 
-	if hp <= 0 then  
+	--LG("Potion Usage", "Current HP= ", hp , "\n" ) 
+	if hp <= 0 then 
+		--LuaPrint("Character dead or illegal HP value")  return 
+		--LG("Potion Usage", "Character dead or illegal HP value","\n" )  
 	end 
 	hp_resume = 250 
 	
 	hp = hp + hp_resume 
 	mxhp = GetChaAttr(role,ATTR_MXHP) 
-	if hp > mxhp then
-		hp = mxhp  
-	end  
+	if hp > mxhp then --¼Ó³¬¹ý×î´óhpÊ±·µ»ØÎª×î´óhp
+		hp = mxhp 
+		--LG("Potion Usage", "Max HP cap reached", "\n" ) 
+	end 
+		--LG("Potion Usage", "HP recovered to", hp ,"\n" ) 
 	SetCharaAttr(hp, role, ATTR_HP) 
+	--LuaPrint("Out function hp_med_small( role )  --[[Elven Fruit formula]]--") 
 end 
 
--- ×àé èç êðàñíûõ ôèíèêîâ
-function ItemUse_SZC( role , Item )
+function ItemUse_SZC( role , Item )  --[[É³Ôæ²è]]--
 	local hp = GetChaAttr(role, ATTR_HP) 
+	--LG("Potion Usage", "Current HP= ", hp , "\n" ) 
 	if hp <= 0 then 
+		--LuaPrint("Character dead or illegal HP value")  return 
+		--LG("Potion Usage", "Character dead or illegal HP value","\n" )  
 	end 
 	hp_resume = 300
 	
 	hp = hp + hp_resume 
 	mxhp = GetChaAttr(role,ATTR_MXHP) 
-	if hp > mxhp then
+	if hp > mxhp then --¼Ó³¬¹ý×î´óhpÊ±·µ»ØÎª×î´óhp
 		hp = mxhp 
+		--LG("Potion Usage", "Max HP cap reached", "\n" ) 
 	end 
+		--LG("Potion Usage", "HP recovered to", hp ,"\n" ) 
 	SetCharaAttr(hp, role, ATTR_HP) 
+	--LuaPrint("Out function hp_med_small( role )  --[[Elven Fruit formula]]--") 
 end 
 
--- Ãðèáíîé ñóï
-function ItemUse_MGT( role , Item )
+
+
+function ItemUse_MGT( role , Item )  --[[Ä¢¹½ÌÀ]]--
 	local hp = GetChaAttr(role, ATTR_HP) 
+	--LG("Potion Usage", "Current HP= ", hp , "\n" ) 
 	if hp <= 0 then 
+		--LuaPrint("Character dead or illegal HP value")  return 
+		--LG("Potion Usage", "Character dead or illegal HP value","\n" )  
 	end 
 	hp_resume = 350 
 	
 	hp = hp + hp_resume 
 	mxhp = GetChaAttr(role,ATTR_MXHP) 
-	if hp > mxhp then
+	if hp > mxhp then --¼Ó³¬¹ý×î´óhpÊ±·µ»ØÎª×î´óhp
 		hp = mxhp 
-	end  
+		--LG("Potion Usage", "Max HP cap reached", "\n" ) 
+	end 
+		--LG("Potion Usage", "HP recovered to", hp ,"\n" ) 
 	SetCharaAttr(hp, role, ATTR_HP) 
+	--LuaPrint("Out function hp_med_small( role )  --[[Elven Fruit formula]]--") 
 end 
 
--- Ñîê ïëîäîâ äóðìàíà
-function ItemUse_MTLGZ( role , Item )
+function ItemUse_MTLGZ( role , Item )  --[[ÂüÍÓÂÞ¹ûÖ­]]--
 	local hp = GetChaAttr(role, ATTR_HP) 
+	--LG("Potion Usage", "Current HP= ", hp , "\n" ) 
 	if hp <= 0 then 
+		--LuaPrint("Character dead or illegal HP value")  return 
+		--LG("Potion Usage", "Character dead or illegal HP value","\n" )  
 	end 
 	hp_resume = 400
 	
 	hp = hp + hp_resume 
 	mxhp = GetChaAttr(role,ATTR_MXHP) 
-	if hp > mxhp then
+	if hp > mxhp then --¼Ó³¬¹ý×î´óhpÊ±·µ»ØÎª×î´óhp
 		hp = mxhp 
+		--LG("Potion Usage", "Max HP cap reached", "\n" ) 
 	end 
+		--LG("Potion Usage", "HP recovered to", hp ,"\n" ) 
 	SetCharaAttr(hp, role, ATTR_HP) 
+	--LuaPrint("Out function hp_med_small( role )  --[[Elven Fruit formula]]--") 
 end 
 
--- Ìîðîæåíîå
-function ItemUse_BQL( role , Item )
+
+function ItemUse_BQL( role , Item )  --[[±ù¼¤Áè]]--
 	local hp = GetChaAttr(role, ATTR_HP) 
-	if hp <= 0 then  
+	--LG("Potion Usage", "Current HP= ", hp , "\n" ) 
+	if hp <= 0 then 
+		--LuaPrint("Character dead or illegal HP value")  return 
+		--LG("Potion Usage", "Character dead or illegal HP value","\n" )  
 	end 
 	hp_resume = 450
 	
 	hp = hp + hp_resume 
 	mxhp = GetChaAttr(role,ATTR_MXHP) 
-	if hp > mxhp then
+	if hp > mxhp then --¼Ó³¬¹ý×î´óhpÊ±·µ»ØÎª×î´óhp
 		hp = mxhp 
+		--LG("Potion Usage", "Max HP cap reached", "\n" ) 
 	end 
+		--LG("Potion Usage", "HP recovered to", hp ,"\n" ) 
 	SetCharaAttr(hp, role, ATTR_HP) 
+	--LuaPrint("Out function hp_med_small( role )  --[[Elven Fruit formula]]--") 
 end 
 
--- Ñîê ðàäóæíûõ ôðóêòîâ
-function ItemUse_WCLLZ( role , Item )
-	local hp = GetChaAttr(role, ATTR_HP)  
-	if hp <= 0 then  
+
+function ItemUse_WCLLZ( role , Item )  --[[Îå²ÊÁðÁ§Ö­]]--
+	local hp = GetChaAttr(role, ATTR_HP) 
+	--LG("Potion Usage", "Current HP= ", hp , "\n" ) 
+	if hp <= 0 then 
+		--LuaPrint("Character dead or illegal HP value")  return 
+		--LG("Potion Usage", "Character dead or illegal HP value","\n" )  
 	end 
 	hp_resume = 500 
 	
 	hp = hp + hp_resume 
 	mxhp = GetChaAttr(role,ATTR_MXHP) 
-	if hp > mxhp then
+	if hp > mxhp then --¼Ó³¬¹ý×î´óhpÊ±·µ»ØÎª×î´óhp
 		hp = mxhp 
+		--LG("Potion Usage", "Max HP cap reached", "\n" ) 
 	end 
+		--LG("Potion Usage", "HP recovered to", hp ,"\n" ) 
 	SetCharaAttr(hp, role, ATTR_HP) 
+	--LuaPrint("Out function hp_med_small( role )  --[[Elven Fruit formula]]--") 
 end 
 
--- Ôðóêòîâûé êîêòåéëü
-function ItemUse_ZHGZ( role , Item )
+
+function ItemUse_ZHGZ( role , Item )  --[[×ÛºÏ¹ûÖ­]]--
 	local hp = GetChaAttr(role, ATTR_HP) 
+	--LG("Potion Usage", "Current HP= ", hp , "\n" ) 
 	if hp <= 0 then 
+		--LuaPrint("Character dead or illegal HP value")  return 
+		--LG("Potion Usage", "Character dead or illegal HP value","\n" )  
 	end 
 	hp_resume = 550
 	
 	hp = hp + hp_resume 
 	mxhp = GetChaAttr(role,ATTR_MXHP) 
-	if hp > mxhp then
+	if hp > mxhp then --¼Ó³¬¹ý×î´óhpÊ±·µ»ØÎª×î´óhp
 		hp = mxhp 
+		--LG("Potion Usage", "Max HP cap reached", "\n" ) 
 	end 
+		--LG("Potion Usage", "HP recovered to", hp ,"\n" ) 
 	SetCharaAttr(hp, role, ATTR_HP) 
+	--LuaPrint("Out function hp_med_small( role )  --[[Elven Fruit formula]]--") 
 end 
 
--- Öåëåáíàÿ òðàâà
-function ItemUse_YYCY( role , Item )
+
+
+
+
+
+
+function ItemUse_YYCY( role , Item )  --[[Ò©ÓÃ²ÝÒ¶]]--
 	local sp = GetChaAttr(role, ATTR_SP) 
+	--LG("Potion Usage", "Current SP= ", sp , "\n" ) 
 	sp_resume = 4 
 	
 	sp = sp + sp_resume 
 	mxsp = GetChaAttr(role,ATTR_MXSP) 
-	if sp > mxsp then
+	if sp > mxsp then --¼Ó³¬¹ý×î´óspÊ±·µ»ØÎª×î´ósp
 		sp = mxsp 
+		--LG("Potion Usage", "Reached Max SP cap", "\n" ) 
 	end 
+		--LG("Potion Usage", "SP recovered to", sp ,"\n" ) 
 	SetCharaAttr(sp, role, ATTR_SP) 
 end 
 
--- Ëåïåñòîê ìíîãîöâåòà
-function ItemUse_MHHB( role , Item )
+
+
+function ItemUse_MHHB( role , Item )  --[[ÃÎ»Ã»¨°ê]]--
 	local sp = GetChaAttr(role, ATTR_SP) 
+	--LG("Potion Usage", "Current SP= ", sp , "\n" ) 
 	sp_resume = 8 
 	
 	sp = sp + sp_resume 
 	mxsp = GetChaAttr(role,ATTR_MXSP) 
-	if sp > mxsp then
+	if sp > mxsp then --¼Ó³¬¹ý×î´óspÊ±·µ»ØÎª×î´ósp
 		sp = mxsp 
+		--LG("Potion Usage", "Reached Max SP cap", "\n" ) 
 	end 
+		--LG("Potion Usage", "SP recovered to", sp ,"\n" ) 
 	SetCharaAttr(sp, role, ATTR_SP) 
 end 
 
--- ×óäî-ôðóêò
-function ItemUse_QYGS( role , Item )
+
+
+function ItemUse_QYGS( role , Item )  --[[ÆæÒì¹ûÊµ]]--
 	local sp = GetChaAttr(role, ATTR_SP) 
+	--LG("Potion Usage", "Current SP= ", sp , "\n" ) 
 	sp_resume = 18 
 	
 	sp = sp + sp_resume 
 	mxsp = GetChaAttr(role,ATTR_MXSP) 
-	if sp > mxsp then
+	if sp > mxsp then --¼Ó³¬¹ý×î´óspÊ±·µ»ØÎª×î´ósp
 		sp = mxsp 
+		--LG("Potion Usage", "Reached Max SP cap", "\n" ) 
 	end 
+		--LG("Potion Usage", "SP recovered to", sp ,"\n" ) 
 	SetCharaAttr(sp, role, ATTR_SP) 
 end 
 
--- Ïîáåã ñíåæíîé òðàâû
-function ItemUse_BFCY( role , Item )
+
+function ItemUse_BFCY( role , Item )  --[[±ù·â²ÝÑ¿]]--
 	local sp = GetChaAttr(role, ATTR_SP) 
+	--LG("Potion Usage", "Current SP= ", sp , "\n" ) 
 	sp_resume = 22 
 	
 	sp = sp + sp_resume 
 	mxsp = GetChaAttr(role,ATTR_MXSP) 
-	if sp > mxsp then
+	if sp > mxsp then --¼Ó³¬¹ý×î´óspÊ±·µ»ØÎª×î´ósp
 		sp = mxsp 
+		--LG("Potion Usage", "Reached Max SP cap", "\n" ) 
 	end 
+		--LG("Potion Usage", "SP recovered to", sp ,"\n" ) 
 	SetCharaAttr(sp, role, ATTR_SP) 
 end 
 
--- Ëàêðè÷íîå çåëüå
-function ItemUse_GCYS( role , Item )
+
+function ItemUse_GCYS( role , Item )  --[[¸Ê²ÝÒ©Ë®]]--
 	local sp = GetChaAttr(role, ATTR_SP) 
+	--LG("Potion Usage", "Current SP= ", sp , "\n" ) 
 	sp_resume = 33  
 	
 	sp = sp + sp_resume 
 	mxsp = GetChaAttr(role,ATTR_MXSP) 
-	if sp > mxsp then
+	if sp > mxsp then --¼Ó³¬¹ý×î´óspÊ±·µ»ØÎª×î´ósp
 		sp = mxsp 
+		--LG("Potion Usage", "Reached Max SP cap", "\n" ) 
 	end 
+		--LG("Potion Usage", "SP recovered to", sp ,"\n" ) 
 	SetCharaAttr(sp, role, ATTR_SP) 
 end 
 
--- ×àé "Áîäðÿ÷îê"
-function ItemUse_XSHC( role , Item )
+
+function ItemUse_XSHC( role , Item )  --[[ÐÑÉñ»¨²è]]--
 	local sp = GetChaAttr(role, ATTR_SP) 
+	--LG("Potion Usage", "Current SP= ", sp , "\n" ) 
 	sp_resume = 38 
 	
 	sp = sp + sp_resume 
 	mxsp = GetChaAttr(role,ATTR_MXSP) 
-	if sp > mxsp then
+	if sp > mxsp then --¼Ó³¬¹ý×î´óspÊ±·µ»ØÎª×î´ósp
 		sp = mxsp 
+		--LG("Potion Usage", "Reached Max SP cap", "\n" ) 
 	end 
+		--LG("Potion Usage", "SP recovered to", sp ,"\n" ) 
 	SetCharaAttr(sp, role, ATTR_SP) 
 end 
 
--- ×óäî-ìàçü
-function ItemUse_MZQYG( role , Item )
+
+function ItemUse_MZQYG( role , Item )  --[[ÃØÖÆÆæÒì¸à]]--
 	local sp = GetChaAttr(role, ATTR_SP) 
+	--LG("Potion Usage", "Current SP= ", sp , "\n" ) 
 	sp_resume = 41 
 	
 	sp = sp + sp_resume 
 	mxsp = GetChaAttr(role,ATTR_MXSP) 
-	if sp > mxsp then
+	if sp > mxsp then --¼Ó³¬¹ý×î´óspÊ±·µ»ØÎª×î´ósp
 		sp = mxsp 
+		--LG("Potion Usage", "Reached Max SP cap", "\n" ) 
 	end 
+		--LG("Potion Usage", "SP recovered to", sp ,"\n" ) 
 	SetCharaAttr(sp, role, ATTR_SP) 
 end 
 
--- Áðèêåò ñíåæíîé òðàâû
-function ItemUse_BYS( role , Item )
+
+function ItemUse_BYS( role , Item )  --[[±ùÑ¿ËÖ]]--
 	local sp = GetChaAttr(role, ATTR_SP) 
+	--LG("Potion Usage", "Current SP= ", sp , "\n" ) 
 	sp_resume = 59 
 	
 	sp = sp + sp_resume 
 	mxsp = GetChaAttr(role,ATTR_MXSP) 
-	if sp > mxsp then
+	if sp > mxsp then --¼Ó³¬¹ý×î´óspÊ±·µ»ØÎª×î´ósp
 		sp = mxsp 
+		--LG("Potion Usage", "Reached Max SP cap", "\n" ) 
 	end 
+		--LG("Potion Usage", "SP recovered to", sp ,"\n" ) 
 	SetCharaAttr(sp, role, ATTR_SP) 
 end 
 
--- Òèàìàðèí
-function ItemUse_TMLGZ( role , Item )
+
+function ItemUse_TMLGZ( role , Item )  --[[ÌáÂíÀ­¹û×Ó]]--
 	local sp = GetChaAttr(role, ATTR_SP) 
+	--LG("Potion Usage", "Current SP= ", sp , "\n" ) 
 	sp_resume = 100 
 	
 	sp = sp + sp_resume 
 	mxsp = GetChaAttr(role,ATTR_MXSP) 
-	if sp > mxsp then
+	if sp > mxsp then --¼Ó³¬¹ý×î´óspÊ±·µ»ØÎª×î´ósp
 		sp = mxsp 
+		--LG("Potion Usage", "Reached Max SP cap", "\n" ) 
 	end 
+		--LG("Potion Usage", "SP recovered to", sp ,"\n" ) 
 	SetCharaAttr(sp, role, ATTR_SP) 
 end 
 
--- Çàãàäî÷íûé ôðóêò
-function ItemUse_SMG( role , Item )
+
+function ItemUse_SMG( role , Item )  --[[ÉñÃØ¹û]]--
 	local sp = GetChaAttr(role, ATTR_SP) 
+	--LG("Potion Usage", "Current SP= ", sp , "\n" ) 
 	sp_resume = 111 
 	
 	sp = sp + sp_resume 
 	mxsp = GetChaAttr(role,ATTR_MXSP) 
-	if sp > mxsp then
+	if sp > mxsp then --¼Ó³¬¹ý×î´óspÊ±·µ»ØÎª×î´ósp
 		sp = mxsp 
+		--LG("Potion Usage", "Reached Max SP cap", "\n" ) 
 	end 
+		--LG("Potion Usage", "SP recovered to", sp ,"\n" ) 
 	SetCharaAttr(sp, role, ATTR_SP) 
 end 
 
--- Àãðèïíîòèê
-function ItemUse_TSJ( role , Item )
+
+
+function ItemUse_TSJ( role , Item )  --[[ÌáÉñ¼Á]]--
 	local sp = GetChaAttr(role, ATTR_SP) 
+	--LG("Potion Usage", "Current SP= ", sp , "\n" ) 
 	sp_resume = 141 
 	
 	sp = sp + sp_resume 
 	mxsp = GetChaAttr(role,ATTR_MXSP) 
-	if sp > mxsp then
+	if sp > mxsp then --¼Ó³¬¹ý×î´óspÊ±·µ»ØÎª×î´ósp
 		sp = mxsp 
+		--LG("Potion Usage", "Reached Max SP cap", "\n" ) 
 	end 
+		--LG("Potion Usage", "SP recovered to", sp ,"\n" ) 
 	SetCharaAttr(sp, role, ATTR_SP) 
 end 
 
--- Âîëøåáíîå çåëüå
-function ItemUse_MHYS( role , Item )
+
+
+function ItemUse_MHYS( role , Item )  --[[Ä§»ÃÒ©Ë®]]--
 	local sp = GetChaAttr(role, ATTR_SP) 
+	--LG("Potion Usage", "Current SP= ", sp , "\n" ) 
 	sp_resume = 201 
 	
 	sp = sp + sp_resume 
 	mxsp = GetChaAttr(role,ATTR_MXSP) 
-	if sp > mxsp then
+	if sp > mxsp then --¼Ó³¬¹ý×î´óspÊ±·µ»ØÎª×î´ósp
 		sp = mxsp 
+		--LG("Potion Usage", "Reached Max SP cap", "\n" ) 
 	end 
+		--LG("Potion Usage", "SP recovered to", sp ,"\n" ) 
 	SetCharaAttr(sp, role, ATTR_SP) 
 end 
 
--- Îñîáûé êëóáíè÷íûé áèñêâèò
-function ItemUse_TZCMB ( role , Item )
-	tempt_monster( role ,  99 )
+function ItemUse_TZCMB ( role , Item )  --[[ÌØÖÆ²ÝÝ®±ý]]--
+	tempt_monster( role ,  99 )			--ÕÐÒý¾ÞÊÞ
+
 end 
 
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---Êíèãè áîåâûõ ñêèëëîâ
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- Âëàäåíèå ùèòîì (ID 3184)
-function Sk_Script_Dpsl ( role , Item )
+
+
+
+
+
+
+
+
+
+
+function hp_med_middle( role , Item )  --[[ÖÐÐÍÑªÆ¿¹«Ê½]]--
+	--LuaPrint("Enter function hp_med_small( role )  --[[medium HP potion formula]]--") 
+	local hp = GetChaAttr(role, ATTR_HP) 
+	--LG("Potion Usage", "Current HP= ", hp , "\n" ) 
+	if hp <= 0 then 
+		--LuaPrint("Character dead or illegal HP value")  return 
+		--LG("Potion Usage", "Character dead or illegal HP value","\n" )  
+	end 
+	hp_resume = 800 
+	hp = hp + hp_resume 
+	mxhp = GetChaAttr(role,ATTR_MXHP) 
+	 if hp > mxhp then --¼Ó³¬¹ý×î´óhpÊ±·µ»ØÎª×î´óhp
+		hp = mxhp 
+		--LG("Potion Usage", "Max HP cap reached", "\n" ) 
+	end 
+		--LG("Potion Usage", "HP recovered to", hp ,"\n" ) 
+	SetCharaAttr(hp, role, ATTR_HP) 
+	--LuaPrint("Out function hp_med_small( role )  --[[medium HP potion formula]]--") 
+end 
+
+function hp_med_large( role , Item )  --[[´óÐÍÑªÆ¿¹«Ê½]]--
+	--LuaPrint("Enter function hp_med_small( role )  --[[Big HP potion formula]]--") 
+	local hp = GetChaAttr(role, ATTR_HP) 
+	--LG("Potion Usage", "Current HP= ", hp , "\n" ) 
+	if hp <= 0 then 
+		--LuaPrint("Character dead or illegal HP value")  return 
+		--LG("Potion Usage", "Character dead or illegal HP value","\n" )  
+	end 
+	local mxhp = GetChaAttr(role, ATTR_MXHP) 
+	hp_resume = 0.2 * mxhp 
+	hp = hp + hp_resume 
+	mxhp = GetChaAttr(role,ATTR_MXHP) 
+	if hp > mxhp then --¼Ó³¬¹ý×î´óhpÊ±·µ»ØÎª×î´óhp
+		hp = mxhp 
+		--LG("Potion Usage", "Max HP cap reached", "\n" ) 
+	end 
+	--LG("Potion Usage", "HP recovered to", hp ,"\n" ) 
+	SetCharaAttr(hp, role, ATTR_HP) 
+	--LuaPrint("Out function hp_med_small( role )  --[[big HP potion formula]]--") 
+end 
+
+function hp_med_super( role , Item )  --[[³¬¼¶ÑªÆ¿¹«Ê½]]--
+	--LuaPrint("Enter function hp_med_small( role )  --[[super HP potion formula]]--") 
+	local hp = GetChaAttr(role, ATTR_HP) 
+	--LG("Potion Usage", "Current HP= ", hp , "\n" ) 
+	if hp <= 0 then 
+		--LuaPrint("Character dead or illegal HP value")  return 
+		--LG("Potion Usage", "Character dead or illegal HP value","\n" )  
+	end 
+	local mxhp = GetChaAttr(role, ATTR_MXHP) 
+	hp_resume = 0.8 * mxhp  
+	hp = hp + hp_resume 
+	mxhp = GetChaAttr(role,ATTR_MXHP) 
+	if hp > mxhp then --¼Ó³¬¹ý×î´óhpÊ±·µ»ØÎª×î´óhp
+		hp = mxhp 
+		--LG("Potion Usage", "Max HP cap reached", "\n" ) 
+	end 
+	--LG("Potion Usage", "HP recovered to", hp ,"\n" ) 
+	SetCharaAttr(hp, role, ATTR_HP) 
+	--LuaPrint("Out function hp_med_small( role )  --[[super HP potion formula]]--") 
+end 
+
+
+
+
+
+
+
+
+
+
+function Sk_Script_Dpsl ( role , Item ) 											--¼¼ÄÜ¾íÖá¡°¶ÜÅÆÊìÁ·¡±µÄÊ¹ÓÃ¹«Ê½
 	local sk_add = SK_DPSL
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -488,11 +755,14 @@ function Sk_Script_Dpsl ( role , Item )
 	end 
 end 
 
--- Äâîéíîé âûñòðåë (ID 3190)
-function Sk_Script_Lzj ( role , Item )
+function Sk_Script_Lzj ( role , Item ) 											--¼¼ÄÜ¾íÖá¡°Á¬Öé¼ý¡±µÄÊ¹ÓÃ¹«Ê½
 										
 	local sk_add = SK_LZJ  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -504,10 +774,14 @@ function Sk_Script_Lzj ( role , Item )
 	end 
 end 
 
--- Ìåòåîðèòíûé äîæäü (ID 3193)
-function Sk_Script_Lxjy ( role , Item )
+
+function Sk_Script_Lxjy ( role , Item ) 								--¼¼ÄÜ¾íÖá¡°Á÷ÐÇ¼ýÓê¡±µÄÊ¹ÓÃ¹«Ê½
 	local sk_add = SK_LXJY 
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -519,10 +793,15 @@ function Sk_Script_Lxjy ( role , Item )
 	end 
 end 
 
--- Âîé (ID 3167)
-function Sk_Script_Lh ( role , Item )
+
+
+function Sk_Script_Lh ( role , Item ) 								--¼¼ÄÜ¾íÖá¡°ÀÇº¿¡±µÄÊ¹ÓÃ¹«Ê½
 	local sk_add = SK_LH 
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -534,10 +813,14 @@ function Sk_Script_Lh ( role , Item )
 	end 
 end 
 
--- Äðîáü (ID 3200)
-function Sk_Script_Ssd ( role , Item )
+
+function Sk_Script_Ssd ( role , Item )  								--¼¼ÄÜ¾íÖá¡°É¢Éäµ¯¡±µÄÊ¹ÓÃ¹«Ê½
 	local sk_add = SK_SSD  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -549,10 +832,14 @@ function Sk_Script_Ssd ( role , Item )
 	end 
 end 
 
--- Ïðîíèêàþùàÿ ïóëÿ (ID 3199)
-function Sk_Script_Ctd ( role , Item )
+
+function Sk_Script_Ctd ( role , Item ) 								--¼¼ÄÜ¾íÖá¡°´©Í¸µ¯¡±µÄÊ¹ÓÃ¹«Ê½
 	local sk_add = SK_CTD 
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -564,10 +851,14 @@ function Sk_Script_Ctd ( role , Item )
 	end 
 end 
 
--- Âåëèêîå èñöåëåíèå (ID 3213)
-function Sk_Script_Dzy ( role , Item )
+
+function Sk_Script_Dzy ( role , Item ) 								--¼¼ÄÜ¾íÖá¡°´óÖÎÓú¡±µÄÊ¹ÓÃ¹«Ê½
 	local sk_add = SK_DZY 
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -579,10 +870,14 @@ function Sk_Script_Dzy ( role , Item )
 	end 
 end 
 
--- Ðûê òèãðà (ID 3293)
+
 function Sk_Script_Hx ( role , Item ) 											
 	local sk_add = SK_HX 
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -594,10 +889,14 @@ function Sk_Script_Hx ( role , Item )
 	end 
 end 
 
--- Çàæèãàòåëüíàÿ ïóëÿ (ID 3198)
+
 function Sk_Script_Rsd ( role , Item ) 											
 	local sk_add =SK_RSD 
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -609,10 +908,16 @@ function Sk_Script_Rsd ( role , Item )
 	end 
 end 
 
--- Èñêóññòâî âëàäåòü ìå÷îì (ID 3160)
+
+
+
 function Sk_Script_Jssl ( role , Item ) 											
 	local sk_add = SK_JSSL 
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -624,10 +929,15 @@ function Sk_Script_Jssl ( role , Item )
 	end 
 end 
 
--- Ñòàëüíàÿ âîëÿ (ID 3161)
+
+
 function Sk_Script_Gtyz ( role , Item ) 											
 	local sk_add = SK_GTYZ 
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -639,10 +949,14 @@ function Sk_Script_Gtyz ( role , Item )
 	end 
 end 
 
--- Óñèëåíèå (ID 3162)
+
 function Sk_Script_Qhtz ( role , Item ) 											
 	local sk_add = SK_QHTZ
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -654,10 +968,14 @@ function Sk_Script_Qhtz ( role , Item )
 	end 
 end 
 
--- Ñíîðîâêà (ID 3163)
+
 function Sk_Script_Lqhb ( role , Item ) 											
 	local sk_add = SK_LQHB 
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -669,10 +987,15 @@ function Sk_Script_Lqhb ( role , Item )
 	end 
 end 
 
--- Êîíöåíòðàöèÿ (ID 3164)
+
+
 function Sk_Script_Jdzz ( role , Item ) 											
 	local sk_add = SK_JDZZ 
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -684,25 +1007,36 @@ function Sk_Script_Jdzz ( role , Item )
 	end 
 end 
 
--- Èëëþçîðíûé óäàð (ID 3165)
+
+
 function Sk_Script_Hyz ( role , Item ) 											
 	local sk_add = SK_HYZ 
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
 	end 
 	a = AddChaSkill ( role , sk_add, 1 , 1 , 1 ) 
+	--LG( " learn sk " , " Sk_Script_Hyz ()	: " , "sever determine return= " , a ) 
 	if a== 0 then 
 		UseItemFailed ( role )  
 		return 
 	end 
 end 
 
--- Ìîãó÷èé óäàð (ID 3166)
+
+
 function Sk_Script_Zj ( role , Item ) 											
 	local sk_add = SK_ZJ 
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -714,10 +1048,14 @@ function Sk_Script_Zj ( role , Item )
 	end 
 end 
 
--- Ìàñòåð áîëüøîãî ìå÷à (ID 3168)
+
 function Sk_Script_Jjsl ( role , Item ) 											
 	local sk_add = SK_JJSL 
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -729,10 +1067,14 @@ function Sk_Script_Jjsl ( role , Item )
 	end 
 end 
 
--- Âàðâàðñêîå äðîáëåíèå (ID 3169)
+
 function Sk_Script_Ymsl ( role , Item ) 											
 	local sk_add = SK_YMSL 
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -744,25 +1086,36 @@ function Sk_Script_Ymsl ( role , Item )
 	end 
 end 
 
--- Áåðñåðê (ID 3170)
+
+
 function Sk_Script_Kb ( role , Item ) 											
 	local sk_add = SK_KB  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
 	end 
 	a = AddChaSkill ( role , sk_add, 1 , 1 , 1 ) 
+	--LG( " learn sk " , " function Sk_Script_Kb ()	: " , "sever determine return= " , a ) 
 	if a== 0 then 
 		UseItemFailed ( role )  
 		return 
 	end 
 end 
 
--- Ïîêëîíåíèå òîòåìó (ID 3171)
+
+
 function Sk_Script_Ttcb ( role , Item ) 											
 	local sk_add = SK_TTCB  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -774,10 +1127,15 @@ function Sk_Script_Ttcb ( role , Item )
 	end 
 end 
 
--- Êðîâàâûé áûê (ID 3172)
+
+
 function Sk_Script_Mnrx ( role , Item ) 											
 	local sk_add = SK_MNRX 
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -789,10 +1147,15 @@ function Sk_Script_Mnrx ( role , Item )
 	end 
 end 
 
--- Ïåðâîáûòíàÿ ÿðîñòü (ID 3173)
+
+
 function Sk_Script_Swzq ( role , Item ) 											
 	local sk_add = SK_SWZQ 
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -804,10 +1167,15 @@ function Sk_Script_Swzq ( role , Item )
 	end 
 end 
 
--- Ðóáêà äâóìÿ ìå÷àìè (ID 3174)
+
+
 function Sk_Script_Ssjjc ( role , Item ) 											
 	local sk_add = SK_FSZ 
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -819,10 +1187,15 @@ function Sk_Script_Ssjjc ( role , Item )
 	end 
 end 
 
--- Îòêëîíåíèå (ID 3175)
+
+
 function Sk_Script_Hys ( role , Item ) 											
 	local sk_add = SK_HYS  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -834,10 +1207,14 @@ function Sk_Script_Hys ( role , Item )
 	end 
 end 
 
--- Êðîâàâîå áåçóìèå (ID 3176)
+
 function Sk_Script_Pxkg ( role , Item ) 											
 	local sk_add = SK_PXKG 
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -849,10 +1226,14 @@ function Sk_Script_Pxkg ( role , Item )
 	end 
 end 
 
--- Ñêðûòíîñòü (ID 3177)
+
 function Sk_Script_Qx ( role , Item ) 											
 	local sk_add = SK_YS  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -864,10 +1245,14 @@ function Sk_Script_Qx ( role , Item )
 	end 
 end 
 
--- Óäàð â ñïèíó (ID 3178)
+
 function Sk_Script_Bc ( role , Item ) 											
 	local sk_add = SK_BC  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -879,25 +1264,36 @@ function Sk_Script_Bc ( role , Item )
 	end 
 end 
 
--- Òåíåâîé óäàð (ID 3179)
+
+
 function Sk_Script_Guz ( role , Item ) 											
 	local sk_add = SK_GWZ 
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
 	end 
 	a = AddChaSkill ( role , sk_add, 1 , 1 , 1 ) 
+	--LG( " learn sk " , " function Sk_Script_Guz ()	: " , "sever determine return= " , a ) 
 	if a== 0 then 
 		UseItemFailed ( role )  
 		return 
 	end 
 end 
 
--- ßäîâèòûé äðîòèê (ID 3180)
+
+
 function Sk_Script_Db ( role , Item ) 											
 	local sk_add = SK_DB  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -909,10 +1305,15 @@ function Sk_Script_Db ( role , Item )
 	end 
 end 
 
--- Îöåïåíåíèå (ID 3181)
+
+
 function Sk_Script_Mb ( role , Item ) 											
 	local sk_add = SK_MB  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -924,10 +1325,15 @@ function Sk_Script_Mb ( role , Item )
 	end 
 end 
 
--- Çâåðèíàÿ ñèëà (ID 3182)
+
+
 function Sk_Script_Shtz ( role , Item ) 											
 	local sk_add = SK_SHTZ  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -939,10 +1345,15 @@ function Sk_Script_Shtz ( role , Item )
 	end 
 end 
 
--- Âîññòàíàâëèâàòü (ID 3183)
+
+
 function Sk_Script_Tzhf ( role , Item ) 											
 	local sk_add = SK_TZHF  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -954,10 +1365,15 @@ function Sk_Script_Tzhf ( role , Item )
 	end 
 end 
 
--- Ìàñòåð ñòðåëêîâîãî îðóæèÿ (ID 3187)
+
+
 function Sk_Script_Gjsl ( role , Item ) 											
 	local sk_add = SK_GJSL  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -969,10 +1385,15 @@ function Sk_Script_Gjsl ( role , Item )
 	end 
 end 
 
--- Ïóòü âåòðà (ID 3188)
+
+
 function Sk_Script_Jfb ( role , Item ) 											
 	local sk_add = SK_JFB  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -984,10 +1405,15 @@ function Sk_Script_Jfb ( role , Item )
 	end 
 end 
 
--- Ãëàç îðëà (ID 3189)
+
+
 function Sk_Script_Yy ( role , Item ) 											
 	local sk_add = SK_YY 
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -999,10 +1425,15 @@ function Sk_Script_Yy ( role , Item )
 	end 
 end 
 
--- Ìàñòåð îãíåñòðåëüíîãî îðóæèÿ (ID 3192)
+
+
 function Sk_Script_Hqsl ( role , Item ) 											
 	local sk_add = SK_HQSL  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1014,10 +1445,15 @@ function Sk_Script_Hqsl ( role , Item )
 	end 
 end 
 
--- Ìåòåîðèòíûé äîæäü (ID 3193)
+
+
 function Sk_Script_Lxjy ( role , Item ) 											
 	local sk_add = SK_LXJY  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1029,10 +1465,14 @@ function Sk_Script_Lxjy ( role , Item )
 	end 
 end 
 
--- Íåèçâåñòíî (ID n\a)
+
 function Sk_Script_Dyjj ( role , Item ) 											
 	local sk_add = SK_DYJJ 
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1044,10 +1484,14 @@ function Sk_Script_Dyjj ( role , Item )
 	end 
 end 
 
--- Êàëå÷àùèé âûñòðåë (ID 3202)
+
 function Sk_Script_Tj ( role , Item ) 											
 	local sk_add = SK_TJ 
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1059,10 +1503,15 @@ function Sk_Script_Tj ( role , Item )
 	end 
 end 
 
--- Îñëàáëåíèå (ID 3203)
+
+
 function Sk_Script_Sj ( role , Item ) 											
 	local sk_add = SK_SJ  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1074,10 +1523,15 @@ function Sk_Script_Sj ( role , Item )
 	end 
 end 
 
--- Âûñòðåë â ãîëîâó (ID 3204)
+
+
 function Sk_Script_Bt ( role , Item ) 											
 	local sk_add = SK_BT  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1089,10 +1543,15 @@ function Sk_Script_Bt ( role , Item )
 	end 
 end 
 
--- Ñèëà (ID 3205)
+
+
 function Sk_Script_Jsjc ( role , Item ) 											
 	local sk_add = SK_JSJC  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1104,10 +1563,15 @@ function Sk_Script_Jsjc ( role , Item )
 	end 
 end 
 
--- Èñöåëåíèå (ID 3206)
+
+
 function Sk_Script_Xzys ( role , Item ) 											
 	local sk_add = SK_XZY  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1119,10 +1583,15 @@ function Sk_Script_Xzys ( role , Item )
 	end 
 end 
 
--- Âîññòàíîâëåíèå (ID 3207)
+
+
 function Sk_Script_Hfs ( role , Item ) 											
 	local sk_add = SK_HFS  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1134,10 +1603,15 @@ function Sk_Script_Hfs ( role , Item )
 	end 
 end 
 
--- Ïðèçðà÷íûé óäàð (ID 3208)
+
+
 function Sk_Script_Xlcz ( role , Item ) 											
 	local sk_add = SK_XLCZ  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1149,10 +1623,15 @@ function Sk_Script_Xlcz ( role , Item )
 	end 
 end 
 
--- Èñòèííîå çðåíèå (ID 3209)
+
+
 function Sk_Script_Syzy ( role , Item ) 											
 	local sk_add = SK_SYZY  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1164,10 +1643,16 @@ function Sk_Script_Syzy ( role , Item )
 	end 
 end 
 
--- Âåëèêîå èñöåëåíèå (ID 3213)
+
+
+
 function Sk_Script_Dzy( role , Item ) 											
 	local sk_add = SK_DZY  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1179,10 +1664,16 @@ function Sk_Script_Dzy( role , Item )
 	end 
 end 
 
--- Ìîùíîå Âîññòàíîâëåíèå (ID 3214)
+
+
+
 function Sk_Script_Dhfs ( role , Item ) 											
 	local sk_add = SK_DHFS  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1194,10 +1685,14 @@ function Sk_Script_Dhfs ( role , Item )
 	end 
 end 
 
--- Ïðèçðà÷íûé îãîíü (ID 3210)
+
 function Sk_Script_Xlzh ( role , Item ) 											
 	local sk_add = SK_XLZH  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1209,10 +1704,15 @@ function Sk_Script_Xlzh ( role , Item )
 	end 
 end 
 
--- Ìîùü áóðè (ID 3211)
+
+
 function Sk_Script_Fzlz ( role , Item ) 											
 	local sk_add = SK_FZLZ  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1224,10 +1724,15 @@ function Sk_Script_Fzlz ( role , Item )
 	end 
 end 
 
--- Áëàãîäàòü ãîñïîäíÿ (ID 3212)
+
+
 function Sk_Script_Sy ( role , Item ) 											
 	local sk_add = SK_SY  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1239,10 +1744,15 @@ function Sk_Script_Sy ( role , Item )
 	end 
 end 
 
--- Âîñêðåøåíèå (ID 3215)
+
+
 function Sk_Script_Fh ( role , Item ) 											
 	local sk_add = SK_FH  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1254,10 +1764,15 @@ function Sk_Script_Fh ( role , Item )
 	end 
 end 
 
--- Âîðîíêà òîðíàäî (ID 3216)
+
+
 function Sk_Script_Jsfb ( role , Item ) 											
 	local sk_add = SK_JSFB  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1269,10 +1784,15 @@ function Sk_Script_Jsfb ( role , Item )
 	end 
 end 
 
--- Àíãåëüñêèé ùèò (ID 3217)
+
+
 function Sk_Script_Tshd ( role , Item ) 											
 	local sk_add = SK_TSHD  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1284,10 +1804,15 @@ function Sk_Script_Tshd ( role , Item )
 	end 
 end 
 
--- Ïå÷àòü ñòàðåéøèíû (ID 3218)
+
+
 function Sk_Script_Xzfy ( role , Item ) 											
 	local sk_add = SK_XZFY  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1299,10 +1824,15 @@ function Sk_Script_Xzfy ( role , Item )
 	end 
 end 
 
--- Ðîñ÷åðê òåíè (ID 3219)
+
+
 function Sk_Script_Ayzz ( role , Item ) 											
 	local sk_add = SK_AYZZ 
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1314,10 +1844,15 @@ function Sk_Script_Ayzz ( role , Item )
 	end 
 end 
 
--- Ïðîêëÿòûé îãîíü (ID 3220)
+
+
 function Sk_Script_Zzzh ( role , Item ) 											
 	local sk_add = SK_ZZZH  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1329,10 +1864,15 @@ function Sk_Script_Zzzh ( role , Item )
 	end 
 end 
 
--- Êîíòðãàðä (ID 3221)
+
+
 function Sk_Script_Sdbz ( role , Item ) 											
 	local sk_add = SK_SDBZ  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1344,10 +1884,15 @@ function Sk_Script_Sdbz ( role , Item )
 	end 
 end 
 
--- Áåçäîííîå áîëîòî (ID 3222)
+
+
 function Sk_Script_Nzs ( role , Item ) 											
 	local sk_add = SK_SYNZ  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1359,10 +1904,15 @@ function Sk_Script_Nzs ( role , Item )
 	end 
 end 
 
--- Ìàãè÷åñêèé ùèò (ID 3223)
+
+
 function Sk_Script_Xlpz ( role , Item ) 											
 	local sk_add = SK_XLPZ 
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1374,10 +1924,15 @@ function Sk_Script_Xlpz ( role , Item )
 	end 
 end 
 
--- Èñöåëÿþùèé èñòî÷íèê (ID 3224)
+
+
 function Sk_Script_Hfwq ( role , Item ) 											
 	local sk_add = SK_HFWQ  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1389,13 +1944,15 @@ function Sk_Script_Hfwq ( role , Item )
 	end 
 end 
 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- Êíèãè ìèðíûõ ñêèëëîâ (Êíèãè ìèðíûõ íàâûêîâ)
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- Ðóáêà ëåñà (ID 3226)
+
+
 function Sk_Script_Ks	( role , Item ) 
 	local sk_add = SK_KS  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1406,15 +1963,14 @@ function Sk_Script_Ks	( role , Item )
 		return 
 	end 
 end 
-
--- Ââåäåíèå â ïðîèçâîäñòâî (ID 2679 - 2688)
+----------------ÖÆÔì
 function Sk_Script_ZhiZao( role , Item ) 
 	local star_lv=GetItemID(Item)-2678
 	local sk_add = SK_ZHIZAO  
 	local form_sklv = GetSkillLv( role , sk_add ) 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 1 then
-		SystemNotice(role ,"\194\224\236 \237\243\230\229\237 1 \241\226\238\225\238\228\237\251\233 \241\235\238\242 \226 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \226\251\243\247\232\242\252 \253\242\238 \243\236\229\237\232\229")
+		SystemNotice(role ,"You need at least 1 empty slot to learn this skill")
 		UseItemFailed ( role )
 		return
 	end
@@ -1424,19 +1980,19 @@ function Sk_Script_ZhiZao( role , Item )
 	end 
 	local el_sklv = GetSkillLv( role , SK_KS ) 
 	if el_sklv <star_lv  then 	
-		SystemNotice ( role , "\194\224\236 \237\243\230\237\238 \226\251\243\247\232\242\252 \240\243\225\234\243 \228\229\240\229\226\224 "..star_lv.." \243\240\238\226\237\255, \247\242\238\225\251 \239\240\238\247\232\242\224\242\252 \253\242\243 \234\237\232\227\243" ) 
+		SystemNotice ( role , "Requires you to master "..star_lv.."Lv woodcutting skill to read this book" ) 
 		UseItemFailed ( role )
 		return
 	end 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if star_lv==1 and Item_CanGet < 1 then
-		SystemNotice(role ,"\194\224\236 \237\243\230\229\237 1 \241\226\238\225\238\228\237\251\233 \241\235\238\242 \226 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \226\251\243\247\232\242\252 \253\242\238 \243\236\229\237\232\229")
-	UseItemFailed ( role )
+		SystemNotice(role ,"You need at least 1 empty slot to learn this skill")
+		UseItemFailed ( role )
 		return
 	end
 	a = AddChaSkill ( role , sk_add, star_lv , 1 , 1 ) 
 	if a== 0 then 
-		SystemNotice ( role , "\205\229 \245\226\224\242\224\229\242 \238\247\234\238\226 \204\232\240\237\251\245 \237\224\226\251\234\238\226. \207\238\239\251\242\224\233\242\229\241\252 \239\240\238\233\242\232 \234\224\234 \236\238\230\237\238 \225\238\235\252\248\229 \232\241\242\238\240\232\247\229\241\234\232\245 \234\226\229\241\242\238\226." )
+		SystemNotice ( role , "Not enough LifeSkill points. Please try to complete more story quest." ) 
 		UseItemFailed ( role )  
 		return 
 	end 
@@ -1445,13 +2001,12 @@ function Sk_Script_ZhiZao( role , Item )
 		local m2 = -1
 		m1, m2 = MakeItem ( role , 1068  , 1 , 4 )
 		local Itemfinal = GetChaItem ( role , 2 , m2 )
-		SetItemAttr(Itemfinal, ITEMATTR_VAL_STR ,1)
-		SetItemAttr(Itemfinal, ITEMATTR_MAXENERGY ,10000)
-		SetItemAttr(Itemfinal, ITEMATTR_ENERGY ,1)
+		SetItemAttr(Itemfinal, ITEMATTR_VAL_STR ,1)--ÉèÖÃ¹¤¾ßµÈ¼¶Îª1
+		SetItemAttr(Itemfinal, ITEMATTR_MAXENERGY ,10000)--ÉèÖÃ¹¤¾ß×î´óÄÜÁ¿
+		SetItemAttr(Itemfinal, ITEMATTR_ENERGY ,1)--ÉèÖÃ¹¤¾ßµ±Ç°ÄÜÁ¿
 	end
 end 
-
--- Ñïðàâî÷íèê ïî Ðåìåñëó (ID 2699 - 2708)
+----------------ÖýÔì
 function Sk_Script_ZhuZao( role , Item ) 
 	local star_lv=GetItemID(Item)-2698
 	local sk_add = SK_ZHUZAO  
@@ -1461,20 +2016,20 @@ function Sk_Script_ZhuZao( role , Item )
 		return 
 	end 
 	local el_sklv = GetSkillLv( role , SK_WK ) 
-	if el_sklv <star_lv  then 
-		SystemNotice ( role , "\194\224\236 \237\243\230\237\238 \226\251\243\247\232\242\252 \228\238\225\251\247\243 \240\243\228\251 "..star_lv.." \243\240\238\226\237\255, \247\242\238\225\251 \239\240\238\247\232\242\224\242\252 \253\242\243 \234\237\232\227\243" )
+	if el_sklv <star_lv  then 	
+		SystemNotice ( role ,  "Requires you to master "..star_lv.."Lv mining skill to read this book" ) 
 		UseItemFailed ( role )
 		return
 	end 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if star_lv==1 and Item_CanGet < 1 then
-		SystemNotice(role ,"\194\224\236 \237\243\230\229\237 1 \241\226\238\225\238\228\237\251\233 \241\235\238\242 \226 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \226\251\243\247\232\242\252 \253\242\238 \243\236\229\237\232\229")
+		SystemNotice(role ,"You need at least 1 empty slot to learn this skill")
 		UseItemFailed ( role )
 		return
 	end
 	a = AddChaSkill ( role , sk_add, star_lv , 1 , 1 ) 
 	if a== 0 then 
-		SystemNotice ( role , "\205\229 \245\226\224\242\224\229\242 \238\247\234\238\226 \204\232\240\237\251\245 \237\224\226\251\234\238\226. \207\238\239\251\242\224\233\242\229\241\252 \239\240\238\233\242\232 \234\224\234 \236\238\230\237\238 \225\238\235\252\248\229 \232\241\242\238\240\232\247\229\241\234\232\245 \234\226\229\241\242\238\226." )
+		SystemNotice ( role , "Not enough LifeSkill points. Please try to complete more story quest." ) 
 		UseItemFailed ( role )  
 		return 
 	end
@@ -1483,13 +2038,12 @@ function Sk_Script_ZhuZao( role , Item )
 		local m2 = -1
 		m1, m2 = MakeItem ( role , 1069  , 1 , 4 )
 		local Itemfinal = GetChaItem ( role , 2 , m2 )
-		SetItemAttr(Itemfinal, ITEMATTR_VAL_STR ,1)
-		SetItemAttr(Itemfinal, ITEMATTR_MAXENERGY ,10000)
-		SetItemAttr(Itemfinal, ITEMATTR_ENERGY ,1)
+		SetItemAttr(Itemfinal, ITEMATTR_VAL_STR ,1)--ÉèÖÃ¹¤¾ßµÈ¼¶Îª1
+		SetItemAttr(Itemfinal, ITEMATTR_MAXENERGY ,10000)--ÉèÖÃ¹¤¾ß×î´óÄÜÁ¿
+		SetItemAttr(Itemfinal, ITEMATTR_ENERGY ,1)--ÉèÖÃ¹¤¾ßµ±Ç°ÄÜÁ¿
 	end
 end 
-
--- Ââåäåíèå â êóëèíàðèþ (ID 2689 - 2698)
+----------------Åëâ¿
 function Sk_Script_PengRen( role , Item ) 
 	local star_lv=GetItemID(Item)-2688
 	local sk_add = SK_PENGREN  
@@ -1499,14 +2053,14 @@ function Sk_Script_PengRen( role , Item )
 		return 
 	end 
 	local el_sklv = GetSkillLv( role , SK_BY ) 
-	if el_sklv <star_lv  then
-		SystemNotice ( role ,  "\194\224\236 \237\243\230\237\238 \226\251\243\247\232\242\252 \240\251\225\238\235\238\226\241\242\226\238 "..star_lv.." óðîâíÿ, \247\242\238\225\251 \239\240\238\247\232\242\224\242\252 \253\242\243 \234\237\232\227\243" )
+	if el_sklv <star_lv  then 	
+		SystemNotice ( role ,  "Requires you to master "..star_lv.."Lv Fishing to be able to read this book." ) 
 		UseItemFailed ( role )
 		return
 	end 
 	a = AddChaSkill ( role , sk_add, star_lv , 1 , 1 ) 
 	if a== 0 then 
-		SystemNotice ( role , "\205\229 \245\226\224\242\224\229\242 \238\247\234\238\226 \204\232\240\237\251\245 \237\224\226\251\234\238\226. \207\238\239\251\242\224\233\242\229\241\252 \239\240\238\233\242\232 \234\224\234 \236\238\230\237\238 \225\238\235\252\248\229 \232\241\242\238\240\232\247\229\241\234\232\245 \234\226\229\241\242\238\226." )
+		SystemNotice ( role , "Not enough LifeSkill points. Please try to complete more story quest." ) 
 		UseItemFailed ( role )  
 		return 
 	end 
@@ -1515,13 +2069,12 @@ function Sk_Script_PengRen( role , Item )
 		local m2 = -1
 		m1, m2 = MakeItem ( role , 1067  , 1 , 4 )
 		local Itemfinal = GetChaItem ( role , 2 , m2 )
-		SetItemAttr(Itemfinal, ITEMATTR_VAL_STR ,1)
-		SetItemAttr(Itemfinal, ITEMATTR_MAXENERGY ,10000)
-		SetItemAttr(Itemfinal, ITEMATTR_ENERGY ,1)
+		SetItemAttr(Itemfinal, ITEMATTR_VAL_STR ,1)--ÉèÖÃ¹¤¾ßµÈ¼¶Îª1
+		SetItemAttr(Itemfinal, ITEMATTR_MAXENERGY ,10000)--ÉèÖÃ¹¤¾ß×î´óÄÜÁ¿
+		SetItemAttr(Itemfinal, ITEMATTR_ENERGY ,1)--ÉèÖÃ¹¤¾ßµ±Ç°ÄÜÁ¿
 	end
 end 
-
--- Ñïðàâî÷íèê ïî Àíàëèçó (ID 2709 - 2718)
+----------------·Ö½â
 function Sk_Script_FenJie( role , Item ) 
 	local star_lv=GetItemID(Item)-2708
 	local sk_add = SK_FENJIE  
@@ -1531,20 +2084,20 @@ function Sk_Script_FenJie( role , Item )
 		return 
 	end 
 	local el_sklv = GetSkillLv( role , SK_DL ) 
-	if el_sklv <star_lv  then
-		SystemNotice ( role , "\194\224\236 \237\243\230\237\238 \226\251\243\247\232\242\252 \242\240\224\235\229\237\232\229 "..star_lv.." \243\240\238\226\237\255, \247\242\238\225\251 \239\240\238\247\232\242\224\242\252 \253\242\243 \234\237\232\227\243" ) 
+	if el_sklv <star_lv  then 	
+		SystemNotice ( role , "Requires you to master "..star_lv.." Salvage to read current book" ) 
 		UseItemFailed ( role )
 		return
 	end 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if star_lv==1 and Item_CanGet < 1 then
-		SystemNotice(role ,"\194\224\236 \237\243\230\229\237 1 \241\226\238\225\238\228\237\251\233 \241\235\238\242 \226 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \226\251\243\247\232\242\252 \253\242\238 \243\236\229\237\232\229")
+		SystemNotice(role ,"You need at least 1 empty slot to learn this skill")
 		UseItemFailed ( role )
 		return
 	end
 	a = AddChaSkill ( role , sk_add, star_lv , 1 , 1 ) 
 	if a== 0 then 
-		SystemNotice ( role , "\205\229 \245\226\224\242\224\229\242 \238\247\234\238\226 \204\232\240\237\251\245 \237\224\226\251\234\238\226. \207\238\239\251\242\224\233\242\229\241\252 \239\240\238\233\242\232 \234\224\234 \236\238\230\237\238 \225\238\235\252\248\229 \232\241\242\238\240\232\247\229\241\234\232\245 \234\226\229\241\242\238\226." )
+		SystemNotice ( role , "Not enough LifeSkill points. Please try to complete more story quest." ) 
 		UseItemFailed ( role )  
 		return 
 	end
@@ -1553,16 +2106,18 @@ function Sk_Script_FenJie( role , Item )
 		local m2 = -1
 		m1, m2 = MakeItem ( role , 1070  , 1 , 4 )
 		local Itemfinal = GetChaItem ( role , 2 , m2 )
-		SetItemAttr(Itemfinal, ITEMATTR_VAL_STR ,1)
-		SetItemAttr(Itemfinal, ITEMATTR_MAXENERGY ,10000)
-		SetItemAttr(Itemfinal, ITEMATTR_ENERGY ,1)
+		SetItemAttr(Itemfinal, ITEMATTR_VAL_STR ,1)--ÉèÖÃ¹¤¾ßµÈ¼¶Îª1
+		SetItemAttr(Itemfinal, ITEMATTR_MAXENERGY ,10000)--ÉèÖÃ¹¤¾ß×î´óÄÜÁ¿
+		SetItemAttr(Itemfinal, ITEMATTR_ENERGY ,1)--ÉèÖÃ¹¤¾ßµ±Ç°ÄÜÁ¿
 	end
 end 
-
--- Äîáû÷à ðóäû (ID 3225)
 function Sk_Script_Wk	( role , Item ) 
 	local sk_add = SK_WK  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1574,14 +2129,14 @@ function Sk_Script_Wk	( role , Item )
 	end 
 end 
 
---------------------------------------------------------------------------------------------------
--- Êíèãè áîåâûõ ñêèëëîâ
---------------------------------------------------------------------------------------------------
 
--- Óñåðäèå (ID 3227)
 function Sk_Script_Jr	( role , Item ) 
 	local sk_add = SK_JR  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1593,10 +2148,15 @@ function Sk_Script_Jr	( role , Item )
 	end 
 end 
 
--- Âîäîòîê (ID 3228)
+
+
 function Sk_Script_Sl	( role , Item ) 
 	local sk_add = SK_SL  
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1608,10 +2168,14 @@ function Sk_Script_Sl	( role , Item )
 	end 
 end 
 
--- Áðîíÿ èç ðàêîâèí (ID 3229)
+
 function Sk_Script_Bkzj ( role , Item ) 
 	local sk_add = SK_BKZJ   
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1623,10 +2187,15 @@ function Sk_Script_Bkzj ( role , Item )
 	end 
 end 
 
--- Òîðíàäî (ID 3230)
+
+
 function Sk_Script_Jf ( role , Item ) 
 	local sk_add = SK_JF   
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1638,10 +2207,14 @@ function Sk_Script_Jf ( role , Item )
 	end 
 end 
 
--- Ìîëíèÿ (ID 3231)
+
 function Sk_Script_Lj ( role , Item ) 
 	local sk_add = SK_LJ    
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1653,10 +2226,13 @@ function Sk_Script_Lj ( role , Item )
 	end 
 end 
 
--- Ïåðåïëåòåíèå âîäîðîñëåé (ID 3232)
 function Sk_Script_Hzcr ( role , Item ) 
 	local sk_add = SK_HZCR     
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1668,10 +2244,13 @@ function Sk_Script_Hzcr ( role , Item )
 	end 
 end 
 
--- Êîðàëëîâûé ëó÷ (ID 3233)
 function Sk_Script_Bkcj ( role , Item ) 
 	local sk_add = SK_BKCJ      
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1683,10 +2262,15 @@ function Sk_Script_Bkcj ( role , Item )
 	end 
 end 
 
--- Ïîïóòíûé âåòåð (ID 3234)
+
+
 function Sk_Script_Sf ( role , Item ) 
 	local sk_add = SK_SF       
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1698,10 +2282,15 @@ function Sk_Script_Sf ( role , Item )
 	end 
 end 
 
--- Âèõðü (ID 3235)
+
+
 function Sk_Script_Xw ( role , Item ) 
 	local sk_add = SK_XW        
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1713,10 +2302,14 @@ function Sk_Script_Xw ( role , Item )
 	end 
 end 
 
--- Òóìàí (ID 3236)
+
 function Sk_Script_Mw ( role , Item ) 
 	local sk_add = SK_MW        
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1728,10 +2321,13 @@ function Sk_Script_Mw ( role , Item )
 	end 
 end 
 
--- Ãðîçîâàÿ çàâåñà (ID 3237)
 function Sk_Script_Lm ( role , Item ) 
 	local sk_add = SK_LM         
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1743,10 +2339,13 @@ function Sk_Script_Lm ( role , Item )
 	end 
 end 
 
--- Áðîíåëîì (ID 3238)
 function Sk_Script_Pj ( role , Item ) 
 	local sk_add = SK_PJ         
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1758,10 +2357,13 @@ function Sk_Script_Pj ( role , Item )
 	end 
 end 
 
--- Âîîäóøåâëåíèå (ID 3239)
 function Sk_Script_Fnq ( role , Item ) 
 	local sk_add = SK_FNQ         
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1773,10 +2375,13 @@ function Sk_Script_Fnq ( role , Item )
 	end 
 end 
 
--- Ëåäÿíàÿ ñòðåëà (ID 3197)
 function Sk_Script_Bdj ( role , Item ) 
 	local sk_add = SK_BDJ         
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1788,10 +2393,13 @@ function Sk_Script_Bdj ( role , Item )
 	end 
 end 
 
--- Îòðàâëåííàÿ ñòðåëà (ID 3241)
 function Sk_Script_Dj ( role , Item ) 
 	local sk_add = SK_DJ         
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1803,10 +2411,13 @@ function Sk_Script_Dj ( role , Item )
 	end 
 end 
 
--- Çàêàëêà (ID 3242)
 function Sk_Script_Shpf ( role , Item ) 
 	local sk_add = SK_SHPF         
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1821,6 +2432,10 @@ end
 function Sk_Script_Cf ( role , Item )
 	local sk_add = SK_CHF         
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1832,10 +2447,13 @@ function Sk_Script_Cf ( role , Item )
 	end 
 end
 
--- Ðûê (ID 3298)
 function Sk_Script_Px ( role , Item )
 	local sk_add = SK_PAX         
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1847,10 +2465,13 @@ function Sk_Script_Px ( role , Item )
 	end 
 end
 
--- Ñèëüíàÿ ìàãèÿ (ID 3300)
 function Sk_Script_MLCH ( role , Item )
 	local sk_add = SK_MLCH         
-	local form_sklv = GetSkillLv( role , sk_add )
+	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1862,10 +2483,14 @@ function Sk_Script_MLCH ( role , Item )
 	end 
 end
 
--- Êðèñòàëüíîå áëàãîñëîâåíèå (ID 3301)
+
 function Sk_Script_BLYZ ( role , Item )
 	local sk_add = SK_BLYZ         
 	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv ~= 0  then 
 		UseItemFailed ( role )  
 		return 
@@ -1877,16 +2502,13 @@ function Sk_Script_BLYZ ( role , Item )
 	end 
 end
 
---------------------------------------------------------------------------------------------------
---Íåèçâåñòíûå âåùè (unknow2979 - unknow3027; ID 3243 - 3291)
---------------------------------------------------------------------------------------------------
 
 function AddSailSkill ( role , i , sk_add , sailexp_req ) 
 	LG ( "AddSailSkill" , "__add a new sailsk________________________ "  ) 
 
 	local form_sklv = GetSkillLv( role , sk_add ) 
 	if form_sklv ~= i - 1  then 
-		SystemNotice ( role , "Ýòà êíèãà íå ìîæåò ïîäíÿòü âàø óðîâåíü óìåíèÿ " ) 
+		SystemNotice ( role , "This book is unable to raise your current skill level" ) 
 		UseItemFailed ( role )  
 		return 
 	end 
@@ -1920,12 +2542,14 @@ function Sk_Script_Hpsl1 ( role , Item )
 
 end
 
+
 function Sk_Script_Hpsl2 ( role , Item ) 
 	local i = 2 
 	local sk_add = SK_HPSL         
 	local sailexp_req = sk_hpsl [ i ]  
 	AddSailSkill ( role , i , sk_add , sailexp_req ) 
 end
+
 
 function Sk_Script_Hpsl3 ( role , Item ) 
 	local i = 3 
@@ -1947,6 +2571,7 @@ function Sk_Script_Hpsl5 ( role , Item )
 	local sailexp_req = sk_hpsl [ i ]  
 	AddSailSkill ( role , i , sk_add , sailexp_req ) 
 end
+
 
 function Sk_Script_Hpsl6 ( role , Item ) 
 	local i = 6 
@@ -2264,11 +2889,7 @@ function Sk_Script_Bjkr10 ( role , Item )
 	AddSailSkill ( role , i , sk_add , sailexp_req ) 
 end
 
---------------------------------------------------------------------------------------------------
---Êíèãè ìèðíûõ ñêèëëîâ (Êíèãè ìèðíûõ íàâûêîâ)
---------------------------------------------------------------------------------------------------
---Ðûáîëîâñòâî (ID 3294)
-function Sk_Script_By ( role , Item )
+function Sk_Script_By ( role , Item )										--¼¼ÄÜ²¶Óã
 	local sk_add = SK_BY         
 	local form_sklv = GetSkillLv( role , sk_add ) 
 	if form_sklv ~= 0  then 
@@ -2282,8 +2903,8 @@ function Sk_Script_By ( role , Item )
 	end 
 end
 
---Òðàëåíèå (ID 3295)
-function Sk_Script_Dl ( role , Item )
+
+function Sk_Script_Dl ( role , Item )											--¼¼ÄÜ´òÀÌ
 	local sk_add = SK_DL         
 	local form_sklv = GetSkillLv( role , sk_add ) 
 	if form_sklv ~= 0  then 
@@ -2297,8 +2918,7 @@ function Sk_Script_Dl ( role , Item )
 	end 
 end
 
---Ïîñòàâèòü ëàðåê (ID 3296)
-function Sk_Script_Btjn ( role , Item )
+function Sk_Script_Btjn ( role , Item )										---¼¼ÄÜ°ÚÌ¯
 	local sk_add = SK_BAT         
 	local form_sklv = GetSkillLv( role , sk_add ) 
 	if form_sklv ~= 0  then 
@@ -2312,7 +2932,6 @@ function Sk_Script_Btjn ( role , Item )
 	end 
 end
 
---Ðåìîíò (ID 3299)
 function Sk_Script_Pkqx ( role , Item )
 	local sk_add = SK_PKQX         
 	local form_sklv = GetSkillLv( role , sk_add ) 
@@ -2327,10 +2946,8 @@ function Sk_Script_Pkqx ( role , Item )
 	end 
 end
 
---------------------------------------------------------------------------------------------------
---Áèëåòû
---------------------------------------------------------------------------------------------------
---Îáðàòíûé áèëåò (ID 3141)
+----»Ø³Ç¾íÖá-----------------------------------------------------------------------------------------------------------------------------------------
+
 function Jz_Script_hc(role, Item )
 	local i = CheckBagItem(role,3141)
 	local k = ChaIsBoat(role)
@@ -2339,7 +2956,7 @@ function Jz_Script_hc(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "Òåëåïîðòàöèÿ î÷åíü óòîìèòåëüíûé ïðîöåññ. Ïîæàëóéñòà, âîññòàíîâèòå Âàøå çäîðîâüå è ìàíó ")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end
@@ -2347,198 +2964,134 @@ function Jz_Script_hc(role, Item )
 		if i > 0 then
 			local j = DelBagItem(role,3141,1)
 			if j == 1 then
-				MoveCity( role, "" )
+				MoveCity(role,"")
 				return
 			end
 		end
 	else
-		UseItemFailed( role )
+		UseItemFailed ( role )
 	end
 	
 end
-
--- Áèëåò äî Ñåðåáðÿíîãî (ID 4602)
-function Jz_Script_bycs( role, Item )
-	local i = CheckBagItem( role, 4602 )
-	local k = ChaIsBoat( role )
-	local hp = Hp( role )
-	local mxhp = Mxhp( role )
-	local sp = Sp( role )
-	local mxsp = Mxsp( role )
-
-	if sp < mxsp or hp < mxhp then
-		SystemNotice( role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243" )
-		UseItemFailed( role )
+----°×Òø´«ËÍ¾íÖá-------------------------------------------------------------------------------------------------------------------------------------
+function Jz_Script_bycs(role, Item )
+	local i = CheckBagItem(role,4602)
+	local k = ChaIsBoat(role)
+	local hp = Hp(role)
+	local mxhp = Mxhp(role)
+	local sp = Sp(role)
+	local mxsp = Mxsp(role)
+	if sp < mxsp or hp < mxhp then 
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
+		UseItemFailed ( role )
 		return
-	end
-
+	end 
 	if k == 0 then
 		if i > 0 then
-			local j = DelBagItem( role, 4602, 1 )
+			local j = DelBagItem(role,4602,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = math.random( 1, 3 )
-					teleport( role, n )
-				else
-					MoveCity( role, "Argent City" )
-				end
+				MoveCity(role,"Argent City")
 				return
 			end
 		end
 	else
 		UseItemFailed ( role )
 	end
+		
 end
-
--- Áèëåò äî Øàéòàíà (ID 4603)
-function Jz_Script_slcs( role, Item )
-	local i = CheckBagItem( role, 4603 )
-	local k = ChaIsBoat( role )
-	local hp = Hp( role )
-	local mxhp = Mxhp( role )
-	local sp = Sp( role )
-	local mxsp = Mxsp( role )
-
-	if sp < mxsp or hp < mxhp then
-		SystemNotice( role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243" )
-		UseItemFailed( role )
+----É³á°´«ËÍ¾íÖá--------------------------------------------------------------------------------------------------------------------------------------
+function Jz_Script_slcs(role, Item )
+	local i = CheckBagItem(role,4603)
+	local k = ChaIsBoat(role)
+	local hp = Hp(role)
+	local mxhp = Mxhp(role)
+	local sp = Sp(role)
+	local mxsp = Mxsp(role)
+	if sp < mxsp or hp < mxhp then 
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
+		UseItemFailed ( role )
 		return
-	end
-
+	end 
 	if k == 0 then
 		if i > 0 then
-			local j = DelBagItem( role, 4603, 1 )
+			local j = DelBagItem(role,4603,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = math.random( 7, 9 )
-					teleport( role, n )
-				else
-					MoveCity( role, "Shaitan City" )
-				end
+				MoveCity(role,"Shaitan City")
 				return
 			end
 		end
 	else
-		UseItemFailed( role )
+		UseItemFailed ( role )
 	end
+
 end
-
--- Áèëåò äî Ëåäûíè (ID 4604)
-function Jz_Script_blbcs( role, Item )
-	local i = CheckBagItem( role, 4604 )
-	local k = ChaIsBoat( role )
-	local hp = Hp( role )
-	local mxhp = Mxhp( role )
-	local sp = Sp( role )
-	local mxsp = Mxsp( role )
-
-	if sp < mxsp or hp < mxhp then
-		SystemNotice( role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243" )
-		UseItemFailed( role )
+----±ùÀÇ´«ËÍ¾íÖá--------------------------------------------------------------------------------------------------------------------------------------
+function Jz_Script_blbcs(role, Item )
+	local i = CheckBagItem(role,4604)
+	local k = ChaIsBoat(role)
+	local hp = Hp(role)
+	local mxhp = Mxhp(role)
+	local sp = Sp(role)
+	local mxsp = Mxsp(role)
+	if sp < mxsp or hp < mxhp then 
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
+		UseItemFailed ( role )
 		return
-	end
-
+	end 
 	if k == 0 then
 		if i > 0 then
-			local j = DelBagItem( role, 4604, 1 )
+			local j = DelBagItem(role,4604,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = math.random( 10, 12 )
-					teleport( role, n )
-				else
-					MoveCity( role, "Icicle Castle" )
-				end
+				MoveCity(role,"Icicle Castle")
 				return
 			end
 		end
 	else
-		UseItemFailed( role )
+		UseItemFailed ( role )
 	end
-end
 
---Áèëåò íà î. Âåñíû (Id 0332)
+end
+----´º·çÕòËÍ¾íÖá-------------------------------------------------------------------------------------------------------------------------------------
 function Jz_Script_cfzs(role, Item )
-	local i = CheckBagItem( role, 332 )
-	local k = ChaIsBoat( role )
-	local hp = Hp( role )
-	local mxhp = Mxhp( role )
-	local sp = Sp( role )
-	local mxsp = Mxsp( role )
-
-	if sp < mxsp or hp < mxhp then
-		SystemNotice( role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243" )
-		UseItemFailed( role )
+	local i = CheckBagItem(role,332)
+	local k = ChaIsBoat(role)
+	local hp = Hp(role)
+	local mxhp = Mxhp(role)
+	local sp = Sp(role)
+	local mxsp = Mxsp(role)
+	if sp < mxsp or hp < mxhp then 
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
+		UseItemFailed ( role )
 		return
-	end
-
+	end 
 	if k == 0 then
 		if i > 0 then
-			local j = DelBagItem( role, 332, 1 )
+			local j = DelBagItem(role,332,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 75
-					teleport( role, n )
-				else
-					MoveCity( role, "Spring Town" )
-				end
+				MoveCity(role,"Spring Town")
 				return
 			end
 		end
 	else
-		UseItemFailed( role )
+		UseItemFailed ( role )
 	end
+		
 end
 
--- Áèëåò íà î. Àðåíû (ID n\a)
-function Jz_Script_cfzsAI( role, Item )
-	local i = CheckBagItem( role, 5780 )
-	local k = ChaIsBoat( role )
-	local hp = Hp( role )
-	local mxhp = Mxhp( role )
-	local sp = Sp( role )
-	local mxsp = Mxsp( role )
+--Ä¾²ÄÀ¦Ê¹ÓÃÐ§¹û------------------------------------------------------------------------------------------------------------------
 
-	if sp < mxsp or hp < mxhp then
-		SystemNotice( role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243" )
-		UseItemFailed( role )
-		return
-	end
-
-	if k == 0 then
-		if i > 0 then
-			local j = DelBagItem( role, 5780, 1 )
-			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = math.random( 13, 17 )
-					teleport( role, n )
-				else
-					MoveCity( role, "Arena Isle" )
-				end
-				return
-			end
-		end
-	else
-		UseItemFailed( role )
-	end
-end
-
---------------------------------------------------------------------------------------------------
---Êîðàáåëüíàé ëåñ è ìÿñî
---------------------------------------------------------------------------------------------------
-
---Êîðàáåëüíûé ëåñ (ID 4547)
 function ItemUse_Wood ( role , Item ) 
 	local k = ChaIsBoat ( role ) 
 	if k == 0 then 
-		UseItemFailed ( role )
-		SystemNotice ( role , "\207\240\229\228\236\229\242 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237 \242\238\235\252\234\238 \226 \236\238\240\229" )
+		UseItemFailed ( role ) 
+		SystemNotice ( role , "Item can only be used while sailing" )
 		return 
 	end 
 	local hp = GetChaAttr ( role , ATTR_HP ) 
 	local mxhp = GetChaAttr ( role, ATTR_MXHP ) 
 	if hp < 0 then 
 		UseItemFailed ( role ) 
-		SystemNotice ( role , "\209\243\228\237\238 \231\224\242\238\237\243\235\238. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \239\240\229\228\236\229\242" ) 
+		SystemNotice ( role , "Ship has sunken. Unable to use item" ) 
 	end 
 	local statelv = 1
 	local statetime = 63
@@ -2557,12 +3110,13 @@ end
 function State_MCK_Rem ( role , statelv ) 
 end
 
---Ìÿñî (ID 4551)
+--ÓãÈâÊ¹ÓÃÐ§¹û------------------------------------------------------------------------------------------------------------------
+
 function ItemUse_Fish ( role , Item ) 
 	local k = ChaIsBoat ( role ) 
 	if k == 0 then 
 		UseItemFailed ( role ) 
-		SystemNotice ( role , "\207\240\229\228\236\229\242 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237 \242\238\235\252\234\238 \226 \236\238\240\229" )
+		SystemNotice ( role , "Item can only be used while sailing" )
 		return 
 	end 
 	local sp = GetChaAttr ( role , ATTR_SP ) 
@@ -2571,18 +3125,14 @@ function ItemUse_Fish ( role , Item )
 	local mxhp = GetChaAttr ( role, ATTR_MXHP ) 
 	if hp < 0 then 
 		UseItemFailed ( role ) 
-		SystemNotice ( role , "\209\243\228\237\238 \231\224\242\238\237\243\235\238. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \239\240\229\228\236\229\242" ) 
+		SystemNotice ( role , "Ship has sunken. Unable to use item" ) 
 	end 
 	local sp_resume = 50 
 	sp = math.min ( mxsp , sp + sp_resume  ) 
 	SetCharaAttr ( sp , role , ATTR_SP ) 
 end 
 
---------------------------------------------------------------------------------------------------
---Ëóííûé ïèðîã
---------------------------------------------------------------------------------------------------
-
---Ëóííûé ïèðîã (ID 3915)
+----ÔÂ±ýÊ¹ÓÃÐ§¹û------------------------------------------------------------------------------------------------------------------
 function ItemUse_YB ( role , Item )
 	local exp = Exp ( role )
 	local charLv=Lv ( role )
@@ -2594,24 +3144,20 @@ function ItemUse_YB ( role , Item )
 	end
 	SetCharaAttr ( exp_new , role , ATTR_CEXP )
 end
+--»ªÀö±¦Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
---------------------------------------------------------------------------------------------------
---Ñóíäóêè
---------------------------------------------------------------------------------------------------
-
---Êðàñèâûé ñóíäóê (ID 1815)
 function ItemUse_HLBX ( role , Item )
 	local item_type = BaoXiang_HLBX 
 	local item_type_rad = BaoXiang_HLBX_Rad 
 	local item_type_count = BaoXiang_HLBX_Count 
-	local maxitem = BaoXiang_HLBX_Mxcount
+	local maxitem = BaoXiang_HLBX_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_HLBX_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -2622,8 +3168,8 @@ function ItemUse_HLBX ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -2640,14 +3186,20 @@ function ItemUse_HLBX ( role , Item )
 		ItemCount = item_type_count [c] 
 	end 
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
+	--local itemname = GetItemName ( ItemId ) 
+	--local cha_name = GetChaDefaultName ( role ) 
+	--local message = cha_name.." opens a treasure chest and obtained   "..itemname  
+	--Notice ( message )
 end 
 
---Ìèñòè÷åñêèé ñóíäóê (ID 1814)
+
+--ÉñÃØ±¦Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_SMBX ( role , Item )
 	local item_type = BaoXiang_SMBX 
 	local item_type_rad = BaoXiang_SMBX_Rad 
 	local item_type_count = BaoXiang_SMBX_Count 
-	local maxitem = BaoXiang_SMBX_Mxcount
+	local maxitem = BaoXiang_SMBX_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_SMBX_Qua
 	local General = 0  
 	local ItemId = 0 
@@ -2655,7 +3207,7 @@ function ItemUse_SMBX ( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -2665,8 +3217,8 @@ function ItemUse_SMBX ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -2684,14 +3236,20 @@ function ItemUse_SMBX ( role , Item )
 		ItemCount = item_type_count [c] 
 	end 
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
+	--local itemname = GetItemName ( ItemId ) 
+	--local cha_name = GetChaDefaultName ( role ) 
+	--local message = cha_name.." opens a treasure chest and obtained   "..itemname  
+	--Notice ( message )
 end 
 
---Îáû÷íûé ñóíäóê (ID 1852)
+
+--³è³è±¦Ïä----------------------------------------------------------------
+
 function ItemUse_SYBOX ( role , Item )
 	local item_type = BaoXiang_SYBOX 
 	local item_type_rad = BaoXiang_SYBOX_Rad 
 	local item_type_count = BaoXiang_SYBOX_Count 
-	local maxitem = BaoXiang_SYBOX_Mxcount
+	local maxitem = BaoXiang_SYBOX_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_SYBOX_Qua
 	local General = 0  
 	local ItemId = 0 
@@ -2699,7 +3257,7 @@ function ItemUse_SYBOX ( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -2709,8 +3267,8 @@ function ItemUse_SYBOX ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -2732,24 +3290,28 @@ function ItemUse_SYBOX ( role , Item )
 	 
 		local itemname = GetItemName ( ItemId ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+		local message = cha_name.." opens a treasure chest and obtained   "..itemname  
  		Notice ( message )
 	end
 end
 
---Ñóíäóê ñ âåùàìè (ID 1851)
+
+
+
+----Îï×ÊÏä----------------------------------------------------------------------------------------------
+
 function ItemUse_WZX ( role , Item )
 	local item_type = BaoXiang_WZX 
 	local item_type_rad = BaoXiang_WZX_Rad 
 	local item_type_count = BaoXiang_WZX_Count 
-	local maxitem = BaoXiang_WZX_Mxcount
+	local maxitem = BaoXiang_WZX_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_WZX_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -2760,8 +3322,8 @@ function ItemUse_WZX ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -2780,21 +3342,26 @@ function ItemUse_WZX ( role , Item )
 		ItemCount = item_type_count [c] 
 	end 
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
+--	local itemname = GetItemName ( ItemId ) 
+--	local cha_name = GetChaDefaultName ( role ) 
+--	local message = cha_name.." opens a treasure chest and obtained"..itemname  
+--	Notice ( message )
 end
 
---Ñêåëåòíûé ñóíäóê ìå÷íèêà (ID 3400)
+--÷¼÷ÃÖ®½£Ê¿±¦Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_KLJS ( role , Item )
 	local item_type = BaoXiang_KLJS 
 	local item_type_rad = BaoXiang_KLJS_Rad 
 	local item_type_count = BaoXiang_KLJS_Count 
-	local maxitem = BaoXiang_KLJS_Mxcount
+	local maxitem = BaoXiang_KLJS_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_KLJS_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -2805,8 +3372,8 @@ function ItemUse_KLJS ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -2826,23 +3393,24 @@ function ItemUse_KLJS ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end 
 
---Ñêåëåòíûé ñóíäóê îõîòíèêà (ID 3401)
+--÷¼÷ÃÖ®ÁÔÈË±¦Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_KLLR ( role , Item )
 	local item_type = BaoXiang_KLLR 
 	local item_type_rad = BaoXiang_KLLR_Rad 
 	local item_type_count = BaoXiang_KLLR_Count 
-	local maxitem = BaoXiang_KLLR_Mxcount
+	local maxitem = BaoXiang_KLLR_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_KLLR_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -2853,8 +3421,8 @@ function ItemUse_KLLR ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -2874,23 +3442,24 @@ function ItemUse_KLLR ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end 
 
---Ñêåëåòíûé ñóíäóê çíàõàðêè (ID 3402)
+--÷¼÷ÃÖ®Ò½Éú±¦Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_KLYS ( role , Item )
 	local item_type = BaoXiang_KLYS 
 	local item_type_rad = BaoXiang_KLYS_Rad 
 	local item_type_count = BaoXiang_KLYS_Count 
-	local maxitem = BaoXiang_KLYS_Mxcount
+	local maxitem = BaoXiang_KLYS_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_KLYS_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -2901,8 +3470,8 @@ function ItemUse_KLYS ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -2922,23 +3491,24 @@ function ItemUse_KLYS ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end
 
---Ñêåëåòíûé ñóíäóê èññëåäîâàòåëÿ (ID 3403)
+--÷¼÷ÃÖ®Ã°ÏÕÕß±¦Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_KLMX ( role , Item )
 	local item_type = BaoXiang_KLMX 
 	local item_type_rad = BaoXiang_KLMX_Rad 
 	local item_type_count = BaoXiang_KLMX_Count 
-	local maxitem = BaoXiang_KLMX_Mxcount
+	local maxitem = BaoXiang_KLMX_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_KLMX_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -2949,8 +3519,8 @@ function ItemUse_KLMX ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -2970,23 +3540,25 @@ function ItemUse_KLMX ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end
 
---Ñóíäóê çàêëèíàíèé âîèòåëÿ (ID 3404)
+
+--ÖäÊõÖ®Ë«½£Ê¿×°±¸Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_ZSSJ ( role , Item )
 	local item_type = BaoXiang_ZSSJ 
 	local item_type_rad = BaoXiang_ZSSJ_Rad 
 	local item_type_count = BaoXiang_ZSSJ_Count 
-	local maxitem = BaoXiang_ZSSJ_Mxcount
+	local maxitem = BaoXiang_ZSSJ_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_ZSSJ_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -2997,8 +3569,8 @@ function ItemUse_ZSSJ ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -3018,23 +3590,24 @@ function ItemUse_ZSSJ ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end
 
---Ñóíäóê çàêëèíàíèé ÷åìïèîíà (ID 3405)
+--ÖäÊõÖ®¾Þ½£Ê¿×°±¸Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_ZSJS ( role , Item )
 	local item_type = BaoXiang_ZSJS 
 	local item_type_rad = BaoXiang_ZSJS_Rad 
 	local item_type_count = BaoXiang_ZSJS_Count 
-	local maxitem = BaoXiang_ZSJS_Mxcount
+	local maxitem = BaoXiang_ZSJS_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_ZSJS_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -3045,8 +3618,8 @@ function ItemUse_ZSJS ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -3066,23 +3639,25 @@ function ItemUse_ZSJS ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end
 
---Ñóíäóê çàêëèíàíèé ñòðåëêà (ID 3406)
+
+--ÖäÊõÖ®¾Ñ»÷ÊÖ×°±¸Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_ZSJJ ( role , Item )
 	local item_type = BaoXiang_ZSJJ
 	local item_type_rad = BaoXiang_ZSJJ_Rad 
 	local item_type_count = BaoXiang_ZSJJ_Count 
-	local maxitem = BaoXiang_ZSJJ_Mxcount
+	local maxitem = BaoXiang_ZSJJ_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_ZSJJ_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -3093,8 +3668,8 @@ function ItemUse_ZSJJ ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -3114,23 +3689,25 @@ function ItemUse_ZSJJ ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end
 
---Ñóíäóê çàêëèíàíèé öåëèòåëüíèöû (ID 3407)
+
+--ÖäÊõÖ®Ê¥Ö°Õß×°±¸Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_ZSSZ ( role , Item )
 	local item_type = BaoXiang_ZSSZ
 	local item_type_rad = BaoXiang_ZSSZ_Rad 
 	local item_type_count = BaoXiang_ZSSZ_Count 
-	local maxitem = BaoXiang_ZSSZ_Mxcount
+	local maxitem = BaoXiang_ZSSZ_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_ZSSZ_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -3141,8 +3718,8 @@ function ItemUse_ZSSZ ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1	
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -3162,23 +3739,25 @@ function ItemUse_ZSSZ ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end
 
---Ñóíäóê çàêëèíàíèé êîëäóíüè (ID 3408)
+
+--ÖäÊõÖ®·âÓ¡Ê¦×°±¸Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_ZSFY ( role , Item )
 	local item_type = BaoXiang_ZSFY
 	local item_type_rad = BaoXiang_ZSFY_Rad 
 	local item_type_count = BaoXiang_ZSFY_Count 
-	local maxitem = BaoXiang_ZSFY_Mxcount
+	local maxitem = BaoXiang_ZSFY_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_ZSFY_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -3189,8 +3768,8 @@ function ItemUse_ZSFY ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -3210,23 +3789,25 @@ function ItemUse_ZSFY ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end
 
---Cóíäóê çàêëèíàíèé ìîðåïëàâàòåëÿ (ID 3409)
+
+--ÖäÊõÖ®º½º£Ê¿×°±¸Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_ZSHH ( role , Item )
 	local item_type = BaoXiang_ZSHH
 	local item_type_rad = BaoXiang_ZSHH_Rad 
 	local item_type_count = BaoXiang_ZSHH_Count 
-	local maxitem = BaoXiang_ZSHH_Mxcount
+	local maxitem = BaoXiang_ZSHH_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_ZSHH_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -3237,8 +3818,8 @@ function ItemUse_ZSHH ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -3257,23 +3838,24 @@ function ItemUse_ZSHH ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end
 
---Èñ÷åçàþùèé ñóíäóê âîèòåëÿ (ID 3410)
+--»ÃÁéÖ®Ë«½£Ê¿×°±¸Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_HLSJ ( role , Item )
 	local item_type = BaoXiang_HLSJ
 	local item_type_rad = BaoXiang_HLSJ_Rad 
 	local item_type_count = BaoXiang_HLSJ_Count 
-	local maxitem = BaoXiang_HLSJ_Mxcount
+	local maxitem = BaoXiang_HLSJ_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_HLSJ_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -3284,8 +3866,8 @@ function ItemUse_HLSJ ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -3304,23 +3886,25 @@ function ItemUse_HLSJ ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end
 
---Ñóíäóê èñ÷åçíîâåíèÿ ÷åìïèîíà (ID 3411)
+
+--»ÃÁéÖ®¾Þ½£Ê¿×°±¸Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_HLJS ( role , Item )
 	local item_type = BaoXiang_HLJS
 	local item_type_rad = BaoXiang_HLJS_Rad 
 	local item_type_count = BaoXiang_HLJS_Count 
-	local maxitem = BaoXiang_HLJS_Mxcount
+	local maxitem = BaoXiang_HLJS_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_HLJS_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -3331,8 +3915,8 @@ function ItemUse_HLJS ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -3351,23 +3935,25 @@ function ItemUse_HLJS ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end
 
---Ñóíäóê èñ÷åçíîâåíèÿ ñòðåëêà (ID 3412)
+
+--»ÃÁéÖ®¾Ñ»÷ÊÖ×°±¸Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_HLJJ ( role , Item )
 	local item_type = BaoXiang_HLJJ
 	local item_type_rad = BaoXiang_HLJJ_Rad 
 	local item_type_count = BaoXiang_HLJJ_Count 
-	local maxitem = BaoXiang_HLJJ_Mxcount
+	local maxitem = BaoXiang_HLJJ_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_HLJJ_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -3378,8 +3964,8 @@ function ItemUse_HLJJ ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -3398,23 +3984,24 @@ function ItemUse_HLJJ ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end
 
---Èñ÷åçàþùèé ñóíäóê öåëèòåëüíèöû (ID 3413)
+--»ÃÁéÖ®Ê¥Ö°Õß×°±¸Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_HLSZ ( role , Item )
 	local item_type = BaoXiang_HLSZ
 	local item_type_rad = BaoXiang_HLSZ_Rad 
 	local item_type_count = BaoXiang_HLSZ_Count 
-	local maxitem = BaoXiang_HLSZ_Mxcount
+	local maxitem = BaoXiang_HLSZ_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_HLSZ_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -3425,8 +4012,8 @@ function ItemUse_HLSZ ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -3445,23 +4032,24 @@ function ItemUse_HLSZ ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end
 
---Ñóíäóê èñ÷åçíîâåíèÿ êîëäóíüè (ID 3414)
+--»ÃÁéÖ®·âÓ¡Ê¦×°±¸Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_HLFY ( role , Item )
 	local item_type = BaoXiang_HLFY
 	local item_type_rad = BaoXiang_HLFY_Rad 
 	local item_type_count = BaoXiang_HLFY_Count 
-	local maxitem = BaoXiang_HLFY_Mxcount
+	local maxitem = BaoXiang_HLFY_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_HLFY_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -3472,8 +4060,8 @@ function ItemUse_HLFY ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -3492,23 +4080,24 @@ function ItemUse_HLFY ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end
 
---Ñóíäóê èñ÷åçíîâåíèÿ ìîðåïëàâàòåëÿ (ID 3415)
+--»ÃÁéÖ®º½º£Ê¿×°±¸Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_HLHH ( role , Item )
 	local item_type = BaoXiang_HLHH
 	local item_type_rad = BaoXiang_HLHH_Rad 
 	local item_type_count = BaoXiang_HLHH_Count 
-	local maxitem = BaoXiang_HLHH_Mxcount
+	local maxitem = BaoXiang_HLHH_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_HLHH_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -3519,8 +4108,8 @@ function ItemUse_HLHH ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -3539,23 +4128,24 @@ function ItemUse_HLHH ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end
 
---Ïîòàéíîé ñóíäóê âîèòåëÿ (ID 3416)
+--ÃÔÖ®Ë«½£Ê¿×°±¸Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_MSJ ( role , Item )
 	local item_type = BaoXiang_MSJ
 	local item_type_rad = BaoXiang_MSJ_Rad 
 	local item_type_count = BaoXiang_MSJ_Count 
-	local maxitem = BaoXiang_MSJ_Mxcount
+	local maxitem = BaoXiang_MSJ_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_MSJ_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -3566,8 +4156,8 @@ function ItemUse_MSJ ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -3586,23 +4176,24 @@ function ItemUse_MSJ ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end
 
---Òàèíñòâåííûé ñóíäóê ÷åìïèîíà (ID 3417)
+--ÃÔÖ®¾Þ½£Ê¿×°±¸Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_MJS ( role , Item )
 	local item_type = BaoXiang_MJS
 	local item_type_rad = BaoXiang_MJS_Rad 
 	local item_type_count = BaoXiang_MJS_Count 
-	local maxitem = BaoXiang_MJS_Mxcount
+	local maxitem = BaoXiang_MJS_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_MJS_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -3613,8 +4204,8 @@ function ItemUse_MJS ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -3633,23 +4224,25 @@ function ItemUse_MJS ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end
 
---Òàèíñòâåííûé ñóíäóê ñòðåëêà (ID 3418)
+
+--ÃÔÖ®¾Ñ»÷ÊÖ×°±¸Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_MJJ ( role , Item )
 	local item_type = BaoXiang_MJJ
 	local item_type_rad = BaoXiang_MJJ_Rad 
 	local item_type_count = BaoXiang_MJJ_Count 
-	local maxitem = BaoXiang_MJJ_Mxcount
+	local maxitem = BaoXiang_MJJ_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_MJJ_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -3660,8 +4253,8 @@ function ItemUse_MJJ ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -3680,23 +4273,24 @@ function ItemUse_MJJ ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end
 
---Òàèíñòâåííûé ñóíäóê êëèðèêà (ID 3419)
+--ÃÔÖ®Ê¥Ö°Õß×°±¸Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_MSZ ( role , Item )
 	local item_type = BaoXiang_MSZ
 	local item_type_rad = BaoXiang_MSZ_Rad 
 	local item_type_count = BaoXiang_MSZ_Count 
-	local maxitem = BaoXiang_MSZ_Mxcount
+	local maxitem = BaoXiang_MSZ_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_MSZ_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -3707,8 +4301,8 @@ function ItemUse_MSZ ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -3727,23 +4321,24 @@ function ItemUse_MSZ ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end
 
---Òàèíñòâåííûé ñóíäóê êîëäóíüè (ID 3420)
+--ÃÔÖ®·âÓ¡Ê¦×°±¸Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_MFY ( role , Item )
 	local item_type = BaoXiang_MFY
 	local item_type_rad = BaoXiang_MFY_Rad 
 	local item_type_count = BaoXiang_MFY_Count 
-	local maxitem = BaoXiang_MFY_Mxcount
+	local maxitem = BaoXiang_MFY_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_MFY_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -3754,8 +4349,8 @@ function ItemUse_MFY ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -3774,23 +4369,24 @@ function ItemUse_MFY ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end
 
---Òàèíñòâåííûé ñóíäóê ïîêîðèòåëÿ ìîðåé (ID 3421)
+--ÃÔÖ®º½º£Ê¿×°±¸Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_MHH ( role , Item )
 	local item_type = BaoXiang_MHH
 	local item_type_rad = BaoXiang_MHH_Rad 
 	local item_type_count = BaoXiang_MHH_Count 
-	local maxitem = BaoXiang_MHH_Mxcount
+	local maxitem = BaoXiang_MHH_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_MHH_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -3801,8 +4397,8 @@ function ItemUse_MHH ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -3821,23 +4417,24 @@ function ItemUse_MHH ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end
 
---Ñóíäóê èç Çàòåðÿííîãî ãîðîäà (ID 3422)
+--·ÏÁé±¦Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_FLBX ( role , Item )
 	local item_type = BaoXiang_FLBX
 	local item_type_rad = BaoXiang_FLBX_Rad 
 	local item_type_count = BaoXiang_FLBX_Count 
-	local maxitem = BaoXiang_FLBX_Mxcount
+	local maxitem = BaoXiang_FLBX_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_FLBX_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -3848,8 +4445,8 @@ function ItemUse_FLBX ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -3868,16 +4465,17 @@ function ItemUse_FLBX ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end
 
---Ñóíäóê ñ Òåìíîé òîïè (ID 3423)
+--ÕÓÔó±¦Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_ZZBX ( role , Item )
 	local item_type = BaoXiang_ZZBX
 	local item_type_rad = BaoXiang_ZZBX_Rad 
 	local item_type_count = BaoXiang_ZZBX_Count 
-	local maxitem = BaoXiang_ZZBX_Mxcount
+	local maxitem = BaoXiang_ZZBX_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_ZZBX_Qua
 	local General = 0  
 	local ItemId = 0 
@@ -3885,7 +4483,7 @@ function ItemUse_ZZBX ( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -3895,8 +4493,8 @@ function ItemUse_ZZBX ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -3915,16 +4513,17 @@ function ItemUse_ZZBX ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end
 
---Ñóíäóê èç Ìèðà äåìîíîâ (ID 3424)
+--Ä§·½±¦Ïä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_MFBX ( role , Item )
 	local item_type = BaoXiang_MFBX
 	local item_type_rad = BaoXiang_MFBX_Rad 
 	local item_type_count = BaoXiang_MFBX_Count 
-	local maxitem = BaoXiang_MFBX_Mxcount
+	local maxitem = BaoXiang_MFBX_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_MFBX_Qua
 	local General = 0  
 	local ItemId = 0 
@@ -3932,7 +4531,7 @@ function ItemUse_MFBX ( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -3942,8 +4541,8 @@ function ItemUse_MFBX ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -3962,16 +4561,18 @@ function ItemUse_MFBX ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end
 
---Ñóíäóê ïîòàåííîãî (ID 3458)
+
+--ÃÔÖ®±¦Ïä-------------------------------------------------------------------------
+
 function ItemUse_MZBX ( role , Item )
 	local item_type = BaoXiang_MZBX
 	local item_type_rad = BaoXiang_MZBX_Rad 
 	local item_type_count = BaoXiang_MZBX_Count 
-	local maxitem = BaoXiang_MZBX_Mxcount
+	local maxitem = BaoXiang_MZBX_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_MZBX_Qua
 	local General = 0  
 	local ItemId = 0 
@@ -3979,7 +4580,7 @@ function ItemUse_MZBX ( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -3989,8 +4590,8 @@ function ItemUse_MZBX ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -4009,30 +4610,27 @@ function ItemUse_MZBX ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 	local itemname = GetItemName ( ItemId ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \241\243\237\228\243\234 \241 \241\238\234\240\238\226\232\249\224\236\232 \232 \239\238\235\243\247\224\229\242   "..itemname  
+	local message = cha_name.." opens a treasure chest and obtained   "..itemname  
 	Notice ( message )
 end
 
---------------------------------------------------------------------------------------------------
---Ïðîèçâîäñòâî
---------------------------------------------------------------------------------------------------
 
---Âîäÿíàÿ ìèíà (ID 3459)
+--Ë®À×Ê©·Å¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function  ItemUse_BOMB ( role , Item ) 
 	local bomb = SummonCha ( role , 1 , 704 ) 
 	local statetime = 10 
 	local statelv = 1 
 	AddState ( role , bomb , STATE_BOMB , statelv , statetime ) 
 	AddChaSkill ( bomb , SK_BOMB , 1 , 1 , 0 ) 
-	SystemNotice ( role , "\194\238\228\255\237\224\255 \236\232\237\224 \243\241\239\229\248\237\238 \243\241\242\224\237\238\226\235\229\237\224" ) 
+	SystemNotice ( role , "mount Water Mine successful" ) 
 end 
 
 
---------------------------------------------------------------------------------------------------
---Çåëüÿ
---------------------------------------------------------------------------------------------------
 
---Áû÷üå çåëüå (ID 1854)
+---PKÌØÊâÒ©Æ·---------------------------------------------------------------------------------------------------
+
+--ÂùÅ£Ò©Ë®--------
 function ItemUse_PKMNYS ( role , Item )
 	local statelv = 10
 	local statetime = 1800
@@ -4040,52 +4638,52 @@ function ItemUse_PKMNYS ( role , Item )
 end
 
 
---Áîåâîå çåëüå (ID 1855)
+--Õ½¶·Ò©Ë®--------
 function ItemUse_PKZDYS ( role , Item )
 	local statelv = 10
 	local statetime = 150
 	AddState( role , role , STATE_PKZDYS , statelv , statetime )
 end
 
---Çåëüå áåðñåðêà (ID 1856)
+--¿ñ±©Ò©Ë®--------
 function ItemUse_PKKBYS ( role , Item )
 	local statelv = 10
 	local statetime = 20
 	AddState( role , role , STATE_PKKBYS , statelv , statetime )
 end
 
---Ýíåðãîçåëüå (ID 1857)
+--¾«ÉñÒ©Ë®---------
 function ItemUse_PKJSYS ( role , Item )
 	local statelv = 10
 	local statetime = 180
 	AddState( role , role , STATE_PKJSYS , statelv , statetime )
 end
 
---Óêðåïëÿþùåå çåëüå (ID 1858)
+--Ê¯·ôÒ©Ë®---------
 function ItemUse_PKSFYS ( role , Item )
 	local statelv = 10
 	local statetime = 300
 	AddState( role , role , STATE_PKSFYS , statelv , statetime )
 end
 
---Çåëüå òî÷íîñòè (ID 1859)
+--¾«×¼Ò©Ë®--------
 function ItemUse_PKJZYS ( role , Item )
 	local statelv = 10
 	local statetime = 900
 	AddState( role , role , STATE_PKJZYS , statelv , statetime )
 end
 
---Íåèçâåñòíî (ID n\a)
+--ÉñÓÓÒ©Ë®--------
 function ItemUse_PKWDYS ( role , Item )
 	local statelv = 10
 	local statetime = 15
 	AddState( role , role , STATE_PKWD , statelv , statetime )
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \241\242\224\237\238\226\232\242\241\255 \205\229\232\231\226\229\241\242\237\206 \237\224 15 \241\229\234\243\237\228" 
+	local message = cha_name.." becomes invunerable for 15 seconds"  
 	Notice ( message )
 end
 
---Êà÷åñòâåííûé Êîðàáåëüíûé ëåñ (ID 1861)
+--¸ß¼¶Ä¾²ÄÀ¦-------
 function ItemUse_PKMCK ( role , Item )
 	local map_name = GetChaMapName ( role )
 	if map_name == "secretgarden" then
@@ -4093,47 +4691,44 @@ function ItemUse_PKMCK ( role , Item )
 		Hp_Endure_Dmg ( role , hpdmg ) 
 		ALLExAttrSet(role)
 	else
-		SystemNotice ( role , "\221\242\238\242 \239\240\229\228\236\229\242 \236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \242\238\235\252\234\238 \226 \209\224\228\243 \221\228\229\235\252" )
+		SystemNotice ( role , "Item can only be used in Garden of Edel" )
 	end
 end
 
 
 
---------------------------------------------------------------------------------------------------
---											Áèëåòû												--
---------------------------------------------------------------------------------------------------
--- Ïðîïóñê â Ãðîìîãðàä ID 3048)
-function Jz_Script_ltcs( role, Item )
-	local i = CheckBagItem( role, 3828 )
-	local k = ChaIsBoat( role )
-	local hp = Hp( role )
-	local mxhp = Mxhp( role )
-	local sp = Sp( role )
-	local mxsp = Mxsp( role )
-	if sp < mxsp or hp < mxhp then
-		SystemNotice( role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
-		UseItemFailed( role )
+--------ÐÂÔöÉÌÆ·-------------------------------------------------------------------------------------------
+--À×öª±¤»úÆ±
+
+function Jz_Script_ltcs(role, Item )
+	local i = CheckBagItem(role,3828)
+	local k = ChaIsBoat(role)
+	local hp = Hp(role)
+	local mxhp = Mxhp(role)
+	local sp = Sp(role)
+	local mxsp = Mxsp(role)
+	if sp < mxsp or hp < mxhp then 
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
+		UseItemFailed ( role )
 		return
 	end 
 	if k == 0 then
 		if i > 0 then
-			local j = DelBagItem( role, 3828, 1 )
+			local j = DelBagItem(role,3828,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = math.random( 4, 6 )
-					teleport( role, n )
-				else
-					MoveCity( role, "Thundoria Castle" )
-				end
+				MoveCity(role,"Thundoria Castle")
 				return
 			end
 		end
 	else
-		UseItemFailed( role )
+		UseItemFailed ( role )
 	end
+		
 end
 
--- Ñëåäóé â ïîðò Ãðîìîãðàäà (ID 3049)
+
+
+--À×öª±¤¾ü¸Û»úÆ±
 function Jz_Script_ltjgcs(role, Item )
 	local i = CheckBagItem(role,3829)
 	local k = ChaIsBoat(role)
@@ -4142,7 +4737,7 @@ function Jz_Script_ltjgcs(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -4150,317 +4745,269 @@ function Jz_Script_ltjgcs(role, Item )
 		if i > 0 then
 			local j = DelBagItem(role,3829,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 75
-					teleport( role, n )
-				else
-					MoveCity( role, "Thundoria Harbor" )
-				end
+				MoveCity(role,"Thundoria Harbor")
 				return
 			end
 		end
 	else
 		UseItemFailed ( role )
 	end
+		
 end
 
--- Ïðîïóñê ê Ñâÿùåííîé Ñíåæíîé ãîðå (ID 3050)
-function Jz_Script_sxscs( role, Item )
-	local i = CheckBagItem( role, 3830 )
-	local k = ChaIsBoat( role )
-	local hp = Hp( role )
-	local mxhp = Mxhp( role )
-	local sp = Sp( role )
-	local mxsp = Mxsp( role )
 
-	if sp < mxsp or hp < mxhp then
-		SystemNotice( role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243" )
-		UseItemFailed( role )
-		return
-	end
+--Ê¥Ñ©É½»úÆ±
 
-	if k == 0 then
-		if i > 0 then
-			local j = DelBagItem( role, 3830, 1 )
-			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 56
-					teleport( role, n )
-				else
-					MoveCity( role, "Sacred Snow Mountain" )
-				end
-				return
-			end
-		end
-	else
-		UseItemFailed( role )
-	end
-end
-
--- Ïðîïóñê â Àíäèéñêèé ëåñ (ID 3051)
-function Jz_Script_laslcs( role, Item )
-	local i = CheckBagItem( role, 3831 )
-	local k = ChaIsBoat( role )
-	local hp = Hp( role )
-	local mxhp = Mxhp( role )
-	local sp = Sp( role )
-	local mxsp = Mxsp( role )
-
+function Jz_Script_sxscs(role, Item )
+	local i = CheckBagItem(role,3830)
+	local k = ChaIsBoat(role)
+	local hp = Hp(role)
+	local mxhp = Mxhp(role)
+	local sp = Sp(role)
+	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice( role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243" )
-		UseItemFailed( role )
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
+		UseItemFailed ( role )
 		return
 	end 
-
 	if k == 0 then
 		if i > 0 then
-			local j = DelBagItem( role, 3831, 1 )
+			local j = DelBagItem(role,3830,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 57
-					teleport( role, n )
-				else
-					MoveCity( role, "Andes Forest Haven" )
-				end
+				MoveCity(role,"Sacred Snow Mountain")
 				return
 			end
 		end
 	else
-		UseItemFailed( role )
+		UseItemFailed ( role )
 	end
+		
 end
 
--- Ïðîïóñê â Îàçèñ (ID 3052)
-function Jz_Script_sqcs( role, Item )
-	local i = CheckBagItem( role, 3832 )
-	local k = ChaIsBoat( role )
-	local hp = Hp( role )
-	local mxhp = Mxhp( role )
-	local sp = Sp( role )
-	local mxsp = Mxsp( role )
+--Àµ°²É­ÁÖ²¹¸øÕ¾»úÆ±
 
+function Jz_Script_laslcs(role, Item )
+	local i = CheckBagItem(role,3831)
+	local k = ChaIsBoat(role)
+	local hp = Hp(role)
+	local mxhp = Mxhp(role)
+	local sp = Sp(role)
+	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice( role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243" )
-		UseItemFailed( role )
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
+		UseItemFailed ( role )
 		return
 	end 
-
 	if k == 0 then
 		if i > 0 then
-			local j = DelBagItem( role, 3832, 1 )
+			local j = DelBagItem(role,3831,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 58
-					teleport( role, n )
-				else
-					MoveCity( role, "Oasis Haven" )
-				end
+				MoveCity(role,"Andes Forest Haven")
 				return
 			end
 		end
 	else
-		UseItemFailed( role )
+		UseItemFailed ( role )
 	end
+		
 end
 
--- Ïðîïóñê ê Ëåäÿíîìó øèïó (ID 3053)
-function Jz_Script_bjcs( role, Item )
-	local i = CheckBagItem( role, 3833 )
-	local k = ChaIsBoat( role )
-	local hp = Hp( role )
-	local mxhp = Mxhp( role )
-	local sp = Sp( role )
-	local mxsp = Mxsp( role )
-
-	if sp < mxsp or hp < mxhp then
-		SystemNotice( role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243" )
-		UseItemFailed( role )
-		return
-	end
-
-	if k == 0 then
-		if i > 0 then
-			local j = DelBagItem( role, 3833, 1 )
-			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 59
-					teleport( role, n )
-				else
-					MoveCity( role, "Icespire Haven" )
-				end
-				return
-			end
-		end
-	else
-		UseItemFailed( role )
-	end
-end
-
--- Ïðîïóñê â Îäèíîêóþ áàøíþ (ID 3054)
-function Jz_Script_jmztcs( role, Item )
-	local i = CheckBagItem( role, 3834 )
-	local k = ChaIsBoat( role )
-	local hp = Hp( role )
-	local mxhp = Mxhp( role )
-	local sp = Sp( role )
-	local mxsp = Mxsp( role )
-
-	if sp < mxsp or hp < mxhp then
-		SystemNotice( role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243" )
-		UseItemFailed( role )
-		return
-	end 
-
-	if k == 0 then
-		if i > 0 then
-			local j = DelBagItem( role, 3834, 1 )
-			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 60
-					teleport( role, n )
-				else
-					MoveCity( role, "Lone Tower Entrace" )
-				end
-				return
-			end
-		end
-	else
-		UseItemFailed( role )
-	end
-end
-
--- ×àñòü çàùèòû (ID 3055)
-function Jz_Script_scrkcs( role, Item )
-	local i = CheckBagItem( role, 3835 )
-	local k = ChaIsBoat( role )
-	local hp = Hp( role )
-	local mxhp = Mxhp( role )
-	local sp = Sp( role )
-	local mxsp = Mxsp( role )
+--É³Èª²¹¸øÕ¾»úÆ±
+function Jz_Script_sqcs(role, Item )
+	local i = CheckBagItem(role,3832)
+	local k = ChaIsBoat(role)
+	local hp = Hp(role)
+	local mxhp = Mxhp(role)
+	local sp = Sp(role)
+	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice( role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243" )
-		UseItemFailed( role )
-		return
-	end
-
-	if k == 0 then
-		if i > 0 then
-			local j = DelBagItem( role, 3835, 1 )
-			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 61
-					teleport( role, n )
-				else
-					MoveCity( role, "Barren Cavern Entrance" )
-				end
-				return
-			end
-		end
-	else
-		UseItemFailed( role )
-	end
-end
-
---Ïðîõîä â Çàáðîøåííûå øàõòû 2 (ID 3056)
-function Jz_Script_fk2cs( role, Item )
-	local i = CheckBagItem( role, 3836 )
-	local k = ChaIsBoat( role )
-	local hp = Hp( role )
-	local mxhp = Mxhp( role )
-	local sp = Sp( role )
-	local mxsp = Mxsp( role )
-
-	if sp < mxsp or hp < mxhp then
-		SystemNotice( role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243" )
-		UseItemFailed( role )
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
+		UseItemFailed ( role )
 		return
 	end 
-
 	if k == 0 then
 		if i > 0 then
-			local j = DelBagItem( role, 3836, 1 )
+			local j = DelBagItem(role,3832,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 62
-					teleport( role, n )
-				else
-					MoveCity( role, "Abandon Mine 2" )
-				end
+				MoveCity(role,"Oasis Haven")
 				return
 			end
 		end
 	else
-		UseItemFailed( role )
+		UseItemFailed ( role )
 	end
+		
 end
 
---Ïðîïóñê â Ñåðåáðÿíóþ øàõòó 2 (ID 3057)
-function Jz_Script_yk2cs( role, Item )
-	local i = CheckBagItem( role, 3837 )
-	local k = ChaIsBoat( role )
-	local hp = Hp( role )
-	local mxhp = Mxhp( role )
-	local sp = Sp( role )
-	local mxsp = Mxsp( role )
+--±ù¼«²¹¸øÕ¾»úÆ±
 
-	if sp < mxsp or hp < mxhp then
-		SystemNotice( role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243" )
-		UseItemFailed( role )
+function Jz_Script_bjcs(role, Item )
+	local i = CheckBagItem(role,3833)
+	local k = ChaIsBoat(role)
+	local hp = Hp(role)
+	local mxhp = Mxhp(role)
+	local sp = Sp(role)
+	local mxsp = Mxsp(role)
+	if sp < mxsp or hp < mxhp then 
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
+		UseItemFailed ( role )
 		return
 	end 
-
 	if k == 0 then
 		if i > 0 then
-			local j = DelBagItem( role, 3837, 1 )
+			local j = DelBagItem(role,3833,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 63
-					teleport( role, n )
-				else
-					MoveCity( role, "Silver Mine 2" )
-				end
+				MoveCity(role,"Icespire Haven")
 				return
 			end
 		end
 	else
-		UseItemFailed( role )
+		UseItemFailed ( role )
 	end
+		
 end
 
--- Ïðîïóñê â Ñåðåáðÿíóþ øàõòó 3 (ID 3058)
-function Jz_Script_yk3cs( role, Item )
-	local i = CheckBagItem( role, 3838 )
-	local k = ChaIsBoat( role )
-	local hp = Hp( role )
-	local mxhp = Mxhp( role )
-	local sp = Sp( role )
-	local mxsp = Mxsp( role )
+--¼ÅÄ¯Ö®ËþÈë¿Ú»úÆ±
 
-	if sp < mxsp or hp < mxhp then
-		SystemNotice( role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243" )
-		UseItemFailed( role )
+function Jz_Script_jmztcs(role, Item )
+	local i = CheckBagItem(role,3834)
+	local k = ChaIsBoat(role)
+	local hp = Hp(role)
+	local mxhp = Mxhp(role)
+	local sp = Sp(role)
+	local mxsp = Mxsp(role)
+	if sp < mxsp or hp < mxhp then 
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
+		UseItemFailed ( role )
 		return
-	end
-
+	end 
 	if k == 0 then
 		if i > 0 then
-			local j = DelBagItem( role, 3838, 1 )
+			local j = DelBagItem(role,3834,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 63
-					teleport( role, n )
-				else
-					MoveCity( role, "Silver Mine 3" )
-				end
+				MoveCity(role,"Lone Tower Entrace")
 				return
 			end
 		end
 	else
-		UseItemFailed( role )
+		UseItemFailed ( role )
 	end
+		
 end
 
---Áèëåò â Îäèíîêóþ áàøíþ 2 (ID 3059)
+--É³¿ßÈë¿Ú»úÆ±
+function Jz_Script_scrkcs(role, Item )
+	local i = CheckBagItem(role,3835)
+	local k = ChaIsBoat(role)
+	local hp = Hp(role)
+	local mxhp = Mxhp(role)
+	local sp = Sp(role)
+	local mxsp = Mxsp(role)
+	if sp < mxsp or hp < mxhp then 
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
+		UseItemFailed ( role )
+		return
+	end 
+	if k == 0 then
+		if i > 0 then
+			local j = DelBagItem(role,3835,1)
+			if j == 1 then
+				MoveCity(role,"Barren Cavern Entrance")
+				return
+			end
+		end
+	else
+		UseItemFailed ( role )
+	end
+		
+end
+
+--·Ï¿ó2²ã»úÆ±
+
+function Jz_Script_fk2cs(role, Item )
+	local i = CheckBagItem(role,3836)
+	local k = ChaIsBoat(role)
+	local hp = Hp(role)
+	local mxhp = Mxhp(role)
+	local sp = Sp(role)
+	local mxsp = Mxsp(role)
+	if sp < mxsp or hp < mxhp then 
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
+		UseItemFailed ( role )
+		return
+	end 
+	if k == 0 then
+		if i > 0 then
+			local j = DelBagItem(role,3836,1)
+			if j == 1 then
+				MoveCity(role,"Abandon Mine 2")
+				return
+			end
+		end
+	else
+		UseItemFailed ( role )
+	end
+		
+end
+
+--Òø¿ó2²ã»úÆ±
+
+function Jz_Script_yk2cs(role, Item )
+	local i = CheckBagItem(role,3837)
+	local k = ChaIsBoat(role)
+	local hp = Hp(role)
+	local mxhp = Mxhp(role)
+	local sp = Sp(role)
+	local mxsp = Mxsp(role)
+	if sp < mxsp or hp < mxhp then 
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
+		UseItemFailed ( role )
+		return
+	end 
+	if k == 0 then
+		if i > 0 then
+			local j = DelBagItem(role,3837,1)
+			if j == 1 then
+				MoveCity(role,"Silver Mine 2")
+				return
+			end
+		end
+	else
+		UseItemFailed ( role )
+	end
+		
+end
+
+--Òø¿ó3²ã»úÆ±
+
+function Jz_Script_yk3cs(role, Item )
+	local i = CheckBagItem(role,3838)
+	local k = ChaIsBoat(role)
+	local hp = Hp(role)
+	local mxhp = Mxhp(role)
+	local sp = Sp(role)
+	local mxsp = Mxsp(role)
+	if sp < mxsp or hp < mxhp then 
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
+		UseItemFailed ( role )
+		return
+	end 
+	if k == 0 then
+		if i > 0 then
+			local j = DelBagItem(role,3838,1)
+			if j == 1 then
+				MoveCity(role,"Silver Mine 3")
+				return
+			end
+		end
+	else
+		UseItemFailed ( role )
+	end
+		
+end
+
+--¼ÅÄ¯Ö®Ëþ2»úÆ±
+
 function Jz_Script_jmzt2cs(role, Item )
 	local i = CheckBagItem(role,3839)
 	local k = ChaIsBoat(role)
@@ -4469,7 +5016,7 @@ function Jz_Script_jmzt2cs(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -4477,22 +5024,17 @@ function Jz_Script_jmzt2cs(role, Item )
 		if i > 0 then
 			local j = DelBagItem(role,3839,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 66
-					teleport( role, n )
-				else
-					MoveCity( role, "Lone Tower 2" )
-				end
+				MoveCity(role,"Lone Tower 2")
 				return
 			end
 		end
 	else
-		UseItemFailed( role )
+		UseItemFailed ( role )
 	end
 		
 end
+--¼ÅÄ¯Ö®Ëþ3»úÆ±
 
---Ïðîïóñê â Îäèíîêóþ áàøíþ 3 (ID 3060)
 function Jz_Script_jmzt3cs(role, Item )
 	local i = CheckBagItem(role,3840)
 	local k = ChaIsBoat(role)
@@ -4501,7 +5043,7 @@ function Jz_Script_jmzt3cs(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -4509,12 +5051,86 @@ function Jz_Script_jmzt3cs(role, Item )
 		if i > 0 then
 			local j = DelBagItem(role,3840,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 67
-					teleport( role, n )
-				else
-					MoveCity( role, "Lone Tower 3" )
-				end
+				MoveCity(role,"Lone Tower 3")
+				return
+			end
+		end
+	else
+		UseItemFailed ( role )
+	end
+		
+end
+--¼ÅÄ¯Ö®Ëþ4»úÆ±
+function Jz_Script_jmzt4cs(role, Item )
+	local i = CheckBagItem(role,3841)
+	local k = ChaIsBoat(role)
+	local hp = Hp(role)
+	local mxhp = Mxhp(role)
+	local sp = Sp(role)
+	local mxsp = Mxsp(role)
+	if sp < mxsp or hp < mxhp then 
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
+		UseItemFailed ( role )
+		return
+	end 
+	if k == 0 then
+		if i > 0 then
+			local j = DelBagItem(role,3841,1)
+			if j == 1 then
+				MoveCity(role,"Lone Tower 4")
+				return
+			end
+		end
+	else
+		UseItemFailed ( role )
+	end
+		
+end
+--¼ÅÄ¯Ö®Ëþ5»úÆ±
+
+function Jz_Script_jmzt5cs(role, Item )
+	local i = CheckBagItem(role,3842)
+	local k = ChaIsBoat(role)
+	local hp = Hp(role)
+	local mxhp = Mxhp(role)
+	local sp = Sp(role)
+	local mxsp = Mxsp(role)
+	if sp < mxsp or hp < mxhp then 
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
+		UseItemFailed ( role )
+		return
+	end 
+	if k == 0 then
+		if i > 0 then
+			local j = DelBagItem(role,3842,1)
+			if j == 1 then
+				MoveCity(role,"Lone Tower 5")
+				return
+			end
+		end
+	else
+		UseItemFailed ( role )
+	end
+		
+end
+--¼ÅÄ¯Ö®Ëþ6»úÆ±
+function Jz_Script_jmzt6cs(role, Item )
+	local i = CheckBagItem(role,3843)
+	local k = ChaIsBoat(role)
+	local hp = Hp(role)
+	local mxhp = Mxhp(role)
+	local sp = Sp(role)
+	local mxsp = Mxsp(role)
+	if sp < mxsp or hp < mxhp then 
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
+		UseItemFailed ( role )
+		return
+	end 
+	if k == 0 then
+		if i > 0 then
+			local j = DelBagItem(role,3843,1)
+			if j == 1 then
+				MoveCity(role,"Lone Tower 6")
 				return
 			end
 		end
@@ -4524,164 +5140,44 @@ function Jz_Script_jmzt3cs(role, Item )
 		
 end
 
--- Ïðîïóñê â Îäèíîêóþ áàøíþ 4 (ID 3070)
-function Jz_Script_jmzt4cs(role, Item )
-	local i = CheckBagItem(role,3841)
+--·Ï¿ó1²ã»úÆ±
+
+function Jz_Script_fk1cs(role, Item )
+	local i = CheckBagItem(role,3847)
 	local k = ChaIsBoat(role)
 	local hp = Hp(role)
 	local mxhp = Mxhp(role)
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
 	if k == 0 then
 		if i > 0 then
-			local j = DelBagItem(role,3841,1)
+			local j = DelBagItem(role,3847,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 68
-					teleport( role, n )
-				else
-					MoveCity( role, "Lone Tower 4" )
-				end
+				MoveCity(role,"Abandon Mine 1")
 				return
 			end
 		end
 	else
 		UseItemFailed ( role )
 	end
+		
 end
 
---Ïðîïóñê â Îäèíîêóþ áàøíþ 5 (ID 3071)
-function Jz_Script_jmzt5cs(role, Item )
-	local i = CheckBagItem(role,3842)
-	local k = ChaIsBoat(role)
-	local hp = Hp(role)
-	local mxhp = Mxhp(role)
-	local sp = Sp(role)
-	local mxsp = Mxsp(role)
-	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
-		UseItemFailed ( role )
-		return
-	end 
-	if k == 0 then
-		if i > 0 then
-			local j = DelBagItem(role,3842,1)
-			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 69
-					teleport( role, n )
-				else
-					MoveCity( role, "Lone Tower 5" )
-				end
-				return
-			end
-		end
-	else
-		UseItemFailed( role )
-	end
-end
 
---Ïðîïóñê â Îäèíîêóþ áàøíþ 6 (ID 3072)
-function Jz_Script_jmzt6cs(role, Item )
-	local i = CheckBagItem(role,3843)
-	local k = ChaIsBoat(role)
-	local hp = Hp(role)
-	local mxhp = Mxhp(role)
-	local sp = Sp(role)
-	local mxsp = Mxsp(role)
-	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
-		UseItemFailed ( role )
-		return
-	end 
-	if k == 0 then
-		if i > 0 then
-			local j = DelBagItem(role,3843,1)
-			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 70
-					teleport( role, n )
-				else
-					MoveCity( role, "Lone Tower 6" )
-				end
-				return
-			end
-		end
-	else
-		UseItemFailed( role )
-	end
-end
 
--- Ïðîïóñê â Çàáðîøåííóþ øàõòó 1 (ID 3073)
-function Jz_Script_fk1cs( role, Item )
-	local i = CheckBagItem( role, 3847 )
-	local k = ChaIsBoat( role )
-	local hp = Hp( role )
-	local mxhp = Mxhp( role )
-	local sp = Sp( role )
-	local mxsp = Mxsp( role )
 
-	if sp < mxsp or hp < mxhp then
-		SystemNotice( role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243" )
-		UseItemFailed( role )
-		return
-	end
-
-	if k == 0 then
-		if i > 0 then
-			local j = DelBagItem( role, 3847, 1 )
-			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 65
-					teleport( role, n )
-				else
-					MoveCity( role, "Abandon Mine 1" )
-				end
-				return
-			end
-		end
-	else
-		UseItemFailed( role )
-	end
-end
-
---------------------------------------------------------------------------------------------------
---ÓÑ, ÑÓÑ, ÁÓÓ è îñòàëüíûå ìíîæèòåëè ðåéòîâ
---------------------------------------------------------------------------------------------------
-
---Óñèëèòåëü ñòðåìëåíèé (ID 3094)
-function ItemUse_MoreExpGz( role, Item )
+--¾­Ñé¹û×Ó
+function ItemUse_MoreExpGz( role , Item )
 	local statelv = 1
-	local ChaStateLv = GetChaStateLv( role, STATE_SBJYGZ )
-
+	local ChaStateLv = GetChaStateLv ( role , STATE_SBJYGZ )
+	
 	if ChaStateLv > statelv then
-		SystemNotice( role, "\207\240\229\228\236\229\242 \243\230\229 \232\241\239\238\235\252\231\243\229\242\241\255. \207\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
-		UseItemFailed( role )
-		return
-	end
-
-	local statetime = 900
-	local Cha_Boat = 0
-	Cha_Boat = GetCtrlBoat( role )
-	if Cha_Boat ==  nil then
-		AddState( role, role, STATE_SBJYGZ, statelv, statetime )
-	else
-		AddState( Cha_Boat, Cha_Boat, STATE_SBJYGZ, statelv, statetime )
-	end
-end
-
--- Ôðóêò îïûòà îòðÿäà ( ID 0849 )
-function ItemUse_ZD_MoreExpGz( role , Item )
-	local statelv = 1
-	local ChaStateLv = GetChaStateLv ( role , STATE_ZDSBJYGZ )
-
-	if ChaStateLv > statelv then
-		SystemNotice ( role , "\207\240\229\228\236\229\242 \243\230\229 \232\241\239\238\235\252\231\243\229\242\241\255. \207\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "Better fruit in effect. Please use it later" )
 		UseItemFailed ( role )
 		return
 	end
@@ -4689,6 +5185,30 @@ function ItemUse_ZD_MoreExpGz( role , Item )
 	local statetime = 900
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
+	if Cha_Boat ==  nil then
+		AddState( role , role , STATE_SBJYGZ , statelv , statetime )
+	else
+		AddState( Cha_Boat , Cha_Boat , STATE_SBJYGZ , statelv , statetime )
+	end
+end
+
+
+--×é¶Ó¾­Ñé¹û×Ó
+function ItemUse_ZD_MoreExpGz( role , Item )
+	local statelv = 1
+	local ChaStateLv = GetChaStateLv ( role , STATE_ZDSBJYGZ )
+	
+	if ChaStateLv > statelv then
+		SystemNotice ( role , "Better fruit in effect. Please use it later" )
+		UseItemFailed ( role )
+		return
+	end
+
+	local statetime = 900
+	local Cha_Boat = 0
+	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ==  nil then
 		AddState( role , role , STATE_ZDSBJYGZ , statelv , statetime )
 	else
@@ -4696,13 +5216,14 @@ function ItemUse_ZD_MoreExpGz( role , Item )
 	end
 end
 
---Ñëåçà áåç ëþáâè (ID 1006)
+
+--µôÁÏ¹û×Ó
 function ItemUse_MoreItemGz( role , Item )
 	local statelv = 1
 	local ChaStateLv = GetChaStateLv ( role , STATE_SBBLGZ )
 	
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\207\240\229\228\236\229\242 \243\230\229 \232\241\239\238\235\252\231\243\229\242\241\255. \207\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "Better fruit in effect. Please use it later" )
 		UseItemFailed ( role )
 		return
 	end
@@ -4717,11 +5238,11 @@ function ItemUse_MoreItemGz( role , Item )
 	end
 end
 
---Îñîáûé òàéíîôðóêò (ID 3879)
+--¾­Ñé¹û×Ó2¼¶
 function ItemUse_MoreExpGzLv2( role , Item )
 	local Lv = Lv( role )
 	if Lv < 40 then
-		SystemNotice(role ,"\210\238\235\252\234\238 \232\227\240\238\234\232 \243\240\238\226\237\255 40 \232 \226\251\248\229 \236\238\227\243\242 \232\241\239\238\235\252\231\238\226\224\242\252 \253\242\238\242 \239\240\229\228\236\229\242")
+		SystemNotice(role ,"Only players Lv 40 and above may use")
 		UseItemFailed ( role )
 		return
 	end
@@ -4731,7 +5252,7 @@ function ItemUse_MoreExpGzLv2( role , Item )
 	local ChaStateLv = GetChaStateLv ( role , STATE_SBJYGZ )
 	
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\207\240\229\228\236\229\242 \243\230\229 \232\241\239\238\235\252\231\243\229\242\241\255. \207\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "Better fruit in effect. Please use it later" )
 		UseItemFailed ( role )
 		return
 	end
@@ -4739,6 +5260,7 @@ function ItemUse_MoreExpGzLv2( role , Item )
 	local statetime = 900
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ==  nil then
 		AddState( role , role , STATE_SBJYGZ , statelv , statetime )
 	else
@@ -4747,11 +5269,11 @@ function ItemUse_MoreExpGzLv2( role , Item )
 	SystemNotice ( role ,"Feel the effect of Special Mystic Fruit" )
 end
 
---Îñîáûé ñ÷àñòüå-ôðóêò (ID 3881)
+--µôÁÏ¹û×Ó2¼¶
 function ItemUse_MoreItemGzLv2( role , Item )
 	local Lv = Lv( role )
 	if Lv < 40 then
-		SystemNotice(role ,"\210\238\235\252\234\238 \232\227\240\238\234\232 \243\240\238\226\237\255 40 \232 \226\251\248\229 \236\238\227\243\242 \232\241\239\238\235\252\231\238\226\224\242\252 \253\242\238\242 \239\240\229\228\236\229\242")
+		SystemNotice(role ,"Only players Lv 40 and above may use")
 		UseItemFailed ( role )
 		return
 	end
@@ -4761,7 +5283,7 @@ function ItemUse_MoreItemGzLv2( role , Item )
 	local ChaStateLv = GetChaStateLv ( role , STATE_SBBLGZ )
 	
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\207\240\229\228\236\229\242 \243\230\229 \232\241\239\238\235\252\231\243\229\242\241\255. \207\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "Better fruit in effect. Please use it later" )
 		UseItemFailed ( role )
 		return
 	end
@@ -4777,101 +5299,53 @@ function ItemUse_MoreItemGzLv2( role , Item )
 	SystemNotice ( role ,"Feels the effect of Special Lucky Fruit" )
 end
 
-------------ÑÓÑÛ
---Ñóïåð Óñèëèòåëü ñòðåìëåíèé õ2.5 (ID 3095)
-function ItemUse_MoreExpGzLv3( role, Item )
-	local statelv = 3
-	local ChaStateLv = GetChaStateLv( role, STATE_SBJYGZ )
-
-	if ChaStateLv > statelv then
-		SystemNotice( role, "\207\240\229\228\236\229\242 \243\230\229 \232\241\239\238\235\252\231\243\229\242\241\255. \207\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
-		UseItemFailed( role )
-		return
-	end
-
-	local statetime = 1800
-	local Cha_Boat = 0
-	Cha_Boat = GetCtrlBoat( role )
-	if Cha_Boat == nil then
-		AddState( role, role, STATE_SBJYGZ, statelv, statetime )
-	else
-		AddState( Cha_Boat, Cha_Boat, STATE_SBJYGZ, statelv, statetime )
-	end
-end
-
---Ñóïåð Óñèëèòåëü ñòðåìëåíèé õ3.5 (ID 5794)
-function ItemUse_MoreExpGzLv3x5A( role , Item )
+--¾­Ñé¹û×Ó3¼¶
+function ItemUse_MoreExpGzLv3( role , Item )
 	local Lv = Lv( role )
-	if Lv < 75 then
-		SystemNotice(role ,"\210\238\235\252\234\238 \232\227\240\238\234\232 \243\240\238\226\237\255 75 \232 \226\251\248\229 \236\238\227\243\242 \232\241\239\238\235\252\231\238\226\224\242\252 \253\242\238\242 \239\240\229\228\236\229\242")
+	if Lv < 60 then
+		SystemNotice(role ,"Only Lv 60 and above may use")
 		UseItemFailed ( role )
 		return
 	end
 
-	local statelv = 4
+	local statelv = 3
+	
 	local ChaStateLv = GetChaStateLv ( role , STATE_SBJYGZ )
 	
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\207\240\229\228\236\229\242 \243\230\229 \232\241\239\238\235\252\231\243\229\242\241\255. \207\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "Better fruit in effect. Please use it later" )
 		UseItemFailed ( role )
 		return
 	end
-
-	local statetime = 1800
+	
+	local statetime = 900
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ==  nil then
 		AddState( role , role , STATE_SBJYGZ , statelv , statetime )
 	else
 		AddState( Cha_Boat , Cha_Boat , STATE_SBJYGZ , statelv , statetime )
 	end
+	SystemNotice ( role ,"Feels the effect of Super Mystic Fruit" )
 end
 
---Ñóïåð Óñèëèòåëü ñòðåìëåíèé õ4 (ID 5695)
-function ItemUse_MoreExpGzLv4A( role , Item )
-	local Lv = Lv( role )
-	if Lv < 80 then
-		SystemNotice( role, "\210\238\235\252\234\238 \232\227\240\238\234\232 \243\240\238\226\237\255 80 \232 \226\251\248\229 \236\238\227\243\242 \232\241\239\238\235\252\231\238\226\224\242\252 \253\242\238\242 \239\240\229\228\236\229\242" )
-		UseItemFailed( role )
-		return
-	end
-
-	local statelv = 5
-	local ChaStateLv = GetChaStateLv( role, STATE_SBJYGZ )
-
-	if ChaStateLv > statelv then
-		SystemNotice( role, "\207\240\229\228\236\229\242 \243\230\229 \232\241\239\238\235\252\231\243\229\242\241\255. \207\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
-		UseItemFailed( role )
-		return
-	end
-
-	local statetime = 1800
-	local Cha_Boat = 0
-	Cha_Boat = GetCtrlBoat( role )
-	if Cha_Boat == nil then
-		AddState( role, role, STATE_SBJYGZ, statelv, statetime )
-	else
-		AddState( Cha_Boat, Cha_Boat, STATE_SBJYGZ, statelv, statetime )
-	end
-	SystemNotice( role, "\207\238\247\243\226\241\242\226\243\233 \253\244\244\229\234\242 \238\242 4x \211\241\232\235\232\242\235\255 \209\242\240\229\236\235\229\237\232\233" )
-end
-
---Áóó 3.5x è 4x îò SimplePRO
-
---Áîëüøîé óñèëèòåëü óäà÷è (ID 3097)
+--µôÁÏ¹û×Ó3¼¶
 function ItemUse_MoreItemGzLv3( role , Item )
 	local Lv = Lv( role )
 	if Lv < 60 then
-		SystemNotice(role ,"\210\238\235\252\234\238 \232\227\240\238\234\232 \243\240\238\226\237\255 60 \232 \226\251\248\229 \236\238\227\243\242 \232\241\239\238\235\252\231\238\226\224\242\252 \253\242\238\242 \239\240\229\228\236\229\242")
+		SystemNotice(role ,"Only Lv 60 and above may use")
 		UseItemFailed ( role )
 		return
 	end
 
-	local statelv = 3
-	local ChaStateLv = GetChaStateLv ( role , STATE_SBBLGZ )
 
+	local statelv = 3	
+	
+	local ChaStateLv = GetChaStateLv ( role , STATE_SBBLGZ )
+	
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\207\240\229\228\236\229\242 \243\230\229 \232\241\239\238\235\252\231\243\229\242\241\255. \207\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "Better fruit in effect. Please use it later" )
 		UseItemFailed ( role )
 		return
 	end
@@ -4884,14 +5358,17 @@ function ItemUse_MoreItemGzLv3( role , Item )
 	else
 		AddState( Cha_Boat , Cha_Boat , STATE_SBBLGZ , statelv , statetime )
 	end
-	SystemNotice ( role ,"\207\238\247\243\226\241\242\226\243\233 \253\244\244\229\234\242 \238\242 \193\238\235\252\248\238\227\238 \211\241\232\235\232\242\229\235\255 \211\228\224\247\232" )
+	SystemNotice ( role ,"Feel the effect of Super Lucky Fruit" )
 end
 
---Âîëøåáíûé ôðóêò (ID 0898)
+
+
+
+--Ææ¼£¹û×Ó
 function ItemUse_MoreItemAndExpGz( role , Item )
 	local Lv = Lv( role )
 	if Lv < 30 then
-		SystemNotice(role ,"\210\238\235\252\234\238 \232\227\240\238\234\232 \243\240\238\226\237\255 30 \232 \226\251\248\229 \236\238\227\243\242 \232\241\239\238\235\252\231\238\226\224\242\252 \253\242\238\242 \239\240\229\228\236\229\242")
+		SystemNotice(role ,"Only players Lv 30 and above may use")
 		UseItemFailed ( role )
 		return
 	end
@@ -4900,6 +5377,7 @@ function ItemUse_MoreItemAndExpGz( role , Item )
 	local statetime = 900
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ==  nil then
 		AddState( role , role , STATE_SBJYGZ , statelv , statetime )
 		AddState( role , role , STATE_SBBLGZ , statelv , statetime )
@@ -4909,28 +5387,30 @@ function ItemUse_MoreItemAndExpGz( role , Item )
 	end
 end
 
---------------------------------------------------------------------------------------------------
---Êíèãè ñáðîñà ñòàòîâ
---------------------------------------------------------------------------------------------------
---Ôëÿãà âîññòàíîâëåíèÿ òåëîñëîæåíèÿ (ID 3098)
+--ÌåÁ¦»Ö¸´¼Á
 function ItemUse_TLHFJ( role , Item )
 	local hp = GetChaAttr(role, ATTR_HP) 
 	hp_resume = 800 
 	
 	hp = hp + hp_resume 
 	mxhp = GetChaAttr(role,ATTR_MXHP) 
-	if hp > mxhp then 
+	if hp > mxhp then --¼Ó³¬¹ý×î´óspÊ±·µ»ØÎª×î´ósp
 		hp = mxhp 
 	end 
 	SetCharaAttr(hp, role, ATTR_HP)
 end
 
---Âîññòàíîâëåíèå êíèãè ñèëû (ID 0899)
+
+-----Ï´µã------------------------------------------------------------------
+
+--Á¦Á¿1µã
 function ItemUse_XD_Str1 ( role , Item )
 	local str = GetChaAttr( role , ATTR_BSTR )
 	local ap = GetChaAttr( role , ATTR_AP )
+--	SystemNotice ( role , "strength before edit is"..str )
+--	SystemNotice ( role , "attribute before editing is"..ap )
 	if str <= 5 then 
-		SystemNotice ( role , "\211 \194\224\241 \237\229\242 \241\226\238\225\238\228\237\251\245 \238\247\234\238\226 \245\224\240\224\234\242\229\240\232\241\242\232\234. \209\225\240\238\241 \237\229\226\238\231\236\238\230\229\237" )
+		SystemNotice ( role , "You do not have enough points to reset. Reset failed" )
 		UseItemFailed ( role )
 		return
 	end
@@ -4939,19 +5419,21 @@ function ItemUse_XD_Str1 ( role , Item )
 	str = str - str_dif
 	ap = ap + 1
 
-	SystemNotice ( role , "\193\251\235\238 \241\225\240\238\248\229\237\238 1 \238\247\234\238 \241\232\235\251" )
-	
-	
+	SystemNotice ( role , "Reset 1 Strength point to increases 1 stat point" )
+--	SystemNotice ( role , "strength before edit is"..str )
+--	SystemNotice ( role , "attribute point edited as"..ap )
 	SetCharaAttr ( str , role , ATTR_BSTR )
 	SetCharaAttr ( ap , role , ATTR_AP )
 end
 
---Êíèãà ñáðîñà òåëîñëîæåíèÿ (ID 0900)
+--ÌåÖÊ1µã
 function ItemUse_XD_Con1 ( role , Item )
 	local con = GetChaAttr( role , ATTR_BCON )
 	local ap = GetChaAttr( role , ATTR_AP )
+--	SystemNotice ( role , "constitution before edit is"..con )
+--	SystemNotice ( role , "attribute before editing is"..ap )
 	if con <= 5 then 
-		SystemNotice ( role , "\211 \194\224\241 \237\229\242 \241\226\238\225\238\228\237\251\245 \238\247\234\238\226 \245\224\240\224\234\242\229\240\232\241\242\232\234. \209\225\240\238\241 \237\229\226\238\231\236\238\230\229\237" )
+		SystemNotice ( role , "You do not have enough points to reset. Reset failed" )
 		UseItemFailed ( role )
 		return
 	end
@@ -4960,18 +5442,22 @@ function ItemUse_XD_Con1 ( role , Item )
 	con = con - con_dif
 	ap = ap + 1
 
-	SystemNotice ( role , "\193\251\235\238 \241\225\240\238\248\229\237\238 1 \238\247\234\238 \242\229\235\238\241\235\238\230\229\237\232\255" )
-
+	SystemNotice ( role , "Reset 1 Constitution point to increase 1 Stat point" )
+	
+--	SystemNotice ( role , "constitution edited to"..con )
+--	SystemNotice ( role , "attribute point edited as"..ap )
 	SetCharaAttr ( con , role , ATTR_BCON )
 	SetCharaAttr ( ap , role , ATTR_AP )
 end
 
---Âîññòàíîâëåíèå êíèãè ëîâêîñòè (ID 0901)
+--Ãô½Ý1µã
 function ItemUse_XD_Agi1 ( role , Item )
 	local agi = GetChaAttr( role , ATTR_BAGI )
 	local ap = GetChaAttr( role , ATTR_AP )
+--	SystemNotice ( role , "agility before edit is"..agi )
+--	SystemNotice ( role , "attribute before editing is"..ap )
 	if agi <= 5 then 
-		SystemNotice ( role , "\211 \194\224\241 \237\229\242 \241\226\238\225\238\228\237\251\245 \238\247\234\238\226 \245\224\240\224\234\242\229\240\232\241\242\232\234. \209\225\240\238\241 \237\229\226\238\231\236\238\230\229\237" )
+		SystemNotice ( role , "You do not have enough points to reset. Reset failed" )
 		UseItemFailed ( role )
 		return
 	end
@@ -4979,19 +5465,23 @@ function ItemUse_XD_Agi1 ( role , Item )
 	local ap_dif = 1
 	agi = agi - agi_dif
 	ap = ap + 1
-	
-	SystemNotice ( role , "\193\251\235\238 \241\225\240\238\248\229\237\238 1 \238\247\234\238 \235\238\226\234\238\241\242\232" )
 
+	SystemNotice ( role , "Reset 1 Agility point to increases 1 stat point" )
+	
+--	SystemNotice ( role , "Agility edited to"..agi )
+--	SystemNotice ( role , "attribute point edited as"..ap )
 	SetCharaAttr ( agi , role , ATTR_BAGI )
 	SetCharaAttr ( ap , role , ATTR_AP )
 end
 
---Êíèãà âîññòàíîâëåíèÿ òî÷íîñòè (ID 0902)
+--×¨×¢1µã
 function ItemUse_XD_Dex1 ( role , Item )
 	local dex = GetChaAttr( role , ATTR_BDEX )
 	local ap = GetChaAttr( role , ATTR_AP )
+--	SystemNotice ( role , "Accuracy edited to"..dex )
+--	SystemNotice ( role , "attribute before editing is"..ap )
 	if dex <= 5 then 
-		SystemNotice ( role , "\211 \194\224\241 \237\229\242 \241\226\238\225\238\228\237\251\245 \238\247\234\238\226 \245\224\240\224\234\242\229\240\232\241\242\232\234. \209\225\240\238\241 \237\229\226\238\231\236\238\230\229\237" )
+		SystemNotice ( role , "You do not have enough points to reset. Reset failed" )
 		UseItemFailed ( role )
 		return
 	end
@@ -4999,19 +5489,23 @@ function ItemUse_XD_Dex1 ( role , Item )
 	local ap_dif = 1
 	dex = dex - dex_dif
 	ap = ap + 1
-	
-	SystemNotice ( role , "\193\251\235\238 \241\225\240\238\248\229\237\238 1 \238\247\234\238 \242\238\247\237\238\241\242\232" )
 
+	SystemNotice ( role , "Reset 1 Accuracy point to increase 1 Stat point" )
+	
+--	SystemNotice ( role , "accuracy edit as"..dex )
+--	SystemNotice ( role , "attribute point edited as"..ap )
 	SetCharaAttr ( dex , role , ATTR_BDEX )
 	SetCharaAttr ( ap , role , ATTR_AP )
 end
 
---Êíèãà ñáðîñà äóõà (ID 0903)
+--¾«Éñ1µã
 function ItemUse_XD_Sta1 ( role , Item )
 	local sta = GetChaAttr( role , ATTR_BSTA )
 	local ap = GetChaAttr( role , ATTR_AP )
+--	SystemNotice ( role , "spirit before edit is"..sta )
+--	SystemNotice ( role , "attribute before editing is"..ap )
 	if sta <= 5 then 
-		SystemNotice ( role , "\211 \194\224\241 \237\229\242 \241\226\238\225\238\228\237\251\245 \238\247\234\238\226 \245\224\240\224\234\242\229\240\232\241\242\232\234. \209\225\240\238\241 \237\229\226\238\231\236\238\230\229\237" )
+		SystemNotice ( role , "You do not have enough points to reset. Reset failed" )
 		UseItemFailed ( role )
 		return
 	end
@@ -5020,16 +5514,17 @@ function ItemUse_XD_Sta1 ( role , Item )
 	sta = sta - sta_dif
 	ap = ap + 1
 
-	SystemNotice ( role , "\193\251\235\238 \241\225\240\238\248\229\237\238 1 \238\247\234\238 \228\243\245\224" )
-
+	SystemNotice ( role , "Reset 1 Spirit point to increase 1 Stat point" )
+	
+--	SystemNotice ( role , "Spirit edited as "..sta )
+--	SystemNotice ( role , "attribute point edited as"..ap )
 	SetCharaAttr ( sta , role , ATTR_BSTA )
 	SetCharaAttr ( ap , role , ATTR_AP )
 end
 
---------------------------------------------------------------------------------------------------
---Ýëèêñèðû ïîâûøàþùèå ñòàòû
---------------------------------------------------------------------------------------------------
---Ýëèêñèð  Îáåçüÿíû (ID 3101)
+--ÉÌÆ·ÊôÐÔÒ©¼Á
+
+--ÁéºïÒ©¼Á( agi )
 function ItemUse_SPLhyj( role , Item )
 	local OtherStateLv = 0
 	local i = 0
@@ -5049,7 +5544,7 @@ function ItemUse_SPLhyj( role , Item )
 
 
 	if OtherStateLv > 0 then
-		SystemNotice(role ,"\221\244\244\229\234\242\251 \238\242 \228\240\243\227\232\245 \231\229\235\232\233 \237\229 \241\238\247\232\242\224\254\242\241\255")
+		SystemNotice(role ,"Potions effect for attribute bonus cannot be stacked")
 		UseItemFailed ( role )
 		return
 	end
@@ -5057,8 +5552,7 @@ function ItemUse_SPLhyj( role , Item )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
-		
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
@@ -5069,7 +5563,7 @@ function ItemUse_SPLhyj( role , Item )
 
 end
 
---Ýëèêñèð Îðëà (ID 3103)
+--Ó¥ÑÛÒ©¼Á( dex )
 function ItemUse_SPYyyj( role , Item )
 	local OtherStateLv = 0
 	local i = 0
@@ -5089,7 +5583,7 @@ function ItemUse_SPYyyj( role , Item )
 
 
 	if OtherStateLv > 0 then
-		SystemNotice(role ,"\221\244\244\229\234\242\251 \238\242 \228\240\243\227\232\245 \231\229\235\232\233 \237\229 \241\238\247\232\242\224\254\242\241\255")
+		SystemNotice(role ,"Potions effect for attribute bonus cannot be stacked")
 		UseItemFailed ( role )
 		return
 	end
@@ -5097,7 +5591,7 @@ function ItemUse_SPYyyj( role , Item )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
@@ -5109,7 +5603,7 @@ function ItemUse_SPYyyj( role , Item )
 
 end
 
---Çåëüå áûêà (ID 0895)
+--ÂùÅ£Ò©¼Á( con )
 function ItemUse_SPMnyj( role , Item )
 	
 	local OtherStateLv = 0
@@ -5130,7 +5624,7 @@ function ItemUse_SPMnyj( role , Item )
 
 
 	if OtherStateLv > 0 then
-		SystemNotice(role ,"\221\244\244\229\234\242\251 \238\242 \228\240\243\227\232\245 \231\229\235\232\233 \237\229 \241\238\247\232\242\224\254\242\241\255")
+		SystemNotice(role ,"Potions effect for attribute bonus cannot be stacked")
 		UseItemFailed ( role )
 		return
 	end
@@ -5138,7 +5632,7 @@ function ItemUse_SPMnyj( role , Item )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
@@ -5150,7 +5644,7 @@ function ItemUse_SPMnyj( role , Item )
 
 end
 
---Çåëüå äóøè (ID 0896)
+--Ê¥ÁéÒ©¼Á( sta )
 function ItemUse_SPSlyj( role , Item )
 	
 	local OtherStateLv = 0
@@ -5170,7 +5664,7 @@ function ItemUse_SPSlyj( role , Item )
 
 
 	if OtherStateLv > 0 then
-		SystemNotice(role ,"\221\244\244\229\234\242\251 \238\242 \228\240\243\227\232\245 \231\229\235\232\233 \237\229 \241\238\247\232\242\224\254\242\241\255")
+		SystemNotice(role ,"Potions effect for attribute bonus cannot be stacked")
 		UseItemFailed ( role )
 		return
 	end
@@ -5178,7 +5672,7 @@ function ItemUse_SPSlyj( role , Item )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
@@ -5190,7 +5684,7 @@ function ItemUse_SPSlyj( role , Item )
 
 end
 
---Çåëüå ëüâà (ID 0897)
+--ÐÛÊ¨Ò©¼Á( str )
 function ItemUse_SPXsyj( role , Item )
 	
 	local OtherStateLv = 0
@@ -5211,7 +5705,7 @@ function ItemUse_SPXsyj( role , Item )
 
 
 	if OtherStateLv > 0 then
-		SystemNotice(role ,"\221\244\244\229\234\242\251 \238\242 \228\240\243\227\232\245 \231\229\235\232\233 \237\229 \241\238\247\232\242\224\254\242\241\255")
+		SystemNotice(role ,"Potions effect for attribute bonus cannot be stacked")
 		UseItemFailed ( role )
 		return
 	end	
@@ -5219,7 +5713,7 @@ function ItemUse_SPXsyj( role , Item )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
@@ -5231,90 +5725,96 @@ function ItemUse_SPXsyj( role , Item )
 
 end
 
---------------------------------------------------------------------------------------------------
---Î÷èùàþùèé\Êîìïîçèöèîííûé êàòàëèçàòîðû
---------------------------------------------------------------------------------------------------
---Î÷èùàþùèé ñàìîöâåò (ID 3074)
+
+--À¶É«¶ÍÔì¹û
 function ItemUse_LSDZG ( role , Item )
 	local statelv = 4
 	local statetime = 60
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ==  nil then
 		AddState( role , role , STATE_JLGLJB , statelv , statetime )
 	else
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 end
 
---Êîìïîçèöèîííûé êàòàëèçàòîð (ID 3075)
+--ºìÉ«¶ÍÔì¹û
+
 function ItemUse_HSDZG ( role , Item )
 	local statelv = 2
 	local statetime = 60
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ==  nil then
 		AddState( role , role , STATE_HCGLJB , statelv , statetime )
 	else
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 end
 
---------------------------------------------------------------------------------------------------
---Íîâîãîäíèå ïðåäìåòû\êàìíè æåëàíèé\êîðîáî÷êè
---------------------------------------------------------------------------------------------------
---Ïîòåðÿííàÿ ðîæäåñòâåíñêàÿ øàïêà (ID 3888)
+--Ê¥µ®µÀ¾ß
+
+--¶ªÊ§µÄÊ¥µ®Ã±×Ó
+
 function ItemUse_DSSDM ( role , Item )
 	local statelv = 1
 	local statetime = 300
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ==  nil then
 		AddState( role , role , STATE_PKSFYS , statelv , statetime )
 	else
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 end
 
---Çëîáíûé ðîã (ID 3896)
+--Ð°¶ñÖ®½Ç
+
 function ItemUse_XEZJ ( role , Item )
 	local statelv = 1
 	local statetime = 1800
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ==  nil then
 		AddState( role , role , STATE_PKZDYS , statelv , statetime )
 	else
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 end
 
---Áîåâîé ñòðîé (ID 0851)
+--¿ñÕ½Êõ ´ó·ùÌá¸ß¹¥»÷Á¦Ð¡·ù½µµÍ·ÀÓùÁ¦µÄµÀ¾ß³ÖÐøÊ±¼ä15·ÖÖÓ
 function ItemUse_XEZJB ( role , Item )
 	Rem_State_StarUnnormal ( role )
 	local statelv = 1
 	local statetime = 900
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ==  nil then
 		Rem_State_StarUnnormal ( role )
 		AddState( role , role , STATE_KUANGZ , statelv , statetime )
 	else
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 end
 
---Íîâîãîäíÿÿ êîíôåòà (ID3899)
+--Ê¥µ®ÌÇ¹û
+
 function ItemUse_SDTG ( role , Item )
 	
 	local hp = GetChaAttr(role, ATTR_HP) 
@@ -5342,7 +5842,8 @@ function ItemUse_SDTG ( role , Item )
 
 end
 
---Ðîæäåñòâåíñêèé íîñîê (ID 3895)
+--Ê¥µ®Íà×Ó
+
 function ItemUse_SDWZBOX ( role , Item )
 	local Now_Day = os.date("%d")
 	local Now_Month = os.date("%m")
@@ -5353,13 +5854,13 @@ function ItemUse_SDWZBOX ( role , Item )
 	local CheckDateNum = NowMonthNum * 10000 + NowDayNum * 100 + NowTimeNum
 	
 	if CheckDateNum < 122423  then
-		SystemNotice ( role , "\207\238\230\224\235\243\233\241\242\224, \225\243\228\252\242\229 \242\229\240\239\229\235\232\226\251. \209\224\237\242\224 \202\235\224\243\241 \225\243\228\229\242 \238\247\229\237\252 \239\243\237\234\242\243\224\235\229\237 \241 \226\224\248\232\236 \239\238\228\224\240\234\238\236. \207\238\230\224\235\243\233\241\242\224, \232\241\239\238\235\252\231\243\233\242\229 \239\240\229\228\236\229\242 \236\229\230\228\243 24-\251\236 \228\229\234\224\225\240\255, 8.00 \243\242\240\224 \232 25-\251\236 \228\229\234\224\225\240\255, 8.00 \226\229\247\229\240\224" )
+		SystemNotice ( role , "Please be patient. Santa Claus will be very punctual with his gift. Please use the item between 24th December 11.00pm and 25th December 6.00am" )
 		UseItemFailed ( role )
 		return
 	end
 	
 	if CheckDateNum > 122506 then
-		SystemNotice ( role , "\209\224\237\242\224 \202\235\224\243\241 \243\229\245\224\235. \207\238\239\251\242\224\233\242\229\241\252 \232\241\239\238\235\252\231\238\226\224\242\252 \239\240\229\228\236\229\242 \226 \241\235\229\228\243\254\249\229\236 \227\238\228\243" )
+		SystemNotice ( role , "Santa Claus has left. Please wait for next year" )
 		UseItemFailed ( role )
 		return
 	end
@@ -5367,7 +5868,7 @@ function ItemUse_SDWZBOX ( role , Item )
 	local item_type = BaoXiang_SDWZBOX
 	local item_type_rad = BaoXiang_SDWZBOX_Rad 
 	local item_type_count = BaoXiang_SDWZBOX_Count 
-	local maxitem = BaoXiang_SDWZBOX_Mxcount
+	local maxitem = BaoXiang_SDWZBOX_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_SDWZBOX_Qua
 	local General = 0  
 	local ItemId = 0 
@@ -5375,7 +5876,7 @@ function ItemUse_SDWZBOX ( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -5385,8 +5886,8 @@ function ItemUse_SDWZBOX ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -5405,7 +5906,8 @@ function ItemUse_SDWZBOX ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 end
 
---Ïîäàðî÷íàÿ êîðîáî÷êà (ID 3898)
+--Ê¥µ®ÀñºÐ
+
 function ItemUse_SDLHBOX ( role , Item )
 	local Check = math.random ( 1, 100 )
 	if Check <= 35 then
@@ -5426,7 +5928,7 @@ function ItemUse_SDLHBOX ( role , Item )
 		local item_type = BaoXiang_SDLHBOX
 		local item_type_rad = BaoXiang_SDLHBOX_Rad 
 		local item_type_count = BaoXiang_SDLHBOX_Count 
-		local maxitem = BaoXiang_SDLHBOX_Mxcount
+		local maxitem = BaoXiang_SDLHBOX_Mxcount						-- ÖÕ½á±àºÅ
 		local item_quality = BaoXiang_SDLHBOX_Qua
 		local General = 0  
 		local ItemId = 0 
@@ -5434,7 +5936,7 @@ function ItemUse_SDLHBOX ( role , Item )
 		local Item_CanGet = GetChaFreeBagGridNum ( role )
 		
 		if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+			SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 			UseItemFailed ( role )
 			return
 		end
@@ -5444,8 +5946,8 @@ function ItemUse_SDLHBOX ( role , Item )
 		local a = math.random ( 1, General )
 		local b = 0
 		local d = 0 
-		local c = -1
-		for k = 1 , maxitem , 1 do
+		local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+		for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 			d = item_type_rad [ k ] + b
 
@@ -5465,22 +5967,98 @@ function ItemUse_SDLHBOX ( role , Item )
 	end
 end
 
---Ñ÷àñòëèâûé ìåøî÷åê (ID 3901)
+--ºÃÔË°ü
 function ItemUse_HYBOX ( role , Item )
-	AddMoney ( role , 0 , 20000 )
+
+--	local Item_CanGet = GetChaFreeBagGridNum ( role )
+--	if Item_CanGet <= 1 then
+--		SystemNotice(role ,"Insufficient slots in inventory to open Lucky Packet")
+--		UseItemFailed ( role )
+--		return
+--	end
+	
+	local Money_Add = 8
+	local exp_dif = 0
+	local exp_random = math.random( 1 , 1000 )
+	if exp_random == 1000 then
+		Money_Add = 8888
+		exp_dif = 66600
+	else
+		
+		exp_dif = math.random ( 2 , 6 )
+		exp_dif = exp_dif * 50
+	end
+	
+	local exp = Exp ( role )
+	if Lv ( TurnToCha ( role )  )  >= 80 then 
+		exp_dif = math.floor ( exp_dif / 50  ) 
+	end 
+	local exp_new = exp + exp_dif
+	
+	AddMoney ( role , 0 , Money_Add )
+	SetCharaAttr ( exp_new , role , ATTR_CEXP )
+	
+        local zmbox_random = math.random( 1 , 500 )
+        if  zmbox_random == 500 then
+
+	    local item_type = BaoXiang_HYBOX 
+	    local item_type_rad = BaoXiang_HYBOX_Rad 
+	    local item_type_count = BaoXiang_HYBOX_Count 
+	    local maxitem = BaoXiang_HYBOX_Mxcount						-- ÖÕ½á±àºÅ
+	    local item_quality = BaoXiang_HYBOX_Qua
+	    local General = 0  
+	    local ItemId = 0 
+	    for i = 1 , maxitem , 1 do 
+	  	    General = item_type_rad [ i ] + General		
+	    end 
+	    local a = math.random ( 1, General )
+	    local b = 0
+	    local d = 0 
+	    local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	    for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
+
+		  d = item_type_rad [ k ] + b
+
+		   if a <= d and a > b then
+			  c = k
+			  break 
+		  end 
+		  b = d 
+	    end 
+	    if c == -1 then 
+		  ItemId = 3124 
+	    else 
+		  ItemId = item_type [c]  
+	  	  ItemCount = item_type_count [c] 
+	    end 
+	  GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
+       end
+	  GiveItem ( role , 0 , 3904 , 1 , 5 ) 
+--	local itemname = GetItemName ( ItemId ) 
+--	local cha_name = GetChaDefaultName ( role ) 
+--	local message = cha_name.." opens a Lucky Packet and obtained "..itemname  
+--	Notice ( message )
 end 
 
---Ñ÷àñòëèâûé ìåøî÷åê (ID 3902)
+
+--¸»¹ó°ü
 function ItemUse_FGBOX ( role , Item )
 	
 	AddMoney ( role , 0 , 88 )	
 	local item_type = BaoXiang_FGBOX 
 	local item_type_rad = BaoXiang_FGBOX_Rad 
 	local item_type_count = BaoXiang_FGBOX_Count 
-	local maxitem = BaoXiang_FGBOX_Mxcount	
+	local maxitem = BaoXiang_FGBOX_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_FGBOX_Qua
 	local General = 0  
 	local ItemId = 0 
+--	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	
+--	if Item_CanGet <= 1 then
+--		SystemNotice(role ,"Insufficient space in inventory. Unable to use Fortune Packet")
+--		UseItemFailed ( role )
+--		return
+--	end
 
 	for i = 1 , maxitem , 1 do 
 		General = item_type_rad [ i ] + General		
@@ -5488,8 +6066,8 @@ function ItemUse_FGBOX ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -5513,22 +6091,29 @@ function ItemUse_FGBOX ( role , Item )
 	if ItemId == 878 then
 		local itemname = GetItemName ( ItemId ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.." \238\242\234\240\251\226\224\229\242 \209\247\224\241\242\235\232\226\251\233 \236\229\248\238\247\229\234 \232 \239\238\235\243\247\224\229\242  "..itemname 
+		local message = cha_name.." opens a Fortune Packet and obtained  "..itemname  
 		Notice ( message )
 	end
 end 
 
---Áîëüøîé ïàêåò (ID 3903)
+--ºèÔË°ü
 function ItemUse_HYUNBOX ( role , Item )
 	
 	AddMoney ( role , 0 , 888 )
 	local item_type = BaoXiang_HYUNBOX 
 	local item_type_rad = BaoXiang_HYUNBOX_Rad 
 	local item_type_count = BaoXiang_HYUNBOX_Count 
-	local maxitem = BaoXiang_HYUNBOX_Mxcount
+	local maxitem = BaoXiang_HYUNBOX_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_HYUNBOX_Qua
 	local General = 0  
 	local ItemId = 0 
+--	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	
+--	if Item_CanGet <= 1 then
+--		SystemNotice(role ,"Insufficient space in inventory. Unable to use Prosperous Packet")
+--		UseItemFailed ( role )
+--		return
+--	end
 
 	for i = 1 , maxitem , 1 do 
 		General = item_type_rad [ i ] + General		
@@ -5536,8 +6121,8 @@ function ItemUse_HYUNBOX ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -5571,21 +6156,28 @@ function ItemUse_HYUNBOX ( role , Item )
 		if ItemId == GoodItem[Good_C] then
 			local itemname = GetItemName ( ItemId ) 
 			local cha_name = GetChaDefaultName ( role ) 
-			local message = cha_name.." \238\242\234\240\251\226\224\229\242 a \193\238\235\252\248\238\233 \239\224\234\229\242 \232 \239\238\235\243\247\224\229\242 "..itemname
+			local message = cha_name.." opens a Prosperous Packet and obtained "..itemname  
 			Notice ( message )
 		end
 	end
 end 
 
---Òåìíûé êàìåíü æåëàíèé (ID 3905)
+--°µµ­µÄÐíÔ¸Ê¯
 function ItemUse_ADBOX ( role , Item )
 	local item_type = BaoXiang_ADBOX 
 	local item_type_rad = BaoXiang_ADBOX_Rad 
 	local item_type_count = BaoXiang_ADBOX_Count 
-	local maxitem = BaoXiang_ADBOX_Mxcount
+	local maxitem = BaoXiang_ADBOX_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_ADBOX_Qua
 	local General = 0  
 	local ItemId = 0 
+--	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	
+--	if Item_CanGet <= 0 then
+--		SystemNotice(role ,"Insufficient space in inventory. Unable to use Wishing Stone")
+--		UseItemFailed ( role )
+--		return
+--	end
 
 	for i = 1 , maxitem , 1 do 
 		General = item_type_rad [ i ] + General		
@@ -5593,8 +6185,8 @@ function ItemUse_ADBOX ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -5611,18 +6203,28 @@ function ItemUse_ADBOX ( role , Item )
 		ItemCount = item_type_count [c] 
 	end 
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
-
+--	local itemname = GetItemName ( ItemId ) 
+--	local cha_name = GetChaDefaultName ( role ) 
+--	local message = cha_name.."rubbed a Wishing Stone and obtained"..itemname  
+--	Notice ( message )
 end 
 
---Èñêðÿùèéñÿ êàìåíü æåëàíèé (ID 3906)
+--ÉÁ¹âµÄÐíÔ¸Ê¯
 function ItemUse_SGBOX ( role , Item )
 	local item_type = BaoXiang_SGBOX 
 	local item_type_rad = BaoXiang_SGBOX_Rad 
 	local item_type_count = BaoXiang_SGBOX_Count 
-	local maxitem = BaoXiang_SGBOX_Mxcount
+	local maxitem = BaoXiang_SGBOX_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_SGBOX_Qua
 	local General = 0  
 	local ItemId = 0 
+--	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	
+--	if Item_CanGet <= 0 then
+--		SystemNotice(role ,"Insufficient space in inventory. Unable to use Wishing Stone")
+--		UseItemFailed ( role )
+--		return
+--	end
 
 	for i = 1 , maxitem , 1 do 
 		General = item_type_rad [ i ] + General		
@@ -5630,8 +6232,8 @@ function ItemUse_SGBOX ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -5680,25 +6282,25 @@ function ItemUse_SGBOX ( role , Item )
 		if ItemId == GoodItem[Good_C] then
 			local itemname = GetItemName ( ItemId ) 
 			local cha_name = GetChaDefaultName ( role ) 
-			local message = cha_name.."\232\241\239\238\235\252\231\229\242 \200\241\234\240\255\249\232\233\241\255 \234\224\236\229\237\252 \230\229\235\224\237\232\233 \232 \239\238\235\243\247\224\229\242 "..itemname
+			local message = cha_name.."uses a Sparking Wishing Stone and obtained "..itemname  
 			Notice ( message )
 		end
 	end
 end 
+--¾«ÁéÀñÆ·ºÐ
 
---Êîðîáî÷êà ôåè (ID 0262)
 function ItemUse_JingLingBOX ( role, Item )
 	local item_type = BaoXiang_JingLingBOX 
 	local item_type_rad = BaoXiang_JingLingBOX_Rad 
 	local item_type_count = BaoXiang_JingLingBOX_Count 
-	local maxitem = BaoXiang_JingLingBOX_Mxcount
+	local maxitem = BaoXiang_JingLingBOX_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BaoXiang_JingLingBOX_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \202\238\240\238\225\238\247\234\243 \212\229\233")
+		SystemNotice(role ,"Insufficient inventory space. Unable to use Fairy Box")
 		UseItemFailed ( role )
 		return
 	end
@@ -5709,8 +6311,8 @@ function ItemUse_JingLingBOX ( role, Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ--k ´Ó 1 µ½ 7
 
 		d = item_type_rad [ k ] + b   
 		 if a <= d and a > b then
@@ -5728,7 +6330,7 @@ function ItemUse_JingLingBOX ( role, Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
 end
 
---Ãüîçà (ID 3909)
+--Ê³ÉñË®½È
 function ItemUse_SSSJ ( role , Item )
 
   	local hp = GetChaAttr(role, ATTR_HP) 
@@ -5742,7 +6344,11 @@ function ItemUse_SSSJ ( role , Item )
 
 end
 
---Ñóïåðêîíôåòà íà ïàëî÷êå (ID 3910)
+
+
+
+--³¬¼¶ÌÇºùÂ«
+
 function ItemUse_CJTHL ( role , Item )
       
 	GiveItem ( role , 0 , 3911 , 1 , 5 ) 	
@@ -5772,41 +6378,40 @@ function ItemUse_CJTHL ( role , Item )
 
 end
 
---Ïîëíûé äîñïåõ (ID 0852)
+--µÆÁý
 function ItemUse_Denglong ( role , Item )
 	local statelv = 1
 	local statetime = 600
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ==  nil then
 		AddState( role , role , STATE_DENGLONG , statelv , statetime )
 	else
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 end
 
---------------------------------------------------------------------------------------------------
---Ðîçà\Øîêîëàä äëÿ âëþáëåííûõ
---------------------------------------------------------------------------------------------------
 	
---Ðîçà (ID 3343)
+--Ãµ¹å
 function ItemUse_MeiGui ( role , Item )
 	local statelv = 1
 	local statetime = 600
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ==  nil then
 		AddState( role , role , STATE_MEIGUI , statelv , statetime )
 	else
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 end
 
---Øîêîëàä äëÿ âëþáëåííûõ (ID 3344)
+--±¬Öñ
 function ItemUse_BZ ( role , Item )
 	local Now_Day = os.date("%d")
 	local Now_Month = os.date("%m")
@@ -5816,18 +6421,16 @@ function ItemUse_BZ ( role , Item )
 	local NowMonthNum = tonumber(Now_Month)
 	local CheckDateNum = NowMonthNum * 10000 + NowDayNum * 100 + NowTimeNum
 	local Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
-	end
+	end 
 end 
 
---------------------------------------------------------------------------------------------------
---Ñóíäóêè
---------------------------------------------------------------------------------------------------
---Ñóíäóê Êèëèí (OD 0192)
+
 function ItemUse_SaintCloth ( role , Item ) 
 	local cha = TurnToCha ( role ) 
 	local cha_type = GetChaTypeID ( cha ) 
@@ -5835,7 +6438,7 @@ function ItemUse_SaintCloth ( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( cha )
 
 	if Item_CanGet <= 3 then
-		SystemNotice(role ,"\205\229\238\225\245\238\228\232\236\238 4 \241\226\238\225\238\228\237\251\245 \241\235\238\242\224 \226 \232\237\226\229\237\242\224\240\229, \247\242\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234 \202\232\235\232\237")
+		SystemNotice(role ,"Requires 4 slots in inventory to open Chest of Kylin")
 		UseItemFailed ( role )
 		return
 	end
@@ -5847,15 +6450,17 @@ function ItemUse_SaintCloth ( role , Item )
 	GiveItem ( cha , 0 , 827 , 1 , 0 )	
 end 
 
--- ßùèê ñ äðåâíèìè äîñïåõàìè (Íî÷ü) (ID 0209)
-function ItemUse_SCBoxYXTZ ( role , Item )
+
+--ÉÌ³Ç×°±¸±¦Ïä
+
+function ItemUse_SCBoxYXTZ ( role , Item )		--Ò¹ÐÐÌ××°
 	local cha = TurnToCha ( role ) 
 	local cha_type = GetChaTypeID ( cha ) 
 
 	local Item_CanGet = GetChaFreeBagGridNum ( cha )
 
 	if Item_CanGet <= 2 then
-		SystemNotice(role ,"\215\242\238\225\251 \238\242\234\240\251\242\252 \241\243\237\228\243\234 \237\243\230\237\238 3 \241\226\238\225\238\228\237\251\245 \241\235\238\242\224 \226 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"To open the chest requires 3 empty slots")
 		UseItemFailed ( role )
 		return
 	end
@@ -5865,21 +6470,20 @@ function ItemUse_SCBoxYXTZ ( role , Item )
 		GiveItem ( cha , 0 , 0587 , 1 , 95 )	
 		GiveItem ( cha , 0 , 0747 , 1 , 95 )	
 	else
-		SystemNotice(role ,"\208\224\231\236\229\240 \242\229\235\224 \237\229 \241\238\238\242\226\229\242\241\242\226\243\229\242. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Body size does not match. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
 end
 
--- ßùèê ñ äðåâíèìè äîñïåõàìè (Ãåðêóëåñ) (ID 0210)
-function ItemUse_SCBoxLSTZ ( role , Item )		
+function ItemUse_SCBoxLSTZ ( role , Item )		--Á¦Ê¿Ì××°
 	local cha = TurnToCha ( role ) 
 	local cha_type = GetChaTypeID ( cha ) 
 
 	local Item_CanGet = GetChaFreeBagGridNum ( cha )
 
 	if Item_CanGet <= 3 then
-		SystemNotice(role ,"\215\242\238\225\251 \238\242\234\240\251\242\252 \241\243\237\228\243\234 \237\243\230\237\238 3 \241\226\238\225\238\228\237\251\245 \241\235\238\242\224 \226 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open treasure chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -5888,22 +6492,21 @@ function ItemUse_SCBoxLSTZ ( role , Item )
 		GiveItem ( cha , 0 , 0829 , 1 , 95 )
 		GiveItem ( cha , 0 , 0603 , 1 , 95 )
 	else
-		SystemNotice(role ,"\208\224\231\236\229\240 \242\229\235\224 \237\229 \241\238\238\242\226\229\242\241\242\226\243\229\242. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Body size does not match. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
 
 end
 
--- ßùèê ñ äðåâíèìè äîñïåõàìè (Îòïðûñê) (ID 0211)
-function ItemUse_SCBoxHYTZ ( role , Item )
+function ItemUse_SCBoxHYTZ ( role , Item )		--ºóÒáÌ××°
 	local cha = TurnToCha ( role ) 
 	local cha_type = GetChaTypeID ( cha ) 
 
 	local Item_CanGet = GetChaFreeBagGridNum ( cha )
 
 	if Item_CanGet <= 2 then
-		SystemNotice(role ,"\215\242\238\225\251 \238\242\234\240\251\242\252 \241\243\237\228\243\234 \237\243\230\237\238 3 \241\226\238\225\238\228\237\251\245 \241\235\238\242\224 \226 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"To open the chest requires 3 empty slots")
 		UseItemFailed ( role )
 		return
 	end
@@ -5913,22 +6516,21 @@ function ItemUse_SCBoxHYTZ ( role , Item )
 		GiveItem ( cha , 0 , 0589 , 1 , 95 )
 		GiveItem ( cha , 0 , 0749 , 1 , 95 )
 	else
-		SystemNotice(role ,"\208\224\231\236\229\240 \242\229\235\224 \237\229 \241\238\238\242\226\229\242\241\242\226\243\229\242. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Body size does not match. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
 
 end
 
---Ðåëèêòîâûé áðîíèðîâàííûé ÿùèê (ìóäðûé/ïàíäà) (ID 0212)
-function ItemUse_SCBoxFYSTZ ( role , Item )
+function ItemUse_SCBoxFYSTZ ( role , Item )		--·âÓ¡Ö°ÒµÌ××°
 	local cha = TurnToCha ( role ) 
 	local cha_type = GetChaTypeID ( cha ) 
 
 	local Item_CanGet = GetChaFreeBagGridNum ( cha )
 
 	if Item_CanGet <= 3 then
-		SystemNotice(role ,"\215\242\238\225\251 \238\242\234\240\251\242\252 \241\243\237\228\243\234 \237\243\230\237\238 4 \241\226\238\225\238\228\237\251\245 \241\235\238\242\224 \226 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"Lack of 4 inventory slots. Unable to open chest.")
 		UseItemFailed ( role )
 		return
 	end
@@ -5943,22 +6545,21 @@ function ItemUse_SCBoxFYSTZ ( role , Item )
 		GiveItem ( cha , 0 , 0753 , 1 , 95 )
 		GiveItem ( cha , 0 , 2218 , 1 , 95 )
 	else
-		SystemNotice(role ,"\208\224\231\236\229\240 \242\229\235\224 \237\229 \241\238\238\242\226\229\242\241\242\226\243\229\242. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Body size does not match. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
 	
 end
 
---ßùèê ñ äðåâíèìè äîñïåõàìè (Ôåÿ/Çîëîòàÿ ðûáêà) (ID 0213)
-function ItemUse_SCBoxSZZTZ ( role , Item )
+function ItemUse_SCBoxSZZTZ ( role , Item )		--Ê¥Ö°ÕßÌ××°
 	local cha = TurnToCha ( role ) 
 	local cha_type = GetChaTypeID ( cha ) 
 
 	local Item_CanGet = GetChaFreeBagGridNum ( cha )
 
 	if Item_CanGet <= 3 then
-		SystemNotice(role ,"\215\242\238\225\251 \238\242\234\240\251\242\252 \241\243\237\228\243\234 \237\243\230\237\238 4 \241\226\238\225\238\228\237\251\245 \241\235\238\242\224 \226 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"Lack of 4 inventory slots. Unable to open chest.")
 		UseItemFailed ( role )
 		return
 	end
@@ -5973,21 +6574,20 @@ function ItemUse_SCBoxSZZTZ ( role , Item )
 		GiveItem ( cha , 0 , 0757 , 1 , 95 )
 		GiveItem ( cha , 0 , 2220 , 1 , 95 )
 	else
-		SystemNotice(role ,"\208\224\231\236\229\240 \242\229\235\224 \237\229 \241\238\238\242\226\229\242\241\242\226\243\229\242. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Body size does not match. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
 end
 
---ßùèê ñ äðåâíèìè äîñïåõàìè (Ïðèëèâ/Äðàêîí) (ID 0214)
-function ItemUse_SCBoxHHSTZ ( role , Item )	
+function ItemUse_SCBoxHHSTZ ( role , Item )		--º½º£Ê¿Ì××°
 	local cha = TurnToCha ( role ) 
 	local cha_type = GetChaTypeID ( cha ) 
 
 	local Item_CanGet = GetChaFreeBagGridNum ( cha )
 
 	if Item_CanGet <= 3 then
-		SystemNotice(role ,"\215\242\238\225\251 \238\242\234\240\251\242\252 \241\243\237\228\243\234 \237\243\230\237\238 4 \241\226\238\225\238\228\237\251\245 \241\235\238\242\224 \226 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"Lack of 4 inventory slots. Unable to open chest.")
 		UseItemFailed ( role )
 		return
 	end
@@ -6002,21 +6602,21 @@ function ItemUse_SCBoxHHSTZ ( role , Item )
 		GiveItem ( cha , 0 , 0761 , 1 , 95 )
 		GiveItem ( cha , 0 , 2222 , 1 , 95 )
 	else
-		SystemNotice(role ,"\208\224\231\236\229\240 \242\229\235\224 \237\229 \241\238\238\242\226\229\242\241\242\226\243\229\242. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Body size does not match. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
 end
 
---ßùèê ñ äðåâíèì îðóæèåì (×óäåñà) (ID 0215)
-function ItemUse_SCBoxRYBZ ( role , Item )
+
+function ItemUse_SCBoxRYBZ ( role , Item )		--ÈçÒâ±¦ÕÈ
 	local cha = TurnToCha ( role ) 
 	local cha_type = GetChaTypeID ( cha ) 
 
 	local Item_CanGet = GetChaFreeBagGridNum ( cha )
 
 	if Item_CanGet == 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -6024,15 +6624,14 @@ function ItemUse_SCBoxRYBZ ( role , Item )
 	GiveItem ( cha , 0 , 0109 , 1 , 95 )
 end
 
---ßùèê ñ äðåâíèì îðóæèåì (Áè÷ äåìîíîâ) (ID 0216)
-function ItemUse_SCBoxXMC ( role , Item )
+function ItemUse_SCBoxXMC ( role , Item )		--½µÄ§èÆ
 	local cha = TurnToCha ( role ) 
 	local cha_type = GetChaTypeID ( cha ) 
 
 	local Item_CanGet = GetChaFreeBagGridNum ( cha )
 
 	if Item_CanGet == 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -6040,15 +6639,14 @@ function ItemUse_SCBoxXMC ( role , Item )
 	GiveItem ( cha , 0 , 0111 , 1 , 95 )
 end
 
---ßùèê ñ äðåâíèì îðóæèåì (Äðàêî) (ID 0217)
-function ItemUse_SCBoxLQJ ( role , Item )
+function ItemUse_SCBoxLQJ ( role , Item )		--ÁúÈª½£
 	local cha = TurnToCha ( role ) 
 	local cha_type = GetChaTypeID ( cha ) 
 
 	local Item_CanGet = GetChaFreeBagGridNum ( cha )
 
 	if Item_CanGet == 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -6056,15 +6654,14 @@ function ItemUse_SCBoxLQJ ( role , Item )
 	GiveItem ( cha , 0 , 0113 , 1 , 95 )
 end
 
---ßùèê ñ äðåâíèì îðóæèåì (Óò¸ñ) (ID 0218)
-function ItemUse_SCBoxLYJ ( role , Item )
+function ItemUse_SCBoxLYJ ( role , Item )		--ÁÑÑÒ½£
 	local cha = TurnToCha ( role ) 
 	local cha_type = GetChaTypeID ( cha ) 
 
 	local Item_CanGet = GetChaFreeBagGridNum ( cha )
 
 	if Item_CanGet == 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -6072,15 +6669,14 @@ function ItemUse_SCBoxLYJ ( role , Item )
 	GiveItem ( cha , 0 , 0115 , 1 , 95 )
 end
 
---ßùèê ñ äðåâíèì îðóæèåì (Ðàäóãà) (ID 0219)
-function ItemUse_SCBoxFHG ( role , Item )
+function ItemUse_SCBoxFHG ( role , Item )		--·Éºç
 	local cha = TurnToCha ( role ) 
 	local cha_type = GetChaTypeID ( cha ) 
 
 	local Item_CanGet = GetChaFreeBagGridNum ( cha )
 
 	if Item_CanGet == 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -6088,15 +6684,14 @@ function ItemUse_SCBoxFHG ( role , Item )
 	GiveItem ( cha , 0 , 0117 , 1 , 95 )
 end
 
---ßùèê ñ äðåâíèì îðóæèåì (Ìåòåîð) (ID 0220)
-function ItemUse_SCBoxLXHZ ( role , Item )
+function ItemUse_SCBoxLXHZ ( role , Item )		--Á÷ÐÇ»ðÖé
 	local cha = TurnToCha ( role ) 
 	local cha_type = GetChaTypeID ( cha ) 
 
 	local Item_CanGet = GetChaFreeBagGridNum ( cha )
 
 	if Item_CanGet == 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -6104,15 +6699,14 @@ function ItemUse_SCBoxLXHZ ( role , Item )
 	GiveItem ( cha , 0 , 0119 , 1 , 95 )
 end
 
---Ðåëèêòîâûé îðóæåéíûé ÿùèê (âèöåðàëüíûé) (ID 0221)
-function ItemUse_SCBoxYCJ ( role , Item )
+function ItemUse_SCBoxYCJ ( role , Item )		--Óã³¦
 	local cha = TurnToCha ( role ) 
 	local cha_type = GetChaTypeID ( cha ) 
 
 	local Item_CanGet = GetChaFreeBagGridNum ( cha )
 
 	if Item_CanGet == 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -6120,61 +6714,58 @@ function ItemUse_SCBoxYCJ ( role , Item )
 	GiveItem ( cha , 0 , 0150 , 1 , 95 )
 end
 
---------------------------------------------------------------------------------------------------
---Ñòàðûé ïåðãàìåíò\Íîâûé ïåðãàìåíò, êàðòû ñîêðîâèù
---------------------------------------------------------------------------------------------------
+--ÑòÆ¤¾í 
 
---Ñòàðûé ïåðãàìåíò (ID 1092)
 function ItemUse_Map_YPJ ( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 1 then
-		SystemNotice(role ,"\211 \194\224\241 \228\238\235\230\229\237 \225\251\242\252 \239\238 \234\240\224\233\237\229\233 \236\229\240\229 1 \241\226\238\225\238\228\237\251\233 \241\235\238\242 \226 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"You need to have at least 1 empty inventory slot")
 		UseItemFailed ( role )
 		return
 	end 
 	local Has_GoldenMap = CheckBagItem ( role , 1093 )
 	if Has_GoldenMap >= 1 then
-		SystemNotice ( role , "\194\251 \236\238\230\229\242\229 \239\240\232\237\229\241\242\232 \242\238\235\252\234\238 1 \209\242\224\240\243\254 \234\224\240\242\243 \239\232\240\224\242\241\234\232\245 \241\238\234\240\238\226\232\249 \231\224 \238\228\232\237 \240\224\231" )
+		SystemNotice ( role , "You can only bring 1 Treasure Map at a time" )
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 1093 , 1 , 0 )
 end
 
---Íîâûé ïåðãàìåíò (ID 0684)
+--ÐÂÊ½ÑòÆ¤¾í
 function ItemUse_Map_JLBYPJ( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 1 then
-		SystemNotice(role ,"\211 \194\224\241 \228\238\235\230\229\237 \225\251\242\252 \239\238 \234\240\224\233\237\229\233 \236\229\240\229 1 \241\226\238\225\238\228\237\251\233 \241\235\238\242 \226 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"You need to have at least 1 empty inventory slot")
 		UseItemFailed ( role )
 		return
 	end 
 	local Has_GoldenMap = CheckBagItem ( role , 682 )
 	local lv= GetChaAttr(role, ATTR_LV) 
 	if Has_GoldenMap >= 1 then
-		SystemNotice ( role , "\194\251 \236\238\230\229\242\229 \239\240\232\237\229\241\242\232 \242\238\235\252\234\238 1 \202\224\240\242\243 \202\224\240\232\225\241\234\232\245 \241\238\234\240\238\226\232\249 \231\224 \238\228\232\237 \240\224\231" )
+		SystemNotice ( role , "You can only bring 1 Treasure Map at a time" )
 		UseItemFailed ( role )
 		return
 	end
 	if lv <15 or  lv >40 then
-		SystemNotice ( role , "\210\238\235\252\234\238 \239\229\240\241\238\237\224\230\232 \236\229\230\228\243 15 \232 40 \243\240\238\226\237\255\236\232 \236\238\227\243\242 \232\241\239\238\235\252\231\238\226\224\242\252 \205\238\226\251\233 \207\229\240\227\224\236\229\237\242" )
+		SystemNotice ( role , "Only characters between Lv 15 to Lv 40 can use New Sheepskin Scroll" )
 		UseItemFailed ( role )
 		return	
 	end
 	GiveItem ( role , 0 , 682 , 1 , 0 )
 end
+-- ²Ø±¦Í¼
 
---Ñòàðàÿ êàðòà ïèðàòñêèõ ñîêðîâèù ID 1093)
 function ItemUse_GoldenMap ( role , Item )
  	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 1 then
-		SystemNotice(role ,"\211 \194\224\241 \228\238\235\230\229\237 \225\251\242\252 \239\238 \234\240\224\233\237\229\233 \236\229\240\229 1 \241\226\238\225\238\228\237\251\233 \241\235\238\242 \226 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"You need to have at least 1 empty inventory slot")
 		UseItemFailed ( role )
 		return
 	end 
 	local Has_GoldenMap = CheckBagItem ( role , 1093 )
 	if Has_GoldenMap >= 2 then
-		SystemNotice ( role , "\211 \226\224\241 \225\238\235\252\248\229 \247\229\236 \238\228\237\224 \209\242\224\240\224\255 \234\224\240\242\224 \239\232\240\224\242\241\234\232\245 \241\238\234\240\238\226\232\249. \207\238\232\241\234\232 \241\238\234\240\238\226\232\249\224 \237\229 \243\226\229\237\247\224\235\232\241\252 \243\241\239\229\245\238\236" )
+		SystemNotice ( role , "Brought more than 1 Treasure Map. Digging failed" )
 		UseItemFailed ( role )
 		return
 	end
@@ -6185,6 +6776,9 @@ function ItemUse_GoldenMap ( role , Item )
 	local pos_x = Item_MAXURE
 	local pos_y = Item_MAXENERGY
 	local Themap = Item_URE
+--	SystemNotice ( role , "pos_x"..pos_x )
+--	SystemNotice ( role , "pos_y"..pos_y )
+--	SystemNotice ( role , "Themap"..Themap )
 	
 	local MapList = { }
 	
@@ -6200,7 +6794,8 @@ function ItemUse_GoldenMap ( role , Item )
 	MapNameList [2] = "Magical Ocean"
 	MapNameList [3] = "Deep Blue"
 	if pos_x == 0 or pos_y == 0 or Themap == 0 then
-		pos_x , pos_y , Themap = GetTheMapPos ( role , 1 )
+		pos_x , pos_y , Themap = GetTheMapPos ( role , 1 )		
+--		pos_x,pos_y,Themap = GetMapRanPos ( role )
 		Item_MAXURE = pos_x
 		Item_URE = Themap
 		Item_MAXENERGY = pos_y
@@ -6208,11 +6803,14 @@ function ItemUse_GoldenMap ( role , Item )
 		SetItemAttr ( Item , ITEMATTR_MAXENERGY , Item_MAXENERGY )
 		SetItemAttr ( Item , ITEMATTR_MAXURE , Item_MAXURE )
 		SetItemAttr ( Item , ITEMATTR_URE , Item_URE )
+--		SystemNotice ( role , "Themap"..Themap )
+--		Item_MAXENERGY = GetItemAttr ( Item , ITEMATTR_MAXENERGY )
+--		SystemNotice ( role , "Item_MAXENERGY"..Item_MAXENERGY )
 	end
 	local GetPos = CheckGetMapPos ( role , pos_x , pos_y , MapList[Themap] )
+--	SystemNotice ( role , "CheckPosOver"..GetPos ) 
 	if GetPos == 0 then
-		SystemNotice ( role , "\209\238\234\240\238\226\232\249\229 \241\239\240\255\242\224\237\238 \226 "..MapNameList[Themap].." \207\238 \234\238\238\240\228\232\237\224\242\224\236 ("..pos_x..","..pos_y..")" )
-	
+		SystemNotice ( role , "Treasure is hidden at "..MapNameList[Themap].."Region"..pos_x..","..pos_y.." nearby" )
 		UseItemFailed ( role )
 		return
 	elseif GetPos == 1 then
@@ -6220,30 +6818,30 @@ function ItemUse_GoldenMap ( role , Item )
 		if getrandom == 1 then
 			GiveGoldenMapItem ( role )
 		else
-			SystemNotice ( role , "\207\238\245\238\230\229, \247\242\238 \194\251 \237\232\247\229\227\238 \237\229 \237\224\248\235\232. \207\238\239\240\238\225\243\233\242\229 \239\238\232\241\234\224\242\252 \240\255\228\238\236" )
+			SystemNotice ( role , "Looks like nothing is dug out. Look again nearby" )
 			UseItemFailed ( role )
 			return
 		end
 	end
 end
 
---Êàðòà Êàðèáñêèõ ñîêðîâèù (ID 0682)
+-- ¼ÓÀÕ±È²Ø±¦Í¼
 function ItemUse_JLB_GoldenMap ( role , Item )
  	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet < 1 then
-		SystemNotice(role ,"\211 \194\224\241 \228\238\235\230\229\237 \225\251\242\252 \239\238 \234\240\224\233\237\229\233 \236\229\240\229 1 \241\226\238\225\238\228\237\251\233 \241\235\238\242 \226 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"You need to have at least 1 empty inventory slot")
 		UseItemFailed ( role )
 		return
 	end 
 	local lv= GetChaAttr(role, ATTR_LV) 
 	if lv <15 or  lv >40 then
-		SystemNotice ( role , "\207\229\240\241\238\237\224\230\232 \236\229\237\252\248\229, \247\229\236 \243\240\238\226\237\255 15 \232\235\232 \226\251\248\229 \247\229\236 \243\240\238\226\237\255 40 \237\229 \236\238\227\243\242 \232\241\239\238\235\252\231\238\226\224\242\252 \253\242\243 \234\224\240\242\243 \241\238\234\240\238\226\232\249" )
+		SystemNotice ( role , "Characters lower than Lv 15 or higher than Lv 40 cannot use this treasure map" )
 		UseItemFailed ( role )
 		return	
 	end
 	local Has_GoldenMap = CheckBagItem ( role , 682 )
 	if Has_GoldenMap >= 2 then
-		SystemNotice ( role , "\211 \194\224\241 \236\238\230\229\242 \242\238\235\252\234\238 \225\251\242\252 1 \234\224\240\242\224 \241\238\234\240\238\226\232\249 \226 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \232\241\234\224\242\252 \241\238\234\240\238\226\232\249\229. \207\238\230\224\235\243\233\241\242\224 \243\228\224\235\232\242\229 \232\235\232 \239\238\235\238\230\232\242\229 \226 \225\224\237\234 \238\241\242\224\235\252\237\251\229" )
+		SystemNotice ( role , "You can only have 1 treasure map in inventory to seek for treasure. Please deposit the rest into your vault" )
 		UseItemFailed ( role )
 		return
 	end
@@ -6271,7 +6869,7 @@ function ItemUse_JLB_GoldenMap ( role , Item )
 	end
 	local GetPos = CheckGetMapPos ( role , pos_x , pos_y , MapList[Themap] )
 	if GetPos == 0 then
-		SystemNotice ( role , "\209\238\234\240\238\226\232\249\229 \241\239\240\255\242\224\237\238 \226 "..MapNameList[Themap].." \207\238 \234\238\238\240\228\232\237\224\242\224\236 ("..pos_x..","..pos_y..")" )
+		SystemNotice ( role , "Treasure is hidden at "..MapNameList[Themap].."Region"..pos_x..","..pos_y.." nearby" )
 		UseItemFailed ( role )
 		return
 	elseif GetPos == 1 then
@@ -6279,21 +6877,21 @@ function ItemUse_JLB_GoldenMap ( role , Item )
 		if getrandom == 1 then
 			GiveGoldenMapItem_JLB ( role )
 		else
-			SystemNotice ( role , "\207\238\245\238\230\229, \247\242\238 \194\251 \237\232\247\229\227\238 \237\229 \237\224\248\235\232. \207\238\239\240\238\225\243\233\242\229 \239\238\232\241\234\224\242\252 \240\255\228\238\236" )
+			SystemNotice ( role , "Looks like nothing is dug out. Look again nearby" )
 			UseItemFailed ( role )
 			return
 		end
 	end
 end
 
---------------------------------------------------------------------------------------------------
---Ðàçíîå
---------------------------------------------------------------------------------------------------
 
---Âñåìîãóùèé êàìåíü (ID 3240)
+
+
+--ÉúÈÕµ°¸â
 function ItemUse_BirthCake ( role , Item )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ==  nil then
 		local attr_ap = Attr_ap( role )
 		local ap_extre = 3
@@ -6305,62 +6903,70 @@ function ItemUse_BirthCake ( role , Item )
 		return
 	end
 end
-
---Æóðíàë "Ñ÷àñòëèâûé îòäûõ" (ID 0853)
+------------------------¼ÙÆÚ»¶ÀÖÔÓÖ¾
 function ItemUse_HappyBook ( role , Item )
 	local Cha_Boat = 0
 	local charLv=Lv ( role )
 	local dif_exp_one = DEXP[charLv+1]
 	local dif_exp_three = DEXP[charLv+3]
 	local dif_exp_five = DEXP[charLv+5]
-	local Exp_star=GetChaAttr (  role , ATTR_CEXP )
+	local Exp_star=GetChaAttr (  role , ATTR_CEXP )----------µ±Ç°µÈ¼¶¾­Ñé
 	local dif_exp_half = (DEXP[charLv+1] - DEXP[charLv])*0.5 +  Exp_star +10
-	local dif_exp_thalf = (DEXP[charLv+1] - DEXP[charLv])*0.3331  +  Exp_star + 10
-	local dif_exp_thalf_b = (DEXP[charLv+1] - DEXP[charLv])*0.2  +  Exp_star + 10
+	local dif_exp_thalf = (DEXP[charLv+1] - DEXP[charLv])*0.3  +  Exp_star + 10
+	local dif_exp_thalf_b = dif_exp_thalf - DEXP[charLv+1]
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
-	elseif charLv>=90 and charLv<=100 then
-		SetChaAttrI( role , ATTR_CEXP , dif_exp_one )
-	elseif charLv>=100 and charLv<=110 then
+	elseif charLv>=1 and charLv<=9 then
+		SetChaAttrI( role , ATTR_CEXP , dif_exp_five )
+	elseif charLv>=10 and charLv<=29 then
+			SetChaAttrI( role , ATTR_CEXP , dif_exp_three )
+	elseif charLv>=30 and charLv<=59 then
+			SetChaAttrI( role , ATTR_CEXP , dif_exp_one )
+	elseif charLv>=60 and charLv<=75 then
 			SetChaAttrI( role , ATTR_CEXP , dif_exp_half )
-	elseif charLv>=110 and charLv<=120 then
+	elseif charLv>=76 and charLv<=85 and charLv~=79  then
 			SetChaAttrI( role , ATTR_CEXP , dif_exp_thalf )
-	elseif charLv>=120 and charLv<=130 then
-			SetChaAttrI( role , ATTR_CEXP , dif_exp_thalf_b )
-	elseif charLv>=130 then
-		SystemNotice( role , "\194\224\248 \243\240\238\226\229\237\252 \241\235\232\248\234\238\236 \226\251\241\238\234\232\233, \247\242\238\225\251 \232\241\239\238\235\252\231\238\226\224\242\252 \253\242\238\242 \239\240\229\228\236\229\242" )
+	elseif charLv==79 and dif_exp_thalf_b<=0 then 
+			SetChaAttrI( role , ATTR_CEXP , dif_exp_thalf )
+	elseif charLv==79 and dif_exp_thalf_b>0 then 
+			dif_exp_thalf = dif_exp_thalf_b*0.02 + DEXP[charLv+1]
+			SetChaAttrI( role , ATTR_CEXP , dif_exp_thalf )
+	elseif charLv>=86 then
+		SystemNotice( role , "Your level is too high to use" )
 		UseItemFailed ( role )
 		return
 	end
 end
+------------ÈýÔÂ¾«Áé
 
---Ðàçâèòèå ôåè (ID 3335)
 function ItemUse_MarchElf ( role , Item )
 	local statelv = 1
 	local statetime = 600
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ==  nil then
 		local cha_type = GetChaTypeID ( role )
 		if cha_type == 3 or cha_type == 4 then
 			AddState( role , role , STATE_MarchElf , statelv , statetime )
 		else
-			SystemNotice ( role , "\208\224\231\226\232\242\232\229 \244\229\232 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238 \242\238\235\252\234\238 \230\229\237\241\234\232\236 \239\238\235\238\236" )
+			SystemNotice ( role , "Fairy March can only be used by female" )
 			UseItemFailed ( role )
 			return
 		end
 	else
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 
 end
 
---Çåëüå óñêîðåíèÿ (ID 3339)
+--¼ÓËÙÒ©Ë®
+
 function ItemUse_MspdYS ( role , Item )
 	local statelv = 1
 	local statetime = 900
@@ -6373,65 +6979,70 @@ function ItemUse_MspdYS ( role , Item )
 		SystemNotice( role , "A" )
 
 	else
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
+		UseItemFailed ( role )
 		return
 	end
 
 end
 
---Òðåóãîëüíûé ïàðóñ (ID 3340)
+--Èý½Ç·«
+
 function ItemUse_SanJiaoFan ( role , Item )
 	local statelv = 1
 	local statetime = 900
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ~=  nil then
 		AddState( Cha_Boat , Cha_Boat , STATE_YSBoatMspd , statelv , statetime )
 	else
-		SystemNotice( role , "\204\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238 \242\238\235\252\234\238 \226 \236\238\240\229" )
+		SystemNotice( role , "Only can be used while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 
 end
 
---Âûñîêîêà÷åñòâåííûé äîñïåõ (ID 3341)
+--¸ß¼¶×°¼×
+
 function ItemUse_GJZhuangJia ( role , Item )
 	local statelv = 1
 	local statetime = 900
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ~=  nil then
 		AddState( Cha_Boat , Cha_Boat , STATE_YSBoatDEF , statelv , statetime )
 	else
-		SystemNotice( role , "\204\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238 \242\238\235\252\234\238 \226 \236\238\240\229" )
+		SystemNotice( role , "Only can be used while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 
 end
 
---------------------------------------------------------------------------------------------------
---Æðåáèè
---------------------------------------------------------------------------------------------------
+--³éÇ©
 
---Æðåáèé ôîðòóíû (ID 3087)
+--²ÆÔËÇ©
+
 function ItemUse_SuanmingMoney ( role , Item )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ==  nil then
 		
 		
 		local Has_GoldenMap = CheckBagItem ( role , 3336 )
 		if Has_GoldenMap >= 1 then
-			SystemNotice ( role , "\200\241\239\238\235\252\231\243\229\242\241\255 \204\232\241\242\232\247\229\241\234\232\233 \202\235\229\226\229\240" )
+			SystemNotice ( role , "Used Mystic Clover" )
 			SuanmingTeshu_Money ( role )
 			DelBagItem( role , 3336 , 1 )
 		else
 			Suanming_Money ( role )
 		end
 	else
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
@@ -6439,214 +7050,216 @@ function ItemUse_SuanmingMoney ( role , Item )
 	
 end
 
---Ñ÷àñòëèâûé æðåáèé (ID 3086)
+--ÊÂÒµÇ®
+
 function ItemUse_SuanmingWork ( role , Item )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ==  nil then
 		local lv = Lv ( role )
 		local exp = Exp(role) 
 		local clexp = GetChaAttrI ( role , ATTR_CLEXP )
 		if exp < clexp then
-			SystemNotice ( role , "\206\239\251\242 \237\232\230\229 \247\229\236 \243\240\238\226\229\237\252. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \230\240\229\225\232\233" )
+			SystemNotice ( role , "Experience lower than level. Unable to use lot." )
 			UseItemFailed ( role )
 			return
 		end
 		
 		local Has_GoldenMap = CheckBagItem ( role , 3336 )
 		if Has_GoldenMap >= 1 then
-			SystemNotice ( role , "\200\241\239\238\235\252\231\243\229\242\241\255 \204\232\241\242\232\247\229\241\234\232\233 \202\235\229\226\229\240" )
+			SystemNotice ( role , "Used Mystic Clover" )
 			SuanmingTeshu_Work ( role )
 			DelBagItem( role , 3336 , 1 )	
 		else
 			Suanming_Work ( role )
 		end
 	else
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 end
 
---------------------------------------------------------------------------------------------------
---Èíãðåäèåíòû çàùèòíîãî ñðåäñòâà	
---------------------------------------------------------------------------------------------------
 
---Òðóò (ID 4259)
+
+--»ðÈÞ
+
 function ItemUse_HuoRongSW ( role , Item )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ==  nil then
 		RemoveState( role , STATE_BDJ )
 		AddState ( role , role , STATE_TTISW , 1 , 300 )
 	else
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	
 end
 
---Ïðîêëÿòàÿ êîñòü (ID 4260)
+--Öä¹Ç
+
 function ItemUse_ZhouGUSW ( role , Item )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ==  nil then
 		RemoveState( role , STATE_ZZZH )
 		AddState ( role , role , STATE_TTISW , 2 , 300 )
 	else
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	
 end
 
---Îñòü (ID 4261)
+--Ë®Ã¢
+
 function ItemUse_ShuiMangSW ( role , Item )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ==  nil then
 		RemoveState( role , STATE_CRXSF )
 		AddState ( role , role , STATE_TTISW , 3 , 300 )
 	else
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	
 end
 
---Àìóëåò (ID 4249)
+--»¤·û
+
 function ItemUse_HuFuSW ( role , Item )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ==  nil then
 		RemoveState( role , STATE_JSDD )
 		AddState ( role , role , STATE_TTISW , 4 , 1200 )
 	else
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	
 end
+--28¸ñ±³°üGetKbCap
+----[[28±³°ü¹«Ê½]]--¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
---------------------------------------------------------------------------------------------------
---Ðþêçàêè, ðàñøèðÿþùèå èíâåíòàðü	
---------------------------------------------------------------------------------------------------
-
---Ðþêçàê ñ 28 ÿ÷åéêàìè (ID3088)
 function ItemUse_28BeiBao( role , Item ) 
 	local bagnum = GetKbCap(role) 
 	if bagnum >= 28 then
-		SystemNotice(role ,"Íåëüçÿ èñïîëüçîâàòü íåñêîëüêî ðàç ")
+		SystemNotice(role ,"Cannot use item repeatedly")
 		UseItemFailed ( role )
 		return
 	end
 	AddKbCap(role, 4) 
 end 
 
---Ðþêçàê ñ 32 ÿ÷åéêàìè ID 3089)
+----[[32±³°ü¹«Ê½]]--¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function ItemUse_32BeiBao( role , Item ) 
 	local bagnum = GetKbCap(role) 
 	if bagnum >= 32 then
-		SystemNotice(role ,"\205\229\235\252\231\255 \232\241\239\238\235\252\231\238\226\224\242\252 \237\229\241\234\238\235\252\234\238 \240\224\231")
+		SystemNotice(role ,"Cannot use item repeatedly")
 		UseItemFailed ( role )
 		return
 	end
 	if bagnum <= 24 then
-		SystemNotice(role ,"\207\238\230\224\235\243\233\241\242\224, \240\224\241\248\232\240\252\242\229 \241\237\224\247\224\235\238 \232\237\226\229\237\242\224\240\252 \237\224 28 \255\247\229\229\234")
+		SystemNotice(role ,"Cannot use item above your level")
 		UseItemFailed ( role )
 		return
 	end
 	AddKbCap(role, 4) 
 end 
+----[[36±³°ü¹«Ê½]]--¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
---Ðþêçàê ñ 36 ÿ÷åéêàìè (ID 3090)
 function ItemUse_36BeiBao( role , Item ) 
 	local bagnum = GetKbCap(role) 
 	if bagnum >= 36 then
-		SystemNotice(role ,"\205\229\235\252\231\255 \232\241\239\238\235\252\231\238\226\224\242\252 \237\229\241\234\238\235\252\234\238 \240\224\231")
+		SystemNotice(role ,"Cannot use item repeatedly")
 		UseItemFailed ( role )
 		return
 	end
 	if bagnum <= 28 then
-		SystemNotice(role ,"\207\238\230\224\235\243\233\241\242\224, \240\224\241\248\232\240\252\242\229 \241\237\224\247\224\235\238 \232\237\226\229\237\242\224\240\252 \237\224 32 \255\247\229\233\234\232")
+		SystemNotice(role ,"Cannot use item above your level")
 		UseItemFailed ( role )
 		return
 	end
 	AddKbCap(role, 4) 
 end 
+----[[40±³°ü¹«Ê½]]--¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
---Ðþêçàê ñ 40 ÿ÷åéêàìè (ID 3091)
 function ItemUse_40BeiBao( role , Item ) 
 	local bagnum = GetKbCap(role) 
 	if bagnum >= 40 then
-		SystemNotice(role ,"\205\229\235\252\231\255 \232\241\239\238\235\252\231\238\226\224\242\252 \237\229\241\234\238\235\252\234\238 \240\224\231")
+		SystemNotice(role ,"Cannot use item repeatedly")
 		UseItemFailed ( role )
 		return
 	end
 	if bagnum <= 32 then
-		SystemNotice(role ,"\207\238\230\224\235\243\233\241\242\224, \240\224\241\248\232\240\252\242\229 \241\237\224\247\224\235\238 \232\237\226\229\237\242\224\240\252 \237\224 36 \255\247\229\229\234")
+		SystemNotice(role ,"Cannot use item above your level")
 		UseItemFailed ( role )
 		return
 	end
 	AddKbCap(role, 4) 
 end 
+----[[44±³°ü¹«Ê½]]--¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
---Ðþêçàê ñ 44 ÿ÷åéêàìè (ID 3092)
 function ItemUse_44BeiBao( role , Item ) 
 	local bagnum = GetKbCap(role) 
 	if bagnum >= 44 then
-		SystemNotice(role ,"\205\229\235\252\231\255 \232\241\239\238\235\252\231\238\226\224\242\252 \237\229\241\234\238\235\252\234\238 \240\224\231")
+		SystemNotice(role ,"Cannot use item repeatedly")
 		UseItemFailed ( role )
 		return
 	end
 	if bagnum <= 36 then
-		SystemNotice(role ,"\207\238\230\224\235\243\233\241\242\224, \240\224\241\248\232\240\252\242\229 \241\237\224\247\224\235\238 \232\237\226\229\237\242\224\240\252 \237\224 40 \255\247\229\229\234")
+		SystemNotice(role ,"Cannot use item above your level")
 		UseItemFailed ( role )
 		return
 	end
 	AddKbCap(role, 4) 
 end 
+----[[48±³°ü¹«Ê½]]--¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
---Ðþêçàê ñ 48 ÿ÷åéêàìè (ID 3093)
 function ItemUse_48BeiBao( role , Item ) 
 	local bagnum = GetKbCap(role) 
 	if bagnum >= 48 then
-		SystemNotice(role ,"\205\229\235\252\231\255 \232\241\239\238\235\252\231\238\226\224\242\252 \237\229\241\234\238\235\252\234\238 \240\224\231")
+		SystemNotice(role ,"Cannot use item repeatedly")
 		UseItemFailed ( role )
 		return
 	end
 	if bagnum <= 40 then
-		SystemNotice(role ,"\207\238\230\224\235\243\233\241\242\224, \240\224\241\248\232\240\252\242\229 \241\237\224\247\224\235\238 \232\237\226\229\237\242\224\240\252 \237\224 44 \255\247\229\233\234\232")
+		SystemNotice(role ,"Cannot use item above your level")
 		UseItemFailed ( role )
 		return
 	end
 	AddKbCap(role, 4) 
 end 
-
---Ìîðîæåíîå (ID 3126)
+----[[±íÇé]]--------------------------------------
 function ItemUse_BQ ( role , Item )
 
 end 
+----[[ËÇÁÏÄÚÈÝ]]--------------------------------------
 
---------------------------------------------------------------------------------------------------
---Ïèòàíèå, ôðóêòû äëÿ ôåé, êíèãè áîåâûõ ñêèëëîâ äëÿ ôåé
---------------------------------------------------------------------------------------------------
---Ïèòàíèå ôåè (ID 0227)
 function ItemUse_SiLiao ( role , Item , Item_Traget )
 	
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end      
-		local Item_Traget_URE=GetItemAttr(Item_Traget,ITEMATTR_URE)
-		local Item_Traget_MAXURE=GetItemAttr(Item_Traget,ITEMATTR_MAXURE)
+		local Item_Traget_URE=GetItemAttr(Item_Traget,ITEMATTR_URE)  --È¡µ±Ç°ÄÍ¾Ã
+		local Item_Traget_MAXURE=GetItemAttr(Item_Traget,ITEMATTR_MAXURE)--È¡×î´óÄÍ¾Ã
 		local Item_type = GetItemType ( Item )
 		local Item_Traget_Type = GetItemType ( Item_Traget )
 		local Num = 2500
@@ -6655,7 +7268,7 @@ function ItemUse_SiLiao ( role , Item , Item_Traget )
 				if Item_Traget_URE < Item_Traget_MAXURE then
 				   Give_ElfURE ( role , Item_Traget , Num )
    	 			else
-                    SystemNotice(role , "\212\229\255 \241\251\242\224" ) 
+                                        SystemNotice(role , "Fairy is full" ) 
 					UseItemFailed ( role )
 					return
 				end
@@ -6663,18 +7276,19 @@ function ItemUse_SiLiao ( role , Item , Item_Traget )
 
 end
 
---Ïèùà ôåé (ID 3152)
+----[[³èÎïËÇÁÏÄÚÈÝ]]--------------------------------------¸ø³èÎïÔö¼ÓÉÙÐíÌåÁ¦
+
 function ItemUse_CWSiLiao ( role , Item , Item_Traget )
 	
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end      
-		local Item_Traget_URE=GetItemAttr(Item_Traget,ITEMATTR_URE)
-		local Item_Traget_MAXURE=GetItemAttr(Item_Traget,ITEMATTR_MAXURE)
+		local Item_Traget_URE=GetItemAttr(Item_Traget,ITEMATTR_URE)  --È¡µ±Ç°ÄÍ¾Ã
+		local Item_Traget_MAXURE=GetItemAttr(Item_Traget,ITEMATTR_MAXURE)--È¡×î´óÄÍ¾Ã
 		local Item_type = GetItemType ( Item )
 		local Item_Traget_Type = GetItemType ( Item_Traget )
 		local Num = 250
@@ -6683,7 +7297,7 @@ function ItemUse_CWSiLiao ( role , Item , Item_Traget )
 				if Item_Traget_URE < Item_Traget_MAXURE then
 				   Give_ElfURE ( role , Item_Traget , Num )
    	 			else
-                    SystemNotice(role , "\212\229\255 \241\251\242\224" ) 
+                                        SystemNotice(role , "Fairy is full" ) 
 					UseItemFailed ( role )
 					return
 				end
@@ -6691,13 +7305,17 @@ function ItemUse_CWSiLiao ( role , Item , Item_Traget )
 
 end
 
---Ôðóêò ñíåæíîãî äðàêîíà (ID - 0222)
+
+----[[ÁãÊ³ÄÚÈÝ]]--------------------------------------
+
+--Ê¥Ñ©É½Áú¹û
 function ItemUse_LS_longguo ( role , Item , Item_Traget ) 
 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "Ïîñëå 51 ëâë íåâîçìîæíî èñïîëüçîâàòü ôðóêò. " )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
@@ -6706,35 +7324,27 @@ function ItemUse_LS_longguo ( role , Item , Item_Traget )
 		local Item_Num = GetItemID ( Item )
 		local Check_Exp = 0
 		local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY) 
-		local str = GetItemAttr(Item_Traget,ITEMATTR_VAL_STR)
-		local con = GetItemAttr(Item_Traget,ITEMATTR_VAL_CON)
-		local dex = GetItemAttr(Item_Traget,ITEMATTR_VAL_DEX)
-		local agi = GetItemAttr(Item_Traget,ITEMATTR_VAL_AGI)
-		local sta = GetItemAttr(Item_Traget,ITEMATTR_VAL_STA)
-		local elf_lvl = str + con + agi + dex + sta
-		if elf_lvl >= 51 and elf_lvl <= 99999999999 then
-			SystemNotice(role , "Ïîñëå 51 ëâë íåâîçìîæíî èñïîëüçîâàòü ôðóêò. " )
-			UseItemFailed ( role )
-			return
-		end
+		--SystemNotice(role ,Elf_MaxEXP )
+
 		if Item_type == 58 and Item_Traget_Type == 59 then
-				Check_Exp = CheckElf_EXP ( role , Item_Traget ) 
+				Check_Exp = CheckElf_EXP ( role , Item_Traget ) --¾«ÁéexpÊÇ·ñÂú×ãÉý¼¶Ìõ¼þ
 				if Check_Exp == 0 then
-					SystemNotice(role , "\208\238\241\242 \244\229\232 \237\229 \228\238\241\242\232\227 \236\224\234\241\232\236\243\236\224. \205\229\226\238\231\236\238\230\237\238 \239\238\234\238\240\236\232\242\252 \244\229\254 \244\240\243\234\242\238\236 \209\237\229\230\237\238\227\238 \196\240\224\234\238\237\224" ) 
+					SystemNotice(role , "Growth rate is not full. Unable to feed pet with Snow Dragon Fruit" ) 
 					UseItemFailed ( role )
 				else
-				   Lvup_Str ( role , Item_Num , Item_Traget )
+				   Lvup_Str ( role , Item_Num , Item_Traget ) --¸ù¾Ý¾ßÌåµÀ¾ßÑ¡Ôñ²»Í¬ÊôÐÔµÄ³É³¤º¯Êý ( ÀýÖÐÎªstr )
 				end 
 		end 
 end
 
---Ëåäÿíàÿ ñëèâà (ID 0223)
+--±ù¼«Ë¬¿ÚÃ·
 function ItemUse_LS_koumei ( role , Item , Item_Traget ) 
 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
@@ -6743,35 +7353,26 @@ function ItemUse_LS_koumei ( role , Item , Item_Traget )
 		local Item_Num = GetItemID ( Item )
 		local Check_Exp = 0
 		local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY) 
-		local str = GetItemAttr(Item_Traget,ITEMATTR_VAL_STR)
-		local con = GetItemAttr(Item_Traget,ITEMATTR_VAL_CON)
-		local dex = GetItemAttr(Item_Traget,ITEMATTR_VAL_DEX)
-		local agi = GetItemAttr(Item_Traget,ITEMATTR_VAL_AGI)
-		local sta = GetItemAttr(Item_Traget,ITEMATTR_VAL_STA)
-		local elf_lvl = str + con + agi + dex + sta
-		if elf_lvl >= 51 and elf_lvl <= 99999999999 then
-			SystemNotice(role , "Ïîñëå 51 ëâë íåâîçìîæíî èñïîëüçîâàòü ôðóêò. " )
-			UseItemFailed ( role )
-			return
-		end
+
 		if Item_type == 58 and Item_Traget_Type == 59 then
-				Check_Exp = CheckElf_EXP ( role , Item_Traget )
+				Check_Exp = CheckElf_EXP ( role , Item_Traget ) --¾«ÁéexpÊÇ·ñÂú×ãÉý¼¶Ìõ¼þ
 				if Check_Exp == 0 then
-					SystemNotice(role , "\208\238\241\242 \244\229\232 \237\229 \228\238\241\242\232\227 \236\224\234\241\232\236\243\236\224. \205\229\226\238\231\236\238\230\237\238 \239\238\234\238\240\236\232\242\252 \244\229\254 \203\229\228\255\237\238\233 \241\235\232\226\238\233" ) 
+					SystemNotice(role , "Growth rate is not full. Unable to feed pet with Icespire Plum" ) 
 					UseItemFailed ( role )
 				else
-				   Lvup_Agi ( role , Item_Num , Item_Traget )
+				   Lvup_Agi ( role , Item_Num , Item_Traget ) --¸ù¾Ý¾ßÌåµÀ¾ßÑ¡Ôñ²»Í¬ÊôÐÔµÄ³É³¤º¯Êý ( ÀýÖÐÎªstr )
 				end 
 		end 
 end
 
---Ôèøôëîñ ñ Çåôèðà (ID 0224)
+--º£·ç÷¨ÓãË¿
 function ItemUse_LS_yusi ( role , Item , Item_Traget ) 
 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
@@ -6780,35 +7381,26 @@ function ItemUse_LS_yusi ( role , Item , Item_Traget )
 		local Item_Num = GetItemID ( Item )
 		local Check_Exp = 0
 		local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY) 
-		local str = GetItemAttr(Item_Traget,ITEMATTR_VAL_STR)
-		local con = GetItemAttr(Item_Traget,ITEMATTR_VAL_CON)
-		local dex = GetItemAttr(Item_Traget,ITEMATTR_VAL_DEX)
-		local agi = GetItemAttr(Item_Traget,ITEMATTR_VAL_AGI)
-		local sta = GetItemAttr(Item_Traget,ITEMATTR_VAL_STA)
-		local elf_lvl = str + con + agi + dex + sta
-		if elf_lvl >= 51 and elf_lvl <= 99999999999 then
-			SystemNotice(role , "Ïîñëå 51 ëâë íåâîçìîæíî èñïîëüçîâàòü ôðóêò.  " )
-			UseItemFailed ( role )
-			return
-		end
+
 		if Item_type == 58 and Item_Traget_Type == 59  then
-				Check_Exp = CheckElf_EXP ( role , Item_Traget )
+				Check_Exp = CheckElf_EXP ( role , Item_Traget ) --¾«ÁéexpÊÇ·ñÂú×ãÉý¼¶Ìõ¼þ
 				if Check_Exp == 0 then
-					SystemNotice(role , "\208\238\241\242 \244\229\232 \237\229 \228\238\241\242\232\227 \236\224\234\241\232\236\243\236\224. \205\229\226\238\231\236\238\230\237\238 \239\238\234\238\240\236\232\242\252 \244\229\254 \212\232\248\244\235\238\241\238\236 \241 \199\229\244\232\240\224" ) 
+					SystemNotice(role , "Growth rate is not full. Unable to feed pet with Zephyr Fish Floss" ) 
 					UseItemFailed ( role )
 				else
-				   Lvup_Dex ( role , Item_Num , Item_Traget )
+				   Lvup_Dex ( role , Item_Num , Item_Traget ) --¸ù¾Ý¾ßÌåµÀ¾ßÑ¡Ôñ²»Í¬ÊôÐÔµÄ³É³¤º¯Êý ( ÀýÖÐÎªstr )
 				end 
 		end 
 end
 
---Ñåðåáðÿíîå ìàíãî (ID 0225)
+--°×Òø³Ç¹û¸¬
 function ItemUse_LS_guopu ( role , Item , Item_Traget ) 
 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
@@ -6817,35 +7409,26 @@ function ItemUse_LS_guopu ( role , Item , Item_Traget )
 		local Item_Num = GetItemID ( Item )
 		local Check_Exp = 0
 		local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY) 
-		local str = GetItemAttr(Item_Traget,ITEMATTR_VAL_STR)
-		local con = GetItemAttr(Item_Traget,ITEMATTR_VAL_CON)
-		local dex = GetItemAttr(Item_Traget,ITEMATTR_VAL_DEX)
-		local agi = GetItemAttr(Item_Traget,ITEMATTR_VAL_AGI)
-		local sta = GetItemAttr(Item_Traget,ITEMATTR_VAL_STA)
-		local elf_lvl = str + con + agi + dex + sta
-		if elf_lvl >= 51 and elf_lvl <= 99999999999 then
-			SystemNotice(role , "Ïîñëå 51 ëâë íåâîçìîæíî èñïîëüçîâàòü ôðóêò. " )
-			UseItemFailed ( role )
-			return
-		end
+
 		if Item_type == 58 and Item_Traget_Type == 59 then
-				Check_Exp = CheckElf_EXP ( role , Item_Traget )
+				Check_Exp = CheckElf_EXP ( role , Item_Traget ) --¾«ÁéexpÊÇ·ñÂú×ãÉý¼¶Ìõ¼þ
 				if Check_Exp == 0 then
-					SystemNotice(role , "\208\238\241\242 \244\229\232 \237\229 \228\238\241\242\232\227 \236\224\234\241\232\236\243\236\224. \205\229\226\238\231\236\238\230\237\238 \239\238\234\238\240\236\232\242\252 \244\229\254 \209\229\240\229\225\240\255\237\251\236 \236\224\237\227\238" ) 
+					SystemNotice(role , "Growth rate is not full. Unable to feed pet with Argent Mango" ) 
 					UseItemFailed ( role )
 				else
-				   Lvup_Con ( role , Item_Num , Item_Traget )
+				   Lvup_Con ( role , Item_Num , Item_Traget ) --¸ù¾Ý¾ßÌåµÀ¾ßÑ¡Ôñ²»Í¬ÊôÐÔµÄ³É³¤º¯Êý ( ÀýÖÐÎªstr )
 				end 
 		end 
 end
 
---Øàéòàíñêèé áèñêâèò (ID 0226)
+--ÐÂÉ³á°Ã×±ý
 function ItemUse_LS_mibing ( role , Item , Item_Traget ) 
 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
@@ -6854,400 +7437,581 @@ function ItemUse_LS_mibing ( role , Item , Item_Traget )
 		local Item_Num = GetItemID ( Item )
 		local Check_Exp = 0
 		local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY) 
-		local str = GetItemAttr(Item_Traget,ITEMATTR_VAL_STR)
-		local con = GetItemAttr(Item_Traget,ITEMATTR_VAL_CON)
-		local dex = GetItemAttr(Item_Traget,ITEMATTR_VAL_DEX)
-		local agi = GetItemAttr(Item_Traget,ITEMATTR_VAL_AGI)
-		local sta = GetItemAttr(Item_Traget,ITEMATTR_VAL_STA)
-		local elf_lvl = str + con + agi + dex + sta
-		if elf_lvl >= 51 and elf_lvl <= 99999999999 then
-			SystemNotice(role , "Ïîñëå 51 ëâë íåâîçìîæíî èñïîëüçîâàòü ôðóêò.  " )
-			UseItemFailed ( role )
-			return
-		end
+
 		if Item_type == 58 and Item_Traget_Type == 59  then
-				Check_Exp = CheckElf_EXP ( role , Item_Traget ) 
+				Check_Exp = CheckElf_EXP ( role , Item_Traget ) --¾«ÁéexpÊÇ·ñÂú×ãÉý¼¶Ìõ¼þ
 				if Check_Exp == 0 then
-					SystemNotice(role , "\208\238\241\242 \244\229\232 \237\229 \228\238\241\242\232\227 \236\224\234\241\232\236\243\236\224. \205\229\226\238\231\236\238\230\237\238 \239\238\234\238\240\236\232\242\252 \244\229\254 \216\224\233\242\224\237\241\234\232\236 \225\232\241\234\226\232\242\238\236" )
+					SystemNotice(role , "Growth rate is not full. Unable to feed pet with Shaitan Biscuit" ) 
 					UseItemFailed ( role )
 				else
-				   Lvup_Sta ( role , Item_Num , Item_Traget ) 
-				end  				
+				   Lvup_Sta ( role , Item_Num , Item_Traget ) --¸ù¾Ý¾ßÌåµÀ¾ßÑ¡Ôñ²»Í¬ÊôÐÔµÄ³É³¤º¯Êý ( ÀýÖÐÎªstr )
+				end  
+			        --local Item_MAXENERGY = Elf_MaxEXP + 20
+				--SetItemAttr ( Item_Traget , ITEMATTR_MAXENERGY , Item_MAXENERGY )				
 		end 
 end
-
---Çàùèòà íà÷. óð (ID 0243)
-function ItemUse_HuDun_CJ ( role , Item , Item_Traget )
-
-	local Cha_Boat = 0
-	Cha_Boat = GetCtrlBoat ( role )
-	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
-		UseItemFailed ( role ) 
-		return 
-	end 
-		local Item_type =  GetItemType ( Item )
-		local Item_Traget_Type =  GetItemType ( Item_Traget )
-		local Num = GetItemForgeParam ( Item_Traget , 1 )
-		local SkillType = 1	
-		local SkillNum = 1		
-
-		if Item_type == 58 and Item_Traget_Type == 59 then
-			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
-
-			if Check == 1 then
-				SystemNotice(role , "\194\251 \243\230\229 \232\231\243\247\224\235\232 \228\224\237\237\238\229 \243\236\229\237\232\229" ) 
-				UseItemFailed ( role )
-			else
-
-			AddElfSkill ( Item_Traget , SkillType , SkillNum )
-
-			end
-		end
-
-end
-
---Îáû÷íàÿ çàùèòà (ID 0244)
-function ItemUse_HuDun_ZJ ( role , Item , Item_Traget )
-
-	local Cha_Boat = 0
-	Cha_Boat = GetCtrlBoat ( role )
-	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
-		UseItemFailed ( role ) 
-		return 
-	end 
-		local Item_type =  GetItemType ( Item )
-		local Item_Traget_Type =  GetItemType ( Item_Traget )
-		local Num = GetItemForgeParam ( Item_Traget , 1 )
-		local SkillType = 2		
-		local SkillNum = 1	
-
-		if Item_type == 58 and Item_Traget_Type == 59 then
-			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
-
-			if Check == 1 then
-				SystemNotice(role , "\194\251 \243\230\229 \232\231\243\247\224\235\232 \228\224\237\237\238\229 \243\236\229\237\232\229" ) 
-				UseItemFailed ( role )
-			else
-
-			AddElfSkill ( Item_Traget , SkillType , SkillNum )
-
-			end
-		end
-
-end
-
---Çàùèòà âûñ. óð. (ID 0245)
-function ItemUse_HuDun_GJ ( role , Item , Item_Traget )
+----------------------------------------------------
+function ItemUse_HuDun_CJ ( role , Item , Item_Traget )   --³õ¼¶»¤¶ÜÊõ
 			--SystemNotice( role , "s" )
 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
-	SystemNotice( role , Cha_Boat )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 		local Item_type =  GetItemType ( Item )
 		local Item_Traget_Type =  GetItemType ( Item_Traget )
-		local Num = GetItemForgeParam ( Item_Traget , 1 )
-		local SkillType = 3
-		local SkillNum = 1
-				SystemNotice( role , SkillType )
-				SystemNotice( role , SkillNum )
+		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+		local SkillType = 1		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+		local SkillNum = 1		--ÒªÔö¼ÓµÄSkill ±àºÅ
+				--SystemNotice( role , SkillType )
+				--SystemNotice( role , SkillNum )
 
 		if Item_type == 58 and Item_Traget_Type == 59 then
 			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
 
 			if Check == 1 then
-				SystemNotice(role , "\194\251 \243\230\229 \232\231\243\247\224\235\232 \228\224\237\237\238\229 \243\236\229\237\232\229" ) 
+				SystemNotice(role , "have target skill, usage failed" ) 
 				UseItemFailed ( role )
 			else
-		        SystemNotice( role , "AddElfSkill" )
+		        --SystemNotice( role , "AddElfSkill" )
 
 			AddElfSkill ( Item_Traget , SkillType , SkillNum )
-				SystemNotice( role , "\211\236\229\237\232\229 \225\251\235\238 \226\251\243\247\229\237\238" )
+		        --SystemNotice( role , "skill has been added" )
 
 			end
 		end
 
 end
-
---Áåðñåðê íà÷. óð. (ID 0246)
-function ItemUse_BaoJi_CJ ( role , Item , Item_Traget )
+----------------------------------------------------
+function ItemUse_HuDun_ZJ ( role , Item , Item_Traget )   --ÖÐ¼¶»¤¶ÜÊõ
+			--SystemNotice( role , "s" )
 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 		local Item_type =  GetItemType ( Item )
 		local Item_Traget_Type =  GetItemType ( Item_Traget )
-		local Num = GetItemForgeParam ( Item_Traget , 1 )
-		local SkillType = 1	
-		local SkillNum = 2	
+		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+		local SkillType = 2		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+		local SkillNum = 1		--ÒªÔö¼ÓµÄSkill ±àºÅ
+				--SystemNotice( role , SkillType )
+				--SystemNotice( role , SkillNum )
 
 		if Item_type == 58 and Item_Traget_Type == 59 then
 			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
 
 			if Check == 1 then
-				SystemNotice(role , "\194\251 \243\230\229 \232\231\243\247\224\235\232 \228\224\237\237\238\229 \243\236\229\237\232\229" ) 
+				SystemNotice(role , "have target skill, usage failed" ) 
 				UseItemFailed ( role )
 			else
+		        --SystemNotice( role , "AddElfSkill" )
 
 			AddElfSkill ( Item_Traget , SkillType , SkillNum )
-				SystemNotice( role , "\211\236\229\237\232\229 \225\251\235\238 \226\251\243\247\229\237\238" )
+		        --SystemNotice( role , "skill has been added" )
 
 			end
 		end
 
 end
 
---Îáû÷íûé áåðñåðê(ID 0247
-function ItemUse_BaoJi_ZJ ( role , Item , Item_Traget )  
+----------------------------------------------------
+function ItemUse_HuDun_GJ ( role , Item , Item_Traget )   --¸ß¼¶»¤¶ÜÊõ
+			--SystemNotice( role , "s" )
+
+--	local Cha_Boat = 0
+--	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
+--	if Cha_Boat ~= nil then 
+--		SystemNotice( role , "Cannot use while sailing" ) 
+		UseItemFailed ( role ) 
+--		return 
+--	end 
+--		local Item_type =  GetItemType ( Item )
+--		local Item_Traget_Type =  GetItemType ( Item_Traget )
+--		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+--		local SkillType = 3		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+--		local SkillNum = 1		--ÒªÔö¼ÓµÄSkill ±àºÅ
+				--SystemNotice( role , SkillType )
+				--SystemNotice( role , SkillNum )
+--
+--		if Item_type == 58 and Item_Traget_Type == 59 then
+--			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
+
+--			if Check == 1 then
+--				SystemNotice(role , "have target skill, usage failed" ) 
+--				UseItemFailed ( role )
+--			else
+		        --SystemNotice( role , "AddElfSkill" )
+
+--			AddElfSkill ( Item_Traget , SkillType , SkillNum )
+		        --SystemNotice( role , "skill has been added" )
+--			end
+--		end
+
+end
+
+
+----------------------------------------------------
+function ItemUse_BaoJi_CJ ( role , Item , Item_Traget )   --³õ¼¶±©»÷
+			--SystemNotice( role , "s" )
 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 		local Item_type =  GetItemType ( Item )
 		local Item_Traget_Type =  GetItemType ( Item_Traget )
-		local Num = GetItemForgeParam ( Item_Traget , 1 )	
-		local SkillType = 2	
-		local SkillNum = 2		
+		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+		local SkillType = 1		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+		local SkillNum = 2		--ÒªÔö¼ÓµÄSkill ±àºÅ
+				--SystemNotice( role , SkillType )
+				--SystemNotice( role , SkillNum )
 
 		if Item_type == 58 and Item_Traget_Type == 59 then
 			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
 
 			if Check == 1 then
-				SystemNotice(role , "\194\251 \243\230\229 \232\231\243\247\224\235\232 \228\224\237\237\238\229 \243\236\229\237\232\229" ) 
+				SystemNotice(role , "have target skill, usage failed" ) 
 				UseItemFailed ( role )
 			else
+		        --SystemNotice( role , "AddElfSkill" )
 
 			AddElfSkill ( Item_Traget , SkillType , SkillNum )
+		        --SystemNotice( role , "skill has been added" )
 
 			end
 		end
 
 end
 
---Áåðñåðê âûñ. óð. (ID 0248)
-function ItemUse_BaoJi_GJ ( role , Item , Item_Traget ) 
-		UseItemFailed ( role ) 
-end
-
---Ìàãèÿ íà÷. óð. (ID 0249)
-function ItemUse_MoLi_CJ ( role , Item , Item_Traget )
+----------------------------------------------------
+function ItemUse_BaoJi_ZJ ( role , Item , Item_Traget )   --ÖÐ¼¶±©»÷
+			--SystemNotice( role , "s" )
 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 		local Item_type =  GetItemType ( Item )
 		local Item_Traget_Type =  GetItemType ( Item_Traget )
-		local Num = GetItemForgeParam ( Item_Traget , 1 )
-		local SkillType = 1		
-		local SkillNum = 3	
+		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+		local SkillType = 2		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+		local SkillNum = 2		--ÒªÔö¼ÓµÄSkill ±àºÅ
+				--SystemNotice( role , SkillType )
+				--SystemNotice( role , SkillNum )
 
 		if Item_type == 58 and Item_Traget_Type == 59 then
 			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
 
 			if Check == 1 then
-				SystemNotice(role , "\194\251 \243\230\229 \232\231\243\247\224\235\232 \228\224\237\237\238\229 \243\236\229\237\232\229" )  
+				SystemNotice(role , "have target skill, usage failed" ) 
 				UseItemFailed ( role )
 			else
+		        --SystemNotice( role , "AddElfSkill" )
 
 			AddElfSkill ( Item_Traget , SkillType , SkillNum )
+		        --SystemNotice( role , "skill has been added" )
 
 			end
 		end
 
 end
 
---Îáû÷íàÿ ìàãèÿ (ID 0250)
-function ItemUse_MoLi_ZJ ( role , Item , Item_Traget )
+
+----------------------------------------------------
+function ItemUse_BaoJi_GJ ( role , Item , Item_Traget )   --¸ß¼¶±©»÷
+			--SystemNotice( role , "s" )
+
+--	local Cha_Boat = 0
+--	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
+--	if Cha_Boat ~= nil then 
+--		SystemNotice( role , "Cannot use while sailing" ) 
+		UseItemFailed ( role ) 
+--		return 
+--	end 
+--		local Item_type =  GetItemType ( Item )
+--		local Item_Traget_Type =  GetItemType ( Item_Traget )
+--		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+--		local SkillType = 3		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+--		local SkillNum = 2		--ÒªÔö¼ÓµÄSkill ±àºÅ
+				--SystemNotice( role , SkillType )
+				--SystemNotice( role , SkillNum )
+
+--		if Item_type == 58 and Item_Traget_Type == 59 then
+--			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
+--
+--			if Check == 1 then
+--				SystemNotice(role , "have target skill, usage failed" ) 
+--				UseItemFailed ( role )
+--			else
+--		       -- SystemNotice( role , "AddElfSkill" )
+--
+--			AddElfSkill ( Item_Traget , SkillType , SkillNum )
+--		        --SystemNotice( role , "skill has been added" )
+--
+--			end
+--		end
+--
+end
+
+
+----------------------------------------------------
+function ItemUse_MoLi_CJ ( role , Item , Item_Traget )   --³õ¼¶Ä§Á¦
+			--SystemNotice( role , "s" )
 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 		local Item_type =  GetItemType ( Item )
 		local Item_Traget_Type =  GetItemType ( Item_Traget )
-		local Num = GetItemForgeParam ( Item_Traget , 1 )	
-		local SkillType = 2		
-		local SkillNum = 3		
+		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+		local SkillType = 1		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+		local SkillNum = 3		--ÒªÔö¼ÓµÄSkill ±àºÅ
+				--SystemNotice( role , SkillType )
+				--SystemNotice( role , SkillNum )
 
 		if Item_type == 58 and Item_Traget_Type == 59 then
 			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
 
 			if Check == 1 then
-				SystemNotice(role , "\194\251 \243\230\229 \232\231\243\247\224\235\232 \228\224\237\237\238\229 \243\236\229\237\232\229" ) 
+				SystemNotice(role , "have target skill, usage failed" ) 
 				UseItemFailed ( role )
 			else
+		        --SystemNotice( role , "AddElfSkill" )
 
 			AddElfSkill ( Item_Traget , SkillType , SkillNum )
+		        --SystemNotice( role , "skill has been added" )
 
 			end
 		end
 
 end
 
---Ìàãèÿ âûñ. óð. (ID 0251)
-function ItemUse_MoLi_GJ ( role , Item , Item_Traget ) 
-		UseItemFailed ( role ) 
-end
 
---Âîññòàíîâëåíèå íà÷. óð.(ID 0252)
-function ItemUse_HuiFu_CJ ( role , Item , Item_Traget )
+----------------------------------------------------
+function ItemUse_MoLi_ZJ ( role , Item , Item_Traget )   --ÖÐ¼¶Ä§Á¦
+			--SystemNotice( role , "s" )
 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
-
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 		local Item_type =  GetItemType ( Item )
 		local Item_Traget_Type =  GetItemType ( Item_Traget )
-		local Num = GetItemForgeParam ( Item_Traget , 1 )
-		local SkillType = 1	
-		local SkillNum = 4	
-
+		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+		local SkillType = 2		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+		local SkillNum = 3		--ÒªÔö¼ÓµÄSkill ±àºÅ
+				--SystemNotice( role , SkillType )
+				--SystemNotice( role , SkillNum )
 
 		if Item_type == 58 and Item_Traget_Type == 59 then
 			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
 
 			if Check == 1 then
-				SystemNotice(role , "\194\251 \243\230\229 \232\231\243\247\224\235\232 \228\224\237\237\238\229 \243\236\229\237\232\229" ) 
+				SystemNotice(role , "have target skill, usage failed" ) 
 				UseItemFailed ( role )
 			else
+		        --SystemNotice( role , "AddElfSkill" )
 
 			AddElfSkill ( Item_Traget , SkillType , SkillNum )
+		        --SystemNotice( role , "skill has been added" )
 
 			end
 		end
 
 end
 
---Îáû÷íîå âîññòàíîâëåíèå (ID 0253)
-function ItemUse_HuiFu_ZJ ( role , Item , Item_Traget )   
+----------------------------------------------------
+function ItemUse_MoLi_GJ ( role , Item , Item_Traget )   --¸ß¼¶Ä§Á¦
+			--SystemNotice( role , "s" )
+
+--	local Cha_Boat = 0
+--	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
+--	if Cha_Boat ~= nil then 
+--		SystemNotice( role , "Cannot use while sailing" ) 
+		UseItemFailed ( role ) 
+--		return 
+--	end 
+--		local Item_type =  GetItemType ( Item )
+--		local Item_Traget_Type =  GetItemType ( Item_Traget )
+--		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+--		local SkillType = 3		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+--		local SkillNum = 3		--ÒªÔö¼ÓµÄSkill ±àºÅ
+--				--SystemNotice( role , SkillType )
+--				--SystemNotice( role , SkillNum )
+--
+--		if Item_type == 58 and Item_Traget_Type == 59 then
+--			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
+--
+--			if Check == 1 then
+--				SystemNotice(role , "have target skill, usage failed" ) 
+--				UseItemFailed ( role )
+--			else
+--		        --SystemNotice( role , "AddElfSkill" )
+--
+--			AddElfSkill ( Item_Traget , SkillType , SkillNum )
+--		        --SystemNotice( role , "skill has been added" )
+--
+--			end
+--		end
+
+end
+
+----------------------------------------------------
+function ItemUse_HuiFu_CJ ( role , Item , Item_Traget )   --³õ¼¶»Ö¸´
+			--SystemNotice( role , "s" )
 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 		local Item_type =  GetItemType ( Item )
 		local Item_Traget_Type =  GetItemType ( Item_Traget )
-		local Num = GetItemForgeParam ( Item_Traget , 1 )	
-		local SkillType = 2		
-		local SkillNum = 4	
+		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+		local SkillType = 1		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+		local SkillNum = 4		--ÒªÔö¼ÓµÄSkill ±àºÅ
+				--SystemNotice( role , SkillType )
+				--SystemNotice( role , SkillNum )
 
 		if Item_type == 58 and Item_Traget_Type == 59 then
 			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
 
 			if Check == 1 then
-				SystemNotice(role , "\194\251 \243\230\229 \232\231\243\247\224\235\232 \228\224\237\237\238\229 \243\236\229\237\232\229" ) 
+				SystemNotice(role , "have target skill, usage failed" ) 
 				UseItemFailed ( role )
 			else
+		        --SystemNotice( role , "AddElfSkill" )
 
 			AddElfSkill ( Item_Traget , SkillType , SkillNum )
-
+		        --SystemNotice( role , "skill has been added" )
 
 			end
 		end
 
 end
 
---Âîññòàíîâëåíèå âûñ. óð.(ID 0254)
-function ItemUse_HuiFu_GJ ( role , Item , Item_Traget )  
-		UseItemFailed ( role ) 
-end
-
---Ìåäèòàöèÿ íà÷. óð. (ID 0259)
-function ItemUse_ChenSi_CJ ( role , Item , Item_Traget )
+----------------------------------------------------
+function ItemUse_HuiFu_ZJ ( role , Item , Item_Traget )   --ÖÐ¼¶»Ö¸´
+			--SystemNotice( role , "s" )
 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 		local Item_type =  GetItemType ( Item )
 		local Item_Traget_Type =  GetItemType ( Item_Traget )
-		local Num = GetItemForgeParam ( Item_Traget , 1 )	
-		local SkillType = 1		
-		local SkillNum = 5		
+		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+		local SkillType = 2		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+		local SkillNum = 4		--ÒªÔö¼ÓµÄSkill ±àºÅ
+				--SystemNotice( role , SkillType )
+				--SystemNotice( role , SkillNum )
 
 		if Item_type == 58 and Item_Traget_Type == 59 then
 			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
 
 			if Check == 1 then
-				SystemNotice(role , "\194\251 \243\230\229 \232\231\243\247\224\235\232 \228\224\237\237\238\229 \243\236\229\237\232\229" ) 
+				SystemNotice(role , "have target skill, usage failed" ) 
 				UseItemFailed ( role )
 			else
+		        --SystemNotice( role , "AddElfSkill" )
 
 			AddElfSkill ( Item_Traget , SkillType , SkillNum )
+		        --SystemNotice( role , "skill has been added" )
 
 			end
 		end
 
 end
 
---Îáû÷íàÿ ìåäèòàöèÿ (ID 0260)
-function ItemUse_ChenSi_ZJ ( role , Item , Item_Traget )
+
+----------------------------------------------------
+function ItemUse_HuiFu_GJ ( role , Item , Item_Traget )   --¸ß¼¶»Ö¸´
+			--SystemNotice( role , "s" )
+
+--	local Cha_Boat = 0
+--	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
+--	if Cha_Boat ~= nil then 
+--		SystemNotice( role , "Cannot use while sailing" ) 
+		UseItemFailed ( role ) 
+--		return 
+--	end 
+--		local Item_type =  GetItemType ( Item )
+--		local Item_Traget_Type =  GetItemType ( Item_Traget )
+--		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+--		local SkillType = 3		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+--		local SkillNum = 4		--ÒªÔö¼ÓµÄSkill ±àºÅ
+--				--SystemNotice( role , SkillType )
+--				--SystemNotice( role , SkillNum )
+--
+--		if Item_type == 58 and Item_Traget_Type == 59 then
+--			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
+--
+--			if Check == 1 then
+--				SystemNotice(role , "have target skill, usage failed" ) 
+--				UseItemFailed ( role )
+--			else
+--		        --SystemNotice( role , "AddElfSkill" )
+--
+--			AddElfSkill ( Item_Traget , SkillType , SkillNum )
+--		        --SystemNotice( role , "skill has been added" )
+
+--			end
+--		end
+
+end
+
+----------------------------------------------------
+function ItemUse_ChenSi_CJ ( role , Item , Item_Traget )   --³õ¼¶³ÁË¼
+			--SystemNotice( role , "s" )
 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 		local Item_type =  GetItemType ( Item )
 		local Item_Traget_Type =  GetItemType ( Item_Traget )
-		local Num = GetItemForgeParam ( Item_Traget , 1 )
-		local SkillType = 2
-		local SkillNum = 5	
+		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+		local SkillType = 1		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+		local SkillNum = 5		--ÒªÔö¼ÓµÄSkill ±àºÅ
+				--SystemNotice( role , SkillType )
+				--SystemNotice( role , SkillNum )
 
 		if Item_type == 58 and Item_Traget_Type == 59 then
 			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
 
 			if Check == 1 then
-				SystemNotice(role , "\194\251 \243\230\229 \232\231\243\247\224\235\232 \228\224\237\237\238\229 \243\236\229\237\232\229" ) 
+				SystemNotice(role , "have target skill, usage failed" ) 
 				UseItemFailed ( role )
 			else
+		        --SystemNotice( role , "AddElfSkill" )
 
 			AddElfSkill ( Item_Traget , SkillType , SkillNum )
+		        --SystemNotice( role , "skill has been added" )
 
 			end
 		end
 
 end
 
---Ìåäèòàöèÿ âûñ. óð. (ID 0261)
-function ItemUse_ChenSi_GJ ( role , Item , Item_Traget )
-	UseItemFailed ( role )
+----------------------------------------------------
+function ItemUse_ChenSi_ZJ ( role , Item , Item_Traget )   --ÖÐ¼¶³ÁË¼
+			--SystemNotice( role , "s" )
+
+	local Cha_Boat = 0
+	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
+	if Cha_Boat ~= nil then 
+		SystemNotice( role , "Cannot use while sailing" ) 
+		UseItemFailed ( role ) 
+		return 
+	end 
+		local Item_type =  GetItemType ( Item )
+		local Item_Traget_Type =  GetItemType ( Item_Traget )
+		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+		local SkillType = 2		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+		local SkillNum = 5		--ÒªÔö¼ÓµÄSkill ±àºÅ
+				--SystemNotice( role , SkillType )
+				--SystemNotice( role , SkillNum )
+
+		if Item_type == 58 and Item_Traget_Type == 59 then
+			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
+
+			if Check == 1 then
+				SystemNotice(role , "have target skill, usage failed" ) 
+				UseItemFailed ( role )
+			else
+		        --SystemNotice( role , "AddElfSkill" )
+
+			AddElfSkill ( Item_Traget , SkillType , SkillNum )
+		        --SystemNotice( role , "skill has been added" )
+
+			end
+		end
+
 end
 
---Ñâèòîê ïðèçûâà ÷óäîâèù (ID 0319)
+
+----------------------------------------------------
+function ItemUse_ChenSi_GJ ( role , Item , Item_Traget )   --¸ß¼¶³ÁË¼
+			--SystemNotice( role , "s" )
+
+--	local Cha_Boat = 0
+--	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
+--	if Cha_Boat ~= nil then 
+--		SystemNotice( role , "Cannot use while sailing" ) 
+		UseItemFailed ( role ) 
+--		return 
+--	end 
+--		local Item_type =  GetItemType ( Item )
+--		local Item_Traget_Type =  GetItemType ( Item_Traget )
+--		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+--		local SkillType = 3		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+--		local SkillNum = 5		--ÒªÔö¼ÓµÄSkill ±àºÅ
+--				--SystemNotice( role , SkillType )
+--				--SystemNotice( role , SkillNum )
+--
+--		if Item_type == 58 and Item_Traget_Type == 59 then
+--			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
+--
+--			if Check == 1 then
+--				SystemNotice(role , "have target skill, usage failed" ) 
+--				UseItemFailed ( role )
+--			else
+--		        --SystemNotice( role , "AddElfSkill" )
+--
+--			AddElfSkill ( Item_Traget , SkillType , SkillNum )
+--		        --SystemNotice( role , "skill has been added" )
+--
+--			end
+--		end
+
+end
+
+-----------------------------------------------------------
+--¹ÖÎïÕÙ»½
+
 function ItemUse_MonsterSummon ( role , Item , Item_Traget )
 
 	local Monster_GetID = {}
@@ -7260,14 +8024,17 @@ function ItemUse_MonsterSummon ( role , Item , Item_Traget )
 	local ID_Get = math.random ( 1 , 5 )
 	local x, y = GetChaPos( role )
 	local MonsterID = Monster_GetID [ ID_Get ]
-	local Refresh = 50		
-	local life = 40000		
+	local Refresh = 50					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 40000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 	local new = CreateCha( MonsterID , x , y , 145 , Refresh )
 	SetChaLifeTime( new, life )
 
 end
 
---Êîëü÷óãà óáèéöû ID 0892)
+
+----------------------------------------------------------
+
+--³ý²Ý¼Á
 function ItemUse_Ant_Hzcr ( role , Item , Item_Traget )
 
 	local Cha_Boat = 0
@@ -7275,22 +8042,21 @@ function ItemUse_Ant_Hzcr ( role , Item , Item_Traget )
 	if Cha_Boat ~=  nil then
 		RemoveState( Cha_Boat , STATE_HZCR )
 	else
-		SystemNotice( role , "\205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \237\224 \241\243\248\229" )
+		SystemNotice( role , "Unable to use on the shore" )
 		UseItemFailed ( role )
 		return
 	end
 
 end
 
---------------------------------------------------------------------------------------------------
---ßéöà ôåé
---------------------------------------------------------------------------------------------------
---ßéöî æèçíè (ID 0422)
+
+--ÃüÖ®¾«Áéµ°
+
 function ItemUse_MINGZJLD ( role, Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \255\233\246\238 \244\229\232")
+		SystemNotice(role ,"Insufficient inventory space. Unable to use pet egg")
 		UseItemFailed ( role )
 		return
 	end
@@ -7298,12 +8064,13 @@ function ItemUse_MINGZJLD ( role, Item )
 	GiveItem ( role , 0 , 183  , 1 , 4 ) 
 end
 
---ßéöî òüìû (ID 0423)
+--·£Ö®¾«Áéµ°
+
 function ItemUse_FAZJLD ( role, Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \255\233\246\238 \244\229\232")
+		SystemNotice(role ,"Insufficient inventory space. Unable to use pet egg")
 		UseItemFailed ( role )
 		return
 	end
@@ -7311,12 +8078,13 @@ function ItemUse_FAZJLD ( role, Item )
 	GiveItem ( role , 0 , 184  , 1 , 4 ) 
 end
 
---ßéöî äîáðîäåòåëè (ID 0424)
+--Ç«Ö®¾«Áéµ°
+
 function ItemUse_QIANZJLD ( role, Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \255\233\246\238 \244\229\232")
+		SystemNotice(role ,"Insufficient inventory space. Unable to use pet egg")
 		UseItemFailed ( role )
 		return
 	end
@@ -7324,12 +8092,13 @@ function ItemUse_QIANZJLD ( role, Item )
 	GiveItem ( role , 0 , 185  , 1 , 4 ) 
 end
 
---ßéöî ñëàâû (ID 0425)
+--ºãÖ®¾«Áéµ°
+
 function ItemUse_HENGZJLD( role, Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \255\233\246\238 \244\229\232")
+		SystemNotice(role ,"Insufficient inventory space. Unable to use pet egg")
 		UseItemFailed ( role )
 		return
 	end
@@ -7337,25 +8106,26 @@ function ItemUse_HENGZJLD( role, Item )
 	GiveItem ( role , 0 , 186  , 1 , 4 )  
 end
 
---ßéöî Âåðû (ID 0426)
+--ÓþÖ®¾«Áéµ°
+
 function ItemUse_YUZJLD( role, Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \255\233\246\238 \244\229\232")
+		SystemNotice(role ,"Insufficient inventory space. Unable to use pet egg")
 		UseItemFailed ( role )
 		return
 	end
 
 	GiveItem ( role , 0 , 187  , 1 , 4 )  
 end
+--ÑªÖ®¾«Áéµ°
 
---ßéöî îòâàãè (ID 0427)
 function ItemUse_XUEZJLD( role, Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \255\233\246\238 \244\229\232")
+		SystemNotice(role ,"Insufficient inventory space. Unable to use pet egg")
 		UseItemFailed ( role )
 		return
 	end
@@ -7363,12 +8133,13 @@ function ItemUse_XUEZJLD( role, Item )
 	GiveItem ( role , 0 , 188  , 1 , 4 )  
 end
 
---ßéöî íàäåæäû (ID 0428)
+--ÐÅÖ®¾«Áéµ°
+
 function ItemUse_XINGZJLD ( role, Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \255\233\246\238 \244\229\232")
+		SystemNotice(role ,"Insufficient inventory space. Unable to use pet egg")
 		UseItemFailed ( role )
 		return
 	end
@@ -7376,12 +8147,13 @@ function ItemUse_XINGZJLD ( role, Item )
 	GiveItem ( role , 0 , 189  , 1 , 4 )  
 end
 
---ßéöî ãîðÿ (ID 0429)
+--»ÚÖ®¾«Áéµ°
+
 function ItemUse_HUIZJLD( role, Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \255\233\246\238 \244\229\232")
+		SystemNotice(role ,"Insufficient inventory space. Unable to use pet egg")
 		UseItemFailed ( role )
 		return
 	end
@@ -7390,12 +8162,13 @@ function ItemUse_HUIZJLD( role, Item )
 
 end
 
---ßéöî Ëþáâè (ID 0430)
+--°®Ö®¾«Áéµ°
+
 function ItemUse_AIZJLD ( role, Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \255\233\246\238 \244\229\232")
+		SystemNotice(role ,"Insufficient inventory space. Unable to use pet egg")
 		UseItemFailed ( role )
 		return
 	end
@@ -7403,57 +8176,298 @@ function ItemUse_AIZJLD ( role, Item )
 	GiveItem ( role , 0 , 191  , 1 , 4 )  
 end
 
---ßéöî Ñåðäöà (ID 0431)
+--ÐÄÖ®¾«Áéµ°
+
 function ItemUse_XINGZHIJLD ( role, Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \255\233\246\238 \244\229\232")
+		SystemNotice(role ,"Insufficient inventory space. Unable to use pet egg")
 		UseItemFailed ( role )
 		return
 	end
 
 	GiveItem ( role , 0 , 199  , 1 , 4 )  
 end
-
---------------------------------------------------------------------------------------------------
---Ñóíäóêè íîâè÷êîâ (1 - 45 óðîâåíü)
---------------------------------------------------------------------------------------------------
-
---Ñóíäóê íîâè÷êà (ID 0436)
+-------------------------------ÐÂÈË±¦Ïä
 function ItemUse_XRBOX( role, Item )
-
+--	SystemNotice(role ,"Function has not been released")
+--	UseItemFailed ( role )
+--	return
 	local lv = GetChaAttr(role, ATTR_LV)
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
-	if Item_CanGet < 4 then
-		SystemNotice(role ,"\215\242\238\225\251 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \237\238\226\232\247\234\224 \242\240\229\225\243\229\242\241\255 \239\238 \234\240\224\233\237\229\233 \236\229\240\229 4 \241\226\238\225\238\228\237\251\245 \241\235\238\242\224 \226 \232\237\226\229\237\242\224\240\229")
+	if Item_CanGet <  10 then
+		SystemNotice(role ,"To open a Newbie Chest requires 4 empty slots")
 		UseItemFailed ( role )
 		return
 	end
-	if lv < 5 then
-		SystemNotice(role ,"\194\224\248 \243\240\238\226\237\252 \237\232\230\229 \247\229\236 5. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \239\240\229\228\236\229\242!")
-		UseItemFailed ( role )	
-	else
-		GiveItem ( role , 0 , 437  , 1 , 4 )
-		GiveItem ( role , 0 , 9  , 1 , 95 )
-		GiveItem ( role , 0 , 4308  , 1 , 95 )
-		GiveItem ( role , 0 , 444  , 1 , 4 )
+		if lv < 5 then
+			SystemNotice(role ,"Currently lower than Lv 5. Unable to use item!")
+			UseItemFailed ( role )	
+		else
+			AddMoney ( role , 10000 )
+		end
+	if cha_type ~= 2 and job==8 then
+		GiveItem ( role , 0 , 0803 , 1 , 4 )--------------º£ÑýÅû·ç		
+		GiveItem ( role , 0 , 0986 , 1 , 4 )--------------45ÖÁ×ð±¦Ïä
+	elseif cha_type ~= 2 and job==9 then
+		GiveItem ( role , 0 , 0803 , 1 , 4 )--------------º£ÑýÅû·ç		
+		GiveItem ( role , 0 , 0986 , 1 , 4 )--------------45ÖÁ×ð±¦Ïä
+	elseif cha_type == 2  and job==12 then
+		GiveItem ( role , 0 , 0763  , 1 , 4 )----------------ÓÄÁéîø¼×
+		GiveItem ( role , 0 , 0986  , 1 , 4 )--------------45ÖÁ×ð±¦Ïä
+	elseif cha_type ~= 2 and  cha_type ~= 4 and job==2 then
+		GiveItem ( role , 0 , 0777  , 1 , 4 )-----------------ÍöÁé¶ÌÅÛ
+		GiveItem ( role , 0 , 0986  , 1 , 4 )--------------45ÖÁ×ð±¦Ïä
+	elseif cha_type ~= 2 and  cha_type ~= 4 and job==12 then
+		GiveItem ( role , 0 , 0777  , 1 , 4 )-----------------ÍöÁé¶ÌÅÛ
+		GiveItem ( role , 0 , 0986  , 1 , 4 )--------------45ÖÁ×ð±¦Ïä
+	elseif cha_type ~= 1 and  cha_type ~= 2 and job==5 then
+	        GiveItem ( role , 0 , 0789  , 1 , 4 )-------------Î×¶¾·¨ÅÛ
+		GiveItem ( role , 0 , 0986  , 1 , 4 )--------------45ÖÁ×ð±¦Ïä
+	elseif cha_type ~= 1 and  cha_type ~= 2 and job==13 then
+	        GiveItem ( role , 0 , 0789  , 1 , 4 )-------------Î×¶¾·¨ÅÛ
+		GiveItem ( role , 0 , 0986  , 1 , 4 )--------------45ÖÁ×ð±¦Ïä
+	elseif cha_type ~= 1 and  cha_type ~= 2 and job==14 then
+	        GiveItem ( role , 0 , 0789  , 1 , 4 )-------------Î×¶¾·¨ÅÛ
+		GiveItem ( role , 0 , 0986  , 1 , 4 )--------------45ÖÁ×ð±¦Ïä
+	elseif cha_type == 1 and  job==1 then
+	        GiveItem ( role , 0 , 1928  , 1 , 4 )-------------´óµØÕ½¼×
+		GiveItem ( role , 0 , 0986  , 1 , 4 )--------------45ÖÁ×ð±¦Ïä
+	else 
+		SystemNotice(role ,"Cannot be used right now, please find the class instructors to change class.")
+		UseItemFailed ( role )
+		return
 	end
 end
 
---Ëåòó÷èé ñóíäóê (ID 0437)
+
+-------------------------------35ÖÁ×ð±¦Ïä------------10¼¶
+function ItemUse_SANWUBOX( role, Item )
+
+	local lv = GetChaAttr(role, ATTR_LV)
+	local job = GetChaAttr( role, ATTR_JOB) --È¡Ö°Òµ
+	local cha_type = GetChaTypeID ( role )
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	if Item_CanGet < 4 then
+		SystemNotice(role ,"To open a Newbie Chest requires 4 empty slots")
+		UseItemFailed ( role )
+		return
+	end
+	if lv < 10 then
+		SystemNotice(role ,"Currently lower than Lv 10. Unable to use item!")
+		UseItemFailed ( role )
+		return
+	end
+	if cha_type ~= 2 and job==4 then
+		GiveItem ( role , 0 , 0803 , 1 , 4 )--------------º£ÑýÅû·ç		
+		GiveItem ( role , 0 , 0986 , 1 , 4 )--------------45ÖÁ×ð±¦Ïä
+	elseif cha_type ~= 2 and job==16 then
+		GiveItem ( role , 0 , 0803 , 1 , 4 )--------------º£ÑýÅû·ç		
+		GiveItem ( role , 0 , 0986 , 1 , 4 )--------------45ÖÁ×ð±¦Ïä
+	elseif cha_type == 2  and job~=0 then
+		GiveItem ( role , 0 , 0763  , 1 , 4 )----------------ÓÄÁéîø¼×
+		GiveItem ( role , 0 , 0986  , 1 , 4 )--------------45ÖÁ×ð±¦Ïä
+	elseif cha_type ~= 2 and  cha_type ~= 4 and job==2 then
+		GiveItem ( role , 0 , 0777  , 1 , 4 )-----------------ÍöÁé¶ÌÅÛ
+		GiveItem ( role , 0 , 0986  , 1 , 4 )--------------45ÖÁ×ð±¦Ïä
+	elseif cha_type ~= 2 and  cha_type ~= 4 and job==12 then
+		GiveItem ( role , 0 , 0777  , 1 , 4 )-----------------ÍöÁé¶ÌÅÛ
+		GiveItem ( role , 0 , 0986  , 1 , 4 )--------------45ÖÁ×ð±¦Ïä
+	elseif cha_type ~= 1 and  cha_type ~= 2 and job==5 then
+	        GiveItem ( role , 0 , 0789  , 1 , 4 )-------------Î×¶¾·¨ÅÛ
+		GiveItem ( role , 0 , 0986  , 1 , 4 )--------------45ÖÁ×ð±¦Ïä
+	elseif cha_type ~= 1 and  cha_type ~= 2 and job==13 then
+	        GiveItem ( role , 0 , 0789  , 1 , 4 )-------------Î×¶¾·¨ÅÛ
+		GiveItem ( role , 0 , 0986  , 1 , 4 )--------------45ÖÁ×ð±¦Ïä
+	elseif cha_type ~= 1 and  cha_type ~= 2 and job==14 then
+	        GiveItem ( role , 0 , 0789  , 1 , 4 )-------------Î×¶¾·¨ÅÛ
+		GiveItem ( role , 0 , 0986  , 1 , 4 )--------------45ÖÁ×ð±¦Ïä
+	elseif cha_type == 1 and  job==1 then
+	        GiveItem ( role , 0 , 1928  , 1 , 4 )-------------´óµØÕ½¼×
+		GiveItem ( role , 0 , 0986  , 1 , 4 )--------------45ÖÁ×ð±¦Ïä
+	else 
+		SystemNotice(role ,"Cannot be used right now, please find the class instructors to change class.")
+		UseItemFailed ( role )
+		return
+	end
+end
+
+
+-------------------------------45ÖÁ×ð±¦Ïä-----------35¼¶
+function ItemUse_SIWUBOX( role, Item )
+
+	local lv = GetChaAttr(role, ATTR_LV)
+	local job = GetChaAttr( role, ATTR_JOB) --È¡Ö°Òµ
+	local cha_type = GetChaTypeID ( role )
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	if Item_CanGet < 4 then
+		SystemNotice(role ,"To open a Newbie Chest requires 4 empty slots")
+		UseItemFailed ( role )
+		return
+	end
+	if lv < 35 then
+		SystemNotice(role ,"Currently lower than Lv 35. Unable to use item!")
+		UseItemFailed ( role )
+		return
+	end
+	if cha_type == 1 and job==9 then
+		GiveItem ( role , 0 , 0767 , 1 , 4 )----------------×çÖäÖ®Áé¸Ö¼×	
+		GiveItem ( role , 0 , 0987 , 1 , 4 )--------------55ÖÁ×ð±¦Ïä
+	elseif cha_type == 2 and job==8 then
+		GiveItem ( role , 0 , 0764  , 1 , 4 )-----------------ÎäÊ¿Ö®×çÖäÎÆÉí
+		GiveItem ( role , 0 , 0987  , 1 , 4 )--------------55ÖÁ×ð±¦Ïä
+	elseif cha_type == 1 and job==12 then
+		GiveItem ( role , 0 , 778  , 1 , 4 )-------------ÖäÎÆ½ôÉíÒÂ
+		GiveItem ( role , 0 , 0987  , 1 , 4 )--------------55ÖÁ×ð±¦Ïä
+	elseif cha_type == 3 and job==12 then
+		GiveItem ( role , 0 , 778  , 1 , 4 )-------------ÖäÎÆ½ôÉíÒÂ
+		GiveItem ( role , 0 , 0987  , 1 , 4 )--------------55ÖÁ×ð±¦Ïä
+	elseif cha_type == 4 and job==13 then
+		GiveItem ( role , 0 , 0790  , 1 , 4 )-------------·ûÎÄÍâÒÂ
+		GiveItem ( role , 0 , 0987  , 1 , 4 )--------------55ÖÁ×ð±¦Ïä
+	elseif cha_type == 3  and job==13 then
+		GiveItem ( role , 0 , 0790  , 1 , 4 )-------------·ûÎÄÍâÒÂ
+		GiveItem ( role , 0 , 0987  , 1 , 4 )--------------55ÖÁ×ð±¦Ïä
+	elseif cha_type == 3  and job==14 then
+		GiveItem ( role , 0 , 0796  , 1 , 4 )-------------ÖäÎÄÖ®ÅÛ
+		GiveItem ( role , 0 , 0987  , 1 , 4 )--------------55ÖÁ×ð±¦Ïä
+	elseif cha_type == 4 and job==14 then
+		GiveItem ( role , 0 , 0796  , 1 , 4 )-------------ÖäÎÄÖ®ÅÛ
+		GiveItem ( role , 0 , 0987  , 1 , 4 )--------------55ÖÁ×ð±¦Ïä
+	elseif cha_type == 3 and job==16 then
+		GiveItem ( role , 0 , 0804  , 1 , 4 )-------------Öä»ð¶·Åñ
+		GiveItem ( role , 0 , 0987  , 1 , 4 )--------------55ÖÁ×ð±¦Ïä
+	elseif cha_type == 1 and job==16 then
+		GiveItem ( role , 0 , 0804  , 1 , 4 )-------------Öä»ð¶·Åñ
+		GiveItem ( role , 0 , 0987  , 1 , 4 )--------------55ÖÁ×ð±¦Ïä
+	elseif cha_type ==4 and job==16 then
+		GiveItem ( role , 0 , 0804  , 1 , 4 )-------------Öä»ð¶·Åñ
+		GiveItem ( role , 0 , 0987  , 1 , 4 )--------------55ÖÁ×ð±¦Ïä
+	else 
+		SystemNotice(role ,"Cannot be used right now, please find the class instructors to change class.")
+		UseItemFailed ( role )
+		return
+	end
+end
+
+-------------------------------55ÖÁ×ð±¦Ïä-----------45¼¶
+function ItemUse_WUWUBOX( role, Item )
+
+	local lv = GetChaAttr(role, ATTR_LV)
+	local job = GetChaAttr( role, ATTR_JOB) --È¡Ö°Òµ
+	local cha_type = GetChaTypeID ( role )
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	if Item_CanGet < 4 then
+		SystemNotice(role ,"To open a Newbie Chest requires 4 empty slots")
+		UseItemFailed ( role )
+		return
+	end
+	if lv < 45 then
+		SystemNotice(role ,"Current level is below 45, failed to use item!")
+		UseItemFailed ( role )
+		return
+	end
+	if cha_type == 1 and job==9 then
+		GiveItem ( role , 0 , 0768 , 1 , 4 )----------------»ÃÁéÕ½¼×		
+		GiveItem ( role , 0 , 0988 , 1 , 4 )--------------65ÖÁ×ð±¦Ïä
+	elseif cha_type == 2 and job==8 then
+		GiveItem ( role , 0 , 0765  , 1 , 4 )-----------------»ÃÁéÎÆÉí
+		GiveItem ( role , 0 , 0988  , 1 , 4 )-------------65ÖÁ×ð±¦Ïä
+	elseif cha_type == 3 and job==12 then
+		GiveItem ( role , 0 , 0779  , 1 , 4 )----------------»ÃÁéÍâÌ×
+		GiveItem ( role , 0 , 0988  , 1 , 4 )--------------65ÖÁ×ð±¦Ïä
+	elseif cha_type == 1 and job==12 then
+		GiveItem ( role , 0 , 0779  , 1 , 4 )----------------»ÃÁéÍâÌ×
+		GiveItem ( role , 0 , 0988  , 1 , 4 )--------------65ÖÁ×ð±¦Ïä
+	elseif cha_type == 3 and job==13 then
+	        GiveItem ( role , 0 , 0791  , 1 , 4 )----------------»Ã·¨Ö®ÅÛ
+		GiveItem ( role , 0 , 0988  , 1 , 4 )--------------65ÖÁ×ð±¦Ïä
+	elseif cha_type == 4 and job==13 then
+	        GiveItem ( role , 0 , 0791  , 1 , 4 )----------------»Ã·¨Ö®ÅÛ
+		GiveItem ( role , 0 , 0988  , 1 , 4 )--------------65ÖÁ×ð±¦Ïä
+	elseif cha_type == 3 and job==14 then
+	        GiveItem ( role , 0 , 0797  , 1 , 4 )----------------»ÃÖäÖ®ÅÛ
+		GiveItem ( role , 0 , 0988  , 1 , 4 )--------------65ÖÁ×ð±¦Ïä
+	elseif cha_type == 4 and job==14 then
+	        GiveItem ( role , 0 , 0797  , 1 , 4 )----------------»ÃÖäÖ®ÅÛ
+		GiveItem ( role , 0 , 0988  , 1 , 4 )--------------65ÖÁ×ð±¦Ïä
+	elseif cha_type == 1 and job==16 then
+	        GiveItem ( role , 0 , 0805  , 1 , 4 )----------------»ÃÁéÅû·ç
+		GiveItem ( role , 0 , 0988  , 1 , 4 )--------------65ÖÁ×ð±¦Ïä
+	elseif cha_type == 3 and job==16 then
+	        GiveItem ( role , 0 , 0805  , 1 , 4 )----------------»ÃÁéÅû·ç
+		GiveItem ( role , 0 , 0988  , 1 , 4 )--------------65ÖÁ×ð±¦Ïä
+	elseif cha_type == 4 and job==16 then
+	        GiveItem ( role , 0 , 0805  , 1 , 4 )----------------»ÃÁéÅû·ç
+		GiveItem ( role , 0 , 0988  , 1 , 4 )--------------65ÖÁ×ð±¦Ïä
+	else 
+		SystemNotice(role ,"Cannot be used right now, please find the class instructors to change class.")
+		UseItemFailed ( role )
+		return
+	end
+end
+
+-------------------------------65ÖÁ×ð±¦Ïä-----------55¼¶
+function ItemUse_LIUWUBOX( role, Item )
+
+	local lv = GetChaAttr(role, ATTR_LV)
+	local job = GetChaAttr( role, ATTR_JOB) --È¡Ö°Òµ
+	local cha_type = GetChaTypeID ( role )
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	if Item_CanGet < 4 then
+		SystemNotice(role ,"To open a Newbie Chest requires 4 empty slots")
+		UseItemFailed ( role )
+		return
+	end
+	if lv < 55 then
+		SystemNotice(role ,"Current level below 55, unable to use item!")
+		UseItemFailed ( role )
+		return
+	end
+	if cha_type == 1 and job==9 then
+		GiveItem ( role , 0 , 0769 , 1 , 4 )----------------ÃÔÖ®Õ½¼×		
+	elseif cha_type == 2 and job==8 then
+		GiveItem ( role , 0 , 0766  , 1 , 4 )-----------------ÃÔÖ®ÎÆÉí
+	elseif cha_type == 3 and job==12 then
+		GiveItem ( role , 0 , 0780  , 1 , 4 )----------------ÃÔÖ®¶·Åñ
+	elseif cha_type == 1 and job==12 then
+		GiveItem ( role , 0 , 0780  , 1 , 4 )----------------ÃÔÖ®¶·Åñ
+	elseif cha_type == 3 and job==13 then
+	        GiveItem ( role , 0 , 0792  , 1 , 4 )----------------ÃÔÖ®·¨ÅÛ
+	elseif cha_type == 4 and job==13 then
+	        GiveItem ( role , 0 , 0792  , 1 , 4 )----------------ÃÔÖ®·¨ÅÛ
+	elseif cha_type == 3 and job==14 then
+	        GiveItem ( role , 0 , 0798  , 1 , 4 )----------------ÃÔÖä·¨ÅÛ
+	elseif cha_type == 4 and job==14 then
+	        GiveItem ( role , 0 , 0798  , 1 , 4 )----------------ÃÔÖä·¨ÅÛ
+	elseif cha_type == 1 and job==16 then
+	        GiveItem ( role , 0 , 0806  , 1 , 4 )----------------ÃÔ»Ã¶·Åñ
+	elseif cha_type == 3 and job==16 then
+	        GiveItem ( role , 0 , 0806  , 1 , 4 )----------------ÃÔ»Ã¶·Åñ
+	elseif cha_type == 4 and job==16 then
+	        GiveItem ( role , 0 , 0806  , 1 , 4 )----------------ÃÔ»Ã¶·Åñ
+	else 
+		SystemNotice(role ,"Cannot be used right now, please find the class instructors to change class.")
+		UseItemFailed ( role )
+		return
+	end
+end
+
+
+----------------------------------+1ÐÂÈË±¦Ïä
 function ItemUse_XRBOX1( role, Item )
 	local job = GetChaAttr(role, ATTR_JOB)
 	local lv = GetChaAttr(role, ATTR_LV) 
         local cha_type = GetChaTypeID ( role )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet < 7 then
-		SystemNotice(role ,"\215\242\238\225\251 \238\242\234\240\251\242\252 \203\229\242\243\247\232\233 \241\243\237\228\243\234 \239\238 \234\240\224\233\237\229\233 \236\229\240\229 \242\240\229\225\243\229\242\241\255 7 \241\226\238\225\238\228\237\251\245 \241\235\238\242\238\226 \226 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"To open a Newbie Chest requires 7 empty slots")
 		UseItemFailed ( role )
 		return
 	end
 	if lv < 10 then
-		SystemNotice(role ,"\194\224\248 \243\240\238\226\237\252 \237\232\230\229 \247\229\236 10. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \239\240\229\228\236\229\242!")
+		SystemNotice(role ,"Currently lower than Lv 10. Unable to use item!")
 		UseItemFailed ( role )	
 	elseif job == 1 then  
 		GiveItem ( role , 0 , 438  , 1 , 4 ) 
@@ -7496,24 +8510,23 @@ function ItemUse_XRBOX1( role, Item )
 			GiveItem ( role , 0 , 359  , 1 , 95 ) 
 		end
 	else 
-		SystemNotice(role ,"\194\229\249\252 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\224 \242\238\235\252\234\238 \239\238\241\235\229 \226\251\225\238\240\224 \238\241\237\238\226\237\238\227\238 \234\235\224\241\241\224!")
+		SystemNotice(role ,"Class mismatch. Item can only be used after basic class selection!")
 		UseItemFailed ( role )	
 	end
 end
-
---Öâåòî÷íûé ñóíäóê (ID 0438)
+----------------------------------+2ÐÂÈË±¦Ïä
 function ItemUse_XRBOX2( role, Item )
 	local job = GetChaAttr(role, ATTR_JOB)
 	local lv = GetChaAttr(role, ATTR_LV) 
         local cha_type = GetChaTypeID ( role )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet < 6 then
-		SystemNotice(role ,"\215\242\238\225\251 \238\242\234\240\251\242\252 \214\226\229\242\238\247\237\251\233 \241\243\237\228\243\234 \239\238 \234\240\224\233\237\229\233 \236\229\240\229 \242\240\229\225\243\229\242\241\255 6 \241\226\238\225\238\228\237\251\245 \241\235\238\242\238\226 \226 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"To open a Newbie Chest requires 6 empty slots")
 		UseItemFailed ( role )
 		return
 	end
 	if lv < 15 then
-		SystemNotice(role ,"\194\224\248 \243\240\238\226\237\252 \237\232\230\229 \247\229\236 15. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \239\240\229\228\236\229\242!")
+		SystemNotice(role ,"Currently lower than Lv 15. Unable to use item!")
 		UseItemFailed ( role )	
 	elseif job == 1 then  
 		GiveItem ( role , 0 , 2  , 1 , 95 ) 
@@ -7552,12 +8565,11 @@ function ItemUse_XRBOX2( role, Item )
 			GiveItem ( role , 0 , 381  , 1 , 95 )
 		end
 	else 
-		SystemNotice(role ,"\194\229\249\252 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\224 \242\238\235\252\234\238 \239\238\241\235\229 \226\251\225\238\240\224 \238\241\237\238\226\237\238\227\238 \234\235\224\241\241\224!")
+		SystemNotice(role ,"Class mismatch. Item can only be used after basic class selection!")
 		UseItemFailed ( role )	
 	end
 end
-
---Èññëåäîâàòåëüñêèé ñóíäóê (ID 0439)
+----------------------------------+3ÐÂÈË±¦Ïä
 function ItemUse_XRBOX3( role, Item )
 	local job = GetChaAttr(role, ATTR_JOB)
 	local lv = GetChaAttr(role, ATTR_LV) 
@@ -7565,12 +8577,12 @@ function ItemUse_XRBOX3( role, Item )
         local cha_type = GetChaTypeID ( role )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet < 5 then
-		SystemNotice(role ,"\215\242\238\225\251 \238\242\234\240\251\242\252 \214\226\229\242\238\247\237\251\233 \241\243\237\228\243\234 \239\238 \234\240\224\233\237\229\233 \236\229\240\229 \242\240\229\225\243\229\242\241\255 5 \241\226\238\225\238\228\237\251\245 \241\235\238\242\238\226 \226 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"To open a Newbie Chest requires 5 empty slots")
 		UseItemFailed ( role )
 		return
 	end
 	if lv < 20 then
-		SystemNotice(role ,"\194\224\248 \243\240\238\226\237\252 \237\232\230\229 \247\229\236 20. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \239\240\229\228\236\229\242!")
+		SystemNotice(role ,"Currently lower than Lv 20. Unable to use item!")
 		UseItemFailed ( role )	
 	elseif job == 1 then  
 		GiveItem ( role , 0 , 14  , 1 , 95 ) 
@@ -7605,36 +8617,36 @@ function ItemUse_XRBOX3( role, Item )
 			GiveItem ( role , 0 , 360  , 1 , 95 )
 		end
 	else 
-		SystemNotice(role ,"\194\229\249\252 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\224 \242\238\235\252\234\238 \239\238\241\235\229 \226\251\225\238\240\224 \238\241\237\238\226\237\238\227\238 \234\235\224\241\241\224!")
+		SystemNotice(role ,"Class mismatch. Item can only be used after basic class selection!")
 		UseItemFailed ( role )	
 	end
 end
-
---Ïëàâêà ñóíäóêà (ID 0440)
+----------------------------------+4ÐÂÈË±¦Ïä
 function ItemUse_XRBOX4( role, Item )
 	local job = GetChaAttr(role, ATTR_JOB)
 	local lv = GetChaAttr(role, ATTR_LV) 
         local cha_type = GetChaTypeID ( role )
         local cha_type = GetChaTypeID ( role )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	--local r1,r2 =MakeItem ( role , 0 , 3  , 1 , 11 )
 
 	if Item_CanGet < 4 then
-		SystemNotice(role ,"\210\240\229\225\243\229\242\241\255 4 \241\226\238\225\238\228\237\251\245 \241\235\238\242\224 \226 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \207\235\224\226\234\243 \241\243\237\228\243\234\224")
+		SystemNotice(role ,"To open a Newbie Chest requires 4 empty slots")
 		UseItemFailed ( role )
 		return
 	end
 	if lv < 25 then
-		SystemNotice(role ,"\194\224\248 \243\240\238\226\237\252 \237\232\230\229 \247\229\236 25. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \239\240\229\228\236\229\242!")
+		SystemNotice(role ,"Currently lower than Lv 25. Unable to use item!")
 		UseItemFailed ( role )	
-	elseif job == 1 then
+	elseif job == 1 then   ----½£Ê¿
 		local r1,r2 =MakeItem ( role , 3  , 1 , 11 )
-		local Item1 = GetChaItem ( role , 2 , r2 )
+		local Item1 = GetChaItem ( role , 2 , r2 )			--È¡¾«Á¶ÎäÆ÷µÀ¾ßÖ¸Õë
 		GiveItem ( role , 0 , 293  , 1 , 95 )
 		GiveItem ( role , 0 , 448  , 1 , 95 )
 		GiveItem ( role , 0 , 441  , 1 , 4 ) 
 	elseif job == 2 then  
 		local r1,r2 =MakeItem ( role , 27  , 1 , 11 )
-		local Item1 = GetChaItem ( role , 2 , r2 )
+		local Item1 = GetChaItem ( role , 2 , r2 )			--È¡¾«Á¶ÎäÆ÷µÀ¾ßÖ¸Õë
 		GiveItem ( role , 0 , 307  , 1 , 95 )
 		GiveItem ( role , 0 , 448  , 1 , 95 )
 		GiveItem ( role , 0 , 441  , 1 , 4 ) 
@@ -7642,7 +8654,7 @@ function ItemUse_XRBOX4( role, Item )
 		GiveItem ( role , 0 , 448  , 1 , 95 )
 		GiveItem ( role , 0 , 441  , 1 , 4 ) 
 		local r1,r2 =MakeItem ( role , 75  , 1 , 11 )
-		local Item1 = GetChaItem ( role , 2 , r2 )
+		local Item1 = GetChaItem ( role , 2 , r2 )			--È¡¾«Á¶ÎäÆ÷µÀ¾ßÖ¸Õë
 		if cha_type == 1 or cha_type == 3 then
 			GiveItem ( role , 0 , 340  , 1 , 95 ) 
 		else
@@ -7652,19 +8664,18 @@ function ItemUse_XRBOX4( role, Item )
 		GiveItem ( role , 0 , 448  , 1 , 95 )
 		GiveItem ( role , 0 , 441  , 1 , 4 ) 
 		local r1,r2 =MakeItem ( role , 99  , 1 , 11 )
-		local Item1 = GetChaItem ( role , 2 , r2 )
+		local Item1 = GetChaItem ( role , 2 , r2 )			--È¡¾«Á¶ÎäÆ÷µÀ¾ßÖ¸Õë
 		if cha_type == 3 then
 			GiveItem ( role , 0 , 368  , 1 , 95 )
 		else 
 			GiveItem ( role , 0 , 389  , 1 , 95 )
 		end
 	else 
-		SystemNotice(role ,"\194\229\249\252 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\224 \242\238\235\252\234\238 \239\238\241\235\229 \226\251\225\238\240\224 \238\241\237\238\226\237\238\227\238 \234\235\224\241\241\224!")
+		SystemNotice(role ,"Class mismatch. Item can only be used after basic class selection!")
 		UseItemFailed ( role )	
 	end
 end
-
---Ñóíäóê èññëåäîâàíèé (ID 0441)
+----------------------------------+5ÐÂÈË±¦Ïä
 function ItemUse_XRBOX5( role, Item )
 	local job = GetChaAttr(role, ATTR_JOB)
 	local lv = GetChaAttr(role, ATTR_LV) 
@@ -7672,12 +8683,12 @@ function ItemUse_XRBOX5( role, Item )
         local cha_type = GetChaTypeID ( role )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet < 4 then
-		SystemNotice(role ,"\205\243\230\237\238 4 \241\226\238\225\238\228\237\251\245 \241\235\238\242\224 \226 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \232\241\241\235\229\228\238\226\224\237\232\233")
+		SystemNotice(role ,"To open a Newbie Chest requires 4 empty slots")
 		UseItemFailed ( role )
 		return
 	end
 	if lv < 30 then
-		SystemNotice(role ,"\194\224\248 \243\240\238\226\237\252 \237\232\230\229 \247\229\236 30. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \239\240\229\228\236\229\242!")
+		SystemNotice(role ,"Currently lower than Lv 30. Unable to use item!")
 		UseItemFailed ( role )	
 	elseif job == 1 then  
 		GiveItem ( role , 0 , 12  , 1 , 95 ) 
@@ -7708,12 +8719,11 @@ function ItemUse_XRBOX5( role, Item )
 			GiveItem ( role , 0 , 361  , 1 , 95 )
 		end
 	else 
-		SystemNotice(role ,"\194\229\249\252 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\224 \242\238\235\252\234\238 \239\238\241\235\229 \226\251\225\238\240\224 \238\241\237\238\226\237\238\227\238 \234\235\224\241\241\224!")
+		SystemNotice(role ,"Class mismatch. Item can only be used after basic class selection!")
 		UseItemFailed ( role )	
 	end
 end
-
---Ñóíäóê ðóêîâîäñòâà (ID 0442)
+----------------------------------+6ÐÂÈË±¦Ïä
 function ItemUse_XRBOX6( role, Item )
 	local job = GetChaAttr(role, ATTR_JOB)
 	local lv = GetChaAttr(role, ATTR_LV) 
@@ -7721,24 +8731,23 @@ function ItemUse_XRBOX6( role, Item )
         local cha_type = GetChaTypeID ( role )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet < 2 then
-		SystemNotice(role ,"\215\242\238\225\251 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \240\243\234\238\226\238\228\241\242\226\224 \239\238 \234\240\224\233\237\229\233 \236\229\240\229 \242\240\229\225\243\229\242\241\255 2 \241\226\238\225\238\228\237\251\245 \241\235\238\242\224 \226 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"To open a Newbie Chest requires 2 empty slots")
 		UseItemFailed ( role )
 		return
 	end
 	if lv < 35 then
-		SystemNotice(role ,"\194\224\248 \243\240\238\226\237\252 \237\232\230\229 \247\229\236 35. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \239\240\229\228\236\229\242!")
+		SystemNotice(role ,"Currently lower than Lv 35. Unable to use item!")
 		UseItemFailed ( role )	
 	elseif job == 1 or job == 2 or job == 4 or job == 5 then
 		GiveItem ( role , 0 , 443  , 1 , 4 ) 
 		GiveItem ( role , 0 , 451  , 1 , 4 ) 
 		AddMoney ( role , 0 , 20000 ) 
 	else 
-		SystemNotice(role ,"\194\229\249\252 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\224 \242\238\235\252\234\238 \239\238\241\235\229 \226\251\225\238\240\224 \238\241\237\238\226\237\238\227\238 \234\235\224\241\241\224!")
+		SystemNotice(role ,"Class mismatch. Item can only be used after basic class selection!")
 		UseItemFailed ( role )	
 	end
 end
-
---Ñóíäóê ðàçâèòèÿ (ID 0443)
+----------------------------------+7ÐÂÈË±¦Ïä
 function ItemUse_XRBOX7( role, Item )
 	local job = GetChaAttr(role, ATTR_JOB)
 	local lv = GetChaAttr(role, ATTR_LV) 
@@ -7746,12 +8755,12 @@ function ItemUse_XRBOX7( role, Item )
         local cha_type = GetChaTypeID ( role )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet < 5 then
-		SystemNotice(role ,"\205\243\230\237\238 5 \241\226\238\225\238\228\237\251\245 \241\235\238\242\238\226 \226 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \240\224\231\226\232\242\232\255")
+		SystemNotice(role ,"To open a Newbie Chest requires 5 empty slots")
 		UseItemFailed ( role )
 		return
 	end
 	if lv < 40 then
-		SystemNotice(role ,"\194\224\248 \243\240\238\226\237\252 \237\232\230\229 \247\229\236 40. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \239\240\229\228\236\229\242!")
+		SystemNotice(role ,"Currently lower than Lv 40. Unable to use item!")
 		UseItemFailed ( role )	
 	elseif job == 9 then 
 		GiveItem ( role , 0 , 450  , 1 , 4 ) 
@@ -7759,26 +8768,26 @@ function ItemUse_XRBOX7( role, Item )
 		GiveItem ( role , 0 , 4  , 1 , 95 ) 
 		GiveItem ( role , 0 , 302  , 1 , 95 )
 		local r1,r2 =MakeItem ( role , 22  , 1 , 11 )
-		local Item1 = GetChaItem ( role , 2 , r2 )
+		local Item1 = GetChaItem ( role , 2 , r2 )			--È¡¾«Á¶ÎäÆ÷µÀ¾ßÖ¸Õë
 	elseif job == 8 then   
 		GiveItem ( role , 0 , 450  , 1 , 4 ) 
 		GiveItem ( role , 0 , 300  , 1 , 95 )
 		GiveItem ( role , 0 , 15  , 1 , 95 ) 
 		GiveItem ( role , 0 , 301  , 1 , 95 )
 		local r1,r2 =MakeItem ( role , 20  , 1 , 11 )
-		local Item1 = GetChaItem ( role , 2 , r2 )
+		local Item1 = GetChaItem ( role , 2 , r2 )			--È¡¾«Á¶ÎäÆ÷µÀ¾ßÖ¸Õë
 	elseif job == 12 then 
 		GiveItem ( role , 0 , 39  , 1 , 95 ) 
 		GiveItem ( role , 0 , 310  , 1 , 95 )
 		local r1,r2 =MakeItem ( role , 44  , 1 , 11 )
-		local Item1 = GetChaItem ( role , 2 , r2 )
+		local Item1 = GetChaItem ( role , 2 , r2 )			--È¡¾«Á¶ÎäÆ÷µÀ¾ßÖ¸Õë
 		GiveItem ( role , 0 , 315  , 1 , 95 )
 		GiveItem ( role , 0 , 450  , 1 , 4 ) 
 	elseif job == 16 then 
 		GiveItem ( role , 0 , 450  , 1 , 95 )
 		GiveItem ( role , 0 , 76  , 1 , 95 ) 
 		local r1,r2 =MakeItem ( role , 83  , 1 , 11 )
-		local Item1 = GetChaItem ( role , 2 , r2 )
+		local Item1 = GetChaItem ( role , 2 , r2 )			--È¡¾«Á¶ÎäÆ÷µÀ¾ßÖ¸Õë
 		if cha_type == 1 or cha_type == 3 then 
 			GiveItem ( role , 0 , 341  , 1 , 95 )
 			GiveItem ( role , 0 , 342  , 1 , 95 )
@@ -7790,7 +8799,7 @@ function ItemUse_XRBOX7( role, Item )
 		GiveItem ( role , 0 , 450  , 1 , 4 ) 
 		GiveItem ( role , 0 , 100  , 1 , 95 )
 		local r1,r2 =MakeItem ( role , 1440  , 1 , 11 )
-		local Item1 = GetChaItem ( role , 2 , r2 )	
+		local Item1 = GetChaItem ( role , 2 , r2 )			--È¡¾«Á¶ÎäÆ÷µÀ¾ßÖ¸Õë
 		if cha_type == 3 then 
 			GiveItem ( role , 0 , 370  , 1 , 95 )
 			GiveItem ( role , 0 , 378  , 1 , 95 )
@@ -7802,7 +8811,7 @@ function ItemUse_XRBOX7( role, Item )
 		GiveItem ( role , 0 , 450  , 1 , 4 ) 
 		GiveItem ( role , 0 , 101  , 1 , 95 ) 
 		local r1,r2 =MakeItem ( role , 107  , 1 , 11 )
-		local Item1 = GetChaItem ( role , 2 , r2 )	
+		local Item1 = GetChaItem ( role , 2 , r2 )			--È¡¾«Á¶ÎäÆ÷µÀ¾ßÖ¸Õë
 		if cha_type == 3 then 
 			GiveItem ( role , 0 , 367  , 1 , 95 ) 
 			GiveItem ( role , 0 , 375  , 1 , 95 ) 
@@ -7812,16 +8821,11 @@ function ItemUse_XRBOX7( role, Item )
 		
 		end
 	else 
-		SystemNotice(role ,"\194\229\249\252 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\224 \242\238\235\252\234\238 \239\238\241\235\229 \226\251\225\238\240\224 \238\241\237\238\226\237\238\227\238 \234\235\224\241\241\224!")
+		SystemNotice(role ,"Class mismatch. Item can only be used after second class advancement!")
 		UseItemFailed ( role )	
 	end
 end
-
---------------------------------------------------------------------------------------------------
---Ðàçíîå
---------------------------------------------------------------------------------------------------
-
---Êëåöêà (ID 0263)
+-------------------------------------------------------- --[[ôÕ×Ó¹«Ê½]]--
 function ItemUse_ZhongZi ( role , Item ) 
 	local hp = GetChaAttr(role, ATTR_HP)  
 	if hp <= 0 then   
@@ -7829,13 +8833,12 @@ function ItemUse_ZhongZi ( role , Item )
 	hp_resume = 1000   
 	hp = hp + hp_resume 
 	mxhp = GetChaAttr(role,ATTR_MXHP) 
-	if hp > mxhp then 
+	if hp > mxhp then --¼Ó³¬¹ý×î´óhpÊ±·µ»ØÎª×î´óhp
 		hp = mxhp 
 	end 
 	SetCharaAttr(hp, role, ATTR_HP) 
 end 
-
---Âåñåëÿùåå âèíî (ID 0264)
+------------------------------------------------------------ --[[ÐÛ»Æ¾Æ¹«Ê½]]--
 function ItemUse_XiongHJ ( role , Item ) 
 	local statelv = 1
 	local statetime = 1800
@@ -7844,13 +8847,12 @@ function ItemUse_XiongHJ ( role , Item )
 	if Cha_Boat ==  nil then
 		AddState( role , role , STATE_PKSFYS , statelv , statetime )
 	else
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 end 
-
---Íåáåñíûé êëåâåð (ID 0265)
+---------------------------------------------------------- --[[°¬²Ý¹«Ê½]]--
 function ItemUse_AiCao ( role , Item )  
 	local statelv = 1
 	local statetime = 180
@@ -7859,18 +8861,20 @@ function ItemUse_AiCao ( role , Item )
 	if Cha_Boat ==  nil then
 		AddState( role , role , STATE_PKSBYS , statelv , statetime )
 	else
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 end 
 
---Êðîâîæàäíûé ñóíäóê (ID 0459)
+
+
+------------------------------------------- ·çÀ×±¦Ïä
 function ItemUse_FLeiBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	local BNUM = B1+B2+B3+B4+B5+B6+B7+B8+B9+B10+B11+B12+B13+B14+B15
 	if Item_CanGet < BNUM then
-		SystemNotice(role ,"\215\242\238\225\251 \238\242\234\240\251\242\252 \202\240\238\226\238\230\224\228\237\251\233 \241\243\237\228\243\234 \242\240\229\225\243\229\242\241\255"..BNUM.."\241\235\238\242\238\226 \226 \232\237\226\229\237\242\224\240\229 ")
+		SystemNotice(role ,"To open a Tempest Chest requires"..BNUM.."space ")
 		UseItemFailed ( role )
 		return
 	end
@@ -7900,28 +8904,28 @@ function ItemUse_FLeiBOX( role , Item )
 	GiveItem ( role , 0 , A24 , B24 , 4 )
 end
 	 
---Ñóï ïåðåðîæäåíèÿ (ID 2315)
+----------------------------------------------³¬¼¶³èÎï±¦Ïä
 function ItemUse_CJBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet <1 then
-		SystemNotice(role ,"\210\240\229\225\243\229\242\241\255 1 \241\226\238\225\238\228\237\251\233 \241\235\238\242 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \232\241\239\238\235\252\231\238\226\224\242\252 \209\243\239 \239\229\240\229\240\238\230\228\229\237\232\255")
+		SystemNotice(role ,"To open a Chest requires 1 empty slot")
 		UseItemFailed ( role )
 		return
 	end
 	local r1,r2 =MakeItem ( role , C1  , 1 , 4 )
-	local Item_newJL = GetChaItem ( role , 2 , r2 )
-	local Item_newJLID = GetItemID ( Item_newJL )
+	local Item_newJL = GetChaItem ( role , 2 , r2 )			--È¡ÐÂ¾«ÁéµÀ¾ßÖ¸Õë
+	local Item_newJLID = GetItemID ( Item_newJL )			--È¡ÐÂ¾«ÁéµÀ¾ßÖ¸Õë
 
 
-	local str_JLone = GetItemAttr( Item_newJL ,ITEMATTR_VAL_STR )
-	local con_JLone = GetItemAttr( Item_newJL ,ITEMATTR_VAL_CON )
-	local agi_JLone = GetItemAttr( Item_newJL ,ITEMATTR_VAL_AGI )
-	local dex_JLone = GetItemAttr( Item_newJL ,ITEMATTR_VAL_DEX )
-	local sta_JLone = GetItemAttr( Item_newJL ,ITEMATTR_VAL_STA )
+	local str_JLone = GetItemAttr( Item_newJL ,ITEMATTR_VAL_STR )       --Á¦Á¿
+	local con_JLone = GetItemAttr( Item_newJL ,ITEMATTR_VAL_CON )       --ÌåÖÊ
+	local agi_JLone = GetItemAttr( Item_newJL ,ITEMATTR_VAL_AGI )       --×¨×¢
+	local dex_JLone = GetItemAttr( Item_newJL ,ITEMATTR_VAL_DEX )       --Ãô½Ý
+	local sta_JLone = GetItemAttr( Item_newJL ,ITEMATTR_VAL_STA )       --¾«Éñ
 
 	local Num_JL = GetItemForgeParam ( Item_newJL , 1 )
 	Num_JL = TansferNum ( Num_JL )
-	local Part1_JL = GetNum_Part1 ( Num_JL )
+	local Part1_JL = GetNum_Part1 ( Num_JL )	--Get Num Part 1 µ½ Part 7
 	local Part2_JL = GetNum_Part2 ( Num_JL )	
 	local Part3_JL = GetNum_Part3 ( Num_JL )
 	local Part4_JL = GetNum_Part4 ( Num_JL )
@@ -7930,7 +8934,7 @@ function ItemUse_CJBOX( role , Item )
 	local Part7_JL = GetNum_Part7 ( Num_JL )
 	if Item_newJLID==231 or Item_newJLID==232 or Item_newJLID==233 or Item_newJLID==234 or Item_newJLID==235  or Item_newJLID==236  or Item_newJLID==237  or Item_newJLID==681 then
 		Part1_JL=1
-		Num_JL = SetNum_Part1 ( Num_JL , 1 )
+		Num_JL = SetNum_Part1 ( Num_JL , 1 ) ----------¶þ×ª±ê¼Ç
 		SetItemForgeParam ( Item_newJL , 1 , Num_JL )
 	end
 	str_JLone	= N1
@@ -7957,15 +8961,16 @@ function ItemUse_CJBOX( role , Item )
 	SetItemAttr ( Item_newJL , ITEMATTR_ENERGY , new_MAXENERGY ) 	
 	SetItemAttr ( Item_newJL , ITEMATTR_URE , new_MAXURE )
 	local cha_name = GetChaDefaultName ( role )
+	--LG( "star_JLZS_lg" ,cha_name,Item_JLone_ID , lv_JLone , str_JLone , con_JLone , agi_JLone , dex_JLone , sta_JLone , Item_JLother_ID , lv_JLother  , str_JLother , con_JLother , agi_JLother , dex_JLother , sta_JLother )
 	LG( "star_CJBOX" ,cha_name, C1 , N1 , N2 ,  N3 , N4 , N5 )
 
 end
 
---Ñóíäóê ×åìïèîíà (ID 0460)
+----------------------------------------------ÓÂÕß±¦Ïä
 function ItemUse_YZheBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet < 8 then
-		SystemNotice(role ,"\215\242\238\225\251 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \215\229\236\239\232\238\237\224 \242\240\229\225\243\229\242\241\255 8 \241\226\238\225\238\228\237\251\245 \241\235\238\242\238\226 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"To open a Champion's Chest requires 8 empty slots")
 		UseItemFailed ( role )
 		return
 	end
@@ -8011,17 +9016,13 @@ function ItemUse_YZheBOX( role , Item )
 	end
 end
 
---------------------------------------------------------------------------------------------------
---Ïðåäìåòû-ìíîæèòåëè ðåéòîâ
---------------------------------------------------------------------------------------------------
-
---Óñèëèòåëü ñòðåìëåíèé (ID 3094)
+----------------------------------------Å¬Á¦Ôö·ùÆ÷
 function ItemUse_MoreExpGzA( role , Item )
 	local statelv = 1
 	local ChaStateLv = GetChaStateLv ( role , STATE_SBJYGZ )
 	
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\211\241\232\235\232\242\229\235\252 \241\242\240\229\236\235\229\237\232\233 \243\230\229 \232\241\239\238\235\252\231\243\229\242\241\255. \207\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "Better fruit in effect. Please use it later" )
 		UseItemFailed ( role )
 		return
 	end
@@ -8029,6 +9030,7 @@ function ItemUse_MoreExpGzA( role , Item )
 	local statetime = 1800
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ==  nil then
 		AddState( role , role , STATE_SBJYGZ , statelv , statetime )
 	else
@@ -8036,11 +9038,11 @@ function ItemUse_MoreExpGzA( role , Item )
 	end
 end
 
---Ñóïåð Óñèëèòåëü ñòðåìëåíèé (ID 3095)
+----------------------------------------¸ß¼¶Å¬Á¦Ôö·ùÆ÷
 function ItemUse_MoreExpGzLv3A( role , Item )
 	local Lv = Lv( role )
 	if Lv < 60 then
-		SystemNotice(role ,"\210\238\235\252\234\238 \232\227\240\238\234\232 \243\240\238\226\237\255 60 \232 \226\251\248\229 \236\238\227\243\242 \232\241\239\238\235\252\231\238\226\224\242\252 \209\243\239\229\240 \211\241\232\235\232\242\229\235\252 \241\242\240\229\236\235\229\237\232\233")
+		SystemNotice(role ,"Only Lv 60 and above may use")
 		UseItemFailed ( role )
 		return
 	end
@@ -8050,7 +9052,7 @@ function ItemUse_MoreExpGzLv3A( role , Item )
 	local ChaStateLv = GetChaStateLv ( role , STATE_SBJYGZ )
 	
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\209\243\239\229\240 \211\241\232\235\232\242\229\235\252 \241\242\240\229\236\235\229\237\232\233 \243\230\229 \232\241\239\238\235\252\231\243\229\242\241\255. \207\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "Better fruit in effect. Please use it later" )
 		UseItemFailed ( role )
 		return
 	end
@@ -8058,21 +9060,24 @@ function ItemUse_MoreExpGzLv3A( role , Item )
 	local statetime = 1800
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ==  nil then
 		AddState( role , role , STATE_SBJYGZ , statelv , statetime )
 	else
 		AddState( Cha_Boat , Cha_Boat , STATE_SBJYGZ , statelv , statetime )
 	end
-	SystemNotice ( role ,"\207\238\247\243\226\241\242\226\243\233 \253\244\244\229\234\242 \238\242 \209\243\239\229\240 \211\241\232\235\232\242\229\235\255 \241\242\240\229\236\235\229\237\232\233" )
+	SystemNotice ( role ,"Feel the effect of Hi-Amplifier of Strive" )
 end
 
---Óñèëèòåëü óäà÷è (ID 3096)
+
+--ItemUse_MoreItemGz
+-------------------------------²Æ¸»Ôö·ùÆ÷
 function ItemUse_MoreItemGzA( role , Item )
 	local statelv = 1
 	local ChaStateLv = GetChaStateLv ( role , STATE_SBBLGZ )
 	
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\211\241\232\235\232\242\229\235\252 \243\228\224\247\232 \243\230\229 \232\241\239\238\235\252\231\243\229\242\241\255. \207\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "Better fruit in effect. Please use it later" )
 		UseItemFailed ( role )
 		return
 	end
@@ -8087,11 +9092,11 @@ function ItemUse_MoreItemGzA( role , Item )
 	end
 end
 
---Áîëüøîé óñèëèòåëü óäà÷è (ID 3097)
+----------------------------------------¸ß¼¶²Æ¸»Ôö·ùÆ÷
 function ItemUse_MoreItemGzLv3A( role , Item )
 	local Lv = Lv( role )
 	if Lv < 60 then
-		SystemNotice(role ,"\210\238\235\252\234\238 \232\227\240\238\234\232 \243\240\238\226\237\255 60 \232 \226\251\248\229 \236\238\227\243\242 \232\241\239\238\235\252\231\238\226\224\242\252 \193\238\235\252\248\238\233 \243\241\232\235\232\242\229\235\252 \243\228\224\247\232")
+		SystemNotice(role ,"Only Lv 60 and above may use")
 		UseItemFailed ( role )
 		return
 	end
@@ -8102,7 +9107,7 @@ function ItemUse_MoreItemGzLv3A( role , Item )
 	local ChaStateLv = GetChaStateLv ( role , STATE_SBBLGZ )
 	
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\193\238\235\252\248\238\233 \243\241\232\235\232\242\229\235\252 \243\228\224\247\232 \243\230\229 \232\241\239\238\235\252\231\243\229\242\241\255. \207\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "Better fruit in effect. Please use it later" )
 		UseItemFailed ( role )
 		return
 	end
@@ -8115,40 +9120,33 @@ function ItemUse_MoreItemGzLv3A( role , Item )
 	else
 		AddState( Cha_Boat , Cha_Boat , STATE_SBBLGZ , statelv , statetime )
 	end
-	SystemNotice ( role ,"\207\238\247\243\226\241\242\226\243\233 \253\244\244\229\234\242 \238\242 \193\238\235\252\248\238\227\238 \243\241\232\235\232\242\229\235\255 \243\228\224\247\232" )
+	SystemNotice ( role ,"Feels the effect of Hi-Amplifier of Luck" )
 end
-
---------------------------------------------------------------------------------------------------
---Çåëüÿ\Ýëåêñèðû
---------------------------------------------------------------------------------------------------
-
---Ôëÿãà âîññòàíîâëåíèÿ òåëîñëîæåíèÿ (ID 3098)
+-------------------------------------Ç¿Á¦ÌåÁ¦»Ö¸´¼Á
 function ItemUse_TLHFJA( role , Item )
 	local hp = GetChaAttr(role, ATTR_HP) 
 	hp_resume = 1000 
 	
 	hp = hp + hp_resume 
 	mxhp = GetChaAttr(role,ATTR_MXHP) 
-	if hp > mxhp then
+	if hp > mxhp then --¼Ó³¬¹ý×î´óspÊ±·µ»ØÎª×î´ósp
 		hp = mxhp 
 	end 
 	SetCharaAttr(hp, role, ATTR_HP)
 end
-
---SP Ñâÿòàÿ âîäà (ID 3099)
+------------------------------------SPÉñÏÉË®
 function ItemUse_TMLGZA( role , Item ) 
 	local sp = GetChaAttr(role, ATTR_SP) 
 	sp_resume = 150 
 	
 	sp = sp + sp_resume 
 	mxsp = GetChaAttr(role,ATTR_MXSP) 
-	if sp > mxsp then 
+	if sp > mxsp then --¼Ó³¬¹ý×î´óspÊ±·µ»ØÎª×î´ósp
 		sp = mxsp 
 	end 
 	SetCharaAttr(sp, role, ATTR_SP) 
 end 
-
---Ýëèêñèð ëüâà (ID 3100)
+---------------------------------------------ÐÛÊ¨Ä£ÄâÒ©¼Á( str )
 function ItemUse_SPXsyjA( role , Item )
 	
 	local OtherStateLv = 0
@@ -8169,7 +9167,7 @@ function ItemUse_SPXsyjA( role , Item )
 
 
 	if OtherStateLv > 0 then
-		SystemNotice(role ,"\221\244\244\229\234\242 \228\224\237\237\238\227\238 \231\229\235\252\255 \237\229 \241\238\247\232\242\224\229\242\241\255 \241 \253\244\244\229\234\242\224\236\232 \238\242 \228\240\243\227\232\245 \231\229\235\232\233")
+		SystemNotice(role ,"Potions effect for attribute bonus cannot be stacked")
 		UseItemFailed ( role )
 		return
 	end	
@@ -8177,7 +9175,7 @@ function ItemUse_SPXsyjA( role , Item )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
@@ -8188,8 +9186,7 @@ function ItemUse_SPXsyjA( role , Item )
 	AddState( role , role , STATE_YSLLQH , statelv , statetime )
 
 end
-
---Ýëèêñèð  Îáåçüÿíû (ID 3101)
+-----------------------------------------------ÁéºïÄ£ÄâÒ©¼Á( agi )
 function ItemUse_SPLhyjA( role , Item )
 	local OtherStateLv = 0
 	local i = 0
@@ -8206,8 +9203,10 @@ function ItemUse_SPLhyjA( role , Item )
 		end
 	end
 
+
+
 	if OtherStateLv > 0 then
-		SystemNotice(role ,"\221\244\244\229\234\242 \228\224\237\237\238\227\238 \231\229\235\252\255 \237\229 \241\238\247\232\242\224\229\242\241\255 \241 \253\244\244\229\234\242\224\236\232 \238\242 \228\240\243\227\232\245 \231\229\235\232\233")
+		SystemNotice(role ,"Potions effect for attribute bonus cannot be stacked")
 		UseItemFailed ( role )
 		return
 	end
@@ -8215,7 +9214,7 @@ function ItemUse_SPLhyjA( role , Item )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
@@ -8226,7 +9225,7 @@ function ItemUse_SPLhyjA( role , Item )
 
 end
 
---Ýëèêñèð Îðëà (ID 3103)
+------------------------------------------------Ó¥ÑÛÄ£ÄâÒ©¼Á( dex )
 function ItemUse_SPYyyjA( role , Item )
 	local OtherStateLv = 0
 	local i = 0
@@ -8246,7 +9245,7 @@ function ItemUse_SPYyyjA( role , Item )
 
 
 	if OtherStateLv > 0 then
-		SystemNotice(role ,"\221\244\244\229\234\242 \228\224\237\237\238\227\238 \231\229\235\252\255 \237\229 \241\238\247\232\242\224\229\242\241\255 \241 \253\244\244\229\234\242\224\236\232 \238\242 \228\240\243\227\232\245 \231\229\235\232\233")
+		SystemNotice(role ,"Potions effect for attribute bonus cannot be stacked")
 		UseItemFailed ( role )
 		return
 	end
@@ -8254,7 +9253,7 @@ function ItemUse_SPYyyjA( role , Item )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
@@ -8266,7 +9265,7 @@ function ItemUse_SPYyyjA( role , Item )
 
 end
 
---Ýëèêñèð áûêà (ID 3102)
+-----------------------------------------------------ÂùÅ£Ä£ÄâÒ©¼Á( con )
 function ItemUse_SPMnyjA( role , Item )
 	
 	local OtherStateLv = 0
@@ -8287,7 +9286,7 @@ function ItemUse_SPMnyjA( role , Item )
 
 
 	if OtherStateLv > 0 then
-		SystemNotice(role ,"\221\244\244\229\234\242 \228\224\237\237\238\227\238 \231\229\235\252\255 \237\229 \241\238\247\232\242\224\229\242\241\255 \241 \253\244\244\229\234\242\224\236\232 \238\242 \228\240\243\227\232\245 \231\229\235\232\233")
+		SystemNotice(role ,"Potions effect for attribute bonus cannot be stacked")
 		UseItemFailed ( role )
 		return
 	end
@@ -8295,7 +9294,7 @@ function ItemUse_SPMnyjA( role , Item )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
@@ -8307,7 +9306,7 @@ function ItemUse_SPMnyjA( role , Item )
 
 end
 
---Ýëèêñèð äóøè (ID 3104)
+------------------------------------------------Ê¥ÁéÄ£ÄâÒ©¼Á( sta )
 function ItemUse_SPSlyjA( role , Item )
 	
 	local OtherStateLv = 0
@@ -8327,7 +9326,7 @@ function ItemUse_SPSlyjA( role , Item )
 
 
 	if OtherStateLv > 0 then
-		SystemNotice(role ,"\221\244\244\229\234\242 \228\224\237\237\238\227\238 \231\229\235\252\255 \237\229 \241\238\247\232\242\224\229\242\241\255 \241 \253\244\244\229\234\242\224\236\232 \238\242 \228\240\243\227\232\245 \231\229\235\232\233")
+		SystemNotice(role ,"Potions effect for attribute bonus cannot be stacked")
 		UseItemFailed ( role )
 		return
 	end
@@ -8335,7 +9334,7 @@ function ItemUse_SPSlyjA( role , Item )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
@@ -8347,7 +9346,8 @@ function ItemUse_SPSlyjA( role , Item )
 
 end
 
---Çåëüå ñêîëüæåíèÿ (ID 3105)
+--------------------------------ÐÐ×ßÈó»¬¼Á
+
 function ItemUse_MspdYSA ( role , Item )
 	local statelv = 1
 	local statetime = 1800
@@ -8356,14 +9356,13 @@ function ItemUse_MspdYSA ( role , Item )
 	if Cha_Boat ==  nil then
 		AddState( role , role , STATE_YSMspd , statelv , statetime )
 	else
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 
 end
-
---Çåëüå ëåãêîñòè (ID 0850)
+--------------------------------Çá×°Ò©Ë® ´ó·ùÌá¸ßÐÐ×ßËÙ¶ÈÐ¡·ù½µµÍ·ÀÓùµÄµÀ¾ß³ÖÐøÊ±¼ä15·ÖÖÓ
 function ItemUse_MspdYSB ( role , Item )
 	local statelv = 1
 	local statetime = 900
@@ -8373,13 +9372,12 @@ function ItemUse_MspdYSB ( role , Item )
 		Rem_State_StarUnnormal ( role )
 		AddState( role , role , STATE_QINGZ , statelv , statetime )
 	else
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 end
-
---Êîðàáåëüíàÿ áðîíÿ (ID3106)
+-------------------------------------Õ½´¬×°¼×
 function ItemUse_GJZhuangJiaA ( role , Item )
 	local statelv = 1
 	local statetime = 1800
@@ -8389,14 +9387,13 @@ function ItemUse_GJZhuangJiaA ( role , Item )
 	if Cha_Boat ~=  nil then
 		AddState( Cha_Boat , Cha_Boat , STATE_YSBoatDEF , statelv , statetime )
 	else
-		SystemNotice( role , "\204\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238 \242\238\235\252\234\238 \226 \236\238\240\229" )
+		SystemNotice( role , "Only can be used while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 
 end
-
---Ôåñòèâàëüíàÿ ëàìïà (ID 3107)
+-----------------------------------ÔªÏü×ßÂíµÆ
 function ItemUse_DenglongA ( role , Item )
 	local statelv = 1
 	local statetime = 900
@@ -8405,13 +9402,12 @@ function ItemUse_DenglongA ( role , Item )
 	if Cha_Boat ==  nil then
 		AddState( role , role , STATE_DENGLONG , statelv , statetime )
 	else
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 end
-
---Ïîëíûé äîñïåõ (ID 0852)
+-----------------------------------È«Éí×°¼× ´ó·ùÌá¸ß·ÀÓùÁ¦Ð¡·ù½µµÍ¹¥»÷Á¦µÄµÀ¾ß³ÖÐøÊ±¼ä15·ÖÖÓ
 function ItemUse_DenglongB ( role , Item )
 	local statelv = 1
 	local statetime = 900
@@ -8421,17 +9417,14 @@ function ItemUse_DenglongB ( role , Item )
 		Rem_State_StarUnnormal ( role )
 		AddState( role , role , STATE_QUANS , statelv , statetime )
 	else
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 end
 
---------------------------------------------------------------------------------------------------
---Áèëåòû
---------------------------------------------------------------------------------------------------
+--À×öª±¤»úÆ±
 
---Ïðîïóñê â Ãðîìîãðàä (ID 3048)
 function Jz_Script_ltcsA(role, Item )
 	local i = CheckBagItem(role,3048)
 	local k = ChaIsBoat(role)
@@ -8440,7 +9433,7 @@ function Jz_Script_ltcsA(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -8448,12 +9441,7 @@ function Jz_Script_ltcsA(role, Item )
 		if i > 0 then
 			local j = DelBagItem(role,3048,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = math.random( 4, 6 )
-					teleport( role, n )
-				else
-					MoveCity( role, "Thundoria Castle" )
-				end
+				MoveCity(role,"Thundoria Castle")
 				return
 			end
 		end
@@ -8463,7 +9451,9 @@ function Jz_Script_ltcsA(role, Item )
 		
 end
 
---Ñëåäóé â ïîðò Ãðîìîãðàäà (ID 3049)
+
+
+--À×öª±¤¾ü¸Û»úÆ±
 function Jz_Script_ltjgcsA(role, Item )
 	local i = CheckBagItem(role,3049)
 	local k = ChaIsBoat(role)
@@ -8472,7 +9462,7 @@ function Jz_Script_ltjgcsA(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -8480,12 +9470,7 @@ function Jz_Script_ltjgcsA(role, Item )
 		if i > 0 then
 			local j = DelBagItem(role,3049,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 75
-					teleport( role, n )
-				else
-					MoveCity( role, "Thundoria Harbor" )
-				end
+				MoveCity(role,"Thundoria Harbor")
 				return
 			end
 		end
@@ -8495,7 +9480,9 @@ function Jz_Script_ltjgcsA(role, Item )
 		
 end
 
---Ïðîïóñê ê Ñâÿùåííîé Ñíåæíîé ãîðå (ID 3050)
+
+--Ê¥Ñ©É½»úÆ±
+
 function Jz_Script_sxscsA(role, Item )
 	local i = CheckBagItem(role,3050)
 	local k = ChaIsBoat(role)
@@ -8504,7 +9491,7 @@ function Jz_Script_sxscsA(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -8512,12 +9499,7 @@ function Jz_Script_sxscsA(role, Item )
 		if i > 0 then
 			local j = DelBagItem(role,3050,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 56
-					teleport( role, n )
-				else
-					MoveCity( role, "Sacred Snow Mountain" )
-				end
+				MoveCity(role,"Sacred Snow Mountain")
 				return
 			end
 		end
@@ -8527,7 +9509,8 @@ function Jz_Script_sxscsA(role, Item )
 		
 end
 
---Ïðîïóñê â Àíäèéñêèé ëåñ (ID 3051)
+--Àµ°²É­ÁÖ²¹¸øÕ¾»úÆ±
+
 function Jz_Script_laslcsA(role, Item )
 	local i = CheckBagItem(role,3051)
 	local k = ChaIsBoat(role)
@@ -8536,7 +9519,7 @@ function Jz_Script_laslcsA(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -8544,12 +9527,7 @@ function Jz_Script_laslcsA(role, Item )
 		if i > 0 then
 			local j = DelBagItem(role,3051,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 57
-					teleport( role, n )
-				else
-					MoveCity( role, "Andes Forest Haven" )
-				end
+				MoveCity(role,"Andes Forest Haven")
 				return
 			end
 		end
@@ -8559,7 +9537,7 @@ function Jz_Script_laslcsA(role, Item )
 		
 end
 
---Ïðîïóñê â Îàçèñ (ID 3052)
+--É³Èª²¹¸øÕ¾»úÆ±
 function Jz_Script_sqcsA(role, Item )
 	local i = CheckBagItem(role,3052)
 	local k = ChaIsBoat(role)
@@ -8568,7 +9546,7 @@ function Jz_Script_sqcsA(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -8576,12 +9554,7 @@ function Jz_Script_sqcsA(role, Item )
 		if i > 0 then
 			local j = DelBagItem(role,3052,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 58
-					teleport( role, n )
-				else
-					MoveCity( role, "Oasis Haven" )
-				end
+				MoveCity(role,"Oasis Haven")
 				return
 			end
 		end
@@ -8591,7 +9564,8 @@ function Jz_Script_sqcsA(role, Item )
 		
 end
 
---Ïðîïóñê ê Ëåäÿíîìó øèïó (ID 3053)
+--±ù¼«²¹¸øÕ¾»úÆ±
+
 function Jz_Script_bjcsA(role, Item )
 	local i = CheckBagItem(role,3053)
 	local k = ChaIsBoat(role)
@@ -8600,7 +9574,7 @@ function Jz_Script_bjcsA(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -8608,12 +9582,7 @@ function Jz_Script_bjcsA(role, Item )
 		if i > 0 then
 			local j = DelBagItem(role,3053,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 59
-					teleport( role, n )
-				else
-					MoveCity( role, "Icespire Haven" )
-				end
+				MoveCity(role,"Icespire Haven")
 				return
 			end
 		end
@@ -8623,7 +9592,8 @@ function Jz_Script_bjcsA(role, Item )
 		
 end
 
---Ïðîïóñê â Îäèíîêóþ áàøíþ (ID 3054)
+--¼ÅÄ¯Ö®ËþÈë¿Ú»úÆ±
+
 function Jz_Script_jmztcsA(role, Item )
 	local i = CheckBagItem(role,3054)
 	local k = ChaIsBoat(role)
@@ -8632,7 +9602,7 @@ function Jz_Script_jmztcsA(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -8640,12 +9610,7 @@ function Jz_Script_jmztcsA(role, Item )
 		if i > 0 then
 			local j = DelBagItem(role,3054,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 60
-					teleport( role, n )
-				else
-					MoveCity( role, "Lone Tower Entrace" )
-				end
+				MoveCity(role,"Lone Tower Entrace")
 				return
 			end
 		end
@@ -8655,7 +9620,7 @@ function Jz_Script_jmztcsA(role, Item )
 		
 end
 
---×àñòü çàùèòû (ID 3055)
+--É³¿ßÈë¿Ú»úÆ±
 function Jz_Script_scrkcsA(role, Item )
 	local i = CheckBagItem(role,3055)
 	local k = ChaIsBoat(role)
@@ -8664,7 +9629,7 @@ function Jz_Script_scrkcsA(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -8672,12 +9637,7 @@ function Jz_Script_scrkcsA(role, Item )
 		if i > 0 then
 			local j = DelBagItem(role,3055,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 61
-					teleport( role, n )
-				else
-					MoveCity( role, "Barren Cavern Entrance" )
-				end
+				MoveCity(role,"Barren Cavern Entrance")
 				return
 			end
 		end
@@ -8687,7 +9647,8 @@ function Jz_Script_scrkcsA(role, Item )
 		
 end
 
---Ïðîõîä â Çàáðîøåííûå øàõòû 2 (ID 3056)
+--·Ï¿ó2²ã»úÆ±
+
 function Jz_Script_fk2csA(role, Item )
 	local i = CheckBagItem(role,3056)
 	local k = ChaIsBoat(role)
@@ -8696,7 +9657,7 @@ function Jz_Script_fk2csA(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -8704,12 +9665,7 @@ function Jz_Script_fk2csA(role, Item )
 		if i > 0 then
 			local j = DelBagItem(role,3056,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 62
-					teleport( role, n )
-				else
-					MoveCity( role, "Abandon Mine 2" )
-				end
+				MoveCity(role,"Abandon Mine 2")
 				return
 			end
 		end
@@ -8719,7 +9675,8 @@ function Jz_Script_fk2csA(role, Item )
 		
 end
 
---Ïðîïóñê â Ñåðåáðÿíóþ øàõòó 2 (ID 3057)
+--Òø¿ó2²ã»úÆ±
+
 function Jz_Script_yk2csA(role, Item )
 	local i = CheckBagItem(role,3057)
 	local k = ChaIsBoat(role)
@@ -8728,7 +9685,7 @@ function Jz_Script_yk2csA(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -8736,12 +9693,7 @@ function Jz_Script_yk2csA(role, Item )
 		if i > 0 then
 			local j = DelBagItem(role,3057,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 63
-					teleport( role, n )
-				else
-					MoveCity( role, "Silver Mine 2" )
-				end
+				MoveCity(role,"Silver Mine 2")
 				return
 			end
 		end
@@ -8751,7 +9703,8 @@ function Jz_Script_yk2csA(role, Item )
 		
 end
 
---Ïðîïóñê â Ñåðåáðÿíóþ øàõòó 3 (ID 3058)
+--Òø¿ó3²ã»úÆ±
+
 function Jz_Script_yk3csA(role, Item )
 	local i = CheckBagItem(role,3058)
 	local k = ChaIsBoat(role)
@@ -8760,7 +9713,7 @@ function Jz_Script_yk3csA(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -8768,12 +9721,7 @@ function Jz_Script_yk3csA(role, Item )
 		if i > 0 then
 			local j = DelBagItem(role,3058,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 64
-					teleport( role, n )
-				else
-					MoveCity( role, "Silver Mine 3" )
-				end
+				MoveCity(role,"Silver Mine 3")
 				return
 			end
 		end
@@ -8783,7 +9731,8 @@ function Jz_Script_yk3csA(role, Item )
 		
 end
 
---Áèëåò â Îäèíîêóþ áàøíþ 2 (ID 3059)
+--¼ÅÄ¯Ö®Ëþ2»úÆ±
+
 function Jz_Script_jmzt2csA(role, Item )
 	local i = CheckBagItem(role,3059)
 	local k = ChaIsBoat(role)
@@ -8792,7 +9741,7 @@ function Jz_Script_jmzt2csA(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -8800,12 +9749,7 @@ function Jz_Script_jmzt2csA(role, Item )
 		if i > 0 then
 			local j = DelBagItem(role,3059,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 66
-					teleport( role, n )
-				else
-					MoveCity( role, "Lone Tower 2" )
-				end
+				MoveCity(role,"Lone Tower 2")
 				return
 			end
 		end
@@ -8814,8 +9758,8 @@ function Jz_Script_jmzt2csA(role, Item )
 	end
 		
 end
+--¼ÅÄ¯Ö®Ëþ3»úÆ±
 
---Ïðîïóñê â Îäèíîêóþ áàøíþ 3 (ID 3060)
 function Jz_Script_jmzt3csA(role, Item )
 	local i = CheckBagItem(role,3060)
 	local k = ChaIsBoat(role)
@@ -8824,7 +9768,7 @@ function Jz_Script_jmzt3csA(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -8832,12 +9776,7 @@ function Jz_Script_jmzt3csA(role, Item )
 		if i > 0 then
 			local j = DelBagItem(role,3060,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 67
-					teleport( role, n )
-				else
-					MoveCity( role, "Lone Tower 3" )
-				end
+				MoveCity(role,"Lone Tower 3")
 				return
 			end
 		end
@@ -8846,8 +9785,7 @@ function Jz_Script_jmzt3csA(role, Item )
 	end
 		
 end
-
---Ïðîïóñê â Îäèíîêóþ áàøíþ 4 (ID 3070)
+--¼ÅÄ¯Ö®Ëþ4»úÆ±
 function Jz_Script_jmzt4csA(role, Item )
 	local i = CheckBagItem(role,3070)
 	local k = ChaIsBoat(role)
@@ -8856,7 +9794,7 @@ function Jz_Script_jmzt4csA(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -8864,12 +9802,7 @@ function Jz_Script_jmzt4csA(role, Item )
 		if i > 0 then
 			local j = DelBagItem(role,3070,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 68
-					teleport( role, n )
-				else
-					MoveCity( role, "Lone Tower 4" )
-				end
+				MoveCity(role,"Lone Tower 4")
 				return
 			end
 		end
@@ -8878,8 +9811,8 @@ function Jz_Script_jmzt4csA(role, Item )
 	end
 		
 end
+--¼ÅÄ¯Ö®Ëþ5»úÆ±
 
---Ïðîïóñê â Îäèíîêóþ áàøíþ 5 (ID 3071)
 function Jz_Script_jmzt5csA(role, Item )
 	local i = CheckBagItem(role,3071)
 	local k = ChaIsBoat(role)
@@ -8888,7 +9821,7 @@ function Jz_Script_jmzt5csA(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -8896,12 +9829,7 @@ function Jz_Script_jmzt5csA(role, Item )
 		if i > 0 then
 			local j = DelBagItem(role,3071,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 69
-					teleport( role, n )
-				else
-					MoveCity( role, "Lone Tower 5" )
-				end
+				MoveCity(role,"Lone Tower 5")
 				return
 			end
 		end
@@ -8910,8 +9838,7 @@ function Jz_Script_jmzt5csA(role, Item )
 	end
 		
 end
-
---Ïðîïóñê â Îäèíîêóþ áàøíþ 6 (ID 3072)
+--¼ÅÄ¯Ö®Ëþ6»úÆ±
 function Jz_Script_jmzt6csA(role, Item )
 	local i = CheckBagItem(role,3072)
 	local k = ChaIsBoat(role)
@@ -8920,7 +9847,7 @@ function Jz_Script_jmzt6csA(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -8928,12 +9855,7 @@ function Jz_Script_jmzt6csA(role, Item )
 		if i > 0 then
 			local j = DelBagItem(role,3072,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 70
-					teleport( role, n )
-				else
-					MoveCity( role, "Lone Tower 6" )
-				end
+				MoveCity(role,"Lone Tower 6")
 				return
 			end
 		end
@@ -8943,7 +9865,8 @@ function Jz_Script_jmzt6csA(role, Item )
 		
 end
 
---Ïðîïóñê â Çàáðîøåííóþ øàõòó 1 (ID 3073)
+--·Ï¿ó1²ã»úÆ±
+
 function Jz_Script_fk1csA(role, Item )
 	local i = CheckBagItem(role,3073)
 	local k = ChaIsBoat(role)
@@ -8952,7 +9875,7 @@ function Jz_Script_fk1csA(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -8960,12 +9883,7 @@ function Jz_Script_fk1csA(role, Item )
 		if i > 0 then
 			local j = DelBagItem(role,3073,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 65
-					teleport( role, n )
-				else
-					MoveCity( role, "Abandon Mine 1" )
-				end
+				MoveCity(role,"Abandon Mine 1")
 				return
 			end
 		end
@@ -8974,8 +9892,7 @@ function Jz_Script_fk1csA(role, Item )
 	end
 		
 end
-
---Ïðîïóñê â Âåñíîãðàä (ID 3076)
+----´º·çÕòËÍ¾íÖá-------------------------------------------------------------------------------------------------------------------------------------
 function Jz_Script_cfzsA(role, Item )
 	local i = CheckBagItem(role,3076)
 	local k = ChaIsBoat(role)
@@ -8984,7 +9901,7 @@ function Jz_Script_cfzsA(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -8992,12 +9909,7 @@ function Jz_Script_cfzsA(role, Item )
 		if i > 0 then
 			local j = DelBagItem(role,3076,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 75
-					teleport( role, n )
-				else
-					MoveCity( role, "Spring Town" )
-				end
+				MoveCity(role,"Spring Town")
 				return
 			end
 		end
@@ -9006,40 +9918,34 @@ function Jz_Script_cfzsA(role, Item )
 	end
 		
 end
-
---------------------------------------------------------------------------------------------------
---×åðíûé äðàêîí àëòàðü\Âåùè äëÿ ðàñïå÷àòêè
---------------------------------------------------------------------------------------------------
-
---×åðíûé äðàêîí Àëòàðü (ID 0266)
+---------------ºÚÁúÏä×ÓÊ¹ÓÃ-------------------
 function ItemUse_CiChang( role, Item )
-	local Elf_URE = GetItemAttr(Item,ITEMATTR_URE)
-	local Elf_EXP = GetItemAttr(Item,ITEMATTR_ENERGY)
+	local Elf_URE = GetItemAttr(Item,ITEMATTR_URE) --µ±Ç°ÄÍ¾Ã¼ÇÂ¼Ê£Óà·âÓ¡µãÊý
+	local Elf_EXP = GetItemAttr(Item,ITEMATTR_ENERGY) --×î´óÄÜÁ¿¼ÇÂ¼×çÖäµãÊý
 	if Elf_URE ~= 0 then
-		SystemNotice(role ,"\207\229\247\224\242\252 \237\229 \225\251\235\224 \241\237\255\242\224")
+		SystemNotice(role ,"Seal has not been broken")
 		UseItemFailed ( role )
 		return
 	end
 	if Elf_EXP >9 then
-		SystemNotice(role ,"\206\247\234\238\226 \239\240\238\234\235\255\242\232\233 \225\238\235\252\248\229 \247\229\236 9. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \224\235\242\224\240\252")
+		SystemNotice(role ,"Cursed points higher than 9. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \239\240\229\228\236\229\242")
-
+		SystemNotice(role ,"Insufficient inventory space. Unable to use item")
 		UseItemFailed ( role )
 		return
 	end
-	local sta = GetItemAttr( Item ,ITEMATTR_VAL_STA )
+	local sta = GetItemAttr( Item ,ITEMATTR_VAL_STA )       --¾«Éñ
 	if sta == 0 then
-		SystemNotice(role ,"\205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \224\235\242\224\240\252.")
+		SystemNotice(role ,"Not yet put in target item, use item failed.")
 		UseItemFailed ( role )
 		return
 	end
 	local cha_name = GetChaDefaultName ( role ) 
-	if sta == 1 then
+	if sta == 1 then ---ºËÐÄÒ»866ºÚÁúÖ®ÐÄ----------¸øºÚÁúÖ®Çû
 		if Elf_EXP == 0 then
 		GiveItem ( role , 0 , 845  , 1 , 20  )  		
 		end
@@ -9070,11 +9976,11 @@ function ItemUse_CiChang( role, Item )
 		if Elf_EXP == 9 then
 		GiveItem ( role , 0 , 845  , 1 , 12  )  		
 		end
-		local message ="\215\229\240\237\251\233 \196\240\224\234\238\237 \192\235\242\224\240\252 \225\251\235 \240\224\241\239\229\247\224\242\224\237! ".. cha_name.." \239\238\235\243\247\232\235 \210\240\243\239 \247\229\240\237\238\227\238 \228\240\224\234\238\237\224!" 		
+		local message ="Black Dragon Altar has been unsealed! ".. cha_name.." obtains Black Dragon Torso!"  
 		Notice ( message )
-		LG("HeiLongJiTan","\200\236\255 \239\229\240\241\238\237\224\230\224",cha_name," \207\240\238\234\235\255\242\251\245 \239\243\237\234\242\238\226",Elf_EXP," \207\238\241\235\229 \238\242\234\240\251\242\232\255 \192\235\242\224\240\255 \215\229\240\237\238\227\238 \196\240\224\234\238\237\224 \194\251 \239\238\235\243\247\232\235\232 \210\240\243\239 \247\229\240\237\238\227\238 \228\240\224\234\238\237\224")
+		LG("HeiLongJiTan","Character name as",cha_name,"'s Cursed points is now",Elf_EXP," Under this situation, you open the Black Dragon Altar and obtain Black Dragon Torso")
 	end
-	if sta == 2 then
+	if sta == 2 then ---ºËÐÄ¶þ865ºÚÁúÖ®»ê---------------¸øºÚÁúÖ®Òí
 		if Elf_EXP == 0 then
 		GiveItem ( role , 0 , 847  , 1 , 20  )  		
 		end
@@ -9105,11 +10011,11 @@ function ItemUse_CiChang( role, Item )
 		if Elf_EXP == 9 then
 		GiveItem ( role , 0 , 847  , 1 , 2  )  		
 		end
-		local message ="\215\229\240\237\251\233 \196\240\224\234\238\237 \192\235\242\224\240\252 \225\251\235 \240\224\241\239\229\247\224\242\224\237! ".. cha_name.." \239\238\235\243\247\232\235 \202\240\251\235\238 \215\229\240\237\238\227\238 \228\240\224\234\238\237\224!"  
+		local message ="Black Dragon Altar has been unsealed! ".. cha_name.."obtained Black Dragon Wings!"  
 		Notice ( message )
-		LG("HeiLongJiTan","\200\236\255 \239\229\240\241\238\237\224\230\224",cha_name," \207\240\238\234\235\255\242\251\245 \239\243\237\234\242\238\226",Elf_EXP," \207\238\241\235\229 \238\242\234\240\251\242\232\255 \192\235\242\224\240\255 \215\229\240\237\238\227\238 \196\240\224\234\238\237\224 \194\251 \239\238\235\243\247\232\235\232 \202\240\251\235\238 \215\229\240\237\238\227\238 \228\240\224\234\238\237\224")
+		LG("HeiLongJiTan","Character name as",cha_name,"'s Cursed points is now",Elf_EXP,"Under this situation, you opened Black Dragon Altar and obtain Black Dragon Wings")
 	end
-	if sta == 3 then
+	if sta == 3 then ---ºËÐÄÈý864ºÚÁúÖ®Í«---------------¸øºÚÁúÖ®×¦
 		if Elf_EXP == 0 then
 		GiveItem ( role , 0 , 846  , 1 , 20  )  		
 		end
@@ -9140,11 +10046,11 @@ function ItemUse_CiChang( role, Item )
 		if Elf_EXP == 9 then
 		GiveItem ( role , 0 , 846  , 1 , 2  )  		
 		end
-		local message ="\215\229\240\237\251\233 \196\240\224\234\238\237 \192\235\242\224\240\252 \225\251\235 \240\224\241\239\229\247\224\242\224\237! ".. cha_name.." \239\238\235\243\247\232\235 \202\238\227\238\242\252 \215\229\240\237\238\227\238 \228\240\224\234\238\237\224!"   
+		local message ="Black Dragon Altar has been unsealed! ".. cha_name.." obtains Black Dragon Claw!"  
 		Notice ( message )
-		LG("HeiLongJiTan","\200\236\255 \239\229\240\241\238\237\224\230\224",cha_name," \207\240\238\234\235\255\242\251\245 \239\243\237\234\242\238\226",Elf_EXP," \207\238\241\235\229 \238\242\234\240\251\242\232\255 \192\235\242\224\240\255 \215\229\240\237\238\227\238 \196\240\224\234\238\237\224 \194\251 \239\238\235\243\247\232\235\232 \202\238\227\238\242\252 \215\229\240\237\238\227\238 \228\240\224\234\238\237\224")
+		LG("HeiLongJiTan","Character name as",cha_name,"'s Cursed points is now",Elf_EXP,"Under this situation, you open Black Dragon Altar and obtain Black Dragon Claw")
 	end
-	if sta == 4 then
+	if sta == 4 then ---ºËÐÄÈý¸øºÚÁúÖ®Ê×
 		if Elf_EXP == 0 then
 		GiveItem ( role , 0 , 848  , 1 , 20  )  		
 		end
@@ -9175,44 +10081,43 @@ function ItemUse_CiChang( role, Item )
 		if Elf_EXP == 9 then
 		GiveItem ( role , 0 , 848  , 1 , 2  )  		
 		end
-		local message ="\215\229\240\237\251\233 \196\240\224\234\238\237 \192\235\242\224\240\252 \225\251\235 \240\224\241\239\229\247\224\242\224\237! ".. cha_name.." \239\238\235\243\247\232\235 \216\235\229\236 \247\229\240\237\238\227\238 \228\240\224\234\238\237\224!"  
+		local message ="Black Dragon Altar has been unsealed! ".. cha_name.." obtains Black Dragon Helm!"  
 		Notice ( message )
-		LG("HeiLongJiTan","\200\236\255 \239\229\240\241\238\237\224\230\224",cha_name," \207\240\238\234\235\255\242\251\245 \239\243\237\234\242\238\226",Elf_EXP," \207\238\241\235\229 \238\242\234\240\251\242\232\255 \192\235\242\224\240\255 \215\229\240\237\238\227\238 \196\240\224\234\238\237\224 \194\251 \239\238\235\243\247\232\235\232 \216\235\229\236 \247\229\240\237\238\227\238 \228\240\224\234\238\237\224")
+		LG("HeiLongJiTan","Character name as",cha_name,"'s Cursed points is now",Elf_EXP,"Under this situation, you open the Black Dragon Altar and obtain Black Dragon Helm")
 	end
 	if Elf_EXP ~=0 then
-		SystemNotice(role ,"\206\241\242\224\226\248\232\229\241\255 \238\247\234\232 \239\240\238\234\235\255\242\232\233 \231\224\236\229\242\237\238 \241\237\232\231\232\235\232 \234\224\247\229\241\242\226\238 \209\237\224\240\255\230\229\237\232\255 \215\229\240\237\238\227\238 \196\240\224\234\238\237\224")
+		SystemNotice(role ,"Remaining Cursed points has damage the quality of Black Dragon equipment")
 	end
 end
-
---Ãëàç ÷åðíîãî äðàêîíà\Äóøà ×åðíîãî äðàêîíà\Ñåðäöå ÷åðíîãî äðàêîíà (ID 0864\0865\0866)
+---------------ºËÐÄÊ¹ÓÃ-----------------------sta = GetItemAttr( Item_Traget ,ITEMATTR_VAL_STA )       --¾«Éñ
 function ItemUse_hexin ( role , Item , Item_Traget ) 
 	local Item_Traget_ID = GetItemID ( Item_Traget )
 	local Item_ID = GetItemID ( Item )		
-	local sta = GetItemAttr( Item_Traget ,ITEMATTR_VAL_STA )
+	local sta = GetItemAttr( Item_Traget ,ITEMATTR_VAL_STA )       --¾«Éñ
 	if Item_Traget_ID ~= 266 then
-		SystemNotice(role ,"\207\238\230\224\235\243\233\241\242\224, \239\238\236\229\241\242\232\242\229 \230\229\240\242\226\229\237\237\251\233 \239\240\229\228\236\229\242 \237\224 \224\235\242\224\240\252")
+		SystemNotice(role ,"Please place the sacrificial item on the altar")
 		UseItemFailed ( role )
 		return
 	end
 	if sta==1 and Item_ID == 866 then
-		SystemNotice(role ,"\194\251 \232\241\239\238\235\252\231\238\226\224\235\232 \209\229\240\228\246\229 \215\229\240\237\238\227\238 \196\240\224\234\238\237\224 \234\224\234 \230\229\240\242\226\229\237\237\251\233 \239\240\229\228\236\229\242")
+		SystemNotice(role ,"You have used a Heart of Black Dragon as a sacrificial item")
 		UseItemFailed ( role )
 		return	
 	end
 	if sta==2 and Item_ID == 865 then
-		SystemNotice(role ,"\194\251 \232\241\239\238\235\252\231\238\226\224\235\232 \196\243\248\243 \215\229\240\237\238\227\238 \196\240\224\234\238\237\224 \234\224\234 \230\229\240\242\226\229\237\237\251\233 \239\240\229\228\236\229\242")
+		SystemNotice(role ,"You have used Soul of Black Dragon as a sacrificial item")
 		UseItemFailed ( role )
 		return	
 	end
 	if sta==3 and Item_ID == 864 then
-		SystemNotice(role ,"\194\251 \232\241\239\238\235\252\231\238\226\224\235\232 \195\235\224\231 \215\229\240\237\238\227\238 \196\240\224\234\238\237\224 \234\224\234 \230\229\240\242\226\229\237\237\251\233 \239\240\229\228\236\229\242")
+		SystemNotice(role ,"You have used Eye of Black Dragon as a sacrificial item")
 		UseItemFailed ( role )
 		return	
 	end
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
@@ -9220,19 +10125,19 @@ function ItemUse_hexin ( role , Item , Item_Traget )
 		local Item_Traget_Type = GetItemType ( Item_Traget )
 		local cha_name = GetChaDefaultName ( role ) 
 		if Item_type == 49 and Item_Traget_Type == 65 then
-				if Item_ID == 866 then
+				if Item_ID == 866 then						---ºËÐÄA
 				sta =1
-				SystemNotice( role , "\200\241\239\238\235\252\231\243\233\242\229 \209\229\240\228\246\229 \215\229\240\237\238\227\238 \196\240\224\234\238\237\224 \234\224\234 \230\229\240\242\226\229\237\237\251\233 \239\240\229\228\236\229\242 \232 \239\238\235\243\247\232\242\229 \210\240\243\239 \247\229\240\237\238\227\238 \228\240\224\234\238\237\224" )
+				SystemNotice( role , "Use Heart of Black Dragon as a sacrificial item and obtain Black Dragon Torso" )
 				LG("HeiLongJiTan_HeXin","Character name as",cha_name,"player used Heart of Black Dragon as sacrificial item")
-				elseif Item_ID == 865 then
+				elseif Item_ID == 865 then						---ºËÐÄB
 				sta =2
-				SystemNotice( role , "\200\241\239\238\235\252\231\243\233\242\229 \196\243\248\243 \215\229\240\237\238\227\238 \196\240\224\234\238\237\224 \234\224\234 \230\229\240\242\226\229\237\237\251\233 \239\240\229\228\236\229\242 \232 \239\238\235\243\247\232\242\229 \202\240\251\235\238 \215\229\240\237\238\227\238 \228\240\224\234\238\237\224" )
+				SystemNotice( role , "Use Soul of Black Dragon as a sacrificial item and obtain Black Dragon Wings" )
 				LG("HeiLongJiTan_HeXin","Character name as",cha_name,"player used Soul of Black Dragon as a sacrificial item")
-				elseif Item_ID == 864 then
+				elseif Item_ID == 864 then						---ºËÐÄC
 				sta =3
-				SystemNotice( role , "\200\241\239\238\235\252\231\243\233\242\229 \195\235\224\231 \215\229\240\237\238\227\238 \196\240\224\234\238\237\224 \234\224\234 \230\229\240\242\226\229\237\237\251\233 \239\240\229\228\236\229\242 \232 \239\238\235\243\247\232\242\229 \202\238\227\238\242\252 \215\229\240\237\238\227\238 \228\240\224\234\238\237\224" )
+				SystemNotice( role , "Use Eye of Black Dragon as a sacrificial item to obtain Black Dragon Claw" )
 				LG("HeiLongJiTan_HeXin","Character name as",cha_name,"player used Eye of Black Dragon as a sacrificial item")
-				elseif Item_ID == 275 then
+				elseif Item_ID == 275 then						---ºËÐÄD
 				sta =4
 				else 
 						UseItemFailed ( role )
@@ -9241,33 +10146,32 @@ function ItemUse_hexin ( role , Item , Item_Traget )
 				SetItemAttr( Item_Traget ,ITEMATTR_VAL_STA ,sta )
 		end 
 end
-
---Îãíåòâîðíàÿ ñèëà (ID 0267)
+---------------Ñ×Ö®Á¦Ê¹ÓÃ--------------------------str = GetItemAttr( Item_Traget ,ITEMATTR_VAL_STR )       --Á¦Á¿
 function ItemUse_HZLi ( role , Item , Item_Traget ) 
 	local Item_ID = GetItemID ( Item_Traget )
 	if Item_ID ~= 266 then
-		SystemNotice(role ,"\207\238\230\224\235\243\233\241\242\224, \239\238\236\229\241\242\232\242\229 \206\227\237\229\242\226\238\240\237\243\254 \241\232\235\243 \237\224 \224\235\242\224\240\252")
+		SystemNotice(role ,"Please place the Power of Flame on the altar")
 		UseItemFailed ( role )
 		return
 	end
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 		local Item_type = GetItemType ( Item )
 		local Item_Traget_Type = GetItemType ( Item_Traget )
 		if Item_type == 66 and Item_Traget_Type == 65  then
-				local str = GetItemAttr( Item_Traget ,ITEMATTR_VAL_STR )
+				local str = GetItemAttr( Item_Traget ,ITEMATTR_VAL_STR )       --Á¦Á¿
 				if str >= 5 then
 					UseItemFailed ( role )
 				return
 				end
 				local rad = math.random ( 1, 100 )
 				 if rad<=50 then
-					local Elf_URE = GetItemAttr(Item_Traget,ITEMATTR_URE)
+					local Elf_URE = GetItemAttr(Item_Traget,ITEMATTR_URE) --µ±Ç°ÄÍ¾Ã¼ÇÂ¼Ê£Óà·âÓ¡µãÊý
 					str = str + 1
 					if Elf_URE >= 50 then
 					Elf_URE = Elf_URE-50
@@ -9275,43 +10179,45 @@ function ItemUse_HZLi ( role , Item , Item_Traget )
 					SetItemAttr( Item_Traget ,ITEMATTR_VAL_STR ,str )
 					SetItemAttr( Item_Traget ,ITEMATTR_URE ,Elf_URE )
 				else 
-				local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY)
-				local Elf_EXP = GetItemAttr(Item_Traget,ITEMATTR_ENERGY)
+				local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY) --×î´óÄÜÁ¿¼ÇÂ¼×çÖäµãÊý
+				local Elf_EXP = GetItemAttr(Item_Traget,ITEMATTR_ENERGY) --×î´óÄÜÁ¿¼ÇÂ¼×çÖäµãÊý
 					Elf_MaxEXP = Elf_MaxEXP + 1
 					Elf_EXP = Elf_EXP + 1
-					SystemNotice( role , "\202 \241\238\230\224\235\229\237\232\254, \192\235\242\224\240\252 \225\251\235 \239\240\238\234\235\255\242 \228\243\248\238\233 \247\229\240\237\238\227\238 \228\240\224\234\238\237\224" ) 
+					SystemNotice( role , "Unfortunately, the Altar has been cursed by the soul of the black dragon" ) 
 					SetItemAttr( Item_Traget ,ITEMATTR_MAXENERGY ,Elf_MaxEXP )
 					SetItemAttr( Item_Traget ,ITEMATTR_ENERGY ,Elf_EXP )
 				end 
 		end 
 end
 
---Ñèëà Ìîðîçà (ID 0270)
+
+---------------±ùÖ®Á¦Ê¹ÓÃ-------------------------con = GetItemAttr( Item_Traget ,ITEMATTR_VAL_CON )       --ÌåÖÊ
+
 function ItemUse_BZLi ( role , Item , Item_Traget ) 
 	local Item_ID = GetItemID ( Item_Traget )
 	if Item_ID ~= 266 then
-		SystemNotice(role ,"\207\238\230\224\235\243\233\241\242\224, \239\238\236\229\241\242\232\242\229 \209\232\235\243 \204\238\240\238\231\224 \237\224 \224\235\242\224\240\252")
+		SystemNotice(role ,"Place Power of Frost on the altar")
 		UseItemFailed ( role )
 		return
 	end
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 		local Item_type = GetItemType ( Item )
 		local Item_Traget_Type = GetItemType ( Item_Traget )
 		if Item_type == 66 and Item_Traget_Type == 65 then
-				local con = GetItemAttr( Item_Traget ,ITEMATTR_VAL_CON )
+				local con = GetItemAttr( Item_Traget ,ITEMATTR_VAL_CON )       --ÌåÖÊ
 				if con >= 5 then
 					UseItemFailed ( role )
 				return
 				end
 				local rad = math.random ( 1, 100 )
 				 if rad<=50 then
-					local Elf_URE = GetItemAttr(Item_Traget,ITEMATTR_URE)
+					local Elf_URE = GetItemAttr(Item_Traget,ITEMATTR_URE) --µ±Ç°ÄÍ¾Ã¼ÇÂ¼Ê£Óà·âÓ¡µãÊý
 					con = con + 1
 					if Elf_URE >= 50 then
 					Elf_URE = Elf_URE-50
@@ -9319,43 +10225,42 @@ function ItemUse_BZLi ( role , Item , Item_Traget )
 					SetItemAttr( Item_Traget ,ITEMATTR_VAL_CON ,con )
 					SetItemAttr( Item_Traget ,ITEMATTR_URE ,Elf_URE )
 				else 
-				local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY)
-				local Elf_EXP = GetItemAttr(Item_Traget,ITEMATTR_ENERGY)
+				local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY) --×î´óÄÜÁ¿¼ÇÂ¼×çÖäµãÊý
+				local Elf_EXP = GetItemAttr(Item_Traget,ITEMATTR_ENERGY) --×î´óÄÜÁ¿¼ÇÂ¼×çÖäµãÊý
 					Elf_MaxEXP = Elf_MaxEXP + 1
 					Elf_EXP = Elf_EXP + 1
-					SystemNotice( role , "\202 \241\238\230\224\235\229\237\232\254, \192\235\242\224\240\252 \225\251\235 \239\240\238\234\235\255\242 \228\243\248\238\233 \247\229\240\237\238\227\238 \228\240\224\234\238\237\224" ) 
+					SystemNotice( role , "Unfortunately, the Altar has been cursed by the soul of the black dragon" ) 
 					SetItemAttr( Item_Traget ,ITEMATTR_MAXENERGY ,Elf_MaxEXP )
 					SetItemAttr( Item_Traget ,ITEMATTR_ENERGY ,Elf_EXP )
 				end 
 		end 
 end
-
---Ìîùü âåòðà (ID 0268)
+----------------·çÖ®Á¦Ê¹ÓÃ---------------------------agi = GetItemAttr( Item_Traget ,ITEMATTR_VAL_AGI )       --Ãô½Ý
 function ItemUse_FZLi( role , Item , Item_Traget ) 
 	local Item_ID = GetItemID ( Item_Traget )
 	if Item_ID ~= 266 then
-		SystemNotice(role ,"\207\238\230\224\235\243\233\241\242\224, \239\238\236\229\241\242\232\242\229 \204\238\249\252 \226\229\242\240\224 \237\224 \224\235\242\224\240\252")
+		SystemNotice(role ,"Please place the Power of Wind on the altar")
 		UseItemFailed ( role )
 		return
 	end
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" ) 
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 		local Item_type = GetItemType ( Item )
 		local Item_Traget_Type = GetItemType ( Item_Traget )
 		if Item_type == 66 and Item_Traget_Type == 65 then
-				local agi = GetItemAttr( Item_Traget ,ITEMATTR_VAL_AGI )
+				local agi = GetItemAttr( Item_Traget ,ITEMATTR_VAL_AGI )       --Ãô½Ý
 					if agi >= 5 then
 					UseItemFailed ( role )
 					return
 					end
 				local rad = math.random ( 1, 100 )
 				 if rad<=50 then
-					local Elf_URE = GetItemAttr(Item_Traget,ITEMATTR_URE)
+					local Elf_URE = GetItemAttr(Item_Traget,ITEMATTR_URE) --µ±Ç°ÄÍ¾Ã¼ÇÂ¼Ê£Óà·âÓ¡µãÊý
 					agi = agi + 1
 					if Elf_URE >= 50 then
 					Elf_URE = Elf_URE-50
@@ -9363,43 +10268,43 @@ function ItemUse_FZLi( role , Item , Item_Traget )
 					SetItemAttr( Item_Traget ,ITEMATTR_VAL_AGI ,agi )
 					SetItemAttr( Item_Traget ,ITEMATTR_URE ,Elf_URE )
 				else 
-				local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY)
-				local Elf_EXP = GetItemAttr(Item_Traget,ITEMATTR_ENERGY)
+				local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY) --×î´óÄÜÁ¿¼ÇÂ¼×çÖäµãÊý
+				local Elf_EXP = GetItemAttr(Item_Traget,ITEMATTR_ENERGY) --×î´óÄÜÁ¿¼ÇÂ¼×çÖäµãÊý
 					Elf_MaxEXP = Elf_MaxEXP + 1
 					Elf_EXP = Elf_EXP + 1
-					SystemNotice( role , "\202 \241\238\230\224\235\229\237\232\254, \192\235\242\224\240\252 \225\251\235 \239\240\238\234\235\255\242 \228\243\248\238\233 \247\229\240\237\238\227\238 \228\240\224\234\238\237\224" ) 
+					SystemNotice( role , "Unfortunately, the Altar has been cursed by the soul of the black dragon" ) 
 					SetItemAttr( Item_Traget ,ITEMATTR_MAXENERGY ,Elf_MaxEXP )
 					SetItemAttr( Item_Traget ,ITEMATTR_ENERGY ,Elf_EXP )
 				end 
 		end 
 end
 
---Ñèëà ãðîìà (ID 0269)
+----------------À×Ö®Á¦Ê¹ÓÃ---------------------------dex = GetItemAttr( Item_Traget ,ITEMATTR_VAL_DEX )       --×¨×¢
 function ItemUse_LZli ( role , Item , Item_Traget ) 
 	local Item_ID = GetItemID ( Item_Traget )
 	if Item_ID ~= 266 then
-		SystemNotice(role ,"\207\238\230\224\235\243\233\241\242\224, \239\238\236\229\241\242\232\242\229 \209\232\235\243 \227\240\238\236\224 \237\224 \224\235\242\224\240\252")
+		SystemNotice(role ,"Please place Power of Thunder on the altar")
 		UseItemFailed ( role )
 		return
 	end
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" ) 
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 		local Item_type = GetItemType ( Item )
 		local Item_Traget_Type = GetItemType ( Item_Traget )
 		if Item_type == 66 and Item_Traget_Type == 65 then
-				local dex = GetItemAttr( Item_Traget ,ITEMATTR_VAL_DEX )
+				local dex = GetItemAttr( Item_Traget ,ITEMATTR_VAL_DEX )       --Á¦Á¿
 					if dex >= 5 then
 					UseItemFailed ( role )
 					return
 					end
 				local rad = math.random ( 1, 100 )
 				 if rad<=50 then
-					local Elf_URE = GetItemAttr(Item_Traget,ITEMATTR_URE)
+					local Elf_URE = GetItemAttr(Item_Traget,ITEMATTR_URE) --µ±Ç°ÄÍ¾Ã¼ÇÂ¼Ê£Óà·âÓ¡µãÊý
 					dex = dex + 1
 					if Elf_URE >= 50 then
 					Elf_URE = Elf_URE-50
@@ -9407,30 +10312,30 @@ function ItemUse_LZli ( role , Item , Item_Traget )
 					SetItemAttr( Item_Traget ,ITEMATTR_VAL_DEX ,dex )
 					SetItemAttr( Item_Traget ,ITEMATTR_URE ,Elf_URE )
 				else 
-				local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY)
-				local Elf_EXP = GetItemAttr(Item_Traget,ITEMATTR_ENERGY)
+				local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY) --×î´óÄÜÁ¿¼ÇÂ¼×çÖäµãÊý
+				local Elf_EXP = GetItemAttr(Item_Traget,ITEMATTR_ENERGY) --×î´óÄÜÁ¿¼ÇÂ¼×çÖäµãÊý
 					Elf_MaxEXP = Elf_MaxEXP + 1
 					Elf_EXP = Elf_EXP + 1
-					SystemNotice( role , "\202 \241\238\230\224\235\229\237\232\254, \192\235\242\224\240\252 \225\251\235 \239\240\238\234\235\255\242 \228\243\248\238\233 \247\229\240\237\238\227\238 \228\240\224\234\238\237\224" ) 
+					SystemNotice( role , "Unfortunately, the Altar has been cursed by the soul of the black dragon" ) 
 					SetItemAttr( Item_Traget ,ITEMATTR_MAXENERGY ,Elf_MaxEXP )
 					SetItemAttr( Item_Traget ,ITEMATTR_ENERGY ,Elf_EXP )
 				end 
 		end 
 end
-
---Àíãåëüñêèå êîñòè (ID 0271)
+----------------ÌìÊ¹÷»×ÓÊ¹ÓÃ-------------------------
 function ItemUse_ZhuFu ( role , Item , Item_Traget ) 
 	local Item_ID = GetItemID ( Item_Traget )
 	if Item_ID ~= 266 then
-		SystemNotice(role ,"\207\238\230\224\235\243\233\241\242\224 \239\238\228\242\226\229\240\228\232\242\229 \232\241\239\238\235\252\231\238\226\224\237\232\229 \192\237\227\229\235\252\241\234\232\245 \202\238\241\242\229\233")
+		SystemNotice(role ,"Please confirm to use Angelic Dice")
 		UseItemFailed ( role )
 		return
 	end
-	local Elf_EXP = GetItemAttr(Item_Traget,ITEMATTR_ENERGY)
-	local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY)
+	local Elf_EXP = GetItemAttr(Item_Traget,ITEMATTR_ENERGY) --µ±Ç°ÄÜÁ¿¼ÇÂ¼×çÖäµãÊý
+	local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY) --×î´óÄÜÁ¿¼ÇÂ¼×çÖäµãÊý
 
-	if Elf_EXP == 0 then
+	if Elf_EXP ==0 then
 		UseItemFailed ( role )
+		
 		return
 	end
 	local rad = math.random ( 1, 100 )
@@ -9439,7 +10344,7 @@ function ItemUse_ZhuFu ( role , Item , Item_Traget )
 		if rad <= 30 then
 			Elf_EXP = Elf_EXP -1
 		else
-			SystemNotice(role ,"\192\237\227\229\235\252\241\234\232\229 \234\238\241\242\232, \234\238\242\238\240\251\229 \194\251 \232\241\239\238\235\252\231\238\226\224\235\232, \232\236\229\235\232 \239\235\238\245\238\229 \234\224\247\229\241\242\226\238, \239\240\238\234\235\255\242\232\229 \237\229 \225\251\235\238 \241\237\255\242\238.")
+			SystemNotice(role ,"The angelic dice you used was of bad quality, the curse was not lifted.")
 		end
 	end
 
@@ -9447,7 +10352,7 @@ function ItemUse_ZhuFu ( role , Item , Item_Traget )
 		if rad <= 50 then
 			Elf_EXP = Elf_EXP -1
 		else
-			SystemNotice(role ,"\192\237\227\229\235\252\241\234\232\229 \234\238\241\242\232, \234\238\242\238\240\251\229 \194\251 \232\241\239\238\235\252\231\238\226\224\235\232, \232\236\229\235\232 \239\235\238\245\238\229 \234\224\247\229\241\242\226\238, \239\240\238\234\235\255\242\232\229 \237\229 \225\251\235\238 \241\237\255\242\238.")
+			SystemNotice(role ,"The angelic dice you used was of bad quality, the curse was not lifted.")
 		end
 	end
 
@@ -9455,7 +10360,7 @@ function ItemUse_ZhuFu ( role , Item , Item_Traget )
 		if rad <= 80 then
 			Elf_EXP = Elf_EXP -1
 		else
-			SystemNotice(role ,"\192\237\227\229\235\252\241\234\232\229 \234\238\241\242\232, \234\238\242\238\240\251\229 \194\251 \232\241\239\238\235\252\231\238\226\224\235\232, \232\236\229\235\232 \239\235\238\245\238\229 \234\224\247\229\241\242\226\238, \239\240\238\234\235\255\242\232\229 \237\229 \225\251\235\238 \241\237\255\242\238.")
+			SystemNotice(role ,"The angelic dice you used was of bad quality, the curse was not lifted.")
 		end
 	end
 
@@ -9467,11 +10372,7 @@ function ItemUse_ZhuFu ( role , Item , Item_Traget )
 	SetItemAttr( Item_Traget ,ITEMATTR_MAXENERGY ,Elf_EXP )
 end
 
---------------------------------------------------------------------------------------------------
---Ìåøî÷êè\Ãðàí-ïðè
---------------------------------------------------------------------------------------------------
-
---Ïîñûëêà ñ óäà÷íûì ïîäàðêîì (ID 1094)
+--Ò»ÔªºÃÀñ°ü
 function ItemUse_YiYuanHaoYunBOX ( role , Item )
 	local Percentage = Percentage_Random ( 0.1 )
 			if Percentage == 1 then
@@ -9480,19 +10381,25 @@ function ItemUse_YiYuanHaoYunBOX ( role , Item )
 				local item_type = BoxXiang_YiYuanBOX
 				local item_type_rad = BoxXiang_YiYuanBOX_Rad 
 				local item_type_count = BoxXiang_YiYuanBOX_Count 
-				local maxitem = BoxXiang_YiYuanBOX_Mxcount
+				local maxitem = BoxXiang_YiYuanBOX_Mxcount						-- ÖÕ½á±àºÅ
 				local item_quality = BoxXiang_YiYuanBOX_Qua
 				local General = 0  
 				local ItemId = 0 
-
+			--	local Item_CanGet = GetChaFreeBagGridNum ( role )
+				
+			--	if Item_CanGet <= 1 then
+			--		SystemNotice(role ,"Insufficient space in inventory. Unable to use Prosperous Packet")
+			--		UseItemFailed ( role )
+			--		return
+			--	end
 				for i = 1 , maxitem , 1 do 
 					General = item_type_rad [ i ] + General		
 				end 
 				local a = math.random ( 1, General )
 				local b = 0
 				local d = 0 
-				local c = -1
-				for k = 1 , maxitem , 1 do
+				local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+				for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 					d = item_type_rad [ k ] + b
 
@@ -9534,18 +10441,18 @@ function ItemUse_YiYuanHaoYunBOX ( role , Item )
 					if ItemId == GoodItem[Good_C] then
 						local itemname = GetItemName ( ItemId ) 
 						local cha_name = GetChaDefaultName ( role ) 
-						local message = cha_name.." \238\242\234\240\251\226\224\229\242 \207\238\241\251\235\234\243 \241 \243\228\224\247\237\251\236 \239\238\228\224\240\234\238\236 \232 \239\238\235\243\247\224\229\242"..itemname  
+						local message = cha_name.." opens a Lucky Packet and obtain"..itemname  
 						Notice ( message )
 					end
 				end
 			end 
 	end
 
---Ãðàí-ïðè (ID 0272)
+---------------ÌØµÈ½±
 function ItemUse_tedengjiang ( role , Item )
 local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 3 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \241\226\238\225\238\228\237\251\245 \241\235\238\242\238\226 \226 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"Insufficient slots in inventory")
 		UseItemFailed ( role )
 		return
 	end
@@ -9553,29 +10460,30 @@ local Item_CanGet = GetChaFreeBagGridNum ( role )
 	GiveItem ( role , 0 , 846  , 1 , 16  )  
 	GiveItem ( role , 0 , 847  , 1 , 16  ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \195\240\224\237-\239\240\232 \232 \239\238\235\243\247\224\229\242 \209\237\224\240\255\230\229\237\232\229 \215\229\240\237\238\227\238 \196\240\224\234\238\237\224"
+	local message = cha_name.." opens the Grand Prize and obtain Black Dragon set"
 		Notice ( message )
 end
 
---Ïåðâûé ïðèç ID 0273)
+
+-----------------------Ò»µÈ½±
 function ItemUse_yidengjiang ( role , Item )
 local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 1 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \241\226\238\225\238\228\237\251\245 \241\235\238\242\238\226 \226 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"Insufficient slots in inventory")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 0853  , 1 , 4 ) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \207\229\240\226\251\233 \239\240\232\231 \232 \239\238\235\243\247\224\229\242 \198\243\240\237\224\235 \241\247\224\241\242\235\232\226\251\233 \238\242\228\251\245" 
+	local message = cha_name.." opens the First Prize and obtain a Happy Holiday Magazine" 
 		Notice ( message )
 end
 
---Âòîðîé ïðèç (ID 0274)
+---------------------------¶þµÈ½±
 function ItemUse_erdengjiang ( role , Item )
 local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 14 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \241\226\238\225\238\228\237\251\245 \241\235\238\242\238\226 \226 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"Insufficient slots in inventory")
 		UseItemFailed ( role )
 		return
 	end
@@ -9617,15 +10525,16 @@ local Item_CanGet = GetChaFreeBagGridNum ( role )
 	GiveItem ( role , 0 , 5038  , 1 , 4 )
 	end
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \194\242\238\240\238\233 \239\240\232\231 \232 \239\238\235\243\247\224\229\242 10 \211\241\232\235\232\226\224\254\249\232\245 \234\240\232\241\242\224\235\235\238\226 \232 1 \237\224\225\238\240 \243\234\240\224\248\229\237\232\233"   
+	local message = cha_name.." opens the Second Prize and obtain 10 Strengthening Crystal and 1 set of Apparel"   
 		Notice ( message )
 end
 
---Ïðèç çà òðåòüå ìåñòî (ID 0275)
+	
+--------------------------ÈýµÈ½±
 function ItemUse_sandengjiang ( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 2 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \241\226\238\225\238\228\237\251\245 \241\235\238\242\238\226 \226 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"Insufficient slots in inventory")
 		UseItemFailed ( role )
 		return
 	end
@@ -9638,25 +10547,30 @@ function ItemUse_sandengjiang ( role , Item )
 	end
 end
 
---Ïîñûëêà 99 (ID 1095)
+--99±¬Õ¨°ü
 function ItemUse_BaoZhaBOX ( role , Item )
 	local item_type = BoxXiang_BaoZhaBOX
 	local item_type_rad = BoxXiang_BaoZhaBOX_Rad
 	local item_type_count = BoxXiang_BaoZhaBOX_Count
-	local maxitem = BoxXiang_baozhabao_Mxcount
+	local maxitem = BoxXiang_baozhabao_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BoxXiang_baozhabao_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
-
+		
+	--if Item_CanGet <= 1 then
+		--SystemNotice(role ,"Insufficient space in inventory. Unable to use Prosperous Packet")
+		--UseItemFailed ( role )
+		--return
+	--end
 	for i = 1 , maxitem , 1 do 
 		General = item_type_rad [ i ] + General		
 	end 
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1	
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 		d = item_type_rad [ k ] + b
 
 		 if a <= d and a > b then
@@ -9699,22 +10613,22 @@ function ItemUse_BaoZhaBOX ( role , Item )
 		if ItemId == GoodItem[Good_C] then
 			local itemname = GetItemName ( ItemId ) 
 			local cha_name = GetChaDefaultName ( role ) 
-			local message = cha_name.." \238\242\234\240\251\226\224\229\242 \207\238\241\251\235\234\243 99 \232 \239\238\235\243\247\224\229\242 "..itemname  
+			local message = cha_name.." opens a 99 Parcel and obtain "..itemname  
 			Notice ( message )
 		end
 	end
 end
 
---Ïàãîíà ðåèíêàðíàöèè (ID 0240)
+-------------------------------------ÒõÑôÎåÐÐÂÖ»ØËþ
 function ItemUse_wxlh( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet <1 then
-		SystemNotice(role ,"\210\240\229\225\243\229\242\241\255 1 \241\226\238\225\238\228\237\251\233 \241\235\238\242 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"To open a Chest requires 1 empty slot")
 		UseItemFailed ( role )
 		return
 	end
 	local r1,r2 =MakeItem ( role , SI  , SN , SE )
-	local Item_star = GetChaItem ( role , 2 , r2 )
+	local Item_star = GetChaItem ( role , 2 , r2 )			--È¡µÀ¾ßÖ¸Õë
 	local num={}
 	local numAttr={}
 	local b = 0
@@ -9724,12 +10638,13 @@ function ItemUse_wxlh( role , Item )
 		numAttr [b]=0
 	end
 	b = 0
-	for i=1,47,1 do
+	for i=1,47,1 do		---------------È¡µ½µÀ¾ßµÄÈ«²¿ÊµÀý»¯ÊôÐÔ
 	    a [i]=GetItemAttr ( Item_star , i )
 		if a [i]~=0 then
+	--		SystemNotice( role , a [i] )
 				b = b + 1
-				num [b]=i
-				numAttr [b]=a[i]
+				num [b]=i    -------------num [b]¼ÇÂ¼ÊµÀý»ªÊôÐÔµÄ±àºÅ
+				numAttr [b]=a[i] ------------ÏÖÓÐµÄ¸÷ÊµÀý»¯ÊôÐÔÖµ
 		end
 	end
 	SetItemAttr ( Item_star ,num [1] , SA1 )
@@ -9739,21 +10654,21 @@ function ItemUse_wxlh( role , Item )
 	SetItemAttr ( Item_star ,num [5] , SA5)
 
 end
-
---------------------------------------------------------------------------------------------------
---Ðàñïèñêè íà óíèêàëüíûå êîëüöà
---------------------------------------------------------------------------------------------------
-
---Ðàñïèñêà íà óíèêàëüíîå êîëüöî ID 0580)
+----------------------------------¸ß¼¶½äÖ¸¶Ò»»
 function ItemUse_Sjz( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 5 then
-		SystemNotice(role ,"\215\242\238\225\251 \232\241\239\238\235\252\231\238\226\224\242\252 \208\224\241\239\232\241\234\243 \237\224 \243\237\232\234\224\235\252\237\238\229 \234\238\235\252\246\238 \239\238 \234\240\224\233\237\229\233 \236\229\240\229 \242\240\229\225\243\229\242\241\255 5 \241\226\238\225\238\228\237\251\245 \241\235\238\242\238\226 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"Inventory requires at least 5 empty slots to use Unique Ring Voucher")
 		UseItemFailed ( role )
 		return
 	end
 	local rad = math.random ( 1, 5 )
 	if rad ==1 then
+	--ÎÀ±øµÄ¼á³Ö
+	--¹ÅÊ÷Çò¸ù
+	--Á¦Á¿·âÓ¡
+	--À×Ö®´¸
+	--±ÈÌØµÄºô»½
 	GiveItem ( role , 0 , 281  , 1 , 4 )	
 	GiveItem ( role , 0 , 286  , 1 , 4 )	
 	GiveItem ( role , 0 , 324  , 1 , 4 )	
@@ -9761,6 +10676,11 @@ function ItemUse_Sjz( role , Item )
 	GiveItem ( role , 0 , 387  , 1 , 4 )	
 	end
 	if rad ==2 then
+	--µÁÔôµÄ¿úÌ½
+	--ÎåÔÂÖ®·ç
+	--ÓÄÀÇ»·¿Û
+	--ÉÁµçÖ®ÑÛ
+	--°¬Î¬¶ûÖ®ÎÇ
 	GiveItem ( role , 0 , 282  , 1 , 4 )	
 	GiveItem ( role , 0 , 287  , 1 , 4 )	
 	GiveItem ( role , 0 , 327  , 1 , 4 )	
@@ -9768,6 +10688,11 @@ function ItemUse_Sjz( role , Item )
 	GiveItem ( role , 0 , 414  , 1 , 4 )		
 	end
 	if rad ==3 then
+	--ÁÔÊÖÖ®Á¦
+	--¾«ÁéµÄÒÀÁµ
+	--ÁúÒíÖ¸»·
+	--¹âÖ®Òí
+	--À×Å·µÄ·ßÅ­
 	GiveItem ( role , 0 , 283  , 1 , 4 )	
 	GiveItem ( role , 0 , 288  , 1 , 4 )	
 	GiveItem ( role , 0 , 328  , 1 , 4 )	
@@ -9775,6 +10700,11 @@ function ItemUse_Sjz( role , Item )
 	GiveItem ( role , 0 , 415  , 1 , 4 )	
 	end
 	if rad ==4 then
+	--ÐÅÍ½Ö®»·
+	--¿àÐÐÉ®
+	--¶À½ÇÊÞµÄ×£¸£
+	--³¿ÖÓ
+	--Ð¡É½³µµÄÇ¸Òâ
 	GiveItem ( role , 0 , 284  , 1 , 4 )	
 	GiveItem ( role , 0 , 524  , 1 , 4 )	
 	GiveItem ( role , 0 , 329  , 1 , 4 )	
@@ -9782,6 +10712,11 @@ function ItemUse_Sjz( role , Item )
 	GiveItem ( role , 0 , 416  , 1 , 4 )		
 	end
 	if rad ==5 then
+	--Áé»·
+	--Ê¥»·
+	--ÌìÊ¹µÄ±¯Ãù
+	--Ììô¥
+	--Ê¥Å®µÄ·îÏ×
 	GiveItem ( role , 0 , 285  , 1 , 4 )	
 	GiveItem ( role , 0 , 321  , 1 , 4 )	
 	GiveItem ( role , 0 , 330  , 1 , 4 )	
@@ -9789,17 +10724,21 @@ function ItemUse_Sjz( role , Item )
 	GiveItem ( role , 0 , 417  , 1 , 4 )			
 	end
 end
-
---Ðàñïèñêà íà óíèêàëüíîå îæåðåëüå (ID 0581)
+----------------------------------¸ß¼¶ÏîÁ´¶Ò»»
 function ItemUse_Sxl( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 5 then
-		SystemNotice(role ,"\215\242\238\225\251 \232\241\239\238\235\252\231\238\226\224\242\252 \208\224\241\239\232\241\234\243 \237\224 \243\237\232\234\224\235\252\237\238\229 \238\230\229\240\229\235\252\229 \239\238 \234\240\224\233\237\229\233 \236\229\240\229 \242\240\229\225\243\229\242\241\255 5 \241\226\238\225\238\228\237\251\245 \241\235\238\242\238\226 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"Inventory requires at least 5 empty slots to use Unique Necklace Voucher")
 		UseItemFailed ( role )
 		return
 	end
 	local rad = math.random ( 1, 2 )
 	if rad ==1 then
+	--Ì«ÑôÊ¯×¹×Ó
+	--ºÚÒ«Ê¯µÄÉÁ¹â
+	--Í»·ç
+	--¿ì²½Ã°ÏÕÕß
+	--ÐÄÁéÓÀ¶¯»ú
 	GiveItem ( role , 0 , 418  , 1 , 4 )	
 	GiveItem ( role , 0 , 420  , 1 , 4 )	
 	GiveItem ( role , 0 , 739  , 1 , 4 )	
@@ -9807,6 +10746,11 @@ function ItemUse_Sxl( role , Item )
 	GiveItem ( role , 0 , 495  , 1 , 4 )		
 	end
 	if rad ==2 then
+	--°×½ðÏîÁ´
+	--·çÖ®ÐÅÊ¹
+	--±ù¾§ÏÉ×Ó
+	--ÃÔ¹¬Ì½Ë÷Õß
+	--ÌìÓÓµÄ´ïÈË
 	GiveItem ( role , 0 , 419  , 1 , 4 )	
 	GiveItem ( role , 0 , 421  , 1 , 4 )	
 	GiveItem ( role , 0 , 461  , 1 , 4 )	
@@ -9814,17 +10758,21 @@ function ItemUse_Sxl( role , Item )
 	GiveItem ( role , 0 , 497  , 1 , 4 )		
 	end
 end
-
---Ðàñïèñêà íà óíèêàëüíûé êîðàëë (ID 0582)
+----------------------------------¸ß¼¶±´¿Ç¶Ò»»
 function ItemUse_Sbk( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 5 then
-		SystemNotice(role ,"\215\242\238\225\251 \232\241\239\238\235\252\231\238\226\224\242\252 \208\224\241\239\232\241\234\243 \237\224 \243\237\232\234\224\235\252\237\251\233 \234\238\240\224\235\235 \239\238 \234\240\224\233\237\229\233 \236\229\240\229 \242\240\229\225\243\229\242\241\255 5 \241\226\238\225\238\228\237\251\245 \241\235\238\242\238\226 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"Inventory requires at least 5 empty slots to use Unique Coral Voucher")
 		UseItemFailed ( role )
 		return
 	end
 	local rad = math.random ( 1, 2 )
 	if rad ==1 then
+	--Ñ§Í½ÓÃÀ×±´
+	--Í¨ÓÃÐÍÀ×±´
+	--ÖÐ¼¶À×Ö®±´
+	--¸ß¼¶À×Ö®±´
+	--À×Éñ±´2006
 	GiveItem ( role , 0 , 498  , 1 , 4 )	
 	GiveItem ( role , 0 , 503  , 1 , 4 )	
 	GiveItem ( role , 0 , 504  , 1 , 4 )	
@@ -9832,6 +10780,11 @@ function ItemUse_Sbk( role , Item )
 	GiveItem ( role , 0 , 506  , 1 , 4 )		
 	end
 	if rad ==2 then
+	--Ñ§Í½ÓÃ·ç±´  
+	--Í¨ÓÃÐÍ·ç±´  
+	--ÖÐ¼¶·çÖ®±´  
+	--¸ß¼¶·çÖ®±´  
+	--·çÉñ±´2006 
 	GiveItem ( role , 0 , 508  , 1 , 4 )	
 	GiveItem ( role , 0 , 509  , 1 , 4 )	
 	GiveItem ( role , 0 , 510  , 1 , 4 )	
@@ -9839,12 +10792,7 @@ function ItemUse_Sbk( role , Item )
 	GiveItem ( role , 0 , 523  , 1 , 4 )		
 	end
 end
-
---------------------------------------------------------------------------------------------------
---Áèëåòû
---------------------------------------------------------------------------------------------------
-
---Ïðîïóñê íà îñòðîâ Ëåòà (ID 0563)
+----ÏÄµº·É»úÆ±-------------------------------------------------------------------------------------------------------------------------------------
 function Jz_Script_xdfjp(role, Item )
 	local i = CheckBagItem(role,563)
 	local k = ChaIsBoat(role)
@@ -9853,7 +10801,7 @@ function Jz_Script_xdfjp(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -9861,12 +10809,7 @@ function Jz_Script_xdfjp(role, Item )
 		if i > 0 then
 			local j = DelBagItem(role,563,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 76
-					teleport( role, n )
-				else
-					MoveCity( role, "Summer Island" )
-				end
+				MoveCity(role,"Summer Island")
 				return
 			end
 		end
@@ -9876,7 +10819,7 @@ function Jz_Script_xdfjp(role, Item )
 		
 end
 
---Ïðîïóñê íà îñòðîâ Îñåíè (ID 0583)
+----Çïµº·É»úÆ±-------------------------------------------------------------------------------------------------------------------------------------
 function Jz_Script_qdfjp(role, Item )
 	local i = CheckBagItem(role,583)
 	local k = ChaIsBoat(role)
@@ -9885,7 +10828,7 @@ function Jz_Script_qdfjp(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -9893,39 +10836,34 @@ function Jz_Script_qdfjp(role, Item )
 		if i > 0 then
 			local j = DelBagItem(role,583,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 77
-					teleport( role, n )
-				else
-					MoveCity( role, "Autumn Island" )
-				end
+				MoveCity(role,"Autumn Island")
 				return
 			end
 		end
 	else
 		UseItemFailed ( role )
 	end
+		
 end
-
---Ñóïåðëåäåíåö (ID 0584)
+----³¬ÈË°ô°ôÌÇ-------------------------------------------------------------------------------------------------------------------------------------
 function ItemUse_Crbbt(role, Item )
+--	SystemNotice(role ,"The item has gone rusty and has lost its effect, don't be too sad")
 	local statelv = 1
 	local statetime = 20
 	AddState( role , role , STATE_CJBBT , statelv , statetime )
 end
-
---Îãðîìíàÿ øîêîëàäêà (ID 0585)
+----¾ÞÈËÇÉ¿ËÁ¦-------------------------------------------------------------------------------------------------------------------------------------
 function ItemUse_Jrqkl(role, Item )
+--	SystemNotice(role ,"The item has gone rusty and has lost its effect, don't be too sad")
 	local statelv = 1
 	local statetime = 20
 	AddState( role , role , STATE_JRQKL , statelv , statetime )
 end
-
---Þáèëåéíûé ñóíäóê (ID 1096)
+--ÖÜËêÉúÈÕ
 function ItemUse_ZhouSuiBOX ( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet < 2 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \222\225\232\235\229\233\237\251\233 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open Birthday Package")
 		UseItemFailed ( role )
 		return
 	end
@@ -9933,7 +10871,7 @@ function ItemUse_ZhouSuiBOX ( role , Item )
 	local item_type = BoxXiang_ZhousSuiBOX
 	local item_type_rad = BoxXiang_ZhousSuiBOX_Rad 
 	local item_type_count = BoxXiang_ZhousSuiBOX_Count 
-	local maxitem = BoxXiang_ZhouSui_Mxcount
+	local maxitem = BoxXiang_ZhouSui_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BoxXiang_ZhouSui_Qua
 	local General = 0  
 	local ItemId = 0 
@@ -9944,8 +10882,8 @@ function ItemUse_ZhouSuiBOX ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -9964,39 +10902,32 @@ function ItemUse_ZhouSuiBOX ( role , Item )
 	GiveItem ( role , 0 , ItemId , ItemCount , item_quality )
 	if ItemId ==  0853 then
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \222\225\232\235\229\233\237\251\233 \241\243\237\228\243\234 \232 \239\238\235\243\247\224\229\242 \198\243\240\237\224\235 \209\247\224\241\242\235\232\226\251\233 \206\242\228\251\245" 
+	local message = cha_name.." opens Anniversary Chest and obtain Happy Holiday Magazine" 
 	Notice ( message )
 	end
 end
-
---Êóïþðà äîñòîèíñòâîì ìèëëèîí äîëëàðîâ (ID 0854)
+-------------------------------°ÙÍò´ó³®ItemUse_CZHe
 function ItemUse_CZHe( role , Item ) 							
  	local Money_add = 1000000
 	local Money_Have = GetChaAttr ( role , ATTR_GD )
 	if Money_Have>=999900000 then
-		SystemNotice (role, "\211 \194\224\241 \241\235\232\248\234\238\236 \236\237\238\227\238 \231\238\235\238\242\224. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \239\240\229\228\236\229\242")
+		SystemNotice (role, "Your account is saturated. Unable to use item")
 		UseItemFailed ( role )
 		return	
 	end
 	AddMoney ( role , 0 , Money_add )
 end 
-
---------------------------------------------------------------------------------------------------
---ßéöà ôåé è Áèëåò â êàðèáñêîå ïóòåøåñòâèå
---------------------------------------------------------------------------------------------------
-
---ßéöî Ìîðäî (ID 0679)
+-----------------------------------Ä¦¶¹Ð¡×Ó¾«Áéµ°ItemUse_MDXZJLD
 function ItemUse_MDXZJLD ( role, Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \223\233\246\238 \204\238\240\228\238")
+		SystemNotice(role ,"Insufficient inventory space. Unable to use pet egg")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 680  , 1 , 4 ) 
 end
-
---Áèëåò â êàðèáñêîå ïóòåøåñòâèå (ID 2445)
+----¼ÓÀÕ±È¹Û¹âÆ±-------------------------------------------------------------------------------------------------------------------------------------
 function Jz_Script_jialebi(role, Item )
 	local i = CheckBagItem(role,2445)
 	local k = ChaIsBoat(role)
@@ -10005,7 +10936,7 @@ function Jz_Script_jialebi(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -10013,30 +10944,25 @@ function Jz_Script_jialebi(role, Item )
 		if i > 0 then
 			local j = DelBagItem(role,2445,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 78
-					teleport( role, n )
-				else
-					MoveCity( role, "Caribbean" )
-				end
+				MoveCity(role,"Caribbean")
 				return
 			end
 		end
 	else
 		UseItemFailed ( role )
 	end
+		
 end
-
---ßéöî Óäà÷è (ID 0571)
+----------------------------------ÔËÖ®¾«Áéµ°
 function ItemUse_YZJLD( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \223\233\246\238 \211\228\224\247\232")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Egg of Luck")
 		UseItemFailed ( role )
 		return
 	end
 	local Num_newJL = GetItemForgeParam ( Item , 1 )
-	local Part1_newJL = GetNum_Part1 ( Num_newJL )
+	local Part1_newJL = GetNum_Part1 ( Num_newJL )	--Get Num Part 1 µ½ Part 7
 	local Part2_newJL = GetNum_Part2 ( Num_newJL )	
 	local Part3_newJL = GetNum_Part3 ( Num_newJL )
 
@@ -10076,7 +11002,7 @@ function ItemUse_YZJLD( role , Item )
 		end
 	end
 	local r1,r2 =MakeItem ( role , 231  , 1 , 4 )
-	local Item_newJL = GetChaItem ( role , 2 , r2 )
+	local Item_newJL = GetChaItem ( role , 2 , r2 )			--È¡ÐÂ¾«ÁéµÀ¾ßÖ¸Õë
 	SetItemAttr ( Item_newJL , ITEMATTR_VAL_STR , new_str )
 	SetItemAttr( Item_newJL , ITEMATTR_VAL_DEX , new_dex )	 
 	SetItemAttr ( Item_newJL , ITEMATTR_VAL_STA , new_sta )
@@ -10085,17 +11011,16 @@ function ItemUse_YZJLD( role , Item )
 	SetItemAttr ( Item_newJL , ITEMATTR_MAXENERGY , new_MAXENERGY ) 	
 	SetItemAttr ( Item_newJL , ITEMATTR_MAXURE , new_MAXURE )
 end
-
---ßéöî òåëîñëîæåíèÿ (ID 0572)
+----------------------------------ÌåÖ®¾«Áéµ°
 function ItemUse_TZJLD( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \223\233\246\238 \242\229\235\238\241\235\238\230\229\237\232\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Egg of Constitution")
 		UseItemFailed ( role )
 		return
 	end
 	local Num_newJL = GetItemForgeParam ( Item , 1 )
-	local Part1_newJL = GetNum_Part1 ( Num_newJL )
+	local Part1_newJL = GetNum_Part1 ( Num_newJL )	--Get Num Part 1 µ½ Part 7
 	local Part2_newJL = GetNum_Part2 ( Num_newJL )	
 	local Part3_newJL = GetNum_Part3 ( Num_newJL )
 
@@ -10135,7 +11060,7 @@ function ItemUse_TZJLD( role , Item )
 		end
 	end
 	local r1,r2 =MakeItem ( role , 233  , 1 , 4 )
-	local Item_newJL = GetChaItem ( role , 2 , r2 )	
+	local Item_newJL = GetChaItem ( role , 2 , r2 )			--È¡ÐÂ¾«ÁéµÀ¾ßÖ¸Õë
 	SetItemAttr ( Item_newJL , ITEMATTR_VAL_STR , new_str )
 	SetItemAttr( Item_newJL , ITEMATTR_VAL_DEX , new_dex )	 
 	SetItemAttr ( Item_newJL , ITEMATTR_VAL_STA , new_sta )
@@ -10144,17 +11069,16 @@ function ItemUse_TZJLD( role , Item )
 	SetItemAttr ( Item_newJL , ITEMATTR_MAXENERGY , new_MAXENERGY ) 	
 	SetItemAttr ( Item_newJL , ITEMATTR_MAXURE , new_MAXURE )
 end
-
---ßéöî Ñèëû (ID 0573)
+----------------------------------Á¦Ö®¾«Áéµ°
 function ItemUse_LZJLD( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \223\233\246\238 \209\232\235\251")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Egg of Strength")
 		UseItemFailed ( role )
 		return
 	end
 	local Num_newJL = GetItemForgeParam ( Item , 1 )
-	local Part1_newJL = GetNum_Part1 ( Num_newJL )
+	local Part1_newJL = GetNum_Part1 ( Num_newJL )	--Get Num Part 1 µ½ Part 7
 	local Part2_newJL = GetNum_Part2 ( Num_newJL )	
 	local Part3_newJL = GetNum_Part3 ( Num_newJL )
 
@@ -10194,7 +11118,7 @@ function ItemUse_LZJLD( role , Item )
 		end
 	end
 	local r1,r2 =MakeItem ( role , 232  , 1 , 4 )
-	local Item_newJL = GetChaItem ( role , 2 , r2 )
+	local Item_newJL = GetChaItem ( role , 2 , r2 )			--È¡ÐÂ¾«ÁéµÀ¾ßÖ¸Õë
 	SetItemAttr ( Item_newJL , ITEMATTR_VAL_STR , new_str )
 	SetItemAttr( Item_newJL , ITEMATTR_VAL_DEX , new_dex )	 
 	SetItemAttr ( Item_newJL , ITEMATTR_VAL_STA , new_sta )
@@ -10203,17 +11127,16 @@ function ItemUse_LZJLD( role , Item )
 	SetItemAttr ( Item_newJL , ITEMATTR_MAXENERGY , new_MAXENERGY ) 	
 	SetItemAttr ( Item_newJL , ITEMATTR_MAXURE , new_MAXURE )
 end
-
---ßéöî Äóõà (ID 0574)
+----------------------------------ÉñÖ®¾«Áéµ°
 function ItemUse_SZJLD( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \223\233\246\238 \196\243\245\224")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Egg of Spirit")
 		UseItemFailed ( role )
 		return
 	end
 	local Num_newJL = GetItemForgeParam ( Item , 1 )
-	local Part1_newJL = GetNum_Part1 ( Num_newJL )
+	local Part1_newJL = GetNum_Part1 ( Num_newJL )	--Get Num Part 1 µ½ Part 7
 	local Part2_newJL = GetNum_Part2 ( Num_newJL )	
 	local Part3_newJL = GetNum_Part3 ( Num_newJL )
 
@@ -10253,7 +11176,7 @@ function ItemUse_SZJLD( role , Item )
 		end
 	end
 	local r1,r2 =MakeItem ( role , 234  , 1 , 4 )
-	local Item_newJL = GetChaItem ( role , 2 , r2 )
+	local Item_newJL = GetChaItem ( role , 2 , r2 )			--È¡ÐÂ¾«ÁéµÀ¾ßÖ¸Õë
 	SetItemAttr ( Item_newJL , ITEMATTR_VAL_STR , new_str )
 	SetItemAttr( Item_newJL , ITEMATTR_VAL_DEX , new_dex )	 
 	SetItemAttr ( Item_newJL , ITEMATTR_VAL_STA , new_sta )
@@ -10262,17 +11185,16 @@ function ItemUse_SZJLD( role , Item )
 	SetItemAttr ( Item_newJL , ITEMATTR_MAXENERGY , new_MAXENERGY ) 	
 	SetItemAttr ( Item_newJL , ITEMATTR_MAXURE , new_MAXURE )
 end
-
---ßéöî Òî÷íîñòè (ID 0575)
+----------------------------------×¨Ö®¾«Áéµ°
 function ItemUse_ZZJLD( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \223\233\246\238 \210\238\247\237\238\241\242\232")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Egg of Accuracy")
 		UseItemFailed ( role )
 		return
 	end
 	local Num_newJL = GetItemForgeParam ( Item , 1 )
-	local Part1_newJL = GetNum_Part1 ( Num_newJL )
+	local Part1_newJL = GetNum_Part1 ( Num_newJL )	--Get Num Part 1 µ½ Part 7
 	local Part2_newJL = GetNum_Part2 ( Num_newJL )	
 	local Part3_newJL = GetNum_Part3 ( Num_newJL )
 
@@ -10312,7 +11234,7 @@ function ItemUse_ZZJLD( role , Item )
 		end
 	end
 	local r1,r2 =MakeItem ( role , 235  , 1 , 4 )
-	local Item_newJL = GetChaItem ( role , 2 , r2 )
+	local Item_newJL = GetChaItem ( role , 2 , r2 )			--È¡ÐÂ¾«ÁéµÀ¾ßÖ¸Õë
 	SetItemAttr ( Item_newJL , ITEMATTR_VAL_STR , new_str )
 	SetItemAttr( Item_newJL , ITEMATTR_VAL_DEX , new_dex )	 
 	SetItemAttr ( Item_newJL , ITEMATTR_VAL_STA , new_sta )
@@ -10321,17 +11243,16 @@ function ItemUse_ZZJLD( role , Item )
 	SetItemAttr ( Item_newJL , ITEMATTR_MAXENERGY , new_MAXENERGY ) 	
 	SetItemAttr ( Item_newJL , ITEMATTR_MAXURE , new_MAXURE )
 end
-
---ßéöî ëîâêîñòè (ID 0576)
+----------------------------------ÃôÖ®¾«Áéµ°
 function ItemUse_MZJLD( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \223\233\246\238 \203\238\226\234\238\241\242\232")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Egg of Agility")
 		UseItemFailed ( role )
 		return
 	end
 	local Num_newJL = GetItemForgeParam ( Item , 1 )
-	local Part1_newJL = GetNum_Part1 ( Num_newJL )
+	local Part1_newJL = GetNum_Part1 ( Num_newJL )	--Get Num Part 1 µ½ Part 7
 	local Part2_newJL = GetNum_Part2 ( Num_newJL )	
 	local Part3_newJL = GetNum_Part3 ( Num_newJL )
 
@@ -10371,7 +11292,7 @@ function ItemUse_MZJLD( role , Item )
 		end
 	end
 	local r1,r2 =MakeItem ( role , 236  , 1 , 4 )
-	local Item_newJL = GetChaItem ( role , 2 , r2 )
+	local Item_newJL = GetChaItem ( role , 2 , r2 )			--È¡ÐÂ¾«ÁéµÀ¾ßÖ¸Õë
 	SetItemAttr ( Item_newJL , ITEMATTR_VAL_STR , new_str )
 	SetItemAttr( Item_newJL , ITEMATTR_VAL_DEX , new_dex )	 
 	SetItemAttr ( Item_newJL , ITEMATTR_VAL_STA , new_sta )
@@ -10380,17 +11301,16 @@ function ItemUse_MZJLD( role , Item )
 	SetItemAttr ( Item_newJL , ITEMATTR_MAXENERGY , new_MAXENERGY ) 	
 	SetItemAttr ( Item_newJL , ITEMATTR_MAXURE , new_MAXURE )
 end
-
---ßéöî Çëà (ID 0577)
+----------------------------------Ð°Ö®¾«Áéµ°
 function ItemUse_XZJLD( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \223\233\246\238 \199\235\224")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Egg of Evil")
 		UseItemFailed ( role )
 		return
 	end
 	local Num_newJL = GetItemForgeParam ( Item , 1 )
-	local Part1_newJL = GetNum_Part1 ( Num_newJL )
+	local Part1_newJL = GetNum_Part1 ( Num_newJL )	--Get Num Part 1 µ½ Part 7
 	local Part2_newJL = GetNum_Part2 ( Num_newJL )	
 	local Part3_newJL = GetNum_Part3 ( Num_newJL )
 
@@ -10430,7 +11350,7 @@ function ItemUse_XZJLD( role , Item )
 		end
 	end
 	local r1,r2 =MakeItem ( role , 237  , 1 , 4 )
-	local Item_newJL = GetChaItem ( role , 2 , r2 )
+	local Item_newJL = GetChaItem ( role , 2 , r2 )			--È¡ÐÂ¾«ÁéµÀ¾ßÖ¸Õë
 	SetItemAttr ( Item_newJL , ITEMATTR_VAL_STR , new_str )
 	SetItemAttr( Item_newJL , ITEMATTR_VAL_DEX , new_dex )	 
 	SetItemAttr ( Item_newJL , ITEMATTR_VAL_STA , new_sta )
@@ -10439,12 +11359,11 @@ function ItemUse_XZJLD( role , Item )
 	SetItemAttr ( Item_newJL , ITEMATTR_MAXENERGY , new_MAXENERGY ) 	
 	SetItemAttr ( Item_newJL , ITEMATTR_MAXURE , new_MAXURE )
 end
-
---ßéöî Ìîðäî Ìëàäøåãî (ID 0910)
+-----------Ä¦¶¹Ð¡×Ó¶þÊÀ¾«Áéµ°
 function ItemUse_MDXZESJLD( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \223\233\246\238 \204\238\240\228\238 \204\235\224\228\248\229\227\238")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Egg of Mordo")
 		UseItemFailed ( role )
 		return
 	end
@@ -10464,7 +11383,7 @@ function ItemUse_MDXZESJLD( role , Item )
 	end	  
 	GiveItem ( role , 0 , 609  , 1 , 4 ) 
 	local r1,r2 =MakeItem ( role , 681  , 1 , 4 )
-	local Item_newJL = GetChaItem ( role , 2 , r2 )
+	local Item_newJL = GetChaItem ( role , 2 , r2 )			--È¡ÐÂ¾«ÁéµÀ¾ßÖ¸Õë
 	SetItemAttr ( Item_newJL , ITEMATTR_VAL_STR , new_str )
 	SetItemAttr( Item_newJL , ITEMATTR_VAL_DEX , new_dex )	 
 	SetItemAttr ( Item_newJL , ITEMATTR_VAL_STA , new_sta )
@@ -10473,12 +11392,7 @@ function ItemUse_MDXZESJLD( role , Item )
 	SetItemAttr ( Item_newJL , ITEMATTR_MAXENERGY , new_MAXENERGY ) 	
 	SetItemAttr ( Item_newJL , ITEMATTR_MAXURE , new_MAXURE )
 end
-
---------------------------------------------------------------------------------------------------
---Ïîññåøíû
---------------------------------------------------------------------------------------------------
-
---Ôåÿ íà÷. óð. (ID 0239)
+-----------------------------------------³õ¼¶¾«Áé¸½Ìå
 function Sk_Script_CJJLFT( role , Item ) 							
  	local sk_add = SK_JLFT  
 	local form_sklv = GetSkillLv( role , sk_add ) 
@@ -10492,8 +11406,7 @@ function Sk_Script_CJJLFT( role , Item )
 		return 
 	end 
 end 
-
- --Îáû÷íàÿ ôåÿ (ID 0608)
+ -----------------------------------------ÖÐ¼¶¾«Áé¸½Ìå
 function Sk_Script_ZJJLFT ( role , Item ) 							
   	local sk_add = SK_JLFT  
 	local form_sklv = GetSkillLv( role , sk_add ) 
@@ -10507,8 +11420,7 @@ function Sk_Script_ZJJLFT ( role , Item )
 		return 
 	end 
 end 
-
- --Îïûòíàÿ ôåÿ (ID 0609)
+ -----------------------------------------¸ß¼¶¾«Áé¸½Ìå
 function Sk_Script_GJJLFT( role , Item ) 							
    	local sk_add = SK_JLFT  
 	local form_sklv = GetSkillLv( role , sk_add ) 
@@ -10522,54 +11434,13 @@ function Sk_Script_GJJLFT( role , Item )
 		return 
 	end 
 end 
-
---------------------------------------------------------------------------------------------------
---Áîëüøèå ôðóêòû ôåé
---------------------------------------------------------------------------------------------------
-
---Îãðîìíûé Ôðóêò ñíåæíîãî äðàêîíà (ID 0276)
+--¸ß¼¶Ê¥Ñ©É½Áú¹û
 function ItemUse_CJ_longguo( role , Item , Item_Traget ) 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
-		UseItemFailed ( role ) 
-		return 
-	end 
-	local Item_type = GetItemType ( Item )
-	local Item_Traget_Type = GetItemType ( Item_Traget )
-	local Item_Num = GetItemID ( Item )
-	local Check_Exp = 0
-	local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY)
-		local str = GetItemAttr(Item_Traget,ITEMATTR_VAL_STR)
-		local con = GetItemAttr(Item_Traget,ITEMATTR_VAL_CON)
-		local dex = GetItemAttr(Item_Traget,ITEMATTR_VAL_DEX)
-		local agi = GetItemAttr(Item_Traget,ITEMATTR_VAL_AGI)
-		local sta = GetItemAttr(Item_Traget,ITEMATTR_VAL_STA)
-		local elf_lvl = str + con + agi + dex + sta
-		if elf_lvl >= 50 and elf_lvl <= 99999999999 then
-			SystemNotice(role , "\221\242\238\242 \244\240\243\234\242 \236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \242\238\235\252\234\238 \228\235\255 \244\229\233 \236\229\237\252\248\229 51 \243\240\238\226\237\255." )
-			UseItemFailed ( role )
-			return
-		end
-
-	if Item_type == 58 and Item_Traget_Type == 59 then
-			Check_Exp = CheckElf_EXP ( role , Item_Traget )
-			if Check_Exp == 0 then
-				SystemNotice(role , "\208\238\241\242 \244\229\232 \237\229 \228\238\241\242\232\227 \236\224\234\241\232\236\243\236\224. \205\229\226\238\231\236\238\230\237\238 \239\238\234\238\240\236\232\242\252 \244\229\254 \212\240\243\234\242\238\236 \209\237\229\230\237\238\227\238 \196\240\224\234\238\237\224" ) 
-				UseItemFailed ( role )
-			else
-			Lvup_Str_1 ( role , Item_Num , Item_Traget )
-			end 
-	end 
-end
-
---Îãðîìíàÿ Ëåäÿíàÿ ñëèâà (ID 0277)
-function ItemUse_CJ_koumei ( role , Item , Item_Traget ) 
-	local Cha_Boat = 0
-	Cha_Boat = GetCtrlBoat ( role )
-	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
@@ -10578,36 +11449,53 @@ function ItemUse_CJ_koumei ( role , Item , Item_Traget )
 	local Item_Num = GetItemID ( Item )
 	local Check_Exp = 0
 	local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY) 
-		local str = GetItemAttr(Item_Traget,ITEMATTR_VAL_STR)
-		local con = GetItemAttr(Item_Traget,ITEMATTR_VAL_CON)
-		local dex = GetItemAttr(Item_Traget,ITEMATTR_VAL_DEX)
-		local agi = GetItemAttr(Item_Traget,ITEMATTR_VAL_AGI)
-		local sta = GetItemAttr(Item_Traget,ITEMATTR_VAL_STA)
-		local elf_lvl = str + con + agi + dex + sta
-		if elf_lvl >= 50 and elf_lvl <= 99999999999 then
-			SystemNotice(role , "\221\242\238\242 \244\240\243\234\242 \236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \242\238\235\252\234\238 \228\235\255 \244\229\233 \236\229\237\252\248\229 51 \243\240\238\226\237\255." )
-			UseItemFailed ( role )
-			return
-		end
+	--SystemNotice(role ,Elf_MaxEXP )
+
 	if Item_type == 58 and Item_Traget_Type == 59 then
-			Check_Exp = CheckElf_EXP ( role , Item_Traget )
+			Check_Exp = CheckElf_EXP ( role , Item_Traget ) --¾«ÁéexpÊÇ·ñÂú×ãÉý¼¶Ìõ¼þ
 			if Check_Exp == 0 then
-				SystemNotice(role , "\208\238\241\242 \244\229\232 \237\229 \228\238\241\242\232\227 \236\224\234\241\232\236\243\236\224. \205\229\226\238\231\236\238\230\237\238 \239\238\234\238\240\236\232\242\252 \244\229\254 \206\227\240\238\236\237\238\233 \203\229\228\255\237\238\233 \241\235\232\226\238\233" ) 
+				SystemNotice(role , "Growth rate is not full. Unable to feed pet with Snow Dragon Fruit" ) 
 				UseItemFailed ( role )
 			else
-			   Lvup_Agi_1 ( role , Item_Num , Item_Traget ) 
+			Lvup_Str_1 ( role , Item_Num , Item_Traget ) --Á¦Á¿ÊôÐÔµÄ³É³¤º¯Êý
 			end 
 	end 
 end
 
---Îãðîìíûé Ôèøôëîñ ñ Çåôèðà (ID 0278)
+--¸ß¼¶±ù¼«Ë¬¿ÚÃ·
+function ItemUse_CJ_koumei ( role , Item , Item_Traget ) 
+	local Cha_Boat = 0
+	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
+	if Cha_Boat ~= nil then 
+		SystemNotice( role , "Cannot use while sailing" ) 
+		UseItemFailed ( role ) 
+		return 
+	end 
+	local Item_type = GetItemType ( Item )
+	local Item_Traget_Type = GetItemType ( Item_Traget )
+	local Item_Num = GetItemID ( Item )
+	local Check_Exp = 0
+	local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY) 
+
+	if Item_type == 58 and Item_Traget_Type == 59 then
+			Check_Exp = CheckElf_EXP ( role , Item_Traget ) --¾«ÁéexpÊÇ·ñÂú×ãÉý¼¶Ìõ¼þ
+			if Check_Exp == 0 then
+				SystemNotice(role , "Growth rate is not full. Unable to feed pet with Icespire Plum" ) 
+				UseItemFailed ( role )
+			else
+			   Lvup_Agi_1 ( role , Item_Num , Item_Traget ) --Ãô½ÝÊôÐÔµÄ³É³¤º¯Êý 
+			end 
+	end 
+end
+--¸ß¼¶º£·ç÷¨ÓãË¿
 function ItemUse_CJ_yusi ( role , Item , Item_Traget ) 
 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 --	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )  
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
@@ -10616,35 +11504,25 @@ function ItemUse_CJ_yusi ( role , Item , Item_Traget )
 	local Item_Num = GetItemID ( Item )
 	local Check_Exp = 0
 	local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY) 
-		local str = GetItemAttr(Item_Traget,ITEMATTR_VAL_STR)
-		local con = GetItemAttr(Item_Traget,ITEMATTR_VAL_CON)
-		local dex = GetItemAttr(Item_Traget,ITEMATTR_VAL_DEX)
-		local agi = GetItemAttr(Item_Traget,ITEMATTR_VAL_AGI)
-		local sta = GetItemAttr(Item_Traget,ITEMATTR_VAL_STA)
-		local elf_lvl = str + con + agi + dex + sta
-		if elf_lvl >= 50 and elf_lvl <= 99999999999 then
-			SystemNotice(role , "\221\242\238\242 \244\240\243\234\242 \236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \242\238\235\252\234\238 \228\235\255 \244\229\233 \236\229\237\252\248\229 51 \243\240\238\226\237\255." )
-			UseItemFailed ( role )
-			return
-		end
+
 	if Item_type == 58 and Item_Traget_Type == 59  then
-			Check_Exp = CheckElf_EXP ( role , Item_Traget )
+			Check_Exp = CheckElf_EXP ( role , Item_Traget ) --¾«ÁéexpÊÇ·ñÂú×ãÉý¼¶Ìõ¼þ
 			if Check_Exp == 0 then
-				SystemNotice(role , "\208\238\241\242 \244\229\232 \237\229 \228\238\241\242\232\227 \236\224\234\241\232\236\243\236\224. \205\229\226\238\231\236\238\230\237\238 \239\238\234\238\240\236\232\242\252 \244\229\254 \206\227\240\238\236\237\251\236 \212\232\248\244\235\238\241\238\236 \241 \199\229\244\232\240\224" ) 
+				SystemNotice(role , "Growth rate is not full. Unable to feed pet with Zephyr Fish Floss" ) 
 				UseItemFailed ( role )
 			else
-			   Lvup_Dex_1 ( role , Item_Num , Item_Traget ) 
+			   Lvup_Dex_1 ( role , Item_Num , Item_Traget ) --×¨×¢ÊôÐÔµÄ³É³¤º¯Êý 
 			end 
 	end 
 end
-
---Îãðîìíîå Ñåðåáðÿíîå ìàíãî (ID 0279)
+--¸ß¼¶°×Òø³Ç¹û¸¬
 function ItemUse_CJ_guopu ( role , Item , Item_Traget ) 
 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )  
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
@@ -10653,36 +11531,26 @@ function ItemUse_CJ_guopu ( role , Item , Item_Traget )
 	local Item_Num = GetItemID ( Item )
 	local Check_Exp = 0
 	local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY) 
-		local str = GetItemAttr(Item_Traget,ITEMATTR_VAL_STR)
-		local con = GetItemAttr(Item_Traget,ITEMATTR_VAL_CON)
-		local dex = GetItemAttr(Item_Traget,ITEMATTR_VAL_DEX)
-		local agi = GetItemAttr(Item_Traget,ITEMATTR_VAL_AGI)
-		local sta = GetItemAttr(Item_Traget,ITEMATTR_VAL_STA)
-		local elf_lvl = str + con + agi + dex + sta
-		if elf_lvl >= 50 and elf_lvl <= 99999999999 then
-			SystemNotice(role , "\221\242\238\242 \244\240\243\234\242 \236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \242\238\235\252\234\238 \228\235\255 \244\229\233 \236\229\237\252\248\229 51 \243\240\238\226\237\255." )
-			UseItemFailed ( role )
-			return
-		end
+
 	if Item_type == 58 and Item_Traget_Type == 59 then
-			Check_Exp = CheckElf_EXP ( role , Item_Traget )
+			Check_Exp = CheckElf_EXP ( role , Item_Traget ) --¾«ÁéexpÊÇ·ñÂú×ãÉý¼¶Ìõ¼þ
 			if Check_Exp == 0 then
-				SystemNotice(role , "\208\238\241\242 \244\229\232 \237\229 \228\238\241\242\232\227 \236\224\234\241\232\236\243\236\224. \205\229\226\238\231\236\238\230\237\238 \239\238\234\238\240\236\232\242\252 \244\229\254 \206\227\240\238\236\237\251\236 \209\229\240\229\225\240\255\237\251\236 \236\224\237\227\238" ) 
+				SystemNotice(role , "Growth rate is not full. Unable to feed pet with Argent Mango" ) 
 				UseItemFailed ( role )
 			else
-			   Lvup_Con_1 ( role , Item_Num , Item_Traget )
+			   Lvup_Con_1 ( role , Item_Num , Item_Traget ) --ÌåÖÊÊôÐÔµÄ³É³¤º¯Êý 
 			end 
 	end 
 end
 
---Áîëüøîé øàéòàíñêèé áèñêâèò (ID 0280)
+--¸ß¼¶ÐÂÉ³á°Ã×±ý
 function ItemUse_CJ_mibing ( role , Item , Item_Traget ) 
 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 --	SystemNotice( role , Cha_Boat )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )  
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
@@ -10691,29 +11559,20 @@ function ItemUse_CJ_mibing ( role , Item , Item_Traget )
 	local Item_Num = GetItemID ( Item )
 	local Check_Exp = 0
 	local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY) 
-		local str = GetItemAttr(Item_Traget,ITEMATTR_VAL_STR)
-		local con = GetItemAttr(Item_Traget,ITEMATTR_VAL_CON)
-		local dex = GetItemAttr(Item_Traget,ITEMATTR_VAL_DEX)
-		local agi = GetItemAttr(Item_Traget,ITEMATTR_VAL_AGI)
-		local sta = GetItemAttr(Item_Traget,ITEMATTR_VAL_STA)
-		local elf_lvl = str + con + agi + dex + sta
-		if elf_lvl >= 50 and elf_lvl <= 99999999999 then
-			SystemNotice(role , "\221\242\238\242 \244\240\243\234\242 \236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \242\238\235\252\234\238 \228\235\255 \244\229\233 \236\229\237\252\248\229 51 \243\240\238\226\237\255." )
-			UseItemFailed ( role )
-			return
-		end
+
 	if Item_type == 58 and Item_Traget_Type == 59  then
-			Check_Exp = CheckElf_EXP ( role , Item_Traget )
+			Check_Exp = CheckElf_EXP ( role , Item_Traget ) --¾«ÁéexpÊÇ·ñÂú×ãÉý¼¶Ìõ¼þ
 			if Check_Exp == 0 then
-				SystemNotice(role , "\208\238\241\242 \244\229\232 \237\229 \228\238\241\242\232\227 \236\224\234\241\232\236\243\236\224. \205\229\226\238\231\236\238\230\237\238 \239\238\234\238\240\236\232\242\252 \244\229\254 \193\238\235\252\248\232\236 \216\224\233\242\224\237\241\234\232\236 \225\232\241\234\226\232\242\238\236" ) 
+				SystemNotice(role , "Growth rate is not full. Unable to feed pet with Shaitan Biscuit" ) 
 				UseItemFailed ( role )
 			else
-			   Lvup_Sta_1 ( role , Item_Num , Item_Traget )
-			end  			
+			   Lvup_Sta_1 ( role , Item_Num , Item_Traget ) --¾«ÉñÊôÐÔµÄ³É³¤º¯Êý 
+			end  
+		        --local Item_MAXENERGY = Elf_MaxEXP + 20
+			--SetItemAttr ( Item_Traget , ITEMATTR_MAXENERGY , Item_MAXENERGY )				
 	end 
 end
-
---Ôðóêò ðîñòà (Id 0578)
+--¼ÓËÙ³É³¤¹û×Ó
 function ItemUse_JLJSGz( role , Item )
 	local statelv = 1
 	local ChaStateLv = GetChaStateLv ( role , STATE_JLJSGZ)
@@ -10724,278 +11583,83 @@ function ItemUse_JLJSGz( role , Item )
 		UseItemFailed ( role ) 
 		return 
 	end 
-	if ChaStateLv >= statelv then
-		SystemNotice ( role , "Ýôåêò îò ôðóêòà åùå ðàáîòàåò. " )
+	if ChaStateLv > statelv then
+		SystemNotice ( role , "Better fruit in effect. Please use it later" )
 		UseItemFailed ( role )
 		return
 	end
 	local statetime = 900
+	--local Cha_Boat = 0
+	--Cha_Boat = GetCtrlBoat ( role )
 	AddState( role , role , STATE_JLJSGZ , statelv , statetime )
 end
-
---Îãðîìíûé Ôðóêò ñíåæíîãî äðàêîíà äî 100ëâ (ID 7550)
-function ItemUse_CJ_longguo2( role , Item , Item_Traget ) 
-	local Cha_Boat = 0
-	Cha_Boat = GetCtrlBoat ( role )
---	SystemNotice( role , Cha_Boat )
-	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
-		UseItemFailed ( role ) 
-		return 
-	end 
-	local Item_type = GetItemType ( Item )
-	local Item_Traget_Type = GetItemType ( Item_Traget )
-	local Item_Num = GetItemID ( Item )
-	local Check_Exp = 0
-	local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY)
-		local str = GetItemAttr(Item_Traget,ITEMATTR_VAL_STR)
-		local con = GetItemAttr(Item_Traget,ITEMATTR_VAL_CON)
-		local dex = GetItemAttr(Item_Traget,ITEMATTR_VAL_DEX)
-		local agi = GetItemAttr(Item_Traget,ITEMATTR_VAL_AGI)
-		local sta = GetItemAttr(Item_Traget,ITEMATTR_VAL_STA)
-		local elf_lvl = str + con + agi + dex + sta
-		if elf_lvl >= 100 and elf_lvl <= 99999999999 then
-			SystemNotice(role , "\221\242\238\242 \244\240\243\234\242 \236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \242\238\235\252\234\238 \228\235\255 \244\229\233 \236\229\237\252\248\229 51 \243\240\238\226\237\255." )
-			UseItemFailed ( role )
-			return
-		end
-
-	if Item_type == 58 and Item_Traget_Type == 59 then
-			Check_Exp = CheckElf_EXP ( role , Item_Traget )
-			if Check_Exp == 0 then
-				SystemNotice(role , "\208\238\241\242 \244\229\232 \237\229 \228\238\241\242\232\227 \236\224\234\241\232\236\243\236\224. \205\229\226\238\231\236\238\230\237\238 \239\238\234\238\240\236\232\242\252 \244\229\254 \212\240\243\234\242\238\236 \209\237\229\230\237\238\227\238 \196\240\224\234\238\237\224" ) 
-				UseItemFailed ( role )
-			else
-			Lvup_Str_1 ( role , Item_Num , Item_Traget )
-			end 
-	end 
-end
-
---Îãðîìíàÿ Ëåäÿíàÿ ñëèâà äî 100ëâ (ID 7551)
-function ItemUse_CJ_koumei2 ( role , Item , Item_Traget ) 
-	local Cha_Boat = 0
-	Cha_Boat = GetCtrlBoat ( role )
-	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
-		UseItemFailed ( role ) 
-		return 
-	end 
-	local Item_type = GetItemType ( Item )
-	local Item_Traget_Type = GetItemType ( Item_Traget )
-	local Item_Num = GetItemID ( Item )
-	local Check_Exp = 0
-	local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY) 
-		local str = GetItemAttr(Item_Traget,ITEMATTR_VAL_STR)
-		local con = GetItemAttr(Item_Traget,ITEMATTR_VAL_CON)
-		local dex = GetItemAttr(Item_Traget,ITEMATTR_VAL_DEX)
-		local agi = GetItemAttr(Item_Traget,ITEMATTR_VAL_AGI)
-		local sta = GetItemAttr(Item_Traget,ITEMATTR_VAL_STA)
-		local elf_lvl = str + con + agi + dex + sta
-		if elf_lvl >= 100 and elf_lvl <= 99999999999 then
-			SystemNotice(role , "\221\242\238\242 \244\240\243\234\242 \236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \242\238\235\252\234\238 \228\235\255 \244\229\233 \236\229\237\252\248\229 51 \243\240\238\226\237\255." )
-			UseItemFailed ( role )
-			return
-		end
-	if Item_type == 58 and Item_Traget_Type == 59 then
-			Check_Exp = CheckElf_EXP ( role , Item_Traget )
-			if Check_Exp == 0 then
-				SystemNotice(role , "\208\238\241\242 \244\229\232 \237\229 \228\238\241\242\232\227 \236\224\234\241\232\236\243\236\224. \205\229\226\238\231\236\238\230\237\238 \239\238\234\238\240\236\232\242\252 \244\229\254 \206\227\240\238\236\237\238\233 \203\229\228\255\237\238\233 \241\235\232\226\238\233" ) 
-				UseItemFailed ( role )
-			else
-			   Lvup_Agi_1 ( role , Item_Num , Item_Traget ) 
-			end 
-	end 
-end
-
---Îãðîìíûé Ôèøôëîñ ñ Çåôèðà äî 100ëâ (ID 7552)
-function ItemUse_CJ_yusi2 ( role , Item , Item_Traget ) 
-
-	local Cha_Boat = 0
-	Cha_Boat = GetCtrlBoat ( role )
-	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
-		UseItemFailed ( role ) 
-		return 
-	end 
-	local Item_type = GetItemType ( Item )
-	local Item_Traget_Type = GetItemType ( Item_Traget )
-	local Item_Num = GetItemID ( Item )
-	local Check_Exp = 0
-	local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY) 
-		local str = GetItemAttr(Item_Traget,ITEMATTR_VAL_STR)
-		local con = GetItemAttr(Item_Traget,ITEMATTR_VAL_CON)
-		local dex = GetItemAttr(Item_Traget,ITEMATTR_VAL_DEX)
-		local agi = GetItemAttr(Item_Traget,ITEMATTR_VAL_AGI)
-		local sta = GetItemAttr(Item_Traget,ITEMATTR_VAL_STA)
-		local elf_lvl = str + con + agi + dex + sta
-		if elf_lvl >= 100 and elf_lvl <= 99999999999 then
-			SystemNotice(role , "\221\242\238\242 \244\240\243\234\242 \236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \242\238\235\252\234\238 \228\235\255 \244\229\233 \236\229\237\252\248\229 51 \243\240\238\226\237\255." )
-			UseItemFailed ( role )
-			return
-		end
-	if Item_type == 58 and Item_Traget_Type == 59  then
-			Check_Exp = CheckElf_EXP ( role , Item_Traget )
-			if Check_Exp == 0 then
-				SystemNotice(role , "\208\238\241\242 \244\229\232 \237\229 \228\238\241\242\232\227 \236\224\234\241\232\236\243\236\224. \205\229\226\238\231\236\238\230\237\238 \239\238\234\238\240\236\232\242\252 \244\229\254 \206\227\240\238\236\237\251\236 \212\232\248\244\235\238\241\238\236 \241 \199\229\244\232\240\224" ) 
-				UseItemFailed ( role )
-			else
-			   Lvup_Dex_1 ( role , Item_Num , Item_Traget ) 
-			end 
-	end 
-end
-
---Îãðîìíîå Ñåðåáðÿíîå ìàíãî äî 100ëâ (ID 7553)
-function ItemUse_CJ_guopu2 ( role , Item , Item_Traget ) 
-
-	local Cha_Boat = 0
-	Cha_Boat = GetCtrlBoat ( role )
---	SystemNotice( role , Cha_Boat )
-	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
-		UseItemFailed ( role ) 
-		return 
-	end 
-	local Item_type = GetItemType ( Item )
-	local Item_Traget_Type = GetItemType ( Item_Traget )
-	local Item_Num = GetItemID ( Item )
-	local Check_Exp = 0
-	local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY) 
-		local str = GetItemAttr(Item_Traget,ITEMATTR_VAL_STR)
-		local con = GetItemAttr(Item_Traget,ITEMATTR_VAL_CON)
-		local dex = GetItemAttr(Item_Traget,ITEMATTR_VAL_DEX)
-		local agi = GetItemAttr(Item_Traget,ITEMATTR_VAL_AGI)
-		local sta = GetItemAttr(Item_Traget,ITEMATTR_VAL_STA)
-		local elf_lvl = str + con + agi + dex + sta
-		if elf_lvl >= 100 and elf_lvl <= 99999999999 then
-			SystemNotice(role , "\221\242\238\242 \244\240\243\234\242 \236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \242\238\235\252\234\238 \228\235\255 \244\229\233 \236\229\237\252\248\229 51 \243\240\238\226\237\255." )
-			UseItemFailed ( role )
-			return
-		end
-	if Item_type == 58 and Item_Traget_Type == 59 then
-			Check_Exp = CheckElf_EXP ( role , Item_Traget )
-			if Check_Exp == 0 then
-				SystemNotice(role , "\208\238\241\242 \244\229\232 \237\229 \228\238\241\242\232\227 \236\224\234\241\232\236\243\236\224. \205\229\226\238\231\236\238\230\237\238 \239\238\234\238\240\236\232\242\252 \244\229\254 \206\227\240\238\236\237\251\236 \209\229\240\229\225\240\255\237\251\236 \236\224\237\227\238" ) 
-				UseItemFailed ( role )
-			else
-			   Lvup_Con_1 ( role , Item_Num , Item_Traget )
-			end 
-	end 
-end
-
---Áîëüøîé øàéòàíñêèé áèñêâèò äî 100ëâ (ID 7554)
-function ItemUse_CJ_mibing2 ( role , Item , Item_Traget ) 
-
-	local Cha_Boat = 0
-	Cha_Boat = GetCtrlBoat ( role )
---	SystemNotice( role , Cha_Boat )
-	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
-		UseItemFailed ( role ) 
-		return 
-	end 
-	local Item_type = GetItemType ( Item )
-	local Item_Traget_Type = GetItemType ( Item_Traget )
-	local Item_Num = GetItemID ( Item )
-	local Check_Exp = 0
-	local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY) 
-		local str = GetItemAttr(Item_Traget,ITEMATTR_VAL_STR)
-		local con = GetItemAttr(Item_Traget,ITEMATTR_VAL_CON)
-		local dex = GetItemAttr(Item_Traget,ITEMATTR_VAL_DEX)
-		local agi = GetItemAttr(Item_Traget,ITEMATTR_VAL_AGI)
-		local sta = GetItemAttr(Item_Traget,ITEMATTR_VAL_STA)
-		local elf_lvl = str + con + agi + dex + sta
-		if elf_lvl >= 100 and elf_lvl <= 99999999999 then
-			SystemNotice(role , "\221\242\238\242 \244\240\243\234\242 \236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \242\238\235\252\234\238 \228\235\255 \244\229\233 \236\229\237\252\248\229 51 \243\240\238\226\237\255." )
-			UseItemFailed ( role )
-			return
-		end
-	if Item_type == 58 and Item_Traget_Type == 59  then
-			Check_Exp = CheckElf_EXP ( role , Item_Traget )
-			if Check_Exp == 0 then
-				SystemNotice(role , "\208\238\241\242 \244\229\232 \237\229 \228\238\241\242\232\227 \236\224\234\241\232\236\243\236\224. \205\229\226\238\231\236\238\230\237\238 \239\238\234\238\240\236\232\242\252 \244\229\254 \193\238\235\252\248\232\236 \216\224\233\242\224\237\241\234\232\236 \225\232\241\234\226\232\242\238\236" ) 
-				UseItemFailed ( role )
-			else
-			   Lvup_Sta_1 ( role , Item_Num , Item_Traget )
-			end			
-	end 
-end
-
-
---------------------------------------------------------------------------------------------------
---Ñóíäóêè
---------------------------------------------------------------------------------------------------
-
---Ïóðïóðíûé ñóíäóê Âåäüìû 70 óð. (ID 0322)
+---------------------70¼¶·âÓ¡×ÏÎä±¦Ïä
 function ItemUse_70FYZWBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \207\243\240\239\243\240\237\251\233 \241\243\237\228\243\234 \194\229\228\252\236\251 70 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 70 Seal Master Chest of Magenta")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 4204  , 1 , 22) 
 end
-
---Ïóðïóðíûé ñóíäóê ×åìïèîíà 70 óð. (ID 0525)
+---------------------70¼¶¾Þ½£×ÏÎä±¦Ïä
 function ItemUse_70JJZWBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \207\243\240\239\243\240\237\251\233 \241\243\237\228\243\234 \215\229\236\239\232\238\237\224 70 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 70 Champion Chest of Magenta")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 1375 , 1 , 22) 
 end
-
---Ïóðïóðíûé ñóíäóê Âîèòåëÿ 70 óð. (ID 0613)
+---------------------70¼¶Ë«½£×ÏÎä±¦Ïä
 function ItemUse_70SJZWBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \207\243\240\239\243\240\237\251\233 \241\243\237\228\243\234 \194\238\232\242\229\235\255 70 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 70 Crusader Chest of Magenta")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 1394 , 1 , 22) 
 end
+---------------------70¼¶¾Ñ»÷×ÏÎä±¦Ïä
 
---Ïóðïóðíûé ñóíäóê Ñòðåëêà 70 óð. (ID 0614)
 function ItemUse_70JUJZWBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \207\243\240\239\243\240\237\251\233 \241\243\237\228\243\234 \209\242\240\229\235\234\224 70 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 70 Sharpshooter Chest of Magenta")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 42 , 1 , 22) 
 end
 
---Ïóðïóðíûé ñóíäóê ïîêîðèòåëÿ ìîðåé 70 óð. (ID 0615)
+---------------------70¼¶º½º£×ÏÎä±¦Ïä
 function ItemUse_70HHZWBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \207\243\240\239\243\240\237\251\233 \241\243\237\228\243\234 \239\238\234\238\240\232\242\229\235\255 \236\238\240\229\233 70 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 70 Voyager Chest of Magenta")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 1421 , 1 , 22) 
 end
-
---Ïóðïóðíûé ñóíäóê Öåëèòåëüíèöû 70 óð. (ID 0616)
+---------------------70¼¶Ê¥Ö°×ÏÎä±¦Ïä
 function ItemUse_70SZZWBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \207\243\240\239\243\240\237\251\233 \241\243\237\228\243\234 \214\229\235\232\242\229\235\252\237\232\246\251 70 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 70 Cleric Chest of Magenta")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 4198 , 1 , 22) 
 end
-
---Ñóíäóê âîèòåëÿ 50 óð. (ID 0617)
+---------------------50¼¶Ë«½£±¦Ïä
 function ItemUse_50SJBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \226\238\232\242\229\235\255 50 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 50 Crusader Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11003,12 +11667,11 @@ function ItemUse_50SJBOX( role , Item )
 	GiveItem ( role , 0 , 0475 , 1 , 22) 
 	GiveItem ( role , 0 , 0651 , 1 , 22) 
 end
-
---Ñóíäóê âîèòåëÿ 60 óð. (ID 0618)
+--------------------60¼¶Ë«½£±¦Ïä
 function ItemUse_60SJBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \226\238\232\242\229\235\255 60 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 60 Crusader Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11016,12 +11679,11 @@ function ItemUse_60SJBOX( role , Item )
 	GiveItem ( role , 0 , 0480 , 1 , 22) 
 	GiveItem ( role , 0 , 0656 , 1 , 22) 
 end
-
---Ñóíäóê âîèòåëÿ 70 óð. (ID 0619)
+--------------------70¼¶Ë«½£±¦Ïä
 function ItemUse_70SJBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 2 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \226\238\232\242\229\235\255 70 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 70 Crusader Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11029,36 +11691,33 @@ function ItemUse_70SJBOX( role , Item )
 	GiveItem ( role , 0 , 4166 , 1 , 22) 
 	GiveItem ( role , 0 , 4182 , 1 , 22) 
 end
-
---Ñóíäóê ×åìïèîíà 50 óð. (ID 0620)
+--------------------50¼¶¾Þ½£±¦Ïä
 function ItemUse_50JJBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \215\229\236\239\232\238\237\224 50 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 50 Champion Chest")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 0229 , 1 , 22) 
 	GiveItem ( role , 0 , 653 , 1 , 22)  
 end
-
---Ñóíäóê ×åìïèîíà 60 óð. (ID 0621)
+--------------------60¼¶¾Þ½£±¦Ïä
 function ItemUse_60JJBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \215\229\236\239\232\238\237\224 60 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 60 Champion Chest")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 0230 , 1 , 22) 
 	GiveItem ( role , 0 , 477 , 1 , 22)  
 end
-
---Ñóíäóê ×åìïèîíà 70 óð. (ID 0622)
+--------------------70¼¶¾Þ½£±¦Ïä
 function ItemUse_70JJBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 2 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \215\229\236\239\232\238\237\224 70 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 70 Champion Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11066,12 +11725,11 @@ function ItemUse_70JJBOX( role , Item )
 	GiveItem ( role , 0 , 653 , 1 , 22)  
 	GiveItem ( role , 0 , 477 , 1 , 22)
 end
-
---Ñóíäóê Öåëèòåëüíèöû 50 óð. (ID 0623)
+--------------------50¼¶Ê¥Ö°±¦Ïä
 function ItemUse_50SZBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \214\229\235\232\242\229\235\252\237\232\246\251 50 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 50 Cleric Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11079,12 +11737,11 @@ function ItemUse_50SZBOX( role , Item )
 	GiveItem ( role , 0 , 0547 , 1 , 22)  
 	GiveItem ( role , 0 , 0723 , 1 , 22) 
 end
-
---Ñóíäóê Öåëèòåëüíèöû 60 óð. (ID 0624)
+--------------------60¼¶Ê¥Ö°±¦Ïä
 function ItemUse_60SZBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \214\229\235\232\242\229\235\252\237\232\246\251 60 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 60 Cleric Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11092,12 +11749,11 @@ function ItemUse_60SZBOX( role , Item )
 	GiveItem ( role , 0 , 0570 , 1 , 22)  
 	GiveItem ( role , 0 , 0746 , 1 , 22) 
 end
-
---Ñóíäóê öåëèòåëüíèöû 70 óð. (ID 0625)
+--------------------70¼¶Ê¥Ö°±¦Ïä
 function ItemUse_70SZBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 2 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \214\229\235\232\242\229\235\252\237\232\246\251 70 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 70 Cleric Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11105,12 +11761,11 @@ function ItemUse_70SZBOX( role , Item )
 	GiveItem ( role , 0 , 4175 , 1 , 22)  
 	GiveItem ( role , 0 , 4191 , 1 , 22) 
 end
-
---Ñóíäóê Àìè Öåëèòåëüíèöû 50 óð. (ID 0626)
+--------------------50¼¶°¬Ã×Ê¥Ö°±¦Ïä
 function ItemUse_50AMSZBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \192\236\232 \214\229\235\232\242\229\235\252\237\232\246\251 50 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 50 Ami Cleric Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11119,12 +11774,11 @@ function ItemUse_50AMSZBOX( role , Item )
 	GiveItem ( role , 0 , 0734 , 1 , 22) 
 	GiveItem ( role , 0 , 2204 , 1 , 22) 
 end
-
---Ñóíäóê Àìè Öåëèòåëüíèöû 60 óð. (ID 0627)
+--------------------60¼¶°¬Ã×Ê¥Ö°±¦Ïä
 function ItemUse_60AMSZBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \192\236\232 \214\229\235\232\242\229\235\252\237\232\246\251 60 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 60Ami Cleric Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11133,12 +11787,11 @@ function ItemUse_60AMSZBOX( role , Item )
 	GiveItem ( role , 0 , 0745 , 1 , 22) 
 	GiveItem ( role , 0 , 2215 , 1 , 22) 
 end
-
---Ñóíäóê Öåëèòåëüíèöû Àìè 70 óð. (ID 0628)
+--------------------70¼¶°¬Ã×Ê¥Ö°±¦Ïä
 function ItemUse_70AMSZBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 2 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \192\236\232 \214\229\235\232\242\229\235\252\237\232\246\251 70 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 70 Ami Cleric Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11146,12 +11799,11 @@ function ItemUse_70AMSZBOX( role , Item )
 	GiveItem ( role , 0 , 4176 , 1 , 22)  
 	GiveItem ( role , 0 , 4192 , 1 , 22)  
 end
-
---Ñóíäóê Àìè Âåäüìû 50 óð. (ID 0629)
+--------------------50¼¶°¬Ã×·âÓ¡±¦Ïä
 function ItemUse_50AMFYBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \192\236\232 \194\229\228\252\236\251 50 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 50 Ami Seal Master Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11160,12 +11812,11 @@ function ItemUse_50AMFYBOX( role , Item )
 	GiveItem ( role , 0 , 0737 , 1 , 22) 
 	GiveItem ( role , 0 , 2207 , 1 , 22) 
 end
-
---Ñóíäóê Àìè Âåäüìû 60 óð. (ID 0630)
+--------------------60¼¶°¬Ã×·âÓ¡±¦Ïä
 function ItemUse_60AMFYBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \192\236\232 \194\229\228\252\236\251 60 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 60 Ami Seal Master Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11174,12 +11825,11 @@ function ItemUse_60AMFYBOX( role , Item )
 	GiveItem ( role , 0 , 0716 , 1 , 22) 
 	GiveItem ( role , 0 , 2201 , 1 , 22) 
 end
-
---Âåäüìîâñêîé ñóíäóê Àìè 70 óð. (ID 0631)
+--------------------70¼¶°¬Ã×·âÓ¡±¦Ïä
 function ItemUse_70AMFYBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 2 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \192\236\232 \194\229\228\252\236\251 70 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 70 Ami Seal Master Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11187,12 +11837,11 @@ function ItemUse_70AMFYBOX( role , Item )
 	GiveItem ( role , 0 , 4180 , 1 , 22)  
 	GiveItem ( role , 0 , 4196 , 1 , 22) 
 end
-
---Ñóíäóê Ïîêîðèòåëÿ ìîðåé Àìè 50 óð. (ID 0632)
+--------------------50¼¶°¬º½º£Ó¡±¦Ïä
 function ItemUse_50AMHHBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \207\238\234\238\240\232\242\229\235\255 \236\238\240\229\233 \192\236\232 50 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 50 Ami Voyager Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11201,12 +11850,11 @@ function ItemUse_50AMHHBOX( role , Item )
 	GiveItem ( role , 0 , 0707 , 1 , 22) 
 	GiveItem ( role , 0 , 2192 , 1 , 22) 
 end
-
---Ñóíäóê ïîêîðèòåëÿ ìîðåé Àìè 60 óð. (ID 0633)
+--------------------60¼¶°¬º½º£Ó¡±¦Ïä
 function ItemUse_60AMHHBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \207\238\234\238\240\232\242\229\235\255 \236\238\240\229\233 \192\236\232 60 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 60 Ami Voyager Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11215,12 +11863,11 @@ function ItemUse_60AMHHBOX( role , Item )
 	GiveItem ( role , 0 , 0710 , 1 , 22) 
 	GiveItem ( role , 0 , 2195 , 1 , 22) 
 end
-
---Ñóíäóê ïîêîðèòåëÿ ìîðåé Àìè 70 óð. (ID 0634)
+--------------------70¼¶°¬º½º£Ó¡±¦Ïä
 function ItemUse_70AMHHBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 2 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \207\238\234\238\240\232\242\229\235\255 \236\238\240\229\233 \192\236\232 70 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 70 Ami Voyager Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11228,12 +11875,11 @@ function ItemUse_70AMHHBOX( role , Item )
 	GiveItem ( role , 0 , 4172 , 1 , 22)  
 	GiveItem ( role , 0 , 4188 , 1 , 22)  
 end
-
---Ñóíäóê Ñòðåëêà 50 óð. (ID 0671)
+--------------------50¼¶¾Ñ»÷±¦Ïä
 function ItemUse_50JUJBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \209\242\240\229\235\234\224 50 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 50 Sharpshooter Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11241,12 +11887,11 @@ function ItemUse_50JUJBOX( role , Item )
 	GiveItem ( role , 0 , 0488 , 1 , 22)  
 	GiveItem ( role , 0 , 0664 , 1 , 22) 
 end
-
---Ñóíäóê Ñòðåëêà 60 óð. (ID 0673)
+--------------------60¼¶¾Ñ»÷±¦Ïä
 function ItemUse_60JUJBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \209\242\240\229\235\234\224 60 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 60 Sharpshooter Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11254,12 +11899,11 @@ function ItemUse_60JUJBOX( role , Item )
 	GiveItem ( role , 0 , 0493 , 1 , 22)  
 	GiveItem ( role , 0 , 0669 , 1 , 22) 
 end
-
---Ñóíäóê Ñòðåëêà 70 óð (ID 0674)
+--------------------70¼¶¾Ñ»÷±¦Ïä
 function ItemUse_70JUJBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 2 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \209\242\240\229\235\234\224 70 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 70 Sharpshooter Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11267,12 +11911,11 @@ function ItemUse_70JUJBOX( role , Item )
 	GiveItem ( role , 0 , 4168 , 1 , 22)  
 	GiveItem ( role , 0 , 4184 , 1 , 22) 
 end
-
---Ñóíäóê Ïîêîðèòåëÿ ìîðåé 50 óð. (ID 0676)
+--------------------50¼¶º½º£±¦Ïä
 function ItemUse_50HHBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \207\238\234\238\240\232\242\229\235\255 \236\238\240\229\233 50 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 50 Voyager Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11280,12 +11923,11 @@ function ItemUse_50HHBOX( role , Item )
 	GiveItem ( role , 0 , 0521 , 1 , 22)  
 	GiveItem ( role , 0 , 0697 , 1 , 22) 
 end
-
---Ñóíäóê Ïîêîðèòåëÿ ìîðåé 60 óð. (ID 0686)
+--------------------60¼¶º½º£±¦Ïä
 function ItemUse_60HHBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \207\238\234\238\240\232\242\229\235\255 \236\238\240\229\233 60 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 60 Voyager Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11293,12 +11935,11 @@ function ItemUse_60HHBOX( role , Item )
 	GiveItem ( role , 0 , 0520 , 1 , 22)  
 	GiveItem ( role , 0 , 0696 , 1 , 22) 
 end
-
---Ñóíäóê Ïîêîðèòåëÿ ìîðåé 70 óð. (ID 0698)
+--------------------70¼¶º½º£±¦Ïä
 function ItemUse_70HHBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 2 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \207\238\234\238\240\232\242\229\235\255 \236\238\240\229\233 70 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 70 Voyager Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11306,12 +11947,11 @@ function ItemUse_70HHBOX( role , Item )
 	GiveItem ( role , 0 , 4171 , 1 , 22)  
 	GiveItem ( role , 0 , 4187 , 1 , 22) 
 end
-
---Ñóíäóê Âåäüìû 50 óð. (ID 0699)
+--------------------50¼¶·âÓ¡±¦Ïä
 function ItemUse_50FYBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \194\229\228\252\236\251 50 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 50 Seal Master Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11319,12 +11959,11 @@ function ItemUse_50FYBOX( role , Item )
 	GiveItem ( role , 0 , 0545 , 1 , 22)  
 	GiveItem ( role , 0 , 0721 , 1 , 22) 
 end
-
---Ñóíäóê Âåäüìû 60 óð. (ID 0700)
+--------------------60¼¶·âÓ¡±¦Ïä
 function ItemUse_60FYBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \194\229\228\252\236\251 60 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 60 Seal Master Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11332,12 +11971,11 @@ function ItemUse_60FYBOX( role , Item )
 	GiveItem ( role , 0 , 0553 , 1 , 22)  
 	GiveItem ( role , 0 , 0729 , 1 , 22) 
 end
-
---Ñóíäóê Âåäüìû 70 óð. (ID 0701)
+--------------------70¼¶·âÓ¡±¦Ïä
 function ItemUse_70FYBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 2 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \194\229\228\252\236\251 70 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 70 Seal Master Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11345,17 +11983,12 @@ function ItemUse_70FYBOX( role , Item )
 	GiveItem ( role , 0 , 4179 , 1 , 22)  
 	GiveItem ( role , 0 , 4195 , 1 , 22) 
 end
-
---------------------------------------------------------------------------------------------------
---Ðàéñêèé ìåøî÷åê
---------------------------------------------------------------------------------------------------
-
---Ðàéñêèé ìåøî÷åê (ID 1119)
+--98ÌìÌÃ°ü
 function ItemUse_98BOX ( role , Item )
 			local item_type = BaoXiang_98BOX
 			local item_type_rad = BaoXiang_98BOX_Rad 
 			local item_type_count = BaoXiang_98BOX_Count 
-			local maxitem = BaoXiang_98BOX_Mxcount
+			local maxitem = BaoXiang_98BOX_Mxcount						-- ÖÕ½á±àºÅ
 			local item_quality = BaoXiang_98BOX_Qua
 			local General = 0  
 			local ItemId = 0 
@@ -11363,7 +11996,7 @@ function ItemUse_98BOX ( role , Item )
 		local Item_CanGet = GetChaFreeBagGridNum ( role )
 		
 		if Item_CanGet <= 0 then
-			SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \208\224\233\241\234\232\233 \236\229\248\238\247\229\234")
+			SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 			UseItemFailed ( role )
 			return
 		end
@@ -11373,8 +12006,8 @@ function ItemUse_98BOX ( role , Item )
 				local a = math.random ( 1, General )
 				local b = 0
 				local d = 0 
-				local c = -1
-				for k = 1 , maxitem , 1 do
+				local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+				for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 					d = item_type_rad [ k ] + b
 
@@ -11410,290 +12043,256 @@ function ItemUse_98BOX ( role , Item )
 					if ItemId == GoodItem[Good_C] then
 						local itemname = GetItemName ( ItemId ) 
 						local cha_name = GetChaDefaultName ( role ) 
-						local message = cha_name.." \238\242\234\240\251\226\224\229\242 \208\224\233\241\234\232\233 \236\229\248\238\247\229\234 \232 \239\238\235\243\247\224\229\242 "..itemname  
+						local message = cha_name.." opens a Paradise Pouch and obtain "..itemname  
 						Notice ( message )
 					end
 				end
 	
 	end
-
---------------------------------------------------------------------------------------------------
---Ðàñïèñêè íà ñàìîöâåòû
---------------------------------------------------------------------------------------------------
-
---Ðàñïèñêà íà Îãíåííûé ñàìîöâåò (ID 0856)
+--------------------ÁÒÑ×Ê¯¶Ò»»È¯
 function ItemUse_lieyanBook( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \208\224\241\239\232\241\234\243 \237\224 \206\227\237\229\237\237\251\233 \241\224\236\238\246\226\229\242")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Fiery Gem Voucher")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 0878 , 1 , 4) 
 end
-
---Ðàñïèñêà íà Ñàìîöâåò ßðîñòè (ID 0857)
+--------------------ÖËÑæÊ¯¶Ò»»È¯
 function ItemUse_zhiyanBook( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \208\224\241\239\232\241\234\243 \237\224 \209\224\236\238\246\226\229\242 \223\240\238\241\242\232")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Furious Gem Voucher")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 0879 , 1 , 4) 
 end
-
---Ðàñïèñêà íà Ðàçðûâ-ñàìîöâåò (ID 0858)
+--------------------»ðÒ©Ê¯¶Ò»»È¯
 function ItemUse_huoyaoBook( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \208\224\241\239\232\241\234\243 \237\224 \208\224\231\240\251\226\237\238\233 \241\224\236\238\246\226\229\242")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Explosive Gem Voucher")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 0880 , 1 , 4) 
 end
-
---Ðàñïèñêà íà Ëþñòðèíîâûé ñàìîöâåò (ID 0859)
+--------------------Âêè§Ê¯¶Ò»»È¯
 function ItemUse_manaoBook( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \208\224\241\239\232\241\234\243 \237\224 \203\254\241\242\240\232\237\238\226\251\233 \241\224\236\238\246\226\229\242")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lustrious Gem Voucher")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 0881 , 1 , 4) 
 end
-
---Ðàñïèñêà íà Ñàìîöâåò Äóõà (ID 0911)
+--------------------Ê¥¹âÊ¯¶Ò»»È¯
 function ItemUse_shengguangBook( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \208\224\241\239\232\241\234\243 \237\224 \209\224\236\238\246\226\229\242 \196\243\245\224")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Spirit Gem Voucher")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 0887 , 1 , 4) 
 end
-
---Ðàñïèñêà íà Áëåñòÿùèé ñàìîöâåò (ID 0915)
+--------------------ÔÂÖ®ÐÄ¶Ò»»È¯
 function ItemUse_yuezhixinBook( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \208\224\241\239\232\241\234\243 \237\224 \193\235\229\241\242\255\249\232\233 \241\224\236\238\246\226\229\242")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Shining Gem Voucher")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 0883 , 1 , 4) 
 end
-
---Ðàñïèñêà íà Ñèÿþùèé ñàìîöâåò (ID 0914)
+--------------------º®Óñ¶Ò»»È¯
 function ItemUse_hanyuBook( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \208\224\241\239\232\241\234\243 \237\224 \209\232\255\254\249\232\233 \241\224\236\238\246\226\229\242")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Glowing Gem Voucher")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 0882 , 1 , 4) 
 end
-
---Ðàñïèñêà íà Ñàìîöâåò Âåòðà (ID 0918)
+--------------------·çÁéÊ¯¶Ò»»È¯
 function ItemUse_fenglingBook( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \208\224\241\239\232\241\234\243 \237\224 \209\224\236\238\246\226\229\242 \194\229\242\240\224")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Gem of the Wind Voucher")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 0860 , 1 , 4) 
 end
-
---Ðàñïèñêà íà Òåíåâîé ñàìîöâåò (ID 0916)
+--------------------ÏÉÁéÊ¯¶Ò»»È¯
 function ItemUse_xianlingBook( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \208\224\241\239\232\241\234\243 \237\224 \210\229\237\229\226\238\233 \241\224\236\238\246\226\229\242")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Shadow Gem Voucher")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 0884 , 1 , 4) 
 end
-
---Ðàñïèñêà íà Ñàìîöâåò óäàðà (ID 0919)
+--------------------Ó¥ÑÛÊ¯¶Ò»»È¯
 function ItemUse_yingyanBook( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \208\224\241\239\232\241\234\243 \237\224 \209\224\236\238\246\226\229\242 \243\228\224\240\224")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Gem of Striking Voucher")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 0861 , 1 , 4) 
 end
-
---Ðàñïèñêà íà Ñàìîöâåò êîëîññà (ID 0920)
+--------------------ÑÒÓñ¶Ò»»È¯
 function ItemUse_yanyuBook( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \208\224\241\239\232\241\234\243 \237\224 \209\224\236\238\246\226\229\242 \234\238\235\238\241\241\224")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Gem of Colossus Voucher")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 0862 , 1 , 4) 
 end
-
---Ðàñïèñêà íà Ñàìîöâåò ßðîñòè (ID 0921)
+--------------------Ñ×Óñ¶Ò»»È¯
 function ItemUse_tanyuBook( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \208\224\241\239\232\241\234\243 \237\224 \209\224\236\238\246\226\229\242 \223\240\238\241\242\232")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Gem of Rage Voucher")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 0863 , 1 , 4) 
 end
-
---------------------------------------------------------------------------------------------------
---Ñóíäóêè
---------------------------------------------------------------------------------------------------
-
---Ïóðïóðíûé ñóíäóê Âîèòåëÿ 50 óð. (ID 0939)
+--------------------50¼¶Ë«½£×ÏÎä±¦Ïä
 function ItemUse_50SJZWBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \207\243\240\239\243\240\237\251\233 \241\243\237\228\243\234 \194\238\232\242\229\235\255 50 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 50 Crusader Chest of Magenta")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 1392 , 1 , 22) 
 end
-
---Ïóðïóðíûé ñóíäóê ×åìïèîíà 50 óð. (ID 0940)
+--------------------50¼¶¾Þ½£×ÏÎä±¦Ïä
 function ItemUse_50JJZWBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \207\243\240\239\243\240\237\251\233 \241\243\237\228\243\234 \215\229\236\239\232\238\237\224 50 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 50 Champion Chest of Magenta")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 1373 , 1 , 22) 
 end
-
---Ïóðïóðíûé ñóíäóê Ñòðåëêà 50 óð. (ID 0941)
+--------------------50¼¶¾Ñ»÷×ÏÎä±¦Ïä
 function ItemUse_50JUJZWBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \207\243\240\239\243\240\237\251\233 \241\243\237\228\243\234 \209\242\240\229\235\234\224 50 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 50 Sharpshooter Chest of Magenta")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 0040 , 1 , 22) 
 end
-
---Ïóðïóðíûé ñóíäóê Ïîêîðèòåëÿ ìîðåé 50 óð.(ID 0942)
+--------------------50¼¶º½º£×ÏÎä±¦Ïä
 function ItemUse_50HHZWBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \207\243\240\239\243\240\237\251\233 \241\243\237\228\243\234 \207\238\234\238\240\232\242\229\235\255 \236\238\240\229\233 50 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 50 Voyager Chest of Magenta")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 1419 , 1 , 22) 
 end
-
---Ïóðïóðíûé ñóíäóê Öåëèòåëüíèöû 50 óð. (ID 0943)
+--------------------50¼¶Ê¥Ö°×ÏÎä±¦Ïä
 function ItemUse_50SZZWBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \207\243\240\239\243\240\237\251\233 \241\243\237\228\243\234 \214\229\235\232\242\229\235\252\237\232\246\251 50 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 50 Cleric Chest of Magenta")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 0103 , 1 , 22) 
 end
-
---Ïóðïóðíûé ñóíäóê Âåäüìû 50 óð. (ID 0944)
+--------------------50¼¶·âÓ¡×ÏÎä±¦Ïä
 function ItemUse_50FYZWBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \207\243\240\239\243\240\237\251\233 \241\243\237\228\243\234 \194\229\228\252\236\251 50 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 50 Seal Master Chest of Magenta")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 0102 , 1 , 22) 
 end
 
---Ïóðïóðíûé ñóíäóê Âîèòåëÿ 60 óð. (ID 0945)
+
+
+--------------------60¼¶Ë«½£×ÏÎä±¦Ïä
 function ItemUse_60SJZWBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \207\243\240\239\243\240\237\251\233 \241\243\237\228\243\234 \194\238\232\242\229\235\255 60 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 60 Crusader Chest of Magenta")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 1393 , 1 , 22) 
 end
-
---Ïóðïóðíûé ñóíäóê ×åìïèîíà 60 óð. (ID 0946)
+--------------------60¼¶¾Þ½£×ÏÎä±¦Ïä
 function ItemUse_60JJZWBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \207\243\240\239\243\240\237\251\233 \241\243\237\228\243\234 \215\229\236\239\232\238\237\224 60 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 60 Champion Chest of Magenta")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 1374 , 1 , 22) 
 end
-
---Ïóðïóðíûé ñóíäóê Ñòðåëêà 60 óð. (ID 0947
+--------------------60¼¶¾Ñ»÷×ÏÎä±¦Ïä
 function ItemUse_60JUJZWBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \207\243\240\239\243\240\237\251\233 \241\243\237\228\243\234 \209\242\240\229\235\234\224 60 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 60 Sharpshooter Chest of Magenta")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 0041 , 1 , 22) 
 end
-
---Ïóðïóðíûé ñóíäóê Ïîêîðèòåëÿ ìîðåé 60 óð. (ID 0950)
+--------------------60¼¶º½º£×ÏÎä±¦Ïä
 function ItemUse_60HHZWBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \207\243\240\239\243\240\237\251\233 \241\243\237\228\243\234 \207\238\234\238\240\232\242\229\235\255 \236\238\240\229\233 60 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 60 Voyager Chest of Magenta")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 1420 , 1 , 22) 
 end
-
---Ïóðïóðíûé ñóíäóê Öåëèòåëüíèöû 60 óð. (ID 0951)
+--------------------60¼¶Ê¥Ö°×ÏÎä±¦Ïä
 function ItemUse_60SZZWBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \207\243\240\239\243\240\237\251\233 \241\243\237\228\243\234 \214\229\235\232\242\229\235\252\237\232\246\251 60 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 60 Cleric Chest of Magenta")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 4303 , 1 , 22) 
 end
-
---Ïóðïóðíûé ñóíäóê Âåäüìû 60 óð. (ID 0952)
+--------------------60¼¶·âÓ¡×ÏÎä±¦Ïä
 function ItemUse_60FYZWBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \207\243\240\239\243\240\237\251\233 \241\243\237\228\243\234 \194\229\228\252\236\251 60 \243\240\238\226\237\255")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to use Lv 60 Seal Master Chest of Magenta")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 4300 , 1 , 22) 
 end
-
---------------------------------------------------------------------------------------------------
---Ðàçíîå
---------------------------------------------------------------------------------------------------
-
---Ñåðäöå Íåâèííîñòè (ID 1009)
+--------------------´¿ÕæÖ®ÐÄ£¬ÖØÉúÖ®ÐÄ
 function ItemUse_CZZX( role , Item )
 	local statelv = 1
 	local statetime = 30
@@ -11702,13 +12301,14 @@ function ItemUse_CZZX( role , Item )
 	if Item_ID~=1013 then
 		GiveItem ( role , 0 , 1010 , 1 , 4)
 	end
+--		SystemNotice( role , "¸ÃÎïÆ·ÒÑ±»²¡¶¾¸¯Ê´,²»ÄÜÊ¹ÓÃ." )
+--		UseItemFailed ( role )
 end
-
---Ãðàíäèîçíûé ñàëþò (ID 1011)
+--------------------»Ô»ÍÀñÅÚ
 function ItemUse_HHLP( role , Item )
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
@@ -11725,10 +12325,18 @@ function ItemUse_HHLP( role , Item )
 	if CheckDateNum >= 10122  and CheckDateNum <= 10123 then
 		ItemUse_XNBOX ( role , Item )
 
+
+	--if CheckDateNum >= 100122  and CheckDateNum <= 100123 then
+		--star=1
+	--end
+	--if CheckDateNum >= 100622  and CheckDateNum <= 100623 then
+		--star=1
+	--end
+	--if star ==1 then
+		--ItemUse_BaoZhaBOX ( role , Item )	
 	end
 end
-
---Íåèçâåñòíî (ID n\a)
+--------------------¸ÂÄÉÖ®Éñ
 function ItemUse_GNZS( role , Item )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
@@ -11738,13 +12346,12 @@ function ItemUse_GNZS( role , Item )
 		attr_sta = attr_sta + sta_extre 
 		SetCharaAttr( attr_sta, role, ATTR_STA )
 	else
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 end
-
---Çàãàäî÷íîå ÿéöî ôåè (ID 1015)
+--------------------¼¼ÄÜ¾«Áéµ°
 function ItemUse_JNJLD( role , Item )
 	local star=math.random ( 1, 10 )
 	local r1 = 0
@@ -11770,9 +12377,9 @@ function ItemUse_JNJLD( role , Item )
 	else  
 		r1,r2=MakeItem( role , 199 , 1 , 4)
 	end
-	local Item_newJL = GetChaItem ( role , 2 , r2 )
+	local Item_newJL = GetChaItem ( role , 2 , r2 )			--È¡ÐÂ¾«ÁéµÀ¾ßÖ¸Õë
 	local Num_newJL = GetItemForgeParam ( Item_newJL , 1 )
-	local Part1_newJL = GetNum_Part1 ( Num_newJL )
+	local Part1_newJL = GetNum_Part1 ( Num_newJL )	--Get Num Part 1 µ½ Part 7
 	local Part2_newJL = GetNum_Part2 ( Num_newJL )	
 	local Part3_newJL = GetNum_Part3 ( Num_newJL )
 	local Part4_newJL = GetNum_Part4 ( Num_newJL )
@@ -11797,36 +12404,38 @@ function ItemUse_JNJLD( role , Item )
 	Num_newJL = SetNum_Part7 ( Num_newJL , 1 )
 	SetItemForgeParam ( Item_newJL , 1 , Num_newJL )
 end
-
---Ñâèòîê ïðèçûâà Áîãèíè (ID 1014)
+-----------------------------------------------------------
+--¹ÖÎïÕÙ»½
 function ItemUse_NSSN ( role , Item  )
+	local cha_name = GetChaDefaultName ( role )
+	LG( "KaiXiaoBaoDeSB" ,cha_name )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local star = 0
 	star =IsChaInRegion( role, 2 )
 	if star == 1 then
-		SystemNotice( role , "\205\229\226\238\231\236\238\230\237\238 \226\251\231\226\224\242\252 \193\238\227\232\237\254 \226 \193\229\231\238\239\224\241\237\238\233 \199\238\237\229" )
+		SystemNotice( role , "Unable to summon monster in Safe Zone" )
 		UseItemFailed ( role )
 		return
 	end
 	local x, y = GetChaPos(role)
 	local MonsterID = 857
-	local Refresh = 3700
-	local life = 3600000
+	local Refresh = 3700					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 3600000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 	local new = CreateChaX( MonsterID , x , y , 145 , Refresh, role )
 	SetChaLifeTime( new, life )
 end
-
---Ìåøî÷åê Áîãèíè (ID 1016)
+-----------------------------------------------------------
+--Å®ÉñµÄÐ¡°ü
 function ItemUse_NSDXB ( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \204\229\248\238\247\229\234 \193\238\227\232\237\232")
+		SystemNotice(role ,"Insufficient slot in inventory. Failed to activate Goddess's Pouch")
 		UseItemFailed ( role )
 		return
 	end
@@ -11853,41 +12462,37 @@ function ItemUse_NSDXB ( role , Item )
 		local eleven =math.random ( 2530, 2548 )
 		r1,r2=MakeItem( role , eleven , 1 , 4)
 	end
-	local Item_new = GetChaItem ( role , 2 , r2 )
+	local Item_new = GetChaItem ( role , 2 , r2 )			--È¡µÀ¾ßÖ¸Õë
 	local Item_ID = GetItemID ( Item_new )
 	local itemname = GetItemName (Item_ID) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \204\229\248\238\247\229\234 \193\238\227\232\237\232 \232 \239\238\235\243\247\224\229\242 "..itemname   
+	local message = cha_name.." opens Goddess's Pouch and obtain "..itemname  
 	Notice ( message )
 end
-
---Àñêàðîíñêèé ñóíäóê (ID 1017)
+----¼ÓÄÉ±¦Ïä
 function ItemUse_JaNaBox ( role , Item ) 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \192\241\234\224\240\238\237\241\234\232\233 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 1012 , 1 , 4) 			
 	local itemname = GetItemName (1012) 
 	local cha_name = GetChaDefaultName ( role ) 
-	local message = cha_name.." \238\242\234\240\251\226\224\229\242 \192\241\234\224\240\238\237\241\234\232\233 \241\243\237\228\243\234 \232 \239\238\235\243\247\224\229\242 "..itemname  
+	local message = cha_name.." opens Chest of Ascaron and obtain "..itemname  
 	Notice ( message )
 end
 
---------------------------------------------------------------------------------------------------
---×åðíûé ðûíîê
---------------------------------------------------------------------------------------------------
 
---Íåèçâåñòíî (ID n\a)
+--------ºÚÊÐÉÌÈËºÚÊÐ×°±¸--Leo
 function gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	local cha_name = GetChaDefaultName ( role ) 
 	local General = 0  
 	local ItemId = 0 
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -11897,8 +12502,8 @@ function gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_q
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 
 		d = item_type_rad [ k ] + b
 
@@ -11942,15 +12547,16 @@ function gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_q
 	for Good_C = 0 , 4 , 1 do
 		if ItemId == GoodItem[Good_C] then
 			local itemname = GetItemName ( ItemId ) 
-			local message = cha_name.." \238\242\234\240\251\226\224\229\242 \209\237\224\240\255\230\229\237\232\229 \215\229\240\237\251\233 \208\251\237\238\234 \232 \239\238\235\243\247\224\229\242 "..itemname  
+			local message = cha_name.." opens a Black Market Equipment and obtain "..itemname  
 			Notice ( message )
 		end
 	end
+	--LG( "HeiShiZhangBei_XinXi" , cha_name , ItemId )
 
 	return 1
 end
 
---Ñíàðÿæåíèå ×åðíûé ðûíîê (ID 3302 - 3334_
+--ÓÎÁú±¦Ïä24ÐÍ
 function ItemUse_jsyla( role , Item )
 	local item_quality =BaoXiang_jsyla_Qua
 	local maxitem = BaoXiang_jsyla_Mxcount
@@ -11961,6 +12567,8 @@ function ItemUse_jsyla( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--ÓÎÁú±¦Ïä23ÐÍ
 function ItemUse_jsylb( role , Item )
 	local item_quality =BaoXiang_jsylb_Qua
 	local maxitem =BaoXiang_jsylb_Mxcount
@@ -11971,6 +12579,8 @@ function ItemUse_jsylb( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--ÃÔÖ®ÀûÈÐ±¦Ïä24ÐÍ
 function ItemUse_jsmzlra( role , Item )
 	local item_quality =BaoXiang_jsmzlra_Qua
 	local maxitem =BaoXiang_jsmzlra_Mxcount
@@ -11981,6 +12591,8 @@ function ItemUse_jsmzlra( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--ÃÔÖ®ÀûÈÐ±¦Ïä23ÐÍ
 function ItemUse_jsmzlrb( role , Item )
 	local item_quality =BaoXiang_jsmzlrb_Qua
 	local maxitem =BaoXiang_jsmzlrb_Mxcount
@@ -11991,6 +12603,8 @@ function ItemUse_jsmzlrb( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--¾ÞãÚ±¦Ïä24ÐÍ
 function ItemUse_jsjqa( role , Item )
 	local item_quality =BaoXiang_jsjqa_Qua
 	local maxitem =BaoXiang_jsjqa_Mxcount
@@ -12001,6 +12615,8 @@ function ItemUse_jsjqa( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--¾ÞãÚ±¦Ïä23ÐÍ
 function ItemUse_jsjqb( role , Item )
 	local item_quality =BaoXiang_jsjqb_Qua
 	local maxitem =BaoXiang_jsjqb_Mxcount
@@ -12011,6 +12627,8 @@ function ItemUse_jsjqb( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--ÃÔÖ®²Ã¾ö±¦Ïä24ÐÍ
 function ItemUse_jsmzcja( role , Item )
 	local item_quality =BaoXiang_jsmzcja_Qua
 	local maxitem =BaoXiang_jsmzcja_Mxcount
@@ -12021,6 +12639,8 @@ function ItemUse_jsmzcja( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--ÃÔÖ®²Ã¾ö±¦Ïä23ÐÍ
 function ItemUse_jsmzcjb( role , Item )
 	local item_quality =BaoXiang_jsmzcjb_Qua
 	local maxitem =BaoXiang_jsmzcjb_Mxcount
@@ -12031,6 +12651,8 @@ function ItemUse_jsmzcjb( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--Ë«½£¿ø¼×±¦Ïä24ÐÍ
 function ItemUse_jssjkja( role , Item )
 	local item_quality =BaoXiang_jssjkja_Qua
 	local maxitem =BaoXiang_jssjkja_Mxcount
@@ -12041,6 +12663,8 @@ function ItemUse_jssjkja( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--Ë«½£¿ø¼×±¦Ïä23ÐÍ
 function ItemUse_jssjkjb( role , Item )
 	local item_quality =BaoXiang_jssjkjb_Qua
 	local maxitem =BaoXiang_jssjkjb_Mxcount
@@ -12051,6 +12675,8 @@ function ItemUse_jssjkjb( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--¾Ñ»÷¿ø¼×±¦Ïä24ÐÍ
 function ItemUse_jszjkja( role , Item )
 	local item_quality =BaoXiang_jszjkja_Qua
 	local maxitem =BaoXiang_jszjkja_Mxcount
@@ -12061,6 +12687,8 @@ function ItemUse_jszjkja( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--¾Ñ»÷¿ø¼×±¦Ïä23ÐÍ
 function ItemUse_jszjkjb( role , Item )
 	local item_quality =BaoXiang_jszjkjb_Qua
 	local maxitem =BaoXiang_jszjkjb_Mxcount
@@ -12071,6 +12699,8 @@ function ItemUse_jszjkjb( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--Ê¥Ö°¿ø¼×±¦Ïä24ÐÍ
 function ItemUse_jsszkja( role , Item )
 	local item_quality =BaoXiang_jsszkja_Qua
 	local maxitem =BaoXiang_jsszkja_Mxcount
@@ -12081,6 +12711,8 @@ function ItemUse_jsszkja( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--Ê¥Ö°¿ø¼×±¦Ïä23ÐÍ
 function ItemUse_jsszkjb( role , Item )
 	local item_quality =BaoXiang_jsszkjb_Qua
 	local maxitem =BaoXiang_jsszkjb_Mxcount
@@ -12091,6 +12723,8 @@ function ItemUse_jsszkjb( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--·âÓ¡¿ø¼×±¦Ïä24ÐÍ
 function ItemUse_jsfykja( role , Item )
 	local item_quality =BaoXiang_jsfykja_Qua
 	local maxitem =BaoXiang_jsfykja_Mxcount
@@ -12101,6 +12735,8 @@ function ItemUse_jsfykja( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--·âÓ¡¿ø¼×±¦Ïä23ÐÍ
 function ItemUse_jsfykjb( role , Item )
 	local item_quality =BaoXiang_jsfykjb_Qua
 	local maxitem =BaoXiang_jsfykjb_Mxcount
@@ -12111,6 +12747,8 @@ function ItemUse_jsfykjb( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--º½º£¿ø¼×±¦Ïä24ÐÍ
 function ItemUse_jshhkja( role , Item )
 	local item_quality =BaoXiang_jshhkja_Qua
 	local maxitem =BaoXiang_jshhkja_Mxcount
@@ -12121,6 +12759,8 @@ function ItemUse_jshhkja( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--º½º£¿ø¼×±¦Ïä23ÐÍ
 function ItemUse_jshhkjb( role , Item )
 	local item_quality =BaoXiang_jshhkjb_Qua
 	local maxitem =BaoXiang_jshhkjb_Mxcount
@@ -12131,6 +12771,8 @@ function ItemUse_jshhkjb( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--¾Þ½£¿ø¼×±¦Ïä24ÐÍ
 function ItemUse_jsjjkja( role , Item )
 	local item_quality =BaoXiang_jsjjkja_Qua
 	local maxitem =BaoXiang_jsjjkja_Mxcount
@@ -12141,6 +12783,8 @@ function ItemUse_jsjjkja( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--¾Þ½£¿ø¼×±¦Ïä23ÐÍ
 function ItemUse_jsjjkjb( role , Item )
 	local item_quality =BaoXiang_jsjjkjb_Qua
 	local maxitem =BaoXiang_jsjjkjb_Mxcount
@@ -12151,6 +12795,8 @@ function ItemUse_jsjjkjb( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--ºÚÁúÖ®Çû±¦Ïä24ÐÍ
 function ItemUse_jshlza( role , Item )
 	local item_quality =BaoXiang_jshlza_Qua
 	--local 
@@ -12162,6 +12808,8 @@ function ItemUse_jshlza( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--ºÚÁúÖ®Çû±¦Ïä23ÐÍ
 function ItemUse_jshlzb( role , Item )
 	local item_quality =BaoXiang_jshlzb_Qua
 	local maxitem =BaoXiang_jshlzb_Mxcount
@@ -12172,6 +12820,8 @@ function ItemUse_jshlzb( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--ºÚÁúÖ®Ê×±¦Ïä24ÐÍ
 function ItemUse_jshlta( role , Item )
 	local item_quality =BaoXiang_jshlta_Qua
 	local maxitem =BaoXiang_jshlta_Mxcount
@@ -12182,6 +12832,8 @@ function ItemUse_jshlta( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--ºÚÁúÖ®×¦±¦Ïä24ÐÍ
 function ItemUse_jshlsa( role , Item )
 	local item_quality =BaoXiang_jshlsa_Qua
 	local maxitem =BaoXiang_jshlsa_Mxcount
@@ -12192,6 +12844,8 @@ function ItemUse_jshlsa( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--ºÚÁúÖ®×¦±¦Ïä23ÐÍ
 function ItemUse_jshlsb( role , Item )
 	local item_quality =BaoXiang_jshlsb_Qua
 	local maxitem =BaoXiang_jshlsb_Mxcount
@@ -12202,6 +12856,8 @@ function ItemUse_jshlsb( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--ºÚÁúÖ®Òí±¦Ïä24ÐÍ
 function ItemUse_jshlya( role , Item )
 	local item_quality =BaoXiang_jshlya_Qua
 	local maxitem =BaoXiang_jshlya_Mxcount
@@ -12212,6 +12868,8 @@ function ItemUse_jshlya( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--ºÚÁúÖ®Òí±¦Ïä23ÐÍ
 function ItemUse_jshlyb( role , Item )
 	local item_quality =BaoXiang_jshlyb_Qua
 	local maxitem =BaoXiang_jshlyb_Mxcount
@@ -12222,6 +12880,8 @@ function ItemUse_jshlyb( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--ÃÔ»ÃÖ®´Ì±¦Ïä24ÐÍ
 function ItemUse_jsmhzca( role , Item )
 	local item_quality =BaoXiang_jsmhzca_Qua
 	local maxitem =BaoXiang_jsmhzca_Mxcount
@@ -12232,6 +12892,8 @@ function ItemUse_jsmhzca( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--ÃÔ»ÃÖ®´Ì±¦Ïä23ÐÍ
 function ItemUse_jsmhzcb( role , Item )
 	local item_quality =BaoXiang_jsmhzcb_Qua
 	local maxitem =BaoXiang_jsmhzcb_Mxcount
@@ -12242,6 +12904,8 @@ function ItemUse_jsmhzcb( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--ÃÔÖä·¨ÕÈ±¦Ïä24ÐÍ
 function ItemUse_jsmzfza( role , Item )
 	local item_quality =BaoXiang_jsmzfza_Qua
 	local maxitem =BaoXiang_jsmzfza_Mxcount
@@ -12252,6 +12916,8 @@ function ItemUse_jsmzfza( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--ÃÔÖä·¨ÕÈ±¦Ïä23ÐÍ
 function ItemUse_jsmzfzb( role , Item )
 	local item_quality =BaoXiang_jsmzfzb_Qua
 	local maxitem =BaoXiang_jsmzfza_Mxcount
@@ -12262,6 +12928,8 @@ function ItemUse_jsmzfzb( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--ÃÔ·¨Ö®ÕÈ±¦Ïä24ÐÍ
 function ItemUse_jsmfzza( role , Item )
 	local item_quality =BaoXiang_jsmfzza_Qua
 	local maxitem =BaoXiang_jsmfzza_Mxcount
@@ -12272,6 +12940,8 @@ function ItemUse_jsmfzza( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--ÃÔ·¨Ö®ÕÈ±¦Ïä23ÐÍ
 function ItemUse_jsmfzzb( role , Item )
 	local item_quality =BaoXiang_jsmfzzb_Qua
 	local maxitem =BaoXiang_jsmfzzb_Mxcount
@@ -12282,6 +12952,8 @@ function ItemUse_jsmfzzb( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+
+--ÃÔÖ®³¤Ç¹±¦Ïä24ÐÍ
 function ItemUse_jsmzcqa( role , Item )
 	local item_quality =BaoXiang_jsmzcqa_Qua
 	local maxitem =BaoXiang_jsmzcqa_Mxcount
@@ -12292,6 +12964,7 @@ function ItemUse_jsmzcqa( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
+--ÃÔÖ®³¤Ç¹±¦Ïä23ÐÍ
 function ItemUse_jsmzcqa( role , Item )
 	local item_quality =BaoXiang_jsmzcqa_Qua
 	local maxitem =BaoXiang_jsmzcqa_Mxcount
@@ -12302,15 +12975,12 @@ function ItemUse_jsmzcqa( role , Item )
 	local ret = gogogo(role,Item,item_type,item_type_rad,item_type_count,maxitem,item_quality)
 end
 
---------------------------------------------------------------------------------------------------
---Ðàçíîå
---------------------------------------------------------------------------------------------------
 
---Ìåøî÷åê ×åðíîãî äðàêîíà (ID 1019)
+--ÃÔÄãºÚÁú°ü
 function ItemUse_minibh( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet < 1 then
-		SystemNotice(role ,"\215\242\238\225\251 \238\242\234\240\251\242\252 \204\229\248\238\247\229\234 \215\229\240\237\238\227\238 \228\240\224\234\238\237\224 \239\238 \234\240\224\233\237\229\233 \236\229\240\229 \242\240\229\225\243\229\242\241\255 1 \241\226\238\225\238\228\237\251\233 \241\235\238\242 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"Inventory requires at least 1 empty slot")
 		UseItemFailed ( role )
 		return
 	end
@@ -12318,11 +12988,11 @@ function ItemUse_minibh( role , Item )
 	local star=math.random ( 1, 10000 )
 	if star==1 then
 		GiveItem ( role , 0 , 272  , 1 , 4  )
-		local message = cha_name.." \238\242\234\240\251\226\224\229\242 \204\229\248\238\247\229\234 \215\229\240\237\238\227\238 \228\240\224\234\238\237\224 \232 \239\238\235\243\247\224\229\242 \195\240\224\237-\239\240\232: \209\237\224\240\255\230\229\237\232\229 \247\229\240\237\238\227\238 \228\240\224\234\238\237\224" 
+		local message = cha_name.." opens a Mini Black Dragon Bag and obtained the Grand Prize: Black Dragon Set" 
 		Notice ( message )
 	elseif star>1 and star<=51 then
 		GiveItem ( role , 0 , 273  , 1 , 4  ) 
-		local message1 = cha_name.." \238\242\234\240\251\226\224\229\242 \204\229\248\238\247\229\234 \215\229\240\237\238\227\238 \228\240\224\234\238\237\224 \232 \239\238\235\243\247\224\229\242 \207\229\240\226\251\233 \239\240\232\231: \198\243\240\237\224\235 \209\247\224\241\242\235\232\226\251\233 \206\242\228\251\245" 
+		local message1 = cha_name.." opens a Mini Black Dragon Bag and obtained the First Prize: Happy Holiday Magazine" 
 		Notice ( message1 )
 	elseif star>51 and star<1652 then
 		GiveItem ( role , 0 , 274  , 1 , 4  ) 
@@ -12330,44 +13000,49 @@ function ItemUse_minibh( role , Item )
 		GiveItem ( role , 0 , 275  , 1 , 4  ) 
 	end
 end
-
---Ïîáåäà áîãèíè Êàðû (ID 1021)
+--¿¨À­µÄÊ¤Àû
 function ItemUse_kala( role , Item )
+--	SystemNotice(role ,"The time has lots its effect after being abandon for too long, don't be too sad.")
 	local statelv = 1
 	local statetime = 20
 	AddState( role , role , STATE_KALA , statelv , statetime )
 end
-
---Çàïà÷êàííàÿ Èñòîðèÿ Áîëåçíè (ID 1027)
+-----------------------------------------------------------
+--¹ÖÎïÕÙ»½
 function ItemUse_MHDYSD ( role , Item  )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local star = 0
 	star =IsChaInRegion( role, 2 )
 	if star == 1 then
-		SystemNotice( role , "\205\229\226\238\231\236\238\230\237\238 \226\251\231\226\224\242\252 \236\238\237\241\242\240\224 \226 \193\229\231\238\239\224\241\237\238\233 \199\238\237\229" )
+		SystemNotice( role , "Unable to summon monster in Safe Zone" )
 		UseItemFailed ( role )
 		return
 	end
-
+	--local pet_num = GetPetNum(role)
+	--if pet_num > 1 then
+	--	SystemNotice( role , "You have reached the maximum number of pets!" )
+	--	return
+	--end
 	local x, y = GetChaPos(role)
 	local MonsterID = 858
-	local Refresh = 190
-	local life = 180000
+	local Refresh = 190					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 180000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 	local new = CreateChaX( MonsterID , x , y , 145 , Refresh, role )
+	--SetChaHost(new,role)
 	SetChaLifeTime( new, life )
+	--SetChaTarget(new, role)
 end
-
---Êàðòà çà÷àðîâàííîé Áîãèíè (ID 1036)
+----------Ä§»ÃÅ®Éñ¿¨
 function ItemUse_mohuan( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet < 1 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \202\224\240\242\243 \231\224\247\224\240\238\226\224\237\237\238\233 \193\238\227\232\237\232")
+		SystemNotice(role ,"Inventory requires at least 1 empty slot")
 		UseItemFailed ( role )
 		return
 	end
@@ -12376,15 +13051,15 @@ function ItemUse_mohuan( role , Item )
 	SystemNotice(role ,"star=="..star)
 	if star<=8 then
 		GiveItem ( role , 0 , 1014  , 1 , 4  )
-		local message = cha_name.." \232\241\239\238\235\252\231\243\229\242 \202\224\240\242\243 \231\224\247\224\240\238\226\224\237\237\238\233 \193\238\227\232\237\232 \232 \239\238\235\243\247\224\229\242 \209\226\232\242\238\234 \239\240\232\231\251\226\224 \193\238\227\232\237\232" 
+		local message = cha_name.." opens a Enchanting Goddess Card and obtained Goddess's Trainee Ceremony" 
 		Notice ( message )
 	elseif star>=9 and star<=17 then
 		GiveItem ( role , 0 , 271, 1 , 4  ) 
-		local message2 = cha_name.." \232\241\239\238\235\252\231\243\229\242 \202\224\240\242\243 \231\224\247\224\240\238\226\224\237\237\238\233 \193\238\227\232\237\232 \232 \239\238\235\243\247\224\229\242 \192\237\227\229\235\252\241\234\232\229 \234\238\241\242\232" 
+		local message1 = cha_name.." opens an Enchanting Goddess Card and obtained Angelic Dice" 
 		Notice ( message1 )
 	elseif star>=18 and star<=27 then
 		GiveItem ( role , 0 , 1012, 1 , 4  ) 
-		local message3 = cha_name.." \232\241\239\238\235\252\231\243\229\242 \202\224\240\242\243 \231\224\247\224\240\238\226\224\237\237\238\233 \193\238\227\232\237\232 \232 \239\238\235\243\247\224\229\242 \192\241\234\224\240\238\237\241\234\232\233 \241\243\237\228\243\234" 
+		local message3 = cha_name.." opens Enchanting Goddess Card and obtain a Gem of Soul" 
 		Notice ( message3 )
 	elseif star>=28 and star<=227 then
 		GiveItem ( role , 0 , 3886, 1 , 4  ) 
@@ -12392,12 +13067,11 @@ function ItemUse_mohuan( role , Item )
 		GiveItem ( role , 0 , 3830, 5 , 4  ) 
 	end
 end
-
---Ñóíäóê êîëäîâñêîé êàðòû (ID 1035)
+----------Ä§»Ã×ÖÄ¸¿¨±¦Ïä
 function ItemUse_MoHuanBox( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet < 1 then
-		SystemNotice(role ,"\210\240\229\225\243\229\242\241\255 1 \241\226\238\225\238\228\237\251\233 \241\235\238\242 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \234\238\235\228\238\226\241\234\238\233 \234\224\240\242\251")
+		SystemNotice(role ,"Inventory requires at least 1 empty slot")
 		UseItemFailed ( role )
 		return
 	end
@@ -12411,18 +13085,13 @@ function ItemUse_MoHuanBox( role , Item )
 	else
 		local star=math.random ( 3850, 3875 )
 		if star==3858 or star==3864 or star==3866  then
-			GiveItem ( role , 0 , 3850  , 1 , 4  ) 
+			GiveItem ( role , 0 , 3850  , 1 , 4  )
 		else 
 			GiveItem ( role , 0 , star  , 1 , 4  ) 			
 		end
 	end
 end
-
---------------------------------------------------------------------------------------------------
---Ñàìîóíè÷òîæåíèå
---------------------------------------------------------------------------------------------------
-
---Ñàìîóíè÷òîæåíèå íà÷. óð. (Id 0610)
+-----------------------------------------³õ¼¶¾«Áé×Ô±¬
 function Sk_Script_CJJLZB( role , Item ) 							
  	local sk_add = SK_JLZB  
 	local form_sklv = GetSkillLv( role , sk_add ) 
@@ -12436,8 +13105,7 @@ function Sk_Script_CJJLZB( role , Item )
 		return 
 	end 
 end 
-
- --Îáû÷íîå Ñàìîóíè÷òîæåíèå (ID 0611)
+ -----------------------------------------ÖÐ¼¶¾«Áé×Ô±¬
 function Sk_Script_ZJJLZB ( role , Item ) 							
   	local sk_add = SK_JLZB
 	local form_sklv = GetSkillLv( role , sk_add ) 
@@ -12451,8 +13119,7 @@ function Sk_Script_ZJJLZB ( role , Item )
 		return 
 	end 
 end 
-
- --Ñàìîóíè÷òîæåíèå âûñ. óð. (ID 0612)
+ -----------------------------------------¸ß¼¶¾«Áé×Ô±¬
 function Sk_Script_GJJLZB( role , Item ) 							
    	local sk_add = SK_JLZB  
 	local form_sklv = GetSkillLv( role , sk_add ) 
@@ -12466,16 +13133,11 @@ function Sk_Script_GJJLZB( role , Item )
 		return 
 	end 
 end 
-
---------------------------------------------------------------------------------------------------
---×åðòåæè (ID 1000 - 1003)
---------------------------------------------------------------------------------------------------
-
---×åðòåæ Ïà÷êóëè (ID 1000)
+---------------------------Ä£ºýµÄÍ¼Ö½
 function ItemUse_MHDTZ( role , Item ) 							
  	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 1 then
-		SystemNotice(role ,"\215\242\238\225\251 \240\224\241\239\229\247\224\242\224\242\252 \247\229\240\242\229\230 \239\238 \234\240\224\233\237\229\233 \236\229\240\229 \242\240\229\225\243\229\242\241\255 1 \241\226\238\225\238\228\237\251\233 \241\235\238\242 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"To open Blurry Blueprint requires at least 1 empty inventory slot")
 		UseItemFailed ( role )
 		return
 	end  	
@@ -12485,21 +13147,21 @@ function ItemUse_MHDTZ( role , Item )
 	local Itemnew_ID=2300
 	local rad_ID=math.random ( 1, 100 )
 	if rad_ID<=40 then
-		Itemnew_ID=2300 
+		Itemnew_ID=2300  --------ÖÆÔìÍ¼Ö½
 	elseif rad_ID>=41 and rad_ID<=81 then
-		Itemnew_ID=2302
+		Itemnew_ID=2302  --------Åëâ¿Í¼Ö½
 	else
-		Itemnew_ID=2301
+		Itemnew_ID=2301  --------ÖýÔìÍ¼Ö½
 	end
 	r1, r2 = MakeItem ( role , Itemnew_ID  , 1 , 4 )
 	local Itemnew = GetChaItem ( role , 2 , r2 )
 
 
 	local rad_energy=math.random ( 1, 100 )
-	local energy = 1
-	if item_ID==1000 then
+	local energy = 1--------ÐÂÊÖ¼¶Í¼Ö½
+	if item_ID==1000 then-------ÐÂÊÖ¼¶Ä£ºýÍ¼Ö½
 		energy=1
-	elseif item_ID==1001 then
+	elseif item_ID==1001 then -------³õ¼¶Ä£ºýÍ¼Ö½
 		if rad_energy<=5 then
 			energy=4
 		elseif  rad_energy<=30 and rad_energy>=6 then
@@ -12507,7 +13169,7 @@ function ItemUse_MHDTZ( role , Item )
 		else
 			energy=2
 		end
-	elseif item_ID==1002 then
+	elseif item_ID==1002 then -------ÖÐ¼¶Ä£ºýÍ¼Ö½
 		if rad_energy<=5 then
 			energy=6
 		elseif  rad_energy<=30 and rad_energy>=6 then
@@ -12515,8 +13177,8 @@ function ItemUse_MHDTZ( role , Item )
 		else
 			energy=4
 		end
-	elseif item_ID==1003 then
-		if rad_energy<=5 and Itemnew_ID~=2301 then
+	elseif item_ID==1003 then -------¸ß¼¶Ä£ºýÍ¼Ö½
+		if rad_energy<=5 and Itemnew_ID~=2301 then------------ÖýÔì²»²ú³ö80¼¶ÎïÆ·
 			energy=8
 		elseif  rad_energy<=30 and rad_energy>=6 then
 			energy=7
@@ -12524,17 +13186,23 @@ function ItemUse_MHDTZ( role , Item )
 			energy=6
 		end
 	end	
+	--SystemNotice(role ,"item_ID=="..item_ID)
+	--SystemNotice(role ,"rad_energy=="..rad_energy)
+	--SystemNotice(role ,"energy=="..energy)
 
-	local final_ID=1849 
-	local final_LV=20
-	local final_ID1=3116
-	local final_ID2=3116
-	local final_ID3=3116
+	local final_ID=1849 --------Ä¬ÈÏµ°¸â
+	local final_LV=20 --------Ä¬ÈÏ20
+	local final_ID1=3116 --------Ä¬ÈÏ¾«Áé¹û
+	local final_ID2=3116 --------Ä¬ÈÏ¾«Áé¹û
+	local final_ID3=3116 --------Ä¬ÈÏ¾«Áé¹û
+	------Ê×ÏÈÈ¡µ½Éú³ÉÎïÆ·µÄID
 	local General = 0  
 	local ItemId =3124
-	if Itemnew_ID==2300 then
+	if Itemnew_ID==2300 then -----ÖÆÔì
 		local STAR_BEGIN=ZHIZAO_Mxcount*(energy-1)/10+1
 		local STAR_END=ZHIZAO_Mxcount*energy/10
+	--SystemNotice(role ,"STAR_BEGIN=="..STAR_BEGIN)
+	--SystemNotice(role ,"STAR_END=="..STAR_END)
 
 		for i = STAR_BEGIN , STAR_END , 1 do 
 		    General = ZHIZAO__Rad[ i ] + General		
@@ -12543,8 +13211,8 @@ function ItemUse_MHDTZ( role , Item )
 		local b = 0
 		local d = 0 
 		local k = 0 
-		local c = -1
-		for k = STAR_BEGIN , STAR_END , 1 do
+		local c = -1									--ÃüÖÐÎïÆ·±àºÅ
+		for k = STAR_BEGIN , STAR_END , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 			d = ZHIZAO__Rad[ k ] + b
 			if a <= d and a > b then
 				c = k
@@ -12555,6 +13223,9 @@ function ItemUse_MHDTZ( role , Item )
 		if c == -1 then
 			c =STAR_BEGIN
 		end
+	--SystemNotice(role ,"c=="..c)
+
+		--local rad_num1=math.random ( 1, 280 )
 		final_ID=ZHIZAO_ID[c]
 		final_LV=ZHIZAO_LV[c]
 		final_ID1=ZHIZAO_ID1[c]
@@ -12562,7 +13233,7 @@ function ItemUse_MHDTZ( role , Item )
 		final_ID3=ZHIZAO_ID3[c]
 
 	end
-	if Itemnew_ID==2301 then
+	if Itemnew_ID==2301 then -----ÖýÔì
 		local STAR_BEGIN=1
 		local STAR_END=77
 		if energy==1 then
@@ -12585,11 +13256,14 @@ function ItemUse_MHDTZ( role , Item )
 			STAR_END=732
 		elseif energy==7 then
 			STAR_BEGIN=733
-			STAR_END=871
+			STAR_END=871--------872ÒÔºóÄ¿Ç°ÓÐÎÊÌâ
 		elseif energy==8 then
 			STAR_BEGIN=895
 			STAR_END=902
 		end
+		--SystemNotice( role ,"energy=="..energy)
+		--SystemNotice( role ,"STAR_BEGIN=="..STAR_BEGIN)
+		--SystemNotice( role ,"STAR_END=="..STAR_END)
 
 		for i = STAR_BEGIN , STAR_END , 1 do 
 		    General = ZHUZAO__Rad[ i ] + General		
@@ -12598,8 +13272,8 @@ function ItemUse_MHDTZ( role , Item )
 		local b = 0
 		local d = 0 
 		local k = 0 
-		local c = -1
-		for k = STAR_BEGIN , STAR_END , 1 do
+		local c = -1									--ÃüÖÐÎïÆ·±àºÅ
+		for k = STAR_BEGIN , STAR_END , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 			d = ZHUZAO__Rad[ k ] + b
 			if a <= d and a > b then
 				c = k
@@ -12610,6 +13284,7 @@ function ItemUse_MHDTZ( role , Item )
 		if c == -1 then
 			c =STAR_BEGIN
 		end
+		--local rad_num2=math.random ( 1, 906 )
 		final_ID=ZHUZAO_ID[c]
 		final_LV=ZHUZAO_LV[c]
 		final_ID1=ZHUZAO_ID1[c]
@@ -12623,8 +13298,9 @@ function ItemUse_MHDTZ( role , Item )
 				check=1
 			end
 		end
+		--SystemNotice( role ,"check=="..check)
 
-		if  check==1 then
+		if  check==1 then-----------------ÖýÔìÎäÆ÷»ò×°±¸Ê±
 			local check_rad=math.random ( 1, 1000 )
 			if check_rad==1 then
 				final_LV=70
@@ -12644,14 +13320,17 @@ function ItemUse_MHDTZ( role , Item )
 			if final_LV>70 then
 				final_LV=70
 			end
+			--SystemNotice( role ,"check_energy=="..energy)
 
 			if final_LV~=10 and final_LV~=0 then
 				local tmd=(energy-1)*6+final_LV*0.1-1
+			--SystemNotice( role ,"tmd=="..tmd)
 				final_ID3=TESHU_ID[tmd]
+			--SystemNotice( role ,"TESHU_ID[tmd]=="..TESHU_ID[tmd])
 			end
 		end
 	end
-	if Itemnew_ID==2302 then
+	if Itemnew_ID==2302 then -----Åëâ¿
 		local STAR_BEGIN=1
 		local STAR_END=80
 		if energy==1 then
@@ -12683,8 +13362,8 @@ function ItemUse_MHDTZ( role , Item )
 		local b = 0
 		local d = 0 
 		local k = 0 
-		local c = -1
-		for k = STAR_BEGIN , STAR_END , 1 do
+		local c = -1									--ÃüÖÐÎïÆ·±àºÅ
+		for k = STAR_BEGIN , STAR_END , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 			d = PENGREN__Rad[ k ] + b
 			if a <= d and a > b then
 				c = k
@@ -12695,59 +13374,61 @@ function ItemUse_MHDTZ( role , Item )
 		if c == -1 then
 			c =STAR_BEGIN
 		end
+		--local rad_num3=math.random ( 1, 40 )
 		final_ID=PENGREN_ID[c]
 		final_LV=PENGREN_LV[c]
 		final_ID1=PENGREN_ID1[c]
 		final_ID2=PENGREN_ID2[c]
 		final_ID3=PENGREN_ID3[c]		
 	end
+	--SystemNotice(role ,"Blueprint level energy=="..energy)
 
 	local star_number=energy*10
 	local yingbi_num=math.random ( 10, star_number )
 	if energy<=3 then
-		SetItemAttr(Itemnew, ITEMATTR_MAXURE, energy )
-		SetItemAttr(Itemnew, ITEMATTR_URE, energy )		
+		SetItemAttr(Itemnew, ITEMATTR_MAXURE, energy )--¾«ÁéÓ²±ÒÐèÇó
+		SetItemAttr(Itemnew, ITEMATTR_URE, energy )--Í¼Ö½µÈ¼¶		
 	else
-		SetItemAttr(Itemnew, ITEMATTR_MAXURE, yingbi_num )
-		SetItemAttr(Itemnew, ITEMATTR_URE, energy )
+		SetItemAttr(Itemnew, ITEMATTR_MAXURE, yingbi_num )--¾«ÁéÓ²±ÒÐèÇó
+		SetItemAttr(Itemnew, ITEMATTR_URE, energy )--Í¼Ö½µÈ¼¶
 	end
 	local sta =math.random ( 1, 10 )
-	if Itemnew_ID==2301 then
+	if Itemnew_ID==2301 then-------------ÖýÔìÍ¼Ö½Ê¹ÓÃ´ÎÊý¼õ°ë
 		sta=sta*0.5
 		sta=math.max(1,sta)
 	end
-	SetItemAttr(Itemnew, ITEMATTR_VAL_STA, sta )
+	SetItemAttr(Itemnew, ITEMATTR_VAL_STA, sta )--Í¼Ö½Ê¹ÓÃ´ÎÊý
+	--SetItemAttr(Itemnew, ITEMATTR_MAXURE, maxure )--Í¼Ö½Ê¹ÓÃ´ÎÊý
 	local qulity=math.floor(final_LV*0.1)+100
-	SetItemAttr(Itemnew, ITEMATTR_MAXENERGY, qulity )
+	SetItemAttr(Itemnew, ITEMATTR_MAXENERGY, qulity )--ÖÊÁ¿
 
-	local ure=10-final_LV*0.1
-	SetItemAttr(Itemnew, ITEMATTR_ENERGY, ure )
+	local ure=10-final_LV*0.1-------------ÒªÏÔÊ¾³É°Ù·Ö±È
+	SetItemAttr(Itemnew, ITEMATTR_ENERGY, ure )--»ù±¾³É¹¦ÂÊ
+	--SetItemAttr(Itemnew, ITEMATTR_URE, ure )--»ù±¾³É¹¦ÂÊ
 
-	SetItemAttr(Itemnew, ITEMATTR_VAL_STR, final_ID1 )
-	SetItemAttr(Itemnew, ITEMATTR_VAL_CON, final_ID2 )
-	SetItemAttr(Itemnew, ITEMATTR_VAL_DEX, final_ID3 )
-	SetItemAttr(Itemnew, ITEMATTR_VAL_AGI, final_ID )
+	SetItemAttr(Itemnew, ITEMATTR_VAL_STR, final_ID1 )--ÐèÇóµÀ¾ß1ID
+	SetItemAttr(Itemnew, ITEMATTR_VAL_CON, final_ID2 )--ÐèÇóµÀ¾ß2ID
+	SetItemAttr(Itemnew, ITEMATTR_VAL_DEX, final_ID3 )--ÐèÇóµÀ¾ß3ID
+	SetItemAttr(Itemnew, ITEMATTR_VAL_AGI, final_ID )--Éú³ÉÎïÆ·ID
 
 	local Num_new = GetItemForgeParam ( Itemnew , 1 )
 	local Part2_new = GetNum_Part2 ( Num_new )	
 	local Part4_new = GetNum_Part4 ( Num_new )
 	local Part6_new = GetNum_Part6 ( Num_new )
-	Part2_new = math.random ( 3, 20 ) 
-	Part4_new = math.random ( 2, 9 )
-	Part6_new = math.random ( 1, 3 )
-	Part6_new = Part6_new*math.max(1,(energy-2))
+	Part2_new = math.random ( 3, 20 )					--ÐèÇóµÀ¾ß1ÊýÁ¿ 
+	Part4_new = math.random ( 2, 9 )					--ÐèÇóµÀ¾ß2ÊýÁ¿
+	Part6_new = math.random ( 1, 3 )					--ÐèÇóµÀ¾ß3ÊýÁ¿
+	Part6_new = Part6_new*math.max(1,(energy-2))					--ÐèÇóµÀ¾ß3ÊýÁ¿
 	Num_new = SetNum_Part2 ( Num_new , Part2_new )
 	Num_new = SetNum_Part4 ( Num_new , Part4_new )
 	Num_new = SetNum_Part6 ( Num_new , Part6_new )
 	SetItemForgeParam ( Itemnew , 1 , Num_new )
 
 end 
-
---------------------------------------------------------------------------------------------------
---Íàâûêè "Äóðàê"
---------------------------------------------------------------------------------------------------
-
---Íàâûê - Î÷èùåíèå (Id 1037)
+--Sk_Script_GS
+--Sk_Script_NK
+--Sk_Script_JQ
+-----------------------------------------Sk_Script_DBs
 function Sk_Script_DBs( role , Item ) 							
  	local sk_add = SK_JLTX1  
 	local form_sklv = GetSkillLv( role , sk_add ) 
@@ -12761,8 +13442,7 @@ function Sk_Script_DBs( role , Item )
 		return 
 	end 
 end 
-
---Íàâûê - Áåëüå (ID1038)
+-----------------------------------------Sk_Script_NKs
 function Sk_Script_NKs( role , Item ) 							
  	local sk_add = SK_JLTX2  
 	local form_sklv = GetSkillLv( role , sk_add ) 
@@ -12776,8 +13456,7 @@ function Sk_Script_NKs( role , Item )
 		return 
 	end 
 end 
-
---Íàâûê - îäåâàíèå (ID 1039)
+-----------------------------------------Sk_Script_XZs
 function Sk_Script_XZs( role , Item ) 							
  	local sk_add = SK_JLTX3  
 	local form_sklv = GetSkillLv( role , sk_add ) 
@@ -12791,8 +13470,7 @@ function Sk_Script_XZs( role , Item )
 		return 
 	end 
 end 
-
---Íàâûê - Äåíåæíûé äîæäü (ID 1129)
+-----------------------------------------Sk_Script_JQs
 function Sk_Script_JQs( role , Item ) 							
  	local sk_add = SK_JLTX4  
 	local form_sklv = GetSkillLv( role , sk_add ) 
@@ -12806,8 +13484,7 @@ function Sk_Script_JQs( role , Item )
 		return 
 	end 
 end 
-
---Íàâûê - Äóðàê (ID 1130)
+-----------------------------------------Sk_Script_BCs
 function Sk_Script_BCs( role , Item ) 							
  	local sk_add = SK_JLTX5  
 	local form_sklv = GetSkillLv( role , sk_add ) 
@@ -12821,8 +13498,7 @@ function Sk_Script_BCs( role , Item )
 		return 
 	end 
 end 
-
---Íàâûê - Ïðåâîñõîäñòâî (ID 1131)
+-----------------------------------------Sk_Script_BSs
 function Sk_Script_BSs( role , Item ) 							
  	local sk_add = SK_JLTX6  
 	local form_sklv = GetSkillLv( role , sk_add ) 
@@ -12836,8 +13512,7 @@ function Sk_Script_BSs( role , Item )
 		return 
 	end 
 end 
-
---Íàâûê - Íåìîé (ID 1132)
+-----------------------------------------Sk_Script_PZs
 function Sk_Script_PZs( role , Item ) 							
  	local sk_add = SK_JLTX7  
 	local form_sklv = GetSkillLv( role , sk_add ) 
@@ -12851,8 +13526,7 @@ function Sk_Script_PZs( role , Item )
 		return 
 	end 
 end 
-
---Íàâûê - Íåìîé (ID 1133)
+-----------------------------------------Sk_Script_SZs
 function Sk_Script_SZs( role , Item ) 							
  	local sk_add = SK_JLTX8  
 	local form_sklv = GetSkillLv( role , sk_add ) 
@@ -12866,33 +13540,29 @@ function Sk_Script_SZs( role , Item )
 		return 
 	end 
 end 
-
---------------------------------------------------------------------------------------------------
---Ïðåäìåòû äëÿ íîâè÷êîâ
---------------------------------------------------------------------------------------------------
-
---Ñóíäóê Çâåçäû åäèíñòâà (ID 1033)
+--------------------------ÍÅ¶ÓÖ®ÐÇ
 function ItemUse_TunDuiZhiXing( role , Item ) 							
    	local r1 = 0
 	local r2 = 0
 	r1, r2 = MakeItem ( role , 1034 , 1 , 4 )
 	local Itemnew = GetChaItem ( role , 2 , r2 )
-	SetItemAttr(Itemnew, ITEMATTR_URE, 100 )
-	SetItemAttr(Itemnew, ITEMATTR_MAXURE, 20100 )
+	--SetItemAttr(Itemnew, ITEMATTR_ENERGY, 100 )--µ±Ç°´æ´¢¾­Ñé
+	--SetItemAttr(Itemnew, ITEMATTR_MAXENERGY, 201000 )--×î¸ß´æ´¢¾­Ñé
+	SetItemAttr(Itemnew, ITEMATTR_URE, 100 )--µ±Ç°´æ´¢¾­Ñé
+	SetItemAttr(Itemnew, ITEMATTR_MAXURE, 20100 )--×î¸ß´æ´¢¾­Ñé
 end 
-
---Ìèíè-óñèëèòåëü íàòèñêà (ID 1128)
+----------------------Î¢ÐÍÅ¬Á¦Õ÷·þÆ÷
 function ItemUse_WeiXing( role , Item )
 	local statelv = 1
 	local ChaStateLv = GetChaStateLv ( role , STATE_SBJYGZ )
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\207\240\229\228\236\229\242 \243\230\229 \232\241\239\238\235\252\231\243\229\242\241\255. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "Better fruit in effect. Please use it later" )
 		UseItemFailed ( role )
 		return
 	end
 	local lv_star = GetChaAttr( role , ATTR_LV) 
 	if lv_star > 40 then
-		SystemNotice ( role , "\221\244\244\229\234\242\232\226\237\238 \242\238\235\252\234\238 \228\235\255 \232\227\240\238\234\238\226 \243\240\238\226\237\255 40 \232 \237\232\230\229" )
+		SystemNotice ( role , "Effective only for those below Lv 40" )
 		UseItemFailed ( role )
 		return
 	end
@@ -12905,332 +13575,311 @@ function ItemUse_WeiXing( role , Item )
 		AddState( Cha_Boat , Cha_Boat , STATE_SBJYGZ , statelv , statetime )
 	end
 end
-
---------------------------------------------------------------------------------------------------
---Ìèðíûå íàâûêè äëÿ ôåé
---------------------------------------------------------------------------------------------------
-
---Ïðîèçâîäñòâî ôåé íà÷. óð. (ID 1055)
-function ItemUse_JLZhiZ_CJ ( role , Item , Item_Traget )
+----------------------------------------------------
+function ItemUse_JLZhiZ_CJ ( role , Item , Item_Traget )   --³õ¼¶¾«ÁéÖÆÔìÊõ
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 		local Item_type =  GetItemType ( Item )
 		local Item_Traget_Type =  GetItemType ( Item_Traget )
-		local Num = GetItemForgeParam ( Item_Traget , 1 )
-		local SkillType = 1
-		local SkillNum = 13
+		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+		local SkillType = 1		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+		local SkillNum = 13		--ÒªÔö¼ÓµÄSkill ±àºÅ
 
 		if Item_type == 58 and Item_Traget_Type == 59 then
 			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
 			if Check == 1 then
-				SystemNotice(role , "\212\229\255 \243\230\229 \232\236\229\229\242 \228\224\237\237\238\229 \243\236\229\237\232\229" ) 
+				SystemNotice(role , "have target skill, usage failed" ) 
 				UseItemFailed ( role )
 			else
 				AddElfSkill ( Item_Traget , SkillType , SkillNum )
 			end
 		end
 end
-
---Èçãîòîâëåíèå ôåé ñòàíä. óð. (ID 1056)
-function ItemUse_JLZhiZ_ZJ ( role , Item , Item_Traget )
+----------------------------------------------------
+function ItemUse_JLZhiZ_ZJ ( role , Item , Item_Traget )   --ÖÐ¼¶¾«ÁéÖÆÔìÊõ
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 		local Item_type =  GetItemType ( Item )
 		local Item_Traget_Type =  GetItemType ( Item_Traget )
-		local Num = GetItemForgeParam ( Item_Traget , 1 )
-		local SkillType = 2
-		local SkillNum = 13
+		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+		local SkillType = 2		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+		local SkillNum = 13		--ÒªÔö¼ÓµÄSkill ±àºÅ
 
 		if Item_type == 58 and Item_Traget_Type == 59 then
 			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
 			if Check == 1 then
-				SystemNotice(role , "\212\229\255 \243\230\229 \232\236\229\229\242 \228\224\237\237\238\229 \243\236\229\237\232\229" ) 
+				SystemNotice(role , "have target skill, usage failed" ) 
 				UseItemFailed ( role )
 			else
 				AddElfSkill ( Item_Traget , SkillType , SkillNum )
 			end
 		end
 end
-
---Ïðîèçâîäñòâî ôåé âûñ. óð. (ID 1057)
-function ItemUse_JLZhiZ_GJ ( role , Item , Item_Traget )
+----------------------------------------------------
+function ItemUse_JLZhiZ_GJ ( role , Item , Item_Traget )   --¸ß¼¶¾«ÁéÖÆÔìÊõ
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 		local Item_type =  GetItemType ( Item )
 		local Item_Traget_Type =  GetItemType ( Item_Traget )
-		local Num = GetItemForgeParam ( Item_Traget , 1 )
-		local SkillType = 3
-		local SkillNum = 13
+		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+		local SkillType = 3		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+		local SkillNum = 13		--ÒªÔö¼ÓµÄSkill ±àºÅ
 
 		if Item_type == 58 and Item_Traget_Type == 59 then
 			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
 			if Check == 1 then
-				SystemNotice(role , "\212\229\255 \243\230\229 \232\236\229\229\242 \228\224\237\237\238\229 \243\236\229\237\232\229" ) 
+				SystemNotice(role , "have target skill, usage failed" ) 
 				UseItemFailed ( role )
 			else
 				AddElfSkill ( Item_Traget , SkillType , SkillNum )
 			end
 		end
 end
-
---Èçãîòîâëåíèå ôåé íà÷. óð. (ID 1058)
-function ItemUse_JLZhuZ_CJ ( role , Item , Item_Traget )
+----------------------------------------------------
+function ItemUse_JLZhuZ_CJ ( role , Item , Item_Traget )   --³õ¼¶¾«ÁéÖýÔìÊõ
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 		local Item_type =  GetItemType ( Item )
 		local Item_Traget_Type =  GetItemType ( Item_Traget )
-		local Num = GetItemForgeParam ( Item_Traget , 1 )
-		local SkillType = 1
-		local SkillNum = 14
+		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+		local SkillType = 1		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+		local SkillNum = 14		--ÒªÔö¼ÓµÄSkill ±àºÅ
 
 		if Item_type == 58 and Item_Traget_Type == 59 then
 			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
 			if Check == 1 then
-				SystemNotice(role , "\212\229\255 \243\230\229 \232\236\229\229\242 \228\224\237\237\238\229 \243\236\229\237\232\229" ) 
+				SystemNotice(role , "have target skill, usage failed" ) 
 				UseItemFailed ( role )
 			else
 				AddElfSkill ( Item_Traget , SkillType , SkillNum )
 			end
 		end
 end
-
---Èçãîòîâëåíèå ôåé ñòàíä. óð. (ID 1059)
-function ItemUse_JLZhuZ_ZJ ( role , Item , Item_Traget )
+----------------------------------------------------
+function ItemUse_JLZhuZ_ZJ ( role , Item , Item_Traget )   --ÖÐ¼¶¾«ÁéÖýÔìÊõ
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 		local Item_type =  GetItemType ( Item )
 		local Item_Traget_Type =  GetItemType ( Item_Traget )
-		local Num = GetItemForgeParam ( Item_Traget , 1 )
-		local SkillType = 2
-		local SkillNum = 14
+		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+		local SkillType = 2		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+		local SkillNum = 14		--ÒªÔö¼ÓµÄSkill ±àºÅ
 
 		if Item_type == 58 and Item_Traget_Type == 59 then
 			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
 			if Check == 1 then
-				SystemNotice(role , "\212\229\255 \243\230\229 \232\236\229\229\242 \228\224\237\237\238\229 \243\236\229\237\232\229" ) 
+				SystemNotice(role , "have target skill, usage failed" ) 
 				UseItemFailed ( role )
 			else
 				AddElfSkill ( Item_Traget , SkillType , SkillNum )
 			end
 		end
 end
-
---Ðåìåñëî ôåé âûñ. óð. (ID 1060)
-function ItemUse_JLZhuZ_GJ ( role , Item , Item_Traget )
+----------------------------------------------------
+function ItemUse_JLZhuZ_GJ ( role , Item , Item_Traget )   --¸ß¼¶¾«ÁéÖýÔìÊõ
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 		local Item_type =  GetItemType ( Item )
 		local Item_Traget_Type =  GetItemType ( Item_Traget )
-		local Num = GetItemForgeParam ( Item_Traget , 1 )
-		local SkillType = 3
-		local SkillNum = 14
+		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+		local SkillType = 3		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+		local SkillNum = 14		--ÒªÔö¼ÓµÄSkill ±àºÅ
 
 		if Item_type == 58 and Item_Traget_Type == 59 then
 			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
 			if Check == 1 then
-				SystemNotice(role , "\212\229\255 \243\230\229 \232\236\229\229\242 \228\224\237\237\238\229 \243\236\229\237\232\229" ) 
+				SystemNotice(role , "have target skill, usage failed" ) 
 				UseItemFailed ( role )
 			else
 				AddElfSkill ( Item_Traget , SkillType , SkillNum )
 			end
 		end
 end
-
---Àíàëèç ðó÷íûõ ôåé äëÿ íà÷èíàþùèõ (ID 1061)
-function ItemUse_JLFenJ_CJ ( role , Item , Item_Traget )
+----------------------------------------------------
+function ItemUse_JLFenJ_CJ ( role , Item , Item_Traget )   --³õ¼¶¾«Áé·Ö½âÊõ
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 		local Item_type =  GetItemType ( Item )
 		local Item_Traget_Type =  GetItemType ( Item_Traget )
-		local Num = GetItemForgeParam ( Item_Traget , 1 )
-		local SkillType = 1
-		local SkillNum = 15
+		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+		local SkillType = 1		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+		local SkillNum = 15		--ÒªÔö¼ÓµÄSkill ±àºÅ
 
 		if Item_type == 58 and Item_Traget_Type == 59 then
 			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
 			if Check == 1 then
-				SystemNotice(role , "\212\229\255 \243\230\229 \232\236\229\229\242 \228\224\237\237\238\229 \243\236\229\237\232\229" ) 
+				SystemNotice(role , "have target skill, usage failed" ) 
 				UseItemFailed ( role )
 			else
 				AddElfSkill ( Item_Traget , SkillType , SkillNum )
 			end
 		end
 end
-
---Îáû÷íûé àíàëèç ðó÷íûõ ôåé (ID 1062)
-function ItemUse_JLFenJ_ZJ ( role , Item , Item_Traget )
+----------------------------------------------------
+function ItemUse_JLFenJ_ZJ ( role , Item , Item_Traget )   --ÖÐ¼¶¾«Áé·Ö½âÊõ
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 		local Item_type =  GetItemType ( Item )
 		local Item_Traget_Type =  GetItemType ( Item_Traget )
-		local Num = GetItemForgeParam ( Item_Traget , 1 )
-		local SkillType = 2
-		local SkillNum = 15
+		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+		local SkillType = 2		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+		local SkillNum = 15		--ÒªÔö¼ÓµÄSkill ±àºÅ
 
 		if Item_type == 58 and Item_Traget_Type == 59 then
 			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
 			if Check == 1 then
-				SystemNotice(role , "\212\229\255 \243\230\229 \232\236\229\229\242 \228\224\237\237\238\229 \243\236\229\237\232\229" ) 
+				SystemNotice(role , "have target skill, usage failed" ) 
 				UseItemFailed ( role )
 			else
 				AddElfSkill ( Item_Traget , SkillType , SkillNum )
 			end
 		end
 end
-
---Àíàëèç ôåé âûñ. óð. (ID 1063)
-function ItemUse_JLFenJ_GJ ( role , Item , Item_Traget )
+----------------------------------------------------
+function ItemUse_JLFenJ_GJ ( role , Item , Item_Traget )   --¸ß¼¶¾«Áé·Ö½âÊõ
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" ) 
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 		local Item_type =  GetItemType ( Item )
 		local Item_Traget_Type =  GetItemType ( Item_Traget )
-		local Num = GetItemForgeParam ( Item_Traget , 1 )
-		local SkillType = 3
-		local SkillNum = 15
+		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+		local SkillType = 3		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+		local SkillNum = 15		--ÒªÔö¼ÓµÄSkill ±àºÅ
 
 		if Item_type == 58 and Item_Traget_Type == 59 then
 			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
 			if Check == 1 then
-				SystemNotice(role , "\212\229\255 \243\230\229 \232\236\229\229\242 \228\224\237\237\238\229 \243\236\229\237\232\229" ) 
+				SystemNotice(role , "have target skill, usage failed" ) 
 				UseItemFailed ( role )
 			else
 				AddElfSkill ( Item_Traget , SkillType , SkillNum )
 			end
 		end
 end
-
---Êóëèíàðèÿ íà÷. óð. äëÿ ðó÷íûõ ôåé (ID 1064)
-function ItemUse_JLPengR_CJ ( role , Item , Item_Traget )
+----------------------------------------------------
+function ItemUse_JLPengR_CJ ( role , Item , Item_Traget )   --³õ¼¶¾«ÁéÅëâ¿Êõ
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 		local Item_type =  GetItemType ( Item )
 		local Item_Traget_Type =  GetItemType ( Item_Traget )
-		local Num = GetItemForgeParam ( Item_Traget , 1 )
-		local SkillType = 1
-		local SkillNum = 16
+		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+		local SkillType = 1		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+		local SkillNum = 16		--ÒªÔö¼ÓµÄSkill ±àºÅ
 
 		if Item_type == 58 and Item_Traget_Type == 59 then
 			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
 			if Check == 1 then
-				SystemNotice(role , "\212\229\255 \243\230\229 \232\236\229\229\242 \228\224\237\237\238\229 \243\236\229\237\232\229" ) 
+				SystemNotice(role , "have target skill, usage failed" ) 
 				UseItemFailed ( role )
 			else
 				AddElfSkill ( Item_Traget , SkillType , SkillNum )
 			end
 		end
 end
-
---Îáû÷íàÿ êóëèíàðèÿ ôåé (ID 1065)
-function ItemUse_JLPengR_ZJ ( role , Item , Item_Traget )
+----------------------------------------------------
+function ItemUse_JLPengR_ZJ ( role , Item , Item_Traget )   --ÖÐ¼¶¾«ÁéÅëâ¿Êõ
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 		local Item_type =  GetItemType ( Item )
 		local Item_Traget_Type =  GetItemType ( Item_Traget )
-		local Num = GetItemForgeParam ( Item_Traget , 1 )
-		local SkillType = 2
-		local SkillNum = 16
+		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+		local SkillType = 2		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+		local SkillNum = 16		--ÒªÔö¼ÓµÄSkill ±àºÅ
 
 		if Item_type == 58 and Item_Traget_Type == 59 then
 			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
 			if Check == 1 then
-				SystemNotice(role , "\212\229\255 \243\230\229 \232\236\229\229\242 \228\224\237\237\238\229 \243\236\229\237\232\229" )  
+				SystemNotice(role , "have target skill, usage failed" ) 
 				UseItemFailed ( role )
 			else
 				AddElfSkill ( Item_Traget , SkillType , SkillNum )
 			end
 		end
 end
-
---Êóëèíàðèÿ âûñøåãî óðîâíÿ äëÿ ðó÷íûõ ôåé (ID 1066)
-function ItemUse_JLPengR_GJ ( role , Item , Item_Traget )
+----------------------------------------------------
+function ItemUse_JLPengR_GJ ( role , Item , Item_Traget )   --¸ß¼¶¾«ÁéÅëâ¿Êõ
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 		local Item_type =  GetItemType ( Item )
 		local Item_Traget_Type =  GetItemType ( Item_Traget )
-		local Num = GetItemForgeParam ( Item_Traget , 1 )
-		local SkillType = 3
-		local SkillNum = 16
+		local Num = GetItemForgeParam ( Item_Traget , 1 )	 --¾«Áé32Î»¼¼ÄÜÐÅÏ¢Êý¾Ý
+		local SkillType = 3		--ÒªÔö¼ÓµÄ Skill ÀàÐÍ
+		local SkillNum = 16		--ÒªÔö¼ÓµÄSkill ±àºÅ
 
 		if Item_type == 58 and Item_Traget_Type == 59 then
 			local Check = CheckElfHaveSkill ( Num , SkillType , SkillNum )
 			if Check == 1 then
-				SystemNotice(role , "\212\229\255 \243\230\229 \232\236\229\229\242 \228\224\237\237\238\229 \243\236\229\237\232\229" ) 
+				SystemNotice(role , "have target skill, usage failed" ) 
 				UseItemFailed ( role )
 			else
 				AddElfSkill ( Item_Traget , SkillType , SkillNum )
 			end
 		end
 end
-
---------------------------------------------------------------------------------------------------
---Ñóíäóê Õàîñà
---------------------------------------------------------------------------------------------------
-
---Ñóíäóê Õàîñà (ID 1134)
+----------------------------------ÂÒ¶·±¦ºÐ
 function ItemUse_FightingBox( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 2 then
-		SystemNotice(role ,"\210\240\229\225\243\229\242\241\255 2 \241\226\238\225\238\228\237\251\245 \241\235\238\242\224 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \213\224\238\241\224")
+		SystemNotice(role ,"You need at least 2 empty inventory slots to open the Chaos Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -13248,217 +13897,202 @@ function ItemUse_FightingBox( role , Item )
 	GiveItem ( role , 0 , 1126  , 1 , 15 )	
 	end
 end
-
---------------------------------------------------------------------------------------------------
---Êóëèíàðèÿ
---------------------------------------------------------------------------------------------------
-
---Ïàðîâîå ñóäíî Òðåñêà (ID 4019)
+---------------------------------÷¨ÓãÃÆÃÆ¹ø£º×î´óHP+100£¬ÎïÁ¦µÖ¿¹+1£¬Ê±¼ä15·ÖÖÓ
 function ItemUse_XUEYU( role , Item ) 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 	local statelv = 1
 	local ChaStateLv = GetChaStateLv ( role , STATE_XUEYU )
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\194\251 \243\230\229 \232\241\239\238\235\252\231\238\226\224\235\232 \234\243\235\232\237\224\240\232\254 \225\238\235\229\229 \226\251\241\238\234\238\227\238 \243\240\238\226\237\255. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "You have used a higher level item of the same kind. Please try again later" )
 		UseItemFailed ( role )
 		return
 	end
 	local statetime = 900
 	AddState( role , role , STATE_XUEYU , statelv , statetime )
 end 
-
---Îñåòðèíà ñ áàìáóêîì (ID 4020)
+---------------------------------´äÖñ»¨Á³öà£º×î´óHP+400£¬ÎïÁ¦µÖ¿¹+2£¬Ê±¼ä10·ÖÖÓ
 function ItemUse_CUIZHU( role , Item ) 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 	local statelv = 2
 	local ChaStateLv = GetChaStateLv ( role , STATE_XUEYU )
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\194\251 \243\230\229 \232\241\239\238\235\252\231\238\226\224\235\232 \234\243\235\232\237\224\240\232\254 \225\238\235\229\229 \226\251\241\238\234\238\227\238 \243\240\238\226\237\255. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "You have used a higher level item of the same kind. Please try again later" )
 		UseItemFailed ( role )
 		return
 	end
 	local statetime = 600
 	AddState( role , role , STATE_XUEYU , statelv , statetime )
 end 
-
---Âêóñíàÿ ðûáà-øàð (ID4021)
+---------------------------------»ØÏãÉäË®Óã£º×î´óHP+900£¬ÎïÁ¦µÖ¿¹+2£¬Ê±¼ä10·ÖÖÓ
 function ItemUse_HUIXIANG( role , Item ) 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 	local statelv = 3
 	local ChaStateLv = GetChaStateLv ( role , STATE_XUEYU )
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\194\251 \243\230\229 \232\241\239\238\235\252\231\238\226\224\235\232 \234\243\235\232\237\224\240\232\254 \225\238\235\229\229 \226\251\241\238\234\238\227\238 \243\240\238\226\237\255. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "You have used a higher level item of the same kind. Please try again later" )
 		UseItemFailed ( role )
 		return
 	end
 	local statetime = 600
 	AddState( role , role , STATE_XUEYU , statelv , statetime )
 end 
-
---Ñóï èç îñåòðà (ID 4022)
+---------------------------------Ó³ÔÂöàÓãÌÀ£º×î´óHP+1600£¬ÎïÁ¦µÖ¿¹+3£¬Ê±¼ä8·ÖÖÓ
 function ItemUse_YINGYUE( role , Item ) 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 	local statelv = 4
 	local ChaStateLv = GetChaStateLv ( role , STATE_XUEYU )
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\194\251 \243\230\229 \232\241\239\238\235\252\231\238\226\224\235\232 \234\243\235\232\237\224\240\232\254 \225\238\235\229\229 \226\251\241\238\234\238\227\238 \243\240\238\226\237\255. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "You have used a higher level item of the same kind. Please try again later" )
 		UseItemFailed ( role )
 		return
 	end
 	local statetime =480
 	AddState( role , role , STATE_XUEYU , statelv , statetime )
 end 
-
---Ñóï èç æàðåíûõ óñòðèö (ID 4023)
+---------------------------------ÀË±´ìÐ¼å¸þ£º×î´óHP+2500£¬ÎïÁ¦µÖ¿¹+3£¬Ê±¼ä8·ÖÖÓ
 function ItemUse_LANGBEI( role , Item ) 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 	local statelv =5
 	local ChaStateLv = GetChaStateLv ( role , STATE_XUEYU )
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\194\251 \243\230\229 \232\241\239\238\235\252\231\238\226\224\235\232 \234\243\235\232\237\224\240\232\254 \225\238\235\229\229 \226\251\241\238\234\238\227\238 \243\240\238\226\237\255. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "You have used a higher level item of the same kind. Please try again later" )
 		UseItemFailed ( role )
 		return
 	end
 	local statetime = 480
 	AddState( role , role , STATE_XUEYU , statelv , statetime )
 end 
-
---Êðåâåòî÷íàÿ ïûøêà (ID 4024)
+---------------------------------Ð¡Ð¡ÌøÏº½È£º×î´óHP+3600£¬ÎïÁ¦µÖ¿¹+4£¬Ê±¼ä6·ÖÖÓ
 function ItemUse_XIAOXIAO( role , Item ) 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 	local statelv = 6
 	local ChaStateLv = GetChaStateLv ( role , STATE_XUEYU )
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\194\251 \243\230\229 \232\241\239\238\235\252\231\238\226\224\235\232 \234\243\235\232\237\224\240\232\254 \225\238\235\229\229 \226\251\241\238\234\238\227\238 \243\240\238\226\237\255. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "You have used a higher level item of the same kind. Please try again later" )
 		UseItemFailed ( role )
 		return
 	end
 	local statetime = 360
 	AddState( role , role , STATE_XUEYU , statelv , statetime )
 end 
-
---Îáëîìîê êîñòè ðûáû-òèãðà (ID 4025)
+---------------------------------»¢Æ¤Óã¹ÇËÖ£º×î´óHP+4900£¬ÎïÁ¦µÖ¿¹+5£¬Ê±¼ä5·ÖÖÓ
 function ItemUse_HUPI( role , Item ) 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" ) 
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 	local statelv =7
 	local ChaStateLv = GetChaStateLv ( role , STATE_XUEYU )
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\194\251 \243\230\229 \232\241\239\238\235\252\231\238\226\224\235\232 \234\243\235\232\237\224\240\232\254 \225\238\235\229\229 \226\251\241\238\234\238\227\238 \243\240\238\226\237\255. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "You have used a higher level item of the same kind. Please try again later" )
 		UseItemFailed ( role )
 		return
 	end
 	local statetime = 300
 	AddState( role , role , STATE_XUEYU , statelv , statetime )
 end 
-
---Ðèñ ñ ðûáîé-õèìåðîé (ID 4026)
+---------------------------------ÒøöÞº£ÏÊ·¹£º×î´óHP+6400£¬ÎïÁ¦µÖ¿¹+6£¬Ê±¼ä3·ÖÖÓ
 function ItemUse_YINJIAO( role , Item ) 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )  
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 	local statelv = 8
 	local ChaStateLv = GetChaStateLv ( role , STATE_XUEYU )
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\194\251 \243\230\229 \232\241\239\238\235\252\231\238\226\224\235\232 \234\243\235\232\237\224\240\232\254 \225\238\235\229\229 \226\251\241\238\234\238\227\238 \243\240\238\226\237\255. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "You have used a higher level item of the same kind. Please try again later" )
 		UseItemFailed ( role )
 		return
 	end
 	local statetime = 180
 	AddState( role , role , STATE_XUEYU , statelv , statetime )
 end 
-
---Ãëèíà äëÿ èçãîòîâëåíèÿ ôàðôîðà (ID 4027)
+---------------------------------ÌÕÍÁÍøÎÆöŒ£º×î´óHP+8100£¬ÎïÁ¦µÖ¿¹+6£¬Ê±¼ä3·ÖÖÓ
 function ItemUse_TAOTU( role , Item )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )  
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 	local statelv = 9
 	local ChaStateLv = GetChaStateLv ( role , STATE_XUEYU )
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\194\251 \243\230\229 \232\241\239\238\235\252\231\238\226\224\235\232 \234\243\235\232\237\224\240\232\254 \225\238\235\229\229 \226\251\241\238\234\238\227\238 \243\240\238\226\237\255. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "You have used a higher level item of the same kind. Please try again later" )
 		UseItemFailed ( role )
 		return
 	end
 	local statetime = 180
 	AddState( role , role , STATE_XUEYU , statelv , statetime )
 end 
-
---Áàðáåêþ èç àêóëüåãî ïëàâíèêà (ID 4028)
+---------------------------------°ÙÍò¿¾Óã³á£º×î´óHP+10000£¬ÎïÁ¦µÖ¿¹+8£¬Ê±¼ä1·ÖÖÓ
 function ItemUse_BAIWANG( role , Item )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )  
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
 	local statelv = 10
 	local ChaStateLv = GetChaStateLv ( role , STATE_XUEYU )
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\194\251 \243\230\229 \232\241\239\238\235\252\231\238\226\224\235\232 \234\243\235\232\237\224\240\232\254 \225\238\235\229\229 \226\251\241\238\234\238\227\238 \243\240\238\226\237\255. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "You have used a higher level item of the same kind. Please try again later" )
 		UseItemFailed ( role )
 		return
 	end
 	local statetime =60
 	AddState( role , role , STATE_XUEYU , statelv , statetime )
 end 
-
---Ïàðíàÿ áóëî÷êà (ID 1078)
+---------------------------------- ÂøÍ·£ºHP+200£¬¹¥»÷Á¦+50£¬Ê±¼ä15·ÖÖÓ
 function ItemUse_MANTOU( role , Item )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
@@ -13473,20 +14107,19 @@ function ItemUse_MANTOU( role , Item )
 	local statelv = 1
 	local ChaStateLv = GetChaStateLv ( role , STATE_MANTOU )
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\194\251 \243\230\229 \232\241\239\238\235\252\231\238\226\224\235\232 \234\243\235\232\237\224\240\232\254 \225\238\235\229\229 \226\251\241\238\234\238\227\238 \243\240\238\226\237\255. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "You have used a higher level item of the same kind. Please try again later" )
 		UseItemFailed ( role )
 		return
 	end
 	local statetime = 900
 	AddState( role , role , STATE_MANTOU , statelv , statetime )
 end 
-
---Áóëî÷êà (ID 1079)
+---------------------------------°ü×Ó£ºHP+400£¬¹¥»÷Á¦+150£¬Ê±¼ä10·ÖÖÓ
 function ItemUse_BAOZI( role , Item ) 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" ) 
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
@@ -13501,20 +14134,19 @@ function ItemUse_BAOZI( role , Item )
 	local statelv = 2
 	local ChaStateLv = GetChaStateLv ( role , STATE_MANTOU )
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\194\251 \243\230\229 \232\241\239\238\235\252\231\238\226\224\235\232 \234\243\235\232\237\224\240\232\254 \225\238\235\229\229 \226\251\241\238\234\238\227\238 \243\240\238\226\237\255. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "You have used a higher level item of the same kind. Please try again later" )
 		UseItemFailed ( role )
 		return
 	end
 	local statetime =600
 	AddState( role , role , STATE_MANTOU , statelv , statetime )
 end 
-
---Áèñêâèò (ID 1080)
+---------------------------------´ó±ý£ºHP+600£¬¹¥»÷Á¦+250£¬Ê±¼ä7·ÖÖÓ
 function ItemUse_DABING( role , Item )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
@@ -13529,20 +14161,19 @@ function ItemUse_DABING( role , Item )
 	local statelv = 3
 	local ChaStateLv = GetChaStateLv ( role , STATE_MANTOU )
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\194\251 \243\230\229 \232\241\239\238\235\252\231\238\226\224\235\232 \234\243\235\232\237\224\240\232\254 \225\238\235\229\229 \226\251\241\238\234\238\227\238 \243\240\238\226\237\255. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "You have used a higher level item of the same kind. Please try again later" )
 		UseItemFailed ( role )
 		return
 	end
 	local statetime = 420
 	AddState( role , role , STATE_MANTOU , statelv , statetime )
 end 
-
---Ïîäæàðåííàÿ ëåïåøêà (ID 1082)
+---------------------------------ÓÍÌõ£ºHP+800£¬¹¥»÷Á¦+350£¬Ê±¼ä5·ÖÖÓ
 function ItemUse_YOUTIAO( role , Item ) 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" ) 
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
@@ -13557,20 +14188,19 @@ function ItemUse_YOUTIAO( role , Item )
 	local statelv = 4
 	local ChaStateLv = GetChaStateLv ( role , STATE_MANTOU )
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\194\251 \243\230\229 \232\241\239\238\235\252\231\238\226\224\235\232 \234\243\235\232\237\224\240\232\254 \225\238\235\229\229 \226\251\241\238\234\238\227\238 \243\240\238\226\237\255. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "You have used a higher level item of the same kind. Please try again later" )
 		UseItemFailed ( role )
 		return
 	end
 	local statetime =300
 	AddState( role , role , STATE_MANTOU , statelv , statetime )
 end 
-
---Âåñíîãðàäñêèé ñâèòîê (ID 1083)
+---------------------------------´º¾í£ºHP+1000£¬¹¥»÷Á¦+450£¬Ê±¼ä2·ÖÖÓ
 function ItemUse_CHUNJUAN( role , Item ) 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" ) 
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
@@ -13585,20 +14215,19 @@ function ItemUse_CHUNJUAN( role , Item )
 	local statelv = 5
 	local ChaStateLv = GetChaStateLv ( role , STATE_MANTOU )
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\194\251 \243\230\229 \232\241\239\238\235\252\231\238\226\224\235\232 \234\243\235\232\237\224\240\232\254 \225\238\235\229\229 \226\251\241\238\234\238\227\238 \243\240\238\226\237\255. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "You have used a higher level item of the same kind. Please try again later" )
 		UseItemFailed ( role )
 		return
 	end
 	local statetime = 120
 	AddState( role , role , STATE_MANTOU , statelv , statetime )
 end 
-
---Âèíî äåâû (ID 1084)
+---------------------------------Å®¶ùºì£ºSP+100£¬¾«Éñ+5£¬Ê±¼ä15·ÖÖÓ
 function ItemUse_NVER( role , Item ) 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
@@ -13613,20 +14242,19 @@ function ItemUse_NVER( role , Item )
 	local statelv = 1
 	local ChaStateLv = GetChaStateLv ( role , STATE_NVER )
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\194\251 \243\230\229 \232\241\239\238\235\252\231\238\226\224\235\232 \234\243\235\232\237\224\240\232\254 \225\238\235\229\229 \226\251\241\238\234\238\227\238 \243\240\238\226\237\255. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "You have used a higher level item of the same kind. Please try again later" )
 		UseItemFailed ( role )
 		return
 	end
 	local statetime = 900
 	AddState( role , role , STATE_NVER , statelv , statetime )
 end 
-
---Âèíî ó÷åíûõ (ID 1085)
+---------------------------------×´Ôªºì£ºSP+200£¬¾«Éñ+10£¬Ê±¼ä10·ÖÖÓ
 function ItemUse_ZHUANGYUAN( role , Item ) 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
@@ -13641,20 +14269,19 @@ function ItemUse_ZHUANGYUAN( role , Item )
 	local statelv = 2
 	local ChaStateLv = GetChaStateLv ( role , STATE_NVER )
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\194\251 \243\230\229 \232\241\239\238\235\252\231\238\226\224\235\232 \234\243\235\232\237\224\240\232\254 \225\238\235\229\229 \226\251\241\238\234\238\227\238 \243\240\238\226\237\255. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "You have used a higher level item of the same kind. Please try again later" )
 		UseItemFailed ( role )
 		return
 	end
 	local statetime = 600
 	AddState( role , role , STATE_NVER , statelv , statetime )
 end 
-
---Äóêàíîâîå âèíî (ID 1088)
+---------------------------------¶Å¿µ£ºSP+300£¬¾«Éñ+15£¬Ê±¼ä7·ÖÖÓ
 function ItemUse_DUKANG( role , Item ) 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
@@ -13669,20 +14296,19 @@ function ItemUse_DUKANG( role , Item )
 	local statelv = 3
 	local ChaStateLv = GetChaStateLv ( role , STATE_NVER )
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\194\251 \243\230\229 \232\241\239\238\235\252\231\238\226\224\235\232 \234\243\235\232\237\224\240\232\254 \225\238\235\229\229 \226\251\241\238\234\238\227\238 \243\240\238\226\237\255. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "You have used a higher level item of the same kind. Please try again later" )
 		UseItemFailed ( role )
 		return
 	end
 	local statetime = 420
 	AddState( role , role , STATE_NVER , statelv , statetime )
 end 
-
---Âèíî ìàî (ID 1087)
+---------------------------------Ã©Ì¨£ºSP+400£¬¾«Éñ+20£¬Ê±¼ä5·ÖÖÓ
 function ItemUse_MAOTAI( role , Item ) 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
@@ -13697,20 +14323,19 @@ function ItemUse_MAOTAI( role , Item )
 	local statelv = 4
 	local ChaStateLv = GetChaStateLv ( role , STATE_NVER )
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\194\251 \243\230\229 \232\241\239\238\235\252\231\238\226\224\235\232 \234\243\235\232\237\224\240\232\254 \225\238\235\229\229 \226\251\241\238\234\238\227\238 \243\240\238\226\237\255. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "You have used a higher level item of the same kind. Please try again later" )
 		UseItemFailed ( role )
 		return
 	end
 	local statetime = 300
 	AddState( role , role , STATE_NVER , statelv , statetime )
 end 
-
---Âèíî ñ æåíüøåíåì (ID 1089)
+---------------------------------ÈË²Î¾Æ£ºSP+500£¬¾«Éñ+25£¬Ê±¼ä3·ÖÖÓ
 function ItemUse_RENSHEN( role , Item )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
@@ -13725,20 +14350,19 @@ function ItemUse_RENSHEN( role , Item )
 	local statelv = 5
 	local ChaStateLv = GetChaStateLv ( role , STATE_NVER )
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\194\251 \243\230\229 \232\241\239\238\235\252\231\238\226\224\235\232 \234\243\235\232\237\224\240\232\254 \225\238\235\229\229 \226\251\241\238\234\238\227\238 \243\240\238\226\237\255. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "You have used a higher level item of the same kind. Please try again later" )
 		UseItemFailed ( role )
 		return
 	end
 	local statetime = 180
 	AddState( role , role , STATE_NVER , statelv , statetime )
 end 
-
---Òîíèê èç òèãðèíîé êîñòè (ID 1090)
+---------------------------------»¢¹Ç¾Æ£ºSP+600£¬¾«Éñ+30£¬Ê±¼ä2·ÖÖÓ
 function ItemUse_HUGU( role , Item ) 
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~= nil then 
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" ) 
 		UseItemFailed ( role ) 
 		return 
 	end 
@@ -13753,23 +14377,18 @@ function ItemUse_HUGU( role , Item )
 	local statelv = 6
 	local ChaStateLv = GetChaStateLv ( role , STATE_NVER )
 	if ChaStateLv > statelv then
-		SystemNotice ( role , "\194\251 \243\230\229 \232\241\239\238\235\252\231\238\226\224\235\232 \234\243\235\232\237\224\240\232\254 \225\238\235\229\229 \226\251\241\238\234\238\227\238 \243\240\238\226\237\255. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229" )
+		SystemNotice ( role , "You have used a higher level item of the same kind. Please try again later" )
 		UseItemFailed ( role )
 		return
 	end
 	local statetime = 120
 	AddState( role , role , STATE_NVER , statelv , statetime )
 end 
-
---------------------------------------------------------------------------------------------------
---Ñóíäóêè
---------------------------------------------------------------------------------------------------
-
---Ñóíäóê ñ ñîâðåìåííûìè óêðàøåíèÿìè (ID 2224)
+-------------------ÐÂÊ½Ä¦Á¦¿á×°±¦Ïä
 function ItemUse_MOLIBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet < 4 then
-		SystemNotice(role ,"\194\224\236 \237\243\230\237\238 4 \241\226\238\225\238\228\237\251\245 \241\235\238\242\224 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
+		SystemNotice(role ,"You need at least 4 empty inventory slots to open the Chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -13826,9 +14445,11 @@ function ItemUse_MOLIBOX( role , Item )
 	GiveItem ( role , 0 , 5152  , 1 , 4 ) 
 	GiveItem ( role , 0 , 5153  , 1 , 4 )
 	end
+	--local cha_name = GetChaDefaultName ( role ) 
+	--local message = cha_name.." opens Apparel Chest and obtain 1 apparel set"   
+	--Notice ( message )
 end
 
---Ñóíäóê èíòðèãè (ID 0024)
 function ItemUse_IDBOX(role, Item )
 	local lv = GetChaAttr(role, ATTR_LV)
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
@@ -13836,19 +14457,19 @@ function ItemUse_IDBOX(role, Item )
 	local count = 1
 	
 	if lv < 60 then
-		SystemNotice( role ,"\194\224\248 \243\240\238\226\229\237\252 \237\232\230\229 \247\229\236 60. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \239\240\229\228\236\229\242!")
+		SystemNotice( role ,"Currently lower then Lv 60. Item usage failed!")
 		UseItemFailed ( role )	
 	else
-		SystemNotice(role,"\221\226\229\237\242 \231\224\234\238\237\247\232\235\241\255, \209\239\224\241\232\225\238 \194\224\236 \231\224 \243\247\224\241\242\232\229. \207\238\230\224\235\243\233\241\242\224, \231\224\233\228\232\242\229 \237\224 \244\238\240\243\236 \194\224\248\229\227\238 \241\229\240\226\229\240\224, \247\242\238\225\251 \243\231\237\224\242\252 \225\235\232\230\224\233\248\232\229 \241\238\225\251\242\232\255!")
+		SystemNotice(role,"Event have ended, Thank You for your participation. Please refer to Pirate King Online official website for future events!")
 	end
 end 
 
---Áîíóñ Êíèãè ÷åñòè (ID 2816)
+---------------------ÈÙÓþ¼ÓµãÊé
 function ItemUse_HonorPoint (role, Item )
 	local HonorBook_Num = 0
 	local HonorBook_Num = CheckBagItem( role,3849 )
 		if HonorBook_Num < 1 then
-		SystemNotice( role , "\211 \194\224\241 \237\229\242 \204\229\228\224\235\232 \206\242\226\224\227\232")
+		SystemNotice( role , "You do not have Mark of Honor")
 		return 0
 		end
 	local Book2 =  GetChaItem2 ( role , 2 , 3849 )
@@ -13858,13 +14479,12 @@ function ItemUse_HonorPoint (role, Item )
 	SetItemAttr ( Book2 , ITEMATTR_VAL_STR,HonorPoint_X)
 	
 end
-
---Êíèãà áîíóñîâ Õàîñà (ID 2951)
+-------------------------ÂÒ¶·¼ÓµãÊé
 function ItemUse_FightingPoint (role, Item )
 	local HonorBook_Num = 0
 	local HonorBook_Num = CheckBagItem( role,3849 )
 		if HonorBook_Num < 1 then
-		SystemNotice( role , "\211 \194\224\241 \237\229\242 \204\229\228\224\235\232 \206\242\226\224\227\232")
+		SystemNotice( role , "You do not have Mark of Honor")
 		return 0
 		end
 	local Book2 =  GetChaItem2 ( role , 2 , 3849 )
@@ -13874,12 +14494,7 @@ function ItemUse_FightingPoint (role, Item )
 	SetItemAttr ( Book2 , ITEMATTR_MAXENERGY,FightingPoint_X)
 	
 end
-
---------------------------------------------------------------------------------------------------
---Ðîæäåñòâî
---------------------------------------------------------------------------------------------------
-
---Âêóñíîå èíäþøà÷üå ìÿñî (ID 2895)
+----------------------------[[ÃÀÎ¶»ð¼¦Èâ]]--
 function ItemUse_MWHJ ( role , Item )  
 	local el_exp = GetChaAttr(role, ATTR_CEXP)
 	local exp1=el_exp
@@ -13892,22 +14507,21 @@ function ItemUse_MWHJ ( role , Item )
 	end
 	SetCharaAttr(el_exp, role, ATTR_CEXP) 
 end 
-
---Ïðàçäíè÷íûé îáåä (ID 2898)
+------------------------Ê¥µ®´ó²Í
 function ItemUse_SDDC ( role , Item )
 	local Cha_Boat = 0
 	local charLv=Lv ( role )
 	local dif_exp_one = DEXP[charLv+1]
 	local dif_exp_three = DEXP[charLv+3]
 	local dif_exp_five = DEXP[charLv+5]
-	local Exp_star=GetChaAttr (  role , ATTR_CEXP )
+	local Exp_star=GetChaAttr (  role , ATTR_CEXP )----------µ±Ç°µÈ¼¶¾­Ñé
 	local dif_exp_half = (DEXP[charLv+1] - DEXP[charLv])*0.5 +  Exp_star +10
 	local dif_exp_thalf = (DEXP[charLv+1] - DEXP[charLv])*0.3  +  Exp_star + 10
 	local dif_exp_thalf_b = dif_exp_thalf - DEXP[charLv+1]
-	local dif_exp_thalf_c = (DEXP[charLv+1] - DEXP[charLv])*0.01+Exp_star
+	local dif_exp_thalf_c = (DEXP[charLv+1] - DEXP[charLv])*0.01+Exp_star ----------------
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" ) 
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	elseif charLv>=1 and charLv<=9 then
@@ -13926,15 +14540,15 @@ function ItemUse_SDDC ( role , Item )
 			dif_exp_thalf = dif_exp_thalf_b*0.02 + DEXP[charLv+1]
 			SetChaAttrI( role , ATTR_CEXP , dif_exp_thalf )
 	elseif charLv>=86 then
-		SetChaAttrI( role , ATTR_CEXP , dif_exp_thalf_c )
+		SetChaAttrI( role , ATTR_CEXP , dif_exp_thalf_c )-------------
+		--SystemNotice( role , "Players above Lv 86 will obtain 1% experience upon usage" )--------------
 	end
 end
-
---Ñâèòîê ïðèçâàíèÿ ÷óäèùà (ID 2900)
+------------------------------------¹ÖÎïÕÙ»½È¯--Ë«»÷»ñµÃËÄ¸öÕÙ»½È¯
 function ItemUse_GWZHQ ( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <=3 then
-		SystemNotice(role ,"\205\229 \245\226\224\242\224\229\242 \241\226\238\225\238\228\237\251\245 \241\235\238\242\238\226 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229. \194\224\236 \237\243\230\237\238 4 \241\226\238\225\238\228\237\251\245 \241\235\238\242\224. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \209\226\232\242\238\234 \239\240\232\231\226\224\237\232\255 \247\243\228\232\249\224")
+		SystemNotice(role ,"Not enough slots. You need at least 4 empty slots. Failed to open Posh Christmas Box")
 		UseItemFailed ( role )
 		return
 	end
@@ -13943,19 +14557,18 @@ function ItemUse_GWZHQ ( role , Item )
 	GiveItem ( role , 0 , 2890  , 1 , 4)
 	GiveItem ( role , 0 , 2891  , 1 , 4)
 end
-
---Ñâèòîê âûçîâà èíäþøêè (ID 2888)
+---------------------------------»ð¼¦ÕÙ»½È¯--Ë«»÷ÕÙ»½»ð¼¦³èÎï
 function ItemUse_HJZHQ ( role , Item  )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \227\238\228\232\242\241\255 \234 \232\241\239\238\235\252\231\238\226\224\237\232\254 \237\224 \236\238\240\229." )
+		SystemNotice( role , "Not usable on the sea." )
 		UseItemFailed ( role )
 		return
 	end
 	local pet_num = GetPetNum(role)
 	if pet_num >= 5 then
-		SystemNotice( role , "\199\224 \240\224\231 \236\224\234\241\232\236\243\236 \236\238\230\237\238 \226\251\231\226\224\242\252 5 \240\243\247\237\251\245 \230\232\226\238\242\237\251\245. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229!" )
+		SystemNotice( role , "Max of limit of 5 pets reached. Please try again later!" )
 		UseItemFailed ( role )
 		return
 	end
@@ -13964,9 +14577,9 @@ function ItemUse_HJZHQ ( role , Item  )
 	y_resume = 5
 	x = x + x_resume
 	y = y + y_resume
-	local MonsterID =930
-	local Refresh = 1800
-	local life = 1800000
+	local MonsterID =930     -------------------Ã»Ã«»ð¼¦
+	local Refresh = 1800					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 1800000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 	local new = CreateChaX( MonsterID , x , y , 145 , Refresh, role )
 	SetChaHost(new,role)
 	SetChaLifeTime( new, life )
@@ -13974,18 +14587,19 @@ function ItemUse_HJZHQ ( role , Item  )
 	PlayEffect( new, 361 )
 end
 
---Ñâèòîê âûçîâà Ñåâåðíîãî îëåíÿ (ID 2889)
+------------------------------÷çÂ¹ÕÙ»½È¯--Ë«»÷ÕÙ»½÷çÂ¹
+
 function ItemUse_MLZHQ ( role , Item  )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \227\238\228\232\242\241\255 \234 \232\241\239\238\235\252\231\238\226\224\237\232\254 \237\224 \236\238\240\229." )
+		SystemNotice( role , "Not usable on the sea." )
 		UseItemFailed ( role )
 		return
 	end
 	local pet_num = GetPetNum(role)
 	if pet_num >= 5 then
-		SystemNotice( role , "\199\224 \240\224\231 \236\224\234\241\232\236\243\236 \236\238\230\237\238 \226\251\231\226\224\242\252 5 \240\243\247\237\251\245 \230\232\226\238\242\237\251\245. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229!" )
+		SystemNotice( role , "Max of limit of 5 pets reached. Please try again later!" )
 		UseItemFailed ( role )
 		return
 	end
@@ -13994,28 +14608,27 @@ function ItemUse_MLZHQ ( role , Item  )
 	y_resume = 5
 	x = x + x_resume
 	y = y + y_resume
-	local MonsterID =931
-	local Refresh = 3600
-	local life = 3600000
+	local MonsterID =931-----------------------÷çÂ¹
+	local Refresh = 3600					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 3600000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 	local new = CreateChaX( MonsterID , x , y , 145 , Refresh, role )
 	SetChaHost(new,role)
 	SetChaLifeTime( new, life )
 	SetChaTarget(new, role)
 	PlayEffect( new, 361 )
 end
-
---Ñâèòîê âûçîâà Ñíåæíîãî ÷åëîâåêà (ID 2890)
+-----------------------------------Ñ©ÈËÕÙ»½È¯--Ë«»÷ÕÙ»½Ñ©ÈË
 function ItemUse_XRZHQ ( role , Item  )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \227\238\228\232\242\241\255 \234 \232\241\239\238\235\252\231\238\226\224\237\232\254 \237\224 \236\238\240\229." )
+		SystemNotice( role , "Not usable on the sea." )
 		UseItemFailed ( role )
 		return
 	end
 	local pet_num = GetPetNum(role)
 	if pet_num >= 5 then
-		SystemNotice( role , "\199\224 \240\224\231 \236\224\234\241\232\236\243\236 \236\238\230\237\238 \226\251\231\226\224\242\252 5 \240\243\247\237\251\245 \230\232\226\238\242\237\251\245. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229!" )
+		SystemNotice( role , "Max of limit of 5 pets reached. Please try again later!" )
 		UseItemFailed ( role )
 		return
 	end
@@ -14024,9 +14637,9 @@ function ItemUse_XRZHQ ( role , Item  )
 	y_resume = 5
 	x = x + x_resume
 	y = y + y_resume
-	local MonsterID =932
-	local Refresh = 7200
-	local life = 7200000
+	local MonsterID =932-----------------------------Ê¥µ®ÀÏÈË
+	local Refresh = 7200					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 7200000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 	local new = CreateChaX( MonsterID , x , y , 145 , Refresh, role )
 	SetChaHost(new,role)
 	SetChaLifeTime( new, life )
@@ -14034,18 +14647,19 @@ function ItemUse_XRZHQ ( role , Item  )
 	PlayEffect( new, 361 )
 end
 
---Ñâèòîê âûçîâà Äåäà Ìîðîçà (ID 2891)
+--------------------------------------------------Ê¥µ®ÀÏÈËÕÙ»½È¯--Ë«»÷ÕÙ»½Ê¥µ®ÀÏÈË
+
 function ItemUse_SDZHQ ( role , Item  )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \227\238\228\232\242\241\255 \234 \232\241\239\238\235\252\231\238\226\224\237\232\254 \237\224 \236\238\240\229." )
+		SystemNotice( role , "Not usable on the sea." )
 		UseItemFailed ( role )
 		return
 	end
 	local pet_num = GetPetNum(role)
 	if pet_num >= 5 then
-		SystemNotice( role , "\199\224 \240\224\231 \236\224\234\241\232\236\243\236 \236\238\230\237\238 \226\251\231\226\224\242\252 5 \240\243\247\237\251\245 \230\232\226\238\242\237\251\245. \207\238\230\224\235\243\233\241\242\224, \239\238\239\240\238\225\243\233\242\229 \239\238\231\230\229!" )
+		SystemNotice( role , "Max of limit of 5 pets reached. Please try again later!" )
 		UseItemFailed ( role )
 		return
 	end
@@ -14054,21 +14668,20 @@ function ItemUse_SDZHQ ( role , Item  )
 	y_resume = 5
 	x = x + x_resume
 	y = y + y_resume
-	local MonsterID =929
-	local Refresh = 10800
-	local life = 10800000
+	local MonsterID =929-----------------------------Ê¥µ®ÀÏÈË
+	local Refresh = 10800					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 10800000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 	local new = CreateChaX( MonsterID , x , y , 145 , Refresh, role )
 	SetChaHost(new,role)
 	SetChaLifeTime( new, life )
 	SetChaTarget(new, role)
 	PlayEffect( new, 361 )
 end
-
---Ðîæäåñòâåíñêèé ïîäàðîê (ID 2897)
+---------------------------------------------Ê¥µ®´óÀñ°ü--Ë«»÷»ñµÃÒ»ÏµÁÐµÀ¾ß
 function ItemUse_SDDLB ( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <=5 then
-		SystemNotice(role ,"\215\242\238\225\251 \238\242\234\240\251\242\252 \208\238\230\228\229\241\242\226\229\237\241\234\232\233 \239\238\228\224\240\238\234 \239\238 \234\240\224\233\237\229\233 \236\229\240\229 \242\240\229\225\243\229\242\241\255 6 \241\226\238\225\238\228\237\251\245 \241\235\238\242\238\226 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \208\238\230\228\229\241\242\226\229\237\241\234\232\233 \239\238\228\224\240\238\234.")
+		SystemNotice(role ,"You require at least 6 empty inventory slots. Failed to open Christmas Box.")
 		UseItemFailed ( role )
 		return
 	end
@@ -14080,11 +14693,8 @@ function ItemUse_SDDLB ( role , Item )
 	GiveItem ( role , 0 , 2896  , 99 , 4) 
 end
 
---------------------------------------------------------------------------------------------------
---Áèëåòû
---------------------------------------------------------------------------------------------------
 
---Ïðîïóñê íà ñîáûòèå (Îñòðîâ Ñêåëåòîâ) (ID 2446)
+--------------------------------------------------------Ì¨Íå»úÆ±1
 function TW_Ticket_Script1(role, Item )
 	local i = CheckBagItem(role,2446)
 	local k = ChaIsBoat(role)
@@ -14093,7 +14703,7 @@ function TW_Ticket_Script1(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -14110,8 +14720,7 @@ function TW_Ticket_Script1(role, Item )
 	end
 		
 end
-
---Ïðîïóñê íà Îñòðîâ Ñêåëåòîâ? (ID 2447)
+--------------------------------------------------------Ì¨Íå»úÆ±2
 function TW_Ticket_Script2(role, Item )
 	local i = CheckBagItem(role,2447)
 	local k = ChaIsBoat(role)
@@ -14120,7 +14729,7 @@ function TW_Ticket_Script2(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -14138,7 +14747,7 @@ function TW_Ticket_Script2(role, Item )
 		
 end
 
---Ïðîïóñê íà Áàçó Ôëîòà (ID 2491)
+--------------------------------------------------------Ì¨Íå»úÆ±3
 function TW_Ticket_Script3(role, Item )
 	local i = CheckBagItem(role,2491)
 	local k = ChaIsBoat(role)
@@ -14147,7 +14756,7 @@ function TW_Ticket_Script3(role, Item )
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
 		UseItemFailed ( role )
 		return
 	end 
@@ -14165,23 +14774,19 @@ function TW_Ticket_Script3(role, Item )
 		
 end
 
---------------------------------------------------------------------------------------------------
---Íîâûé ãîä
---------------------------------------------------------------------------------------------------
-
---Èçûñêàííàÿ ïîäàðî÷íàÿ êîðîáêà (ID 2893)
+--¾«ÃÀµÄÊ¥µ®ÀñºÐ
 function ItemUse_JMSDBOX ( role , Item )
 	local item_type = BoxXiang_BaoZhaBOX
 	local item_type_rad = BoxXiang_BaoZhaBOX_Rad
 	local item_type_count = BoxXiang_BaoZhaBOX_Count
-	local maxitem = BoxXiang_baozhabao_Mxcount
+	local maxitem = BoxXiang_baozhabao_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BoxXiang_baozhabao_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 		
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229 \245\226\224\242\224\229\242 \241\226\238\225\238\228\237\251\245 \241\235\238\242\238\226 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \200\231\251\241\234\224\237\237\243\254 \239\238\228\224\240\238\247\237\243\254 \234\238\240\238\225\234\243")
+		SystemNotice(role ,"Not enough slots. Fail to open Posh Christmas Box")
 		UseItemFailed ( role )
 		return
 	end
@@ -14191,8 +14796,8 @@ function ItemUse_JMSDBOX ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 		d = item_type_rad [ k ] + b
 
 		 if a <= d and a > b then
@@ -14235,17 +14840,19 @@ function ItemUse_JMSDBOX ( role , Item )
 		if ItemId == GoodItem[Good_C] then
 			local itemname = GetItemName ( ItemId ) 
 			local cha_name = GetChaDefaultName ( role ) 
-			local message = cha_name.." \238\242\234\240\251\226\224\229\242 \200\231\251\241\234\224\237\237\243\254 \239\238\228\224\240\238\247\237\243\254 \234\238\240\238\225\234\243 \232 \239\238\235\243\247\224\229\242 "..itemname    
+			local message = cha_name.." opens a Posh Christmas Box and obtained "..itemname  
 			Notice ( message )
 		end
 	end
 end
 
---Íîâîãîäíèé ôåéåðâåðê (ID 2304)
+
+
+----------------------------------------------------------------------------------ÐÂÄêÀñÅÚ
 function ItemUse_XNLP( role , Item )
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
@@ -14261,19 +14868,18 @@ function ItemUse_XNLP( role , Item )
 		ItemUse_XINBOX ( role , Item )	
 	end
 end
-
 function ItemUse_XINBOX ( role , Item )
 	local item_type = BoxXiang_BaoZhaBOX
 	local item_type_rad = BoxXiang_BaoZhaBOX_Rad
 	local item_type_count = BoxXiang_BaoZhaBOX_Count
-	local maxitem = BoxXiang_baozhabao_Mxcount
+	local maxitem = BoxXiang_baozhabao_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BoxXiang_baozhabao_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 		
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \205\238\226\238\227\238\228\237\232\233 \244\229\233\229\240\226\229\240\234.")
+		SystemNotice(role ,"Insufficient inventory slot. Usage of Grandiose Salute failed.")
 		UseItemFailed ( role )
 		return
 	end
@@ -14283,8 +14889,8 @@ function ItemUse_XINBOX ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 		d = item_type_rad [ k ] + b
 
 		 if a <= d and a > b then
@@ -14327,24 +14933,24 @@ function ItemUse_XINBOX ( role , Item )
 		if ItemId == GoodItem[Good_C] then
 			local itemname = GetItemName ( ItemId ) 
 			local cha_name = GetChaDefaultName ( role ) 
-			local message = cha_name.." \232\241\239\238\235\252\231\243\229\242 \205\238\226\238\227\238\228\237\232\233 \244\229\233\229\240\226\229\240\234 \232 \239\238\235\243\247\224\229\242 "..itemname  
+			local message = cha_name.." uses Grandiose Salute and obtained "..itemname  
 			Notice ( message )
 		end
 	end
 end
 
---Íîâîãîäíèé ñóíäóê (ID 2307)
+-------------------ÐÂÄê±¦Ïä
 function ItemUse_XNBOX( role , Item )
 		
 	local lv = GetChaAttr(role, ATTR_LV)
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if lv < 40 then
-		SystemNotice( role ,"\194\224\248 \243\240\238\226\229\237\252 \237\232\230\229 \247\229\236 40. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \239\240\229\228\236\229\242!")
+		SystemNotice( role ,"Currently lower than Lv 40. Unable to use item!")
 		UseItemFailed ( role )	
 	return
 	end
 	if Item_CanGet < 1 then
-		SystemNotice(role ,"\194\224\236 \237\243\230\237\224 1 \241\226\238\225\238\228\237\224\255 \255\247\229\233\234\224 \226 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \205\238\226\238\227\238\228\237\232\233 \241\243\237\228\243\234")
+		SystemNotice(role ,"You need at least 1 free slot to open chest")
 		UseItemFailed ( role )
 		return
 	end
@@ -14363,26 +14969,25 @@ function ItemUse_XNBOX( role , Item )
 	end
 end
 
---Íîìåð áèëåòà (ID 2305)
+------------------------------------Êý×Ö·¢
 function ItemUse_SZF ( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <1 then
-		SystemNotice(role ,"\205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \205\238\236\229\240 \225\232\235\229\242\224. \205\243\230\229\237 1 \241\226\238\225\238\228\237\251\233 \241\235\238\242 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"Unable to use Pirate Voucher 8. Requires at least 1 empty inventory slot")
 		UseItemFailed ( role )
 		return
 	end
 	GiveItem ( role , 0 , 2306  , 1 , 4)
 	local cha_name = GetChaDefaultName ( role ) 
-			local message ="\207\238\231\228\240\224\226\235\229\237\232\255" ..cha_name.."\239\238\235\243\247\232\235 \240\224\241\239\232\241\234\243 \237\224 IPOD" 
+			local message ="Congratulations" ..cha_name.."Obtained 3k RMB worth of IPOD prizes" 
 			Notice ( message )
 	
 end
-
---Êàìåíü ïàìÿòè (ID 2314)
+----------------------------------------------Ê¯Í·¼Ç
 function ItemUse_ShiTouJi( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet <1 then
-		SystemNotice(role ,"\215\242\238\225\251 \232\241\239\238\235\252\231\238\226\224\242\252 \202\224\236\229\237\252 \239\224\236\255\242\232 \237\243\230\229\237 1 \241\226\238\225\238\228\237\251\233 \241\235\238\242 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"To open a Chest requires 1 empty slot")
 		UseItemFailed ( role )
 		return
 	end
@@ -14397,23 +15002,19 @@ function ItemUse_ShiTouJi( role , Item )
 	LG( "star_stonebox" ,cha_name, STONE_ID , STONE_LV )
 end
 
---------------------------------------------------------------------------------------------------
---Ïðîèçâîäñòâî
---------------------------------------------------------------------------------------------------
-
---Ìåøîê ñ ïåñêîì 1 óð. (ID 1145)
+-------------------Á·Ï°ÓÃÉ³°üLv1
 function ItemUse_ShaBao1(role , Item)
 local Cha_Boat = 0
       Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local reg = 0
 	      reg =IsChaInRegion( role, 2 )
 	if reg == 1 then
-		SystemNotice( role , "\210\240\229\237\232\240\238\226\234\224 \226 \193\229\231\238\239\224\241\237\238\233 \199\238\237\229? \221\242\238 \236\229\247\242\224!" )
+		SystemNotice( role , "Training in Safe Zone? Dream on!" )
 		UseItemFailed ( role )
                 return
 	end
@@ -14429,19 +15030,20 @@ local Cha_Boat = 0
 		SetChaLifeTime( new, life )
 end
 
---Ìåøîê ñ ïåñêîì 2 óð. (ID 2729)
+
+-------------------Á·Ï°ÓÃÉ³°üLv2
 function ItemUse_ShaBao2(role , Item)
 local Cha_Boat = 0
       Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local reg = 0
 	      reg =IsChaInRegion( role, 2 )
 	if reg == 1 then
-		SystemNotice( role , "\210\240\229\237\232\240\238\226\234\224 \226 \193\229\231\238\239\224\241\237\238\233 \199\238\237\229? \221\242\238 \236\229\247\242\224!" )
+		SystemNotice( role , "Training in Safe Zone? Dream on!" )
 		UseItemFailed ( role )
                 return
 	end
@@ -14457,19 +15059,21 @@ local Cha_Boat = 0
 		SetChaLifeTime( new, life )
 end
 
---Ìåøîê ñ ïåñêîì 3 óð. (ID 2753)
+
+-------------------Á·Ï°ÓÃÉ³°üLv3
+
 function ItemUse_ShaBao3(role , Item)
 local Cha_Boat = 0
       Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local reg = 0
 	      reg =IsChaInRegion( role, 2 )
 	if reg == 1 then
-		SystemNotice( role , "\210\240\229\237\232\240\238\226\234\224 \226 \193\229\231\238\239\224\241\237\238\233 \199\238\237\229? \221\242\238 \236\229\247\242\224!" )
+		SystemNotice( role , "Training in Safe Zone? Dream on!" )
 		UseItemFailed ( role )
                 return
 	end
@@ -14485,19 +15089,20 @@ local Cha_Boat = 0
 		SetChaLifeTime( new, life )
 end
 
---Ìåøîê ñ ïåñêîì 4 óð. (ID 2777)
+
+-------------------Á·Ï°ÓÃÉ³°üLv4
 function ItemUse_ShaBao4(role , Item)
 local Cha_Boat = 0
       Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local reg = 0
 	      reg =IsChaInRegion( role, 2 )
 	if reg == 1 then
-		SystemNotice( role , "\210\240\229\237\232\240\238\226\234\224 \226 \193\229\231\238\239\224\241\237\238\233 \199\238\237\229? \221\242\238 \236\229\247\242\224!" )
+		SystemNotice( role , "Training in Safe Zone? Dream on!" )
 		UseItemFailed ( role )
                 return
 	end
@@ -14513,19 +15118,20 @@ local Cha_Boat = 0
 		SetChaLifeTime( new, life )
 end
 
---Ìåøîê ñ ïåñêîì 5 óð. (ID 2801)
+
+-------------------Á·Ï°ÓÃÉ³°üLv5
 function ItemUse_ShaBao5(role , Item)
 local Cha_Boat = 0
       Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local reg = 0
 	      reg =IsChaInRegion( role, 2 )
 	if reg == 1 then
-		SystemNotice( role , "\210\240\229\237\232\240\238\226\234\224 \226 \193\229\231\238\239\224\241\237\238\233 \199\238\237\229? \221\242\238 \236\229\247\242\224!" )
+		SystemNotice( role , "Training in Safe Zone? Dream on!" )
 		UseItemFailed ( role )
                 return
 	end
@@ -14541,24 +15147,34 @@ local Cha_Boat = 0
 		SetChaLifeTime( new, life )
 end
 
---Ãåíåðàòîð çëà 1 óð. (ID 1144)
+------------------Ð°¶ñ·¢ÉúÆ÷Lv1
 function ItemUse_FaSheng1(role,Item)
 local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
         local reg = 0
 	      reg =IsChaInRegion( role, 2 )
 	if reg == 1 then
-	      SystemNotice( role , "\194\251\231\238\226 \236\238\237\241\242\240\224 \226 \193\229\231\238\239\224\241\237\238\233 \199\238\237\229? \207\238\230\224\235\243\233\241\242\224, \225\243\228\252\242\229 \226\237\232\236\224\242\229\235\252\237\251!" )
+	      SystemNotice( role , "Summon a monster in a safe zone? Please be considerate!" )
 	      UseItemFailed ( role )
 	return
 	end
 	local radID = math.random ( 1,8 )
 	local MonsterID = 0
+--	local Monster_GetID = {}
+--		Monster_GetID[1] = 841
+--		Monster_GetID[2] = 842
+--		Monster_GetID[3] = 843
+--		Monster_GetID[4] = 844
+--		Monster_GetID[5] = 845
+--		Monster_GetID[6] = 846
+--		Monster_GetID[7] = 229
+--		Monster_GetID[8] = 274
+--        
 
 	  if radID == 1   then
 	       MonsterID = 841
@@ -14588,31 +15204,47 @@ local Cha_Boat = 0
 		local y_move=5
 		x=x_move+x
 		y=y_move+y
-                local Refresh = 3700000
-		local life =  3600000
+                local Refresh = 3700000			                --ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+		local life =  3600000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 		local new = CreateChaX( MonsterID , x , y , 145 , Refresh, role )
 		SetChaLifeTime( new, life )
 end
+------------------Ð°¶ñ·¢ÉúÆ÷Lv2
 
---Ãåíåðàòîð çëà 2 óð. (ID 2728)
 function ItemUse_FaSheng2(role,Item)
 local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
         local reg = 0
 	      reg =IsChaInRegion( role, 2 )
 	if reg == 1 then	
-	      SystemNotice( role , "\194\251\231\238\226 \236\238\237\241\242\240\224 \226 \193\229\231\238\239\224\241\237\238\233 \199\238\237\229? \207\238\230\224\235\243\233\241\242\224, \225\243\228\252\242\229 \226\237\232\236\224\242\229\235\252\237\251!" )
+	      SystemNotice( role , "Summon a monster in a safe zone? Please be considerate!" )
 	      UseItemFailed ( role )
 	return
 	end
 	local radID = math.random ( 1,15 )
 	local MonsterID = 0
-
+--	local Monster_GetID = {}
+--
+--                Monster_GetID[1] = 847      
+--		Monster_GetID[2] = 848
+--		Monster_GetID[3] = 849
+--		Monster_GetID[4] = 850
+--		Monster_GetID[5] = 851
+--		Monster_GetID[6] = 852
+--		Monster_GetID[7] = 211
+--		Monster_GetID[8] = 706
+--		Monster_GetID[9] = 673
+--		Monster_GetID[10] = 690
+--		Monster_GetID[11] = 691
+--		Monster_GetID[12] = 692
+--		Monster_GetID[13] = 693
+--		Monster_GetID[14] = 106
+--		Monster_GetID[15] = 289
 
 		local x, y = GetChaPos(role)
 		local x_move=5
@@ -14650,31 +15282,37 @@ local Cha_Boat = 0
 	    elseif radID == 15 then
 	      MonsterID = 289
 	  end
-		local Refresh = 3700000
-		local life = 3600000
+		local Refresh = 3700000				        --ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+		local life = 3600000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 		local new = CreateChaX( MonsterID , x , y , 145 , Refresh,role )
 		SetChaLifeTime( new, life )
 end
-
---Ãåíåðàòîð çëà 3 óð. (ID 2752)
+------------------Ð°¶ñ·¢ÉúÆ÷Lv3
 function ItemUse_FaSheng3(role,Item)
 local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
         local reg = 0
 	      reg =IsChaInRegion( role, 2 )
 	if reg == 1 then	
-	      SystemNotice( role , "\194\251\231\238\226 \236\238\237\241\242\240\224 \226 \193\229\231\238\239\224\241\237\238\233 \199\238\237\229? \207\238\230\224\235\243\233\241\242\224, \225\243\228\252\242\229 \226\237\232\236\224\242\229\235\252\237\251!" )
+	      SystemNotice( role , "Summon a monster in a safe zone? Please be considerate!" )
 	      UseItemFailed ( role )
 	return
 	end
 	local radID = math.random ( 1,7 )
 	local MonsterID = 0
-
+--	local Monster_GetID = {}
+--		Monster_GetID[1] = 757
+--		Monster_GetID[2] = 679
+--		Monster_GetID[3] = 678
+--		Monster_GetID[4] = 707
+--		Monster_GetID[5] = 708
+--		Monster_GetID[6] = 776
+--		Monster_GetID[7] = 74
 		 
                 local x, y = GetChaPos(role)
 		local x_move=5
@@ -14696,25 +15334,24 @@ local Cha_Boat = 0
           elseif radID == 7 then
 	       MonsterID = 74   
 	  end
-		local Refresh = 7300000
-		local life = 7200000
+		local Refresh = 7300000				        --ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+		local life = 7200000     				--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 		local new = CreateChaX( MonsterID , x , y , 145 , Refresh,role )
 		SetChaLifeTime( new, life )
 end
-
---Ãåíåðàòîð çëà 4 óð. (ID 2776)
+------------------Ð°¶ñ·¢ÉúÆ÷Lv4
 function ItemUse_FaSheng4(role,Item)
 local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
         local reg = 0
 	      reg =IsChaInRegion( role, 2 )
 	if reg == 1 then	
-	      SystemNotice( role , "\194\251\231\238\226 \236\238\237\241\242\240\224 \226 \193\229\231\238\239\224\241\237\238\233 \199\238\237\229? \207\238\230\224\235\243\233\241\242\224, \225\243\228\252\242\229 \226\237\232\236\224\242\229\235\252\237\251!" )
+	      SystemNotice( role , "Summon a monster in a safe zone? Please be considerate!" )
 	      UseItemFailed ( role )
 	return
 	end
@@ -14722,7 +15359,13 @@ local Cha_Boat = 0
 	local MonsterID = 0
 	local Refresh = 0
 	local life = 0
-	
+--	local Monster_GetID = {}
+--		Monster_GetID[1] = 952
+--		Monster_GetID[2] = 805
+--		Monster_GetID[3] = 807
+--		Monster_GetID[4] = 786
+--		Monster_GetID[5] = 788
+--		
                 local x, y = GetChaPos(role)
 		local x_move=5
 		local y_move=5
@@ -14744,26 +15387,109 @@ local Cha_Boat = 0
 	          Refresh = 10900000
 	          life = 10800000
 	       else
-		  Refresh = 7300000
-		  life = 7200000
+		  Refresh = 7300000     			        --ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+		  life = 7200000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 	       end
 	          local new = CreateChaX( MonsterID , x , y , 145 , Refresh ,role)
 		SetChaLifeTime( new, life )
 end
 
---Âîäÿíàÿ ìèíà, 1 óð. (ID 2678)
+--------------------Ð°¶ñ·¢ÉúÆ÷Lv5
+--function ItemUse_FaSheng5(role,Item)
+--local Cha_Boat = 0
+--	Cha_Boat = GetCtrlBoat ( role )
+--	if Cha_Boat ~=  nil then
+--		SystemNotice( role , "Cannot use while sailing" )
+--		UseItemFailed ( role )
+--		return
+--	end
+--        local reg = 0
+--	      reg =IsChaInRegion( role, 2 )
+--	if reg == 1 then	
+--	      SystemNotice( role , "Summon a monster in a safe zone? Please be considerate!" )
+--	      UseItemFailed ( role )
+--	return
+--	end
+--	local radID = math.random ( 1,30 )
+--	local MonsterID = 0
+--	local Refresh = 0
+--	local life = 0
+--	local Monster_GetID = {}
+--		Monster_GetID[1] = 229 
+--		Monster_GetID[2] = 211
+--		Monster_GetID[3] = 99
+--		Monster_GetID[4] = 673
+--		Monster_GetID[5] = 786
+--		Monster_GetID[6] = 757
+--		Monster_GetID[7] = 263
+--		Monster_GetID[8] = math.random ( 678 , 679 )
+--                Monster_GetID[9] = math.random ( 841 , 852 )
+--		Monster_GetID[10] = math.random ( 690 , 693 )
+--		Monster_GetID[11] = math.random ( 706, 708 )
+--		Monster_GetID[12] = 952
+--		Monster_GetID[13] = 805
+--		Monster_GetID[14] = 807
+--		
+--                local x, y = GetChaPos(role)
+--		local x_move=5
+--		local y_move=5
+--		x=x_move+x
+--		y=y_move+y
+--	  if radID == 1 or  radID ==2 then
+--	      MonsterID = Monster_GetID[8]        ----------5%
+--	  elseif radID == 3 or  radID ==4 then
+--	      MonsterID = 786                          
+--	  elseif radID == 5 or  radID ==6 then                    
+--	      MonsterID = 673                           
+--	  elseif radID == 7 or  radID ==8 then                    
+--	      MonsterID = 757      
+--	  elseif radID == 9 or  radID ==10 then
+--	      MonsterID = 263                           ----------10%
+--          elseif radID == 11 or  radID ==12 then
+--	      MonsterID = 211                           
+--          elseif radID == 13 or  radID ==14 then
+--	      MonsterID = 99
+--	  elseif radID == 15 or  radID ==16 then
+--	      MonsterID = 229
+--	  elseif radID == 17 or  radID ==18 or  radID ==19 then            ----------15%
+--              MonsterID = Monster_GetID[9]
+--	  elseif radID == 20 or  radID ==21 then
+--	      MonsterID = Monster_GetID[10]
+--          elseif radID == 22 or radID ==23 or radID ==24 then
+--	      MonsterID = Monster_GetID[11]
+--	  elseif radID == 25 or  radID ==26 then
+--	      MonsterID = Monster_GetID[12]
+--	  elseif radID == 27 or  radID ==28 then
+--	      MonsterID = Monster_GetID[13]
+--          elseif radID == 29 or  radID ==30 then
+--	      MonsterID = Monster_GetID[14]
+--	  end
+--	       
+--	       if MonsterID == Monster_GetID[12] then 
+--	          Refresh = 10900000
+--	          life = 10800000
+--	       else
+--		  Refresh = 7300000     			        --ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+--		  life = 7200000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
+--	       end
+--	          local new = CreateChaX( MonsterID , x , y , 145 , Refresh ,role)
+--		SetChaLifeTime( new, life )
+--end
+
+--Ë®À×LV1-----------------------------------------------------------
+
 function ItemUse_SL1 ( role , Item  )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ==  nil then
-		SystemNotice( role , "\204\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238 \242\238\235\252\234\238 \226 \236\238\240\229." )
+		SystemNotice( role , "Can only be used on the sea." )
 		UseItemFailed ( role )
 		return
 	end
 	local reg = 0
 	      reg =IsChaInRegion( role, 2 )
 	if reg == 1 then
-		SystemNotice( role , "\205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \194\238\228\255\237\243\254 \236\232\237\243 \226 \193\229\231\238\239\224\241\237\238\233 \199\238\237\229" )
+		SystemNotice( role , "Unable to use in Safe Zone" )
 		UseItemFailed ( role )
                 return
 	end
@@ -14799,25 +15525,25 @@ function ItemUse_SL1 ( role , Item  )
 	      y =y_move + y
 
 	local MonsterID = 942
-	local Refresh = 700000
-	local life = 600000
+	local Refresh = 700000					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 600000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 	local new = CreateChaX( MonsterID , x , y , 145 , Refresh,Cha_Boat )
 	SetChaLifeTime( new, life )
 end
+--Ë®À×LV2-----------------------------------------------------------
 
---Âîäÿíàÿ ìèíà 2 óð. (ID 2742)
 function ItemUse_SL2 ( role , Item  )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ==  nil then
-		SystemNotice( role , "\204\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238 \242\238\235\252\234\238 \226 \236\238\240\229." )
+		SystemNotice( role , "Can only be used on the sea." )
 		UseItemFailed ( role )
 		return
 	end
 	local reg = 0
 	      reg =IsChaInRegion( role, 2 )
 	if reg == 1 then
-		SystemNotice( role , "\205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \194\238\228\255\237\243\254 \236\232\237\243 \226 \193\229\231\238\239\224\241\237\238\233 \199\238\237\229" )
+		SystemNotice( role , "Unable to use in Safe Zone" )
 		UseItemFailed ( role )
                 return
 	end
@@ -14852,25 +15578,25 @@ function ItemUse_SL2 ( role , Item  )
 	      x =x_move + x
 	      y =y_move + y
 	local MonsterID = 943
-	local Refresh = 700000
-	local life = 600000
+	local Refresh = 700000					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 600000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 	local new = CreateChaX( MonsterID , x , y , 145 , Refresh,Cha_Boat )
 	SetChaLifeTime( new, life )
 end
+--Ë®À×LV3-----------------------------------------------------------
 
---Âîäÿíàÿ ìèíà 3 óð. (ID 2766)
 function ItemUse_SL3 ( role , Item  )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ==  nil then
-		SystemNotice( role , "\204\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238 \242\238\235\252\234\238 \226 \236\238\240\229." )
+		SystemNotice( role , "Can only be used on the sea." )
 		UseItemFailed ( role )
 		return
 	end
 	local reg = 0
 	      reg =IsChaInRegion( role, 2 )
 	if reg == 1 then
-		SystemNotice( role , "\205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \194\238\228\255\237\243\254 \236\232\237\243 \226 \193\229\231\238\239\224\241\237\238\233 \199\238\237\229" )
+		SystemNotice( role , "Unable to use in Safe Zone" )
 		UseItemFailed ( role )
                 return
 	end
@@ -14905,25 +15631,25 @@ function ItemUse_SL3 ( role , Item  )
 	      x =x_move + x
 	      y =y_move + y
 	local MonsterID = 944
-	local Refresh = 700000
-	local life = 600000
+	local Refresh = 700000					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 600000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 	local new = CreateChaX( MonsterID , x , y , 145 , Refresh,Cha_Boat )
 	SetChaLifeTime( new, life )
 end
+--Ë®À×LV4-----------------------------------------------------------
 
---Âîäÿíàÿ ìèíà 4 óð. (ID 2790)
 function ItemUse_SL4 ( role , Item  )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ==  nil then
-		SystemNotice( role , "\204\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238 \242\238\235\252\234\238 \226 \236\238\240\229." )
+		SystemNotice( role , "Can only be used on the sea." )
 		UseItemFailed ( role )
 		return
 	end
 	local reg = 0
 	      reg =IsChaInRegion( role, 2 )
 	if reg == 1 then
-		SystemNotice( role , "\205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \194\238\228\255\237\243\254 \236\232\237\243 \226 \193\229\231\238\239\224\241\237\238\233 \199\238\237\229" )
+		SystemNotice( role , "Unable to use in Safe Zone" )
 		UseItemFailed ( role )
                 return
 	end
@@ -14959,25 +15685,25 @@ function ItemUse_SL4 ( role , Item  )
 	      y =y_move + y
 
 	local MonsterID = 945
-	local Refresh = 700000
-	local life = 600000
+	local Refresh = 700000					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 600000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 	local new = CreateChaX( MonsterID , x , y , 145 , Refresh,Cha_Boat )
 	SetChaLifeTime( new, life )
 end
+--Ë®À×LV5-----------------------------------------------------------
 
---Âîäÿíàÿ ìèíà 5 óð. (ID 2814
 function ItemUse_SL5 ( role , Item  )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ==  nil then
-		SystemNotice( role , "\204\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238 \242\238\235\252\234\238 \226 \236\238\240\229." )
+		SystemNotice( role , "Can only be used on the sea." )
 		UseItemFailed ( role )
 		return
 	end
 	local reg = 0
 	      reg =IsChaInRegion( role, 2 )
 	if reg == 1 then
-		SystemNotice( role , "\205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \194\238\228\255\237\243\254 \236\232\237\243 \226 \193\229\231\238\239\224\241\237\238\233 \199\238\237\229" )
+		SystemNotice( role , "Unable to use in Safe Zone" )
 		UseItemFailed ( role )
                 return
 	end
@@ -15013,27 +15739,28 @@ function ItemUse_SL5 ( role , Item  )
 	      y =y_move + y
 
 	local MonsterID = 946
-	local Refresh = 700000
-	local life = 600000
+	local Refresh = 700000					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 600000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 	local new = CreateChaX( MonsterID , x , y , 145 , Refresh,Cha_Boat )
 
 	SetChaLifeTime( new, life )
 end
 
---Âçðûâíîé ÿãíåíîê óð. 1 (ID 2372)
+--×Ô±¬ÃàÑòLV1-----------------------------------------------------------
+
 function ItemUse_ZBML1 ( role , Item  )
  
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( Cha_Boat , "\205\229\227\238\228\237\238 \234 \232\241\239\238\235\252\231\238\226\224\237\232\254 \237\224 \236\238\240\229" )
+		SystemNotice( Cha_Boat , "Not usable on the sea" )
 		UseItemFailed ( Cha_Boat )
 		return
 	end
 	local reg = 0
 	      reg =IsChaInRegion( role, 2 )
 	if reg == 1 then
-		SystemNotice( role , "Íåâîçìîæíî èïîëüçîâàòü â áåçîïàñíîé çîíå " )
+		SystemNotice( role , "Unable to use in Safe Zone" )
 		UseItemFailed ( role )
                 return
 	end
@@ -15069,26 +15796,26 @@ function ItemUse_ZBML1 ( role , Item  )
 	      x =x_move + x
 	      y =y_move + y
 	local MonsterID = 947
-	local Refresh = 700000
-	local life = 600000
+	local Refresh = 700000					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 600000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 	local new = CreateChaX( MonsterID , x , y , 145 , Refresh,role )
 	SetChaLifeTime( new, life )
 end
+--×Ô±¬ÃàÑòLV2-----------------------------------------------------------
 
---Âçðûâàþùàÿñÿ îâöà 2 óð. (ID 2373)
 function ItemUse_ZBML2 ( role , Item  )
  
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( Cha_Boat , "\205\229\227\238\228\237\238 \234 \232\241\239\238\235\252\231\238\226\224\237\232\254 \237\224 \236\238\240\229" )
+		SystemNotice( Cha_Boat , "Not usable on the sea" )
 		UseItemFailed ( Cha_Boat )
 		return
 	end
 	local reg = 0
 	      reg =IsChaInRegion( role, 2 )
 	if reg == 1 then
-		SystemNotice( role , "\205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \226 \193\229\231\238\239\224\241\237\238\233 \199\238\237\229" )
+		SystemNotice( role , "Unable to use in Safe Zone" )
 		UseItemFailed ( role )
                 return
 	end
@@ -15124,26 +15851,26 @@ function ItemUse_ZBML2 ( role , Item  )
 	      x =x_move + x
 	      y =y_move + y
 	local MonsterID = 948
-	local Refresh = 700000
-	local life = 600000
+	local Refresh = 700000					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 600000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 	local new = CreateChaX( MonsterID , x , y , 145 , Refresh,role )
 	SetChaLifeTime( new, life )
 end
+--×Ô±¬ÃàÑòLV3-----------------------------------------------------------
 
---Âçðûâàþùàÿñÿ îâöà 3 óð. (ID 2375)
 function ItemUse_ZBML3 ( role , Item  )
  
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( Cha_Boat , "\205\229\227\238\228\237\238 \234 \232\241\239\238\235\252\231\238\226\224\237\232\254 \237\224 \236\238\240\229" )
+		SystemNotice( Cha_Boat , "Not usable on the sea" )
 		UseItemFailed ( Cha_Boat )
 		return
 	end
 	local reg = 0
 	      reg =IsChaInRegion( role, 2 )
 	if reg == 1 then
-		SystemNotice( role , "\205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \226 \193\229\231\238\239\224\241\237\238\233 \199\238\237\229" )
+		SystemNotice( role , "Unable to use in Safe Zone" )
 		UseItemFailed ( role )
                 return
 	end
@@ -15179,26 +15906,26 @@ function ItemUse_ZBML3 ( role , Item  )
 	      x =x_move + x
 	      y =y_move + y
 	local MonsterID = 949
-	local Refresh = 700000
-	local life = 600000
+	local Refresh = 700000					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 600000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 	local new = CreateChaX( MonsterID , x , y , 145 , Refresh,role )
 	SetChaLifeTime( new, life )
 end
+--×Ô±¬ÃàÑòLV4-----------------------------------------------------------
 
---Âçðûâàþùàÿñÿ îâöà 4 óð. (ID 2379)
 function ItemUse_ZBML4 ( role , Item  )
  
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( Cha_Boat , "\205\229\227\238\228\237\238 \234 \232\241\239\238\235\252\231\238\226\224\237\232\254 \237\224 \236\238\240\229" )
+		SystemNotice( Cha_Boat , "Not usable on the sea" )
 		UseItemFailed ( Cha_Boat )
 		return
 	end
 	local reg = 0
 	      reg =IsChaInRegion( role, 2 )
 	if reg == 1 then
-		SystemNotice( role , "\205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \226 \193\229\231\238\239\224\241\237\238\233 \199\238\237\229" )
+		SystemNotice( role , "Unable to use in Safe Zone" )
 		UseItemFailed ( role )
                 return
 	end
@@ -15234,26 +15961,26 @@ function ItemUse_ZBML4 ( role , Item  )
 	      x =x_move + x
 	      y =y_move + y
 	local MonsterID = 950
-	local Refresh = 700000
-	local life = 600000
+	local Refresh = 700000					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 600000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 	local new = CreateChaX( MonsterID , x , y , 145 , Refresh,role )
 	SetChaLifeTime( new, life )
 end
+--×Ô±¬ÃàÑòLV5-----------------------------------------------------------
 
---Âçðûâíàÿ îâå÷êà 5 óð. (ID 2380)
 function ItemUse_ZBML5 ( role , Item  )
  
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( Cha_Boat , "\205\229\227\238\228\237\238 \234 \232\241\239\238\235\252\231\238\226\224\237\232\254 \237\224 \236\238\240\229" )
+		SystemNotice( Cha_Boat , "Not usable on the sea" )
 		UseItemFailed ( Cha_Boat )
 		return
 	end
 	local reg = 0
 	      reg =IsChaInRegion( role, 2 )
 	if reg == 1 then
-		SystemNotice( role , "\205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \226 \193\229\231\238\239\224\241\237\238\233 \199\238\237\229" )
+		SystemNotice( role , "Unable to use in Safe Zone" )
 		UseItemFailed ( role )
                 return
 	end
@@ -15289,22 +16016,17 @@ function ItemUse_ZBML5 ( role , Item  )
 	      x =x_move + x
 	      y =y_move + y
 	local MonsterID = 951
-	local Refresh = 700000
-	local life = 600000
+	local Refresh = 700000					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 600000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 	local new = CreateChaX( MonsterID , x , y , 145 , Refresh,role )
 	SetChaLifeTime( new, life )
 end
 
---------------------------------------------------------------------------------------------------
---Ñâàäüáà
---------------------------------------------------------------------------------------------------
-
---Ñóíäóê ñóäüáû (ID 2916)
+----------------------------------ÇéÔµ±¦ºÐ
 function ItemUse_LoveBox( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 1 then
-		SystemNotice(role ,"\215\242\238\225\251 \232\241\239\238\235\252\231\238\226\224\242\252 \239\240\229\228\236\229\242 \242\240\229\225\243\229\242\241\255 1 \241\226\238\225\238\228\237\224\255 \255\247\229\233\234\224 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229")
-		UseItemFailed ( role )
+		SystemNotice(role ,"You need at least 1 free slot to open Chest of Fate")
 		UseItemFailed ( role )
 		return
 	end
@@ -15322,49 +16044,53 @@ function ItemUse_LoveBox( role , Item )
 			local r1 = 0
 			local r2 = 0	
 			r1,r2 =MakeItem ( role , 2902  , 1 , 4 )
-			local Item_girl = GetChaItem ( role , 2 , r2 )
+			local Item_girl = GetChaItem ( role , 2 , r2 )			--È¡Å®ÐÔµÀ¾ßÖ¸Õë
 			local new_el=math.random ( 1, 200 )
 			SetItemAttr ( Item_girl , ITEMATTR_VAL_STR , new_el )	
 		else
 			local el1 = math.random ( 1, 12 )
 			if el1==1  then
-				GiveItem ( role , 0 , 3343  , 1 , 4 )
+				GiveItem ( role , 0 , 3343  , 1 , 4 ) ---------------Ãµ¹å»¨
 			elseif el1==2 then
-				GiveItem ( role , 0 , 3077  , 1 , 4 )
+				GiveItem ( role , 0 , 3077  , 1 , 4 )------------ÌðÃÛÇÉ¿ËÁ¦	
 			else
-				local EID = math.random ( 4264, 4273 )
+				local EID = math.random ( 4264, 4273 )----------10¸ö±íÇé
 				GiveItem ( role , 0 , EID  , 1 , 4 )
 			end
 		end
 	end
 	local el2= math.random ( 1, 7 )
 	if   count == 2 then
+			--SystemNotice(role ,"count=="..count)
 		if el2==7 then
 			local r1 = 0
 			local r2 = 0	
 				r1,r2 =MakeItem ( role , 2903  , 1 , 4 )
-			local Item_boy = GetChaItem ( role , 2 , r2 )
+			local Item_boy = GetChaItem ( role , 2 , r2 )			--È¡ÄÐÐÔµÀ¾ßÖ¸Õë
 			local new_el=math.random ( 1, 1000 )
+			--SystemNotice(role ,"new_el=="..new_el)
 			SetItemAttr( Item_boy , ITEMATTR_VAL_STR , new_el )
 		else
 			local el3 = math.random ( 1, 12 )
 			if el3==1  then
-				GiveItem ( role , 0 , 3343  , 1 , 4 )
+				GiveItem ( role , 0 , 3343  , 1 , 4 ) ---------------Ãµ¹å»¨
 			elseif el3==2 then
-				GiveItem ( role , 0 , 3077  , 1 , 4 )
+				GiveItem ( role , 0 , 3077  , 1 , 4 )------------ÌðÃÛÇÉ¿ËÁ¦	
 			else
-				local EID = math.random ( 4264, 4273 )
+				local EID = math.random ( 4264, 4273 )----------10¸ö±íÇé
 				GiveItem ( role , 0 , EID  , 1 , 4 )
 			end
 		end
 	end
 end
 
---Ñóíäóê ïëàòüÿ (ID 2915)
+
+------------------------Àñ·þ±¦Ïä£ºË«»÷£¬¸ù¾Ý½ÇÉ«¸øÓèµÀ¾ß
+
 function ItemUse_MarryBox ( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 4 then
-		SystemNotice(role ,"\194\224\236 \237\243\230\237\238 4 \241\226\238\225\238\228\237\251\245 \241\235\238\242\224 \226 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \239\235\224\242\252\255")
+		SystemNotice(role ,"you need at least 4 free slot to open Chest of Gown")
 		UseItemFailed ( role )
 		return
 	end
@@ -15389,34 +16115,53 @@ function ItemUse_MarryBox ( role , Item )
 	       GiveItem ( role , 0 , 5240  , 1 , 4 )
 	end
 end
-
---Ïîäàðîê Êðàñîòû (ID 2904)
+		----------------------------------¼ÑÈË¶¯ÇéÀñºÐ
 function ItemUse_JRDQBox( role , Item )
+--	local Now_Day = os.date("%d")
+--	local Now_Month = os.date("%m")
+--	local Now_Time = os.date("%H")
+--	local NowTimeNum = tonumber(Now_Time)
+--	local NowDayNum = tonumber(Now_Day)
+--	local NowMonthNum = tonumber(Now_Month)
+--	local CheckDateNum = NowMonthNum * 10000 + NowDayNum * 100 + NowTimeNum
+--	
+--	if CheckDateNum < 021609  then
+--		SystemNotice ( role , "Please use the item between 16th Febuary 9.00am and 16th Febuary 24.00pm" )
+--		UseItemFailed ( role )
+--		return
+--	end
+--	
+--	if CheckDateNum > 021700 then
+--		SystemNotice ( role , "Santa Claus has left. Please wait for next year" )
+--		UseItemFailed ( role )
+--		return
+--	end
+--
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 10 then
-		SystemNotice(role ,"\194\224\236 \237\243\230\237\238 10 \241\226\238\225\238\228\237\251\245 \241\235\238\242\238\226 \226 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \232\241\239\238\235\252\231\238\226\224\242\252 \207\238\228\224\240\238\234 \202\240\224\241\238\242\251")
+		SystemNotice(role ,"To open Gift of the Beauty requires at least 10 empty inventory slots")
 		UseItemFailed ( role )
 		return
 	end
 	local cha_type = GetChaTypeID ( role ) 
 	 if cha_type ==1 or cha_type ==2 then
-	 SystemNotice(role ,"\207\238\228\224\240\238\234 \202\240\224\241\238\242\251 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237 \242\238\235\252\234\238 \239\229\240\241\238\237\224\230\224\236\232 \230\229\237\241\234\238\227\238 \239\238\235\224")
+	 SystemNotice(role ,"Gift of the Beauty can only be opened by female")
 	UseItemFailed ( role )
 		return
 	end 
 	
 	local el = math.random ( 1, 100 )
 	if  el>=1 and el<=20 then
-	GiveItem ( role , 0 , 3343  , 1 , 4 )
+	GiveItem ( role , 0 , 3343  , 1 , 4 )----------Ãµ¹å»¨
 	elseif  el>=21 and el<=40 then
 	GiveItem ( role , 0 , 3354  , 1 , 4 )
 	GiveItem ( role , 0 , 3355  , 1 , 4 )
 	GiveItem ( role , 0 , 3356  , 1 , 4 )
 	GiveItem ( role , 0 , 3357  , 1 , 4 )
 	GiveItem ( role , 0 , 3358  , 1 , 4 )
-	GiveItem ( role , 0 , 3359  , 1 , 4 )
+	GiveItem ( role , 0 , 3359  , 1 , 4 )----------ÐÄÐÍÀñ»¨ 
 	elseif el>=41 and el<=45 then
-	GiveItem ( role , 0 , 937  , 1 , 4 )
+	GiveItem ( role , 0 , 937  , 1 , 4 ) -----------ÌìÊ¹Ö®Òí
 	elseif el>=46 and el<=65 then
 	GiveItem ( role , 0 , 4264  , 1 , 4 )
 	GiveItem ( role , 0 , 4265  , 1 , 4 )
@@ -15427,31 +16172,53 @@ function ItemUse_JRDQBox( role , Item )
 	GiveItem ( role , 0 , 4270  , 1 , 4 )
 	GiveItem ( role , 0 , 4271  , 1 , 4 )
 	GiveItem ( role , 0 , 4272  , 1 , 4 )
-	GiveItem ( role , 0 , 4273  , 1 , 4 )
+	GiveItem ( role , 0 , 4273  , 1 , 4 )---------------10¸ö±íÇé
 	elseif el>=66 and el<=75 then
-	GiveItem ( role , 0 , 3094  , 3 , 4 )
+	GiveItem ( role , 0 , 3094  , 3 , 4 )------------Å¬Á¦Ôö·ùÆ÷3¸ö
 	elseif el>=76 and el<=85 then
-	GiveItem ( role , 0 , 855  , 10 , 4 )
+	GiveItem ( role , 0 , 855  , 10 , 4 ) -----------¾«ÁéÓ²±Ò
 	elseif el>=86 and el<87 then
-	GiveItem ( role , 0 , 1012  , 1 , 4 )
+	GiveItem ( role , 0 , 1012  , 1 , 4 ) -----------¼ÓÄÉÖ®Éñ1¸ö
 	elseif el>=87 and el<89 and cha_type == 3  then 
 	GiveItem ( role , 0 , 5244  , 1 , 4 )
 	GiveItem ( role , 0 , 5245  , 1 , 4 )
 	GiveItem ( role , 0 , 5246  , 1 , 4 )
-	GiveItem ( role , 0 , 5247  , 1 , 4 )
+	GiveItem ( role , 0 , 5247  , 1 , 4 ) -----------ÐÂÄï×°
 	elseif el>=89 and el<=90 and cha_type == 4 then
 	GiveItem ( role , 0 , 5252  , 1 , 4 )
 	GiveItem ( role , 0 , 5253  , 1 , 4 )
 	GiveItem ( role , 0 , 5254  , 1 , 4 )
-	GiveItem ( role , 0 , 5255  , 1 , 4 )
+	GiveItem ( role , 0 , 5255  , 1 , 4 ) -----------»éÄï×°
 	else
-	local EID = math.random ( 1808, 1811 )
+	local EID = math.random ( 1808, 1811 )----------·¢ÐÍÊé
 	GiveItem ( role , 0 , EID  , 1 , 4 )
 	end
 end
 
---Ïîäàðîê Õàíêà (ID 2905)
+
+----------------------------------²Å¿¡¶¯ÇéÀñºÐ
 function ItemUse_CJDQBox( role , Item )
+
+--	local Now_Day = os.date("%d")
+--	local Now_Month = os.date("%m")
+--	local Now_Time = os.date("%H")
+--	local NowTimeNum = tonumber(Now_Time)
+--	local NowDayNum = tonumber(Now_Day)
+--	local NowMonthNum = tonumber(Now_Month)
+--	local CheckDateNum = NowMonthNum * 10000 + NowDayNum * 100 + NowTimeNum
+--	
+--	if CheckDateNum < 021609  then
+--		SystemNotice ( role , "Please use the item between 16th Febuary 9.00am and 16th Febuary 24.00pm" )
+--		UseItemFailed ( role )
+--		return
+--	end
+--	
+--	if CheckDateNum > 021700 then
+--		SystemNotice ( role , "Please wait for next year" )
+--		UseItemFailed ( role )
+--		return
+--	end
+	
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 10 then
 		SystemNotice(role ,"you need at least 10 free slot to open Gift of the Hunk")
@@ -15460,22 +16227,22 @@ function ItemUse_CJDQBox( role , Item )
 	end
 	local cha_type = GetChaTypeID ( role ) 
 	 if cha_type ==3 or cha_type ==4 then
-		SystemNotice(role ,"\207\238\228\224\240\238\234 \213\224\237\234\224 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237 \242\238\235\252\234\238 \239\229\240\241\238\237\224\230\224\236\232 \236\243\230\241\234\238\227\238 \239\238\235\224")
+		SystemNotice(role ,"Gift of the Hunk can only be opened by male characters")
 		UseItemFailed ( role )
 		return
 	end
 	local el = math.random ( 1, 100 )
 	if  el>=1 and el<=20 then
-	GiveItem ( role , 0 , 3077  , 1 , 4 )
+	GiveItem ( role , 0 , 3077  , 1 , 4 )----------ÌðÃÛÇÉ¿ËÁ¦
 	elseif  el>=21 and el<=40 then
 	GiveItem ( role , 0 , 3354  , 1 , 4 )
 	GiveItem ( role , 0 , 3355  , 1 , 4 )
 	GiveItem ( role , 0 , 3356  , 1 , 4 )
 	GiveItem ( role , 0 , 3357  , 1 , 4 )
 	GiveItem ( role , 0 , 3358  , 1 , 4 )
-	GiveItem ( role , 0 , 3359  , 1 , 4 )
+	GiveItem ( role , 0 , 3359  , 1 , 4 )----------ÐÄÐÍÀñ»¨ 
 	elseif el>=41 and el<=45 then
-	GiveItem ( role , 0 , 0936  , 1 , 4 ) 
+	GiveItem ( role , 0 , 0936  , 1 , 4 ) -----------µûÒí
 	elseif el>=46 and el<=65 then
 	GiveItem ( role , 0 , 4264  , 1 , 4 )
 	GiveItem ( role , 0 , 4265  , 1 , 4 )
@@ -15486,40 +16253,39 @@ function ItemUse_CJDQBox( role , Item )
 	GiveItem ( role , 0 , 4270  , 1 , 4 )
 	GiveItem ( role , 0 , 4271  , 1 , 4 )
 	GiveItem ( role , 0 , 4272  , 1 , 4 )
-	GiveItem ( role , 0 , 4273  , 1 , 4 )
+	GiveItem ( role , 0 , 4273  , 1 , 4 )---------------10¸ö±íÇé
 	elseif el>=66 and el<=75 then
-	GiveItem ( role , 0 , 3094  , 3 , 4 )
+	GiveItem ( role , 0 , 3094  , 3 , 4 )------------Å¬Á¦Ôö·ùÆ÷3¸ö
 	elseif el>=76 and el<=85 then
-	GiveItem ( role , 0 , 855  , 10 , 4 )
+	GiveItem ( role , 0 , 855  , 10 , 4 ) -----------¾«ÁéÓ²±Ò
 	elseif el>=86 and el<87 then
-	GiveItem ( role , 0 , 0862  , 1 , 4 )
+	GiveItem ( role , 0 , 0862  , 1 , 4 ) -----------ÑÒÓñ1¸ö
 	elseif el>=87 and el<89 and cha_type == 1  then 
 	GiveItem ( role , 0 , 5221  , 1 , 4 )
 	GiveItem ( role , 0 , 5222  , 1 , 4 )
-	GiveItem ( role , 0 , 5223  , 1 , 4 )
+	GiveItem ( role , 0 , 5223  , 1 , 4 ) -----------Ò¹¹ó×å×°
 	elseif el>=89 and el<=90 and cha_type == 2 then
 	GiveItem ( role , 0 , 5238  , 1 , 4 )
 	GiveItem ( role , 0 , 5239  , 1 , 4 )
-	GiveItem ( role , 0 , 5240  , 1 , 4 )
+	GiveItem ( role , 0 , 5240  , 1 , 4 )-----------ºÚ½ð×°
 	else
-	local EID = math.random ( 1808, 1811 )
+	local EID = math.random ( 1808, 1811 )----------·¢ÐÍÊé
 	GiveItem ( role , 0 , EID  , 1 , 4 )
 	end
 end
-
---Ñâàäåáíûå ñëàäîñòè (ID 2906)
+---------------------------------Ï²ÌÇ
 function ItemUse_XTBOX ( role , Item )
 	local item_type = BoxXiang_BaoZhaBOX
 	local item_type_rad = BoxXiang_BaoZhaBOX_Rad
 	local item_type_count = BoxXiang_BaoZhaBOX_Count
-	local maxitem = BoxXiang_baozhabao_Mxcount
+	local maxitem = BoxXiang_baozhabao_Mxcount						-- ÖÕ½á±àºÅ
 	local item_quality = BoxXiang_baozhabao_Qua
 	local General = 0  
 	local ItemId = 0 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 		
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \209\226\224\228\229\225\237\251\229 \209\235\224\228\238\241\242\232")
+		SystemNotice(role ,"Insufficient inventory slots. Failed to use Wedding Candy")
 		UseItemFailed ( role )
 		return
 	end
@@ -15529,8 +16295,8 @@ function ItemUse_XTBOX ( role , Item )
 	local a = math.random ( 1, General )
 	local b = 0
 	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local c = -1							--ÃüÖÐÎïÆ·±àºÅ
+	for k = 1 , maxitem , 1 do				-- Ëæ»ú³öÌí¼ÓµÄÇ°×º±àºÅ
 		d = item_type_rad [ k ] + b
 
 		 if a <= d and a > b then
@@ -15573,70 +16339,72 @@ function ItemUse_XTBOX ( role , Item )
 		if ItemId == GoodItem[Good_C] then
 			local itemname = GetItemName ( ItemId ) 
 			local cha_name = GetChaDefaultName ( role ) 
-			local message = cha_name.." \232\241\239\238\235\252\231\243\229\242 \209\226\224\228\229\225\237\251\229 \241\235\224\228\238\241\242\232 \232 \239\238\235\243\247\224\229\242 "..itemname  
-
+			local message = cha_name.." uses a Wedding Candy and obtained "..itemname  
 			Notice ( message )
 		end
 	end
 end
 
---Ïàêåò ñî ñâàäåáíûìè ïîäàðêàìè (ID 2907)
+-------------------»éÇì´óÀñºÐ
 function ItemUse_HQBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 4 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \241\226\238\225\238\228\237\238\227\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \210\240\229\225\243\229\242\241\255 3 \241\226\238\225\238\228\237\251\245 \255\247\229\233\234\232 \226 \240\254\234\231\224\234\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \207\224\234\229\242 \241\238 \241\226\224\228\229\225\237\251\236\232 \239\238\228\224\240\234\224\236\232")
+		SystemNotice(role ,"You need at least 3 free slots to open Wedding Gift Parcel")
 		UseItemFailed ( role )
 		return
 	end
 	local el = math.random ( 1, 100 )
 	if  el>=1 and el<=20 then
-	GiveItem ( role , 0 , 1012  , 1 , 4 )
+	GiveItem ( role , 0 , 1012  , 1 , 4 ) -------------¼ÓÄÉÖ®Éñ
 	elseif el>=21 and el<=40 then
-	GiveItem ( role , 0 , 1016  , 1 , 4 )
+	GiveItem ( role , 0 , 1016  , 1 , 4 ) ---------------Å®ÉñÐ¡°ü
 	elseif el>=41 and el<60 then
-	GiveItem ( role , 0 , 0333  , 1 , 4 )
+	GiveItem ( role , 0 , 0333  , 1 , 4 ) ----------------¸ß¼¶±¦Ê¯¶Ò»»È¯
 	elseif el>=61 and el<=100 then
-	GiveItem ( role , 0 , 0273  , 1 , 4 )	
+	GiveItem ( role , 0 , 0273  , 1 , 4 )-----------------Ò»µÈ½±	
 	end
 end
 
---Ñóíäóê ñ÷àñòëèâîé õðþøêè (ID 2909)
+-----------------------------------ÐÒÔËÖí±¦Ïä£ºÑÒÓñ¡¢Ñ×Óñ¡¢Ó¥ÑÛÊ¯¡¢·ïÁéÊ¯¡¢¼ÓÄÉÖ®Éñ¡¢Å®ÉñÐ¡°ü
+
 function ItemUse_XYPIGBOX( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 1 then
-		SystemNotice(role ,"\210\240\229\225\243\229\242\241\255 4 \241\226\238\225\238\228\237\251\245 \241\235\238\242\224 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \241\247\224\241\242\235\232\226\238\233 \245\240\254\248\234\232")
+		SystemNotice(role ,"You need at least 4 empty slots to open Lucky Piggy Chest")
 		UseItemFailed ( role )
 		return
 	end
 	local el = math.random ( 1, 100 )
 	if  el>=1 and el<=4 then
-	GiveItem ( role , 0 , 1012  , 1 , 4 )
+	GiveItem ( role , 0 , 1012  , 1 , 4 ) -------------¼ÓÄÉÖ®Éñ
 	elseif el==5  then
-	GiveItem ( role , 0 , 1016  , 1 , 4 )
+	GiveItem ( role , 0 , 1016  , 1 , 4 ) ---------------Å®ÉñÐ¡°ü
 	elseif el>=6 and el<=30 then
-	GiveItem ( role , 0 , 0861  , 1 , 4 )
+	GiveItem ( role , 0 , 0861  , 1 , 4 ) ----------------Ó¥ÑÛÊ¯
 	elseif el>=31 and el<=60 then
-	GiveItem ( role , 0 , 885  , 1 , 4 )
+	GiveItem ( role , 0 , 885  , 1 , 4 )-----------------¾«Á¶Ê¯
 	elseif el>=61 and el<=75 then
-	GiveItem ( role , 0 , 0860  , 1 , 4 )
+	GiveItem ( role , 0 , 0860  , 1 , 4 ) ---------------·ïÁéÊ¯
 	elseif el>=76 and el<=88 then
-	GiveItem ( role , 0 , 0862  , 1 , 4 )
+	GiveItem ( role , 0 , 0862  , 1 , 4 ) ----------------ÑÒÓñ
 	elseif el>=89 and el<=100 then
-	GiveItem ( role , 0 , 0863  , 1 , 4 )
+	GiveItem ( role , 0 , 0863  , 1 , 4 )-----------------Ñ×Óñ
 	end
 end
 
---Ìåøîê áëàãîïîëó÷èÿ ïèðàòèè (ID 2910)
+
+-----------------------------Ñ¹Ëê°ü£ºÑ¹Ëê°üÖ»ÓÐÔÚ³ýÏ¦Ò¹£¨2ÔÂ17ÈÕÍí23:00--2ÔÂ18ÈÕÁè³¿£±µã£©´ò¿ª²Å»áÓÐÐ§
+----------------------------------------------------------------------------------Ñ¹Ëê°ü
 function ItemUse_YSB( role , Item )
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 1 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\243\230\229\237 1 \241\226\238\225\238\228\237\251\233 \241\235\238\242 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \204\229\248\238\234 \225\235\224\227\238\239\238\235\243\247\232\255 \239\232\240\224\242\232\232")
+		SystemNotice(role ,"You need at least 1 empty slots to open Auspicious Bag")
 		UseItemFailed ( role )
 		return
 	end
@@ -15651,44 +16419,45 @@ function ItemUse_YSB( role , Item )
 	if CheckDateNum >= 21723  and CheckDateNum <= 21801 then
 		ItemUse_YSBOX ( role , Item )
 	else 
-		SystemNotice(role ,"\194\240\229\236\255 \229\249\229 \237\229 \239\240\232\248\235\238. \205\229 \239\251\242\224\233\241\255 \236\229\237\255 \238\225\236\224\237\243\242\252!")
+		SystemNotice(role ,"It is not time yet. Do not try to cheat!")
 		UseItemFailed ( role )
 		return
 	end
 end
-
---------------------------------------------------------------------------------------------------
---Àáàääîí
---------------------------------------------------------------------------------------------------
-
 function ItemUse_YSBOX ( role , Item )
 	local el = math.random ( 1, 1000 )
 	if  el>=1 and el<=5 then
-		GiveItem ( role , 0 , 1012  , 1 , 4 )
-	elseif el>=6 and el<=206 then
-		GiveItem ( role , 0 , 0860  , 1 , 4 )
-	elseif el>=207 and el<=407 then
-		GiveItem ( role , 0 , 0861  , 1 , 4 )
-	elseif el>=408 and el<=608 then
-		GiveItem ( role , 0 , 0862  , 1 , 4 )
-	elseif el>=609 and el<=810 then
-		GiveItem ( role , 0 , 0863  , 1 , 4 )
-	elseif el>=811 and el<=1000 then
-
+		GiveItem ( role , 0 , 1012  , 1 , 4 ) -------------¼ÓÄÉÖ®Éñ        0.5
+	elseif el>=6 and el<=10 then
+		GiveItem ( role , 0 , 1016  , 1 , 4 ) ---------------Å®ÉñÐ¡°ü       0.5
+	elseif el>=11 and el<=20 then
+		GiveItem ( role , 0 , 0860  , 1 , 4 ) ---------------·çÁé         1
+	elseif el>=21 and el<=30 then
+		GiveItem ( role , 0 , 0861  , 1 , 4 ) ----------------Ó¥ÑÛÊ¯     1
+	elseif el>=31 and el<40 then
+		GiveItem ( role , 0 , 0862  , 1 , 4 ) ----------------ÑÒÓñ       1
+	elseif el>=41 and el<=50 then
+		GiveItem ( role , 0 , 0863  , 1 , 4 )-----------------Ñ×Óñ       1
+	elseif el>=51 and el<=270 then
+		GiveItem ( role , 0 , 855  , 99 , 4 )-----------------¾«ÁéÓ²±Ò       22
+	elseif el>=271 and el<=500 then
+		GiveItem ( role , 0 , 0227  , 5 , 4 )-----------------ÊØ»¤¾«ÁéËÇÁÏ    23
+	elseif el>=501 and el<=750 then
+		GiveItem ( role , 0 , 3096  , 3 , 4 )-----------------²Æ¸»Ôö·ùÆ÷3¸ö   25
+	elseif el>=751 and el<=1000 then
+		GiveItem ( role , 0 , 3094  , 3 , 4 )-----------------Å¬Á¦Ôö·ùÆ÷3¸ö   25
+	end
 end
-end
-
---Ñóíäóê Õàðäèíà (ID 2836)
-function ItemUse_Hadisi( role , Item )
+function ItemUse_Hadisi( role , Item )		----------¹þµÏË¹ÒÅÎï
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 4 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \202\224\234 \236\232\237\232\236\243\236 \237\243\230\237\238 3 \241\226\238\225\238\228\237\251\245 \241\235\238\242\224 \226 \194\224\248\229\236 \240\254\234\231\224\234\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \213\224\240\228\232\237\224")
+		SystemNotice(role ,"You need at least 3 empty slots to open Chest of Hardin")
 		UseItemFailed ( role )
 		return
 	end
@@ -15696,18 +16465,16 @@ function ItemUse_Hadisi( role , Item )
 	GiveItem ( role , 0 , 2818  , 1 , 4 )
 	GiveItem ( role , 0 , 2819  , 1 , 4 )
 end
-
---Ñóíäóê Òüìû (ID 2837)
-function ItemUse_Anhei( role , Item )
+function ItemUse_Anhei( role , Item )		----------°µºÚºÐ×Ó
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 4 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \202\224\234 \236\232\237\232\236\243\236 \237\243\230\237\238 3 \241\226\238\225\238\228\237\251\245 \241\235\238\242\224 \226 \194\224\248\229\236 \240\254\234\231\224\234\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \210\252\236\251")
+		SystemNotice(role ,"You need at least 3 empty slots to open Chest of Darkness")
 		UseItemFailed ( role )
 		return
 	end
@@ -15715,18 +16482,16 @@ function ItemUse_Anhei( role , Item )
 	GiveItem ( role , 0 , 2821  , 1 , 4 )
 	GiveItem ( role , 0 , 2822  , 1 , 4 )
 end
-
---Ñóíäóê Àáàääîíà (ID 2838)
-function ItemUse_Diyu( role , Item )
+function ItemUse_Diyu( role , Item )		----------µØÓü°ü¸¤
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 4 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \202\224\234 \236\232\237\232\236\243\236 \237\243\230\237\238 3 \241\226\238\225\238\228\237\251\245 \241\235\238\242\224 \226 \194\224\248\229\236 \240\254\234\231\224\234\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \192\225\224\228\228\238\237\224")
+		SystemNotice(role ,"To open a Chest of Abaddon requires at least 3 empty inventory slots")
 		UseItemFailed ( role )
 		return
 	end
@@ -15734,18 +16499,16 @@ function ItemUse_Diyu( role , Item )
 	GiveItem ( role , 0 , 2824  , 1 , 4 )
 	GiveItem ( role , 0 , 2825  , 1 , 4 )
 end
-
---Ñóíäóê Àñóðû (ID 2839)
-function ItemUse_Xiuluo( role , Item )
+function ItemUse_Xiuluo( role , Item )		----------ÐÞÂÞÏä×Ó
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 4 then
-		SystemNotice(role ,"\194\224\236 \237\243\230\237\238 3 \241\226\238\225\238\228\237\251\229 \255\247\229\233\234\232 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \192\241\243\240\251")
+		SystemNotice(role ,"You need at least 3 free slots to open Chest of Asura")
 		UseItemFailed ( role )
 		return
 	end
@@ -15753,18 +16516,16 @@ function ItemUse_Xiuluo( role , Item )
 	GiveItem ( role , 0 , 2827  , 1 , 4 )
 	GiveItem ( role , 0 , 2828  , 1 , 4 )
 end
-
---Ñóíäóê Áåçäíû (ID 2840)
-function ItemUse_Youming( role , Item )
+function ItemUse_Youming( role , Item )	----------ÓÄÚ¤±¦²Ø
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 4 then
-		SystemNotice(role ,"\194\224\236 \237\243\230\237\238 3 \241\226\238\225\238\228\237\251\229 \255\247\229\233\234\232 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \193\229\231\228\237\251")
+		SystemNotice(role ,"You need at least 3 empty slots to open Chest of Abyss")
 		UseItemFailed ( role )
 		return
 	end
@@ -15772,18 +16533,16 @@ function ItemUse_Youming( role , Item )
 	GiveItem ( role , 0 , 2830  , 1 , 4 )
 	GiveItem ( role , 0 , 2831  , 1 , 4 )
 end
-
---Ñóíäóê Ñòèêñà (ID 2841)
-function ItemUse_Minghe( role , Item )
+function ItemUse_Minghe( role , Item )		----------Ú¤ºÓÐ¡°ü
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 4 then
-		SystemNotice(role ,"\194\224\236 \237\243\230\237\238 3 \241\226\238\225\238\228\237\251\229 \255\247\229\233\234\232 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \209\242\232\234\241\224 ")
+		SystemNotice(role ,"You need at least 3 empty inventory slots to open Chest of Styx")
 		UseItemFailed ( role )
 		return
 	end
@@ -15791,18 +16550,16 @@ function ItemUse_Minghe( role , Item )
 	GiveItem ( role , 0 , 2833  , 1 , 4 )
 	GiveItem ( role , 0 , 2834  , 1 , 4 )
 end
-
---Ñêåëåò Ñìåðòè (ID 2842)
-function ItemUse_Sishen( role , Item )
+function ItemUse_Sishen( role , Item )		----------ËÀÉñ²ØÊ¬´¦
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 2 then
-		SystemNotice(role ,"\215\242\238\225\251 \238\242\234\240\251\242\252 \209\234\229\235\229\242 \209\236\229\240\242\232 \239\238 \234\240\224\233\237\229\233 \236\229\240\229 \242\240\229\225\243\229\242\241\255 1 \241\226\238\225\238\228\237\251\233 \241\235\238\242 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"To open the Carcass of Death requires at least 1 empty inventory slot")
 		UseItemFailed ( role )
 		return
 	end
@@ -15810,7 +16567,7 @@ function ItemUse_Sishen( role , Item )
 	local lv = GetChaAttr(role, ATTR_LV) 
 	local star_rad=math.random ( 1, 2 )
 	if lv < 40 then
-		SystemNotice(role ,"\194\224\248 \243\240\238\226\229\237\252 \237\232\230\229 \247\229\236 40. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \239\240\229\228\236\229\242!")
+		SystemNotice(role ,"Currently lower than Lv 40. Unable to use item!")
 		UseItemFailed ( role )	
 	elseif job == 9 then 
 		if star_rad==1 then
@@ -15854,78 +16611,68 @@ function ItemUse_Sishen( role , Item )
 			GiveItem ( role , 0 , 2344  , 1 , 4 ) 
 		end
 	else 
-		SystemNotice(role ,"\207\240\229\228\236\229\242 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237 \242\238\235\252\234\238 \239\238\241\235\229 \226\251\225\238\240\224 \226\242\238\240\238\227\238 \238\241\237\238\226\237\238\227\238 \234\235\224\241\241\224!")
+		SystemNotice(role ,"Class mismatch. Item can only be used after second class advancement!")
 		UseItemFailed ( role )	
 	end
 end
-
---Çàêîííûé ñóíäóê ×åðíîãî äðàêîíà (ID 2843)
-function ItemUse_Zhenheilong( role , Item )
+function ItemUse_Zhenheilong( role , Item )	----------ÕæºÚÁú±¦Ïä
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 5 then
-		SystemNotice(role ,"\215\242\238\225\251 \238\242\234\240\251\242\252 \199\224\234\238\237\237\251\233 \241\243\237\228\243\234 \215\229\240\237\238\227\238 \228\240\224\234\238\237\224 \239\238 \234\240\224\233\237\229\233 \236\229\240\229 \242\240\229\225\243\229\242\241\255 4 \241\226\238\225\238\228\237\251\245 \241\235\238\242\224 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"You need at least 4 empty slots to open Rightful Chest of Black Dragon")
 		UseItemFailed ( role )
 		return
 	end
-	GiveItem ( role , 0 , 2367  , 1 , 20 ) 
-	GiveItem ( role , 0 , 2368  , 1 , 20 ) 
-	GiveItem ( role , 0 , 2369  , 1 , 20 )
+	GiveItem ( role , 0 , 2367  , 1 , 16 ) 
+	GiveItem ( role , 0 , 2368  , 1 , 16 ) 
+	GiveItem ( role , 0 , 2369  , 1 , 16 )
         local cha_type = GetChaTypeID ( role )
 	if cha_type == 4 then 
-		GiveItem ( role , 0 , 2370  , 1 , 20 )		
+		GiveItem ( role , 0 , 2370  , 1 , 16 )		
 	end
 end
-
---Ïðîõîä â Àáàääîí 4 (ID 2844)
-function Jz_Script_4thDy( role, Item )
-	local i = CheckBagItem( role, 2844 )
-	local k = ChaIsBoat( role )
-	local hp = Hp( role )
-	local mxhp = Mxhp( role )
-	local sp = Sp( role )
-	local mxsp = Mxsp( role )
-
+--µØÓüËÄ²ã»úÆ±
+function Jz_Script_4thDy(role, Item )
+	local i = CheckBagItem(role,2844)
+	local k = ChaIsBoat(role)
+	local hp = Hp(role)
+	local mxhp = Mxhp(role)
+	local sp = Sp(role)
+	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice( role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243" )
-		UseItemFailed( role )
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
+		UseItemFailed ( role )
 		return
 	end 
-
 	if k == 0 then
 		if i > 0 then
-			local j = DelBagItem( role, 2844, 1 )
+			local j = DelBagItem(role,2844,1)
 			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 79
-					teleport( role, n )
-				else
-					MoveCity( role, "Abaddon 4" )
-				end
+				MoveCity(role,"Caribbean Abaddon 4")
 				return
 			end
 		end
 	else
-		UseItemFailed( role )
+		UseItemFailed ( role )
 	end
+		
 end
-
---Áðåìÿ Ñìåðòè (ID 2919)
+--ËÀÉñµÄÐÐÄÒA
 function ItemUse_DathBagA(role, Item )
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 2 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \194\224\236 \237\243\230\237\224 1 \241\226\238\225\238\228\237\224\255 \255\247\229\233\234\224 \226 \194\224\248\229\236 \240\254\234\231\224\234\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \193\240\229\236\255 \209\236\229\240\242\232")
+		SystemNotice(role ,"you need at least 1 free slot to open Death's Burden")
 		UseItemFailed ( role )
 		return
 	end
@@ -15936,18 +16683,17 @@ function ItemUse_DathBagA(role, Item )
 		GiveItem ( role , 0 , 2928  , 1 , 16 ) 
 	end
 end
-
---Áðåìÿ Ñìåðòè (ID 2920)
+--ËÀÉñµÄÐÐÄÒB
 function ItemUse_DathBagB(role, Item )
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 2 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \194\224\236 \237\243\230\237\224 1 \241\226\238\225\238\228\237\224\255 \255\247\229\233\234\224 \226 \194\224\248\229\236 \240\254\234\231\224\234\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \193\240\229\236\255 \209\236\229\240\242\232")
+		SystemNotice(role ,"you need at least 1 free slot to open Death's Burden")
 		UseItemFailed ( role )
 		return
 	end
@@ -15958,18 +16704,17 @@ function ItemUse_DathBagB(role, Item )
 		GiveItem ( role , 0 , 2929  , 1 , 16 ) 
 	end
 end
-
---Áðåìÿ Ñìåðòè (ID 2921)
+--ËÀÉñµÄÐÐÄÒC
 function ItemUse_DathBagC(role, Item )
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 2 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \194\224\236 \237\243\230\237\224 1 \241\226\238\225\238\228\237\224\255 \255\247\229\233\234\224 \226 \194\224\248\229\236 \240\254\234\231\224\234\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \193\240\229\236\255 \209\236\229\240\242\232")
+		SystemNotice(role ,"you need at least 1 free slot to open Death's Burden")
 		UseItemFailed ( role )
 		return
 	end
@@ -15980,18 +16725,17 @@ function ItemUse_DathBagC(role, Item )
 		GiveItem ( role , 0 , 2927  , 1 , 16 ) 
 	end
 end
-
---Áðåìÿ Ñìåðòè (ID 2922)
+--ËÀÉñµÄÐÐÄÒD
 function ItemUse_DathBagD(role, Item )
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 2 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \194\224\236 \237\243\230\237\224 1 \241\226\238\225\238\228\237\224\255 \255\247\229\233\234\224 \226 \194\224\248\229\236 \240\254\234\231\224\234\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \193\240\229\236\255 \209\236\229\240\242\232")
+		SystemNotice(role ,"you need at least 1 free slot to open Death's Burden")
 		UseItemFailed ( role )
 		return
 	end
@@ -16002,18 +16746,17 @@ function ItemUse_DathBagD(role, Item )
 		GiveItem ( role , 0 , 2927  , 1 , 16 ) 
 	end
 end
-
---Áðåìÿ Ñìåðòè (ID 2923)
+--ËÀÉñµÄÐÐÄÒE
 function ItemUse_DathBagE(role, Item )
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 2 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \194\224\236 \237\243\230\237\224 1 \241\226\238\225\238\228\237\224\255 \255\247\229\233\234\224 \226 \194\224\248\229\236 \240\254\234\231\224\234\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \193\240\229\236\255 \209\236\229\240\242\232")
+		SystemNotice(role ,"you need at least 1 free slot to open Death's Burden")
 		UseItemFailed ( role )
 		return
 	end
@@ -16024,18 +16767,17 @@ function ItemUse_DathBagE(role, Item )
 		GiveItem ( role , 0 , 2929  , 1 , 16 ) 
 	end
 end
-
---Áðåìÿ Ñìåðòè (ID 2924)
+--ËÀÉñµÄÐÐÄÒF
 function ItemUse_DathBagF(role, Item )
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 2 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \194\224\236 \237\243\230\237\224 1 \241\226\238\225\238\228\237\224\255 \255\247\229\233\234\224 \226 \194\224\248\229\236 \240\254\234\231\224\234\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \193\240\229\236\255 \209\236\229\240\242\232")
+		SystemNotice(role ,"you need at least 1 free slot to open Death's Burden")
 		UseItemFailed ( role )
 		return
 	end
@@ -16046,18 +16788,17 @@ function ItemUse_DathBagF(role, Item )
 		GiveItem ( role , 0 , 2931  , 1 , 16 ) 
 	end
 end
-
---Áðåìÿ Ñìåðòè (ID 2925)
+--ËÀÉñµÄÐÐÄÒG
 function ItemUse_DathBagG(role, Item )
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 2 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \194\224\236 \237\243\230\237\224 1 \241\226\238\225\238\228\237\224\255 \255\247\229\233\234\224 \226 \194\224\248\229\236 \240\254\234\231\224\234\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \193\240\229\236\255 \209\236\229\240\242\232")
+		SystemNotice(role ,"you need at least 1 free slot to open Death's Burden")
 		UseItemFailed ( role )
 		return
 	end
@@ -16068,18 +16809,17 @@ function ItemUse_DathBagG(role, Item )
 		GiveItem ( role , 0 , 2932  , 1 , 16 ) 
 	end
 end
-
---Áðåìÿ Ñìåðòè (ID 2926)
+--ËÀÉñµÄÐÐÄÒH
 function ItemUse_DathBagH(role, Item )
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 2 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \194\224\236 \237\243\230\237\224 1 \241\226\238\225\238\228\237\224\255 \255\247\229\233\234\224 \226 \194\224\248\229\236 \240\254\234\231\224\234\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \193\240\229\236\255 \209\236\229\240\242\232")
+		SystemNotice(role ,"you need at least 1 free slot to open Death's Burden")
 		UseItemFailed ( role )
 		return
 	end
@@ -16090,30 +16830,21 @@ function ItemUse_DathBagH(role, Item )
 		GiveItem ( role , 0 , 2930  , 1 , 16 ) 
 	end
 end
-
---------------------------------------------------------------------------------------------------
---Êàðòà ïåðåðîæäåíèÿ
---------------------------------------------------------------------------------------------------
-
---Êàðòà ïåðåðîæäåíèÿ (ID 2941)
+----×ªÉú¿¨
 function ItemUse_ZSCard(role, Item )
 	local i = CheckBagItem(role,2941)
 	local k = ChaIsBoat(role)
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
-	local charLv=Lv ( role )
 	if Item_CanGet < 1 then
-		SystemNotice(role ,"\215\242\238\225\251 \232\241\239\238\235\252\231\238\226\224\242\252 \202\224\240\242\243 \239\229\240\229\240\238\230\228\229\237\232\255 \237\243\230\229\237 1 \241\226\238\225\238\228\237\251\233 \241\235\238\242 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229")
+		SystemNotice(role ,"To use a Rebirth Card requires at least 1 empty inventory slot")
 		UseItemFailed ( role )
 		return
 	end
-	if charLv<=1  then
-		SystemNotice( role , "\194\251 \228\238\235\230\237\251 \225\251\242\252 \243\240\238\226\237\255 75 \232\235\232 \226\251\248\229, \247\242\238\225\251 \232\241\239\238\235\252\231\238\226\224\242\252 \202\224\240\242\243 \239\229\240\229\240\238\230\228\229\237\232\255" )
-		UseItemsFailed ( role )
-		return
-	elseif k == 0 then
+	if k == 0 then
 		if i > 0 then
-			local j = DelBagItem(role,2941,1) -- êàðòà ïåðåðîæäåíèÿ
+			local j = DelBagItem(role,2941,1)
 			if j == 1 then
+				SystemNotice(role, "Use of Rebirth Card successful, you can now speak with the Reibrth angel to directly rebirth.")
 				GiveItem ( role , 0 , 2235 , 1 , 42)
 				GoTo( role,  1750 , 909 , "jialebi")
 				return
@@ -16124,25 +16855,20 @@ function ItemUse_ZSCard(role, Item )
 	end
 		
 end
-
---------------------------------------------------------------------------------------------------
---Ñâÿùåííàÿ âîéíà
---------------------------------------------------------------------------------------------------
-
---Ñâèòîê ïðèçûâà õðàíèòåëÿ (ID 2381)
+-----------º£¾üº£µÁÊØ»¤ÉñÕÙ»½È¯--------------------
 function ItemUse_SummonBigBOSS(role, Item )
 local map_name_role = GetChaMapName ( role )
 local Cha_Boat = 0
       Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( Cha_Boat , "\205\229\227\238\228\237\238 \234 \232\241\239\238\235\252\231\238\226\224\237\232\254 \237\224 \236\238\240\229" )
+		SystemNotice( Cha_Boat , "Not usable on the sea" )
 		UseItemFailed ( Cha_Boat )
 		return
 	end
 	local reg = 0
 	      reg =IsChaInRegion( role, 2 )
 	if reg == 1 then
-		SystemNotice( role , "\205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \226 \193\229\231\238\239\224\241\237\238\233 \199\238\237\229" )
+		SystemNotice( role , "Unable to use in Safe Zone" )
 		UseItemFailed ( role )
                 return
 	end
@@ -16150,8 +16876,8 @@ local Cha_Boat = 0
 	local x,y = GetChaPos(role)
 	if GetChaGuildID(role) <= 100 and GetChaGuildID(role) > 0 then
 	local MonsterID = 1007
-	local Refresh = 1300
-	local life = 1200000
+	local Refresh = 1300					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 1200000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 	local new = CreateChaX( MonsterID , x , y , 145 , Refresh,role )
 	SetChaLifeTime( new, life )
 	SetChaSideID(new,1)
@@ -16159,8 +16885,8 @@ local Cha_Boat = 0
 
 	if GetChaGuildID(role) > 100 and GetChaGuildID(role) <= 200 then
 	local MonsterID = 1008
-	local Refresh = 1300
-	local life = 1200000
+	local Refresh = 1300					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 1200000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 	local new = CreateChaX( MonsterID , x , y , 145 , Refresh,role )
 	SetChaLifeTime( new, life )
 	SetChaSideID(new,2)
@@ -16170,8 +16896,8 @@ local Cha_Boat = 0
     local x,y = GetChaPos(role)
 	if GetChaGuildID(role) <= 100 and GetChaGuildID(role) > 0 then
 	local MonsterID = 1007
-	local Refresh = 1300
-	local life = 12600000
+	local Refresh = 1300					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 12600000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 	local new = CreateChaX( MonsterID , x , y , 145 , Refresh,role )
 	SetChaLifeTime( new, life )
 	SetChaSideID(new,1)
@@ -16179,41 +16905,43 @@ local Cha_Boat = 0
 
 	if GetChaGuildID(role) > 100 and GetChaGuildID(role) <= 200 then
 	local MonsterID = 1008
-	local Refresh = 1300
-	local life = 1200000
+	local Refresh = 1300					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 1200000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 	local new = CreateChaX( MonsterID , x , y , 145 , Refresh,role )
 	SetChaLifeTime( new, life )
 	SetChaSideID(new,2)
 	end
     else 
-        SystemNotice( role , "\221\242\238\242 \239\240\229\228\236\229\242 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237 \242\238\235\252\234\238 \237\224 \242\229\240\240\232\242\238\240\232\232 \209\226\255\249\229\237\237\238\233 \194\238\233\237\251" )
+        SystemNotice( role , "This ticket can only be used in Sacred War map" )
         UseItemFailed ( role )
         return
     end
 
 end
 
---Ïðîõîä ê ñòàòóå (ID 2986)
+
+----------------------µñÏñ»úÆ±---------------------
 function ItemUse_moveDX(role, Item)
 local i = CheckBagItem(role,2986)
+--local k = ChaIsBoat(role)
  local Cha_Boat = 0
        Cha_Boat = GetCtrlBoat ( role )
 	 if Cha_Boat ~=  nil then
-		SystemNotice( Cha_Boat , "\205\229\227\238\228\237\238 \234 \232\241\239\238\235\252\231\238\226\224\237\232\254 \237\224 \236\238\240\229" )
+		SystemNotice( Cha_Boat , "Not usable on the sea" )
 		UseItemFailed ( Cha_Boat )
 		return
 	 end
 	 local reg = 0
 	      reg =IsChaInRegion( role, 2 )
 	 if reg == 1 then
-		SystemNotice( role , "\205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \226 \193\229\231\238\239\224\241\237\238\233 \199\238\237\229" )
+		SystemNotice( role , "Unable to use in Safe Zone" )
 		UseItemFailed ( role )
                 return
 	 end
 
 
  if GetChaGuildID(role) == 0 then
-    SystemNotice( role , "\194\251 \237\229 \241\238\241\242\238\232\242\229 \237\232 \226 \238\228\237\238\233 \244\240\224\234\246\232\232. \207\229\240\229\236\229\249\229\237\232\229 \237\229\226\238\231\236\238\230\237\238" )
+    SystemNotice( role , "You do not have a guild. Unable to use the pass" )
     UseItemFailed ( role )
     return
  end
@@ -16271,20 +16999,19 @@ elseif map_name_role =="guildwar2" then
          end
 
 else
-        SystemNotice( role , "\221\242\238\242 \225\232\235\229\242 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237 \242\238\235\252\234\238 \237\224 \242\229\240\240\232\242\238\240\232\232 \209\226\255\249\229\237\237\238\233 \194\238\233\237\251" )
+        SystemNotice( role , "This ticket can only be used in Sacred War map" )
         UseItemFailed ( role )
         return
    end        
 end
 
---------------------------------------------------------------------------------------------------
---Ðàçíîå
---------------------------------------------------------------------------------------------------
---Ñóíäóê ñ óêðàøåíèÿìè êàïèòàíà îâíà (ID 2955)
+
+------------------------°×Ñò´¬³¤±¦Ïä£ºË«»÷£¬¸ù¾Ý½ÇÉ«¸øÓèµÀ¾ß
+
 function ItemUse_CZBox ( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 4 then
-		SystemNotice(role ,"\205\243\230\237\238 4 \241\226\238\225\238\228\237\251\245 \241\235\238\242\224 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \241 \243\234\240\224\248\229\237\232\255\236\232 \234\224\239\232\242\224\237\224 \238\226\237\224")
+		SystemNotice(role ,"To open a Aries Apparel Chest requires at least 4 empty inventory slots")
 		UseItemFailed ( role )
 		return
 	end
@@ -16313,54 +17040,53 @@ function ItemUse_CZBox ( role , Item )
 end
 
 
---Ïåðâîàïðåëüñêèé ïîäàðîê (ID 2953)
+------------------------ÓÞÈË½ÚÀñÎï----------2953----------itemeffect
 function ItemUse_Foolish ( role , Item )
 	local charLv=Lv ( role )
 	local Cha_Boat = 0
 		Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
-	local Exp_el=GetChaAttr (  role , ATTR_CEXP )
-	local dif_exp_thalf_c = (DEXP[charLv+1] - DEXP[charLv])*0.03+Exp_el
-		SetChaAttrI( role , ATTR_CEXP , dif_exp_thalf_c )
-
+	local Exp_el=GetChaAttr (  role , ATTR_CEXP )----------µ±Ç°µÈ¼¶¾­Ñé
+	local dif_exp_thalf_c = (DEXP[charLv+1] - DEXP[charLv])*0.03+Exp_el ----------------
+		SetChaAttrI( role , ATTR_CEXP , dif_exp_thalf_c )-------------
+		--SystemNotice( role , "Use April's Fool Gift to obtain 3 percent experience points" )--------------
 end
-
---Ñâèòîê õðàíèòåëÿ Áåëîé îâöû (ID 2990)
+---------------------------ÕÙ»½°×ÑòÊØ»¤Õß
 function ItemUse_BYSHJZ ( role , Item  )
 	local Cha_Boat = 0
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local star = 0
 	star =IsChaInRegion( role, 2 )
 	if star == 1 then
-		SystemNotice( role , "\205\229\226\238\231\236\238\230\237\238 \226\251\231\226\224\242\252 \236\238\237\241\242\240\224 \226 \193\229\231\238\239\224\241\237\238\233 \199\238\237\229" )
+		SystemNotice( role , "Unable to summon monster in Safe Zone" )
 		UseItemFailed ( role )
 		return
 	end
 	local x, y = GetChaPos(role)
 	local MonsterID = 1009
-	local Refresh = 3700
-	local life = 3600000
+	local Refresh = 3700					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 3600000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 	local new = CreateChaX( MonsterID , x , y , 145 , Refresh, role )
 	SetChaLifeTime( new, life )
 end
 
---------------------------------------------------------------------------------------------------
---Êíèãè íàâûêîâ ïåðåðîæäåíèÿ
---------------------------------------------------------------------------------------------------
---Êíèãà íàâûêîâ ïåðåðîæäåííîãî Âîèòåëÿ (ID 2956)
+--------Ë«½£Ê¿×ªÖ°¼¼ÄÜÊé
 function Sk_Script_Wyz ( role , Item ) 											
 	local sk_add = SK_WYZ 
 	local form_sklv = GetSkillLv( role , sk_add ) 
 	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv >= 1  then 
 		UseItemFailed ( role )  
 		return 
@@ -16377,11 +17103,14 @@ function Sk_Script_Wyz ( role , Item )
 	end 
 end 
 
---Êíèãà íàâûêîâ ïåðåðîæäåííîãî ×åìïèîíà (ID 2957)
+--------¾Þ½£Ê¿×ªÖ°¼¼ÄÜÊé
 function Sk_Script_Bsj ( role , Item ) 											
 	local sk_add = SK_BSJ 
 	local form_sklv = GetSkillLv( role , sk_add ) 
-
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv >= 1  then 
 		UseItemFailed ( role )  
 		return 
@@ -16398,11 +17127,14 @@ function Sk_Script_Bsj ( role , Item )
 	end 
 end 
 
---Êíèãà íàâûêîâ ïåðåðîæäåííîé êîëäóíüè (ID 2958)
+--------·âÓ¡Ê¦×ªÖ°¼¼ÄÜÊé
 function Sk_Script_Emzz ( role , Item ) 											
 	local sk_add = SK_EMZZ 
 	local form_sklv = GetSkillLv( role , sk_add ) 
-
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv >= 1  then 
 		UseItemFailed ( role )  
 		return 
@@ -16418,13 +17150,20 @@ function Sk_Script_Emzz ( role , Item )
 		return 
 	end 
 end 
-
---Êíèãà íàâûêîâ ïåðåðîæäåííîé Öåëèòåëüíèöû (ID 2959)
+--------Ê¥Ö°Õß×ªÖ°¼¼ÄÜÊé
 function Sk_Script_Sssp ( role , Item ) 											
 	local sk_add = SK_SSSP 
 	local form_sklv = GetSkillLv( role , sk_add ) 
-
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv >= 1  then 
+		UseItemFailed ( role )  
+		return 
+	end
+	local zs_exp = GetChaAttr ( role , ATTR_CSAILEXP )
+	if zs_exp <= 0 then
 		UseItemFailed ( role )  
 		return 
 	end
@@ -16440,11 +17179,14 @@ function Sk_Script_Sssp ( role , Item )
 	end 
 end 
 
--- Êíèãà íàâûêîâ ïåðåðîæäåííîãî ïîêîðèòåëÿ ìîðåé (ID 2960)
+--------º½º£Ê¿×ªÖ°¼¼ÄÜÊé
 function Sk_Script_Cyn ( role , Item ) 											
 	local sk_add = SK_CYN 
 	local form_sklv = GetSkillLv( role , sk_add ) 
-
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv >= 1  then 
 		UseItemFailed ( role )  
 		return 
@@ -16461,11 +17203,14 @@ function Sk_Script_Cyn ( role , Item )
 	end 
 end 
 
--- Êíèãà íàâûêîâ ïåðåðîæäåííîãî ñòðåëêà (ID 2961)
+--------¾Ñ»÷ÊÖ×ªÖ°¼¼ÄÜÊé
 function Sk_Script_Hlp ( role , Item ) 											
 	local sk_add = SK_HLP 
 	local form_sklv = GetSkillLv( role , sk_add ) 
-
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
 	if form_sklv >= 1  then 
 		UseItemFailed ( role )  
 		return 
@@ -16481,14 +17226,13 @@ function Sk_Script_Hlp ( role , Item )
 		return 
 	end 
 end 
-
--- Çíàìåíèòûé êåêñ (ID 2988)
+-------------------------Æ·ÅÆµ°¸â
 function ItemUse_NiceCake (role, Item )
 
 	local HonorBook_Num = 0
 	local HonorBook_Num = CheckBagItem( role,3849 )
 		if HonorBook_Num < 1 then
-		SystemNotice( role , "\211 \194\224\241 \237\229\242 \236\229\228\224\235\232 \238\242\226\224\227\232")
+		SystemNotice( role , "You do not have Mark of Honor")
 		UseItemFailed ( role )
 		return 0
 		end
@@ -16505,23 +17249,403 @@ function ItemUse_NiceCake (role, Item )
 		SetCharaAttr(el_fame, role, ATTR_FAME) 
 
 		else 
-		SystemNotice( role , "\211 \194\224\241 \241\235\232\248\234\238\236 \236\237\238\227\238 \238\247\234\238\226 \247\229\241\242\232 \232\235\232 \240\229\239\243\242\224\246\232\232. \221\242\238\242 \239\232\240\238\227 \225\238\235\252\248\229 \237\229 \243\228\238\226\235\229\242\226\238\240\232\242 \194\224\241")
+		SystemNotice( role , "Your Honor or Reputation points are too high. This cake can no longer satisfied you")
 		UseItemFailed ( role )
 		end
 end
 
--- Íåèçâåñòíî (n\a)
+-------------------QQ±¦Ïä
+--function ItemUse_QQBOX( role , Item )
+	
+	--local cha_name = GetChaDefaultName ( role )
+	--local cha_num = GetActName(role)	
+	--local lv = GetChaAttr(role, ATTR_LV)
+	--local Item_CanGet = GetChaFreeBagGridNum ( role )
+	--if lv < 40 then
+		--SystemNotice( role ,"Currently lower than Lv 40. Unable to use item!")
+		--UseItemFailed ( role )	
+	--return
+	--end
+	
+	--local BorG = 0 
+	--local cha_type = GetChaTypeID ( role ) 
+	--if cha_type == 1  or cha_type == 2 then 
+		--BorG=1
+	--elseif cha_type == 3  or cha_type == 4 then
+		--BorG=2
+	--end
+	
+	--LG( "QQ" , "Player"..cha_name.."Open QQ Chest", "yes"..BorG.."character","Account is"..cha_num)
+--end
+
+----------------------------------------------¼Î±ö±¦Ïä
+--function ItemUse_JBBOX( role , Item )
+--	local Item_CanGet = GetChaFreeBagGridNum ( role )
+--	if Item_CanGet <1 then
+--		SystemNotice(role ,"To open a Chest requires 1 empty slot")
+--		UseItemFailed ( role )
+--		return
+--	end
+--	local r1,r2 =MakeItem ( role , 3078  , 1 , 4 )-------Çë¼í
+--	local Item_el = GetChaItem ( role , 2 , r2 )			--È¡ÐÂ¾«ÁéµÀ¾ßÖ¸Õë
+--
+--	local item_old = GetChaItem2 ( role , 2 , 3066 )---------½ÌÌÃÊ¹ÓÃÖ¤Êé
+--
+--	local old_month = GetItemAttr(item_old, ITEMATTR_VAL_STA)		-------------ÔÂ 	
+--	local old_day = GetItemAttr(item_old, ITEMATTR_VAL_STR)			-------------ÈÕ  
+--	local old_hour = GetItemAttr(item_old, ITEMATTR_VAL_CON)			-------------Ê±   
+--	local old_miniute = GetItemAttr(item_old, ITEMATTR_VAL_DEX)		-------------·Ö   
+--	
+--	--SystemNotice ( role , "old_month=="..old_month )
+--	--SystemNotice ( role , "old_day=="..old_day )       
+--	--SystemNotice ( role , "old_hour=="..old_hour )    
+--	--SystemNotice ( role , "old_miniute=="..old_miniute)
+--
+--	SetItemAttr(Item_el, ITEMATTR_VAL_STA, old_month )	-------------ÔÂ 	
+--	SetItemAttr(Item_el, ITEMATTR_VAL_STR, old_day )		-------------ÈÕ  
+--	SetItemAttr(Item_el, ITEMATTR_VAL_CON, old_hour )		-------------Ê± 
+--	SetItemAttr(Item_el, ITEMATTR_VAL_DEX, old_miniute )	-------------·Ö
+--
+--	local old_month2 = GetItemAttr(Item_el, ITEMATTR_VAL_STA)		-------------ÔÂ 	
+--	local old_day2 = GetItemAttr(Item_el, ITEMATTR_VAL_STR)			-------------ÈÕ  
+--	local old_hour2 = GetItemAttr(Item_el, ITEMATTR_VAL_CON)			-------------Ê±   
+--	local old_miniute2 = GetItemAttr(Item_el, ITEMATTR_VAL_DEX)		-------------·Ö 
+--
+--	--SystemNotice ( role , "old_month2=="..old_month2 )
+--	--SystemNotice ( role , "old_day2=="..old_day2 )       
+--	--SystemNotice ( role , "old_hour2=="..old_hour2 )    
+--	--SystemNotice ( role , "old_miniute2=="..old_miniute2)
+--
+--	SynChaKitbag(role,13)
+--
+--end
+--
+--
+--------------------ÀËÂþÑÌ»¨
+--function ItemUse_LMYH ( role , Item )
+--	local Cha_Boat = GetCtrlBoat ( role )
+--	if Cha_Boat ~=  nil then
+--		SystemNotice( role , "Cannot use while sailing" )
+--		UseItemFailed ( role )
+--		return
+--	end
+--end
+--
+--------------------¾ÞÏìÑÌ»¨
+--function ItemUse_JXYH ( role , Item )
+--	local Cha_Boat = GetCtrlBoat ( role )
+--	if Cha_Boat ~=  nil then
+--		SystemNotice( role , "Cannot use while sailing" )
+--		UseItemFailed ( role )
+--		return
+--	end
+--end
+--
+--------------------ºÀ»ªÑÌ»¨
+--function ItemUse_HHLH ( role , Item )
+--	local Cha_Boat = GetCtrlBoat ( role )
+--	if Cha_Boat ~=  nil then
+--		SystemNotice( role , "Cannot use while sailing" )
+--		UseItemFailed ( role )
+--		return
+--	end
+--end
+--
+---------½ÌÌÃÊ¹ÓÃÖ¤Êé
+--function Jz_Script_jtsyzs (role, Item )
+--	--SystemNotice ( role , "Invitation Invitation Invitation" )
+--	local Now_Day = os.date("%d")
+--	local Now_Month = os.date("%m")
+--	local Now_Time = os.date("%H")
+--	--SystemNotice ( role , "Wahaha" )
+--	local NowMniuteNum= os.date("%M")	-------------·Ö
+--	local NowMiniuteNum= tonumber(Now_Miniute)	 	-------------·Ö
+--	local NowTimeNum = tonumber(Now_Time)
+--	--SystemNotice ( role , "huhuhuhu" )
+--	local NowDayNum = tonumber(Now_Day)
+--	--SystemNotice ( role , "hehehehe" )
+--	local NowMonthNum = tonumber(Now_Month)
+--	--SystemNotice ( role , "kekekeke" )
+--	local CheckDateNum = NowMonthNum * 1000000 + NowDayNum * 10000 + NowTimeNum*100+NowMniuteNum
+--	--SystemNotice ( role , "timing is now"..CheckDateNum)
+--	--local old_type = GetItemAttr(item_old, ITEMATTR_MAXENERGY)	----------------·¨Ê½½ÌÌÃ
+--
+--	local item_old = GetChaItem2 ( role , 2 , 3078 )---------Çë¼í
+--	local old_month = GetItemAttr(item_old, ITEMATTR_VAL_STA)		-------------ÔÂ 	
+--	local old_day = GetItemAttr(item_old, ITEMATTR_VAL_STR)			-------------ÈÕ  
+--	local old_hour = GetItemAttr(item_old, ITEMATTR_VAL_CON)			-------------Ê± 
+--	local old_miniute = GetItemAttr(item_old, ITEMATTR_VAL_DEX)  
+--	 
+--
+--	local CheckBook1Num = old_month * 1000000 + old_day * 10000 + old_hour*100+old_miniute
+--	--SystemNotice ( role , "CheckBook1Num"..CheckBook1Num)
+--	local CheckBook2Num = old_month * 1000000 + old_day * 10000 + (old_hour+2)*100+old_miniute
+--	--SystemNotice ( role , "CheckBook2Num"..CheckBook2Num)
+--	
+--	if CheckDateNum < CheckBook1Num then
+--		SystemNotice ( role , "Please be patient, Church is not opened yet. Please come back according to the time listed" )
+--		UseItemFailed ( role )
+--		return
+--	end
+--	--SystemNotice ( role , "Mother")
+--	if CheckDateNum > CheckBook2Num then
+--		SystemNotice ( role , "The wedding you want to visit is already finished, too bad" )
+--		UseItemFailed ( role )
+--		return
+--	end
+--	--SystemNotice ( role , "Father")
+--
+--	local i = CheckBagItem(role,3066)----½ÌÌÃÊ¹ÓÃÖ¤Êé
+--	local k = ChaIsBoat(role)
+--	local hp = Hp(role)
+--	local mxhp = Mxhp(role)
+--	local sp = Sp(role)
+--	local mxsp = Mxsp(role)
+--	if sp < mxsp or hp < mxhp then 
+--		SystemNotice (role, "Visiting the church is a tiring process, please keep your hp and sp at 100%")
+--		UseItemFailed ( role )
+--		return
+--	end 
+--	if k == 0 then
+--		if i > 0 then
+--			local j = DelBagItem(role,3066,1)-------½ÌÌÃÊ¹ÓÃÖ¤Êé
+--			--if j == 1 and old_type=1 then
+--				--MoveCity(role,"French Wedding Hall")
+--			--elseif	j == 1 and old_type=2 then
+--				--MoveCity(role,"Chinese style church")
+--			if j == 1 then-------------elseif	j == 1 and old_type=3 then
+--				MoveCity(role,"Church")
+--				--SystemNotice ( role , "Grandfather")
+--			--elseif	j == 1 and old_type=4 then
+--				--MoveCity(role,"Ground type Church")
+--			end
+--		end
+--	else
+--		UseItemFailed ( role )
+--	end
+--	--SystemNotice ( role , "Granny")	
+--end
+--
+--
+--------------Çë¼í
+--function Jz_Script_qj (role, Item )
+--	--SystemNotice ( role , "Invitation Invitation Invitation" )
+--	local Now_Day = os.date("%d")
+--	local Now_Month = os.date("%m")
+--	local Now_Time = os.date("%H")
+--	--SystemNotice ( role , "Wahaha" )
+--	local NowMniuteNum= os.date("%M")	-------------·Ö
+--	local NowMiniuteNum= tonumber(Now_Miniute)	 	-------------·Ö
+--	local NowTimeNum = tonumber(Now_Time)
+--	--SystemNotice ( role , "huhuhuhu" )
+--	local NowDayNum = tonumber(Now_Day)
+--	--SystemNotice ( role , "hehehehe" )
+--	local NowMonthNum = tonumber(Now_Month)
+--	--SystemNotice ( role , "kekekeke" )
+--	local CheckDateNum = NowMonthNum * 1000000 + NowDayNum * 10000 + NowTimeNum*100+NowMniuteNum
+--	--SystemNotice ( role , "timing is now"..CheckDateNum)
+--	--local old_type = GetItemAttr(item_old, ITEMATTR_MAXENERGY)	----------------·¨Ê½½ÌÌÃ
+--
+--	local item_old = GetChaItem2 ( role , 2 , 3078 )-----Çë¼í
+--	local old_month = GetItemAttr(item_old, ITEMATTR_VAL_STA)		-------------ÔÂ 	
+--	local old_day = GetItemAttr(item_old, ITEMATTR_VAL_STR)			-------------ÈÕ  
+--	local old_hour = GetItemAttr(item_old, ITEMATTR_VAL_CON)			-------------Ê± 
+--	local old_miniute = GetItemAttr(item_old, ITEMATTR_VAL_DEX)  
+--	 
+--
+--	local CheckBook1Num = old_month * 1000000 + old_day * 10000 + old_hour*100+old_miniute
+--	--SystemNotice ( role , "CheckBook1Num"..CheckBook1Num)
+--	local CheckBook2Num = old_month * 1000000 + old_day * 10000 + (old_hour+2)*100+old_miniute
+--	--SystemNotice ( role , "CheckBook2Num"..CheckBook2Num)
+--	
+--	if CheckDateNum < CheckBook1Num then
+--		SystemNotice ( role , "Please be patient, Church is not opened yet. Please come back according to the time listed" )
+--		UseItemFailed ( role )
+--		return
+--	end
+--	--SystemNotice ( role , "Mother")
+--	if CheckDateNum > CheckBook2Num then
+--		SystemNotice ( role , "The wedding you want to visit is already finished, too bad" )
+--		UseItemFailed ( role )
+--		return
+--	end
+--	--SystemNotice ( role , "Father")
+--
+--	local i = CheckBagItem(role,3078)
+--	local k = ChaIsBoat(role)
+--	local hp = Hp(role)
+--	local mxhp = Mxhp(role)
+--	local sp = Sp(role)
+--	local mxsp = Mxsp(role)
+--	if sp < mxsp or hp < mxhp then 
+--		SystemNotice (role, "Visiting the church is a tiring process, please keep your hp and sp at 100%")
+--		UseItemFailed ( role )
+--		return
+--	end 
+--	if k == 0 then
+--		if i > 0 then
+--			local j = DelBagItem(role,3078,1)
+--			--if j == 1 and old_type=1 then
+--				--MoveCity(role,"French Wedding Hall")
+--			--elseif	j == 1 and old_type=2 then
+--				--MoveCity(role,"Chinese style church")
+--			if j == 1 then-------------elseif	j == 1 and old_type=3 then
+--				MoveCity(role,"Church")
+--				--SystemNotice ( role , "Grandfather")
+--			--elseif	j == 1 and old_type=4 then
+--				--MoveCity(role,"Ground type Church")
+--			end
+--		end
+--	else
+--		UseItemFailed ( role )
+--	end
+--	--SystemNotice ( role , "Granny")	
+--end
+-----------------------------ÕÙ»½»éÀñÌÔÆø¹í
+--function ItemUse_FLOWER ( role , Item  )
+--	local Cha_Boat = 0
+--	Cha_Boat = GetCtrlBoat ( role )
+--	if Cha_Boat ~=  nil then
+--		SystemNotice( role , "Cannot use while sailing" )
+--		UseItemFailed ( role )
+--		return
+--	end
+--
+--	local el = 0
+--	el =IsChaInRegion( role, 2 )
+--	if el == 1 then
+--		SystemNotice( role , "Unable to summon monster in Safe Zone" )
+--		UseItemFailed ( role )
+--		return
+--	end
+--	local x, y = GetChaPos(role)
+--	local MonsterID = 1037
+--	local Refresh = 7300					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+--	local life = 7200000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
+--	local new = CreateChaX( MonsterID , x , y , 145 , Refresh, role )
+--	SetChaLifeTime( new, life )
+--end
+--
+--
+-----------------------------ÆøÇòÓÎÏ·È¯
+--function ItemUse_QQ ( role , Item  )
+--	local Cha_Boat = 0
+--	Cha_Boat = GetCtrlBoat ( role )
+--	if Cha_Boat ~=  nil then
+--		SystemNotice( role , "Cannot use while sailing" )
+--		UseItemFailed ( role )
+--		return
+--	end
+--
+--	local el = 0
+--	el =IsChaInRegion( role, 2 )
+--	if el == 1 then
+--		SystemNotice( role , "Unable to summon monster in Safe Zone" )
+--		UseItemFailed ( role )
+--		return
+--	end
+--	local x, y = GetChaPos(role)
+--	local MonsterID = 1036
+--	local Refresh = 60					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+--	local life = 7200000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
+--	local new = CreateChaX( MonsterID , x , y , 145 , Refresh, role )
+--	SetChaLifeTime( new, life )
+--end
+----ÒÁÊ½½ÌÌÃ²Î¹ÛÃÅÆ±
+--function Jz_Script_yszs (role, Item )
+--	
+--	local Now_Week = os.date("%w")
+--	local Now_WeekNum = tonumber(Now_Week)
+--	local Now_Time = os.date("%H")
+--	local Now_TimeNum = tonumber(Now_Time)
+--	local Now_Miniute= os.date("%M")	
+--	local Now_Miniute= tonumber(Now_Miniute)
+--	local CheckDateNum = Now_WeekNum * 10000 + Now_TimeNum * 100+Now_Miniute
+--
+--	if CheckDateNum < 11700  then
+--		SystemNotice ( role , "Please be patient, church is not opened yet. Please come back on Monday night from 17:00 ~ 17:30pm" )
+--		UseItemFailed ( role )
+--		return
+--	end
+--	
+--	if CheckDateNum > 11730 then
+--		SystemNotice ( role , "Church is now closed, please wait until next Monday night" )
+--		UseItemFailed ( role )
+--		return
+--	end
+--
+--	local i = CheckBagItem(role,3024)
+--	local k = ChaIsBoat(role)
+--	local hp = Hp(role)
+--	local mxhp = Mxhp(role)
+--	local sp = Sp(role)
+--	local mxsp = Mxsp(role)
+--	if sp < mxsp or hp < mxhp then 
+--		SystemNotice (role, "Visiting the church is a tiring process, please keep your hp and sp at 100%")
+--		UseItemFailed ( role )
+--		return
+--	end 
+--	if k == 0 then
+--		if i > 0 then
+--			local j = DelBagItem(role,3024,1)
+--			if j == 1 then
+--				MoveCity(role,"Church")
+--				return
+--			end
+--		end
+--	else
+--		UseItemFailed ( role )
+--	end
+--		
+--end
+-------------------------------ºì°ü£ººì°üÖ»ÓÐÔÚ£¨Ã¿ÖÜÁù\ÈÕÍí18:00--22£º10£©´ò¿ª²Å»áÓÐÐ§
+--
+--function ItemUse_RedBox( role , Item )
+--	local Cha_Boat = GetCtrlBoat ( role )
+--	if Cha_Boat ~=  nil then
+--		SystemNotice( role , "Cannot use while sailing" )
+--		UseItemFailed ( role )
+--		return
+--	end
+--	local Item_CanGet = GetChaFreeBagGridNum ( role )
+--	 if Item_CanGet < 1 then
+--		SystemNotice(role ,"You need at least 1 empty slots to open Auspicious Bag")
+--		UseItemFailed ( role )
+--		return
+--	end
+--	local now_week= os.date("%w")		-------------ÐÇÆÚ¼¸£¨Ê®½øÖÆ£© 
+--	local now_hour= os.date("%H")		-------------Ê± 
+--	local now_miniute= os.date("%M")	-------------·Ö
+--	now_week= tonumber(now_week)
+--	now_hour= tonumber(now_hour)		
+--	now_miniute= tonumber(now_miniute)
+--	local CheckDateNum = now_hour*100 +now_miniute
+--	--Notice("CheckDateNum = "..CheckDateNum)
+--      if now_week==6 or now_week==0 then
+--		
+--		if 1800<=CheckDateNum and  CheckDateNum<=2210 then
+--		--SystemNotice( role , "Use YSBOX" )
+--		ItemUse_YSBOX ( role , Item )
+--		else 
+--		SystemNotice(role ,"It is not time yet. Do not try to cheat!")
+--		UseItemFailed ( role )
+--		return
+--		end
+--	end
+--end
+
+------------------------Éý¼¶ÍÆ½øÆ÷
 function ItemUse_TJQ ( role , Item )
 	local lv= GetChaAttr(role, ATTR_LV) 
 	if lv >70 then
-		SystemNotice ( role , "\210\238\235\252\234\238 \232\227\240\238\234\232 \243\240\238\226\237\255 70 \232 \226\251\248\229 \236\238\227\243\242 \232\241\239\238\235\252\231\238\226\224\242\252 \253\242\238\242 \239\240\229\228\236\229\242" )
+		SystemNotice ( role , "Characters above Level 70 cannot use Leveling Generator" )
 		UseItemFailed ( role )
 		return	
 	end
 	local statelv = 4
 	local ChaStateLv = GetChaStateLv ( role , STATE_SBJYGZ )
 	if ChaStateLv > statelv then
-		SystemNotice(role ,"\221\244\244\229\234\242\251 \238\242 \228\240\243\227\232\245 \231\229\235\232\233 \237\229 \241\238\247\232\242\224\254\242\241\255")
+		SystemNotice ( role , "already using a higher grade leveling item, please wait a while to use" )
 		UseItemFailed ( role )
 		return
 	end
@@ -16531,32 +17655,633 @@ function ItemUse_TJQ ( role , Item )
 	if Cha_Boat ==  nil then
 		AddState( role , role , STATE_SBJYGZ , statelv , statetime )
 	else
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 end
- 
--- Íåèçâåñòíî (n\a)
-function ItemUse_65BBBox ( role , Item )
-	local job = GetChaAttr( role, ATTR_JOB)
-        local cha_type = GetChaTypeID ( role )
-	if job == 0 then
-		SystemNotice ( role , "\210\238\235\252\234\238 \239\232\240\224\242\251 \239\238\241\235\229 \229\227\238/\229\229 \239\240\238\228\226\232\230\229\237\232\255 \239\238 \241\235\243\230\225\229 \236\238\227\243\242 \232\241\239\238\235\252\231\238\226\224\242\252 \253\242\238\242 \241\243\237\228\243\234.")
+
+------------------------½ðÅ£´¬³¤±¦Ïä£ºË«»÷£¬¸ù¾Ý½ÇÉ«¸øÓèµÀ¾ß
+
+function ItemUse_JNCZBox ( role , Item )
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	 if Item_CanGet < 4 then
+		SystemNotice(role ,"You need at least 4 space to use the Taurus Apparel Chest")
+		UseItemFailed ( role )
+		return
+	end
+	local cha_type = GetChaTypeID ( role ) 
+	if cha_type == 3  then 
+	     
+	       GiveItem ( role , 0 , 5364  , 1 , 4 )
+	       GiveItem ( role , 0 , 5365  , 1 , 4 )
+	       GiveItem ( role , 0 , 5366  , 1 , 4 )
+	       GiveItem ( role , 0 , 5367  , 1 , 4 )
+	elseif cha_type == 4  then 
+
+	       GiveItem ( role , 0 , 5368  , 1 , 4 )
+	       GiveItem ( role , 0 , 5369  , 1 , 4 )
+	       GiveItem ( role , 0 , 5370  , 1 , 4 )
+	       GiveItem ( role , 0 , 5371  , 1 , 4 )
+	elseif cha_type == 1 then 
+	      
+	       GiveItem ( role , 0 , 5356  , 1 , 4 )
+	       GiveItem ( role , 0 , 5357  , 1 , 4 )
+	       GiveItem ( role , 0 , 5358  , 1 , 4 )
+	       GiveItem ( role , 0 , 5359  , 1 , 4 )
+	elseif cha_type == 2 then 
+
+	       GiveItem ( role , 0 , 5360  , 1 , 4 )
+	       GiveItem ( role , 0 , 5361  , 1 , 4 )
+	       GiveItem ( role , 0 , 5362  , 1 , 4 )
+	       GiveItem ( role , 0 , 5363  , 1 , 4 )
+	end
+end
+
+
+---------------------------ÕÙ»½½ðÅ£ÊØ»¤Õß
+function ItemUse_JNSHZ ( role , Item  )
+	local Cha_Boat = 0
+	Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ~=  nil then
+		SystemNotice( role , "Cannot use while sailing" )
+		UseItemFailed ( role )
+		return
+	end
+	local el = 0
+	el =IsChaInRegion( role, 2 )
+	if el == 1 then
+		SystemNotice( role , "Unable to summon monster in Safe Zone" )
+		UseItemFailed ( role )
+		return
+	end
+	local x, y = GetChaPos(role)
+	local MonsterID = 1038
+	local Refresh = 10900					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 3600000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
+	local new = CreateChaX( MonsterID , x , y , 145 , Refresh, role )
+	SetChaLifeTime( new, life )
+end
+
+--Å´Ã×ôÕ
+function ItemUse_NMZ ( role , Item )
+	SystemNotice(role ,"The item has gone rusty and has lost its effect, don't be too sad")
+  	--local hp = GetChaAttr(role, ATTR_HP) 
+	--local mxhp = GetChaAttr(role,ATTR_MXHP) 	
+	--hp = hp + 0.35*mxhp 
+
+	--if hp > mxhp then 
+		--hp = mxhp 
+	--end 
+	--SetCharaAttr(hp, role, ATTR_HP)
+
+end
+
+
+------------------------------¶¹É³ôÕ£ºÐÐ×ßËÙ¶ÈÔÚ15·ÖÖÓÄÚÓÐ½Ï´óÌáÉýÐ§¹û
+function ItemUse_DSZ ( role , Item )
+	SystemNotice(role ,"The item has gone rusty and has lost its effect, don't be too sad")
+	--local statelv = 1
+	--local statetime = 900
+	--local Cha_Boat = 0
+	--Cha_Boat = GetCtrlBoat ( role )
+	--if Cha_Boat ==  nil then
+		--Rem_State_StarUnnormal ( role )----------
+		--AddState( role , role , STATE_DSZ , statelv , statetime )
+	--else
+		--SystemNotice( role , "Cannot use while sailing" )
+		--UseItemFailed ( role )
+		--return
+	--end
+end
+
+-------------------------------µ°»ÆôÕ: ·ÀÓùÁ¦ÔÚ10·ÖÖÓÄÚÌáÉý60µã
+function ItemUse_DHZ ( role , Item )
+	SystemNotice(role ,"The item has gone rusty and has lost its effect, don't be too sad")
+	--local statelv = 1
+	--local statetime = 600
+	--local Cha_Boat = 0
+	--Cha_Boat = GetCtrlBoat ( role )
+
+	--if Cha_Boat ==  nil then
+		--AddState( role , role , STATE_DHZ , statelv , statetime )
+	--else
+		--SystemNotice( role , "Cannot use while sailing" )
+		--UseItemFailed ( role )
+		--return
+	--end
+end
+----------------------------ÎÂÇéôÕ×Ó
+function ItemUse_WQZZ ( role , Item )
+	SystemNotice(role ,"The item has gone rusty and has lost its effect, don't be too sad")
+	--local el_exp = GetChaAttr(role, ATTR_CEXP)
+	--local exp1=el_exp
+	--local charLv=Lv ( role )
+	--local exp_resume = 50
+	--local	exp_resume_1= 1
+	--el_exp = el_exp + exp_resume
+	-- if charLv>=80 then	
+		--el_exp = exp1 + exp_resume_1
+	--end
+	--SetCharaAttr(el_exp, role, ATTR_CEXP) 
+end 
+
+---------------------------ÕÙ»½ºÚÁú»ÃÌå
+function ItemUse_HLHT ( role , Item  )
+	local Cha_Boat = 0
+	Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ~=  nil then
+		SystemNotice( role , "Cannot use while sailing" )
+		UseItemFailed ( role )
+		return
+	end
+	local el = 0
+	el =IsChaInRegion( role, 2 )
+	if el == 1 then
+		SystemNotice( role , "Unable to summon monster in Safe Zone" )
+		UseItemFailed ( role )
+		return
+	end
+	local x, y = GetChaPos(role)
+	local MonsterID = 952---------ºÚÁú»ÃÓ°
+	local Refresh = 9000					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life =9000000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
+	local new = CreateChaX( MonsterID , x , y , 145 , Refresh, role )
+	SetChaLifeTime( new, life )
+end
+
+---------------------------ÕÙ»½òáòæÕ½Ê¿Í³Áì
+function ItemUse_XYZSTL ( role , Item  )
+	local Cha_Boat = 0
+	Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ~=  nil then
+		SystemNotice( role , "Cannot use while sailing" )
+		UseItemFailed ( role )
+		return
+	end
+	local el = 0
+	el =IsChaInRegion( role, 2 )
+	if el == 1 then
+		SystemNotice( role , "Unable to summon monster in Safe Zone" )
+		UseItemFailed ( role )
+		return
+	end
+	local x, y = GetChaPos(role)
+	local MonsterID = 786---------òáòæÕ½Ê¿Í³Áì
+	local Refresh = 9000					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 9000000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
+	local new = CreateChaX( MonsterID , x , y , 145 , Refresh, role )
+	SetChaLifeTime( new, life )
+end
+
+---------------------------ÕÙ»½Ð°¶ñµÄÍÁÖøÇõ³¤
+function ItemUse_XETZQZ ( role , Item  )
+	local Cha_Boat = 0
+	Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ~=  nil then
+		SystemNotice( role , "Cannot use while sailing" )
+		UseItemFailed ( role )
+		return
+	end
+	local el = 0
+	el =IsChaInRegion( role, 2 )
+	if el == 1 then
+		SystemNotice( role , "Unable to summon monster in Safe Zone" )
+		UseItemFailed ( role )
+		return
+	end
+	local x, y = GetChaPos(role)
+	local MonsterID = 788---------Ð°¶ñµÄÍÁÖøÇõ³¤
+	local Refresh = 9000					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 9000000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
+	local new = CreateChaX( MonsterID , x , y , 145 , Refresh, role )
+	SetChaLifeTime( new, life )
+end
+
+---------------------------ÕÙ»½º£µÁ´¬³¤ÁãÁã·¢
+function ItemUse_HDCZ ( role , Item  )
+	local Cha_Boat = 0
+	Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ~=  nil then
+		SystemNotice( role , "Cannot use while sailing" )
+		UseItemFailed ( role )
+		return
+	end
+	local el = 0
+	el =IsChaInRegion( role, 2 )
+	if el == 1 then
+		SystemNotice( role , "Unable to summon monster in Safe Zone" )
+		UseItemFailed ( role )
+		return
+	end
+	local x, y = GetChaPos(role)
+	local MonsterID = 757---------º£µÁ´¬³¤ÁãÁã·¢
+	local Refresh = 9000					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 9000000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
+	local new = CreateChaX( MonsterID , x , y , 145 , Refresh, role )
+	SetChaLifeTime( new, life )
+end
+
+---------------------------ÕÙ»½ºüÑý
+function ItemUse_HY ( role , Item  )
+	local Cha_Boat = 0
+	Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ~=  nil then
+		SystemNotice( role , "Cannot use while sailing" )
+		UseItemFailed ( role )
+		return
+	end
+	local el = 0
+	el =IsChaInRegion( role, 2 )
+	if el == 1 then
+		SystemNotice( role , "Unable to summon monster in Safe Zone" )
+		UseItemFailed ( role )
+		return
+	end
+	local x, y = GetChaPos(role)
+	local MonsterID = 761---------ºüÑý
+	local Refresh = 9000					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 9000000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
+	local new = CreateChaX( MonsterID , x , y , 145 , Refresh, role )
+	SetChaLifeTime( new, life )
+end
+----------ÐÒÔË×ÖÄ¸¿¨±¦Ïä
+function ItemUse_XingYunBox( role , Item )
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	if Item_CanGet < 1 then
+		SystemNotice(role ,"Inventory requires at least 1 empty slot")
+		UseItemFailed ( role )
+		return
+	end
+	local el=math.random ( 1, 241920 )
+	if el==1 then
+		GiveItem ( role , 0 , 0961, 1 , 4  ) -------------c	
+	elseif el==2 then
+		GiveItem ( role , 0 , 0969, 1 , 4  ) -----------k		
+	elseif el>=3 and el<=4 then
+		GiveItem ( role , 0 , 0973, 1 , 4  )	-------------p	
+	elseif el>=5 and el<=6 then
+		GiveItem ( role , 0 , 0980, 1 , 4  )	-------------v
+	elseif el>=7 and el<=8 then
+		GiveItem ( role , 0 , 0979, 1 , 4  )	-------------u
+	else
+		local el=math.random ( 0959, 0984 )
+		if el==0961 or el==0969 or el==0973 or el==0980 or el==0979 then
+			GiveItem ( role , 0 , 0959  , 1 , 4  ) 
+		else 
+			GiveItem ( role , 0 , el , 1 , 4  ) 			
+		end
+	end
+end
+
+------------------------³¬¼¶ÖúÍÆÆ÷
+function ItemUse_CJZTQ ( role , Item )
+	local lv= GetChaAttr(role, ATTR_LV) 
+	if lv >49 then
+		SystemNotice ( role , "Characters above 49 cannot use Super booster" )
+		UseItemFailed ( role )
+		return	
+	end
+	local statelv = 5
+	local ChaStateLv = GetChaStateLv ( role , STATE_SBJYGZ )
+	if ChaStateLv > statelv then
+		SystemNotice ( role , "already using a higher grade leveling item, please wait a while to use" )
+		UseItemFailed ( role )
+		return
+	end
+	local statetime = 900
+	local Cha_Boat = 0
+	Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ==  nil then
+		AddState( role , role , STATE_SBJYGZ , statelv , statetime )
+	else
+		SystemNotice( role , "Cannot use while sailing" )
+		UseItemFailed ( role )
+		return
+	end
+end
+
+----------ÊÀ¼Í»Ô»Í²ÊÆ±
+function ItemUse_SJHHCP( role , Item )
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	if Item_CanGet < 1 then
+		SystemNotice(role ,"Inventory requires at least 1 empty slot")
+		UseItemFailed ( role )
+		return
+	end
+	local star=math.random ( 1, 1000000 )
+	local el=math.random ( 1, 100 )
+
+	--SystemNotice(role ,"star=="..star)
+	--SystemNotice(role ,"el=="..el)
+	if  star==1 then
+		if el>=1 and el<=40 then
+		GiveItem ( role , 0 , 1115  , 1 , 4  )
+		elseif el>=41 and el<=65 then
+		GiveItem ( role , 0 , 1117  , 1 , 4  )
+		elseif el>=65 and el<=90 then
+		GiveItem ( role , 0 , 1118  , 1 , 4  )
+		elseif el>=91 and el<=100 then
+		GiveItem ( role , 0 , 1116  , 1 , 4  ) 
+		end
+	elseif star>1 and star<=9999 then
+		GiveItem ( role , 0 , 0273, 1 , 4  ) 
+	elseif star>=10000 and star<170000 then
+		GiveItem ( role , 0 , 2312, 30 , 4  ) 
+	elseif star>=170000 and star<=1000000 then
+		GiveItem ( role , 0 , 3877, 1 , 4  ) 
+	end
+end
+
+
+----------ÖÁ×ðÄêÊÞ²ÊÆ±
+function ItemUse_ZZNSCP( role , Item )
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	if Item_CanGet < 1 then
+		SystemNotice(role ,"Inventory requires at least 1 empty slot")
+		UseItemFailed ( role )
+		return
+	end
+	local star=math.random ( 1, 1000000 )
+	local el=math.random ( 1, 100 )
+
+	--SystemNotice(role ,"star=="..star)
+	--SystemNotice(role ,"el=="..el)
+	if  star==1 then
+		if el>=1 and el<=40 then
+		GiveItem ( role , 0 , 2552  , 1 , 4  )
+		elseif el>=41 and el<=65 then
+		GiveItem ( role , 0 , 2550  , 1 , 4  )
+		elseif el>=65 and el<=90 then
+		GiveItem ( role , 0 , 2551  , 1 , 4  )
+		elseif el>=91 and el<=100 then
+		GiveItem ( role , 0 , 2549  , 1 , 4  ) 
+		end
+	elseif star>1 and star<=9999 then
+		GiveItem ( role , 0 , 0273, 1 , 4  ) 
+	elseif star>=10000 and star<170000 then
+		GiveItem ( role , 0 , 2312, 30 , 4  ) 
+	elseif star>=170000 and star<=1000000 then
+		GiveItem ( role , 0 , 3877, 1 , 4  ) 
+	end
+end
+
+----------Õæ¡¤ºÚÁú²ÊÆ±
+function ItemUse_ZHLCP( role , Item )
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	if Item_CanGet < 1 then
+		SystemNotice(role ,"Inventory requires at least 1 empty slot")
+		UseItemFailed ( role )
+		return
+	end
+	local star=math.random ( 1, 1000000 )
+	local el=math.random ( 1, 100 )
+
+	--SystemNotice(role ,"star=="..star)
+	--SystemNotice(role ,"el=="..el)
+	if  star==1 then
+		if el>=1 and el<=40 then
+		GiveItem ( role , 0 , 2370  , 1 , 4  )
+		elseif el>=41 and el<=65 then
+		GiveItem ( role , 0 , 2368  , 1 , 4  )
+		elseif el>=65 and el<=90 then
+		GiveItem ( role , 0 , 2369  , 1 , 4  )
+		elseif el>=91 and el<=100 then
+		GiveItem ( role , 0 , 2367  , 1 , 4  ) 
+		end
+	elseif star>1 and star<=9999 then
+		GiveItem ( role , 0 , 0273, 1 , 4  ) 
+	elseif star>=10000 and star<170000 then
+		GiveItem ( role , 0 , 2312, 30 , 4  ) 
+	elseif star>=170000 and star<=1000000 then
+		GiveItem ( role , 0 , 3877, 1 , 4  ) 
+	end
+end
+
+
+
+
+----------¾ªÊÀ×ªÉú²ÊÆ±------rockÒªµÄ
+function ItemUse_JSZSCP( role , Item )
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	if Item_CanGet < 1 then
+		SystemNotice(role ,"Inventory requires at least 1 empty slot")
+		UseItemFailed ( role )
+		return
+	end
+	local star=math.random ( 1, 1000 )
+
+	if  star==1 then
+		GiveItem ( role , 0 , 2941, 1 , 4  ) 
+		local cha_name = GetChaDefaultName ( role ) 
+		local message = "Player"..cha_name.."ÈËÆ·±¬·¢,´ò¿ª¾ªÊÀ×ªÉú²ÊÆ±¾ªÏ²µØ»ñµÃ1ÕÅ×ªÉú¿¨." 
+		Notice ( message )
+	elseif star>1 and star<=10 then
+		GiveItem ( role , 0 , 3016, 1 , 4  ) 
+		local cha_name = GetChaDefaultName ( role ) 
+		local message = "Player"..cha_name.."ÈËÆ·±¬·¢,´ò¿ª¾ªÊÀ×ªÉú²ÊÆ±¾ªÏ²µØ»ñµÃ1ÕÅºÚÁú»ÃÌåÕÙ»½¾í." 
+		Notice ( message )
+	elseif star>=11 and star<190 then
+		GiveItem ( role , 0 , 0992, 1 , 4  ) 
+	elseif star>=190 and star<=1000 then
+		GiveItem ( role , 0 , 3885, 1 , 4  ) 
+	end
+end
+-------------------×£¸£±¦Öé
+function ItemUse_ZFBZ( role , Item )
+	local statelv = 1
+	local statetime = 15
+	AddState( role , role , STATE_CZZX , statelv , statetime )
+end
+------------------------³É³¤¿ì²Í
+function ItemUse_CZKC ( role , Item )
+	local Cha_Boat = 0
+	local charLv=Lv ( role )
+	local Exp_star=GetChaAttr (  role , ATTR_CEXP )----------µ±Ç°µÈ¼¶¾­Ñé
+	local dif_exp_thalf_c = (DEXP[charLv+1] - DEXP[charLv])*0.01+Exp_star
+	Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ~=  nil then
+		SystemNotice( role , "Cannot use while sailing" )
+		UseItemFailed ( role )
+		return
+	end
+	if charLv<86 then
+		SystemNotice( role , "86¼¶ÒÔÏÂ½ÇÉ«²»ÄÜÊ¹ÓÃ" )
+		UseItemFailed ( role )
+		return
+	end
+	if charLv>=86 then
+		SetChaAttrI( role , ATTR_CEXP , dif_exp_thalf_c )
+        end
+end
+------------------------Ë«×Ó´¬³¤±¦Ïä£ºË«»÷£¬¸ù¾Ý½ÇÉ«¸øÓèµÀ¾ß
+
+function ItemUse_SZCZBox ( role , Item )
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	 if Item_CanGet < 4 then
+		SystemNotice(role ,"Ê¹ÓÃË«×Ó¿á×°±¦Ïä×îÉÙÐèÒª4¸ö¿ÕÎ»")
+		UseItemFailed ( role )
+		return
+	end
+	local cha_type = GetChaTypeID ( role ) 
+	if cha_type == 3  then 
+	     
+	       GiveItem ( role , 0 , 5380  , 1 , 4 )
+	       GiveItem ( role , 0 , 5381  , 1 , 4 )
+	       GiveItem ( role , 0 , 5382  , 1 , 4 )
+	       GiveItem ( role , 0 , 5383  , 1 , 4 )
+	elseif cha_type == 4  then 
+
+	       GiveItem ( role , 0 , 5384  , 1 , 4 )
+	       GiveItem ( role , 0 , 5385  , 1 , 4 )
+	       GiveItem ( role , 0 , 5386  , 1 , 4 )
+	       GiveItem ( role , 0 , 5387  , 1 , 4 )
+	elseif cha_type == 1 then 
+	      
+	       GiveItem ( role , 0 , 5372  , 1 , 4 )
+	       GiveItem ( role , 0 , 5373  , 1 , 4 )
+	       GiveItem ( role , 0 , 5374  , 1 , 4 )
+	       GiveItem ( role , 0 , 5375  , 1 , 4 )
+	elseif cha_type == 2 then 
+
+	       GiveItem ( role , 0 , 5376  , 1 , 4 )
+	       GiveItem ( role , 0 , 5377  , 1 , 4 )
+	       GiveItem ( role , 0 , 5378  , 1 , 4 )
+	       GiveItem ( role , 0 , 5379  , 1 , 4 )
+	end
+end
+
+
+
+---------------------------ÕÙ»½Ë«×ÓÊØ»¤Õß
+function ItemUse_SZSHZ ( role , Item  )
+	local Cha_Boat = 0
+	Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ~=  nil then
+		SystemNotice( role , "Cannot use while sailing" )
+		UseItemFailed ( role )
+		return
+	end
+	local el = 0
+	el =IsChaInRegion( role, 2 )
+	if el == 1 then
+		SystemNotice( role , "Unable to summon monster in Safe Zone" )
+		UseItemFailed ( role )
+		return
+	end
+	local x, y = GetChaPos(role)
+	local MonsterID = 1039
+	local Refresh = 10900					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 3600000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
+	local new = CreateChaX( MonsterID , x , y , 145 , Refresh, role )
+	SetChaLifeTime( new, life )
+end
+
+
+----------±ÏÒµÖ¤ÊéÊ¹ÓÃ
+function ItemUse_byzm ( role , Item )
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	if Item_CanGet < 1 then
+		SystemNotice(role ,"Inventory requires at least 1 empty slot")
+		UseItemFailed ( role )
+		return
+	end
+	local cha_name = GetChaDefaultName ( role ) 
+	local star=math.random ( 1, 100 )
+	SystemNotice(role ,"star=="..star)
+	if star<=5 then
+		GiveItem ( role , 0 , 1028  , 1 , 4  )
+		local message = cha_name.."´ò¿ª±ÏÒµÖ¤Êé¾ªÏ²µØ»ñµÃ 1¿ÅÄ¦Á¦·ûÊ¯" 
+		Notice ( message )
+	elseif star>=6 and star<=20 then
+		GiveItem ( role , 0 , 885, 1 , 4  ) 
+		local message1 = cha_name.."´ò¿ª±ÏÒµÖ¤Êé¾ªÏ²µØ»ñµÃ 1¿Å¾«Á¶Ê¯" 
+		Notice ( message1 )
+	elseif star>=21 and star<=50 then
+		GiveItem ( role , 0 , 3039, 5 , 4  ) 
+		local message2 = cha_name.."´ò¿ª±ÏÒµÖ¤Êé¾ªÏ²µØ»ñµÃ 5¸öÉý¼¶ÍÆ½øÆ÷" 
+		Notice ( message2 )
+	else
+		GiveItem ( role , 0 , 227, 10 , 4  )
+		local message3 = cha_name.."´ò¿ª±ÏÒµÖ¤Êé¾ªÏ²µØ»ñµÃ 10¸öÊØ»¤¾«ÁéËÇÁÏ" 
+		Notice ( message3 )
+	end
+end
+------------------------¿ªÑ§´óÀñ°ü£ºË«»÷£¬¸ù¾Ý½ÇÉ«¸øÓèµÀ¾ß
+
+function ItemUse_kxdlb ( role , Item )
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	 if Item_CanGet < 4 then
+		SystemNotice(role ,"Ê¹ÓÃ¿ªÑ§´óÀñ°ü×îÉÙÐèÒª4¸ö¿ÕÎ»")
+		UseItemFailed ( role )
+		return
+	end
+	local cha_type = GetChaTypeID ( role ) 
+	if cha_type == 3  then 
+	       GiveItem ( role , 0 , 5396  , 1 , 4 )
+	       GiveItem ( role , 0 , 5397  , 1 , 4 )
+	       GiveItem ( role , 0 , 5398  , 1 , 4 )
+	       GiveItem ( role , 0 , 5399  , 1 , 4 )
+	elseif cha_type == 4  then 
+	       GiveItem ( role , 0 , 5400  , 1 , 4 )
+	       GiveItem ( role , 0 , 5401  , 1 , 4 )
+	       GiveItem ( role , 0 , 5402  , 1 , 4 )
+	       GiveItem ( role , 0 , 5403  , 1 , 4 )
+	elseif cha_type == 1 then 
+	       GiveItem ( role , 0 , 5388  , 1 , 4 )
+	       GiveItem ( role , 0 , 5389  , 1 , 4 )
+	       GiveItem ( role , 0 , 5390  , 1 , 4 )
+	       GiveItem ( role , 0 , 5391  , 1 , 4 )
+	elseif cha_type == 2 then 
+	       GiveItem ( role , 0 , 5392  , 1 , 4 )
+	       GiveItem ( role , 0 , 5393  , 1 , 4 )
+	       GiveItem ( role , 0 , 5394  , 1 , 4 )
+	       GiveItem ( role , 0 , 5395  , 1 , 4 )
+	end
+end
+
+
+-------------------------------Ê¤Àû±¦Ïä
+function ItemUse_SLBox ( role , Item )
+	local a = math.random ( 1 , 100 )
+	local Item_ID = 0
+	if a >= 1 and a <= 50 then
+		Item_ID = 1012
+	elseif a > 50 and a <= 80 then
+		Item_ID = 271
+	else
+		Item_ID = 885
+	end
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	 if Item_CanGet < 1 then
+		SystemNotice(role ,"Ê¹ÓÃÊ¤Àû±¦Ïä×îÉÙÐèÒª1¸ö¿ÕÎ»")
 		UseItemFailed ( role )
 		return
 	else
-		if job == 12 or job == 2 then
+		GiveItem ( role , 0 , Item_ID , 1 , 4 )
+	end
+end
+
+--------------------------------65BOSS×°±¸Ïä
+function ItemUse_65BBBox ( role , Item )
+	local job = GetChaAttr( role, ATTR_JOB) --È¡Ö°Òµ
+        local cha_type = GetChaTypeID ( role )
+	if job == 0 then
+		SystemNotice ( role , "Ö»ÓÐÒ»×ªÒÔÉÏµÄ½ÇÉ«²Å¿ÉÒÔÊ¹ÓÃ±¾±¦Ïä")
+		UseItemFailed ( role )
+		return
+	else
+		if job == 12 or job == 2 then		--ÁÔÈË»ò¾Ñ»÷
 			GiveItem( role , 0 , 780  , 1 , 4 )
-		elseif job == 9	then
+		elseif job == 9	then			--Ë«½£
 			GiveItem( role , 0 , 769  , 1 , 4 )
-		elseif job == 16 or job == 4 then
+		elseif job == 16 or job == 4 then	--Ã°ÏÕ»òº½º£
 			GiveItem( role , 0 , 806  , 1 , 4 )
-		elseif job == 8	then
+		elseif job == 8	then			--¾Þ½£
 			GiveItem( role , 0 , 766  , 1 , 4 )
-		elseif job == 13 or job == 5 then
+		elseif job == 13 or job == 5 then	--Ê¥Ö°»òÒ©Ê¦
 			GiveItem( role , 0 ,792  , 1 , 4 )
-		elseif job == 14 then
+		elseif job == 14 then			--·âÓ¡
 			GiveItem( role , 0 , 798  , 1 , 4 )
 		elseif job == 1 then
 			if cha_type == 1 then
@@ -16569,723 +18294,1086 @@ function ItemUse_65BBBox ( role , Item )
 	end
 end
 
--- Áèëåò íà Êîëüöî 65 óð.
-function ItemUse_65JZDH ( role , Item )
 
-	local item_type = BaoXiang_65JZDH
-	local item_type_rad = BaoXiang_65JZDH_Rad 
-	local item_type_count = BaoXiang_65JZDH_Count 
-	local maxitem = BaoXiang_65JZDH_Mxcount	
-	local item_quality = 4
-	local General = 0  
-	local ItemId = 0 
-	
+---------------------¾ÞÐ·´¬³¤±¦Ïä£ºË«»÷£¬¸ù¾Ý½ÇÉ«¸øÓèµÀ¾ß
+
+function ItemUse_JXBox ( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
-	
-	if Item_CanGet <= 0 then
-	SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \239\240\229\228\236\229\242")
+	 if Item_CanGet < 4 then
+		SystemNotice(role ,"Ê¹ÓÃ¾ÞÐ·¿á×°±¦Ïä×îÉÙÐèÒª4¸ö¿ÕÎ»")
 		UseItemFailed ( role )
 		return
 	end
-	for i = 1 , maxitem , 1 do 
-		General = item_type_rad [ i ] + General		
-	end 
-	local a = math.random ( 1, General )
-	local b = 0
-	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	local cha_type = GetChaTypeID ( role ) 
+	if cha_type == 3  then 
+	     
+	       GiveItem ( role , 0 , 5464  , 1 , 4 )
+	       GiveItem ( role , 0 , 5465  , 1 , 4 )
+	       GiveItem ( role , 0 , 5466  , 1 , 4 )
+	       GiveItem ( role , 0 , 5467  , 1 , 4 )
+	elseif cha_type == 4  then 
 
-		d = item_type_rad [ k ] + b
+	       GiveItem ( role , 0 , 5468  , 1 , 4 )
+	       GiveItem ( role , 0 , 5469  , 1 , 4 )
+	       GiveItem ( role , 0 , 5470  , 1 , 4 )
+	       GiveItem ( role , 0 , 5471  , 1 , 4 )
+	elseif cha_type == 1 then 
+	      
+	       GiveItem ( role , 0 , 5456  , 1 , 4 )
+	       GiveItem ( role , 0 , 5457  , 1 , 4 )
+	       GiveItem ( role , 0 , 5458  , 1 , 4 )
+	       GiveItem ( role , 0 , 5459  , 1 , 4 )
+	elseif cha_type == 2 then 
 
-		 if a <= d and a > b then
-			c = k
-
-		end 
-		b = d 
-	end 
-	if c == -1 then 
-		ItemId = 6618 
-	else 
-		ItemId = item_type [c]  
-		ItemCount = item_type_count [c] 
-	end 
-	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
+	       GiveItem ( role , 0 , 5460  , 1 , 4 )
+	       GiveItem ( role , 0 , 5461  , 1 , 4 )
+	       GiveItem ( role , 0 , 5462  , 1 , 4 )
+	       GiveItem ( role , 0 , 5463  , 1 , 4 )
+	end
 end
 
--- Áèëåò íà Êîëüöî 75 óð.
-function ItemUse_75JZDH ( role , Item )
-
-	local item_type = BaoXiang_75JZDH
-	local item_type_rad = BaoXiang_75JZDH_Rad 
-	local item_type_count = BaoXiang_75JZDH_Count 
-	local maxitem = BaoXiang_75JZDH_Mxcount
-	local item_quality = 4
-	local General = 0  
-	local ItemId = 0 
-	
-	local Item_CanGet = GetChaFreeBagGridNum ( role )
-	
-	if Item_CanGet <= 0 then
-	SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \232\241\239\238\235\252\231\238\226\224\242\252 \239\240\229\228\236\229\242")
+---------------------------ÕÙ»½¾ÞÐ·ÊØ»¤Õß
+function ItemUse_JXSHZ ( role , Item  )
+	local Cha_Boat = 0
+	Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ~=  nil then
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
-	for i = 1 , maxitem , 1 do 
-		General = item_type_rad [ i ] + General		
-	end 
-	local a = math.random ( 1, General )
-	local b = 0
-	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
-
-		d = item_type_rad [ k ] + b
-
-		 if a <= d and a > b then
-			c = k
-
-		end 
-		b = d 
-	end 
-	if c == -1 then 
-		ItemId = 6638 
-	else 
-		ItemId = item_type [c]  
-		ItemCount = item_type_count [c] 
-	end 
-	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
+	local el = 0
+	el =IsChaInRegion( role, 2 )
+	if el == 1 then
+		SystemNotice( role , "Unable to summon monster in Safe Zone" )
+		UseItemFailed ( role )
+		return
+	end
+	local x, y = GetChaPos(role)
+	local MonsterID = 1040
+	local Refresh = 10900					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 3600000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
+	local new = CreateChaX( MonsterID , x , y , 145 , Refresh, role )
+	SetChaLifeTime( new, life )
 end
 
--- Ïàêåò
-function ItemUse_RedBox( role , Item )
+
+--------------------------------------------------kokora--------------------------------------------------
+--------------------------------½ðÇïÊ®ÔÂ»î¶¯Ö®Ã«Ð·Ê³ÓÃÐ§¹û
+function ItemUse_littlecrab ( role , Item )
+	local lv= GetChaAttr(role, ATTR_LV) 
+	if lv >86 then
+		SystemNotice ( role , "86¼¶ÒÔÉÏ½ÇÉ«²»ÄÜÊ¹ÓÃ£¡" )
+		UseItemFailed ( role )
+		return	
+	end
+
+	local statelv = 4
+	local ChaStateLv = GetChaStateLv ( role , STATE_SBJYGZ )
+	
+	if ChaStateLv > statelv then
+		SystemNotice ( role , "ÒÑÊ¹ÓÃ¸ü¸ßµÈ¼¶µÄÍ¬ÀàÎïÆ·£¬ÇëÉÔºòÔÙÓÃ" )
+		UseItemFailed ( role )
+		return
+	end
+	local statetime = 120
+	local Cha_Boat = 0
+	Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ==  nil then
+		AddState( role , role , STATE_SBJYGZ , statelv , statetime )
+	else
+		AddState( Cha_Boat , Cha_Boat , STATE_SBJYGZ , statelv , statetime )
+	end
+	SystemNotice ( role ,"¸ÐÊÜµ½Ê³ÓÃÃ«Ð·µÄÐ§¹û" )
+end
+
+
+--------------------------------½ðÇïÊ®ÔÂ»î¶¯Ö®´óÕ¢Ð·Ê³ÓÃÐ§¹û
+function ItemUse_bigcrab ( role , Item )
+	local lv= GetChaAttr(role, ATTR_LV) 
+	if lv >86 then
+		SystemNotice ( role , "86¼¶ÒÔÉÏ½ÇÉ«²»ÄÜÊ¹ÓÃ£¡" )
+		UseItemFailed ( role )
+		return	
+	end
+
+	local statelv = 6
+	local ChaStateLv = GetChaStateLv ( role , STATE_SBJYGZ )
+	
+	if ChaStateLv > statelv then
+		SystemNotice ( role , "ÒÑÊ¹ÓÃ¸ü¸ßµÈ¼¶µÄÍ¬ÀàÎïÆ·£¬ÇëÉÔºòÔÙÓÃ" )
+		UseItemFailed ( role )
+		return
+	end
+	local statetime = 120
+	local Cha_Boat = 0
+	Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ==  nil then
+		AddState( role , role , STATE_SBJYGZ , statelv , statetime )
+	else
+		AddState( Cha_Boat , Cha_Boat , STATE_SBJYGZ , statelv , statetime )
+	end
+	SystemNotice ( role ,"¸ÐÊÜµ½Ê³ÓÃ´óÕ¢Ð·µÄÐ§¹û" )
+end
+
+--------------------------------½ðÇïÊ®ÔÂ»î¶¯Ö®Ð·ÃçÊ³ÓÃÐ§¹û
+function ItemUse_babycrab ( role , Item )  
+	local el_exp = GetChaAttr(role, ATTR_CEXP)
+	local exp1=el_exp
+	local charLv=Lv ( role )
+	local exp_resume = 1000
+	local	exp_resume_1= 20
+	el_exp = el_exp + exp_resume
+	 if charLv>=80 then	
+		el_exp = exp1 + exp_resume_1
+	end
+	SetCharaAttr(el_exp, role, ATTR_CEXP) 
+end 
+--------------------------------½ðÇïÊ®ÔÂ»î¶¯Ö®Ð·ÍõÊ³ÓÃÐ§¹û
+function ItemUse_kingcrab ( role , Item )
+	local Cha_Boat = 0
+	local charLv=Lv ( role )
+	local dif_exp_one = DEXP[charLv+1]
+	local dif_exp_three = DEXP[charLv+3]
+	local dif_exp_five = DEXP[charLv+5]
+	local Exp_star=GetChaAttr (  role , ATTR_CEXP )----------µ±Ç°µÈ¼¶¾­Ñé
+	local dif_exp_half = (DEXP[charLv+1] - DEXP[charLv])*0.5 +  Exp_star +10
+	local dif_exp_thalf = (DEXP[charLv+1] - DEXP[charLv])*0.3  +  Exp_star + 10
+	local dif_exp_thalf_b = dif_exp_thalf - DEXP[charLv+1]
+	Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ~=  nil then
+		SystemNotice( role , "Cannot use while sailing" )
+		UseItemFailed ( role )
+		return
+	elseif charLv>=1 and charLv<=9 then
+		SetChaAttrI( role , ATTR_CEXP , dif_exp_five )
+	elseif charLv>=10 and charLv<=29 then
+			SetChaAttrI( role , ATTR_CEXP , dif_exp_three )
+	elseif charLv>=30 and charLv<=59 then
+			SetChaAttrI( role , ATTR_CEXP , dif_exp_one )
+	elseif charLv>=60 and charLv<=75 then
+			SetChaAttrI( role , ATTR_CEXP , dif_exp_half )
+	elseif charLv>=76 and charLv<=85 and charLv~=79  then
+			SetChaAttrI( role , ATTR_CEXP , dif_exp_thalf )
+	elseif charLv==79 and dif_exp_thalf_b<=0 then 
+			SetChaAttrI( role , ATTR_CEXP , dif_exp_thalf )
+	elseif charLv==79 and dif_exp_thalf_b>0 then 
+			dif_exp_thalf = dif_exp_thalf_b*0.02 + DEXP[charLv+1]
+			SetChaAttrI( role , ATTR_CEXP , dif_exp_thalf )
+	elseif charLv>=86 then
+		SystemNotice( role , "Your level is too high to use" )
+		UseItemFailed ( role )
+		return
+	end
+end
+
+
+------------------------------------------------kokora--------------------------------------------------
+----------ÌìÊ¹±¦²Ø
+function ItemUse_TSBox( role , Item )
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	if Item_CanGet < 1 then
+		SystemNotice(role ,"Inventory requires at least 1 empty slot")
+		UseItemFailed ( role )
+		return
+	end
+	local cha_name = GetChaDefaultName ( role ) 
+	local star=math.random ( 1, 100 )
+	--SystemNotice(role ,"star=="..star)
+	if star<=20 then
+		GiveItem ( role , 0 , 3457  , 1 , 4  )
+		local message = cha_name.."´ò¿ªÌìÊ¹±¦²Ø¾ªÏ²µØ»ñµÃ ÄÉ¿¨·ûÊ¯" 
+		Notice ( message )
+	elseif star>=21 and star<=70 then
+		GiveItem ( role , 0 ,3433, 1 , 4  ) 
+		local message1 = cha_name.."´ò¿ªÌìÊ¹±¦²Ø¾ªÏ²µØ»ñµÃ ·ÑÅµ·ûÊ¯" 
+		Notice ( message1 )
+	else
+		GiveItem ( role , 0 , 0271, 1 , 4  ) 
+		local message2 = cha_name.."´ò¿ªÌìÊ¹±¦²Ø¾ªÏ²µØ»ñµÃ ÌìÊ¹÷»×Ó" 
+		Notice ( message2 )
+	end
+end
+
+
+----------»Æ½ðÊ¥¶·Ê¿±¦²Ø
+function ItemUse_SDSBox( role , Item )
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	if Item_CanGet < 1 then
+		SystemNotice(role ,"Inventory requires at least 1 empty slot")
+		UseItemFailed ( role )
+		return
+	end
+	local cha_name = GetChaDefaultName ( role ) 
+	local star=math.random ( 1, 100 )
+	--SystemNotice(role ,"star=="..star)
+	if star<=25 then
+		GiveItem ( role , 0 , 2955  , 1 , 4  )
+		local message = cha_name.."´ò¿ª»Æ½ðÊ¥¶·Ê¿±¦²Ø¾ªÏ²µØ»ñµÃ °×Ñò´¬³¤¿á×°±¦Ïä" 
+		Notice ( message )
+	elseif star>=26 and star<=50 then
+		GiveItem ( role , 0 ,3035, 1 , 4  ) 
+		local message1 = cha_name.."´ò¿ª»Æ½ðÊ¥¶·Ê¿±¦²Ø¾ªÏ²µØ»ñµÃ ½ðÅ£´¬³¤¿á×°±¦Ïä" 
+		Notice ( message1 )
+	elseif star>=51 and star<=75 then
+		GiveItem ( role , 0 ,1881, 1 , 4  ) 
+		local message2 = cha_name.."´ò¿ª»Æ½ðÊ¥¶·Ê¿±¦²Ø¾ªÏ²µØ»ñµÃ Ë«×Ó´¬³¤¿á×°±¦Ïä" 
+		Notice ( message2 )
+	else
+		GiveItem ( role , 0 , 2575, 1 , 4  ) 
+		local message3 = cha_name.."´ò¿ª»Æ½ðÊ¥¶·Ê¿±¦²Ø¾ªÏ²µØ»ñµÃ ¾ÞÐ·´¬³¤¿á×°±¦Ïä" 
+		Notice ( message3 )
+	end
+end
+
+
+----------ÉñÁú±¦²Ø
+function ItemUse_ShenLongBox( role , Item )
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	if Item_CanGet < 1 then
+		SystemNotice(role ,"Inventory requires at least 1 empty slot")
+		UseItemFailed ( role )
+		return
+	end
+	local cha_name = GetChaDefaultName ( role ) 
+	local star=math.random ( 1, 100 )
+	--SystemNotice(role ,"star=="..star)
+	if star<=20 then
+		GiveItem ( role , 0 , 0864  , 1 , 4  )
+		local message = cha_name.."´ò¿ªÉñÁú±¦²Ø¾ªÏ²µØ»ñµÃ ºÚÁúÖ®Í«" 
+		Notice ( message )
+	elseif star>=21 and star<=40 then
+		GiveItem ( role , 0 ,0865, 1 , 4  ) 
+		local message1 = cha_name.."´ò¿ªÉñÁú±¦²Ø¾ªÏ²µØ»ñµÃ ºÚÁúÖ®»ê" 
+		Notice ( message1 )
+	elseif star>=41 and star<=60 then
+		GiveItem ( role , 0 ,0866, 1 , 4  ) 
+		local message2 = cha_name.."´ò¿ªÉñÁú±¦²Ø¾ªÏ²µØ»ñµÃ ºÚÁúÖ®ÐÄ" 
+		Notice ( message2 )
+	else
+		GiveItem ( role , 0 , 1012, 1 , 4  ) 
+		local message3 = cha_name.."´ò¿ªÉñÁú±¦²Ø¾ªÏ²µØ»ñµÃ ¼ÓÄÉÖ®Éñ" 
+		Notice ( message3 )
+	end
+end
+
+
+----------¼«ËÙ±¦²Ø
+function ItemUse_JSBox( role , Item )
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	if Item_CanGet < 1 then
+		SystemNotice(role ,"Inventory requires at least 1 empty slot")
+		UseItemFailed ( role )
+		return
+	end
+	GiveItem ( role , 0 , 0992 , 99 , 4) 			
+	local itemname = GetItemName (0992) 
+	local cha_name = GetChaDefaultName ( role ) 
+	local message = cha_name.."´ò¿ª¼«ËÙ±¦²Ø¾ªÏ²µØ»ñµÃ99¸ö"..itemname  
+	Notice ( message )
+end
+
+----------¶ñÄ§±¦²Ø
+function ItemUse_EMBox( role , Item )
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	if Item_CanGet < 1 then
+		SystemNotice(role ,"Inventory requires at least 1 empty slot")
+		UseItemFailed ( role )
+		return
+	end
+	GiveItem ( role , 0 , 2842 , 1 , 4) 			
+	local itemname = GetItemName (2842) 
+	local cha_name = GetChaDefaultName ( role ) 
+	local message = cha_name.."´ò¿ª¶ñÄ§±¦²Ø¾ªÏ²µØ»ñµÃ"..itemname  
+	Notice ( message )
+end
+
+----------ÄêÊÞ±¦²Ø
+function ItemUse_NSBox( role , Item )
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	if Item_CanGet < 1 then
+		SystemNotice(role ,"Inventory requires at least 1 empty slot")
+		UseItemFailed ( role )
+		return
+	end
+	GiveItem ( role , 0 , 0192 , 1 , 4) 			
+	local itemname = GetItemName (0192) 
+	local cha_name = GetChaDefaultName ( role ) 
+	local message = cha_name.."´ò¿ªÄêÊÞ±¦²Ø¾ªÏ²µØ»ñµÃ"..itemname  
+	Notice ( message )
+end
+--------------------------------ËÀÉñ±¦²Ø
+function ItemUse_SSBox ( role , Item )
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	if Item_CanGet < 1 then
+		SystemNotice(role ,"Inventory requires at least 1 empty slot")
+		UseItemFailed ( role )
+		return
+	end
+	local job = GetChaAttr( role, ATTR_JOB) --È¡Ö°Òµ
+        local cha_type = GetChaTypeID ( role )
+	if job == 0 or job ==1   or job ==2  or job ==4   or job ==5  then
+		SystemNotice ( role , "Ö»ÓÐ¶þ×ª½ÇÉ«²Å¿ÉÒÔÊ¹ÓÃ±¾±¦Ïä")
+		UseItemFailed ( role )
+		return
+	else
+		if job == 12 then			--¾Ñ»÷
+			GiveItem( role , 0 , 2838  , 1 , 4 )
+			local cha_name = GetChaDefaultName ( role ) 
+			local message = cha_name.."´ò¿ªËÀÉñ±¦²Ø¾ªÏ²µØ»ñµÃ µØÓü°ü¸¤"  
+			Notice ( message )
+		elseif job == 9	then			--Ë«½£
+			GiveItem( role , 0 , 2837  , 1 , 4 )
+			local cha_name = GetChaDefaultName ( role ) 
+			local message1 = cha_name.."´ò¿ªËÀÉñ±¦²Ø¾ªÏ²µØ»ñµÃ °µºÚºÐ×Ó"  
+			Notice ( message1 )
+		elseif job == 16 then			--º½º£
+			GiveItem( role , 0 , 2839  , 1 , 4 )
+			local cha_name = GetChaDefaultName ( role ) 
+			local message2 = cha_name.."´ò¿ªËÀÉñ±¦²Ø¾ªÏ²µØ»ñµÃ ÐÞÂÞÏä×Ó"  
+			Notice ( message2 )
+		elseif job == 8	then			--¾Þ½£
+			GiveItem( role , 0 , 2836  , 1 , 4 )
+			local cha_name = GetChaDefaultName ( role ) 
+			local message3 = cha_name.."´ò¿ªËÀÉñ±¦²Ø¾ªÏ²µØ»ñµÃ ¹þµÏË¹ÒÅÎï"  
+			Notice ( message3 )
+		elseif job == 13 then			--Ê¥Ö°
+			GiveItem( role , 0 ,2840  , 1 , 4 )
+			local cha_name = GetChaDefaultName ( role ) 
+			local message4 = cha_name.."´ò¿ªËÀÉñ±¦²Ø¾ªÏ²µØ»ñµÃ ÓÄÚ¤±¦²Ø"  
+			Notice ( message4 )
+		elseif job == 14 then			--·âÓ¡
+			GiveItem( role , 0 , 2841  , 1 , 4 )
+			local cha_name = GetChaDefaultName ( role ) 
+			local message5 = cha_name.."´ò¿ªËÀÉñ±¦²Ø¾ªÏ²µØ»ñµÃ Ú¤ºÓÐ¡°ü"  
+			Notice ( message5 )
+		
+		end
+	
+	end
+end
+
+--Âå¿Ë²Ø±¦Í¼ 
+
+function ItemUse_Map_LK ( role , Item )
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	 if Item_CanGet < 1 then
-		SystemNotice(role ,"×òîáû èñïîëüçîâàòü Ïàêåò íåîáõîäèìî èìåòü 1 ñâîáîäíûé ñëîò â Âàøåì èíâåíòàðå. ")
+		SystemNotice(role ,"You need to have at least 1 empty inventory slot")
+		UseItemFailed ( role )
+		return
+	end 
+	local Has_GoldenMap = CheckBagItem ( role , 2998 )
+	if Has_GoldenMap >= 1 then
+		SystemNotice ( role , "Í¬Ê±Ö»ÄÜÐ¯´øÒ»¸öº£µÁÂÞÅÌ" )
 		UseItemFailed ( role )
 		return
 	end
-	local rad = math.random ( 1, 5 )
-	if rad ==1 then
-	GiveItem ( role , 0 , 1012  , 1 , 4 )	
-	end
-	if rad ==2 then	
-	GiveItem ( role , 0 , 860  , 1 , 4 )	
-	end
-	if rad ==3 then	
-	GiveItem ( role , 0 , 862  , 1 , 4 )		
-	end
-	if rad ==4 then	
-	GiveItem ( role , 0 , 861  , 1 , 4 )			
-	end
-	if rad ==5 then	
-	GiveItem ( role , 0 , 863  , 1 , 4 )			
-	end
+	GiveItem ( role , 0 , 2998 , 1 , 0 )
 end
 
-function ItemUse_Avgust ( role , Item )
-	local item_type = BaoXiang_Avgust 
-	local item_type_rad = BaoXiang_Avgust_Rad 
-	local item_type_count = BaoXiang_Avgust_Count 
-	local maxitem = BaoXiang_Avgust_Mxcount
-	local item_quality = BaoXiang_Avgust_Qua
-	local General = 0  
-	local ItemId = 0 
-	local Item_CanGet = GetChaFreeBagGridNum ( role )
+
+-- º£µÁÂÞÅÌ
+
+
+function ItemUse_HDLP ( role , Item )
+	SystemNotice(role ,"ÂÞÅÌ°¢.....")
+ 	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	 if Item_CanGet < 1 then
+		SystemNotice(role ,"You need to have at least 1 empty inventory slot")
+		UseItemFailed ( role )
+		return
+	end 
+	local Has_GoldenMap = CheckBagItem ( role , 2998 )
+	if Has_GoldenMap >= 2 then
+		SystemNotice ( role , "ËùÐ¯´øµÄº£µÁÂÞÅÌ³¬¹ýÒ»¸ö,ÄãÌ«Ì°ÐÄÁË,Ñ°±¦Ê§°Ü.¶àÓàµÄ²Ø±¦Í¼¿ÉÒÔÔÝÊ±´æ·Åµ½ÒøÐÐÀï" )
+		UseItemFailed ( role )
+		return
+	end
+	local Item = GetChaItem2 ( role , 2 , 2998 )
+	local Item_MAXURE = GetItemAttr ( Item , ITEMATTR_MAXURE )
+	local Item_URE = GetItemAttr ( Item , ITEMATTR_URE )
+	local Item_MAXENERGY = GetItemAttr ( Item , ITEMATTR_MAXENERGY )
+	local pos_x = Item_MAXURE
+	local pos_y = Item_MAXENERGY
+	local Themap = Item_URE
+--	SystemNotice ( role , "pos_x"..pos_x )
+--	SystemNotice ( role , "pos_y"..pos_y )
+--	SystemNotice ( role , "Themap"..Themap )
 	
-	if Item_CanGet <= 0 then
-		SystemNotice(role ,"\205\229\228\238\241\242\224\242\238\247\237\238 \236\229\241\242\224 \226 \232\237\226\229\237\242\224\240\229. \205\229\226\238\231\236\238\230\237\238 \238\242\234\240\251\242\252 \241\243\237\228\243\234")
-		UseItemFailed ( role )
-		return
-	end
+	local MapList = { }
 	
-	for i = 1 , maxitem , 1 do 
-		General = item_type_rad [ i ] + General		
-	end 
-	local a = math.random ( 1, General )
-	local b = 0
-	local d = 0 
-	local c = -1
-	for k = 1 , maxitem , 1 do
+	MapList [0] = "NoMap"
+	MapList [1] = "garner"
+	MapList [2] = "magicsea"
+	MapList [3] = "darkblue"
 
-		d = item_type_rad [ k ] + b
-
-		 if a <= d and a > b then
-			c = k
-			break 
-		end 
-		b = d 
-
-	end 
-	if c == -1 then 
-		ItemId = 3124 
-	else 
-		ItemId = item_type [c]  
-		ItemCount = item_type_count [c] 
-	end 
-	GiveItem ( role , 0 , ItemId , ItemCount , item_quality ) 
-	local itemname = GetItemName ( ItemId ) 
-	local cha_name = GetChaDefaultName ( role )  
-	Notice ( message )
-end 
-
-function ItemUse_FLOWER ( role , Item  )
-	local Cha_Boat = 0
-	Cha_Boat = GetCtrlBoat ( role )
-	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+	local MapNameList = { }
+	
+	MapNameList [0] = "No map"
+	MapNameList [1] = "Ascaron"
+	MapNameList [2] = "Magical Ocean"
+	MapNameList [3] = "Deep Blue"
+	if pos_x == 0 or pos_y == 0 or Themap == 0 then
+		pos_x , pos_y , Themap = GetTheMapPos ( role , 1 )		
+--		pos_x,pos_y,Themap = GetMapRanPos ( role )
+		Item_MAXURE = pos_x
+		Item_URE = Themap
+		Item_MAXENERGY = pos_y
+		
+		SetItemAttr ( Item , ITEMATTR_MAXENERGY , Item_MAXENERGY )
+		SetItemAttr ( Item , ITEMATTR_MAXURE , Item_MAXURE )
+		SetItemAttr ( Item , ITEMATTR_URE , Item_URE )
+--		SystemNotice ( role , "Themap"..Themap )
+--		Item_MAXENERGY = GetItemAttr ( Item , ITEMATTR_MAXENERGY )
+--		SystemNotice ( role , "Item_MAXENERGY"..Item_MAXENERGY )
+	end
+	local GetPos = CheckGetMapPos ( role , pos_x , pos_y , MapList[Themap] )
+--	SystemNotice ( role , "CheckPosOver"..GetPos ) 
+	if GetPos == 0 then
+		SystemNotice ( role , "Treasure is hidden at "..MapNameList[Themap].."Region"..pos_x..","..pos_y.." nearby" )
 		UseItemFailed ( role )
 		return
-	end
-
-	local el = 0
-	el =IsChaInRegion( role, 2 )
-	if el == 1 then
-		SystemNotice( role , "\205\229\226\238\231\236\238\230\237\238 \226\251\231\226\224\242\252 \236\238\237\241\242\240\224 \226 \193\229\231\238\239\224\241\237\238\233 \199\238\237\229" )
-		UseItemFailed ( role )
-		return
-	end
-	local x, y = GetChaPos(role)
-	local MonsterID = 1037					-- Áðà÷íûé àôåðèñò
-	local Refresh = 7300					
-	local life = 7200000					
-	local new = CreateChaX( MonsterID , x , y , 145 , Refresh, role )
-	SetChaLifeTime( new, life )
-end
-
-function ItemUse_QQ ( role , Item  )
-	local Cha_Boat = 0
-	Cha_Boat = GetCtrlBoat ( role )
-	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
-		UseItemFailed ( role )
-		return
-	end
-
-	local el = 0
-	el =IsChaInRegion( role, 2 )
-	if el == 1 then
-		SystemNotice( role , "\205\229\226\238\231\236\238\230\237\238 \226\251\231\226\224\242\252 \236\238\237\241\242\240\224 \226 \193\229\231\238\239\224\241\237\238\233 \199\238\237\229" )
-		UseItemFailed ( role )
-		return
-	end
-	local x, y = GetChaPos(role)
-	local MonsterID = 1036					-- Âîçäóøíûé øàð
-	local Refresh = 60					
-	local life = 7200000					
-	local new = CreateChaX( MonsterID , x , y , 145 , Refresh, role )
-	SetChaLifeTime( new, life )
-end
-
--- Áèëåò íà ïîñåùåíèå Öåðêâè
-function Jz_Script_yszs( role, Item )
-	local Now_Week		= os.date( "%w" )
-	local Now_WeekNum	= tonumber( Now_Week )
-	local Now_Time		= os.date( "%H" )
-	local Now_TimeNum	= tonumber( Now_Time )
-	local Now_Miniute	= os.date( "%M" )
-	local Now_Miniute	= tonumber( Now_Miniute )
-	local CheckDateNum	= Now_WeekNum * 10000 + Now_TimeNum * 100 + Now_Miniute
-
-	if CheckDateNum < 61200 then
-		SystemNotice( role, "Öåðêîâü åùå íå îòêðûëàñü. Ïðèõîäè ìåæäó 12:00 è 24:00 êàæäóþ ñóááîòó è âîñêðåñåíüå." )
-		UseItemFailed( role )
-		return
-	end
-
-	if CheckDateNum > 72400 then
-		UseItemFailed( role )
-		return
-	end
-
-	local i = CheckBagItem( role, 3024 )
-	local k = ChaIsBoat( role )
-	local hp = Hp( role )
-	local mxhp = Mxhp( role )
-	local sp = Sp( role )
-	local mxsp = Mxsp( role )
-
-	if sp < mxsp or hp < mxhp then
-		SystemNotice( role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243" )
-		UseItemFailed( role )
-		return
-	end 
-
-	if k == 0 then
-		if i > 0 then
-			local j = DelBagItem( role, 3024, 1 )
-			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 114
-					teleport( role, n )
-				else
-					MoveCity( role, "Church" )
-				end
-				return
-			end
+	elseif GetPos == 1 then
+		local getrandom = math.random ( 1 , 3 )
+		if getrandom==1 then
+			GiveZNZItem ( role )
+		else
+			SystemNotice ( role , "ºÃÏñÃ»ÍÚ³öÀ´Ê²Ã´,¼ÌÐøÔÚ¸½½üÍÚÍÚ¿´°É" )
+			UseItemFailed ( role )
+			return
 		end
-	else
-		UseItemFailed( role )
 	end
 end
 
--- Êàðòà âòîðîãî ïåðåðîæäåíèÿ
-function ItemUse_ZSCard2(role, Item )
-	local i = CheckBagItem(role,6019)
-	local k = ChaIsBoat(role)
+function Sk_Script_DS	( role , Item ) 
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
-	local charLv=Lv ( role )
 	if Item_CanGet < 1 then
-		SystemNotice(role ,"×òîáû èñïîëüçîâàòü Êàðòó âòîðîãî ïåðåðîæäåíèÿ íóæåí 1 ñâîáîäíûé ñëîò â Âàøåì èíâåíòàðå ")
+		UseItemFailed ( role ) 
+		SystemNotice( role , "ÄãÖÁÉÙÐèÒªÒ»¸ö¿Õ¸ñÀ´»ñµÃÑ§ÉúÖ¤")
+		return 
+	end 
+	local sk_add = SK_DS  
+	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+	if form_sklv ~= 0  then 
+		UseItemFailed ( role )  
+		return 
+	end 
+	a = AddChaSkill ( role , sk_add, 1 , 1 , 1 ) 				--Ñ§»á¼¼ÄÜ
+	if a== 0 then 
+		UseItemFailed ( role )  
+		return 
+	end 
+	
+	local r1 = 0
+	local r2 = 0
+	r1, r2 = MakeItem ( role , 3289 , 1 , 4 )				--¸øÑ§ÉúÖ¤
+	local Itemnew = GetChaItem ( role , 2 , r2 )
+
+	SetItemAttr(Itemnew, ITEMATTR_MAXENERGY , 120)           --ÉèÖÃ×î¸ß´æ´¢¾­Ñé
+	SetItemAttr(Itemnew, ITEMATTR_ENERGY , 0 )              				 --ÉèÖÃµ±Ç°´æ´¢¾­Ñé
+	SetItemAttr(Itemnew, ITEMATTR_URE,0)								 --ÉèÖÃµ±Ç°´æ´¢Ñ§·Ö
+	SetItemAttr(Itemnew, ITEMATTR_MAXURE,150)						--ÉèÖÃµ±Ç°×î´óÑ§·Ö£¬¸ÃÖµÔÚÃ¿´ÎÉý¼¶¿¼ÊÔºó»á±ä»¯
+	SetItemAttr(Itemnew, ITEMATTR_FORGE,0)								--ÉèÖÃÑ§Àú
+	
+	LiveSkillLearnLog(role, 461)
+end 
+
+function ItemUse_WisdomApple( role , Item )		-------ÖÇ»Û¹ûÊ¹ÓÃÐ§¹û
+	local Lv = Lv( role )
+	if Lv < 40 then
+		SystemNotice(role ,"Only players Lv 40 and above may use")
 		UseItemFailed ( role )
 		return
 	end
-	if charLv<=74  then
-		SystemNotice( role , "Âû äîëæíû áûòü 75 óðîâíÿ èëè âûøå, ÷òîáû èñïîëüçîâàòü Êàðòó ïåðåðîæäåíèÿ " )
-		UseItemsFailed ( role )
-		return
-	elseif k == 0 then
-		if i > 0 then
-			local j = DelBagItem(role,6019,1) 
-			if j == 1 then
-				GiveItem ( role , 0 , 5765 , 1 , 42)
-				GoTo( role,  1750 , 909 , "jialebi")
-				return
-			end
-		end
-	else
-		UseItemsFailed ( role )
-	end
+
+	local statelv = 1
+	local ChaStateLv = GetChaStateLv ( role , STATE_APPLE )
 	
+	if ChaStateLv > statelv then
+		SystemNotice ( role , "Better fruit in effect. Please use it later" )
+		UseItemFailed ( role )
+		return
+	end
+
+	local statetime = 1800
+	local Cha_Boat = 0
+	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
+	if Cha_Boat ==  nil then
+		AddState( role , role , STATE_APPLE , statelv , statetime )
+	else
+		UseItemFailed ( role )
+		SystemNotice( role , "º£ÉÏÎÞ·¨Ê³ÓÃÖÇ»Û¹û")
+	end
 end
 
-----------------------------------------
--- Êíèãè íàâûêîâ âòîðîãî ïåðåðîæäåíèÿ --
-----------------------------------------
-
--- Êíèãà íàâûêîâ âòîðîãî ïåðåðîæäåíèÿ (Âîèòåëü)
-function Sk_Script_Wyz2 ( role , Item ) 											
-	local sk_add = SK_WYZ 
-	local form_sklv = GetSkillLv( role , sk_add ) 
-
-	if form_sklv >= 2  then 
-		UseItemFailed ( role )  
-		return 
+function ItemUse_GoldApple ( role , Item )
+	local Lv = Lv( role )
+	if Lv < 60 then
+		SystemNotice(role ,"Only Lv 60 and above may use")
+		UseItemFailed ( role )
+		return
 	end
-	local zs_exp = GetChaAttr ( role , ATTR_CSAILEXP )
-	if zs_exp <= 0 then
-		UseItemFailed ( role )  
-		return 
+
+	local statelv = 2
+	local ChaStateLv = GetChaStateLv ( role , STATE_APPLE )
+	
+	if ChaStateLv > statelv then
+		SystemNotice ( role , "Better fruit in effect. Please use it later" )
+		UseItemFailed ( role )
+		return
 	end
-	a = AddChaSkill ( role , sk_add, 2 , 2 , 0 ) 
-	if a== 0 then 
-		UseItemFailed ( role )  
-		return 
-	end 
+
+	local statetime = 1800
+	local Cha_Boat = 0
+	Cha_Boat = GetCtrlBoat ( role )
+--	SystemNotice( role , Cha_Boat )
+	if Cha_Boat ==  nil then
+		AddState( role , role , STATE_APPLE , statelv , statetime )
+	else
+		UseItemFailed ( role )
+		SystemNotice( role , "º£ÉÏÎÞ·¨Ê³ÓÃ½ðÆ»¹û¹û")
+	end
 end
 
--- Êíèãà íàâûêîâ âòîðîãî ïåðåðîæäåíèÿ (×åìïèîí)
-function Sk_Script_Bsj2 ( role , Item ) 											
-	local sk_add = SK_BSJ 
-	local form_sklv = GetSkillLv( role , sk_add ) 
 
-	if form_sklv >= 2  then 
-		UseItemFailed ( role )  
-		return 
+--------------------------------------------¼Î±ö±¦Ïä
+function ItemUse_JBBOX( role , Item )
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	if Item_CanGet <1 then
+		SystemNotice(role ,"To open a Chest requires 1 empty slot")
+		UseItemFailed ( role )
+		return
 	end
-	local zs_exp = GetChaAttr ( role , ATTR_CSAILEXP )
-	if zs_exp <= 0 then
-		UseItemFailed ( role )  
-		return 
-	end
-	a = AddChaSkill ( role , sk_add, 2 , 2 , 0 ) 
-	if a== 0 then 
-		UseItemFailed ( role )  
-		return 
-	end 
-end 
+	local r1,r2 =MakeItem ( role , 3078  , 1 , 4 )
+	local Item_el = GetChaItem ( role , 2 , r2 )			--È¡ÐÂ¾«ÁéµÀ¾ßÖ¸Õë
 
--- Êíèãà íàâûêîâ âòîðîãî ïåðåðîæäåíèÿ (Êîëäóíüÿ)
-function Sk_Script_Emzz2 ( role , Item ) 											
-	local sk_add = SK_EMZZ 
-	local form_sklv = GetSkillLv( role , sk_add ) 
+	local item_old = GetChaItem2 ( role , 2 , 3066 )
 
-	if form_sklv >= 2  then 
-		UseItemFailed ( role )  
-		return 
-	end 
-	local zs_exp = GetChaAttr ( role , ATTR_CSAILEXP )
-	if zs_exp <= 0 then
-		UseItemFailed ( role )  
-		return 
-	end
-	a = AddChaSkill ( role , sk_add, 2 , 2 , 0 ) 
-	if a== 0 then 
-		UseItemFailed ( role )  
-		return 
-	end 
-end 
+	local old_month = GetItemAttr(item_old, ITEMATTR_VAL_STA)		-------------ÔÂ 	
+	local old_day = GetItemAttr(item_old, ITEMATTR_VAL_STR)			-------------ÈÕ  
+	local old_hour = GetItemAttr(item_old, ITEMATTR_VAL_CON)			-------------Ê±   
+	local old_miniute = GetItemAttr(item_old, ITEMATTR_VAL_DEX)		-------------·Ö   
+	
+	--SystemNotice ( role , "old_month=="..old_month )
+	--SystemNotice ( role , "old_day=="..old_day )       
+	--SystemNotice ( role , "old_hour=="..old_hour )    
+	--SystemNotice ( role , "old_miniute=="..old_miniute)
 
--- Êíèãà íàâûêîâ âòîðîãî ïåðåðîæäåíèÿ (Öåëèòåëüíèöà)
-function Sk_Script_Sssp2 ( role , Item ) 											
-	local sk_add = SK_SSSP 
-	local form_sklv = GetSkillLv( role , sk_add ) 
+	SetItemAttr(Item_el, ITEMATTR_VAL_STA, old_month )	-------------ÔÂ 	
+	SetItemAttr(Item_el, ITEMATTR_VAL_STR, old_day )		-------------ÈÕ  
+	SetItemAttr(Item_el, ITEMATTR_VAL_CON, old_hour )		-------------Ê± 
+	SetItemAttr(Item_el, ITEMATTR_VAL_DEX, old_miniute )	-------------·Ö
 
-	if form_sklv >= 2  then 
-		UseItemFailed ( role )  
-		return 
-	end
-	local zs_exp = GetChaAttr ( role , ATTR_CSAILEXP )
-	if zs_exp <= 0 then
-		UseItemFailed ( role )  
-		return 
-	end
-	local zs_exp = GetChaAttr ( role , ATTR_CSAILEXP )
-	if zs_exp <= 0 then
-		UseItemFailed ( role )  
-		return 
-	end
-	a = AddChaSkill ( role , sk_add, 2 , 2 , 0 ) 
-	if a== 0 then 
-		UseItemFailed ( role )  
-		return 
-	end 
-end 
+	local old_month2 = GetItemAttr(Item_el, ITEMATTR_VAL_STA)		-------------ÔÂ 	
+	local old_day2 = GetItemAttr(Item_el, ITEMATTR_VAL_STR)			-------------ÈÕ  
+	local old_hour2 = GetItemAttr(Item_el, ITEMATTR_VAL_CON)			-------------Ê±   
+	local old_miniute2 = GetItemAttr(Item_el, ITEMATTR_VAL_DEX)		-------------·Ö 
 
--- Êíèãà íàâûêîâ âòîðîãî ïåðåðîæäåíèÿ (Ïîêîðèòåëü ìîðåé)
-function Sk_Script_Cyn2 ( role , Item ) 											
-	local sk_add = SK_CYN 
-	local form_sklv = GetSkillLv( role , sk_add ) 
+	--SystemNotice ( role , "old_month2=="..old_month2 )
+	--SystemNotice ( role , "old_day2=="..old_day2 )       
+	--SystemNotice ( role , "old_hour2=="..old_hour2 )    
+	--SystemNotice ( role , "old_miniute2=="..old_miniute2)
 
-	if form_sklv >= 2  then 
-		UseItemFailed ( role )  
-		return 
-	end 
-	local zs_exp = GetChaAttr ( role , ATTR_CSAILEXP )
-	if zs_exp <= 0 then
-		UseItemFailed ( role )  
-		return 
-	end
-	a = AddChaSkill ( role , sk_add, 2 , 2 , 0 ) 
-	if a== 0 then 
-		UseItemFailed ( role )  
-		return 
-	end 
-end 
+	SynChaKitbag(role,13)
 
--- Êíèãà íàâûêîâ âòîðîãî ïåðåðîæäåíèÿ (Ñòðåëîê)
-function Sk_Script_Hlp2 ( role , Item ) 											
-	local sk_add = SK_HLP 
-	local form_sklv = GetSkillLv( role , sk_add ) 
-
-	if form_sklv >= 2  then 
-		UseItemFailed ( role )  
-		return 
-	end 
-	local zs_exp = GetChaAttr ( role , ATTR_CSAILEXP )
-	if zs_exp <= 0 then
-		UseItemFailed ( role )  
-		return 
-	end
-	a = AddChaSkill ( role , sk_add, 2 , 2 , 0 ) 
-	if a== 0 then 
-		UseItemFailed ( role )  
-		return 
-	end 
 end
 
--- Ïîêðîâèòåëüñòâî Áîãèíè (ID 938)
-function Jz_Script_Nebesa(role, Item )
-	local i = CheckBagItem(role,938)
+
+------------------ÀËÂþÑÌ»¨
+function ItemUse_LMYH ( role , Item )
+	local Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ~=  nil then
+		SystemNotice( role , "Cannot use while sailing" )
+		UseItemFailed ( role )
+		return
+	end
+end
+
+------------------¾ÞÏìÑÌ»¨
+function ItemUse_JXYH ( role , Item )
+	local Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ~=  nil then
+		SystemNotice( role , "Cannot use while sailing" )
+		UseItemFailed ( role )
+		return
+	end
+end
+
+------------------ºÀ»ªÑÌ»¨
+function ItemUse_HHLH ( role , Item )
+	local Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ~=  nil then
+		SystemNotice( role , "Cannot use while sailing" )
+		UseItemFailed ( role )
+		return
+	end
+end
+
+---------½ÌÌÃÊ¹ÓÃÖ¤Êé
+function Jz_Script_jtsyzs (role, Item )
+	
+	local Now_Day = os.date("%d")
+	local Now_Month = os.date("%m")
+	local Now_Time = os.date("%H")
+	local NowMniuteNum= os.date("%M")	
+	local NowMiniuteNum= tonumber(Now_Miniute)	 	
+	local NowTimeNum = tonumber(Now_Time)
+	local NowDayNum = tonumber(Now_Day)
+	local NowMonthNum = tonumber(Now_Month)
+	local CheckDateNum = NowMonthNum * 1000000 + NowDayNum * 10000 + NowTimeNum*100+NowMniuteNum
+	--SystemNotice ( role , "timing is now"..CheckDateNum)
+
+	local item_old = GetChaItem2 ( role , 2 , 3066 )----½ÌÌÃÊ¹ÓÃÖ¤
+	local old_month = GetItemAttr(item_old, ITEMATTR_VAL_STA)			
+	local old_day = GetItemAttr(item_old, ITEMATTR_VAL_STR)			  
+	local old_hour = GetItemAttr(item_old, ITEMATTR_VAL_CON)			 
+	local old_miniute = GetItemAttr(item_old, ITEMATTR_VAL_DEX)  
+	 
+	local CheckBook1Num = old_month * 1000000 + old_day * 10000 + old_hour*100+old_miniute
+	--SystemNotice ( role , "CheckBook1Num"..CheckBook1Num)
+	local CheckBook2Num = old_month * 1000000 + old_day * 10000 + (old_hour+2)*100+old_miniute
+	--SystemNotice ( role , "CheckBook2Num"..CheckBook2Num)
+	
+	local i = CheckBagItem(role,3066)
+	local k = ChaIsBoat(role)
+	if CheckDateNum >= CheckBook1Num  and CheckDateNum <= CheckBook2Num and k ==0 and  i >0 then
+		 DelBagItem(role,3066,1)
+		MoveCity(role,"Church")	
+	else
+		SystemNotice ( role , "ß×?ÄÑµÀÊÇÊ±¼ä²»¶Ô")
+		UseItemFailed ( role )
+	end
+end
+
+------------Çë¼í
+function Jz_Script_qj (role, Item )
+	--SystemNotice ( role , "Invitation Invitation Invitation" )
+	local Now_Day = os.date("%d")
+	local Now_Month = os.date("%m")
+	local Now_Time = os.date("%H")
+	--SystemNotice ( role , "Wahaha" )
+	local NowMniuteNum= os.date("%M")	-------------·Ö
+	local NowMiniuteNum= tonumber(Now_Miniute)	 	-------------·Ö
+	local NowTimeNum = tonumber(Now_Time)
+	--SystemNotice ( role , "huhuhuhu" )
+	local NowDayNum = tonumber(Now_Day)
+	--SystemNotice ( role , "hehehehe" )
+	local NowMonthNum = tonumber(Now_Month)
+	--SystemNotice ( role , "kekekeke" )
+	local CheckDateNum = NowMonthNum * 1000000 + NowDayNum * 10000 + NowTimeNum*100+NowMniuteNum
+	--SystemNotice ( role , "timing is now"..CheckDateNum)
+	--local old_type = GetItemAttr(item_old, ITEMATTR_MAXENERGY)	----------------·¨Ê½½ÌÌÃ
+
+	local item_old = GetChaItem2 ( role , 2 , 3078 )
+	local old_month = GetItemAttr(item_old, ITEMATTR_VAL_STA)		-------------ÔÂ 	
+	local old_day = GetItemAttr(item_old, ITEMATTR_VAL_STR)			-------------ÈÕ  
+	local old_hour = GetItemAttr(item_old, ITEMATTR_VAL_CON)			-------------Ê± 
+	local old_miniute = GetItemAttr(item_old, ITEMATTR_VAL_DEX)  
+	 
+
+	local CheckBook1Num = old_month * 1000000 + old_day * 10000 + old_hour*100+old_miniute
+	--SystemNotice ( role , "CheckBook1Num"..CheckBook1Num)
+	local CheckBook2Num = old_month * 1000000 + old_day * 10000 + (old_hour+2)*100+old_miniute
+	--SystemNotice ( role , "CheckBook2Num"..CheckBook2Num)
+	
+	if CheckDateNum < CheckBook1Num then
+		SystemNotice ( role , "Please be patient, Church is not opened yet. Please come back according to the time listed" )
+		UseItemFailed ( role )
+		return
+	end
+	--SystemNotice ( role , "Mother")
+	if CheckDateNum > CheckBook2Num then
+		SystemNotice ( role , "The wedding you want to visit is already finished, too bad" )
+		UseItemFailed ( role )
+		return
+	end
+	--SystemNotice ( role , "Father")
+
+	local i = CheckBagItem(role,3078)
 	local k = ChaIsBoat(role)
 	local hp = Hp(role)
 	local mxhp = Mxhp(role)
 	local sp = Sp(role)
 	local mxsp = Mxsp(role)
 	if sp < mxsp or hp < mxhp then 
-		SystemNotice (role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243")
+		SystemNotice (role, "Visiting the church is a tiring process, please keep your hp and sp at 100%")
 		UseItemFailed ( role )
 		return
 	end 
 	if k == 0 then
 		if i > 0 then
-			local j = DelBagItem(role,938,1)
+			local j = DelBagItem(role,3078,1)
+			--if j == 1 and old_type=1 then
+				--MoveCity(role,"French Wedding Hall")
+			--elseif	j == 1 and old_type=2 then
+				--MoveCity(role,"Chinese style church")
+			if j == 1 then-------------elseif	j == 1 and old_type=3 then
+				MoveCity(role,"Church")
+				--SystemNotice ( role , "Grandfather")
+			--elseif	j == 1 and old_type=4 then
+				--MoveCity(role,"Ground type Church")
+			end
+		end
+	else
+		UseItemFailed ( role )
+	end
+	--SystemNotice ( role , "Granny")	
+end
+---------------------------ÕÙ»½»éÀñÌÔÆø¹í
+function ItemUse_FLOWER ( role , Item  )
+	local Cha_Boat = 0
+	Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ~=  nil then
+		SystemNotice( role , "Cannot use while sailing" )
+		UseItemFailed ( role )
+		return
+	end
+
+	local el = 0
+	el =IsChaInRegion( role, 2 )
+	if el == 1 then
+		SystemNotice( role , "Unable to summon monster in Safe Zone" )
+		UseItemFailed ( role )
+		return
+	end
+	local x, y = GetChaPos(role)
+	local MonsterID = 1037
+	local Refresh = 7300					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 7200000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
+	local new = CreateChaX( MonsterID , x , y , 145 , Refresh, role )
+	SetChaLifeTime( new, life )
+end
+
+
+---------------------------ÆøÇòÓÎÏ·È¯
+function ItemUse_QQ ( role , Item  )
+	local Cha_Boat = 0
+	Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ~=  nil then
+		SystemNotice( role , "Cannot use while sailing" )
+		UseItemFailed ( role )
+		return
+	end
+
+	local el = 0
+	el =IsChaInRegion( role, 2 )
+	if el == 1 then
+		SystemNotice( role , "Unable to summon monster in Safe Zone" )
+		UseItemFailed ( role )
+		return
+	end
+	local x, y = GetChaPos(role)
+	local MonsterID = 1036
+	local Refresh = 60					--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 7200000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
+	local new = CreateChaX( MonsterID , x , y , 145 , Refresh, role )
+	SetChaLifeTime( new, life )
+end
+--ÒÁÊ½½ÌÌÃ²Î¹ÛÃÅÆ±
+function Jz_Script_yszs (role, Item )
+	
+	local Now_Week = os.date("%w")
+	local Now_WeekNum = tonumber(Now_Week)
+	local Now_Time = os.date("%H")
+	local Now_TimeNum = tonumber(Now_Time)
+	local Now_Miniute= os.date("%M")	
+	local Now_Miniute= tonumber(Now_Miniute)
+	local CheckDateNum = Now_WeekNum * 10000 + Now_TimeNum * 100+Now_Miniute
+
+	if CheckDateNum < 11700  then
+		SystemNotice ( role , "²»Òª×Å¼±Å¶£¬½ÌÌÃ»¹Ã»¿ªÃÅ£¬ÇëÔÚÃ¿ÐÇÆÚÒ»ÍíÉÏ17µãµ½17µã10·ÖÖ®¼äÊ¹ÓÃÅ¶" )
+		UseItemFailed ( role )
+		return
+	end
+	
+	if CheckDateNum > 11710 then
+		SystemNotice ( role , "Church is now closed, please wait until next Monday night" )
+		UseItemFailed ( role )
+		return
+	end
+
+	local i = CheckBagItem(role,3024)
+	local k = ChaIsBoat(role)
+	local hp = Hp(role)
+	local mxhp = Mxhp(role)
+	local sp = Sp(role)
+	local mxsp = Mxsp(role)
+	if sp < mxsp or hp < mxhp then 
+		SystemNotice (role, "Visiting the church is a tiring process, please keep your hp and sp at 100%")
+		UseItemFailed ( role )
+		return
+	end 
+	if k == 0 then
+		if i > 0 then
+			local j = DelBagItem(role,3024,1)
 			if j == 1 then
-				GoTo( role,  1750 , 909 , "jialebi")
+				MoveCity(role,"Church")
 				return
 			end
 		end
 	else
 		UseItemFailed ( role )
 	end
+		
 end
+-----------------------------ºì°ü£ººì°üÖ»ÓÐÔÚ£¨Ã¿ÖÜÁù\ÈÕÍí18:00--22£º10£©´ò¿ª²Å»áÓÐÐ§
 
--- Ðàñïèñêà íà 40 óêðàøåíèÿ
-function ItemUse_40ynik( role , Item )
-	local Item_CanGet = GetChaFreeBagGridNum ( role )
-	 if Item_CanGet < 2 then
-		SystemNotice(role ,"×òîáû èñïîëüçîâàòü Ðàñïèñêó íåîáõîäèìî èìåòü 2 ñâîáîäíûõ ñëîòà â Âàøåì èíâåíòàðå. ")
-		UseItemFailed ( role )
-		return
-	end
-	local rad = math.random ( 1, 5 )
-	if rad ==1 then
-	GiveItem ( role , 0 , 324  , 1 , 4 )	
-	end
-	if rad ==2 then	
-	GiveItem ( role , 0 , 327  , 1 , 4 )	
-	end
-	if rad ==3 then	
-	GiveItem ( role , 0 , 328  , 1 , 4 )		
-	end
-	if rad ==4 then	
-	GiveItem ( role , 0 , 329  , 1 , 4 )			
-	end
-	if rad ==5 then	
-	GiveItem ( role , 0 , 330  , 1 , 4 )				
-	end
-	local rad1 = math.random ( 1, 2 )
-	if rad1 ==1 then
-		GiveItem ( role , 0 , 739  , 1 , 4 )	
-	end
-	if rad1 ==2 then	
-		GiveItem ( role , 0 , 461  , 1 , 4 )	
-	end
-end
-
--- Ðàñïèñêà íà 50 óêðàøåíèÿ
-function ItemUse_50ynik( role , Item )
-	local Item_CanGet = GetChaFreeBagGridNum ( role )
-	 if Item_CanGet < 2 then
-		SystemNotice(role ,"×òîáû èñïîëüçîâàòü Ðàñïèñêó íåîáõîäèìî èìåòü 2 ñâîáîäíûõ ñëîòà â Âàøåì èíâåíòàðå. ")
-		UseItemFailed ( role )
-		return
-	end
-	local rad = math.random ( 1, 5 )
-	if rad ==1 then
-	GiveItem ( role , 0 , 349  , 1 , 4 )	
-	end
-	if rad ==2 then	
-	GiveItem ( role , 0 , 348  , 1 , 4 )	
-	end
-	if rad ==3 then	
-	GiveItem ( role , 0 , 347  , 1 , 4 )		
-	end
-	if rad ==4 then	
-	GiveItem ( role , 0 , 346  , 1 , 4 )			
-	end
-	if rad ==5 then	
-	GiveItem ( role , 0 , 334  , 1 , 4 )				
-	end
-
-
-	local rad1 = math.random ( 1, 2 )
-	if rad1 ==1 then
-		GiveItem ( role , 0 , 463  , 1 , 4 )	
-	end
-	if rad1 ==2 then	
-		GiveItem ( role , 0 , 462  , 1 , 4 )	
-	end
-end
-
--- Ðàñïèñêà íà 60 óêðàøåíèÿ
-function ItemUse_60ynik( role , Item )
-	local Item_CanGet = GetChaFreeBagGridNum ( role )
-	 if Item_CanGet < 2 then
-		SystemNotice(role ,"×òîáû èñïîëüçîâàòü Ðàñïèñêó íåîáõîäèìî èìåòü 2 ñâîáîäíûõ ñëîòà â Âàøåì èíâåíòàðå. ")
-		UseItemFailed ( role )
-		return
-	end
-	local rad = math.random ( 1, 5 )
-	if rad ==1 then
-	GiveItem ( role , 0 , 414  , 1 , 4 )	
-	end
-	if rad ==2 then	
-	GiveItem ( role , 0 , 415  , 1 , 4 )	
-	end
-	if rad ==3 then	
-	GiveItem ( role , 0 , 416  , 1 , 4 )		
-	end
-	if rad ==4 then	
-	GiveItem ( role , 0 , 417  , 1 , 4 )			
-	end
-	if rad ==5 then	
-	GiveItem ( role , 0 , 387  , 1 , 4 )				
-	end
-
-	local rad1 = math.random ( 1, 2 )
-	if rad1 ==1 then
-		GiveItem ( role , 0 , 495  , 1 , 4 )	
-	end
-	if rad1 ==2 then	
-		GiveItem ( role , 0 , 497  , 1 , 4 )	
-	end
-end
-
--- Ðàñïèñêà íà 65 óêðàøåíèÿ
-function ItemUse_65ynik( role , Item )
-	local Item_CanGet = GetChaFreeBagGridNum ( role )
-	 if Item_CanGet < 2 then
-		SystemNotice(role ,"×òîáû èñïîëüçîâàòü Ðàñïèñêó íåîáõîäèìî èìåòü 2 ñâîáîäíûõ ñëîòà â Âàøåì èíâåíòàðå. ")
-		UseItemFailed ( role )
-		return
-	end
-	local rad = math.random ( 1, 5 )
-	if rad ==1 then
-	GiveItem ( role , 0 , 6621  , 1 , 4 )	
-	end
-	if rad ==2 then	
-	GiveItem ( role , 0 , 6625  , 1 , 4 )	
-	end
-	if rad ==3 then	
-	GiveItem ( role , 0 , 6626  , 1 , 4 )		
-	end
-	if rad ==4 then	
-	GiveItem ( role , 0 , 6630  , 1 , 4 )			
-	end
-	if rad ==5 then	
-	GiveItem ( role , 0 , 6635  , 1 , 4 )				
-	end
-
-	local rad1 = math.random ( 1, 5 )
-	if rad1 ==1 then
-		GiveItem ( role , 0 , 6904  , 1 , 4 )	
-	end
-	if rad1 ==2 then	
-		GiveItem ( role , 0 , 6905  , 1 , 4 )	
-	end
-	if rad1 ==3 then	
-		GiveItem ( role , 0 , 6906  , 1 , 4 )	
-	end
-	if rad1 ==4 then	
-		GiveItem ( role , 0 , 6907  , 1 , 4 )	
-	end
-	if rad1 ==5 then	
-		GiveItem ( role , 0 , 6908  , 1 , 4 )	
-	end
-end
-
--- Ðàñïèñêà íà 75 óêðàøåíèÿ
-function ItemUse_75ynik( role , Item )
-	local Item_CanGet = GetChaFreeBagGridNum ( role )
-	 if Item_CanGet < 2 then
-		SystemNotice(role ,"×òîáû èñïîëüçîâàòü Ðàñïèñêó íåîáõîäèìî èìåòü 2 ñâîáîäíûõ ñëîòà â Âàøåì èíâåíòàðå. ")
-		UseItemFailed ( role )
-		return
-	end
-	local rad = math.random ( 1, 5 )
-	if rad ==1 then
-	GiveItem ( role , 0 , 6641  , 1 , 4 )	
-	end
-	if rad ==2 then	
-	GiveItem ( role , 0 , 6646  , 1 , 4 )	
-	end
-	if rad ==3 then	
-	GiveItem ( role , 0 , 6648  , 1 , 4 )		
-	end
-	if rad ==4 then	
-	GiveItem ( role , 0 , 6653  , 1 , 4 )			
-	end
-	if rad ==5 then	
-	GiveItem ( role , 0 , 6659  , 1 , 4 )				
-	end
-
-	local rad1 = math.random ( 1, 5 )
-	if rad1 ==1 then
-		GiveItem ( role , 0 , 7320  , 1 , 4 )	
-	end
-	if rad1 ==2 then	
-		GiveItem ( role , 0 , 7321  , 1 , 4 )	
-	end
-	if rad1 ==3 then	
-		GiveItem ( role , 0 , 7322  , 1 , 4 )	
-	end
-	if rad1 ==4 then	
-		GiveItem ( role , 0 , 7323  , 1 , 4 )	
-	end
-	if rad1 ==5 then	
-		GiveItem ( role , 0 , 7324  , 1 , 4 )	
-	end
-end
-
--- Ñóíäóê ñ ñàìîöâåòàìè Òüìû
-function ItemUse_newgem( role , Item )
-	local Item_CanGet = GetChaFreeBagGridNum ( role )
-	 if Item_CanGet < 1 then
-		SystemNotice(role ,"×òîáû èñïîëüçîâàòü Ñóíäóê ñ ñàìîöâåòàìè Òüìû íåîáõîäèìî èìåòü 1 ñâîáîäíûé ñëîò â Âàøåì èíâåíòàðå. ")
-		UseItemFailed ( role )
-		return
-	end
-	local rad = math.random ( 1, 4 )
-	if rad ==1 then
-	GiveItem ( role , 0 , 7293  , 1 , 4 )	
-	end
-	if rad ==2 then	
-	GiveItem ( role , 0 , 7294  , 1 , 4 )	
-	end
-	if rad ==3 then	
-	GiveItem ( role , 0 , 7295  , 1 , 4 )		
-	end
-	if rad ==4 then	
-	GiveItem ( role , 0 , 7296  , 1 , 4 )			
-	end
-
-end
-
--- Ñóíäóê ñ êîëüöàìè Òüìû
-function ItemUse_85ring( role , Item )
+function ItemUse_RedBox( role , Item )
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "Íå ìîæåò áûòü èñïîëüçîâàíî, êîãäà Âû â ìîðå. " )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
-	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	 if Item_CanGet < 1 then
-		SystemNotice(role ,"×òîáû îòêðûòü Ñóíäóê ñ Êîëüöàìè Òüìû òðåáóåòñÿ 1 ñâîáîäíûé ñëîò â Âàøåì èíâåíòàðå. ")
+		SystemNotice(role ,"´ò¿ªºì°ü×îÉÙÐèÒª1¸ö¿ÕÎ»")
 		UseItemFailed ( role )
 		return
 	end
-	local job = GetChaAttr(role, ATTR_JOB)
-	local lv = GetChaAttr(role, ATTR_LV) 
-	local star_rad=math.random ( 1, 2 )
-	if lv < 40 then
-		SystemNotice(role ,"Âàø óðîâåíü íèæå ÷åì 40. Íåâîçìîæíî èñïîëüçîâàòü ïðåäìåò. ")
-		UseItemFailed ( role )	
-	elseif job == 9 then 
-			GiveItem ( role , 0 , 2578  , 1 , 4 ) 
-
-	elseif job == 8 then   
-			GiveItem ( role , 0 , 2577  , 1 , 4 ) 
-
-	elseif job == 12 then 
-			GiveItem ( role , 0 , 2579  , 1 , 4 ) 
-
-	elseif job == 16 then 
-			GiveItem ( role , 0 , 2580  , 1 , 4 ) 
-
-	elseif job == 13 then    
-			GiveItem ( role , 0 , 2582  , 1 , 4 ) 
-
-	elseif job == 14 then    
-			GiveItem ( role , 0 , 2581  , 1 , 4 ) 
-
+	local now_week= os.date("%w")		-------------ÐÇÆÚ¼¸£¨Ê®½øÖÆ£© 
+	local now_hour= os.date("%H")		-------------Ê± 
+	local now_miniute= os.date("%M")	-------------·Ö
+	now_week= tonumber(now_week)
+	now_hour= tonumber(now_hour)		
+	now_miniute= tonumber(now_miniute)
+	local CheckDateNum = now_hour*100 +now_miniute
+	local flag=0
+      if now_week==6 or now_week==0 then
+		flag=1
+      end
+	if 1800<=CheckDateNum and  CheckDateNum<=2210 and flag==1 then
+		ItemUse_hongbaoBOX ( role , Item )
 	else 
-		SystemNotice(role ,"\207\240\229\228\236\229\242 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237 \242\238\235\252\234\238 \239\238\241\235\229 \226\251\225\238\240\224 \226\242\238\240\238\227\238 \238\241\237\238\226\237\238\227\238 \234\235\224\241\241\224!")
-		UseItemFailed ( role )	
+		SystemNotice(role ,"It is not time yet. Do not try to cheat!")
+		UseItemFailed ( role )
+		return
 	end
 end
 
--- Ñóíäóê ñ ìîíåòàìè ôåé
-function ItemUse_YingbiBox ( role , Item )
+function ItemUse_hongbaoBOX ( role , Item )
+	local ChaName = GetChaDefaultName ( role )
 
+	local el = math.random ( 1, 1000 )
+	if  el>=1 and el<=5 then
+		GiveItem ( role , 0 , 1012  , 1 , 4 ) -------------¼ÓÄÉÖ®Éñ        0.5
+			local message ="¹§Ï²Íæ¼Ò" ..ChaName.."ÈËÆ·±¬·¢,´ò¿ªºì°ü»ñµÃ ¼ÓÄÉÖ®Éñ" 
+			Notice ( message )
+	elseif el>=6 and el<=10 then
+		GiveItem ( role , 0 , 1016  , 1 , 4 ) ---------------Å®ÉñÐ¡°ü       0.5
+			local message1 ="¹§Ï²Íæ¼Ò" ..ChaName.."ÈËÆ·±¬·¢,´ò¿ªºì°ü»ñµÃ Å®ÉñÐ¡°ü" 
+			Notice ( message1 )
+	elseif el>=11 and el<=20 then
+		GiveItem ( role , 0 , 0860  , 1 , 4 ) ---------------·çÁé         1
+			local message2 ="¹§Ï²Íæ¼Ò" ..ChaName.."ÈËÆ·±¬·¢,´ò¿ªºì°ü»ñµÃ ·çÁéÊ¯" 
+			Notice ( message2 )
+	elseif el>=21 and el<=30 then
+		GiveItem ( role , 0 , 0861  , 1 , 4 ) ----------------Ó¥ÑÛÊ¯     1
+			local message3 ="¹§Ï²Íæ¼Ò" ..ChaName.."ÈËÆ·±¬·¢,´ò¿ªºì°ü»ñµÃ Ó¥ÑÛÊ¯" 
+			Notice ( message3 )
+	elseif el>=31 and el<40 then
+		GiveItem ( role , 0 , 0862  , 1 , 4 ) ----------------ÑÒÓñ       1
+			local message4 ="¹§Ï²Íæ¼Ò" ..ChaName.."ÈËÆ·±¬·¢,´ò¿ªºì°ü»ñµÃ ÑÒÓñ" 
+			Notice ( message4 )
+	elseif el>=41 and el<=50 then
+		GiveItem ( role , 0 , 0863  , 1 , 4 )-----------------Ñ×Óñ       1
+			local message5 ="¹§Ï²Íæ¼Ò" ..ChaName.."ÈËÆ·±¬·¢,´ò¿ªºì°ü»ñµÃ Ñ×Óñ" 
+			Notice ( message5 )
+	elseif el>=51 and el<=270 then
+		GiveItem ( role , 0 , 855  , 99 , 4 )-----------------¾«ÁéÓ²±Ò       22
+	elseif el>=271 and el<=500 then
+		GiveItem ( role , 0 , 0227  , 5 , 4 )-----------------ÊØ»¤¾«ÁéËÇÁÏ    23
+	elseif el>=501 and el<=750 then
+		GiveItem ( role , 0 , 3096  , 3 , 4 )-----------------²Æ¸»Ôö·ùÆ÷3¸ö   25
+	elseif el>=751 and el<=1000 then
+		GiveItem ( role , 0 , 3094  , 3 , 4 )-----------------Å¬Á¦Ôö·ùÆ÷3¸ö   25
+	end
+end
+------------------------------------------------¿ÉÒÉ²Ø±¦Í¼(kokora)---------------------------------
+function ItemUse_KYCBT (role, Item)
+	local	sc = math.random ( 1,100 )
+	if  sc <=50 then
+	local cha_name = GetChaDefaultName ( role ) 
+	local message1= cha_name.."ÈËÆ·±¬·¢,¸ù¾ÝÂå¿Ë²Ø±¦Í¼Ì½Ë÷µ½ ´¬³¤Ö®Ê×" 
+		Notice ( message1 )
+	else 
+	local cha_name = GetChaDefaultName ( role ) 
+	local message2 = cha_name.."ÈËÆ·±¬·¢,¸ù¾ÝÂå¿Ë²Ø±¦Í¼Ì½Ë÷µ½ ÔªË§Ö®Ê×" 
+		Notice ( message2 )
+	end
+end
+-----------------------------------------------------------kokora---------------------------------------------------------
+------------------------------------------------¶Ò»»ÉñÆü±¦Ïä(kokora)---------------------------------
+function ItemUse_goddessBOX (role, Item)
+	local Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ~=  nil then
+		SystemNotice( role , "³öº£Ê±²»¿ÉÊ¹ÓÃÉñÆü±¦Ïä" )
+		UseItemFailed ( role )
+		return
+	end
+	local Item_CanGet = GetChaFreeBagGridNum ( role )	
+	 if Item_CanGet < 1 then
+		SystemNotice(role ,"´ò¿ªÉñÆü±¦ÏäÖÁÉÙÐèÒª1¸ö¿ÕÎ»")
+		UseItemFailed ( role )
+		return
+	end
+	local	sc = math.random ( 1, 43 )
+	local ItemId = 0
+	
+	if sc <=14 then	
+		local GoodItem = {}
+		GoodItem[0] = 0111                                       -------------½µÄ§èÆ          »ñµÃ»úÂÊ14%
+		GoodItem[1] = 0150                                       -------------Óã³¦             »ñµÃ»úÂÊ14%
+	
+		local Good_C = math.random ( 1, 2 )-1
+		ItemId = GoodItem[Good_C]
+	elseif sc <=26 then		
+		local GoodItem = {}
+		GoodItem[0] = 0109                                       -------------ÈçÒâ±¦ÕÈ       »ñµÃ»úÂÊ12%
+		GoodItem[1] = 0115                                       -------------ÁÑÑÒ             »ñµÃ»úÂÊ12%
+		GoodItem[2] = 0117                                       -------------·Éºç             »ñµÃ»úÂÊ12%
+		GoodItem[3] = 0119                                       -------------Á÷ÐÇ»ðÖé       »ñµÃ»úÂÊ12%
+	
+		local Good_C = math.random ( 1, 4 )-1
+		ItemId = GoodItem[Good_C]
+	elseif sc <=36 then
+		ItemId = 0113                                       -------------ÁúÈª          »ñµÃ»úÂÊ10%
+	else  local GoodItem = {}
+		GoodItem[0] = 0861                                       -------------Ó¥ÑÛÊ¯          »ñµÃ»úÂÊ7%
+		GoodItem[1] = 0860                                       -------------·çÁéÊ¯          »ñµÃ»úÂÊ7%
+	
+		local Good_C = math.random ( 1, 2 )-1
+		ItemId = GoodItem[Good_C]
+	end
+	local itemname = GetItemName ( ItemId ) 
+	local cha_name = GetChaDefaultName ( role ) 
+	GiveItem ( role , 0 , ItemId , 1 , 94 )
+	local message = "¹§Ï²Íæ¼Ò" ..cha_name.."´ò¿ªÉñÆü±¦Ïä,¾ªÏ²µÄ»ñµÃ"..itemname  
+	Notice ( message )
+end
+-----------------------------------------------------------kokora---------------------------------------------------------
+
+------------------------------------------------¶Ò»»°ÔÍõ±¦Ïä(kokora)---------------------------------
+function ItemUse_overlordBOX (role, Item)
+	local Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ~=  nil then
+		SystemNotice( role , "³öº£Ê±²»¿ÉÊ¹ÓÃ°ÔÍõ±¦Ïä" )
+		UseItemFailed ( role )
+		return
+	end
+	local Item_CanGet = GetChaFreeBagGridNum ( role )	
+	 if Item_CanGet < 1 then
+		SystemNotice(role ,"´ò¿ª°ÔÍõ±¦ÏäÖÁÉÙÐèÒª1¸ö¿ÕÎ»")
+		UseItemFailed ( role )
+		return
+	end
+	local	sc = math.random ( 1, 43 )
+	local ItemId = 0
+	
+	if  sc <=14 then	
+		local GoodItem = {}
+		GoodItem[0] = 0112                                       -------------ÊÔÁ¶Ö®èÆ          »ñµÃ»úÂÊ14%
+		GoodItem[1] = 0151                                       -------------¶Ï»ê                »ñµÃ»úÂÊ14%
+	
+		local Good_C = math.random ( 1, 2 )-1
+		ItemId = GoodItem[Good_C]
+	elseif sc <=26 then		
+		local GoodItem = {}
+		GoodItem[0] = 0110                                       -------------²¹ÌìÖ®ÕÈ       »ñµÃ»úÂÊ12%
+		GoodItem[1] = 0116                                       -------------¾ÞãÚ             »ñµÃ»úÂÊ12%
+		GoodItem[2] = 0118                                       -------------ÂäÈÕ             »ñµÃ»úÂÊ12%
+		GoodItem[3] = 0120                                       -------------Åùö¨ÉñÀ×       »ñµÃ»úÂÊ12%
+	
+		local Good_C = math.random ( 1, 4 )-1
+		ItemId = GoodItem[Good_C]
+	elseif sc <=36 then
+		ItemId = 0114                                       -------------ÓÎÁú          »ñµÃ»úÂÊ10%
+	else local GoodItem = {}
+		GoodItem[0] = 0863                                       -------------Ñ×Óñ          »ñµÃ»úÂÊ7%
+		GoodItem[1] = 0862                                       -------------ÑÒÓñ          »ñµÃ»úÂÊ7%
+	
+		local Good_C = math.random ( 1, 2 )-1
+		ItemId = GoodItem[Good_C]
+	end
+	local itemname = GetItemName ( ItemId ) 
+	local cha_name = GetChaDefaultName ( role ) 
+	GiveItem ( role , 0 , ItemId , 1 , 94 )
+	local message = "¹§Ï²Íæ¼Ò" ..cha_name.."´ò¿ª°ÔÍõ±¦Ïä,¾ªÏ²µÄ»ñµÃ"..itemname  
+	Notice ( message )
+end
+-----------------------------------------------------------kokora---------------------------------------------------------
+function ItemUse_XiDianBook ( role , item )
+	local zsskill_lv  = {} 							----È¡½ÇÉ«×ªÉú¼¼ÄÜµÈ¼¶
+	 zsskill_lv [0] = GetSkillLv ( role, 453 )
+	 zsskill_lv [1] = GetSkillLv ( role, 454 )
+	 zsskill_lv [2] = GetSkillLv ( role, 455 )
+	 zsskill_lv [3] = GetSkillLv ( role, 456 )
+	 zsskill_lv [4] = GetSkillLv ( role, 457 )
+	 zsskill_lv [5] = GetSkillLv ( role, 458 )
+	local n = 0
+	local item_canget = GetChaFreeBagGridNum ( role )
+	if item_canget < 2 then
+		SystemNotice(role ,"±³°üÀïÖÁÉÙÐèÒªÓÐ2¸ö¿ÕÎ»")
+		UseItemFailed ( role )
+	else
+		for i = 0, 5, 1 do
+			if zsskill_lv [i] >= 1 then
+				n = n+1
+			end
+		end
+		local cha_skill_num=GetChaAttr(role, ATTR_TP  )				----È¡½ÇÉ«µ±Ç°Ê£ÓàÕ½¶·¼¼ÄÜµã
+		local clear_skill_num=ClearFightSkill(role)				----È¡Çå³ý¼¼ÄÜµã
+		cha_skill_num=cha_skill_num+clear_skill_num
+		if n > 0 then							----ÓÐ×ªÉú¼¼ÄÜ
+			local job = GetChaAttr( role, ATTR_JOB)				----È¡Ö°Òµ
+			local item_id = {}
+			item_id [8] = 2957
+			item_id [9] = 2956
+			item_id [12] = 2961
+			item_id [13] = 2959
+			item_id [14] = 2958
+			item_id [16] = 2960
+			GiveItem ( role, 0, item_id [job] , 1, 4)
+			GiveItem ( role, 0, 1572, 1, 4)
+			cha_skill_num = cha_skill_num - 2
+		end
+		SetChaAttr(role, ATTR_TP ,cha_skill_num ) 
+	end
+end
+
+function Sk_Script_ZSSL( role , item )
+	local sk_add = SK_ZSSL 
+	local form_sklv = GetSkillLv( role , sk_add ) 
+	  
+--	if form_sklv < 0 or form_sklv == nil then								--¼¼ÄÜµÈ¼¶ºÏ·¨ÐÔ¼ì²é
+--		return 
+--	end 
+	if form_sklv >= 1  then 
+		UseItemFailed ( role )  
+		return 
+	end 
+	local zs_exp = GetChaAttr ( role , ATTR_CSAILEXP )
+	if zs_exp <= 0 then
+		UseItemFailed ( role )  
+		return 
+	end
+	a = AddChaSkill ( role , sk_add, 1 , 1 , 0 ) 
+	if a== 0 then 
+		UseItemFailed ( role )  
+		return 
+	end 
+end 
+
+------------------------¾«ÁéÓ²±Ò±¦Ïä
+function ItemUse_YingbiBox ( role , Item )
 	local map_name_role = GetChaMapName ( role )
 	if map_name_role == "darkblue" then
 		local lv = GetChaAttr ( role , ATTR_LV )
 		if lv >= 10 then
 			local Item_CanGet = GetChaFreeBagGridNum ( role )
 			if Item_CanGet < 4 then
-				SystemNotice(role ,"\210\240\229\225\243\229\242\241\255 4 \241\226\238\225\238\228\237\251\229 \255\247\229\233\234\232 \226 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \241 \236\238\237\229\242\224\236\232 \244\229\233")
+				SystemNotice(role ,"¿ªÆô¾«ÁéÓ²±Ò±¦ÏäÖÁÉÙÐèÒª4¸ö¸ñ×Ó")
 				UseItemFailed ( role )
 				return
 			end
@@ -17294,10 +19382,10 @@ function ItemUse_YingbiBox ( role , Item )
 				PlayUseBox1[ChaName] = 0
 			end
 			local Use_Num = PlayUseBox1[ChaName]
-			local now_day= os.date("%d")   
-			local now_month= os.date("%m")
-			now_month= tonumber(now_month)    
-			now_day = tonumber(now_day)
+			local now_day= os.date("%d")		-------------ÈÕ   
+			local now_month= os.date("%m")		-------------ÔÂ
+			now_month= tonumber(now_month)		-------------ÔÂ     
+			now_day = tonumber(now_day)		-------------ÈÕ
 			local Date = JNSTime_Flag[now_month]+now_day
 			local Yingbi_Num = 0
 			if Use_Num == 0 then
@@ -17311,17 +19399,19 @@ function ItemUse_YingbiBox ( role , Item )
 						GiveItem ( role , 0 , 1872 , 1 , 4 )
 					else
 						UseItemFailed ( role )
-						SystemNotice( role, "\210\240\229\225\243\229\242\241\255 20 \236\238\237\229\242 \244\229\233")
+						SystemNotice( role, "¾«ÁéÓ²±Ò²»×ã")
 					end
 			else
 				local Date_Box = math.floor ( Use_Num / 10 )
 				local a = Date - Date_Box
 				local Time = Use_Num - Date_Box * 10
+				--SystemNotice ( role , "a="..a)
 				if a == 0 then
 					Use_Num = Use_Num +1
 					local time_new = Time + 1
 					if time_new >= 1 and time_new <= 3 then
 						Yingbi_Num = (time_new*5) + 15
+						--SystemNotice ( role  , "Round"..time_new.."´Î¿ªÏä×Ó£¬»¨·Ñ"..Yingbi_Num.."¸öÓ²±Ò£¬Æ·ÖÊÎª1")
 						local j = TakeItem ( role , 0 , 855 , Yingbi_Num )
 						if j == 1 then
 							GiveBragiItem ( role , 1 )
@@ -17329,10 +19419,11 @@ function ItemUse_YingbiBox ( role , Item )
 							GiveItem ( role , 0 , 1872 , 1 , 4 )
 						else
 							UseItemFailed ( role )
-							SystemNotice( role, "\205\229\228\238\241\242\224\242\238\247\237\238 \236\238\237\229\242 \244\229\233")
+							SystemNotice( role, "¾«ÁéÓ²±Ò²»×ã")
 						end
 					elseif time_new >= 4 and time_new <= 6 then
 						Yingbi_Num = Time * 15
+						--SystemNotice ( role  , "Round"..time_new.."´Î¿ªÏä×Ó£¬»¨·Ñ"..Yingbi_Num.."¸öÓ²±Ò£¬Æ·ÖÊÎª2")
 						local j = TakeItem ( role , 0 , 855 , Yingbi_Num )
 						if j == 1 then
 							GiveBragiItem ( role , 2 )
@@ -17340,10 +19431,11 @@ function ItemUse_YingbiBox ( role , Item )
 							GiveItem ( role , 0 , 1872 , 1 , 4 )
 						else
 							UseItemFailed ( role )
-							SystemNotice( role, "\205\229\228\238\241\242\224\242\238\247\237\238 \236\238\237\229\242 \244\229\233")
+							SystemNotice( role, "¾«ÁéÓ²±Ò²»×ã")
 						end
 					else
 						Yingbi_Num = 99
+						--SystemNotice ( role  , "Round"..time_new.."´Î¿ªÏä×Ó£¬»¨·Ñ"..Yingbi_Num.."¸öÓ²±Ò£¬Æ·ÖÊÎª3")
 						local j = TakeItem ( role , 0 , 855 , Yingbi_Num )
 						if j == 1 then
 							GiveBragiItem ( role , 3 )
@@ -17351,16 +19443,17 @@ function ItemUse_YingbiBox ( role , Item )
 							GiveItem ( role , 0 , 1872 , 1 , 4 )
 						else
 							UseItemFailed ( role )
-							SystemNotice( role, "\205\229\228\238\241\242\224\242\238\247\237\238 \236\238\237\229\242 \244\229\233")
+							SystemNotice( role, "¾«ÁéÓ²±Ò²»×ã")
 						end
 					end
 				elseif a == -1 then
 					UseItemFailed ( role )
-					SystemNotice ( role , "\209\243\237\228\243\234 \241 \236\238\237\229\242\224\236\232 \212\229\233 \236\238\230\237\238 \238\242\234\240\251\226\224\242\252 \242\238\235\252\234\238 10 \240\224\231 \226 \228\229\237\252")
+					SystemNotice ( role , "Äã½ñÌìÒÑ¾­¿ª¹ý10¸ö¾«ÁéÓ²±Ò±¦ÏäÁË")
 				else
 					local Time = 1
 					Use_Num = Date * 10 + Time
 					Yingbi_Num = 20
+					--SystemNotice ( role  , "Round"..Time.."¿ªÏä×Ó£¬»¨·Ñ"..Yingbi_Num.."¸öÓ²±Ò")
 					local j = TakeItem ( role , 0 , 855 , Yingbi_Num )
 					if j == 1 then
 						PlayUseBox1[ChaName] = Use_Num
@@ -17368,30 +19461,29 @@ function ItemUse_YingbiBox ( role , Item )
 						GiveItem ( role , 0 , 1872 , 1 , 4 )
 					else
 						UseItemFailed ( role )
-						SystemNotice( role, "\205\229\228\238\241\242\224\242\238\247\237\238 \236\238\237\229\242 \244\229\233")
+						SystemNotice( role, "¾«ÁéÓ²±Ò²»×ã")
 					end
 				end
 			end
 		else
-			SystemNotice( role , "\210\238\235\252\234\238 \232\227\240\238\234\232 \243\240\238\226\237\255 10 \232 \226\251\248\229 \236\238\227\243\242 \238\242\234\240\251\226\224\242\252 \209\243\237\228\243\234 \241 \236\238\237\229\242\224\236\232 \212\229\233")
+			SystemNotice( role , "µÈ¼¶²»µ½10£¬ÎÞ·¨Ê¹ÓÃ¸ÃµÀ¾ß")
 			UseItemFailed ( role )
 		end
 	else
-		SystemNotice( role , "\209\243\237\228\243\234 \241 \236\238\237\229\242\224\236\232 \212\229\233 \236\238\230\237\238 \238\242\234\240\251\226\224\242\252 \242\238\235\252\234\238 \237\224 \242\229\240\240\232\242\238\240\232\232 \194\229\235\232\234\238\227\238 \209\232\237\229\227\238 \206\234\229\224\237\224")
+		SystemNotice( role , "¸ÃµÀ¾ßÖ»ÄÜÔÚÉîÀ¶ÈºµºµØÍ¼Ê¹ÓÃ")
 		UseItemFailed ( role )
 	end
 end
 
--- Çàïå÷àòàííûé ñóíäóê ôåé
+------------------------------------¾«Áé»ÔÓ¡±¦Ïä
 function ItemUse_HuiYinBox ( role, Item )
-
 	local map_name_role = GetChaMapName ( role )
 	if map_name_role == "darkblue" then
 		local lv = GetChaAttr ( role , ATTR_LV )
 		if lv >= 60 then
 			local Item_CanGet = GetChaFreeBagGridNum ( role )
 			if Item_CanGet < 2 then
-				SystemNotice(role ,"\210\240\229\225\243\229\242\241\255 2 \241\226\238\225\238\228\237\251\229 \255\247\229\233\234\232 \226 \194\224\248\229\236 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \199\224\239\229\247\224\242\224\237\237\251\233 \241\243\237\228\243\234 \244\229\233")
+				SystemNotice(role ,"¿ªÆô¾«Áé»ÔÓ¡±¦ÏäÖÁÉÙÐèÒª2¸ö¸ñ×Ó")
 				UseItemFailed ( role )
 				return
 			end
@@ -17400,10 +19492,10 @@ function ItemUse_HuiYinBox ( role, Item )
 				PlayUseBox2[ChaName] = 0
 			end
 			local Use_Num = PlayUseBox2[ChaName]
-			local now_day= os.date("%d")  
-			local now_month= os.date("%m")
-			now_month= tonumber(now_month)   
-			now_day = tonumber(now_day)
+			local now_day= os.date("%d")		-------------ÈÕ   
+			local now_month= os.date("%m")		-------------ÔÂ
+			now_month= tonumber(now_month)		-------------ÔÂ     
+			now_day = tonumber(now_day)		-------------ÈÕ
 			local Date = JNSTime_Flag[now_month]+now_day
 			if Use_Num == 0 then
 				local Time = 1
@@ -17415,7 +19507,7 @@ function ItemUse_HuiYinBox ( role, Item )
 					GiveItem ( role , 0 , 1570 , 1 , 4 )
 				else
 					UseItemFailed ( role )
-					SystemNotice( role, "\205\229\228\238\241\242\224\242\238\247\237\238 \221\235\252\244\232\233\241\234\232\245 \239\229\247\224\242\229\233")
+					SystemNotice( role, "¾«Áé»ÔÓ¡²»×ã")
 				end
 			else
 				local Date_Box = math.floor ( Use_Num / 10 )
@@ -17432,18 +19524,18 @@ function ItemUse_HuiYinBox ( role, Item )
 							GiveItem ( role , 0 , 1570 , 1 , 4 )
 						else
 							UseItemFailed ( role )
-							SystemNotice( role, "\205\229\228\238\241\242\224\242\238\247\237\238 \221\235\252\244\232\233\241\234\232\245 \239\229\247\224\242\229\233")
+							SystemNotice( role, "¾«Áé»ÔÓ¡²»×ã")
 						end
 					elseif time_new == 2 then
 						Use_Num = Use_Num + 1
 						local j = TakeItem ( role , 0 , 2588 , 20 )
 						if j == 1 then 
 							PlayUseBox2[ChaName] = Use_Num
-							XSAddExpAll ( role , 5 , 5, 2)
+							AddExpAll ( role , 1 , 1, 2)
 							GiveItem ( role , 0 , 1570 , 1 , 4 )
 						else
 							UseItemFailed ( role )
-							SystemNotice( role, "\205\229\228\238\241\242\224\242\238\247\237\238 \221\235\252\244\232\233\241\234\232\245 \239\229\247\224\242\229\233")
+							SystemNotice( role, "¾«Áé»ÔÓ¡²»×ã")
 						end
 					elseif time_new == 3 then
 						Use_Num = Use_Num + 1
@@ -17454,7 +19546,7 @@ function ItemUse_HuiYinBox ( role, Item )
 							GiveItem ( role , 0 , 1570 , 1 , 4 )
 						else
 							UseItemFailed ( role )
-							SystemNotice( role, "\205\229\228\238\241\242\224\242\238\247\237\238 \221\235\252\244\232\233\241\234\232\245 \239\229\247\224\242\229\233")
+							SystemNotice( role, "¾«Áé»ÔÓ¡²»×ã")
 						end
 					elseif time_new == 4 then
 						Use_Num = Use_Num + 1
@@ -17465,7 +19557,7 @@ function ItemUse_HuiYinBox ( role, Item )
 							GiveItem ( role , 0 , 1570 , 1 , 4 )
 						else
 							UseItemFailed ( role )
-							SystemNotice( role, "\205\229\228\238\241\242\224\242\238\247\237\238 \221\235\252\244\232\233\241\234\232\245 \239\229\247\224\242\229\233")
+							SystemNotice( role, "¾«Áé»ÔÓ¡²»×ã")
 						end
 					elseif time_new == 5 then
 						Use_Num = ( Date + 1 )*10
@@ -17476,12 +19568,12 @@ function ItemUse_HuiYinBox ( role, Item )
 							GiveItem ( role , 0 , 1570 , 1 , 4 )
 						else
 							UseItemFailed ( role )
-							SystemNotice( role, "\205\229\228\238\241\242\224\242\238\247\237\238 \221\235\252\244\232\233\241\234\232\245 \239\229\247\224\242\229\233")
+							SystemNotice( role, "¾«Áé»ÔÓ¡²»×ã")
 						end
 					end
 				elseif a == -1 then
 					UseItemFailed ( role )
-					SystemNotice ( role , "\199\224\239\229\247\224\242\224\237\237\251\233 \241\243\237\228\243\234 \244\229\233 \236\238\230\237\238 \238\242\234\240\251\226\224\242\252 \242\238\235\252\234\238 5 \240\224\231 \226 \228\229\237\252")
+					SystemNotice ( role , "Äã½ñÌìÒÑ¾­¿ª¹ý5¸ö¾«Áé»ÔÓ¡±¦ÏäÁË")
 				else
 					local Time = 1
 					Use_Num = Date * 10 + Time
@@ -17492,30 +19584,29 @@ function ItemUse_HuiYinBox ( role, Item )
 						GiveItem ( role , 0 , 1570 , 1 , 4 )
 					else
 						UseItemFailed ( role )
-						SystemNotice( role, "\205\229\228\238\241\242\224\242\238\247\237\238 \221\235\252\244\232\233\241\234\232\245 \239\229\247\224\242\229\233")
+						SystemNotice( role, "¾«Áé»ÔÓ¡²»×ã")
 					end
 				end
 			end
 		else
-			SystemNotice( role , "\210\238\235\252\234\238 \232\227\240\238\234\232 \243\240\238\226\237\255 60 \232 \226\251\248\229 \236\238\227\243\242 \238\242\234\240\251\226\224\242\252 \199\224\239\229\247\224\242\224\237\237\251\233 \241\243\237\228\243\234 \244\229\233")
+			SystemNotice( role , "µÈ¼¶²»µ½60£¬ÎÞ·¨Ê¹ÓÃ¸ÃµÀ¾ß")
 			UseItemFailed ( role )
 		end
 	else
-		SystemNotice( role , "\199\224\239\229\247\224\242\224\237\237\251\233 \241\243\237\228\243\234 \244\229\233 \236\238\230\237\238 \238\242\234\240\251\226\224\242\252 \242\238\235\252\234\238 \237\224 \242\229\240\240\232\242\238\240\232\232 \194\229\235\232\234\238\227\238 \209\232\237\229\227\238 \206\234\229\224\237\224")
+		SystemNotice( role , "¸ÃµÀ¾ßÖ»ÄÜÔÚÉîÀ¶ÈºµºµØÍ¼Ê¹ÓÃ")
 		UseItemFailed ( role )
 	end
 end
 
--- Çàïå÷àòàííûé ñóíäóê ïîâåëèòåëÿ ôåé
+-----------------------------¾«ÁéÍõ»ÔÓ¡±¦Ïä
 function ItemUse_HuiYinKBox ( role, Item )
-
 	local map_name_role = GetChaMapName ( role )
 	if map_name_role == "darkblue" then
 		local lv = GetChaAttr ( role , ATTR_LV )
 		if lv >= 70 then
 			local Item_CanGet = GetChaFreeBagGridNum ( role )
 			if Item_CanGet < 2 then
-				SystemNotice(role ,"\210\240\229\225\243\229\242\241\255 2 \241\226\238\225\238\228\237\251\229 \255\247\229\233\234\232 \226 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \199\224\239\229\247\224\242\224\237\237\251\233 \241\243\237\228\243\234 \239\238\226\229\235\232\242\229\235\255 \244\229\233")
+				SystemNotice(role ,"¿ªÆô¾«Áé»ÔÓ¡Íõ±¦ÏäÖÁÉÙÐèÒª2¸ö¸ñ×Ó")
 				UseItemFailed ( role )
 				return
 			end
@@ -17524,10 +19615,10 @@ function ItemUse_HuiYinKBox ( role, Item )
 				PlayUseBox3[ChaName] = 0
 			end
 			local Use_Num = PlayUseBox3[ChaName]
-			local now_day= os.date("%d") 
-			local now_month= os.date("%m")
-			now_month= tonumber(now_month)    
-			now_day = tonumber(now_day)
+			local now_day= os.date("%d")		-------------ÈÕ   
+			local now_month= os.date("%m")		-------------ÔÂ
+			now_month= tonumber(now_month)		-------------ÔÂ     
+			now_day = tonumber(now_day)		-------------ÈÕ
 			local Date = JNSTime_Flag[now_month]+now_day
 			if Use_Num == 0 then
 				local Time = 1
@@ -17535,11 +19626,11 @@ function ItemUse_HuiYinKBox ( role, Item )
 				local j = TakeItem ( role , 0 , 2589 , 1 )
 				if j == 1 then 
 					PlayUseBox3[ChaName] = Use_Num
-					AddExpAll ( role , 1 , 1, 2 )
+					AddExpAll ( role , 3 , 3, 2 )
 					GiveItem ( role , 0 , 1571 , 1 , 4 )
 				else
 					UseItemFailed ( role )
-					SystemNotice( role, "\205\229\228\238\241\242\224\242\238\247\237\238 \221\235\252\244\232\233\241\234\232\245 \234\238\240\238\235\229\226\241\234\232\245 \239\229\247\224\242\229\233")
+					SystemNotice( role, "¾«ÁéÍõ»ÔÓ¡²»×ã")
 				end
 			else
 				local Date_Box = math.floor ( Use_Num / 10 )
@@ -17552,11 +19643,11 @@ function ItemUse_HuiYinKBox ( role, Item )
 						local j = TakeItem ( role , 0 , 2589 , 1 )
 						if j == 1 then 
 							PlayUseBox3[ChaName] = Use_Num
-							AddExpAll ( role , 1 , 1, 2 )
+							AddExpAll ( role , 3 , 3, 2 )
 							GiveItem ( role , 0 , 1571 , 1 , 4 )
 						else
 							UseItemFailed ( role )
-							SystemNotice( role, "\205\229\228\238\241\242\224\242\238\247\237\238 \221\235\252\244\232\233\241\234\232\245 \234\238\240\238\235\229\226\241\234\232\245 \239\229\247\224\242\229\233")
+							SystemNotice( role, "¾«ÁéÍõ»ÔÓ¡²»×ã")
 						end
 					elseif time_new == 2 then
 						Use_Num = ( Date + 1 ) * 10
@@ -17567,141 +19658,331 @@ function ItemUse_HuiYinKBox ( role, Item )
 							GiveItem ( role , 0 , 1571 , 1 , 4 )
 						else
 							UseItemFailed ( role )
-							SystemNotice( role, "\205\229\228\238\241\242\224\242\238\247\237\238 \221\235\252\244\232\233\241\234\232\245 \234\238\240\238\235\229\226\241\234\232\245 \239\229\247\224\242\229\233")
+							SystemNotice( role, "¾«ÁéÍõ»ÔÓ¡²»×ã")
 						end
 					end
 				elseif a == -1 then
 					UseItemFailed ( role )
-					SystemNotice ( role , "\199\224\239\229\247\224\242\224\237\237\251\233 \241\243\237\228\243\234 \239\238\226\229\235\232\242\229\235\255 \244\229\233 \236\238\230\237\238 \238\242\234\240\251\226\224\242\252 \242\238\235\252\234\238 2 \240\224\231\224 \226 \228\229\237\252")
+					SystemNotice ( role , "Äã½ñÌìÒÑ¾­¿ª¹ý2¸ö¾«ÁéÍõ»ÔÓ¡±¦ÏäÁË")
 				else
 					local Time = 1
 					Use_Num = Date * 10 + Time
-					local j = TakeItem ( role , 0 , 2589 , 1 )
+					local j = TakeItem ( role , 0 , 2588 , 10 )
 					if j == 1 then
 						PlayUseBox3[ChaName] = Use_Num
-						AddExpAll ( role , 1, 1, 2 )
+						AddExpAll ( role , 3, 3, 2 )
 						GiveItem ( role , 0 , 1571 , 1 , 4 )
 					else
 						UseItemFailed ( role )
-						SystemNotice( role, "\205\229\228\238\241\242\224\242\238\247\237\238 \221\235\252\244\232\233\241\234\232\245 \234\238\240\238\235\229\226\241\234\232\245 \239\229\247\224\242\229\233")
+						SystemNotice( role, "¾«ÁéÍõ»ÔÓ¡²»×ã")
 					end
 				end
 			end
 		else
-			SystemNotice( role , "\210\238\235\252\234\238 \232\227\240\238\234\232 \243\240\238\226\237\255 70 \232 \226\251\248\229 \236\238\227\243\242 \238\242\234\240\251\226\224\242\252 \199\224\239\229\247\224\242\224\237\237\251\233 \241\243\237\228\243\234 \239\238\226\229\235\232\242\229\235\255 \244\229\233")
+			SystemNotice( role , "µÈ¼¶²»µ½70£¬ÎÞ·¨Ê¹ÓÃ¸ÃµÀ¾ß")
 			UseItemFailed ( role )
 		end
 	else
-		SystemNotice( role , "\199\224\239\229\247\224\242\224\237\237\251\233 \241\243\237\228\243\234 \239\238\226\229\235\232\242\229\235\255 \244\229\233 \236\238\230\237\238 \238\242\234\240\251\226\224\242\252 \242\238\235\252\234\238 \237\224 \242\229\240\240\232\242\238\240\232\232 \194\229\235\232\234\238\227\238 \209\232\237\229\227\238 \206\234\229\224\237\224")
+		SystemNotice( role , "¸ÃµÀ¾ßÖ»ÄÜÔÚÉîÀ¶ÈºµºµØÍ¼Ê¹ÓÃ")
 		UseItemFailed ( role )
 	end
 end
 
--- Ôàñòôóä
-function ItemUse_CZKC ( role , Item )
 
+------------------------ºÚÏ»×Ó
+function ItemUse_BACKBOX ( role , Item )
 	local Cha_Boat = 0
 	local charLv=Lv ( role )
-	local Exp_star=GetChaAttr (  role , ATTR_CEXP )
-	local dif_exp_thalf_c = (DEXP[charLv+1] - DEXP[charLv])*0.01+Exp_star
+	local Exp_star=GetChaAttr (  role , ATTR_CEXP )----------µ±Ç°µÈ¼¶¾­Ñé
+	local dif_exp_thalf = (DEXP[charLv+1] - DEXP[charLv])*0.15  +  Exp_star + 10
+	local dif_exp_thalf_a = (DEXP[charLv+1] - DEXP[charLv])*0.12  +  Exp_star + 10
+	local dif_exp_thalf_b = (DEXP[charLv+1] - DEXP[charLv])*0.08  +  Exp_star + 10
+	local dif_exp_thalf_c = (DEXP[charLv+1] - DEXP[charLv])*0.05+Exp_star+ 10
+
 	Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
-	if charLv<86 or charLv>100 then
-		SystemNotice( role , "\200\227\240\238\234\232 \237\229 \236\229\237\229\229 86 \232 \237\229 \226\251\248\229 100 \243\240\238\226\237\255 \236\238\227\243\242 \232\241\239\238\235\252\231\238\226\224\242\252 \212\224\241\242\244\243\228" )
+	if charLv>=100 then
+		SystemNotice( role , "100¼¶¼°100¼¶ÒÔÉÏ½ÇÉ«²»ÄÜÊ¹ÓÃ" )
 		UseItemFailed ( role )
 		return
 	end
-	if charLv>=86 and charLv<=100 then
+	local el = math.random ( 1, 100 )
+	if  el>=1 and el<=40 then
 		SetChaAttrI( role , ATTR_CEXP , dif_exp_thalf_c )
+	elseif el>=41 and el<=70 then
+		SetChaAttrI( role , ATTR_CEXP , dif_exp_thalf_b )
+	elseif el>=71 and el<=90 then
+		SetChaAttrI( role , ATTR_CEXP , dif_exp_thalf_a )
+	elseif el>=91 and el<=100 then
+		SetChaAttrI( role , ATTR_CEXP , dif_exp_thalf )
         end
 end
+----------------¾­ÑéÆ¿Àñ°ü
+function ItemUse_jyplb( role , item )
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	if Item_CanGet < 1 then
+		SystemNotice(role ,"ÖÁÉÙÐèÒªÒ»¸ö±³°ü¿Õ¸ñ")
+		UseItemFailed ( role )
+		return
+	end
+	local r1 = 0
+	local r2 = 0
+	r1,r2 =MakeItem ( role , 171  , 1 , 4 )
+	local Item = GetChaItem ( role , 2 , r2 )
+	SetItemAttr(Item, ITEMATTR_VAL_PARAM1, 0 )		-------------Ãë  
+	SynChaKitbag(role,13)
+end
 
--- Ñóíäóê Áåðìóäñêèõ îñòðîâîâ
-function ItemUse_baimodabox (role, Item)
-
+---------------------------»ÃÖ®Ö¤Ã÷£¨kokora£©ºÆ·½°æ±¾×¨ÓÃ
+function ItemUse_fancyprove ( role , Item )
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "\205\229 \236\238\230\229\242 \225\251\242\252 \232\241\239\238\235\252\231\238\226\224\237\238, \234\238\227\228\224 \194\251 \226 \236\238\240\229" )
+		SystemNotice( role , "³öº£Ê±²»¿ÉÊ¹ÓÃ»ÃÖ®Ö¤Ã÷" )
 		UseItemFailed ( role )
+		return
+	end
+	 local cha_name = GetChaDefaultName ( role )
+	 local lv = GetChaAttr ( role , ATTR_LV )
+	 if lv>=20 and lv<=54 then
+		SetChaAttrI(role, ATTR_CEXP , 19674240)		
+	 local message = "¹§Ï²Íæ¼Ò" ..cha_name.."Ê¹ÓÃ»ÃÖ®Ö¤Ã÷ºó,µÈ¼¶ÓÉ"..lv .."¼¶Éýµ½55¼¶!¸Ã»ÃÖ®Ö¤Ã÷,º£µÁÍõÉÌ³ÇÄÚÃâ·ÑÌá¹©à¸!" 
+		Notice ( message )
+	 else 
+		SystemNotice( role , "»ÃÖ®Ö¤Ã÷ÐèÊ¹ÓÃµÈ¼¶ÔÚ20¼¶ÖÁ54¼¶Ö®¼ä,ÄúµÄµÈ¼¶²»·ûºÏÊ¹ÓÃ»ÃÖ®Ö¤Ã÷µÄÒªÇó" )
+		UseItemFailed ( role )
+	end
+	return
+end
+
+---------------------------³¬ÈË±¦Ïä£¨kokora£©ºÆ·½°æ±¾×¨ÓÃ
+function ItemUse_superBOX ( role , Item )
+	local Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ~=  nil then
+		SystemNotice( role , "³öº£Ê±²»¿ÉÊ¹ÓÃ³¬ÈË±¦Ïä" )
+		UseItemFailed ( role )
+		return
+	end
+	local Item_CanGet = GetChaFreeBagGridNum ( role )	
+	if Item_CanGet < 1 then
+		SystemNotice(role ,"´Ë")
+		UseItemFailed ( role )
+		return
+	end
+	local cha_name = GetChaDefaultName ( role ) 
+	local lv = GetChaAttr ( role , ATTR_LV )	
+	if lv>=70 then
+	GiveItem ( role , 0 , 996 , 1 , 4 )
+	local message = "¹§Ï²Íæ¼Ò" ..cha_name.."´ò¿ª³¬ÈË±¦Ïä,¾ªÏ²µÄ»ñµÃ³¬ÈËÖ¤Ã÷,¸Ã³¬ÈË±¦Ïä,º£µÁÍõÉÌ³ÇÄÚÃâ·ÑÌá¹©à¸!"
+	Notice ( message )
+	 else 
+		SystemNotice( role , "³¬ÈË±¦ÏäÐèÊ¹ÓÃµÈ¼¶ÔÚ70¼¶ÒÔÉÏ,ÄúµÄµÈ¼¶²»·ûºÏÊ¹ÓÃ³¬ÈË±¦ÏäµÄÒªÇó" )
+		UseItemFailed ( role )
+	end
+	return
+end
+
+---------------------------³¬ÈËÖ¤Ã÷£¨kokora£©ºÆ·½°æ±¾×¨ÓÃ
+function ItemUse_superprove ( role , Item )
+	local Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ~=  nil then
+		SystemNotice( role , "³öº£Ê±²»¿ÉÊ¹ÓÃ³¬ÈËÖ¤Ã÷" )
+		UseItemFailed ( role )
+		return
+	end
+	 local cha_name = GetChaDefaultName ( role ) 
+	 local lv = GetChaAttr ( role , ATTR_LV )	
+	 if lv>=55 and lv<=59 then
+		SetChaAttrI(role, ATTR_CEXP , 37746418)
+	 local message = "¹§Ï²Íæ¼Ò" ..cha_name.."Ê¹ÓÃ³¬ÈËÖ¤Ã÷ºó,µÈ¼¶ÓÉ"..lv .."¼¶Éýµ½60¼¶!¸Ã³¬ÈËÖ¤Ã÷,º£µÁÍõÉÌ³ÇÄÚÃâ·ÑÌá¹©à¸!" 
+		Notice ( message )
+	 else 
+		SystemNotice( role , "³¬ÈËÖ¤Ã÷ÐèÊ¹ÓÃµÈ¼¶ÔÚ55¼¶ÖÁ59¼¶Ö®¼ä,ÄúµÄµÈ¼¶²»·ûºÏÊ¹ÓÃ³¬ÈËÖ¤Ã÷µÄÒªÇó" )
+		UseItemFailed ( role )
+	end
+	return
+end
+
+---------------------------ÃÕÖ®Ö¤Ã÷£¨kokora£©ºÆ·½°æ±¾×¨ÓÃ
+function ItemUse_riddleprove ( role , Item )
+	local Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ~=  nil then
+		SystemNotice( role , "³öº£Ê±²»¿ÉÊ¹ÓÃÃÕÖ®Ö¤Ã÷" )
+		UseItemFailed ( role )
+		return
+	end
+	local i= CheckBagItem( role, 3849 )                                                
+	if i~=1 then
+		SystemNotice(  role , "Please confirm you have Medal of Valor with you")
+		UseItemFailed ( role )
+		return LUA_FALSE
+	end
+
+	local credit = GetChaItem2 ( role , 2 , 3849 )
+	local creditprove = GetItemAttr (credit , ITEMATTR_VAL_STR)
+	if creditprove < 100 then
+		SystemNotice ( role , "ÄúµÄÈÙÓþÖµÎ´´ïµ½100µã,²»Âú×ãÊ¹ÓÃÃÕÖ®Ö¤Ã÷µÄÌõ¼þ!" )
+		UseItemFailed ( role )
+		return LUA_FALSE
+	end
+
+	local meleeprove = GetItemAttr (credit , ITEMATTR_MAXENERGY)	
+	if meleeprove < 11 then
+		SystemNotice ( role , "ÄúµÄÂÒ¶·µãÊýÎ´´ïµ½11µã,²»Âú×ãÊ¹ÓÃÃÕÖ®Ö¤Ã÷µÄÌõ¼þ!" )
+		UseItemFailed ( role )
+		return LUA_FALSE
+	end
+															
+	 local cha_name = GetChaDefaultName ( role ) 
+	 local lv = GetChaAttr ( role , ATTR_LV )	
+	 if lv>=60 and lv<=64 then
+		SetChaAttrI(role, ATTR_CEXP , 116688304)
+	 local message = "¹§Ï²Íæ¼Ò" ..cha_name.."Ê¹ÓÃÃÕÖ®Ö¤Ã÷ºó,µÈ¼¶ÓÉ"..lv .."¼¶Éýµ½65¼¶!¸ÃÃÕÖ®Ö¤Ã÷,º£µÁÍõÉÌ³ÇÄÚÃâ·ÑÌá¹©à¸!" 
+		Notice ( message )
+	 else 
+		SystemNotice( role , "ÃÕÖ®Ö¤Ã÷ÐèÊ¹ÓÃµÈ¼¶ÔÚ60¼¶ÖÁ64¼¶Ö®¼ä,ÄúµÄµÈ¼¶²»·ûºÏÊ¹ÓÃÃÕÖ®Ö¤Ã÷µÄÒªÇó" )
+		UseItemFailed ( role )
+	end
+	return 
+end
+
+---------------------------ÃÕÖ®ÖúÍÆÆ÷£¨kokora£©ºÆ·½°æ±¾×¨ÓÃ
+function ItemUse_riddleroll ( role , Item )
+	local lv= GetChaAttr(role, ATTR_LV) 
+	if lv < 65 or lv > 75  then
+		SystemNotice ( role , "²»ÄÜÊ¹ÓÃÃÕÖ®ÖúÍÆÆ÷£¡" )
+		UseItemFailed ( role )
+		return	
+	end
+
+	local statelv = 5
+	local ChaStateLv = GetChaStateLv ( role , STATE_SBJYGZ )
+	
+	if ChaStateLv > statelv then
+		SystemNotice ( role , "ÒÑÊ¹ÓÃ¸ü¸ßµÈ¼¶µÄÍ¬ÀàÎïÆ·£¬ÇëÉÔºòÔÙÓÃ" )
+		UseItemFailed ( role )
+		return
+	end
+	local statetime = 1800
+	local Cha_Boat = 0
+	Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ==  nil then
+		AddState( role , role , STATE_SBJYGZ , statelv , statetime )
+	else
+		AddState( Cha_Boat , Cha_Boat , STATE_SBJYGZ , statelv , statetime )
+	end
+	SystemNotice ( role ,"¸ÐÊÜµ½ÃÕÖ®ÖúÍÆÆ÷µÄÐ§¹û,°ëÐ¡Ê±ÄÚ,´ò¹Ö¾­Ñé³É10±¶Ôö³¤à¸!" )
+end
+
+------------------------------------------------¶Ò»»°ÙÄ½´ó±¦Ïä(kokora)---------------------------------
+function ItemUse_baimodabox (role, Item)
+	local Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ~=  nil then
+		SystemNotice( role , "³öº£Ê±²»¿ÉÊ¹ÓÃ°ÙÄ½´ó±¦Ïä" )
 		UseItemFailed ( role )
 		return
 	end
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	 if Item_CanGet < 1 then
-		SystemNotice(role ,"\210\240\229\225\243\229\242\241\255 1 \241\226\238\225\238\228\237\224\255 \255\247\229\233\234\224 \226 \232\237\226\229\237\242\224\240\229, \247\242\238\225\251 \238\242\234\240\251\242\252 \209\243\237\228\243\234 \193\229\240\236\243\228\241\234\232\245 \238\241\242\240\238\226\238\226")
+		SystemNotice(role ,"´ò¿ª°ÙÄ½´ó±¦ÏäÖÁÉÙÐèÒª1¸ö¿ÕÎ»")
 		UseItemFailed ( role )
 		return
 	end
 	local	sc = math.random ( 1, 100 )
 	
 	if  sc <=25 then	
-		GiveItem ( role , 0 , 1036 , 50 , 4 )
+		GiveItem ( role , 0 , 1036 , 50 , 4 )                    ---------------Ä§»ÃÅ®Éñ¿¨   »ñµÃ»úÂÊ25%
 	elseif sc <=50 then		
-		GiveItem ( role , 0 , 0578 , 99 , 4 )
+		GiveItem ( role , 0 , 0578 , 99 , 4 )                    ---------------¼ÓËÙ³É³¤¹û   »ñµÃ»úÂÊ25%
 	elseif sc <=75 then
-		GiveItem ( role , 0 , 0850 , 99 , 4 )
+		GiveItem ( role , 0 , 0850 , 99 , 4 )                    ---------------Çá×°Ò©Ë®   »ñµÃ»úÂÊ25%
 	else   
-		GiveItem ( role , 0 , 0852 , 99 , 4 )
+		GiveItem ( role , 0 , 0852 , 99 , 4 )                    ---------------È«Éí×°¼×   »ñµÃ»úÂÊ25%
 	end
 end
 
--- Ñâèòîê âûçîâà Ïå÷àëè (id 1103)
-function ItemUse_bierbec (role, Item)
+------------------------------------------------¼ÅÄ¯Éî´¦ÕÙ»½È¯(kokora)---------------------------------
+function ItemUse_monsterbec (role, Item)
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "Íå ìîæåò áûòü èñïîëüçîâàíî, êîãäà Âû â ìîðå!"  )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local sc = 0
 	sc =IsChaInRegion( role, 2 )
 	if sc == 1 then
-		SystemNotice( role , "Íåâîçìîæíî âûçâàòü ìîíñòðà â Áåçîïàñíîé Çîíå " )
+		SystemNotice( role , "½ÇÉ«µ±Ç°´¦ÓÚ°²È«Çø²»¿ÉÒÔÊ¹ÓÃÕÙ»½È¯" )
+		UseItemFailed ( role )
+		return
+	end
+
+	local Monsterattr = {533,509,531,534,550,557,553,559,50,50}
+	local	sc = math.random(1,10)
+	local x, y = GetChaPos( role )
+	local Refresh = 3700				--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 3600000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
+	local new = CreateChaX( Monsterattr[sc] , x , y , 145 ,  Refresh, role )
+	SetChaLifeTime( new, life )
+end
+
+------------------------------------------------·ÏÁéÕÙ»½È¯(kokora)---------------------------------
+function ItemUse_bierbec (role, Item)
+	local Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ~=  nil then
+		SystemNotice( role , "Cannot use while sailing" )
+		UseItemFailed ( role )
+		return
+	end
+	local sc = 0
+	sc =IsChaInRegion( role, 2 )
+	if sc == 1 then
+		SystemNotice( role , "½ÇÉ«µ±Ç°´¦ÓÚ°²È«Çø²»¿ÉÒÔÊ¹ÓÃÕÙ»½È¯" )
 		UseItemFailed ( role )
 		return
 	end
 	local Monsterattr = {687,686}
 	local	sc = math.random(1,2)
 	local x, y = GetChaPos( role )
-	local Refresh = 3700				
-	local life = 3600000					
+	local Refresh = 3700				--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 3600000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 	local new = CreateChaX( Monsterattr[sc] , x , y , 145 ,  Refresh, role )
 	SetChaLifeTime( new, life )
 end
 
--- Ñâèòîê âûçîâà Îäèíî÷åñòâà (id 1105)
+------------------------------------------------¼ÅÄ¯ÕÙ»½È¯(kokora)---------------------------------
 function ItemUse_loneybec (role, Item)
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "Íå ìîæåò áûòü èñïîëüçîâàíî, êîãäà Âû â ìîðå!"  )
+		SystemNotice( role , "Cannot use while sailing" )
 		UseItemFailed ( role )
 		return
 	end
 	local sc = 0
 	sc =IsChaInRegion( role, 2 )
 	if sc == 1 then
-		SystemNotice( role , "Íåâîçìîæíî âûçâàòü ìîíñòðà â Áåçîïàñíîé Çîíå " )
+		SystemNotice( role , "½ÇÉ«µ±Ç°´¦ÓÚ°²È«Çø²»¿ÉÒÔÊ¹ÓÃÕÙ»½È¯" )
 		UseItemFailed ( role )
 		return
 	end
+
 	local Monsterattr = {523,524,525,36,526,527,529,35,532,532}
 	local	sc = math.random(1,10)
 	local x, y = GetChaPos( role )
-	local Refresh = 3700				
-	local life = 3600000					
+	local Refresh = 3700				--ÖØÉúÊ±¼ä£¬Ãëµ¥Î»
+	local life = 3600000					--ÉúÃüÊ±¼ä£¬ºÁÃëµ¥Î»
 	local new = CreateChaX( Monsterattr[sc] , x , y , 145 ,  Refresh, role )
 	SetChaLifeTime( new, life )
 end
 
--- Ïðàçäíè÷íûé Ñàëþò (id 2870)
+------------------------------------------------------Ê¥µ®ÇéÈËÑÌ»¨
 function ItemUse_XmasQRYH ( role , Item )
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "Íå ìîæåò áûòü èñïîëüçîâàíî, êîãäà Âû â ìîðå!"  )
+		SystemNotice( role , "³öº£Ê±²»¿ÉÊ¹ÓÃ" )
 		UseItemFailed ( role )
 		return
 	end
@@ -17711,7 +19992,7 @@ function ItemUse_XmasQRYH ( role , Item )
 	local NowMonthNum = tonumber(Now_Month)
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"Íåäîñòàòî÷íî ìåñòà â èíâåíòàðå. Íåâîçìîæíî èñïîëüçîâàòü ïðåäìåò ")
+		SystemNotice(role ,"µÀ¾ßÊ¹ÓÃÊ§°Ü£¬±³°üÄÚÖÁÉÙÒªÓÐÒ»¸ö¿Õ¸ñ")
 		UseItemFailed ( role )
 		return
 	end
@@ -17731,17 +20012,17 @@ function ItemUse_XmasQRYH ( role , Item )
 		end
 		GiveItem ( role , 0 , Item_ID , 1 , 4 )
 	else
-		SystemNotice( role , "Ìîæíî èñïîëüçîâàòü òîëüêî âî âðåìÿ Íîâîãî Ãîäà ")
+		SystemNotice( role , "±¾µÀ¾ßÖ»ÄÜÔÚÊ¥µ®½ÚÆÚ¼äÊ¹ÓÃÅ¶")
 		UseItemFailed ( role )
 		return
 	end
 end
 
--- Êàðíàâàëüíûé Ñàëþò (id 2871)
+---------------------------------------------------------Ê¥µ®¿ñ»¶ÑÌ»¨
 function ItemUse_XmasKHYH ( role, Item )
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "Íå ìîæåò áûòü èñïîëüçîâàíî, êîãäà Âû â ìîðå!"  )
+		SystemNotice( role , "³öº£Ê±²»¿ÉÊ¹ÓÃ" )
 		UseItemFailed ( role )
 		return
 	end
@@ -17751,7 +20032,7 @@ function ItemUse_XmasKHYH ( role, Item )
 	local NowMonthNum = tonumber(Now_Month)
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"Íåäîñòàòî÷íî ìåñòà â èíâåíòàðå. Íåâîçìîæíî èñïîëüçîâàòü ïðåäìåò ")
+		SystemNotice(role ,"µÀ¾ßÊ¹ÓÃÊ§°Ü£¬±³°üÄÚÖÁÉÙÒªÓÐÒ»¸ö¿Õ¸ñ")
 		UseItemFailed ( role )
 		return
 	end
@@ -17773,17 +20054,17 @@ function ItemUse_XmasKHYH ( role, Item )
 		end
 		GiveItem ( role , 0 , Item_ID , 1 , 4 )
 	else
-		SystemNotice( role , "Ìîæíî èñïîëüçîâàòü òîëüêî âî âðåìÿ Íîâîãî Ãîäà ")
+		SystemNotice( role , "±¾µÀ¾ßÖ»ÄÜÔÚÊ¥µ®½ÚÆÚ¼äÊ¹ÓÃÅ¶")
 		UseItemFailed ( role )
 		return
 	end
 end
 
--- Ôåéåðâåðê Ñàíòà Êëàóñà (id 2872)
+------------------------------------------Ê¥µ®ÀÏÈË±íÇéÑÌ»¨
 function ItemUse_SDLRYH ( role , Item )
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "Íå ìîæåò áûòü èñïîëüçîâàíî, êîãäà Âû â ìîðå!"  )
+		SystemNotice( role , "³öº£Ê±²»¿ÉÊ¹ÓÃ" )
 		UseItemFailed ( role )
 		return
 	end
@@ -17793,7 +20074,7 @@ function ItemUse_SDLRYH ( role , Item )
 	local NowMonthNum = tonumber(Now_Month)
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"Íåäîñòàòî÷íî ìåñòà â èíâåíòàðå. Íåâîçìîæíî èñïîëüçîâàòü ïðåäìåò ")
+		SystemNotice(role ,"µÀ¾ßÊ¹ÓÃÊ§°Ü£¬±³°üÄÚÖÁÉÙÒªÓÐÒ»¸ö¿Õ¸ñ")
 		UseItemFailed ( role )
 		return
 	end
@@ -17813,19 +20094,19 @@ function ItemUse_SDLRYH ( role , Item )
 			Item_Num = 5
 		end
 		GiveItem ( role , 0 , Item_ID , Item_Num , 4 )
-		Notice ( cha_name.." Èñïîëüçóåò Ôåéåðâåðê Ñàíòà Êëàóñà è ïîëó÷àåò Ðîæäåñòâåíñêèé ïîäàðîê!")
+		Notice ( cha_name.."×£Ô¸È«·þÍæ¼ÒÊ¥µ®¿ìÀÖ!")
 	else
-		SystemNotice( role , "Ìîæíî èñïîëüçîâàòü òîëüêî âî âðåìÿ Íîâîãî Ãîäà ")
+		SystemNotice( role , "±¾µÀ¾ßÖ»ÄÜÔÚÊ¥µ®½ÚÆÚ¼äÊ¹ÓÃÅ¶")
 		UseItemFailed ( role )
 		return
 	end
 end
 
--- Ðîæäåñòâåíñêèé Ñàëþò (id 2873)
+-------------------------------------merry christmasÑÌ»¨
 function ItemUse_MCYH ( role , Item )
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "Íå ìîæåò áûòü èñïîëüçîâàíî, êîãäà Âû â ìîðå!"  )
+		SystemNotice( role , "³öº£Ê±²»¿ÉÊ¹ÓÃ" )
 		UseItemFailed ( role )
 		return
 	end
@@ -17835,7 +20116,7 @@ function ItemUse_MCYH ( role , Item )
 	local NowMonthNum = tonumber(Now_Month)
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"Íåäîñòàòî÷íî ìåñòà â èíâåíòàðå. Íåâîçìîæíî èñïîëüçîâàòü ïðåäìåò ")
+		SystemNotice(role ,"µÀ¾ßÊ¹ÓÃÊ§°Ü£¬±³°üÄÚÖÁÉÙÒªÓÐÒ»¸ö¿Õ¸ñ")
 		UseItemFailed ( role )
 		return
 	end
@@ -17858,19 +20139,19 @@ function ItemUse_MCYH ( role , Item )
 			Item_Num = 1
 		end
 		GiveItem ( role , 0 , Item_ID , Item_Num , 4 )
-		Notice ( cha_name.." Èñïîëüçóåò Ðîæäåñòâåíñêèé Ñàëþò è ïîëó÷àåò Ðîæäåñòâåíñêèé ïîäàðîê!")
+		Notice ( cha_name.."×£Ô¸È«·þÍæ¼ÒMerry Christmas!")
 	else
-		SystemNotice( role , "Ìîæíî èñïîëüçîâàòü òîëüêî âî âðåìÿ Íîâîãî Ãîäà ")
+		SystemNotice( role , "±¾µÀ¾ßÖ»ÄÜÔÚÊ¥µ®½ÚÆÚ¼äÊ¹ÓÃÅ¶")
 		UseItemFailed ( role )
 		return
 	end
 end
 
--- Íîâîãîäíèé ôåéåðâåðê (id 2874)
+-----------------------------------------------Happy NewYearÑÌ»¨
 function ItemUse_HNYH ( role , Item )
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "Íå ìîæåò áûòü èñïîëüçîâàíî, êîãäà Âû â ìîðå!"  )
+		SystemNotice( role , "³öº£Ê±²»¿ÉÊ¹ÓÃ" )
 		UseItemFailed ( role )
 		return
 	end
@@ -17880,7 +20161,7 @@ function ItemUse_HNYH ( role , Item )
 	local NowMonthNum = tonumber(Now_Month)
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"Íåäîñòàòî÷íî ìåñòà â èíâåíòàðå. Íåâîçìîæíî èñïîëüçîâàòü ïðåäìåò ")
+		SystemNotice(role ,"µÀ¾ßÊ¹ÓÃÊ§°Ü£¬±³°üÄÚÖÁÉÙÒªÓÐÒ»¸ö¿Õ¸ñ")
 		UseItemFailed ( role )
 		return
 	end
@@ -17903,19 +20184,19 @@ function ItemUse_HNYH ( role , Item )
 			Item_Num = 1
 		end
 		GiveItem ( role , 0 , Item_ID , Item_Num , 4 )
-		Notice ( cha_name.." Èñïîëüçóåò Íîâîãîäíèé ôåéåðâåðê è ïîëó÷àåò Íîâîãîäíèé ïîäàðîê!")
+		Notice ( cha_name.."×£Ô¸È«·þÍæ¼ÒHappy NewYear!")
 	else
-		SystemNotice( role , "Ìîæíî èñïîëüçîâàòü òîëüêî âî âðåìÿ Íîâîãî Ãîäà ")
+		SystemNotice( role , "±¾µÀ¾ßÖ»ÄÜÔÚÊ¥µ®½ÚÆÚ¼äÊ¹ÓÃÅ¶")
 		UseItemFailed ( role )
 		return
 	end
 end
 
--- Ñàëþò ñ Íîñêîì (id 2875)
+--------------------------------------------------Ñ©ÈË±íÇéÑÌ»¨
 function ItemUse_XRBQYH ( role , Item )
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "Íå ìîæåò áûòü èñïîëüçîâàíî, êîãäà Âû â ìîðå!"  )
+		SystemNotice( role , "³öº£Ê±²»¿ÉÊ¹ÓÃ" )
 		UseItemFailed ( role )
 		return
 	end
@@ -17925,7 +20206,7 @@ function ItemUse_XRBQYH ( role , Item )
 	local NowMonthNum = tonumber(Now_Month)
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"Íåäîñòàòî÷íî ìåñòà â èíâåíòàðå. Íåâîçìîæíî èñïîëüçîâàòü ïðåäìåò ")
+		SystemNotice(role ,"µÀ¾ßÊ¹ÓÃÊ§°Ü£¬±³°üÄÚÖÁÉÙÒªÓÐÒ»¸ö¿Õ¸ñ")
 		UseItemFailed ( role )
 		return
 	end
@@ -17951,17 +20232,17 @@ function ItemUse_XRBQYH ( role , Item )
 		end
 		GiveItem ( role , 0 , Item_ID , Item_Num , 4 )
 	else
-		SystemNotice( role , "Ìîæíî èñïîëüçîâàòü òîëüêî âî âðåìÿ Íîâîãî Ãîäà ")
+		SystemNotice( role , "±¾µÀ¾ßÖ»ÄÜÔÚÊ¥µ®½ÚÆÚ¼äÊ¹ÓÃÅ¶")
 		UseItemFailed ( role )
 		return
 	end
 end
 
--- Ñàëþò ñ Óïðÿæêîé (id 2876)
+--------------------------------------------------÷çÂ¹±íÇéÑÌ»¨
 function ItemUse_MLBQYH ( role , Item )
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "Íå ìîæåò áûòü èñïîëüçîâàíî, êîãäà Âû â ìîðå!"  )
+		SystemNotice( role , "³öº£Ê±²»¿ÉÊ¹ÓÃ" )
 		UseItemFailed ( role )
 		return
 	end
@@ -17971,7 +20252,7 @@ function ItemUse_MLBQYH ( role , Item )
 	local NowMonthNum = tonumber(Now_Month)
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet <= 0 then
-		SystemNotice(role ,"Íåäîñòàòî÷íî ìåñòà â èíâåíòàðå. Íåâîçìîæíî èñïîëüçîâàòü ïðåäìåò ")
+		SystemNotice(role ,"µÀ¾ßÊ¹ÓÃÊ§°Ü£¬±³°üÄÚÖÁÉÙÒªÓÐÒ»¸ö¿Õ¸ñ")
 		UseItemFailed ( role )
 		return
 	end
@@ -17997,32 +20278,32 @@ function ItemUse_MLBQYH ( role , Item )
 		end
 		GiveItem ( role , 0 , Item_ID , Item_Num , 4 )
 	else
-		SystemNotice( role , "Ìîæíî èñïîëüçîâàòü òîëüêî âî âðåìÿ Íîâîãî Ãîäà ")
+		SystemNotice( role , "±¾µÀ¾ßÖ»ÄÜÔÚÊ¥µ®½ÚÆÚ¼äÊ¹ÓÃÅ¶")
 		UseItemFailed ( role )
 		return
 	end
 end
 
--- Ïîäàðîê Äåäà Ìîðîçà (id 2877)
+--------------------------------------------------Ê¥µ®ÀÏÈËµÄÀ¡Ôù
 function ItemUse_SDLRKZ ( role , Item )
 	local Item_ID = {}
 	local Item_Num = {}
 	local Item_PZ = {}
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "Íå ìîæåò áûòü èñïîëüçîâàíî, êîãäà Âû â ìîðå!"  )
+		SystemNotice( role , "³öº£Ê±²»¿ÉÊ¹ÓÃ" )
 		UseItemFailed ( role )
 		return
 	end
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet < 3 then
-		SystemNotice(role ,"Íåäîñòàòî÷íî ìåñòà â èíâåíòàðå. Íåâîçìîæíî èñïîëüçîâàòü ïðåäìåò.")
+		SystemNotice(role ,"µÀ¾ßÊ¹ÓÃÊ§°Ü£¬±³°üÄÚÖÁÉÙÒªÓÐÈý¸ö¿Õ¸ñ")
 		UseItemFailed ( role )
 		return
 	end
 	local role_job = GetChaAttr ( role, ATTR_JOB)
 	if role_job == 0 or role_job == 1 or role_job == 2 or role_job == 4 or role_job == 5 then
-		SystemNotice ( role , "Èñïîëüçîâàòü ìîãóò òîëüêî èãðîêè, êîòîðûå ïîëó÷èëè âòîðóþ ïðîôåññèþ.")
+		SystemNotice( role , "Ö»ÓÐ2×ªÖ°ÒµµÄ½ÇÉ«²Å¿ÉÒÔÊ¹ÓÃ±¾µÀ¾ß" )
 		UseItemFailed ( role )
 		return
 	end
@@ -18260,17 +20541,17 @@ function ItemUse_SDLRKZ ( role , Item )
 	end
 end
 
--- Óïàêîâêà Ïðàçäíè÷íûõ Ïîäàðêîâ (id 2882)
+-------------------------------------Ê¥µ®Àñ°ü(Ð¡)
 function ItemUse_XmasLB ( role, Item )
 	local Cha_Boat = GetCtrlBoat ( role )
 	if Cha_Boat ~=  nil then
-		SystemNotice( role , "Íå ìîæåò áûòü èñïîëüçîâàíî, êîãäà Âû â ìîðå!"  )
+		SystemNotice( role , "³öº£Ê±²»¿ÉÊ¹ÓÃ" )
 		UseItemFailed ( role )
 		return
 	end
 	local Item_CanGet = GetChaFreeBagGridNum ( role )
 	if Item_CanGet < 1 then
-		SystemNotice(role ,"Íåäîñòàòî÷íî ìåñòà â èíâåíòàðå. Íåâîçìîæíî èñïîëüçîâàòü ïðåäìåò.")
+		SystemNotice(role ,"µÀ¾ßÊ¹ÓÃÊ§°Ü£¬±³°üÄÚÖÁÉÙÒªÓÐÒ»¸ö¿Õ¸ñ")
 		UseItemFailed ( role )
 		return
 	end
@@ -18290,59 +20571,52 @@ function ItemUse_XmasLB ( role, Item )
 	GiveItem ( role , 0 , Item_ID , Item_Num , 4 )
 end
 
--- Áèëåò â Íîâîãîäíþþ Äåðåâíþ (id 2883)
-function ItemUse_movexmas( role, Item )
-	local Cha_Boat = GetCtrlBoat( role )
-
-	if Cha_Boat ~= nil then
-		SystemNotice( role, "Íå ìîæåò áûòü èñïîëüçîâàíî, êîãäà Âû â ìîðå!" )
+--------------------------------------Ê¥µ®»úÆ±
+function ItemUse_movexmas ( role , Item )
+	local Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ~=  nil then
+		SystemNotice( role , "³öº£Ê±²»¿ÉÊ¹ÓÃ" )
 		UseItemFailed ( role )
 		return
 	end
-
-	local hp = Hp( role )
-	local mxhp = Mxhp( role )
-	local sp = Sp( role )
-	local mxsp = Mxsp( role )
-	if sp < mxsp or hp < mxhp then
-		SystemNotice( role, "Òåëåïîðòàöèÿ î÷åíü óòîìèòåëüíûé ïðîöåññ, ïîæàëóéñòà âîñòàíîâèòå Âàøå çäîðîâüå è ìàíó." )
-		UseItemFailed( role )
+	local hp = Hp(role)
+	local mxhp = Mxhp(role)
+	local sp = Sp(role)
+	local mxsp = Mxsp(role)
+	if sp < mxsp or hp < mxhp then 
+		SystemNotice (role, "Teleportation is a tedious process. Please maintain full HP and SP")
+		UseItemFailed ( role )
 		return
 	end 
-
-	local Now_Day = os.date( "%d" )
-	local Now_Month = os.date( "%m" )
-	local NowDayNum = tonumber( Now_Day )
-	local NowMonthNum = tonumber( Now_Month )
-
+	local Now_Day = os.date("%d")
+	local Now_Month = os.date("%m")
+	local NowDayNum = tonumber(Now_Day)
+	local NowMonthNum = tonumber(Now_Month)
 	if NowMonthNum == 12 and NowDayNum <= 31 then
-		local j = DelBagItem( role, 2883, 1 )
+		local j = DelBagItem(role,2883,1)
 		if j == 1 then
-			if ( AddonSystem["Teleport"] == 1 ) then
-				local n = math.random( 115, 116 )
-				teleport( role, n )
-			else
-				MoveCity( role, "07xmas" )
-			end
+			MoveCity(role,"Ê¥µ®´å")
 			return
 		end
 	else
-		SystemNotice( role, "Ïîïàñòü â Ðîæåòñâåíñêóþ äåðåâíþ ìîæíî òîëüêî âî âðåìÿ Íîâîãî Ãîäà" )
-		UseItemFailed( role )
-		return
-	end
-end
-
--- Ïàêåò Àëëàäèíà (id 2371)
-function ItemUse_ALDXB ( role )
-	local Item_CanGet = GetChaFreeBagGridNum ( role )
-	if Item_CanGet <= 0 then
-		SystemNotice(role ,"Íåäîñòàòî÷íî ìåñòà â èíâåíòàðå. Íåâîçìîæíî èñïîëüçîâàòü ïðåäìåò.")
+		SystemNotice(role ,"Ê¥µ®½ÚÒÑ¾­¹ýÁËÅ¶")
 		UseItemFailed ( role )
 		return
 	end
+end	
+------------------------------------------------------------°¢À­¶¡±³°ü
+function ItemUse_ALDXB ( role )
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	
+	if Item_CanGet <= 0 then
+		SystemNotice(role ,"Insufficient space in inventory. Unable to open chest")
+		UseItemFailed ( role )
+		return
+	end
+
 	local cha_name = GetChaDefaultName ( role ) 
 	local star=math.random ( 1, 20000 )
+	--SystemNotice(role ,"star=="..star)
 		if star<=3700 then
 			GiveItem ( role , 0 , 2440  , 10 , 4  )
 		elseif star>=3701 and star<=5700 then
@@ -18388,102 +20662,35 @@ function ItemUse_ALDXB ( role )
 			local el1= math.random ( 1, 5 )
 			if el1==1  then
 				GiveItem ( role , 0 , 0863  , 1 , 4 )
-				local message = cha_name.." îòêðûâàåò Ïàêåò Àëëàäèíà è ïîëó÷àåò Ñàìîöâåò ßðîñòè " 
+				local message = cha_name.."open the Aladdin Parcel,he get the Gem of Rage" 
 				Notice ( message )
 			elseif el1==2 then
 				GiveItem ( role , 0 , 0860  , 1 , 4 )
-				local message1 = cha_name.." îòêðûâàåò Ïàêåò Àëëàäèíà è ïîëó÷àåò Ñàìîöâåò Âåòðà " 
+				local message1 = cha_name.."open the Aladdin Parcel,he get the Gem of the Wind" 
 				Notice ( message1 )
 			elseif el1==3 then
 				GiveItem ( role , 0 , 0861  , 1 , 4 )
-				local message2 = cha_name.." îòêðûâàåò Ïàêåò Àëëàäèíà è ïîëó÷àåò Ñàìîöâåò óäàðà " 
+				local message2 = cha_name.."open the Aladdin Parcel,he get the Gem of Striking" 
 				Notice ( message2 )
 			elseif el1==4 then
 				GiveItem ( role , 0 , 0862  , 1 , 4 )
-				local message3 = cha_name.." îòêðûâàåò Ïàêåò Àëëàäèíà è ïîëó÷àåò Ñàìîöâåò êîëîññà " 
+				local message3 = cha_name.."open the Aladdin Parcel,he get the Gem of Colossus" 
 				Notice ( message3 )
 			elseif el1==5 then
 				GiveItem ( role , 0 , 1012  , 1 , 4 )
-				local message4 = cha_name.." îòêðûâàåò Ïàêåò Àëëàäèíà è ïîëó÷àåò Ñàìîöâåò äóøè " 
+				local message4 = cha_name.."open the Aladdin Parcel,he get the Gem of Soul" 
 				Notice ( message4 )
 			end
+
 		elseif star==19601 then
 			GiveItem ( role , 0 , 0192  , 1 , 4  )
-			local message8= cha_name.." îòêðûâàåò Ïàêåò Àëëàäèíà è ïîëó÷àåò Ñóíäóê Êèëèí " 
+			local message8= cha_name.."open the Aladdin Parcel,he get the Chest of Kylin" 
 			Notice ( message8 )
+
 		elseif star>=19601 and star<=20000 then	
 			GiveItem ( role , 0 , 2224  , 1 , 4  )
-			local message8= cha_name.." îòêðûâàåò Ïàêåò Àëëàäèíà è ïîëó÷àåò Ñóíäóê ñ ñîâðåìåííûìè óêðàøåíèÿìè " 
+			local message8= cha_name.."open the Aladdin Parcel,he get the Modern Apparel Chest" 
 			Notice ( message8 )
 		end
-end
-
----------------------------
--- Ïðèãëàñèòåëüíûé áèëåò --
----------------------------
-function Jz_Script_qj( role, Item )
-	local Now_Day		= os.date( "%d" )
-	local Now_Month		= os.date( "%m" )
-	local Now_Time		= os.date( "%H" )
-	local NowMniuteNum	= os.date( "%M" )
 	
-	local NowMiniuteNum	= tonumber( Now_Miniute )
-	local NowTimeNum	= tonumber( Now_Time )
-	local NowDayNum		= tonumber( Now_Day )
-	local NowMonthNum	= tonumber( Now_Month )
-	
-	local CheckDateNum	= NowMonthNum * 1000000 + NowDayNum * 10000 + NowTimeNum * 100 + NowMniuteNum
-
-
-	local item_old		= GetChaItem2( role, 2, 3078)
-	local old_month		= GetItemAttr( item_old, ITEMATTR_VAL_STA )
-	local old_day		= GetItemAttr( item_old, ITEMATTR_VAL_STR )
-	local old_hour		= GetItemAttr( item_old, ITEMATTR_VAL_CON )
-	local old_miniute	= GetItemAttr( item_old, ITEMATTR_VAL_DEX )
-	 
-
-	local CheckBook1Num = old_month * 1000000 + old_day * 10000 + old_hour * 100 + old_miniute
-	local CheckBook2Num = old_month * 1000000 + old_day * 10000 + (old_hour + 2) * 100 + old_miniute
-	
-	if CheckDateNum < CheckBook1Num then
-		SystemNotice( role, "Âðåìÿ öåðåìîíèè áðàêîñî÷åòàíèÿ åùå íå ïðèøëî!" )
-		UseItemFailed( role )
-		return
-	end
-
-	if CheckDateNum > CheckBook2Num then
-		SystemNotice( role, "Âðåìÿ öåðåìîíèè áðàêîñî÷åòàíèÿ óæå ïðîøëî!" )
-		UseItemFailed( role )
-		return
-	end
-
-	local i = CheckBagItem( role, 3078 )
-	local k = ChaIsBoat( role )
-	local hp = Hp( role )
-	local mxhp = Mxhp( role )
-	local sp = Sp( role )
-	local mxsp = Mxsp( role )
-
-	if sp < mxsp or hp < mxhp then
-		SystemNotice( role, "\210\229\235\229\239\238\240\242\224\246\232\255 \238\247\229\237\252 \243\242\238\236\232\242\229\235\252\237\251\233 \239\240\238\246\229\241\241. \207\238\230\224\235\243\233\241\242\224, \226\238\241\241\242\224\237\238\226\232\242\229 \194\224\248\229 \231\228\238\240\238\226\252\229 \232 \236\224\237\243" )
-		--SystemNotice( role, "Òåëåïîðòàöèÿ î÷åíü óòîìèòåëüíûé ïðîöåññ. Ïîæàëóéñòà, âîññòàíîâèòå Âàøå çäîðîâüå è ìàíó" )
-		UseItemFailed( role )
-		return
-	end 
-
-	if k == 0 then
-		if i > 0 then
-			local j = DelBagItem( role, 3078, 1 )
-			if j == 1 then
-				if ( AddonSystem["Teleport"] == 1 ) then
-					local n = 114
-					teleport( role, n )
-				else
-					MoveCity( role, "Church" )
-				end
-			end
-		end
-	else
-		UseItemFailed( role )
-	end
 end

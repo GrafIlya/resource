@@ -1,26 +1,43 @@
-function config_entry( entry )
-	SetMapEntryEntiID( entry, 2492, 1 )
+--іЋќƒЉю÷–£ђЈ≤ «њ…ƒ№±їґаіќ÷і––µƒЇѓ э£ђЇѓ э√ыґЉ“™Љ”…ѕµЎЌЉ√ы«∞„Ї£ђ»зafter_destroy_entry_testpk
+--іЋќƒЉю√њ––„оіу„÷ЈыЄц эќ™255£ђ»ф”–“м“й£ђ«л”л≥ћ–тћљћ÷
+
+function config_entry(entry) 
+    SetMapEntryEntiID(entry, 2492,1) --…и÷√µЎЌЉ»лњЏ µћеµƒ±аЇ≈£®Є√±аЇ≈ґ‘”¶”Џcharacterinfo.txtµƒЋч“э£©
+
+end 
+
+function after_create_entry(entry) 
+
+    local copy_mgr = GetMapEntryCopyObj(entry, 0) --ііљ®Є±±Њє№јнґ‘ѕу£ђіЋЇѓ э‘Џ”–ѕ‘ љ»лњЏµƒµЎЌЉ÷–±Ў–лµч”√£ђґ‘”Џ“ю љ»лњЏµƒµЎЌЉ£®»зґ”ќйћф’љ£©ќё“™µч”√Є√љ”њЏ
+    local EntryName = "Gate to Hell"
+    SetMapEntryEventName( entry, EntryName )
+    
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --»°µЎЌЉ»лњЏµƒќї÷√–≈ѕҐ£®µЎЌЉ√ы£ђ„ш±к£ђƒњ±кµЎЌЉ√ы£©
+    Notice("Announcement: In the depths of Abaddon \"["..posx..","..posy.."]\" Cries of the undead have constantly been heard, resulting in the people of Caribean Island being afraid. Is there any warrior whos willing to investigate?") --Ќ®÷™±Њ„йЈюќс∆чµƒЋщ”–ЌжЉ“
+
 end
 
-function after_create_entry( entry )
-	local copy_mgr = GetMapEntryCopyObj( entry, 0 )
-	local EntryName = "¬орота в јд"
-	SetMapEntryEventName( entry, EntryName )
-	map_name, posx, posy, tmap_name = GetMapEntryPosInfo( entry )
-	Notice( "ќбъ€вление: »з глубин јбаддона слышны крики умерших. —транники, которые находились на ќстрове —окровищ ["..posx..","..posy.."] были очень напуганы этим. Ќеужели найдетс€ храбрец, который отправитс€ туда?" )
+function after_destroy_entry_hell(entry)
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) 
+    --Notice("Announcement: Challenge for today has ended.") 
+
 end
 
-function after_destroy_entry_hell( entry )
-	map_name, posx, posy, tmap_name = GetMapEntryPosInfo( entry )
+function after_player_login_hell(entry, player_name)
+
 end
 
-function begin_enter_hell( role, copy_mgr )
-	SystemNotice( role, "Ќа секунду земл€ уходит из-под твоих ног. » открыв глаза, ты оказываешьс€ в темном јбаддоне." )
+--”√”ЏЉм≤вљш»лћхЉю
+--ЈµїЎ÷µ£Ї0£ђ≤ї¬ъ„гљш»лћхЉю°£1£ђ≥…є¶љш»л°£
+function check_can_enter_hell( role, copy_mgr )
 
-	if ( AddonSystem["Teleport"] == 1 ) then
-		local n = math.random( 92, 94 )
-		teleport( role, n )
-	else
-		MoveCity( role, "Abaddon 1" )
-	end
 end
+
+function begin_enter_hell(role, copy_mgr) 
+    
+
+		SystemNotice(role,"An unknown gravity pulls you towards the endless darkness. A darker Abaddon awaits you.")
+		MoveCity(role, "Abaddon 1")
+	
+
+end 

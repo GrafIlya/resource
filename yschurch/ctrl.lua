@@ -1,72 +1,126 @@
-print( "‡ £àã§ª  Ctrl.lua" )
+--´ËÎÄ¼şÖĞ£¬·²ÊÇ¿ÉÄÜ±»¶à´ÎÖ´ĞĞµÄº¯Êı£¬º¯ÊıÃû¶¼Òª¼ÓÉÏµØÍ¼ÃûÇ°×º
 
 function config(map)
-    MapCanSavePos(map, 0)
-    MapCanPK(map, 0)
-    MapCopyNum(map, 1)
-    SingleMapCopyPlyNum(map, 300)
+    MapCanSavePos(map, 0) --ÉèÖÃµØÍ¼ÊÇ·ñ±£´æ½ÇÉ«Î»ÖÃ£¨µØÍ¼£¬×ø±ê£¬·½Ïò£©£¬´ËÉèÖÃÓ°Ïì¸ÃµØÍ¼µÄËùÓĞ¸±±¾
+    MapCanPK(map, 0) --ÉèÖÃµØÍ¼ÊÇ·ñ¿ÉÒÔPK£¬´ËÉèÖÃÓ°Ïì¸ÃµØÍ¼µÄËùÓĞ¸±±¾
+    MapCopyNum(map, 1) --ÉèÖÃµØÍ¼µÄ¸±±¾ÊıÄ¿£¬Èç¹û²»µ÷ÓÃ¸ÃÓï¾ä£¬ÔòÊ¹ÓÃÄ¬ÈÏÖµ1---------
+    SingleMapCopyPlyNum(map, 300)   --ÉèÖÃÒ»¸ö¸±±¾µÄÍæ¼ÒÊı
     MapCanTeam(map , 1)
     MapType ( map , 1 )
 end
 
-function map_copy_run_yschurch( map_copy )
- local closetime = CHURCHCLOSETIME
-	KillMonsterInChurch(map_copy)
-	KillMonsterInChurch(map_copy)
-	DealAllActivePlayerInMap(map_copy,"Goto_ShaLan")
+
+function get_map_entry_pos_fs()   --ÉèÖÃÈë¿ÚµÄÎ»ÖÃµÄ×ø±ê£¨×ø±ê£¨Ã×£©£©
+
 end
 
-function after_enter_yschurch( role, map_copy )
+function init_entry(map)
+	  --SetMapEntryTime(map, "2006/10/18/14/0", "0/0/0", "0/0/0", "0/0/0") --ÉèÖÃÈë¿ÚµÄÊ±¼ä£¬µØÍ¼¶ÔÏó£¬Ê×´Î¿ªÆôÊ±¼ä£¨Äê/ÔÂ/ÈÕ/Ê±/·Ö£©£¬ÒÔºóÔÙ´Î¿ªÆôµÄ¼ä¸ô£¨ÈÕ/Ê±/·Ö£¬È«£°±íÊ¾Ö»ÓĞÊ×´Î¿ªÆô£©£¬Ã¿´Î¿ªÆôµ½Èë¿ÚÏûÊ§µÄ¼ä¸ô£¨ÈÕ/Ê±/·Ö£¬È«£°±íÊ¾ÓÀ²»ÏûÊ§£©£¬Ã¿´Î¿ªÆôµ½µØÍ¼¹Ø±ÕµÄ¼ä¸ô£¨ÈÕ/Ê±/·Ö£¬È«£°±íÊ¾ÓÀ²»¹Ø±Õ£©¡£¡£
+end
+
+function after_enter_yschurch( role , map_copy )
 end
 
 function before_leave_yschurch( role )
 end
 
+function map_copy_first_run_yschurch( map_copy )
+
+end
+
+function map_copy_run_yschurch( map_copy )
+
+
+ local closetime = CHURCHCLOSETIME
+     -- for i = 1 , CHURCHNOTICE , 1 do
+		--if closetime == CHURCHCLOSESHOW[i] then
+			-- local Notice_all = "¾àÀë½ÌÌÃ»î¶¯½áÊøÊ±¼ä»¹ÓĞ"..closetime.."Ãë£¡Çë×¥½ôÊ±¼äÀ­£¡"
+			--MapCopyNotice ( map_copy ,Notice_all )
+		--end
+	--end
+	--CHURCHCLOSETIME = CHURCHCLOSETIME - 1
+	KillMonsterInChurch(map_copy)
+	KillMonsterInChurch(map_copy)
+	DealAllActivePlayerInMap(map_copy,"Goto_ShaLan")
+	--Notice("Goto_ShaLan  ")
+end
+
+
+function can_open_entry_yschurch( map )  
+	
+end 
+---------Ã¿5sÔËĞĞÒ»´Î
+function map_run_yschurch ( map )
+	
+   
+end
+-----------------------------------´«ËÍ»ØÉ³á°³Ç
 function Goto_ShaLan (role)
 
-	local now_week= os.date("%w")
-	local now_hour= os.date("%H")
-	local now_miniute= os.date("%M")
+	local now_week= os.date("%w")		-------------ĞÇÆÚ¼¸£¨Ê®½øÖÆ£© 
+	local now_hour= os.date("%H")		-------------Ê± 
+	local now_miniute= os.date("%M")	-------------·Ö
 	now_week= tonumber(now_week)
-	now_hour= tonumber(now_hour)
+	now_hour= tonumber(now_hour)		
 	now_miniute= tonumber(now_miniute)
 	local CheckDateNum = now_hour*100 +now_miniute
+	--Notice("CheckDateNum = "..CheckDateNum)
+	
 	if now_week==1 then
 	if CheckDateNum==1710  then
 		MoveTo( role,  824, 3530,  "magicsea" )
+		
 		else
 		return
 		end
 	elseif now_week==6 or  now_week==0 then
 		if CheckDateNum==2000  or CheckDateNum==2210 then
 		MoveTo( role,  910, 3571,  "magicsea" )
+		--Notice("MoveTo1 = ".."910,3751")
 		else
 		return
 		end
+	
 	end
+	
 end
 
 function KillMonsterInChurch ( map_copy )
-	local now_week= os.date("%w")
-	local now_hour= os.date("%H")
-	local now_miniute= os.date("%M")
+	local now_week= os.date("%w")		-------------ĞÇÆÚ¼¸£¨Ê®½øÖÆ£© 
+	local now_hour= os.date("%H")		-------------Ê± 
+	local now_miniute= os.date("%M")	-------------·Ö
 	now_week= tonumber(now_week)
 	now_hour= tonumber(now_hour)		
 	now_miniute= tonumber(now_miniute)
-	local CheckDateNum = now_hour*100 +now_miniute	
+	local CheckDateNum = now_hour*100 +now_miniute
+	--Notice("CheckDateNum = "..CheckDateNum)
+	
 	if now_week==1 then
 		if CheckDateNum==1710  then
-			KillMonsterInMapByName(map_copy,"Ïğàçäíîâàíèå íåïîñëóøíîãî ìàëü÷èêà ")
-			KillMonsterInMapByName(map_copy,"Âîçäóøíûé Øàğ ")
+			KillMonsterInMapByName(map_copy,"ÇìµäÌÔÆø¹í")
+			KillMonsterInMapByName(map_copy,"ÆøÇò")
 		else
 			return
 		end
 	elseif now_week==6 or  now_week==0 then
 		if CheckDateNum==2000  or CheckDateNum==2210 then
-			KillMonsterInMapByName(map_copy,"Ïğàçäíîâàíèå íåïîñëóøíîãî ìàëü÷èêà ")
-			KillMonsterInMapByName(map_copy,"Âîçäóøíûé Øàğ ")
+			KillMonsterInMapByName(map_copy,"ÇìµäÌÔÆø¹í")
+			KillMonsterInMapByName(map_copy,"ÆøÇò")
 		else
 			return
 		end
 	end
 end
+
+
+--µØÍ¼¹Ø±ÕÊ±Ö´ĞĞ
+function map_copy_close_yschurch ( map_copy )
+end
+		
+--µØÍ¼¿ª¹ØÅĞ¶Ï¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
+function can_open_entry_yschurch( map ) 
+end 
+
+
+

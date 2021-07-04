@@ -1,3 +1,7 @@
+// shade类型表    
+// 注意纹理名必须为小写
+//flag : 1To follow Character, 2 To follow Items   
+//ID   模型文件 中文名称    Size   Attach movie  Move  列  Transparent alpha类型  colorR  colorG colorB colorA flag     
 1	1.tga	普通黑影	1.0	0	1	1	0	0	255	255	255	200	1
 2	range.tga	光圈2	2.5	0	1	1	1	0	0	55	255	180	1
 3	range.tga	光圈3	3	0	1	1	1	0	0	55	255	180	2

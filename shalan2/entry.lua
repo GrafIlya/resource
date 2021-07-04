@@ -1,48 +1,66 @@
+--ґЛОДјюЦРЈ¬·ІКЗїЙДЬ±»¶аґОЦґРРµДєЇКэЈ¬єЇКэГы¶јТЄјУЙПµШНјГыЗ°ЧєЈ¬Изafter_destroy_entry_testpk
+--ґЛОДјюГїРРЧоґуЧЦ·ыёцКэОЄ255Ј¬ИфУРТмТйЈ¬ЗлУліМРтМЅМЦ
+
 function config_entry(entry) 
-    SetMapEntryEntiID(entry, 193,1)
+    SetMapEntryEntiID(entry, 193,1) --ЙиЦГµШНјИлїЪКµМеµД±аєЕЈЁёГ±аєЕ¶ФУ¦УЪcharacterinfo.txtµДЛчТэЈ©
+
 end 
 
 function after_create_entry(entry) 
-    local copy_mgr = GetMapEntryCopyObj(entry, 0)
-	local EntryName = " Мираж Шайтана "
-	SetMapEntryEventName( entry, EntryName )
-    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry)
-    Notice("Обьявление: В Магическом океане, игроки нашли в ["..posx..","..posy.."] портал в Мираж Шайтана. Будьте осторожны!")
+    local copy_mgr = GetMapEntryCopyObj(entry, 0) --ґґЅЁё±±ѕ№ЬАн¶ФПуЈ¬ґЛєЇКэФЪУРПФКЅИлїЪµДµШНјЦР±ШРлµчУГЈ¬¶ФУЪТюКЅИлїЪµДµШНјЈЁИз¶УОйМфХЅЈ©ОЮТЄµчУГёГЅУїЪ
+
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --ИЎµШНјИлїЪµДО»ЦГРЕПўЈЁµШНјГыЈ¬Чш±кЈ¬Дї±кµШНјГыЈ©
+    Notice("Announcement: In Magical Ocean region, players has discovered ["..posx..","..posy.."] emerges a portal that leads to [Shaitan Mirage]. All players beware.") --НЁЦЄ±ѕЧй·юОсЖчµДЛщУРНжјТ
+
 end
 
 function after_destroy_entry_shalan2(entry)
     map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) 
-    Notice("Обьявление: Портал в Мираж Шайтана исчез. Ждите более подробной информации. Будьте счастливы!") 
+    Notice("Announcement: According to reports, portal to [Shaitan Mirage] has disappeared. Check announcement for more details. Enjoy!") 
+
 end
 
 function after_player_login_shalan2(entry, player_name)
-    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry)
-    ChaNotice(player_name, "Обьявление: В Магическом океане, игроки нашли в ["..posx..","..posy.."] портал в Мираж Шайтана. Будьте осторожны!")
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --ИЎµШНјИлїЪµДО»ЦГРЕПўЈЁµШНјГыЈ¬Чш±кЈ¬Дї±кµШНјГыЈ©
+    ChaNotice(player_name, "Announcement: In Magical Ocean region, players has discovered ["..posx..","..posy.."] emerges a portal that leads to [Shaitan Mirage]. All players beware.") --НЁЦЄ±ѕЧй·юОсЖчµДЛщУРНжјТ
+
 end
 
+
+
+
+
+
+
+
+
+--УГУЪјмІвЅшИлМхјю
+--·µ»ШЦµЈє0Ј¬І»ВъЧгЅшИлМхјюЎЈ1Ј¬іЙ№¦ЅшИлЎЈ
 function check_can_enter_shalan2( role, copy_mgr )
 	local i = IsChaStall(role)
 	if i == LUA_TRUE then
-		SystemNotice(role, "Не возможно телепортироваться ")
+		SystemNotice(role, "Cannot teleport while setting stall")
 		return 0    
 	end
 	if Lv(role) < 70 then
-		SystemNotice(role, "Персонаж должен иметь 70 уровень(или выше), чтобы попасть в мираж Шайтана!")
+		SystemNotice(role, "ЅшИлЅшИл»ГУ°Йіб°ЅЗЙ«µИј¶±ШРлФЪ70ј¶ТФЙП")
 		return 0    
 	end
 	if Lv(role) > 89 then
-		SystemNotice(role, "Персонаж не должен быть выше 90 уровня, чтобы попасть в мираж Шайтана!")
+		SystemNotice(role, "Characters need to be below Lv 90 to enter Shaitan Mirage")
 		return 0    
 	end
+	
 	local Num
 	Num = CheckBagItem(role,2326)
 	if Num < 1 then
-		SystemNotice(role, "Отсутствует Маска Реальности.")	
+		SystemNotice(role, "Without Reality Mask, ")	
 		return 0
 	end
+
 	local Credit_Shalan2 = GetCredit(role)
 	if Credit_Shalan2 < 10 then
-		SystemNotice(role, "У вас не хватает репутации. Вы не можете пройти в Мираж Шайтана!")
+		SystemNotice(role, "You do not have sufficient Reputation points. Unable to enter Shaitan Mirage")
 		return 0
 	else
 		DelCredit(role,10)
@@ -50,21 +68,19 @@ function check_can_enter_shalan2( role, copy_mgr )
 	end
 end
 
-function begin_enter_shalan2( role, copy_mgr )
-	local Cha = TurnToCha( role )
+
+function begin_enter_shalan2(role, copy_mgr)
+
+	local Cha = TurnToCha(role)	
 	local Dbag = 0
-	Dbag = DelBagItem( Cha, 2326, 1 )
+	Dbag = DelBagItem(Cha, 2326, 1)
 	
 	if Dbag == 1 then
-		SystemNotice( role, "Вы вошли в Мираж Шайтана" )
+		SystemNotice(role,"Entering [Shaitan Mirage]") 
+		MoveCity(role, "Shaitan Mirage")
 
-		if ( AddonSystem["Teleport"] == 1 ) then
-			local n = 100
-			teleport( role, n )
-		else
-			MoveCity( role, "Shaitan Mirage" )
-		end
 	else
-		SystemNotice( role, "У вас нет Маски Реальности. Вы не можете попасть в Мираж Шайтана!" )
+	
+		SystemNotice(role, "Collection of Reality Mask failed. Unable to enter Shaitan Mirage")
 	end
 end

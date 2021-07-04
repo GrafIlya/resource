@@ -1,9 +1,9 @@
-print( "‡ £àã§ª  Ctrl.lua" )
+--´ËÎÄ¼þÖÐ£¬·²ÊÇ¿ÉÄÜ±»¶à´ÎÖ´ÐÐµÄº¯Êý£¬º¯ÊýÃû¶¼Òª¼ÓÉÏµØÍ¼ÃûÇ°×º
 
 function config(map)
-    MapCanSavePos(map, 0)
-    MapCanPK(map, 1)
-    MapCopyNum(map, 20)
+    MapCanSavePos(map, 0) --ÉèÖÃµØÍ¼ÊÇ·ñ±£´æ½ÇÉ«Î»ÖÃ£¨µØÍ¼£¬×ø±ê£¬·½Ïò£©£¬´ËÉèÖÃÓ°Ïì¸ÃµØÍ¼µÄËùÓÐ¸±±¾
+    MapCanPK(map, 1) --ÉèÖÃµØÍ¼ÊÇ·ñ¿ÉÒÔPK£¬´ËÉèÖÃÓ°Ïì¸ÃµØÍ¼µÄËùÓÐ¸±±¾
+    MapCopyNum(map, 800) --ÉèÖÃµØÍ¼µÄ¸±±¾ÊýÄ¿£¬Èç¹û²»µ÷ÓÃ¸ÃÓï¾ä£¬ÔòÊ¹ÓÃÄ¬ÈÏÖµ1
     MapCanTeam( map, 0 )
     MapType( map , 3 )
     MapCopyStartType( map , 3 )
@@ -11,11 +11,20 @@ function config(map)
 end
 
 function init_entry(map)
-    SetMapEntryMapName(map, "garner")
-    SetMapEntryTime(map, "2005/8/30/13/0", "0/0/0", "0/0/0", "0/0/0")
+    SetMapEntryMapName(map, "garner") --ÉèÖÃÈë¿ÚµÄÎ»ÖÃ£¨µØÍ¼Ãû£¬×ø±ê£¨Ã×£©£©
+    SetMapEntryTime(map, "2005/8/30/13/0", "0/0/0", "0/0/0", "0/0/0") --ÉèÖÃÈë¿ÚµÄÊ±¼ä£¬µØÍ¼¶ÔÏó£¬Ê×´Î¿ªÆôÊ±¼ä£¨Äê/ÔÂ/ÈÕ/Ê±/·Ö£©£¬ÒÔºóÔÙ´Î¿ªÆôµÄ¼ä¸ô£¨ÈÕ/Ê±/·Ö£¬È«£°±íÊ¾Ö»ÓÐÊ×´Î¿ªÆô£©£¬Ã¿´Î¿ªÆôµ½Èë¿ÚÏûÊ§µÄ¼ä¸ô£¨ÈÕ/Ê±/·Ö£¬È«£°±íÊ¾ÓÀ²»ÏûÊ§£©£¬Ã¿´Î¿ªÆôµ½µØÍ¼¹Ø±ÕµÄ¼ä¸ô£¨ÈÕ/Ê±/·Ö£¬È«£°±íÊ¾ÓÀ²»¹Ø±Õ£©¡£¡£
+
 end
 
 function map_copy_run_teampk(map_copy) 
+--	local Start_time = GetMapCopyParam2(map_copy , 7)
+--	if Start_time> 0 then
+--		Start_time = Start_time -1
+--		SetMapCopyParam2(map_copy, 7,Start_time)
+--		return
+--	end
+--	if Start_time == 0 then
+--	end
 	local ply_num = GetMapCopyPlayerNum(map_copy) 
 	if ply_num == 0 then 
 	    CloseMapCopy ("teampk", GetMapCopyID2(map_copy)) 
@@ -59,18 +68,18 @@ function map_copy_run_teampk(map_copy)
 			local Time_num = Time_count / 5
 			log_count = log_count + 1
 			if Time_num == math.floor ( Time_num ) then
-				SystemNotice ( PKMap_HasPlayers , "Áèòâà çàêîí÷èëàñü. Êàðòà çàêðîåòñÿ ÷åðåç "..Time_count.." ñåêóíä.")
+				SystemNotice ( PKMap_HasPlayers , "Battle has ended. Map will close in "..Time_count.." second(s)")
 				if Team_type == 1 then
 					local Team_Num_get = GetChaTeamID( PKMap_HasPlayers )
 					if Team_Num_get == Winner_Is then
-						SystemNotice ( PKMap_HasPlayers , "Òâîé îòðÿä ïîáåäèë â ýòîé áèòâå " )
+						SystemNotice ( PKMap_HasPlayers , "Your party has won this battle" )
 					end
 				end
 				if Team_type == 2 then
 					local Player = GetChaPlayer( PKMap_HasPlayers )
 					local Player_ID_get = GetPlayerID( Player )
 					if Player_ID_get == Winner_Is then
-						SystemNotice ( PKMap_HasPlayers , "Òû ïîáåäèë â ýòîé áèòâå " )
+						SystemNotice ( PKMap_HasPlayers , "You have won this battle" )
 					end
 				end
 			end
@@ -84,7 +93,7 @@ function map_copy_run_teampk(map_copy)
 					if Team_Num_get == 0 then
 						LG("teampk","Party ID as 0")
 						Map_Start = 0
-						SetMapCopyParam2(map_copy, 8, Map_Start)
+						SetMapCopyParam2(map_copy, 8, Map_Start)  -----Èç¹û¶ÓÎéÐÅÏ¢Î´µ½´ïÔòµØÍ¼¿ªÆô±êÖ¾ÖÃ0
 						return
 					end
 					if Team1_Num == Team_Num_get then
@@ -103,7 +112,7 @@ function map_copy_run_teampk(map_copy)
 					if Player_ID_get == 0 then
 						LG("teampk","Player ID as 0")
 						Map_Start = 0
-						SetMapCopyParam2(map_copy, 8, Map_Start)
+						SetMapCopyParam2(map_copy, 8, Map_Start)  -----Èç¹û¶ÓÎéÐÅÏ¢Î´µ½´ïÔòµØÍ¼¿ªÆô±êÖ¾ÖÃ0
 						return
 					end
 					if Team1_Num == Player_ID_get then
@@ -125,12 +134,17 @@ function map_copy_run_teampk(map_copy)
 				LG("teampk","Members="..log_count )
 			end
 			if Map_Start == 1 then
+--				Notice(" running script for first time")
 				SetMapCopyParam2(map_copy , 11 ,Team1_PlayerNum )
 				SetMapCopyParam2(map_copy , 12 ,Team2_PlayerNum )
 				local Team1_Lv = math.floor ( Team1_PlayerLv / Team1_PlayerNum )
 				local Team2_Lv = math.floor ( Team2_PlayerLv / Team2_PlayerNum )
 				SetMapCopyParam2(map_copy , 9 , Team1_Lv )
 				SetMapCopyParam2(map_copy , 10 , Team2_Lv )
+--				Notice ("Party 1 member count is"..Team1_PlayerNum)
+--				Notice ("Party 2 member count is"..Team2_PlayerNum)
+--				Notice ("Party 1 average level as"..Team1_Lv)
+--				Notice ("Party 2 average level as"..Team2_Lv)
 			end
 			if Team1_live == 0 and Team2_live > 0 and Winner_Is == -1 then
 				SetMapCopyParam2(map_copy, 5, Team2_Num )
@@ -147,7 +161,9 @@ function map_copy_run_teampk(map_copy)
 
 end 
 
+
 function before_leave_teampk ( role , map_copy )
+--	SystemNotice (role , "leaving")
 	local Cha = TurnToCha( role ) 
 	local Winner_Is = GetMapCopyParam2( map_copy, 5 )
 	local Cha_TeamID = GetChaTeamID ( Cha )
@@ -170,8 +186,13 @@ function before_leave_teampk ( role , map_copy )
 	
 	local Rongyu_get = 0
 	local Player_Lv_dif = 0
-
+		
+--	SystemNotice(role , "Party 1 average level="..Team1_Lv)
+--	SystemNotice(role , "2 Person Average Level="..Team2_Lv)
+--	SystemNotice(role , "Party 1 Member Count="..Team1_PlayerNum)
+--	SystemNotice(role , "Party 2 member count="..Team2_PlayerNum)
 	if PK_type == 1 then
+--		SystemNotice ( role , "It is Party PK")
 		if Cha_TeamID == Team1_ID then
 			if Winner_Is == Cha_TeamID then
 				Rongyu_get = Team1_Rongyu_get
@@ -196,14 +217,18 @@ function before_leave_teampk ( role , map_copy )
 			if Winner_Is == Cha_TeamID then 
 				rongyu_add = math.floor ( Rongyu_get / math.floor ( (  Player_Lv_dif + 10 )/10 ) )
 			else
+--				SystemNotice(role , "Calculating defeat Honor")
 				rongyu_add = math.floor ( Rongyu_get * math.min( 3 , math.floor ( (  Player_Lv_dif + 10 )/10 ) ) )
+--				SystemNotice(role , "Defeat Honor point"..rongyu_add)
 			end
 		end
 		if Player_Lv_dif < 0 then
 			if Winner_Is == Cha_TeamID then
 				rongyu_add = math.floor ( Rongyu_get * -1 * math.max ( -3 , math.floor ( (  Player_Lv_dif - 10 )/10 ) ) )
 			else
+--				SystemNotice(role , "Calculating defeat Honor")
 				rongyu_add = math.floor ( Rongyu_get * -1 / math.floor ( (  Player_Lv_dif - 10 )/10 ) )
+--				SystemNotice(role , "Defeat Honor point"..rongyu_add)
 			end
 		end
 		
@@ -218,7 +243,7 @@ function before_leave_teampk ( role , map_copy )
 			if RYZ_Num == 0 then
 				return
 			elseif RYZ_Num > 1 then
-				LG("RYZ_PK","Íåîáõîäèìî èìåòü áîëåå 1 î÷êà ×åñòè ")
+				LG("RYZ_PK","Have more than 1 Mark of Honor")
 				return
 			end
 			local Cha_RYZ = GetChaItem2 ( Cha , 2 , 3849 )
@@ -226,6 +251,7 @@ function before_leave_teampk ( role , map_copy )
 			local attrtype_Rongyu = ITEMATTR_VAL_STR
 			local num = 1
 			local Rongyu = rongyu_add
+--			SystemNotice ( role , "Victory increases victory count")
 			Add_ItemAttr_RYZ ( role , Cha_RYZ , attrtype , num )
 			SystemNotice ( role , "Victory! Honor points gained:"..Rongyu )
 			Add_ItemAttr_RYZ ( role , Cha_RYZ , attrtype_Rongyu , Rongyu )
@@ -236,29 +262,36 @@ function before_leave_teampk ( role , map_copy )
 			if RYZ_Num == 0 then
 				return
 			elseif RYZ_Num > 1 then
-				LG("RYZ_PK","Íåîáõîäèìî èìåòü áîëåå 1 î÷êà ×åñòè ")
+				LG("RYZ_PK","Have more than 1 Mark of Honor")
 				return
 			end
 			local Cha_RYZ = GetChaItem2 ( Cha , 2 , 3849 )
 			local attrtype_Rongyu = ITEMATTR_VAL_STR
 			local Rongyu = -1 * rongyu_add
-			SystemNotice ( role ,"Ïîðàæåíèå! Ïîòåðÿíî î÷êîâ ÷åñòè:"..rongyu_add )
+			SystemNotice ( role ,"Defeat! Honor points lost:"..rongyu_add )
 			Add_ItemAttr_RYZ ( role , Cha_RYZ , attrtype_Rongyu , Rongyu )
 		end
 	elseif PK_type == 2 then
+--		SystemNotice ( role , "It is personal challenge" )
 		if Cha_ID == Team1_ID then
+--			SystemNotice(role , "I belong to Party 1")
 			Rongyu_get = Team1_Rongyu_get
 			Player_Lv_dif = Team1_Lv_dif
 		elseif Cha_ID == Team2_ID then
+--			SystemNotice ( role , "I belonged to Party 2")
 			Rongyu_get = Team2_Rongyu_get
 			Player_Lv_dif = Team2_Lv_dif
 		else
+--			SystemNotice(role ,"I am a Spirit")
 			LG("teampk","leave player ID error" )
 			return
 		end
+--		SystemNotice(role , "Prepare to determine level")
+--		SystemNotice(role , "Player_Lv_dif="..Player_Lv_dif)
 		local rongyu_add = 0
 		
 		if Player_Lv_dif > 0 then
+--			SystemNotice(role ,"Bullied low level?")
 			if Winner_Is == Cha_ID then 
 				rongyu_add = math.floor ( Rongyu_get / math.floor ( (  Player_Lv_dif + 10 )/10 ) )
 			else
@@ -266,6 +299,7 @@ function before_leave_teampk ( role , map_copy )
 			end
 		end
 		if Player_Lv_dif < 0 then
+--			SystemNotice(role , "Killed by high level?")
 			if Winner_Is == Cha_ID then
 				rongyu_add = math.floor ( Rongyu_get * -1 * math.max ( -3 , math.floor ( (  Player_Lv_dif - 10 )/10 ) ) )
 			else
@@ -273,17 +307,19 @@ function before_leave_teampk ( role , map_copy )
 			end
 		end
 		if Player_Lv_dif == 0 then
+--			SystemNotice(role , "What a coincidence? Same level?")
 			rongyu_add = Rongyu_get
 		end
 	
 		if Winner_Is == Cha_ID then
+--			SystemNotice(role ,"Actually I do not want to win")
 			local RYZ_Num = 0
 			RYZ_Num = CheckBagItem( role,3849 )
 
 			if RYZ_Num == 0 then
 				return
 			elseif RYZ_Num > 1 then
-				LG("RYZ_PK","Íåîáõîäèìî èìåòü áîëåå 1 î÷êà ×åñòè ")
+				LG("RYZ_PK","Have more than 1 Mark of Honor")
 				return
 			end
 			local Cha_RYZ = GetChaItem2 ( Cha , 2 , 3849 )
@@ -291,23 +327,25 @@ function before_leave_teampk ( role , map_copy )
 			local attrtype_Rongyu = ITEMATTR_VAL_STR
 			local num = 1
 			local Rongyu = rongyu_add
+--			SystemNotice ( role , "Victory increases victory count")
 			Add_ItemAttr_RYZ ( role , Cha_RYZ , attrtype , num )
-			SystemNotice ( role , "Ïîáåäà! Ïîëó÷åíî î÷êîâ ÷åñòè:"..Rongyu)
+			SystemNotice ( role , "Victory! Honor points gained:"..Rongyu)
 			Add_ItemAttr_RYZ ( role , Cha_RYZ , attrtype_Rongyu , Rongyu )
 		else
+--			SystemNotice(role ,"I let him win on purpose")
 			local RYZ_Num = 0
 			RYZ_Num = CheckBagItem( role,3849 )
 
 			if RYZ_Num == 0 then
 				return
 			elseif RYZ_Num > 1 then
-				LG("RYZ_PK","Íåîáõîäèìî èìåòü áîëåå 1 î÷êà ×åñòè ")
+				LG("RYZ_PK","Have more than 1 Mark of Honor")
 				return
 			end
 			local Cha_RYZ = GetChaItem2 ( Cha , 2 , 3849 )
 			local attrtype_Rongyu = ITEMATTR_VAL_STR
 			local Rongyu = -1 * rongyu_add
-			SystemNotice ( role ,"Ïîðàæåíèå! Ïîòåðÿíî î÷êîâ ÷åñòè:"..rongyu_add)
+			SystemNotice ( role ,"Defeat! Honor points lost:"..rongyu_add)
 			Add_ItemAttr_RYZ ( role , Cha_RYZ , attrtype_Rongyu , Rongyu )
 		end
 	end
@@ -320,12 +358,13 @@ function after_enter_teampk ( role , map_copy )
 	if RYZ_Num == 0 then
 		return
 	elseif RYZ_Num > 1 then
-				LG("RYZ_PK","Íåîáõîäèìî èìåòü áîëåå 1 î÷êà ×åñòè ")
+		LG("RYZ_PK","Have more than 1 Mark of Honor")
 		return
 	end
 
 	local Cha_RYZ = GetChaItem2 ( role , 2 , 3849 )
 	local attrtype = ITEMATTR_VAL_CON
 	local num = 1
+--	SystemNotice ( role , "Increases Battle count" )
 	Add_ItemAttr_RYZ ( role , Cha_RYZ , attrtype , num )
 end

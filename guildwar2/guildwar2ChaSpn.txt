@@ -1,3 +1,4 @@
+//spawnid	startpos	endpos	direction	monsterID	count	Rfprobability	RFTime	commotion	note	Region ID
 1	47500,20000	53300,43400	-1	907,906	2,2	100,100	3600,3600	0	0	Advanced rock material
 2	8800,19800	14200,42000	-1	1002	20	100	180	0	0	Sacred war small tree
 3	8900,19700	14200,42000	-1	933	1	100	10800	0	0	Sacred War Boss

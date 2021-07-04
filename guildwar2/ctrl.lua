@@ -1,76 +1,152 @@
-print( "‡ £àã§ª  Ctrl.lua" )
+--´ËÎÄ¼þÖÐ£¬·²ÊÇ¿ÉÄÜ±»¶à´ÎÖ´ÐÐµÄº¯Êý£¬º¯ÊýÃû¶¼Òª¼ÓÉÏµØÍ¼ÃûÇ°×º
 
 function config(map)
-    MapCanSavePos(map, 0) 
-    MapCanPK(map, 1) 
-    MapCanGuild(map,0)
-    MapCopyNum(map, 1) 
-    SingleMapCopyPlyNum(map, 300)   
+    MapCanSavePos(map, 0) --ÉèÖÃµØÍ¼ÊÇ·ñ±£´æ½ÇÉ«Î»ÖÃ£¨µØÍ¼£¬×ø±ê£¬·½Ïò£©£¬´ËÉèÖÃÓ°Ïì¸ÃµØÍ¼µÄËùÓÐ¸±±¾
+    MapCanPK(map, 1) --ÉèÖÃµØÍ¼ÊÇ·ñ¿ÉÒÔPK£¬´ËÉèÖÃÓ°Ïì¸ÃµØÍ¼µÄËùÓÐ¸±±¾
+    MapCanGuild(map,0)--ÉèÖÃÊÇ·ñ¿ÉÒÔÍË³ö¹«»á
+    MapCopyNum(map, 1) --ÉèÖÃµØÍ¼µÄ¸±±¾ÊýÄ¿£¬Èç¹û²»µ÷ÓÃ¸ÃÓï¾ä£¬ÔòÊ¹ÓÃÄ¬ÈÏÖµ1
+    --MapCopyStartType(map, 1) --ÉèÖÃµØÍ¼Á¢¼´¿ªÊ¼
+    SingleMapCopyPlyNum(map, 300)   --ÉèÖÃÒ»¸ö¸±±¾µÄÍæ¼ÒÊý
     MapCanTeam(map , 1)
     MapType ( map , 5 )
-    RepatriateDie(map,0)
+    RepatriateDie(map,0)---µØÍ¼ÄÚ¸´»î
     SetMapGuildWar(map,1)
     MapCanStall(map , 0)
+
 end
 
-function get_map_entry_pos_guildwar2()   
+
+function get_map_entry_pos_guildwar2()   --ÉèÖÃÈë¿ÚµÄÎ»ÖÃµÄ×ø±ê£¨×ø±ê£¨Ã×£©£©
+
 	local POS_X=1450
 	local POS_Y=612
 	return POS_X , POS_Y
+
+
 end
 
 function init_entry(map)
-    SetMapEntryMapName(map, "darkblue") 
-    SetMapEntryTime(map, "2005/8/30/19/00", "0/4/0", "0/3/0", "0/3/0") 
+    SetMapEntryMapName(map, "darkblue") --ÉèÖÃÈë¿ÚµÄÎ»ÖÃ£¨µØÍ¼Ãû£¬×ø±ê£¨Ã×£©£©
+    SetMapEntryTime(map, "2005/8/30/19/00", "0/4/0", "0/3/0", "0/3/0") --ÉèÖÃÈë¿ÚµÄÊ±¼ä£¬µØÍ¼¶ÔÏó£¬Ê×´Î¿ªÆôÊ±¼ä£¨Äê/ÔÂ/ÈÕ/Ê±/·Ö£©£¬ÒÔºóÔÙ´Î¿ªÆôµÄ¼ä¸ô£¨ÈÕ/Ê±/·Ö£¬È«£°±íÊ¾Ö»ÓÐÊ×´Î¿ªÆô£©£¬Ã¿´Î¿ªÆôµ½Èë¿ÚÏûÊ§µÄ¼ä¸ô£¨ÈÕ/Ê±/·Ö£¬È«£°±íÊ¾ÓÀ²»ÏûÊ§£©£¬Ã¿´Î¿ªÆôµ½µØÍ¼¹Ø±ÕµÄ¼ä¸ô£¨ÈÕ/Ê±/·Ö£¬È«£°±íÊ¾ÓÀ²»¹Ø±Õ£©¡£¡£
+    
 end
 
+
+
 function after_enter_guildwar2( role , map_copy )
+      
+
+--      local Num_SSL= CheckBagItem(role,2382)
+--
+--	if Num_SSL >= 1 then
+--	   SystemNotice(role, "You have <Life and Death Token> with you")	
+--	else
+--	   GiveItem ( role , 0 , 2382  , 1 , 4 )
+--	end
+--    local map_copy = GetChaMapCopy(role)
+--    local RedSide_GuildID, BlueSide_GuildID
+--    RedSide_GuildID = GetMapCopyParam2(map_copy, 3 )
+--    BlueSide_GuildID = GetMapCopyParam2(map_copy, 4 )
+
+
+    --local Cha = TurnToCha(role)
+    
     if GetChaGuildID(role) <= 100 and GetChaGuildID(role) > 0 then
-        SetChaSideID(role, 1)
+        SetChaSideID(role, 1)-----------------------------------º£¾ü±àºÅ
+       
+     
     end
+
     if GetChaGuildID(role) > 100 and GetChaGuildID(role) <= 200 then
-        SetChaSideID(role, 2)
+        SetChaSideID(role, 2)-----------------------------------º£µÁ±àºÅ
+	
+      
     end
+
+    --Notice("GetChaGuildID(Cha)=="..GetChaGuildID(Cha))
+   
+    
+--    local haidaoSide_GuildID, haijunSide_GuildID
+--    haidaoSide_GuildID = GetMapCopyParam2(map_copy, 3 )
+--    haijunSide_GuildID = GetMapCopyParam2(map_copy, 4 )
+--    Notice("haidaoSide_GuildID="..haidaoSide_GuildID)
+    
+	--if haidaoSide_GuildID == GetChaGuildID( role ) then
+		--SetChaSideID(role, 2)
+		--Notice("SetChaSideID=="..SetChaSideID)
+	--end
+	--if haijunSide_GuildID == GetChaGuildID( role ) then
+			--SetChaSideID(role, 1)
+	--end
 end
 
 function before_leave_guildwar2 ( role )
+
+
 local Cha = TurnToCha(role) 
 	local i = 0
 	local j = 0
 	for i = 0 , SZ_BagItemDelCheckNum ,1 do
+	
 	        local j = RemoveChaItem ( Cha ,SZ_BagItemDelCheck_ID[i],0,0,-1,2,1 )
+		
 		if j == 0 then 
 		LG("RemoveChaItem","Failed")
 		end
         end
+
   RemoveState( role , STATE_HFZQ )
   RemoveState( role , STATE_QINGZ )
   RemoveState( role , STATE_JRQKL )
   RemoveState( role , STATE_YS )
+
   local map_copy =  GetChaMapCopy(role)
+
      if check_need_show == 1 then
          return 
+
          else
+
          if GetChaGuildID(role) <= 100 and GetChaGuildID(role) > 0 then
+        
             count_haijun = count_haijun - 1
-	    MapCopyNotice ( map_copy , "[Èãðîê ïðèñîåäèíèëñÿ ê ôðàêöèè Ôëîòà]" )
+	    MapCopyNotice ( map_copy , "[One navy has retreated out of battle]" )
+
          elseif GetChaGuildID(role) > 100 and GetChaGuildID(role) <= 200 then
             count_haidao = count_haidao - 1
-	    MapCopyNotice ( map_copy , "[Èãðîê ïðèñîåäèíèëñÿ ê ôðàêöèè Ïèðàòîâ]" )
+	    MapCopyNotice ( map_copy , "[ One Pirate has resigned from battle]" )
         end
     end
+
+
+ 
+
+	
+end
+  
+
+function map_copy_first_run_guildwar2( map_copy )
+
+
+        
+        
+
 end
 
 function map_copy_run_guildwar2( map_copy )
+
+
+
       local closetime = GUILDWARCLOSETIME2
 		for i = 1 , GUILDNOTICE2 , 1 do
 			if closetime ==GUILDCLOSESHOW2[i] then
-			local Notice_all = "Êàðòà Ìèíè Ñâÿùåííîé Âîéíû áóäåò çàêðûòà ÷åðåç " .. closetime .. " ñåêóíä! Ñëåäèòå çà íîâîñòÿìè. Óäà÷è!"
+				local Notice_all = "Time remaining until the map close is"..closetime.."seconds!"
 				MapCopyNotice ( map_copy ,Notice_all )
 			end
 		end
 		GUILDWARCLOSETIME2 = GUILDWARCLOSETIME2 - 1
- local hp_hd = GetChaAttr( di_haidaoSide_BaseRole , ATTR_HP ) 
+ 
+ local hp_hd = GetChaAttr( di_haidaoSide_BaseRole , ATTR_HP ) -----------------º£µÁË¢BOSS
 	local mxhp_hd = GetChaAttr( di_haidaoSide_BaseRole , ATTR_MXHP )
 	local percent_hd = hp_hd/mxhp_hd
 	if percent_hd < 0.3 and create_boss_hd2 == 0 then
@@ -81,10 +157,13 @@ function map_copy_run_guildwar2( map_copy )
 		SetChaLifeTime(Monster_hdboss,1200000) 
 		
                 SetChaSideID(Monster_hdboss, 2)
-			MapCopyNotice ( map_copy ,"Óçðèòå æå èñòèííóþ ñèëó ïèðàòñêîé òüìû!")
-		create_boss_hd2 = 1  
+		MapCopyNotice ( map_copy ,"Pirate Guardian: Let you see the true power of the darkness!")
+		create_boss_hd2 = 1  --¹Ø±Õ
+		
 	end
- local hp_hj = GetChaAttr( di_haijunSide_BaseRole , ATTR_HP ) 
+
+
+ local hp_hj = GetChaAttr( di_haijunSide_BaseRole , ATTR_HP ) -----------------º£¾üË¢BOSS
 	local mxhp_hj = GetChaAttr( di_haijunSide_BaseRole , ATTR_MXHP )
 	local percent_hj = hp_hj/mxhp_hj
 	if percent_hj < 0.3 and create_boss_hj2 == 0 then
@@ -93,101 +172,159 @@ function map_copy_run_guildwar2( map_copy )
 		      y = y+500
                 local Monster_hjboss = CreateChaEx(1032, 30600, 10200, 145, 1300,map_copy)
 		SetChaLifeTime(Monster_hjboss,1200000) 
+		
 		SetChaSideID(Monster_hjboss, 1)
-			MapCopyNotice ( map_copy ,"Ïèðàòû, âû ðàçðóøèëè ôëîòñêóþ ñòàòóþ? Ìîÿ ðóêà îòâåòèò âàì çà ýòî ìå÷åì!")
-		create_boss_hj2 = 1  
+		
+                
+		MapCopyNotice ( map_copy ,"Navy Guardian: Want to tear the statue down? Ask the sword in my hand first!")
+		create_boss_hj2 = 1  --¹Ø±Õ
+		
 	end
+
  if SZ_Win_CountNum2 == 60 then
+--		local RedSide_GuildID, BlueSide_GuildID
+--		RedSide_GuildID = GetMapCopyParam2(map_copy, 3 )
+--		BlueSide_GuildID = GetMapCopyParam2(map_copy, 4 )
+--
+--		local GuildName_Red = GetGuildName( RedSide_GuildID )
+--		local GuildName_Blue = GetGuildName ( BlueSide_GuildID )
+             
 		if CheckMonsterDead ( di_haijunSide_BaseRole ) == 1 then
 		   if di_haidaoSide_JDNotice == 0 then
+
 			five_seconds2 = 1
+			--local Notice_all = "Pirate faction has won the mini sacred war!"
+			--Notice ( Notice_all )
 			SZ_Win_CountNum2 = SZ_Win_CountNum2 - 1
+			--PK_JJHY_Winner = "Navy Faction"
+			--PK_JJHY_Loser =  "Pirate Faction"
+			--SetMapCopyParam2(map_copy, 5, 1) --º£µÁÊ¤Àû
 			di_haidaoSide_JDNotice = 1
                         CloseMapEntry ( "guildwar2" )
-                        check_need_show2 = 1 
+                        check_need_show2 = 1 ---²»ÓÃÏÔÊ¾ÍË³öÌáÊ¾
+
                         local player_num_1 = GetMapPlayer(map_copy)
 			local pn_1 = player_num_1 * 3
 			for i=1, pn_1, 1 do
 				if player_num_1 > 0 then
 					DealAllPlayerInMap(map_copy,"HJ_Goto2")
 					DealAllPlayerInMap(map_copy,"noside_Goto2")
+					--Notice("Repeat kick navy¡­")
 				end
 			end
+			--DealAllActivePlayerInMap(map_copy,"HJ_Goto2")
+			--DealAllActivePlayerInMap(map_copy,"noside_Goto2")
 			DealAllActivePlayerInMap(map_copy,"Give_Three_QiYue2")
-				local Notice_all = "Ïèðàòñêàÿ ôðàêöèÿ ïîáåäèëà â Ìèíè Ñâÿùåííîé âîéíå "
+			local Notice_all = "Pirate faction has won the mini sacred war!"
 			Notice ( Notice_all )
+			
 	            end
+
 		end
+
 		if CheckMonsterDead ( di_haidaoSide_BaseRole ) == 1 then
 		    if di_haijunSide_JDNotice == 0 then
 		        five_seconds2 = 1
+
+			--local Notice_all = "Navy faction has won the mini sacred war!"
+			--Notice ( Notice_all )
 			SZ_Win_CountNum2 = SZ_Win_CountNum2 - 1
+			--PK_JJHY_Winner = "Pirate Faction"
+			--PK_JJHY_Loser = "Navy Faction"
+			--SetMapCopyParam2(map_copy, 5, 2) --º£¾üÊ¤Àû
 			di_haijunSide_JDNotice = 1
                         CloseMapEntry ( "guildwar2" )
 			check_need_show2 = 1
+
                         local player_num_2 = GetMapPlayer(map_copy)
 			local pn_2 = player_num_2 * 3
 			for i=1, pn_2, 1 do
 				if player_num_2 > 0 then
 					DealAllPlayerInMap(map_copy,"HD_Goto2")
 					DealAllPlayerInMap(map_copy,"noside_Goto2")
+					--Notice("Repeat kicking pirates¡­")
 				end
 			end
+			--DealAllActivePlayerInMap(map_copy,"HD_Goto2")
+			--DealAllActivePlayerInMap(map_copy,"noside_Goto2")
 			DealAllActivePlayerInMap(map_copy,"Give_Three_QiYue2")
-				local Notice_all =  "Ôëîòñêàÿ ôðàêöèÿ ïîáåäèëà â Ìèíè Ñâÿùåííîé âîéíå "
+			local Notice_all = "Navy faction has won the mini sacred war!"
 			Notice ( Notice_all )
+			
+
 	            end
 		end
+		
 		if CheckMonsterDead ( di_haijunSide_LCRole ) == 1 then
 			if di_haijunSide_LCNotice == 0 then
-				MapCopyNotice ( map_copy ,"Ôëîòñêîé ñêëàä áîåïðèïàñîâ óíè÷òîæåí! Çàùèòà Óëó÷øåííîé ñòðåëêîâîé áàøíè çàìåòíî ïîíèæåíà ")
+				MapCopyNotice ( map_copy ,"Navy Granary has been destroyed. The defense of the base and Advanced Arrow Tower has fallen sharply.")
 				AddState( di_haijunSide_BaseRole , haijunSide_BaseRole , STATE_PKLC, 10 , 10800 )
 				AddState( di_haijunSide_JTRole_1 , di_haijunSide_JTRole_1 , STATE_PKLC, 10 , 10800 )
 				AddState( di_haijunSide_JTRole_2 , di_haijunSide_JTRole_2 , STATE_PKLC, 10 , 10800 )
 				di_haijunSide_LCNotice = 1
-				
+				--create_boss_hj2 = 1  --¹Ø±Õ
 			end
 		end
+		
 		if CheckMonsterDead ( di_haidaoSide_LCRole ) == 1 then
 			if di_haidaoSide_LCNotice == 0 then
-				MapCopyNotice ( map_copy ,"Ïèðàòñêèé ñêëàä áîåïðèïàñîâ óíè÷òîæåí! Çàùèòà Óëó÷øåííîé ñòðåëêîâîé áàøíè çàìåòíî ïîíèæåíà ")
+				MapCopyNotice ( map_copy ,"The Pirate Granary has been destroyed, base and Advanced Arrow Tower defense has been lowered greatly")
 				AddState( di_haidaoSide_BaseRole , di_haidaoSide_BaseRole , STATE_PKLC, 10 , 10800 )
 				AddState( di_haidaoSide_JTRole_1 , di_haidaoSide_JTRole_1 , STATE_PKLC, 10 , 10800 )
 				AddState( di_haidaoSide_JTRole_2 , di_haidaoSide_JTRole_2 , STATE_PKLC, 10 , 10800 )
 				di_haidaoSide_LCNotice = 1
+				--create_boss_hd2 = 1  --¹Ø±Õ
 			end
+			
 		end
+
 		if CheckMonsterDead ( di_haijunSide_DYKRole ) == 1 then
 			if di_haijunSide_DYKNotice == 0 then 
-				MapCopyNotice ( map_copy ,"Ôëîòñêîé ïàêãàóç óíè÷òîæåí! Ñèëà àòàêè Óëó÷øåííîé ñòðåëêîâîé áàøíè çàìåòíî ïîíèæåíà ")
+				MapCopyNotice ( map_copy ,"Navy Ammo Warehouse has been destroyed, Advanced Arrow Tower attack has fallen sharply.")
 				AddState( di_haijunSide_JTRole_1 , di_haijunSide_JTRole_1 , STATE_JHKML, 10 , 10800 )
 				AddState( di_haijunSide_JTRole_2 , di_haijunSide_JTRole_2 , STATE_JHKML, 10 , 10800 )
 				di_haijunSide_DYKNotice = 1
+				--create_boss_hj2 = 1  --¹Ø±Õ
 			end
 		end
+
 		if CheckMonsterDead ( di_haidaoSide_DYKRole ) == 1 then
 			if di_haidaoSide_DYKNotice == 0 then
-				MapCopyNotice ( map_copy ,"Ïèðàòñêèé ïàêãàóç óíè÷òîæåí! Ñèëà àòàêè Óëó÷øåííîé ñòðåëêîâîé áàøíè çàìåòíî ïîíèæåíà ")
+				MapCopyNotice ( map_copy ,"Pirate Ammo Warehouse has been destroyed, Advanced Arrow Tower attack has fallen sharply")
 				AddState( di_haidaoSide_JTRole_1 , di_haidaoSide_JTRole_1 , STATE_JHKML, 10 , 10800 )
 				AddState( di_haidaoSide_JTRole_2 , di_haidaoSide_JTRole_2 , STATE_JHKML, 10 , 10800 )
 				di_haidaoSide_DYKNotice = 1
+				--create_boss_hd2 = 1  --¹Ø±Õ
 			end		
 		end
 	else
+	     
+	        
+		
+                
               if time_can_setmonster2 == 0 then
 		time_can_setnvsheng2 = time_can_setnvsheng2 + 1
 	      end
+
 		local Count = SZ_Win_CountNum2 / 10
 		if Count == math.floor ( Count ) then
-			local Notice_map = "Áîãèíÿ ïðèáóäåò íà êàðòó è îöåíèò ñèëó ñìåðòíûõ ÷åðåç "..SZ_Win_CountNum.." ñåêóíä "
+                   --Notice ( Notice_all )
+			--MapCopyNotice ( map_copy , Notice_all )
+		 
+			local Notice_map = "Goddess will be at"..SZ_Win_CountNum2.."seconds until arrival. Warriors, prepare to meet the arrival of the goddess!"
 			MapCopyNotice ( map_copy , Notice_map )
 		end
 		SZ_Win_CountNum2 = SZ_Win_CountNum2 - 1
 		if SZ_Win_CountNum2 == 0 then
 				SZ_Win_CountNum2 = 60
+				
+				
 		end   
+		  -- Notice("time_can_setnvsheng"..time_can_setnvsheng)	
 	        if time_can_setnvsheng2 == 59 then
-			MapCopyNotice ( map_copy ,"Áîãèíÿ ïðèáûëà â Ìèíè Ñâÿùåííóþ âîéíó ")
+		
+		MapCopyNotice ( map_copy ,"Goddess has arrived in the Sacred War map")
+		
 		local Monster2 = CreateChaEx(1027, 21526, 49419, 145, 1000,map_copy)
 		local Monster3 = CreateChaEx(1027, 41559, 11793, 145, 1000,map_copy)
 		local Monster4 = CreateChaEx(1027, 13667, 40891, 145, 1000,map_copy)
@@ -196,6 +333,14 @@ function map_copy_run_guildwar2( map_copy )
 		local Monster7 = CreateChaEx(1027, 52406, 49110, 145, 1000,map_copy)
 		local Monster8 = CreateChaEx(1027, 51472, 13326, 145, 1000,map_copy)
 		local Monster9 = CreateChaEx(1027, 12405, 8742, 205, 1000,map_copy)
+		--local Monster10 = CreateChaEx(859, 36446, 51416, 145, 60,map_copy)
+		--local Monster11 = CreateChaEx(859, 36763, 48082, 145, 60,map_copy)
+		--local Monster12 = CreateChaEx(859, 53312, 42794, 145, 60,map_copy)
+		--local Monster13 = CreateChaEx(859, 53014, 31149, 145, 60,map_copy)
+		--local Monster14 = CreateChaEx(859, 53156, 21219, 145, 60,map_copy)
+		--local Monster15 = CreateChaEx(859, 52532, 12262, 145, 60,map_copy)
+		--local Monster16 = CreateChaEx(859, 8992, 10590, 145, 60,map_copy)
+		--local Monster17 = CreateChaEx(859, 13465, 10237, 145, 60,map_copy)
 		SetChaLifeTime(Monster2,900000)
 		SetChaLifeTime(Monster3,900000)
 		SetChaLifeTime(Monster4,900000)
@@ -204,15 +349,29 @@ function map_copy_run_guildwar2( map_copy )
 		SetChaLifeTime(Monster7,900000)
 		SetChaLifeTime(Monster8,900000)
 		SetChaLifeTime(Monster9,900000)
+		--SetChaLifeTime(Monster10,299450)
+		--SetChaLifeTime(Monster11,299500)
+		--SetChaLifeTime(Monster12,299550)
+		--SetChaLifeTime(Monster13,299600)
+		--SetChaLifeTime(Monster14,299650)
+		--SetChaLifeTime(Monster15,299700)
+		--SetChaLifeTime(Monster16,299700)
+		--SetChaLifeTime(Monster17,299700)
+               
 	       time_can_setmonster2 = 1
                time_can_setnvsheng2 = 1
+
+	      
+				
 		end
 	end
 end
 
+--Ã¿5·ÖÖÓÖ´ÐÐ1´Î
 function map_copy_run_special_guildwar2( map_copy ) 
         local random_hezi = math.random(1,10)
-	if random_hezi == 1 then 
+	
+	if random_hezi == 1 then -- µÚÒ»ÅúÁîºÐ
 		local Monster1 = CreateChaEx(1013, 21620, 25990, 145, 60,map_copy)
 		local Monster2 = CreateChaEx(1013, 13505, 26914, 145, 60,map_copy)
 		local Monster3 = CreateChaEx(1013, 51545, 12982, 145, 60,map_copy)
@@ -223,7 +382,13 @@ function map_copy_run_special_guildwar2( map_copy )
 		local Monster8 = CreateChaEx(1013, 31214, 33352, 145, 60,map_copy)
 		local Monster9 = CreateChaEx(1013, 30322, 27936, 145, 60,map_copy)
 		local Monster10 = CreateChaEx(1013, 12275, 8838, 145, 60,map_copy)
-        local Monster11 = CreateChaEx(1014, 13441, 49302, 237, 60,map_copy)
+
+--		local Monster12 = CreateChaEx(859, 14373, 7541, 145, 60,map_copy)
+--		local Monster13 = CreateChaEx(859, 10186, 6273, 145, 60,map_copy)
+--		local Monster14 = CreateChaEx(859, 10043, 9649, 145, 60,map_copy)
+--		local Monster15 = CreateChaEx(859, 17186, 3343, 145, 60,map_copy)
+
+                local Monster11 = CreateChaEx(1014, 13441, 49302, 237, 60,map_copy)
 		local Monster12 = CreateChaEx(1014, 49505, 53814, 145, 60,map_copy)
 		local Monster13 = CreateChaEx(1014, 52191, 48734, 145, 60,map_copy)
 		local Monster14 = CreateChaEx(1014, 49514, 36624, 145, 60,map_copy)
@@ -233,7 +398,8 @@ function map_copy_run_special_guildwar2( map_copy )
 		local Monster18 = CreateChaEx(1014, 30494, 38172, 145, 60,map_copy)
 		local Monster19 = CreateChaEx(1014, 22644, 43566, 145, 60,map_copy)
 		local Monster20 = CreateChaEx(1014, 13309, 37477, 145, 60,map_copy)
-        SetChaLifeTime(Monster1,299050)
+
+                SetChaLifeTime(Monster1,299050)
 		SetChaLifeTime(Monster2,299050)
 		SetChaLifeTime(Monster3,299100)
 		SetChaLifeTime(Monster4,299150)
@@ -243,8 +409,11 @@ function map_copy_run_special_guildwar2( map_copy )
 		SetChaLifeTime(Monster8,299350)
 		SetChaLifeTime(Monster9,299400)
 		SetChaLifeTime(Monster10,299450)
-		SetChaLifeTime(Monster11,299050)
-        SetChaLifeTime(Monster12,299050)
+		
+
+--		SetChaLifeTime(Monster12,299550)
+                SetChaLifeTime(Monster11,299050)
+                SetChaLifeTime(Monster12,299050)
 		SetChaLifeTime(Monster13,299100)
 		SetChaLifeTime(Monster14,299150)
 		SetChaLifeTime(Monster15,299200)
@@ -253,8 +422,13 @@ function map_copy_run_special_guildwar2( map_copy )
 		SetChaLifeTime(Monster18,299350)
 		SetChaLifeTime(Monster19,299400)
 		SetChaLifeTime(Monster20,299450)
+		
+--		SetChaLifeTime(Monster13,299600)
+--		SetChaLifeTime(Monster14,299650)
+--		SetChaLifeTime(Monster15,299700)
+        
 	end
-	if random_hezi == 2 then 
+	if random_hezi == 2 then -- µÚ¶þÅúÁîºÐ
 		local Monster21 = CreateChaEx(1013, 13280, 20327, 145, 60,map_copy)
 		local Monster22 = CreateChaEx(1013, 11494, 22938, 145, 60,map_copy)
 		local Monster23 = CreateChaEx(1013, 8620, 25754, 145, 60,map_copy)
@@ -265,7 +439,8 @@ function map_copy_run_special_guildwar2( map_copy )
 		local Monster28 = CreateChaEx(1013, 23025, 16585, 145, 60,map_copy)
 		local Monster29 = CreateChaEx(1013, 20613, 15337, 145, 60,map_copy)
 		local Monster30 = CreateChaEx(1013, 12830, 12465, 145, 60,map_copy)
-        local Monster31 = CreateChaEx(1014, 21213, 39440, 46, 60,map_copy)
+
+                local Monster31 = CreateChaEx(1014, 21213, 39440, 46, 60,map_copy)
 		local Monster32 = CreateChaEx(1014, 10730, 49579, 46, 60,map_copy)
 		local Monster33 = CreateChaEx(1014, 21988, 34742, 46, 60,map_copy)
 		local Monster34 = CreateChaEx(1014, 22985, 36209, 46, 60,map_copy)
@@ -275,7 +450,9 @@ function map_copy_run_special_guildwar2( map_copy )
 		local Monster38 = CreateChaEx(1014, 13719, 34813, 46, 60,map_copy)
 		local Monster39 = CreateChaEx(1014, 12202, 39254, 250, 60,map_copy)
 		local Monster40 = CreateChaEx(1014, 8017, 43392, 145, 60,map_copy)
-        SetChaLifeTime(Monster21, 299050)
+                
+
+                SetChaLifeTime(Monster21, 299050)
 		SetChaLifeTime(Monster22, 299100)
 		SetChaLifeTime(Monster23, 299150)
 		SetChaLifeTime(Monster24, 299200)
@@ -285,6 +462,7 @@ function map_copy_run_special_guildwar2( map_copy )
 		SetChaLifeTime(Monster28, 299350)
 		SetChaLifeTime(Monster29, 299350)
 		SetChaLifeTime(Monster30, 299350)
+
 		SetChaLifeTime(Monster31, 299050)
 		SetChaLifeTime(Monster32, 299050)
 		SetChaLifeTime(Monster33, 299050)
@@ -295,8 +473,16 @@ function map_copy_run_special_guildwar2( map_copy )
 		SetChaLifeTime(Monster38, 299050)
 		SetChaLifeTime(Monster39, 299050)
 		SetChaLifeTime(Monster40, 299050)
+         
 	end
-	if random_hezi == 3 then 
+	if random_hezi == 3 then -- µÚÈýÅúÁîºÐ
+--		local Monster23 = CreateChaEx(861, 12167, 25665, 145, 60,map_copy)
+--		local Monster24 = CreateChaEx(861, 13564, 23189, 145, 60,map_copy)
+--		local Monster25 = CreateChaEx(861, 18274, 13329, 145, 60,map_copy)
+--		local Monster26 = CreateChaEx(861, 19167, 9778, 145, 60,map_copy)
+--		local Monster27 = CreateChaEx(861, 14915, 14352, 145, 60,map_copy)
+--		local Monster28 = CreateChaEx(861, 13881, 9818, 145, 60,map_copy)
+--		local Monster29 = CreateChaEx(861, 10854, 11740, 145, 60,map_copy)
 		local Monster41 = CreateChaEx(1014, 39318, 32214, 293, 60,map_copy)
 		local Monster42 = CreateChaEx(1014, 31069, 43192, 293, 60,map_copy)
 		local Monster43 = CreateChaEx(1014, 39177, 52654, 293, 60,map_copy)
@@ -337,8 +523,9 @@ function map_copy_run_special_guildwar2( map_copy )
 		SetChaLifeTime(Monster58, 299050)
 		SetChaLifeTime(Monster59, 299050)
 		SetChaLifeTime(Monster60, 299050)
+
 	end
-	if random_hezi == 4 then 
+	if random_hezi == 4 then -- µÚËÄÅúÁîºÐ
 		local Monster61 = CreateChaEx(1014, 32934, 48220, 145, 60,map_copy)
 		local Monster62 = CreateChaEx(1014, 31123, 47392, 145, 60,map_copy)
 		local Monster63 = CreateChaEx(1014, 29539, 45307, 145, 60,map_copy)
@@ -359,6 +546,7 @@ function map_copy_run_special_guildwar2( map_copy )
 		local Monster78 = CreateChaEx(1013, 31895, 20636, 145, 60,map_copy)
 		local Monster79 = CreateChaEx(1013, 30197, 20647, 145, 60,map_copy)
 		local Monster80 = CreateChaEx(1013, 29223, 20629, 145, 60,map_copy)
+
 		SetChaLifeTime(Monster61,298050)
 		SetChaLifeTime(Monster62,298100)
 		SetChaLifeTime(Monster63,298150)
@@ -380,9 +568,11 @@ function map_copy_run_special_guildwar2( map_copy )
 		SetChaLifeTime(Monster79,298950)
 		SetChaLifeTime(Monster80,299000)
 		
+
 	end
-	if random_hezi == 5 then 
-	    local Monster81 = CreateChaEx(1014, 23820, 13953, 201, 60,map_copy)
+	if random_hezi == 5 then -- µÚÎåÅúÁîºÐ
+
+	        local Monster81 = CreateChaEx(1014, 23820, 13953, 201, 60,map_copy)
 		local Monster82 = CreateChaEx(1014, 21199, 13676, 201, 60,map_copy)
 		local Monster83 = CreateChaEx(1014, 21773, 26290, 201, 60,map_copy)
 		local Monster84 = CreateChaEx(1014, 40766, 10069, 201, 60,map_copy)
@@ -412,6 +602,9 @@ function map_copy_run_special_guildwar2( map_copy )
 		local Monster108 = CreateChaEx(1013, 12251, 37484, 145, 60,map_copy)
 		local Monster109 = CreateChaEx(1013, 8066, 40856, 145, 60,map_copy)
 		local Monster110 = CreateChaEx(1013, 14042, 41339, 145, 60,map_copy)
+
+
+	
 			SetChaLifeTime(Monster81,297050)
 			SetChaLifeTime(Monster82,297100)
 			SetChaLifeTime(Monster83,297150)
@@ -442,8 +635,10 @@ function map_copy_run_special_guildwar2( map_copy )
 			SetChaLifeTime(Monster108,298400)
 			SetChaLifeTime(Monster109,298450)
 			SetChaLifeTime(Monster110,298500)
+		
+
 	end
-	if random_hezi == 6 then 
+	if random_hezi == 6 then -- µÚÁùÅúÁîºÐ
 	        local Monster111 = CreateChaEx(1014, 10912, 29307, 44, 60,map_copy)
 		local Monster112 = CreateChaEx(1014, 7947, 34591, 44, 60,map_copy)
 		local Monster113 = CreateChaEx(1014, 9241, 33020, 49, 60,map_copy)
@@ -484,6 +679,8 @@ function map_copy_run_special_guildwar2( map_copy )
 		local Monster148 = CreateChaEx(1013, 47947, 31101, 145, 60,map_copy)
 		local Monster149 = CreateChaEx(1013, 49155, 30447, 145, 60,map_copy)
 		local Monster150 = CreateChaEx(1013, 48686, 29665, 145, 60,map_copy)
+
+
 			SetChaLifeTime(Monster111,296050)
 			SetChaLifeTime(Monster112,296100)
 			SetChaLifeTime(Monster113,296150)
@@ -526,46 +723,478 @@ function map_copy_run_special_guildwar2( map_copy )
 			SetChaLifeTime(Monster150,298000)
 	     end
 	  if random_hezi >= 7 then 
-	     
+	     --Notice("Did not spawn out")
 	     return
 	  end
 end
 
+
+
+
+--Ã¿5ÃëÖ´ÐÐÒ»´ÎµÄ
 function map_run_guildwar2( map )
+
+--if create_two_side_lose2 == 0 then
+-- local cha2=CreateChaEx(1025, 49533, 11381, 145, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1025, 52777, 12540, 175, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1025, 52882, 9847, 175, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1025, 49834, 9023, 175, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1030, 50920, 10472, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1031, 52023, 10362, 145, 20000,map_copy)--º£¾üÎüÄ§
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 51498, 11119, 190, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	--local cha2=CreateChaEx(48, 51495, 10602, 175, 60)
+--
+--	local cha2=CreateChaEx(1030, 50624, 12932, 190, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1030, 49551, 12846, 160, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 51087, 13433, 205, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 49047, 13460, 175, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1026, 10074, 53194, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 12053, 53488, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 13446, 50438, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 8834, 50818, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1016, 12109, 51752, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1015, 11139, 51872, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1029, 11641, 51235, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	--local cha2=CreateChaEx(68, 11618, 51702, 355, 60)
+--
+--	local cha2=CreateChaEx(1016, 11952, 49639, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1016, 10800, 49803, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1029, 10333, 48831, 25, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1029, 12073, 48614, 295, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 52679, 48777, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 54063, 51357, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 51387, 54045, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 48948, 51791, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	--local cha2=CreateChaEx(50, 51739, 51899, 310, 60)
+--
+--	local cha2=CreateChaEx(1016, 51712, 51187, 325, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1029, 50946, 51846, 325, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 49360, 48345, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1015, 49715, 49062, 325, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1029, 48730, 48907, 10, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1025, 30971, 20145, 145, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	--local cha2=CreateChaEx(35, 11137, 11078, 145, 60)
+--	local cha2=CreateChaEx(1030, 11727, 12980, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1031, 10850, 11515, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 11676, 11142, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 12492, 13848, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1025, 14086, 12177, 34, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1025, 12644, 13457, 145, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1025, 9316, 13664, 34, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1025, 12069, 13786, 145, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1025, 12111, 9059, 145, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1025, 8728, 9972, 145, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	--local cha2=CreateChaEx(954, 30778, 9602, 175, 60)
+--
+--	local cha2=CreateChaEx(1030, 30998, 19282, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 31940, 19807, 190, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 29973, 19854, 190, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1031, 30119, 22057, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 30884, 26292, 175, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 29580, 22038, 175, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1031, 31372, 22100, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 30725, 22373, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 31813, 22044, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	--local cha2=CreateChaEx(1029, 30117, 52848, 355, 20000)--º£µÁ¸ß¼¶
+--	--SetChaSideID(cha2, 2)
+--	--local cha2=CreateChaEx(1029, 31576, 52807, 355, 20000)--º£µÁ¸ß¼¶
+--	--SetChaSideID(cha2, 2)
+--	--local cha2=CreateChaEx(65, 30842, 53224, 355, 60)
+--
+--	local cha2=CreateChaEx(1015, 31084, 49087, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 32140, 48759, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 31371, 48066, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 30282, 48891, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1016, 31203, 50515, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 30045, 50434, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 31228, 49602, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 32214, 50479, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 29599, 51863, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 30777, 51736, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 31944, 51773, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 30463, 52373, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 31307, 52296, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1029, 22542, 46002, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1029, 22842, 40322, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1029, 22425, 35416, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1028, 22136, 24793, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 22339, 20450, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 22653, 17130, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 25491, 12659, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 37790, 11813, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 39105, 20455, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 39366, 25155, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 39316, 16689, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1029, 39541, 35432, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1029, 39326, 39649, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1029, 39636, 46013, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	--local cha2=CreateChaEx(1028, 29924, 9911, 145, 20000)--¸ß¼¶
+--	--SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1029, 26453, 48379, 310, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1029, 34946, 47830, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1029, 36367, 47877, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	--local cha2=CreateChaEx(1028, 31413, 9925, 145, 20000)--¸ß¼¶
+--	--SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1025, 29931, 10698, 145, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1025, 30630, 11220, 197, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1025, 31338, 10572, 197, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1025, 29804, 12096, 197, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1025, 31395, 12150, 197, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1030, 30527, 12269, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1031, 30450, 14196, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1025, 31131, 14589, 145, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1025, 29722, 14559, 145, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1025, 30473, 15437, 145, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 25622, 15420, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 26494, 15358, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 34273, 14783, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 35426, 14748, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 26425, 13830, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 24804, 11407, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1025, 25626, 11098, 145, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1025, 26114, 11621, 145, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1025, 26771, 12247, 145, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1025, 34353, 12512, 145, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1025, 35481, 11480, 145, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1025, 36359, 10475, 145, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 36518, 12642, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1028, 35287, 13572, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1029, 26191, 51235, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1029, 24719, 50298, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1029, 23510, 49731, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 22810, 50114, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 23798, 50981, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 25409, 51497, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 38703, 48578, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 37529, 49192, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 36312, 50224, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1029, 35999, 49941, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1029, 37126, 48890, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1029, 38355, 48209, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1028, 42118, 13718, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1029, 41995, 50676, 85, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1029, 20052, 49216, 235, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1028, 20290, 10940, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1023, 26171, 20331, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1023, 26135, 25139, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1023, 34908, 20323, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1023, 34935, 25171, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1024, 34923, 35539, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1024, 34931, 40336, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1024, 26113, 40342, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1024, 26145, 35526, 145, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1025, 30526, 12996, 145, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1029, 30773, 34564, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1029, 31966, 38371, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1029, 30041, 41467, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1015, 30387, 38429, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1029, 31728, 41471, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1016, 30935, 42286, 10, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1029, 29621, 38427, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1015, 31169, 38416, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1029, 30770, 37773, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1030, 30846, 24456, 190, 20000,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1016, 30712, 36395, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1029, 25184, 48167, 355, 20000,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1026, 31025, 40986, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--	local cha2=CreateChaEx(1025, 30868, 25458, 175, 600,map_copy)
+--	SetChaSideID(cha2, 1)
+--	local cha2=CreateChaEx(1026, 30762, 35501, 145, 600,map_copy)
+--	SetChaSideID(cha2, 2)
+--
+--
+--	----º£¾üµñÏñ
+--	di_haijunSide_BaseRole = CreateChaEx(954, 30726, 9792, 180, 20000,map_copy)
+--	di_haijunSide_JDNotice = 0
+--	SetChaSideID(di_haijunSide_BaseRole, 1)
+--
+--	----º£¾üÁ¸²Ö
+--	di_haijunSide_LCRole = CreateChaEx(1019, 11137, 11078, 145, 20000,map_copy)
+--	di_haijunSide_LCNotice = 0
+--	SetChaSideID( di_haijunSide_LCRole, 1)
+--
+--
+--	-----º£¾ü¾ü»ð¿â
+--	di_haijunSide_DYKRole =CreateChaEx(1021, 51495, 10602, 175, 20000,map_copy)
+--	di_haijunSide_DYKNotice =0
+--	SetChaSideID(di_haijunSide_DYKRole, 1)
+--
+--
+--	-----º£µÁµñÏñ
+--	di_haidaoSide_BaseRole = CreateChaEx(955, 30869, 52799, 355, 20000,map_copy)
+--	di_haidaoSide_JDNotice = 0
+--	SetChaSideID(di_haidaoSide_BaseRole, 2)
+--
+--
+--	-----º£µÁÁ¸²Ö
+--	di_haidaoSide_LCRole=CreateChaEx(1020, 51739, 51899, 310, 20000,map_copy)
+--	di_haidaoSide_LCNotice = 0
+--	SetChaSideID(di_haidaoSide_LCRole, 2)
+--
+--
+--
+--	-----º£µÁ¾ü»ð¿â
+--	di_haidaoSide_DYKRole=CreateChaEx(1022, 11618, 51702, 355, 20000,map_copy)
+--	di_haidaoSide_DYKNotice= 0
+--	SetChaSideID(di_haidaoSide_DYKRole, 2)
+--
+--
+--	-----º£¾ü¸ß¼¶¼ýËþ
+--	di_haijunSide_JTRole_1=CreateChaEx(1034, 29924, 9911, 145, 20000,map_copy)
+--	SetChaSideID(di_haijunSide_JTRole_1, 1)
+--
+--	di_haijunSide_JTRole_2=CreateChaEx(1034, 31413, 9925, 145, 20000,map_copy)
+--	SetChaSideID(di_haijunSide_JTRole_2, 1)
+--
+--
+--	-----º£µÁ¸ß¼¶¼ýËþ
+--	di_haidaoSide_JTRole_1=CreateChaEx(1035, 30117, 52848, 355, 20000,map_copy)
+--	SetChaSideID(di_haidaoSide_JTRole_1, 2)
+--
+--	di_haidaoSide_JTRole_2=CreateChaEx(1035, 31576, 52807, 355, 20000,map_copy)
+--	SetChaSideID(di_haidaoSide_JTRole_2, 2)
+--
+--	create_two_side_lose2 = 1
+--end
+
+
+ 
    if five_seconds2 == 1 then
      second_five_seconds2 = second_five_seconds2 + 1
    end
+
    if second_five_seconds == 60 then
-		Notice("Ìèíè Ñâÿùåííàÿ âîéíà áóäåò îêîí÷åíà ÷åðåç 10 ìèíóò ")
+   Notice("Mini Sacred War map will be closing in 10 minutes!")
    end
    if second_five_seconds == 120 then
-		Notice("Ìèíè Ñâÿùåííàÿ âîéíà áóäåò îêîí÷åíà ÷åðåç 5 ìèíóò ")
+   Notice("Mini Sacred War Map will be closing in 5 minutes!")
    end
    if second_five_seconds == 144 then
-		Notice("Ìèíè Ñâÿùåííàÿ âîéíà áóäåò îêîí÷åíà ÷åðåç 3 ìèíóòû ")
+   Notice("Mini Sacred War map will be closing in 3 minutes!")
    end
    if second_five_seconds == 168 then
-		Notice("Ìèíè Ñâÿùåííàÿ âîéíà áóäåò îêîí÷åíà ÷åðåç 1 ìèíóòó ")
+   Notice("Sacred War map will be closing in 1 minute!")
    end
+
    if second_five_seconds2 == 180
    then
    CloseMapCopy ( "guildwar2" )
    end
+
+ 
+--	local GuildLevel = 0
+--	GuildLevel = GetFightGuildLevel ( )
+--	if GuildLevel > 0 and GuildLevel < 4 then
+--		if GuildLevel ~= ReadyToFight then
+--			EndGuildBid ( GuildLevel )
+--			ReadyToFight = GuildLevel
+--		end
+--	end
 end
 
+--µØÍ¼¹Ø±ÕÇ°Ö´ÐÐ
 function map_copy_before_close_guildwar2( map_copy )
+
+--local winner = GetMapCopyParam2( map_copy, 5 )
+--	--local HaiJunSide = GetMapCopyParam2(map_copy, 3 )
+--	--local HaiDaoSide = GetMapCopyParam2(map_copy, 4 )
+--	--local GuildName_Red = GetGuildName( RedSide_GuildID )
+--	--local GuildName_Blue = GetGuildName ( BlueSide_GuildID )
+--	--local GuildName_Red = GetGuildName( RedSide_GuildID )
+----	
+----
+--	if winner == 1 then
+--		--EndGuildChallenge ( RedSide_GuildID , BlueSide_GuildID , 1 )
+--		--LG( "PK_JJHY","Victory to the Defending Champion" )
+--		local Notice_all = "Pirate faction has won!"
+--		Notice ( Notice_all )
+--
+--	elseif winner == 2 then
+--		--EndGuildChallenge ( RedSide_GuildID , BlueSide_GuildID , 1 )
+--		--LG( "PK_JJHY","Victory to the Defending Champion" )
+--		local Notice_all = "Navy Faction won!"
+--		Notice ( Notice_all )
+--	else
+--		local Notice_all = "After 3 hours of intense battle, no winners can be declared, please try harder next round!"
+--		Notice ( Notice_all )
+--	end
+	--How_Many_Active2 = GetMapActivePlayer(map_copy)
+	--if How_Many_Active2 > 0 then
+	--	DealAllActivePlayerInMap(map_copy,"Give_Three_QiYue2")
+	--end
+	--How_Many_Active2 = 0
+	
 	local player_num = GetMapPlayer(map_copy)
+
+	--Notice("player_num = "..player_num)
+
 	DealAllPlayerInMap(map_copy,"All_Goto2")
 	player_num = GetMapPlayer(map_copy)
+
+	--Notice("player_num = "..player_num)
+	
 	local pn = player_num * 10
+	
 	for i=1, pn, 1 do
 		if player_num > 0 then
+			--local Notice_all2 = "player_num > 0"
+			--Notice(Notice_all2)
 			DealAllPlayerInMap(map_copy,"All_Goto2")
 		end
 	end
+
+	--ClearAllSubMapCha(map_copy)
+
 end
 
+--µØÍ¼¹Ø±ÕÊ±Ö´ÐÐ
 function map_copy_close_guildwar2 ( map_copy )
+
+--How_Many_Active2 = 0
+--ClearAllSubMapCha(map_copy)
 count_haijun2 = 0
 count_haidao2 = 0
 five_seconds2 = 0
@@ -575,91 +1204,133 @@ time_can_setnvsheng2 = 0
 check_need_show2 = 0
 create_boss_hj2 = 0
 create_boss_hd2 = 0
+--create_two_side_lose2 = 0
 GUILDWARCLOSETIME2 = 10800
+
 di_haijunSide_JDNotice = 0
 di_haijunSide_LCNotice = 0
 di_haijunSide_DYKNotice =0
 di_haidaoSide_JDNotice = 0
 di_haidaoSide_LCNotice = 0
 di_haidaoSide_DYKNotice= 0
+
+--ClearAllSubMapMonster(map_copy)
 ClearAllSubMapCha(map_copy)
+
+
+	
 end
+		
+--µØÍ¼¿ª¹ØÅÐ¶Ï¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function can_open_entry_guildwar2( map ) 
+--	local time = GetTickCount ( ) 
+--	local Now_Week = GetNowWeek()
+--	if Now_Week >=5 and Now_Week < 7 then
+--		return 1
+--	end
+--
+--	if Now_Week == 0 then
+--		return 1
+--	end
+
 	return 1 
 end 
-
 function HJ_Goto2(role)
    
-  local typRoleType = ChaIsBoat(role)			
-	if  typRoleType == 1 then 						 
+  local typRoleType = ChaIsBoat(role)			--È¡½ÇÉ«ÀàÐÍ ´¬£¿ÈË£¿NPC.......
+	if  typRoleType == 1 then 						 --Èç¹û½ÇÉ«ÊÇ´¬
 		if GetChaGuildID(role) <= 100 and GetChaGuildID(role) > 0 then
+		    --for i=1, 45, 1 do
 			MoveTo( role,  839, 3693,  "magicsea" )
+		    --end
+                      
 		else
 		    return
 		end
-	else															
-		local character = TurnToCha(role)	
+		    
+	else															--½ÇÉ«²»ÊÇ´¬
+		local character = TurnToCha(role)	--½«Ö¸Õë×ª»»Îª½ÇÉ«
 		if GetChaGuildID(character) <= 100 and GetChaGuildID(character) > 0 then
+		      --for i=1, 45, 1 do
 			  MoveTo( character,  910, 3571,  "magicsea" )
+		      --end
+			 
 	        else
 		      return
 		end
+		        
 	end
+	
 end
 
 function HD_Goto2(role)
- local typRoleType = ChaIsBoat(role)			
-	if  typRoleType == 1 then 						 
+   
+ local typRoleType = ChaIsBoat(role)			--È¡½ÇÉ«ÀàÐÍ ´¬£¿ÈË£¿NPC.......
+	if  typRoleType == 1 then 						 --Èç¹û½ÇÉ«ÊÇ´¬
 		if GetChaGuildID(role) > 100 and GetChaGuildID(role) <= 200 then
+	               --for i=1, 45, 1 do
 			   MoveTo( role,  1188, 674,  "darkblue" )
+		       --end
 		else
 		    return
 		end
-	else												
-		 local character = TurnToCha(role)	
+		    
+	else												--½ÇÉ«²»ÊÇ´¬
+		 local character = TurnToCha(role)	--½«Ö¸Õë×ª»»Îª½ÇÉ«
 		 if GetChaGuildID(character) > 100 and GetChaGuildID(character) <= 200 then
+		      --for i=1, 45, 1 do
 			   MoveTo( character,  1271, 527,  "darkblue" )
+		      --end
 		 else
 		      return
 		 end
+		        
 	 end
+	
 end
 
 function noside_Goto2(role)
-local typRoleType = ChaIsBoat(role)			
-		if  typRoleType == 1 then 						 
+   
+local typRoleType = ChaIsBoat(role)			--È¡½ÇÉ«ÀàÐÍ ´¬£¿ÈË£¿NPC.......
+		if  typRoleType == 1 then 						 --Èç¹û½ÇÉ«ÊÇ´¬
 		    if GetChaGuildID(role) == 0 then
                        MoveTo( role,  2259, 2828,  "garner" )
 		    else
 		       return
 		    end
-		else															
-		      local character = TurnToCha(role)	
+		    
+		else															--½ÇÉ«²»ÊÇ´¬
+		      local character = TurnToCha(role)	--½«Ö¸Õë×ª»»Îª½ÇÉ«
 			if GetChaGuildID(character) == 0 then
 			  MoveTo( character,  2222, 2777,  "garner" )
 			else
 			  return
 			end
+		        
 	        end
+	
 end
 
 function All_Goto2(role)
-      local typRoleType = ChaIsBoat(role)			
-		if  typRoleType == 1 then 						 
+      local typRoleType = ChaIsBoat(role)			--È¡½ÇÉ«ÀàÐÍ ´¬£¿ÈË£¿NPC.......
+		if  typRoleType == 1 then 						 --Èç¹û½ÇÉ«ÊÇ´¬
 		    if GetChaGuildID(role) > 100 and GetChaGuildID(role) <= 200 then
                        MoveTo( role,  1188, 674,  "darkblue" )
 		    else
 		       MoveTo( role,  839, 3693,  "magicsea" )
 		    end
-		else															
-		    local character = TurnToCha(role)	
+		    
+		else															--½ÇÉ«²»ÊÇ´¬
+		    local character = TurnToCha(role)	--½«Ö¸Õë×ª»»Îª½ÇÉ«
 		    if GetChaGuildID(character) > 100 and GetChaGuildID(character) <= 200 then
 			MoveTo( character,  1271, 527,  "darkblue" )
 		    else
 			MoveTo( character,  910, 3571,  "magicsea" )
 		    end
+		        
 	        end
+
 end
 
 function Give_Three_QiYue2( role )
@@ -669,4 +1340,10 @@ function Give_Three_QiYue2( role )
 	   else
 		   GiveItem ( role , 0 , 2383  , 3 , 4 )
 	   end
-end
+end		 
+
+
+
+		
+	   
+

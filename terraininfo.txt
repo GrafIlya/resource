@@ -1,3 +1,6 @@
+// Document of Terrain Info
+// 类型约定 : 0 = 普通陆上地形  1 = 海底地形
+//ID  文件名                                类型   是否产生脚印
 1	texture/terrain/subtract.bmp	1	0
 2	texture/terrain/brick01.bmp	1	0
 3	texture/terrain/brick04.bmp	1	0
@@ -47,3 +50,4 @@
 47	texture/terrain/brick10.bmp	1	0
 48	texture/terrain/brick109.bmp	1	0
 49	texture/terrain/brick110.bmp	1	0
+

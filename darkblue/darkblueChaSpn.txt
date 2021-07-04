@@ -1,4 +1,5 @@
-﻿1	61100,28800	77300,42600	-1	234	21	100	10	40	0	Lower Icicle 1
+//spawnid	startpos	endpos	direction	monsterID	count	Rfprobability	RFTime	commotion	note	Region ID
+1	61100,28800	77300,42600	-1	234	21	100	10	40	0	Lower Icicle 1
 2	62100,28800	69300,37600	-1	228	56	100	20	40	0	Lower Icicle 1A
 3	62100,39700	69300,42600	-1	233	22	100	15	40	0	Lower Icicle 1B
 4	70300,42700	77300,42600	-1	232	22	100	15	40	0	Lower Icicle 1C

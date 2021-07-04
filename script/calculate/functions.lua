@@ -1,1303 +1,1545 @@
-print( "‡ Јаг§Є  Functions.lua" )
+MFRADIX=100 
+CRTRADIX=100 
+ATKER=0 
+DEFER=1 
 
-MFRADIX					= 100
-CRTRADIX				= 100
-ATKER					= 0
-DEFER					= 1
-count_haidao			= 0
-count_haijun			= 0
-five_seconds			= 0
-second_five_seconds		= 0
-time_can_setmonster		= 0
-time_can_setnvsheng		= 0
-check_need_show			= 0 
-create_boss_hj			= 0
-create_boss_hd			= 0
-count_haijun2			= 0
-count_haidao2			= 0
-five_seconds2			= 0
-second_five_seconds2	= 0
-time_can_setmonster2	= 0
-time_can_setnvsheng2	= 0
-check_need_show2		= 0
-create_boss_hj2			= 0
-create_boss_hd2			= 0
+--------------КҐХЅЧЁУГІї·Ц----------------------------------------
+count_haidao = 0
+count_haijun = 0
+five_seconds = 0
+second_five_seconds = 0
+time_can_setmonster = 0
+time_can_setnvsheng = 0
+check_need_show = 0 
+create_boss_hj = 0
+create_boss_hd = 0
+--create_two_side_lose = 0
+--CLOSENotice = 0
 
-function get_repatriate_city_guildwar( role )
-	local map_name_role_guildwar = GetChaMapName( role )
-	return map_name_role_guildwar
+
+count_haijun2 = 0
+count_haidao2 = 0
+five_seconds2 = 0
+second_five_seconds2 = 0
+time_can_setmonster2 = 0
+time_can_setnvsheng2 = 0
+check_need_show2 = 0
+create_boss_hj2 = 0
+create_boss_hd2 = 0
+--create_two_side_lose2 = 0
+--CLOSENotice2 = 0
+
+function get_repatriate_city_guildwar(role)
+
+  local map_name_role_guildwar = GetChaMapName ( role )
+  return map_name_role_guildwar
+
 end
 
-function get_repatriate_city_guildwar2( role )
-	local map_name_role_guildwar2 = GetChaMapName( role )
-	return map_name_role_guildwar2
+function get_repatriate_city_guildwar2(role)
+
+  local map_name_role_guildwar2 = GetChaMapName ( role )
+  return map_name_role_guildwar2
+
 end
+---------------------------------------------------	
+---------------------------------------------------
 
-atk_statecheck = {}
-def_statecheck = {}
 
-function Reset_Statecheck()
-	for i = 1, 100, 1 do
-		atk_statecheck[i]	= 0
-		def_statecheck[i]	= 0
-	end
-end
 
-function EightyLv_ExpAdd( cha, expadd )
-	if ValidCha( cha ) == 1 then
-		if ChaIsBoat( cha ) == 0 then
-			if Lv( cha ) >= 80 then
-				expadd = math.floor( expadd / 50 )
-			end
-			if expadd == 0 then
-				SystemNotice( TurnToCha( cha ), "Дистанция до цели слишком велика чтобы получать опыт " )
-			end
-		end
-		exp = GetChaAttr( cha, ATTR_CEXP )
-		exp = exp + expadd
-		SetCharaAttr( exp, cha, ATTR_CEXP )
-	end
-end
- 
-function Check_State( atk_role, def_role )
-	Reset_Statecheck()
-	atk_statecheck[STATE_YS] = GetChaStateLv( atk_role, STATE_YS )
-end
+atk_statecheck = {} 
+def_statecheck = {} 
 
-function CreatChaSkill( role )
-end
+function Reset_Statecheck () 
+	for i = 1 , 100 , 1 do 
+		atk_statecheck[i] = 0 
+		def_statecheck[i] = 0 
+	end 
+end 
 
-function CheckJobLegal( job )
-	local check_job = 1
 
-	if job < JOB_TYPE_XINSHOU or job > JOB_TYPE_GONGCHENGSHI then
-		check_job = 0
-	end
 
-	return check_job
-end
+function EightyLv_ExpAdd ( cha , expadd ) 
+
+	if ValidCha (cha) ==1 then					--ЦёХлґжФЪ
+		if ChaIsBoat ( cha ) == 0 then			--ИЛОпјУѕ­СйЧчМШКвґ¦Ан
+			if Lv ( cha ) >= 80 then 
+				expadd = math.floor ( expadd / 50 ) 
+			end 
+			if expadd == 0 then 
+				SystemNotice ( TurnToCha(cha) , "Distance is too far to obtain any EXP" )
+			end 
+		end 
+		exp = GetChaAttr ( cha , ATTR_CEXP ) 
+		exp = exp + expadd 
+		SetCharaAttr ( exp , cha , ATTR_CEXP ) 
+	end 
+end 
+
+
+function Check_State ( atk_role , def_role ) 
+	Reset_Statecheck() 
+	--№Ґ»чЧґМ¬ЕР¶П
+--	atk_statecheck[STATE_ZMYJ] = GetChaStateLv ( ATKER , STATE_ZMYJ ) 
+--	atk_statecheck[STATE_SMYB] = GetChaStateLv ( ATKER , STATE_SMYB ) 
+	atk_statecheck[STATE_YS] = GetChaStateLv ( atk_role , STATE_YS ) 
+	--КЬ»чЧґМ¬ЕР¶П
+--	def_statecheck[STATE_ZJFT] = GetChaStateLv ( DEFER , STATE_ZJFT ) 
+--	def_statecheck[STATE_BSHD] = GetChaStateLv ( DEFER , STATE_BSHD ) 
+end 
+
+function CreatChaSkill ( role ) 
+end 
+
+
+function CheckJobLegal ( job ) 
+	local check_job = 1 
+	if job < JOB_TYPE_XINSHOU or job > JOB_TYPE_GONGCHENGSHI then 
+		check_job = 0 
+	end 
+	return check_job 
+end 
 
 function RemoveYS( role )
-	RemoveState( role , STATE_YS )
-	return 1
+	--SystemNotice ( role , "come here" )
+	RemoveState( role , STATE_YS )					
+	return 1 
 end
 
-function Rem_State_Unnormal( role )
-	RemoveState( role, STATE_ZD )
-	RemoveState( role, STATE_MB )
-	RemoveState( role, STATE_ZZZH )
-	RemoveState( role, STATE_SYNZ)
-	RemoveState( role, STATE_SDBZ )
-	RemoveState( role, STATE_TJ )
-	RemoveState( role, STATE_SJ )
-	RemoveState( role, STATE_JNJZ )
-	RemoveState( role, STATE_GJJZ )
-	RemoveState( role, STATE_BDJ )
-	RemoveState( role, STATE_XN )
-	RemoveState( role, STATE_NT )
-	RemoveState( role, STATE_DIZ )
-	RemoveState( role, STATE_SWCX )
-	RemoveState( role, STATE_JSDD )
-	RemoveState( role, STATE_HYMH )
-	RemoveState( role, STATE_HLKJ )
-	RemoveState( role, STATE_HLLM )
-	RemoveState( role, STATE_CRXSF )
-	RemoveState( role, STATE_BlackHX )
-	RemoveState( role, STATE_HLKJ )
-end
+function Rem_State_Unnormal ( role ) 
+	RemoveState( role , STATE_ZD )					--ЦР¶ѕ
+	RemoveState( role , STATE_MB )					--Вй±Ф
+	RemoveState( role , STATE_ZZZH )				--ЧзЦдЦ®»р
+	RemoveState( role , STATE_SYNZ)				--ЙоФЁДаХУ
+	RemoveState( role , STATE_SDBZ )				--ЙБ¶г±ЪХП
+	RemoveState( role , STATE_TJ )					--НИѕС
+	RemoveState( role , STATE_SJ )					--КЦѕС
+--	RemoveState( role , STATE_XY )					--СЈФО
+	RemoveState( role , STATE_JNJZ )				--јјДЬЅыЦ№
+	RemoveState( role , STATE_GJJZ )				--№Ґ»чЅыЦ№
+	RemoveState( role , STATE_BDJ )					--±щ¶іјэ
+	RemoveState( role , STATE_XN )					--СЄЕ­
+	RemoveState( role , STATE_NT )					--ДаМ¶
+	RemoveState( role , STATE_DIZ )					--µШХр
+	RemoveState( role , STATE_SWCX )				--ЛАНці°Р¦
+	RemoveState( role , STATE_JSDD )				--Ѕ©К¬ґш¶ѕ
+	RemoveState( role , STATE_HYMH )				--єьСэД§·Ё-чИ»у
+	RemoveState( role , STATE_HLKJ )				--єЪБъ-їЦѕе
+	RemoveState( role , STATE_HLLM )				--єЪБъ-БъГщ
+	RemoveState( role , STATE_CRXSF )				--і¤ИЮР·-Кшёї
+	RemoveState( role , STATE_BlackHX )				--єЪБъ»ўРҐ
+	RemoveState( role , STATE_HLKJ )				--єЪБъАЧ»ч
+end 
+------------------------------------------REMOVEХЅ¶·ЧґМ¬
+function Rem_State_StarUnnormal ( role ) 
+	RemoveState( role , STATE_KUANGZ )					--їсХЅКх     
+	RemoveState( role , STATE_QUANS )					--И«ЙнЧ°јЧ  
+	RemoveState( role , STATE_QINGZ )					--ЗбЧ°Т©Л®  
+end 
+function Rem_State_NOSEA ( role ) ------------------ПВєЈК±ТЖіэЧґМ¬
+	RemoveState( role , STATE_KB )					
+	RemoveState( role , STATE_XLZH )					
+	RemoveState( role , STATE_PKJSYS )				
+	RemoveState( role , STATE_PKSFYS)				
+	RemoveState( role , STATE_TSHD )				
+	RemoveState( role , STATE_FZLZ )					
+	RemoveState( role , STATE_PKZDYS )					
+	RemoveState( role , STATE_PKKBYS )					
+	RemoveState( role , STATE_YSLLQH )				
+	RemoveState( role , STATE_YSMJQH )				
+	RemoveState( role , STATE_YSLQQH )					
+	RemoveState( role , STATE_YSTZQH )					
+	RemoveState( role , STATE_YSJSQH )					
+	RemoveState( role , STATE_DENGLONG )					
+	RemoveState( role , STATE_YSMspd )				
+	RemoveState( role , STATE_PKSBYS )				
+	RemoveState( role , STATE_KUANGZ )				
+	RemoveState( role , STATE_QUANS )				
+	RemoveState( role , STATE_QINGZ )				
+	RemoveState( role , STATE_CJBBT )				
+	RemoveState( role , STATE_JRQKL )				
+	RemoveState( role , STATE_KALA )	
+	RemoveState( role , STATE_CZZX )
+	RemoveState( role , STATE_JLFT1 )				
+	RemoveState( role , STATE_JLFT2 )				
+	RemoveState( role , STATE_JLFT3 )				
+	RemoveState( role , STATE_JLFT4 )				
+	RemoveState( role , STATE_JLFT5 )				
+	RemoveState( role , STATE_JLFT6 )				
+	RemoveState( role , STATE_JLFT7 )				
+	RemoveState( role , STATE_JLFT8 )				
+end 
+function SetCharaAttr(a,b,c) --[[ЙиЦГЅЗЙ«КфРФЧЄ»ЇЅУїЪ:КфРФЦµЈ¬ЅЗЙ«АаРНЈ¬КфРФ±аєЕ]]--
+	local x,y=b,c 
+	local z=math.floor(a) 
+--	LuaPrint("Set character"..b) 
+	--LuaPrint("Attribute"..c) 
+	--LuaPrint(a.."\n") 
+	--LG("setchaattr","Setting"..c, "number attribute", "= ", a ,"\n") 
+	SetChaAttr(x,y,z) 
+end 
 
-function Rem_State_StarUnnormal( role )
-	RemoveState( role, STATE_KUANGZ )
-	RemoveState( role, STATE_QUANS )
-	RemoveState( role, STATE_QINGZ )
-end
+function Attr_ap(a) --[[ИЎЅЗЙ«КЈУаїЙ·ЦЕдµгКэ]]--
+	--LuaPrint("Obtain character attribute remain_ap") 
+	local attr_ap=GetChaAttr(a,ATTR_AP) 
+	return attr_ap 
+end 
 
-function Rem_State_NOSEA( role )
-	RemoveState( role, STATE_KB )
-	RemoveState( role, STATE_XLZH )
-	RemoveState( role, STATE_PKJSYS )
-	RemoveState( role, STATE_PKSFYS)
-	RemoveState( role, STATE_TSHD )
-	RemoveState( role, STATE_FZLZ )
-	RemoveState( role, STATE_PKZDYS )
-	RemoveState( role, STATE_PKKBYS )
-	RemoveState( role, STATE_YSLLQH )
-	RemoveState( role, STATE_YSMJQH )
-	RemoveState( role, STATE_YSLQQH )
-	RemoveState( role, STATE_YSTZQH )
-	RemoveState( role, STATE_YSJSQH )
-	RemoveState( role, STATE_DENGLONG )
-	RemoveState( role, STATE_YSMspd )
-	RemoveState( role, STATE_PKSBYS )
-	RemoveState( role, STATE_KUANGZ )
-	RemoveState( role, STATE_QUANS )
-	RemoveState( role, STATE_QINGZ )
-	RemoveState( role, STATE_CJBBT )
-	RemoveState( role, STATE_JRQKL )
-	RemoveState( role, STATE_KALA )
-	RemoveState( role, STATE_CZZX )
-	RemoveState( role, STATE_JLFT1 )
-	RemoveState( role, STATE_JLFT2 )
-	RemoveState( role, STATE_JLFT3 )
-	RemoveState( role, STATE_JLFT4 )
-	RemoveState( role, STATE_JLFT5 )
-	RemoveState( role, STATE_JLFT6 )
-	RemoveState( role, STATE_JLFT7 )
-	RemoveState( role, STATE_JLFT8 )
-end
+function Attr_tp(a) 
+	--LuaPrint("Obtain character attribute remain_tp") 
+	local attr_tp=GetChaAttr(a,ATTR_TP) 
+	return attr_tp 
+end 
 
-function SetCharaAttr( a, b, c )
-	local x, y = b, c
-	local z = math.floor( a )
-	SetChaAttr( x, y, z )
-end
+function CheckCha_Job(a) --[[ИЎЅЗЙ«Ц°Тµ]]-- 
+	--LuaPrint("Obtain character attribute job") 
+	local role_attr_job=GetChaAttr(a,ATTR_JOB) 
+	return role_attr_job 
+end 
 
-function Attr_ap( a )
-	local attr_ap = GetChaAttr( a, ATTR_AP )
-	return attr_ap
-end
+function Exp(a) 
+	--LuaPrint("obtain character current exp or monster exp") 
+	local exp=GetChaAttr(a,ATTR_CEXP) --[[ИЎexp]]--
+	return exp 
+end 
 
-function Attr_tp( a )
-	local attr_tp = GetChaAttr( a, ATTR_TP )
-	return attr_tp
-end
+function Lv(a)
+	--LuaPrint("Obtain character attribute lv") 
+	local b = TurnToCha ( a ) 
+	local lv=GetChaAttr( b , ATTR_LV ) --[[ИЎlv]]--
+	return lv 
+end 
 
-function CheckCha_Job( a )
-	local role_attr_job = GetChaAttr(a, ATTR_JOB )
-	return role_attr_job
-end
+function Hp(a)
+	--LuaPrint("Obtain character attribute hp") 
+	local hp=GetChaAttr(a,ATTR_HP) --[[ИЎhp]]--
+	return hp 
+end 
 
-function Exp( a )
-	local exp = GetChaAttr( a, ATTR_CEXP )
-	return exp
-end
+function Mxhp(a)
+	--LuaPrint("Obtain character attribute mxhp") 
+	local mxhp=GetChaAttr(a,ATTR_MXHP) --[[ИЎmxhp]]--
+	return mxhp 
+end 
 
-function Lv( a )
-	local b = TurnToCha( a )
-	local lv = GetChaAttr( b, ATTR_LV )
-	return lv
-end
+function MxhpSa(a)
+	--LuaPrint("Obtain character attribute mxhp_sa") 
+	local mxhpsa= GetChaAttr(a, ATTR_STATEC_MXHP)/ATTR_RADIX   --[[ИЎmxhpЧґМ¬°Щ·Ц±И]]--
+	return mxhpsa 
+end 
 
-function Hp( a )
-	local hp = GetChaAttr( a, ATTR_HP )
-	return hp
-end
+function MxhpSb(a)
+	--LuaPrint("Obtain character attributemxhp_sb") 
+	local mxhpsb=GetChaAttr(a, ATTR_STATEV_MXHP) --[[ИЎmxhpЧґМ¬іЈКэ]]--
+	return mxhpsb 
+end 
 
-function Mxhp( a )
-	local mxhp = GetChaAttr( a, ATTR_MXHP )
-	return mxhp
-end
-
-function MxhpSa( a )
-	local mxhpsa = GetChaAttr( a, ATTR_STATEC_MXHP) / ATTR_RADIX
-	return mxhpsa
-end
-
-function MxhpSb( a )
-	local mxhpsb = GetChaAttr( a, ATTR_STATEV_MXHP )
-	return mxhpsb
-end
-
-function MxhpIa( a )
-	local mxhpia = GetChaAttr( a, ATTR_ITEMC_MXHP ) / ATTR_RADIX
-	return mxhpia
-end
+function MxhpIa(a)
+	--LuaPrint("Obtain character attribute mxhp_ia") 
+	local mxhpia=GetChaAttr(a, ATTR_ITEMC_MXHP)/ATTR_RADIX --[[ИЎmxhpµАѕЯ°Щ·Ц±И]]--
+	return mxhpia 
+end 
 
 function MxhpIb(a)
-	local mxhpib=GetChaAttr(a, ATTR_ITEMV_MXHP) 
+	--LuaPrint("Obtain character attribute mshp_ib") 
+	local mxhpib=GetChaAttr(a, ATTR_ITEMV_MXHP) --[[ИЎmxhpµАѕЯіЈКэ]]--
 	return mxhpib 
 end 
 
 function Sp(a)
-	local sp=GetChaAttr(a,ATTR_SP) 
+	--LuaPrint("Obtain player attribute sp") 
+	local sp=GetChaAttr(a,ATTR_SP) --[[ИЎsp]]--
 	return sp 
 end 
 
 function Mxsp(a)
-	local mxsp=GetChaAttr(a,ATTR_MXSP) 
+	--LuaPrint("Obtain character attribute mxsp") 
+	local mxsp=GetChaAttr(a,ATTR_MXSP) --[[ИЎmxsp]]--
 	return mxsp 
 end 
 
 function MxspSa(a)
-	local mxspsa=GetChaAttr(a, ATTR_STATEC_MXSP)/ATTR_RADIX  
+	--LuaPrint("Obtain player attribute mxsp_sa") 
+	local mxspsa=GetChaAttr(a, ATTR_STATEC_MXSP)/ATTR_RADIX  --[[ИЎmxspЧґМ¬°Щ·Ц±И]]--
 	return mxspsa 
 end 
 
 function MxspSb(a)
-	local mxspsb=GetChaAttr(a, ATTR_STATEV_MXSP) 
+	--LuaPrint("Obtain character attribute mxsp_sb") 
+	local mxspsb=GetChaAttr(a, ATTR_STATEV_MXSP) --[[ИЎmxspЧґМ¬іЈКэ]]--
 	return mxspsb 
 end 
 
 function MxspIa(a)
-	local mxspia=GetChaAttr(a, ATTR_ITEMC_MXSP)/ATTR_RADIX 
+	--LuaPrint("Obtain character attribute mxsp_ia") 
+	local mxspia=GetChaAttr(a, ATTR_ITEMC_MXSP)/ATTR_RADIX --[[ИЎmxspµАѕЯ°Щ·Ц±И]]--
 	return mxspia 
 end 
 
 function MxspIb(a)
-	local mxspib=GetChaAttr(a, ATTR_ITEMV_MXSP) 
+	--LuaPrint("Obtain character attribute mxsp_ib") 
+	local mxspib=GetChaAttr(a, ATTR_ITEMV_MXSP) --[[ИЎmxspµАѕЯіЈКэ]]--
 	return mxspib 
 end 
 
 function Mnatk(a)
-	local mnatk=GetChaAttr(a,ATTR_MNATK) 
+	--LuaPrint("Obtain character attribute mnatk") 
+	local mnatk=GetChaAttr(a,ATTR_MNATK) --[[ИЎmnatk]]--
 	return mnatk 
 end 
 
 function MnatkSa(a)
-	local mnatksa= GetChaAttr(a, ATTR_STATEC_MNATK)/ATTR_RADIX 
+	--LuaPrint("Obtain character attribute mnatk_sa") 
+	local mnatksa= GetChaAttr(a, ATTR_STATEC_MNATK)/ATTR_RADIX --[[ИЎmnatkЧґМ¬°Щ·Ц±И]]--
 	return mnatksa 
 end 
 
 function MnatkSb(a)
-	local mnatksb=GetChaAttr(a, ATTR_STATEV_MNATK) 
+	--LuaPrint("Obtain character attributemnatk_sb") 
+	local mnatksb=GetChaAttr(a, ATTR_STATEV_MNATK) --[[ИЎmnatkЧґМ¬іЈКэ]]--
 	return mnatksb 
 end 
 
 function MnatkIa(a)
-	local mnatkia=GetChaAttr(a, ATTR_ITEMC_MNATK)/ATTR_RADIX 
+	--LuaPrint("Obtain character attribute mnatk_ia") 
+	local mnatkia=GetChaAttr(a, ATTR_ITEMC_MNATK)/ATTR_RADIX --[[ИЎmnatkµАѕЯ°Щ·Ц±И]]--
 	return mnatkia 
 end 
 
 function MnatkIb(a)
-	local mnatkib=GetChaAttr(a, ATTR_ITEMV_MNATK) 
+	--LuaPrint("Obtain player attribute mnatk_ib") 
+	local mnatkib=GetChaAttr(a, ATTR_ITEMV_MNATK) --[[ИЎmnatkµАѕЯіЈКэ]]--
 	return mnatkib 
 end 
 
 function Mxatk(a)
-	local mxatk=GetChaAttr(a,ATTR_MXATK) 
+	--LuaPrint("Obtain player attribute mxatk") 
+	local mxatk=GetChaAttr(a,ATTR_MXATK) --[[ИЎmxatk]]--
 	return mxatk 
 end 
 
 function MxatkSa(a)
-	local mxatksa= GetChaAttr(a, ATTR_STATEC_MXATK)/ATTR_RADIX  
+	--LuaPrint("Obtain character attribute mxatk_sa") 
+	local mxatksa= GetChaAttr(a, ATTR_STATEC_MXATK)/ATTR_RADIX  --[[ИЎmxatkЧґМ¬°Щ·Ц±И]]--
 	return mxatksa 
 end 
 
 function MxatkSb(a)
-	local mxatksb=GetChaAttr(a, ATTR_STATEV_MXATK) 
+	--LuaPrint("Obtain character attribute mxatk_sb") 
+	local mxatksb=GetChaAttr(a, ATTR_STATEV_MXATK) --[[ИЎmxatkЧґМ¬іЈКэ]]--
 	return mxatksb 
 end 
 
 function MxatkIa(a)
-	local mxatkia=GetChaAttr(a, ATTR_ITEMC_MXATK)/ATTR_RADIX 
+	--LuaPrint("Obtain character attribute mxatk_ia") 
+	local mxatkia=GetChaAttr(a, ATTR_ITEMC_MXATK)/ATTR_RADIX --[[ИЎmxatkµАѕЯ°Щ·Ц±И]]--
 	return mxatkia 
 end 
 
 function MxatkIb(a)
-	local mxatkib=GetChaAttr(a, ATTR_ITEMV_MXATK) 
+	--LuaPrint("Obtain character attributemxatk_ib") 
+	local mxatkib=GetChaAttr(a, ATTR_ITEMV_MXATK) --[[ИЎmxatkµАѕЯіЈКэ]]--
 	return mxatkib 
 end 
 
 function Def(a)
-	local def=GetChaAttr(a,ATTR_DEF) 
+	--LuaPrint("Obtain character attribute def") 
+	local def=GetChaAttr(a,ATTR_DEF) --[[ИЎdef]]--
 	return def 
 end 
 
 function DefSa(a)
-	local defsa= GetChaAttr(a, ATTR_STATEC_DEF)/ATTR_RADIX  
+	--LuaPrint("Obtain player attribute def_sa") 
+	local defsa= GetChaAttr(a, ATTR_STATEC_DEF)/ATTR_RADIX  --[[ИЎdefЧґМ¬°Щ·Ц±И]]--
 	return defsa 
 end 
 
 function DefSb(a)
-	local defsb=GetChaAttr(a, ATTR_STATEV_DEF) 
+	--LuaPrint("Obtain character attribute def_sb") 
+	local defsb=GetChaAttr(a, ATTR_STATEV_DEF) --[[ИЎdefЧґМ¬іЈКэ]]--
+	--LG("setchaattr","obtain character",ATTR_STATEV_DEF,"number attribute= ", defsb,"\n" ) 
 	return defsb 
 end 
 
 function DefIa(a)
-	local defia=GetChaAttr(a, ATTR_ITEMC_DEF)/ATTR_RADIX 
+	--LuaPrint("Obtain character attribute def_ia") 
+	local defia=GetChaAttr(a, ATTR_ITEMC_DEF)/ATTR_RADIX --[[ИЎdefµАѕЯ°Щ·Ц±И]]--
 	return defia 
 end 
 
 function DefIb(a)
-	local defib=GetChaAttr(a, ATTR_ITEMV_DEF) 
+	--LuaPrint("Obtain character attribute def_ib") 
+	local defib=GetChaAttr(a, ATTR_ITEMV_DEF) --[[ИЎdefµАѕЯіЈКэ]]--
 	return defib 
 end 
 
 function Resist(a)
-	local def=GetChaAttr(a,ATTR_PDEF) 
+	--LuaPrint("Obtain character attribute def") 
+	local def=GetChaAttr(a,ATTR_PDEF) --[[ИЎdef]]--
 	return def 
 end 
 
 function ResistSa(a)
-	local defsa= GetChaAttr(a, ATTR_STATEC_PDEF)/ATTR_RADIX  
+	--LuaPrint("Obtain player attribute def_sa") 
+	local defsa= GetChaAttr(a, ATTR_STATEC_PDEF)/ATTR_RADIX  --[[ИЎdefЧґМ¬°Щ·Ц±И]]--
 	return defsa 
 end 
 
 function ResistSb(a)
-	local defsb=GetChaAttr(a, ATTR_STATEV_PDEF) 
+	--LuaPrint("Obtain character attribute def_sb") 
+	local defsb=GetChaAttr(a, ATTR_STATEV_PDEF) --[[ИЎdefЧґМ¬іЈКэ]]--
 	return defsb 
 end 
 
 function ResistIa(a)
-	local defia=GetChaAttr(a, ATTR_ITEMC_PDEF)/ATTR_RADIX 
+	--LuaPrint("Obtain character attribute def_ia") 
+	local defia=GetChaAttr(a, ATTR_ITEMC_PDEF)/ATTR_RADIX --[[ИЎdefµАѕЯ°Щ·Ц±И]]--
 	return defia 
 end 
 
 function ResistIb(a)
-	local defib=GetChaAttr(a, ATTR_ITEMV_PDEF) 
+	--LuaPrint("Obtain character attribute def_ib") 
+	local defib=GetChaAttr(a, ATTR_ITEMV_PDEF) --[[ИЎdefµАѕЯіЈКэ]]--
 	return defib 
 end 
 
 function Hit(a)
-	local hit=GetChaAttr(a,ATTR_HIT) 
+	--LuaPrint("Obtain character attribute hit") 
+	local hit=GetChaAttr(a,ATTR_HIT) --[[ИЎhit]]--
 	return hit 
 end 
 
 function HitSa(a)
-	local hitsa= GetChaAttr(a, ATTR_STATEC_HIT)/ATTR_RADIX   
+	--LuaPrint("Obtain character attribute hit_sa") 
+	local hitsa= GetChaAttr(a, ATTR_STATEC_HIT)/ATTR_RADIX   --[[ИЎhitЧґМ¬°Щ·Ц±И]]--
 	return hitsa 
 end 
 
 function HitSb(a)
-	local hitsb=GetChaAttr(a, ATTR_STATEV_HIT) 
+	--LuaPrint("Obtain character attribute hit_sb") 
+	local hitsb=GetChaAttr(a, ATTR_STATEV_HIT) --[[ИЎhitЧґМ¬іЈКэ]]--
 	return hitsb 
 end 
 
 function HitIa(a)
-	local hitia=GetChaAttr(a, ATTR_ITEMC_HIT)/ATTR_RADIX 
+	--LuaPrint("Obtain character attribute hit_ia") 
+	local hitia=GetChaAttr(a, ATTR_ITEMC_HIT)/ATTR_RADIX --[[ИЎhitµАѕЯ°Щ·Ц±И]]--
 	return hitia 
 end 
 
 function HitIb(a)
-	local hitib=GetChaAttr(a, ATTR_ITEMV_HIT) 
+	--LuaPrint("Obtain character attribute hit_ib") 
+	local hitib=GetChaAttr(a, ATTR_ITEMV_HIT) --[[ИЎhitµАѕЯіЈКэ]]--
 	return hitib 
 end 
 
 function Flee(a)
-	local flee=GetChaAttr(a,ATTR_FLEE) 
+	--LuaPrint("Obtain character attribute flee") 
+	local flee=GetChaAttr(a,ATTR_FLEE) --[[ИЎflee]]--
 	return flee 
 end 
 
 function FleeSa(a)
-	local fleesa=  GetChaAttr(a, ATTR_STATEC_FLEE)/ATTR_RADIX  
+	--LuaPrint("Obtain character attribute flee_sa") 
+	local fleesa=  GetChaAttr(a, ATTR_STATEC_FLEE)/ATTR_RADIX  --[[ИЎfleeЧґМ¬°Щ·Ц±И]]--
 	return fleesa 
 end 
 
 function FleeSb(a)
-	local fleesb=GetChaAttr(a, ATTR_STATEV_FLEE) 
+	--LuaPrint("Obtain character attribute flee_sb") 
+	local fleesb=GetChaAttr(a, ATTR_STATEV_FLEE) --[[ИЎfleeЧґМ¬іЈКэ]]--
 	return fleesb 
 end 
 
 function FleeIa(a)
-	local fleeia=GetChaAttr(a, ATTR_ITEMC_FLEE)/ATTR_RADIX 
+	--LuaPrint("Obtain character attribute flee_ia") 
+	local fleeia=GetChaAttr(a, ATTR_ITEMC_FLEE)/ATTR_RADIX --[[ИЎfleeµАѕЯ°Щ·Ц±И]]--
 	return fleeia 
 end 
 
 function FleeIb(a)
-	local fleeib=GetChaAttr(a, ATTR_ITEMV_FLEE) 
+	--LuaPrint("Obtain character attribute flee_ib") 
+	local fleeib=GetChaAttr(a, ATTR_ITEMV_FLEE) --[[ИЎfleeµАѕЯіЈКэ]]--
 	return fleeib 
 end 
 
 function Mf(a)
-	local mf=GetChaAttr(a,ATTR_MF)/MFRADIX 
+	--LuaPrint("Obtain character attribute mf") 
+	local mf=GetChaAttr(a,ATTR_MF)/MFRADIX --[[ИЎmf]]--
 	return mf 
 end 
 
 function MfSa(a)
-	local mfsa= GetChaAttr(a, ATTR_STATEC_MF)/ATTR_RADIX  
+	--LuaPrint("Obtain character attributemf_sa") 
+	local mfsa= GetChaAttr(a, ATTR_STATEC_MF)/ATTR_RADIX  --[[ИЎmfЧґМ¬°Щ·Ц±И]]--
 	return mfsa 
 end 
 
 function MfSb(a)
-	local mfsb=GetChaAttr(a, ATTR_STATEV_MF) 
+	--LuaPrint("Obtain character attribute mf_sb") 
+	local mfsb=GetChaAttr(a, ATTR_STATEV_MF) --[[ИЎmfЧґМ¬іЈКэ]]--
 	return mfsb 
 end 
 
 function MfIa(a)
-	local mfia=GetChaAttr(a, ATTR_ITEMC_MF)/ATTR_RADIX 
+	--LuaPrint("Obtain player attribute mf_ia") 
+	local mfia=GetChaAttr(a, ATTR_ITEMC_MF)/ATTR_RADIX --[[ИЎmfµАѕЯ°Щ·Ц±И]]--
 	return mfia 
 end 
 
 function MfIb(a)
-	local mfib=GetChaAttr(a, ATTR_ITEMV_MF) 
+	--LuaPrint("Obtain character attribute mf_ib") 
+	local mfib=GetChaAttr(a, ATTR_ITEMV_MF) --[[ИЎmfµАѕЯіЈКэ]]--
 	return mfib 
 end 
 
 function Crt(a)
-	local crt=GetChaAttr(a,ATTR_CRT)/CRTRADIX 
+	--LuaPrint("Obtain character attribute crt") 
+	local crt=GetChaAttr(a,ATTR_CRT)/CRTRADIX --[[ИЎcrt]]--
 	return crt 
 end 
 
 function CrtSa(a)
-	local crtsa= GetChaAttr(a, ATTR_STATEC_CRT)/ATTR_RADIX  
+	--LuaPrint("Obtain player attribute crt_sa") 
+	local crtsa= GetChaAttr(a, ATTR_STATEC_CRT)/ATTR_RADIX  --[[ИЎcrtЧґМ¬°Щ·Ц±И]]--
 	return crtsa 
 end 
 
 function CrtSb(a)
-	local crtsb=GetChaAttr(a, ATTR_STATEV_CRT) 
+	--LuaPrint("Obtain character attribute crt_sb") 
+	local crtsb=GetChaAttr(a, ATTR_STATEV_CRT) --[[ИЎcrtЧґМ¬іЈКэ]]--
 	return crtsb 
 end 
 
 function CrtIa(a)
-	local crtia=GetChaAttr(a, ATTR_ITEMC_CRT)/ATTR_RADIX 
+	--LuaPrint("Obtain character attribute crt_ia") 
+	local crtia=GetChaAttr(a, ATTR_ITEMC_CRT)/ATTR_RADIX --[[ИЎcrtµАѕЯ°Щ·Ц±И]]--
 	return crtia 
 end 
 
 function CrtIb(a)
-	local crtib=GetChaAttr(a, ATTR_ITEMV_CRT) 
+	--LuaPrint("Obtain character attribute crt_ib") 
+	local crtib=GetChaAttr(a, ATTR_ITEMV_CRT) --[[ИЎcrtµАѕЯіЈКэ]]--
 	return crtib 
 end 
 
 function Hrec(a)
-	local hrec=GetChaAttr(a,ATTR_HREC) 
+	--LuaPrint("Obtain character attribute hrec") 
+	local hrec=GetChaAttr(a,ATTR_HREC) --[[ИЎhrec]]--
 	return hrec 
 end 
 
 function HrecSa(a)
-	local hrecsa=  GetChaAttr(a, ATTR_STATEC_HREC)/ATTR_RADIX  
+	--LuaPrint("Obtain character attribute hrec_sa") 
+	local hrecsa=  GetChaAttr(a, ATTR_STATEC_HREC)/ATTR_RADIX  --[[ИЎhrecЧґМ¬°Щ·Ц±И]]--
 	return hrecsa 
 end 
 
 function HrecSb(a)
-	local hrecsb=GetChaAttr(a, ATTR_STATEV_HREC) 
+	--LuaPrint("Obtain character attribute hrec_sb") 
+	local hrecsb=GetChaAttr(a, ATTR_STATEV_HREC) --[[ИЎhrecЧґМ¬іЈКэ]]--
 	return hrecsb 
 end 
 
 function HrecIa(a)
-	local hrecia=GetChaAttr(a, ATTR_ITEMC_HREC)/ATTR_RADIX 
+	--LuaPrint("Obtain character attribute hrec_ia") 
+	local hrecia=GetChaAttr(a, ATTR_ITEMC_HREC)/ATTR_RADIX --[[ИЎhrecµАѕЯ°Щ·Ц±И]]--
 	return hrecia 
 end 
 
 function HrecIb(a)
-	local hrecib=GetChaAttr(a, ATTR_ITEMV_HREC) 
+	--LuaPrint("Obtain character attribute hrec_ib") 
+	local hrecib=GetChaAttr(a, ATTR_ITEMV_HREC) --[[ИЎhrecµАѕЯіЈКэ]]--
 	return hrecib 
 end 
 
 function Srec(a)
-	local srec=GetChaAttr(a,ATTR_SREC) 
+	--LuaPrint("Obtain character attribute srec") 
+	local srec=GetChaAttr(a,ATTR_SREC) --[[ИЎsrec]]--
 	return srec 
 end 
 
 function SrecSa(a)
-	local srecsa= GetChaAttr(a, ATTR_STATEC_SREC)/ATTR_RADIX  
+	--LuaPrint("Obtain character attribute srec_sa") 
+	local srecsa= GetChaAttr(a, ATTR_STATEC_SREC)/ATTR_RADIX  --[[ИЎsrecЧґМ¬°Щ·Ц±И]]--
 	return srecsa 
 end 
 
 function SrecSb(a)
-	local srecsb=GetChaAttr(a, ATTR_STATEV_SREC) 
+	--LuaPrint("Obtain character attribute srec_sb") 
+	local srecsb=GetChaAttr(a, ATTR_STATEV_SREC) --[[ИЎsrecЧґМ¬іЈКэ]]--
 	return srecsb 
 end 
 
 function SrecIa(a)
-	local srecia=GetChaAttr(a, ATTR_ITEMC_SREC)/ATTR_RADIX 
+	--LuaPrint("Obtain character attribute srec_ia") 
+	local srecia=GetChaAttr(a, ATTR_ITEMC_SREC)/ATTR_RADIX --[[ИЎsrecµАѕЯ°Щ·Ц±И]]--
 	return srecia 
 end 
 
 function SrecIb(a)
-	local srecib=GetChaAttr(a, ATTR_ITEMV_SREC) 
+	--LuaPrint("Obtain character attribute srec_ib") 
+	local srecib=GetChaAttr(a, ATTR_ITEMV_SREC) --[[ИЎsrecµАѕЯіЈКэ]]--
 	return srecib 
 end 
 
 function Aspd(a)
-	local aspd=math.floor ( 100000 / GetChaAttr(a,ATTR_ASPD) )  
+	--LuaPrint("Obtain character attribute aspd") 
+	local aspd=math.floor ( 100000 / GetChaAttr(a,ATTR_ASPD) )  --[[ИЎaspd]]--
 	return aspd 
 end 
 
 function AspdSa(a)
-	local aspdsa=  GetChaAttr(a, ATTR_STATEC_ASPD)/ATTR_RADIX    
+	--LuaPrint("Obtain character attribute aspd_sa") 
+	local aspdsa=  GetChaAttr(a, ATTR_STATEC_ASPD)/ATTR_RADIX    --[[ИЎaspdЧґМ¬°Щ·Ц±И]]--
 	return aspdsa 
 end 
 
 function AspdSb(a)
-	local aspdsb=GetChaAttr(a, ATTR_STATEV_ASPD) 
+	--LuaPrint("Obtain character attributeaspd_sb") 
+	local aspdsb=GetChaAttr(a, ATTR_STATEV_ASPD) --[[ИЎaspdЧґМ¬іЈКэ]]--
 	return aspdsb 
 end 
 
 function AspdIa(a)
-	local aspdia=GetChaAttr(a, ATTR_ITEMC_ASPD)/ATTR_RADIX 
+	--LuaPrint("Obtain character attribute aspd_ia") 
+	local aspdia=GetChaAttr(a, ATTR_ITEMC_ASPD)/ATTR_RADIX --[[ИЎaspdµАѕЯ°Щ·Ц±И]]--
 	return aspdia 
 end 
 
 function AspdIb(a)
-	local aspdib=GetChaAttr(a, ATTR_ITEMV_ASPD) 
+	--LuaPrint("Obtain player attribute aspd_ib") 
+	local aspdib=GetChaAttr(a, ATTR_ITEMV_ASPD) --[[ИЎaspdµАѕЯіЈКэ]]--
 	return aspdib 
 end 
 
 function Adis(a)
-	local adis=GetChaAttr(a,ATTR_ADIS) 
+	--LuaPrint("Obtain character attribute adis") 
+	local adis=GetChaAttr(a,ATTR_ADIS) --[[ИЎadis]]--
 	return adis 
 end 
 
 function AdisSa(a)
-	local adissa=  GetChaAttr(a, ATTR_STATEC_ADIS)/ATTR_RADIX   
+	--LuaPrint("Obtain character attribute adis_sa") 
+	local adissa=  GetChaAttr(a, ATTR_STATEC_ADIS)/ATTR_RADIX   --[[ИЎadisЧґМ¬°Щ·Ц±И]]--
 	return adissa 
 end 
 
 function AdisSb(a)
-	local adissb=GetChaAttr(a, ATTR_STATEV_ADIS) 
+	--LuaPrint("Obtain player attribute adis_sb") 
+	local adissb=GetChaAttr(a, ATTR_STATEV_ADIS) --[[ИЎadisЧґМ¬іЈКэ]]--
 	return adissb 
 end 
 
 function AdisIa(a)
-	local adisia=GetChaAttr(a, ATTR_ITEMC_ADIS)/ATTR_RADIX 
+	--LuaPrint("Obtain character attribute aids_ia") 
+	local adisia=GetChaAttr(a, ATTR_ITEMC_ADIS)/ATTR_RADIX --[[ИЎadisµАѕЯ°Щ·Ц±И]]--
 	return adisia 
 end 
 
 function AdisIb(a)
-	local adisib=GetChaAttr(a, ATTR_ITEMV_ADIS) 
+	--LuaPrint("Obtain character attribute adis_ib") 
+	local adisib=GetChaAttr(a, ATTR_ITEMV_ADIS) --[[ИЎadisµАѕЯіЈКэ]]--
 	return adisib 
 end 
 
 function Mspd(a)
-	local mspd=GetChaAttr(a,ATTR_MSPD) 
+	--LuaPrint("Obtain character attribute mspd") 
+	local mspd=GetChaAttr(a,ATTR_MSPD) --[[ИЎmspd]]--
 	return mspd 
 end 
 
 function MspdSa(a)
-	local mspdsa=  GetChaAttr(a, ATTR_STATEC_MSPD)/ATTR_RADIX   
+	--LuaPrint("Obtain character attribute mspd_sa") 
+	local mspdsa=  GetChaAttr(a, ATTR_STATEC_MSPD)/ATTR_RADIX   --[[ИЎmspdЧґМ¬°Щ·Ц±И]]--
 	return mspdsa 
 end 
-
 function MspdSb(a)
-	local mspdsb=GetChaAttr(a, ATTR_STATEV_MSPD) 
+	--LuaPrint("Obtain character attribute mspd_sb") 
+	local mspdsb=GetChaAttr(a, ATTR_STATEV_MSPD) --[[ИЎmspdЧґМ¬іЈКэ]]--
 	return mspdsb 
 end 
-
 function MspdIa(a)
-	local mspdia=GetChaAttr(a, ATTR_ITEMC_MSPD)/ATTR_RADIX 
+	--LuaPrint("Obtain character attributemspd_ia") 
+	local mspdia=GetChaAttr(a, ATTR_ITEMC_MSPD)/ATTR_RADIX --[[ИЎmspdµАѕЯ°Щ·Ц±И]]--
 	return mspdia 
 end 
 
 function MspdIb(a)
-	local mspdib=GetChaAttr(a, ATTR_ITEMV_MSPD) 
+	--LuaPrint("Obtain character attribute Mspd_ib") 
+	local mspdib=GetChaAttr(a, ATTR_ITEMV_MSPD) --[[ИЎmspdµАѕЯіЈКэ]]--
 	return mspdib 
 end 
 
 function Col(a)
-	local col=GetChaAttr(a,ATTR_COL) 
+	--LuaPrint("Obtain character attribute col") 
+	local col=GetChaAttr(a,ATTR_COL) --[[ИЎcol]]--
 	return col 
 end 
 
 function ColSa(a) 
-	local colsa= GetChaAttr(a, ATTR_STATEC_COL)/ATTR_RADIX  
+	--LuaPrint("Obtain character attribute col_sa") 
+	local colsa= GetChaAttr(a, ATTR_STATEC_COL)/ATTR_RADIX  --[[ИЎcolЧґМ¬°Щ·Ц±И]]--
 	return colsa 
 end 
 
 function ColSb(a) 
-	local colsb=GetChaAttr(a, ATTR_STATEV_COL) 
+	--LuaPrint("Obtain character attribute col_sb") 
+	local colsb=GetChaAttr(a, ATTR_STATEV_COL) --[[ИЎcolЧґМ¬іЈКэ]]--
 	return colsb 
 end 
 
 function ColIa(a) 
-	local colia=GetChaAttr(a, ATTR_ITEMC_COL)/ATTR_RADIX 
+	--LuaPrint("Obtain character attribute col_ia") 
+	local colia=GetChaAttr(a, ATTR_ITEMC_COL)/ATTR_RADIX --[[ИЎcolµАѕЯ°Щ·Ц±И]]--
 	return colia 
 end 
 
 function ColIb(a) 
-	local colib=GetChaAttr(a, ATTR_ITEMV_COL) 
+	--LuaPrint("Obtain character attribute col_ib") 
+	local colib=GetChaAttr(a, ATTR_ITEMV_COL) --[[ИЎcolµАѕЯіЈКэ]]--
 	return colib 
 end 
 
 function Str(a) 
-	local str=GetChaAttr(a,ATTR_STR) 
+	--LuaPrint("Obtain character attribute str") 
+	local str=GetChaAttr(a,ATTR_STR) --[[ИЎstr]]--
 	return str 
 end 
 
 function StrSa(a) 
-	local strsa= GetChaAttr(a, ATTR_STATEC_STR)/ATTR_RADIX   
+	--LuaPrint("Obtain character attribute str_sa") 
+	local strsa= GetChaAttr(a, ATTR_STATEC_STR)/ATTR_RADIX   --[[ИЎstrЧґМ¬°Щ·Ц±И]]--
 	return strsa 
 end 
 
 function StrSb(a) 
-	local strsb=GetChaAttr(a, ATTR_STATEV_STR) 
+	--LuaPrint("Obtain character attribute str_sb") 
+	local strsb=GetChaAttr(a, ATTR_STATEV_STR) --[[ИЎstrЧґМ¬іЈКэ]]--
 	return strsb 
 end 
 
 function StrIa(a)
-	local stria=GetChaAttr(a,ATTR_ITEMC_STR)/ATTR_RADIX 
+	--LuaPrint("Obtain character attribute str_ia") 
+	local stria=GetChaAttr(a,ATTR_ITEMC_STR)/ATTR_RADIX --[[ИЎstrµАѕЯ°Щ·Ц±И]]--
 	return stria 
 end 
 
 function StrIb(a)
-	local strib=GetChaAttr(a,ATTR_ITEMV_STR) 
+	--LuaPrint("Obtain character attribute str_ib") 
+	local strib=GetChaAttr(a,ATTR_ITEMV_STR) --[[ИЎstrµАѕЯіЈКэ]]--
 	return strib 
 end 
 
 function Dex(a)
-	local dex=GetChaAttr(a,ATTR_DEX) 
+	--LuaPrint("Obtain character attribute dex") 
+	local dex=GetChaAttr(a,ATTR_DEX) --[[ИЎdex]]--
 	return dex 
 end 
 
 function DexSa(a)
-	local dexsa= GetChaAttr(a, ATTR_STATEC_DEX)/ATTR_RADIX  
+	--LuaPrint("Obtain character attribute dex_sa") 
+	local dexsa= GetChaAttr(a, ATTR_STATEC_DEX)/ATTR_RADIX  --[[ИЎdexЧґМ¬°Щ·Ц±И]]--
 	return dexsa 
 end 
 
 function DexSb(a)
-	local dexsb=GetChaAttr(a, ATTR_STATEV_DEX) 
+	--LuaPrint("Obtain player attribute dex_sb") 
+	local dexsb=GetChaAttr(a, ATTR_STATEV_DEX) --[[ИЎdexЧґМ¬іЈКэ]]--
 	return dexsb 
 end 
 
 function DexIa(a)
-	local dexia=GetChaAttr(a,ATTR_ITEMC_DEX)/ATTR_RADIX 
+	--LuaPrint("Obtain character attribute dex_ia") 
+	local dexia=GetChaAttr(a,ATTR_ITEMC_DEX)/ATTR_RADIX --[[ИЎdexµАѕЯ°Щ·Ц±И]]--
 	return dexia 
 end 
 
 function DexIb(a)
-	local dexib=GetChaAttr(a,ATTR_ITEMV_DEX) 
+	--LuaPrint("Obtain character attribute dex_ib") 
+	local dexib=GetChaAttr(a,ATTR_ITEMV_DEX) --[[ИЎdexµАѕЯіЈКэ]]--
 	return dexib 
 end 
 
 function Agi(a) 
-	local agi=GetChaAttr(a,ATTR_AGI) 
+	--LuaPrint("Obtain character attribute agi") 
+	local agi=GetChaAttr(a,ATTR_AGI) --[[ИЎagi]]--
 	return agi 
 end 
 
 function AgiSa(a)
-	local agisa= GetChaAttr(a, ATTR_STATEC_AGI)/ATTR_RADIX  
+	--LuaPrint("Obtain character attribute agi_sa") 
+	local agisa= GetChaAttr(a, ATTR_STATEC_AGI)/ATTR_RADIX  --[[ИЎagiЧґМ¬°Щ·Ц±И]]--
 	return agisa 
 end 
 
 function AgiSb(a)
-	local agisb=GetChaAttr(a, ATTR_STATEV_AGI) 
+	--LuaPrint("Obtain character attribute agi_sb") 
+	local agisb=GetChaAttr(a, ATTR_STATEV_AGI) --[[ИЎagiЧґМ¬іЈКэ]]--
 	return agisb 
 end 
 
 function AgiIa(a)
-	local agiia=GetChaAttr(a,ATTR_ITEMC_AGI)/ATTR_RADIX 
+	--LuaPrint("Obtain character attribute agi_ia") 
+	local agiia=GetChaAttr(a,ATTR_ITEMC_AGI)/ATTR_RADIX --[[ИЎagiµАѕЯ°Щ·Ц±И]]--
 	return agiia 
 end 
 
 function AgiIb(a)
-	local agiib=GetChaAttr(a,ATTR_ITEMV_AGI) 
+	--LuaPrint("Obtain character attribute agi_ib") 
+	local agiib=GetChaAttr(a,ATTR_ITEMV_AGI) --[[ИЎagiµАѕЯіЈКэ]]--
 	return agiib 
 end 
 
 function Con(a)
-	local con=GetChaAttr(a,ATTR_CON) 
+	--LuaPrint("Obtain character attribute con") 
+	local con=GetChaAttr(a,ATTR_CON) --[[ИЎcon]]--
 	return con 
 end 
 
 function ConSa(a)
-	local consa= GetChaAttr(a, ATTR_STATEC_CON)/ATTR_RADIX  
+	--LuaPrint("Obtain character attribute con_sa") 
+	local consa= GetChaAttr(a, ATTR_STATEC_CON)/ATTR_RADIX  --[[ИЎconЧґМ¬°Щ·Ц±И]]--
 	return consa 
 end 
 
 function ConSb(a)
-	local consb=GetChaAttr(a, ATTR_STATEV_CON) 
+	--LuaPrint("Obtain character attribute con_sb") 
+	local consb=GetChaAttr(a, ATTR_STATEV_CON) --[[ИЎconЧґМ¬іЈКэ]]--
 	return consb 
 end 
 
 function ConIa(a)
-	local conia=GetChaAttr(a, ATTR_ITEMC_CON)/ATTR_RADIX 
+	--LuaPrint("Obtain character attribute con_ia") 
+	local conia=GetChaAttr(a, ATTR_ITEMC_CON)/ATTR_RADIX --[[ИЎconµАѕЯ°Щ·Ц±И]]--
 	return conia 
 end 
 
 function ConIb(a)
-	local conib=GetChaAttr(a, ATTR_ITEMV_CON) 
+	--LuaPrint("Obtain character attribute con_ib") 
+	local conib=GetChaAttr(a, ATTR_ITEMV_CON) --[[ИЎconµАѕЯіЈКэ]]--
 	return conib 
 end 
 
 function Sta(a)
-	local sta=GetChaAttr(a,ATTR_STA) 
+	--LuaPrint("Obtain character attribute sta") 
+	local sta=GetChaAttr(a,ATTR_STA) --[[ИЎsta]]--
 	return sta 
 end 
 
 function StaSa(a)
-	local stasa= GetChaAttr(a, ATTR_STATEC_STA)/ATTR_RADIX  
+	--LuaPrint("Obtain character attribute sta_sa") 
+	local stasa= GetChaAttr(a, ATTR_STATEC_STA)/ATTR_RADIX  --[[ИЎstaЧґМ¬°Щ·Ц±И]]--
 	return stasa 
 end 
 
 function StaSb(a)
-	local stasb=GetChaAttr(a, ATTR_STATEV_STA) 
+	--LuaPrint("Obtain character attribute sta_sb") 
+	local stasb=GetChaAttr(a, ATTR_STATEV_STA) --[[ИЎstaЧґМ¬іЈКэ]]--
 	return stasb 
 end 
 
 function StaIa(a)
-	local staia=GetChaAttr(a, ATTR_ITEMC_STA)/ATTR_RADIX 
+	--LuaPrint("Obtain character attribute sta_ia") 
+	local staia=GetChaAttr(a, ATTR_ITEMC_STA)/ATTR_RADIX --[[ИЎstaµАѕЯ°Щ·Ц±И]]--
 	return staia 
 end 
 
 function StaIb(a)
-	local staib=GetChaAttr(a, ATTR_ITEMV_STA) 
+	--LuaPrint("Obtain character attribute sta_ib") 
+	local staib=GetChaAttr(a, ATTR_ITEMV_STA) --[[ИЎstaµАѕЯіЈКэ]]--
 	return staib 
 end 
 
 function Luk(a)
-	local luk=GetChaAttr(a,ATTR_LUK) 
+	--LuaPrint("Obtain character attribute luk") 
+	local luk=GetChaAttr(a,ATTR_LUK) --[[ИЎluk]]--
 	return luk 
 end 
 
 function LukSa(a)
-	local luksa= GetChaAttr(a, ATTR_STATEC_LUK)/ATTR_RADIX   
+	--LuaPrint("Obtain character attribute luk_sa") 
+	local luksa= GetChaAttr(a, ATTR_STATEC_LUK)/ATTR_RADIX   --[[ИЎlukЧґМ¬°Щ·Ц±И]]--
 	return luksa 
 end 
 
 function LukSb(a)
-	local luksb=GetChaAttr(a, ATTR_STATEV_LUK) 
+	--LuaPrint("Obtain character attribute luk_sb") 
+	local luksb=GetChaAttr(a, ATTR_STATEV_LUK) --[[ИЎlukЧґМ¬іЈКэ]]--
 	return luksb 
 end 
 
 function LukIa(a)
-	local lukia=GetChaAttr(a, ATTR_ITEMC_LUK)/ATTR_RADIX 
+	--LuaPrint("Obtain character attribute luk_ia") 
+	local lukia=GetChaAttr(a, ATTR_ITEMC_LUK)/ATTR_RADIX --[[ИЎlukµАѕЯ°Щ·Ц±И]]--
 	return lukia 
 end 
 
 function LukIb(a)
-	local lukib = GetChaAttr(a, ATTR_ITEMV_LUK) 
+	--LuaPrint("Obtain character attribute luk_ib") 
+	local lukib = GetChaAttr(a, ATTR_ITEMV_LUK) --[[ИЎlukµАѕЯіЈКэ]]--
 	return lukib 
 end 
 
-function BSMxhp(a) 
+
+
+
+function BSMxhp(a) --[[ИЎ»щ±ѕmxhp]]--
+	--LuaPrint("Obtain character attribute bsmxhp") 
 	local bsmxhp=GetChaAttr(a,ATTR_BMXHP) 
 	return bsmxhp 
 end 
 
 function Mxhp_final(a) 
-	local mxhp_final=(BSMxhp(a) * MxhpIa(a) + MxhpIb(a) ) * math.max(0, MxhpSa(a))  + MxhpSb(a) 
+	local mxhp_final=(BSMxhp(a) * MxhpIa(a) + MxhpIb(a) ) * math.max(0, MxhpSa(a))  + MxhpSb(a) --[[ИЎµ±К±КµјКmxhp]]--
+	--LG("chaattr_set", " BSMxhp = " , BSMxhp(a) , "MxhpIa = " , MxhpIa(a) , " MxhpIb = " , MxhpIb(a) , "MxhpSa = " , MxhpSa(a) , "MxhpSb = ", MxhpSb(a) , "\n" ) 
+	--LG("chaattr_set", "mxhp_final = ", mxhp_final , "\n" ) 
 	return mxhp_final 
 end 
 
+
 function Sp_final(a)
-	local sp_final=(BSSp(a) * SpIa(a) + SpIb(a) ) * math.max(0 , SpSa(a)) + SpSb(a) 
+	local sp_final=(BSSp(a) * SpIa(a) + SpIb(a) ) * math.max(0 , SpSa(a)) + SpSb(a) --[[ИЎµ±К±КµјКsp]]--
+	--LG("chaattr_set", " BSMxhp = " , BSmxhp(a) , "MxhpIa = " , MxhpIa(a) , " MxhpIb = " , MxhpIb(a) , "MxhpSa = " , MxhpSa(a) , "MxhpSb = ", MxhpSb(a) , "\n" ) 
+	--LG("chaattr_set", "mxhp_final = ", mxhp_final , "\n" ) 
 	return sp_final 
 end 
 
-function BSMxsp(a) 
+function BSMxsp(a) --[[ИЎ»щ±ѕmxsp]]--
+	--LuaPrint("Obtain character attribute bsmxsp") 
 	local bsmxsp=GetChaAttr(a,ATTR_BMXSP) 
 	return bsmxsp 
 end 
 
 function Mxsp_final(a)
-	local mxsp_final=(BSMxsp(a) * MxspIa(a) + MxspIb(a) ) * math.max ( 0 , MxspSa(a) ) + MxspSb(a) 
+	local mxsp_final=(BSMxsp(a) * MxspIa(a) + MxspIb(a) ) * math.max ( 0 , MxspSa(a) ) + MxspSb(a) --[[ИЎµ±К±КµјКmxsp]]--
+	--LG("chaattr_set", " BSMxsp = " , BSMxsp(a) , "MxspIa = " , MxspIa(a) , " MxspIb = " , MxspIb(a) , "MxspSa = " , MxspSa(a) , "MxspSb = ", MxspSb(a) , "\n" ) 
+	--LG("chaattr_set", "mxsp_final = ", mxsp_final , "\n" ) 
 	return mxsp_final 
 end 
 
-function BSMnatk(a) 
+function BSMnatk(a) --[[ИЎ»щ±ѕmnatk]]--
+	--LuaPrint("Obtain character attribute bsmnatk") 
 	local bsmnatk=GetChaAttr(a,ATTR_BMNATK) 
 	return bsmnatk 
 end
 
 function Mnatk_final(a)
-	local mnatk_final=math.max ( (BSMnatk(a) * MnatkIa(a) + MnatkIb(a) ) * math.max ( 0 , MnatkSa(a)) + MnatkSb(a) , 1 ) 
+	local mnatk_final=math.max ( (BSMnatk(a) * MnatkIa(a) + MnatkIb(a) ) * math.max ( 0 , MnatkSa(a)) + MnatkSb(a) , 1 ) --[[ИЎµ±К±КµјКmnatk]]--
+	--LG("chaattr_set", " BSMnatk = " , BSMnatk(a) , "MnatkIa = " , MnatkIa(a) , " MnatkIb = " , MnatkIb(a) , "MnatkSa = " , MnatkSa(a) , "MnatkSb = ", MnatkSb(a) , "\n" ) 
+	--LG("chaattr_set", "mnatk_final = ", mnatk_final , "\n" ) 
 	return mnatk_final 
 end 
 
-function BSMxatk(a) 
+function BSMxatk(a) --[[ИЎ»щ±ѕmxatk]]--
+	--LuaPrint("Obtain character attribute bsmxatk") 
 	local bsmxatk=GetChaAttr(a,ATTR_BMXATK) 
 	return bsmxatk 
 end
 
 function Mxatk_final(a)
-	local mxatk_final=math.max ( (BSMxatk(a) * MxatkIa(a) + MxatkIb(a) ) * math.max ( 0 , MxatkSa(a) ) + MxatkSb(a) , 1 ) 
+	local mxatk_final=math.max ( (BSMxatk(a) * MxatkIa(a) + MxatkIb(a) ) * math.max ( 0 , MxatkSa(a) ) + MxatkSb(a) , 1 ) --[[ИЎµ±К±КµјКmxatk]]--
 	return mxatk_final 
 end 
 
-function BSDef(a) 
+function BSDef(a) --[[ИЎ»щ±ѕdef]]--
+	--LuaPrint("Obtain character attributebsdef") 
 	local bsdef=GetChaAttr(a,ATTR_BDEF) 
 	return bsdef 
 end
 
+
 function Def_final(a)
-	local def_final=math.max ( (BSDef(a) * DefIa(a) + DefIb(a) ) * math.max ( 0 , DefSa(a) ) + DefSb(a) , 0 ) 
+	local def_final=math.max ( (BSDef(a) * DefIa(a) + DefIb(a) ) * math.max ( 0 , DefSa(a) ) + DefSb(a) , 0 ) --[[ИЎµ±К±КµјКdef]]--
+	--LG("chaattr_set", " BSDef = " , BSDef(a) , "DefIa = " , DefIa(a) , " DefIb = " , DefIb(a) , "DefSa = " , DefSa(a) , "DefSb = ", DefSb(a) , "\n" ) 
+	--LG("chaattr_set", "def_final = ", def_final , "\n" ) 
 	return def_final 
 end 
 
-function BSResist(a) 
-   
+function BSResist(a) --[[ИЎ»щ±ѕї№РФ]]--
+   --LuaPrint("Obtain player attribute bsresist") 
    local bsresist = GetChaAttr(a, ATTR_BPDEF) 
    return bsresist 
 end 
 
 function Resist_final(a) 
-   local resist_final=(BSResist(a) * ResistIa(a) + ResistIb(a) ) * math.max ( 0 , ResistSa(a) ) + ResistSb(a) 
+   local resist_final=(BSResist(a) * ResistIa(a) + ResistIb(a) ) * math.max ( 0 , ResistSa(a) ) + ResistSb(a) --[[ИЎКµјКresist]]--
    return resist_final 
 end 
 
-function BSHit(a) 
+
+function BSHit(a) --[[ИЎ»щ±ѕhit]]--
+	--LuaPrint("Obtain character attribute bshit") 
 	local bshit=GetChaAttr(a,ATTR_BHIT) 
 	return bshit 
 end
 
 function Hit_final(a)
-	local hit_final = (BSHit(a) * HitIa(a) + HitIb(a) ) * math.max ( 0 , HitSa(a) ) + HitSb(a) 
+	local hit_final = (BSHit(a) * HitIa(a) + HitIb(a) ) * math.max ( 0 , HitSa(a) ) + HitSb(a) --[[ИЎµ±К±КµјКhit]]--
 	return hit_final 
 end 
 
-function BSFlee(a) 
+function BSFlee(a) --[[ИЎ»щ±ѕflee]]--
+	--LuaPrint("Obtain character attribute bsflee") 
 	local bsflee=GetChaAttr(a,ATTR_BFLEE) 
 	return bsflee 
 end
 
 function Flee_final(a) 
-	local flee_final=(BSFlee(a) * FleeIa(a) + FleeIb(a) ) * math.max ( 0 , FleeSa(a) ) + FleeSb(a)  
+	local flee_final=(BSFlee(a) * FleeIa(a) + FleeIb(a) ) * math.max ( 0 , FleeSa(a) ) + FleeSb(a)  --[[ИЎµ±К±КµјКflee]]--
 	return flee_final 
 end 
 
-function BSMf(a) 
+function BSMf(a) --[[ИЎ»щ±ѕmf]]--
+	--LuaPrint("Obtain character attribute bsmf") 
 	local bsmf=GetChaAttr(a,ATTR_BMF) 
 	return bsmf 
 end
 
 function Mf_final(a)
-	local mf_final=(BSMf(a) * MfIa(a) + MfIb(a) )* math.max ( 0 , MfSa(a) ) + MfSb(a) 
+	local mf_final=(BSMf(a) * MfIa(a) + MfIb(a) )* math.max ( 0 , MfSa(a) ) + MfSb(a) --[[ИЎµ±К±КµјКmf]]--
 	return mf_final 
 end 
 
-function BSCrt(a) 
+function BSCrt(a) --[[ИЎ»щ±ѕcrt]]--
+	--LuaPrint("Obtain character attributebscrt") 
 	local bscrt=GetChaAttr(a,ATTR_BCRT) 
 	return bscrt 
 end
 
 function Crt_final(a)
-	local crt_final=(BSCrt(a) * CrtIa(a) + CrtIb(a) ) * math.max ( 0 , CrtSa(a) )  + CrtSb(a) 
+	local crt_final=(BSCrt(a) * CrtIa(a) + CrtIb(a) ) * math.max ( 0 , CrtSa(a) )  + CrtSb(a) --[[ИЎµ±К±КµјКcrt]]--
 	return crt_final 
 end 
 
-function BSHrec(a) 
+function BSHrec(a) --[[ИЎ»щ±ѕhrec]]--
+	--LuaPrint("Obtain character attribute bshrec") 
 	local bshrec=GetChaAttr(a,ATTR_BHREC) 
 	return bshrec 
 end
 
 function Hrec_final(a)
-	local hrec_final=( BSHrec(a) * HrecIa(a) + HrecIb(a) ) * math.max ( 0 , HrecSa(a) ) + HrecSb(a) 
+	local hrec_final=( BSHrec(a) * HrecIa(a) + HrecIb(a) ) * math.max ( 0 , HrecSa(a) ) + HrecSb(a) --[[ИЎµ±К±КµјКhrec]]--
 	return hrec_final 
 end 
 
-function BSSrec(a) 
+function BSSrec(a) --[[ИЎ»щ±ѕsrec]]--
+	--LuaPrint("Obtain character attribute bssrec") 
 	local bssrec=GetChaAttr(a,ATTR_BSREC) 
 	return bssrec 
 end
 
 function Srec_final(a)
-	local srec_final=(BSSrec(a) * SrecIa(a) + SrecIb(a) ) * math.max ( 0 , SrecSa(a) ) + SrecSb(a) 
+	local srec_final=(BSSrec(a) * SrecIa(a) + SrecIb(a) ) * math.max ( 0 , SrecSa(a) ) + SrecSb(a) --[[ИЎµ±К±КµјКsrec]]--
 	return srec_final 
 end 
 
-function BSAspd(a) 
+function BSAspd(a) --[[ИЎ»щ±ѕaspd]]--
+	--LuaPrint("Obtain character attribute bsaspd") 
 	local bsaspd=math.floor ( 100000 / GetChaAttr(a,ATTR_BASPD) ) 
 	return bsaspd 
 end
 
 function Aspd_final(a)
-	local aspd_final=( BSAspd(a)  * AspdIa(a) + AspdIb(a) ) * math.max ( 0 , AspdSa(a) ) + AspdSb(a) 
+	local aspd_final=( BSAspd(a)  * AspdIa(a) + AspdIb(a) ) * math.max ( 0 , AspdSa(a) ) + AspdSb(a) --[[ИЎµ±К±КµјКaspd]]--
+	--LG("aspd", "baspd = " , BSAspd(a),"aspdia= " , AspdIa(a) , " AspdIb = ", AspdIb(a), "AspdSa = " , AspdSa(a) , "AspdSb = " , AspdSb(a) ) 
 	return aspd_final 
 end 
 
-function BSAdis(a) 
+function BSAdis(a) --[[ИЎ»щ±ѕadis]]--
+	--LuaPrint("Obtain character attribute bsadis") 
 	local bsadis=GetChaAttr(a,ATTR_BADIS) 
 	return bsadis 
 end
 
 function Adis_final(a)
-	local adis_final=(BSAdis(a) * AdisIa(a) + AdisIb(a) ) * math.max ( 0 , AdisSa(a) ) + AdisSb(a) 
+	local adis_final=(BSAdis(a) * AdisIa(a) + AdisIb(a) ) * math.max ( 0 , AdisSa(a) ) + AdisSb(a) --[[ИЎµ±К±КµјКadis]]--
 	return adis_final 
 end 
 
-function BSMspd(a) 
+function BSMspd(a) --[[ИЎ»щ±ѕmspd]]--
+	--LuaPrint("Obtain character attribute bsmspd") 
 	local bsmspd=GetChaAttr(a,ATTR_BMSPD) 
 	return bsmspd 
 end
 
 function Mspd_final(a)
-	local mspd_final=math.max ( BSMspd(a) * 0.3 , ( (BSMspd(a) * MspdIa(a) + MspdIb(a) ) * math.max ( 0.3 , MspdSa(a))  + MspdSb(a) )  )  
+	local mspd_final=math.max ( BSMspd(a) * 0.3 , ( (BSMspd(a) * MspdIa(a) + MspdIb(a) ) * math.max ( 0.3 , MspdSa(a))  + MspdSb(a) )  )  --[[ИЎµ±К±КµјКmspd]]--
 	return mspd_final 
 end 
 
-function BSCol(a) 
+function BSCol(a) --[[ИЎ»щ±ѕcol]]--
+	--LuaPrint("Obtain character attribute bscol") 
 	local bscol=GetChaAttr(a,ATTR_BCOL) 
 	return bscol 
 end
 
 function Col_final(a)
-	local col_final=(BSCol(a) * ColIa(a) + ColIb(a) ) * math.max ( 0 , ColSa(a) ) + ColSb(a) 
+	local col_final=(BSCol(a) * ColIa(a) + ColIb(a) ) * math.max ( 0 , ColSa(a) ) + ColSb(a) --[[ИЎµ±К±КµјКcol]]--
 	return col_final 
 end 
 
-function BSStr(a) 
+function BSStr(a) --[[ИЎ»щ±ѕstr]]--
+	--LuaPrint("Obtain character attribute bsstr") 
 	local bsstr=GetChaAttr(a,ATTR_BSTR) 
 	return bsstr 
 end
 
 function Str_final(a)
-	local str_final=(BSStr(a) * StrIa(a) + StrIb(a) ) * math.max ( 0 , StrSa(a) ) + StrSb(a) 
+	local str_final=(BSStr(a) * StrIa(a) + StrIb(a) ) * math.max ( 0 , StrSa(a) ) + StrSb(a) --[[ИЎµ±К±КµјКstr]]--
 	return str_final 
 end 
 
-function BSDex(a) 
+function BSDex(a) --[[ИЎ»щ±ѕdex]]--
+	--LuaPrint("Obtain character attribute bsdex") 
 	local bsdex=GetChaAttr(a,ATTR_BDEX) 
 	return bsdex 
 end
 
 function Dex_final(a)
-	local dex_final=(BSDex(a) * DexIa(a) + DexIb(a) ) * math.max ( 0 , DexSa(a) ) + DexSb(a) 
+	local dex_final=(BSDex(a) * DexIa(a) + DexIb(a) ) * math.max ( 0 , DexSa(a) ) + DexSb(a) --[[ИЎµ±К±КµјКdex]]--
 	return dex_final 
 end 
 
-function BSAgi(a) 
+function BSAgi(a) --[[ИЎ»щ±ѕagi]]--
+	--LuaPrint("Obtain character attribute bsagi") 
 	local bsagi=GetChaAttr(a,ATTR_BAGI) 
 	return bsagi 
 end
 
 function Agi_final(a)
-	local agi_final=(BSAgi(a) * AgiIa(a) + AgiIb(a) ) * math.max ( 0 , AgiSa(a) ) + AgiSb(a) 
+	local agi_final=(BSAgi(a) * AgiIa(a) + AgiIb(a) ) * math.max ( 0 , AgiSa(a) ) + AgiSb(a) --[[ИЎµ±К±КµјКagi]]--
 	return agi_final 
 end 
 
-function BSCon(a) 
+function BSCon(a) --[[ИЎ»щ±ѕcon]]--
+	--LuaPrint("Obtain character attribute bscon") 
 	local bscon=GetChaAttr(a,ATTR_BCON) 
 	return bscon 
 end
 
 function Con_final(a)
-	local con_final=(BSCon(a) * ConIa(a) + ConIb(a)) * math.max ( 0 , ConSa(a) ) + ConSb(a) 
+	local con_final=(BSCon(a) * ConIa(a) + ConIb(a)) * math.max ( 0 , ConSa(a) ) + ConSb(a) --[[ИЎµ±К±КµјКcon]]--
 	return con_final 
 end 
 
-function BSSta(a) 
+function BSSta(a) --[[ИЎ»щ±ѕsta]]--
+	--LuaPrint("Obtain character attribute bssta") 
 	local bssta=GetChaAttr(a,ATTR_BSTA) 
 	return bssta 
 end
 
 function Sta_final(a)
-	local sta_final=(BSSta(a) * StaIa(a) + StaIb(a) ) * math.max ( 0 , StaSa(a) ) + StaSb(a) 
+	local sta_final=(BSSta(a) * StaIa(a) + StaIb(a) ) * math.max ( 0 , StaSa(a) ) + StaSb(a) --[[ИЎµ±К±КµјКsta]]--
 	return sta_final 
 end 
 
-function BSLuk(a) 
+function BSLuk(a) --[[ИЎ»щ±ѕluk]]--
+	--LuaPrint("Obtain character attribute bsluk") 
 	local bsluk=GetChaAttr(a,ATTR_BLUK) 
 	return bsluk 
 end
 
 function Luk_final(a)
-	local luk_final=(BSLuk(a)  *LukIa(a) + LukIb(a) ) * math.max ( 0 , LukSa(a) ) + LukSb(a) 
+	local luk_final=(BSLuk(a)  *LukIa(a) + LukIb(a) ) * math.max ( 0 , LukSa(a) ) + LukSb(a) --[[ИЎµ±К±КµјКluk]]--
 	return luk_final 
 end 
 
-function Ship_BSMnatk ( ship_role )						
+
+
+--ИЎґ¬Ц»»щ±ѕКфРФєЇКэ-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function Ship_BSMnatk ( ship_role )						--ґ¬Ц»»щ±ѕЧоРЎ№Ґ»ч
 	local ship_bsmnatk=GetChaAttr( ship_role , ATTR_BMNATK ) 
 	return ship_bsmnatk 
 end 
 
-function Ship_BSMxatk ( ship_role )						
+function Ship_BSMxatk ( ship_role )						--ґ¬Ц»»щ±ѕЧоґу№Ґ»ч
 	local ship_bsmxatk=GetChaAttr( ship_role , ATTR_BMXATK ) 
 	return ship_bsmxatk 
 end 
-
-function Ship_BSAdis ( ship_role )							
+	
+function Ship_BSAdis ( ship_role )							--ґ¬Ц»»щ±ѕ№Ґ»чѕаАл
 	local ship_bsadis=GetChaAttr( ship_role , ATTR_BADIS ) 
 	return ship_bsadis  
 end 
 
-function Ship_BSCspd ( ship_role )							
+function Ship_BSCspd ( ship_role )							--ЕЪµЇ»щ±ѕ·ЙРРЛЩ¶И
 	local ship_bscspd=GetChaAttr( ship_role , ATTR_BOAT_BCSPD ) 
 	return ship_bscspd  
 end 
 
-function Ship_BSAspd ( ship_role ) 						
+function Ship_BSAspd ( ship_role ) 						--ЕЪµЇ»щ±ѕ№Ґ»чјдёф
 	local ship_bsaspd=GetChaAttr( ship_role , ATTR_BASPD ) 
 	return ship_bsaspd  
 end 
 
-function Ship_BSCrange ( ship_role ) 						
+function Ship_BSCrange ( ship_role ) 						--ЕЪµЇ»щ±ѕ±¬ХЁ·¶О§
 	local ship_bscrange=GetChaAttr( ship_role , ATTR_BOAT_BCRANGE ) 
 	return ship_bscrange  
 end 
 
-function Ship_BSDef ( ship_role ) 							
+
+function Ship_BSDef ( ship_role ) 							--ґ¬Ц»»щ±ѕ·АУщ
 	local ship_bsdef=GetChaAttr( ship_role , ATTR_BDEF ) 
 	return ship_bsdef   
 end 
 
-function Ship_BSResist ( ship_role ) 						
+
+function Ship_BSResist ( ship_role ) 						--ґ¬Ц»»щ±ѕµЦї№
 	local ship_bsresist=GetChaAttr( ship_role , ATTR_BPDEF ) 
 	return ship_bsresist   
 end 
 
-function Ship_BSMxhp ( ship_role ) 						
+function Ship_BSMxhp ( ship_role ) 						--ґ¬Ц»»щ±ѕЧоґуДНѕГ
 	local ship_bsmxhp=GetChaAttr( ship_role , ATTR_BMXHP ) 
 	return ship_bsmxhp    
 end 
 
-function Ship_BSHrec ( ship_role ) 						
+function Ship_BSHrec ( ship_role ) 						--ґ¬Ц»»щ±ѕДНѕГ»ШёґЛЩ¶И
 	local ship_bshrec=GetChaAttr( ship_role , ATTR_BHREC ) 
 	return ship_bshrec 
 end 
 
-function Ship_BSSrec ( ship_role ) 							
+function Ship_BSSrec ( ship_role ) 							--ґ¬Ц»»щ±ѕІ№ёшПыєДЛЩ¶И
 	local ship_bssrec=GetChaAttr( ship_role , ATTR_BSREC ) 
 	return ship_bssrec 
 end 
 
-function Ship_BSMspd ( ship_role ) 						
+function Ship_BSMspd ( ship_role ) 						--ґ¬Ц»»щ±ѕТЖ¶ЇЛЩ¶И
 	local ship_bsmspd=GetChaAttr( ship_role , ATTR_BMSPD ) 
 	return ship_bsmspd 
 end 
 
-function Ship_BSMxsp ( ship_role ) 						
+function Ship_BSMxsp ( ship_role ) 						--ґ¬Ц»»щ±ѕЧоґуІ№ёшЦµ
 	local ship_bsmxsp=GetChaAttr( ship_role , ATTR_BMXSP ) 
 	return ship_bsmxsp 
 end 
 
-function Ship_MnatkSa ( cha_role )						
+
+--ИЎИЛОпґ¬Ц»КфРФµДјјДЬУ°Пм--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+function Ship_MnatkSa ( cha_role )						--ґ¬Ц»»щ±ѕЧоРЎ№Ґ»чЅЗЙ«јјДЬПµКэУ°Пм
 	local ship_mnatksa=GetChaAttr( cha_role , ATTR_BOAT_SKILLC_MNATK ) / ATTR_RADIX
 	return ship_mnatksa 
 end 
 
-function Ship_MnatkSb ( cha_role )						
+function Ship_MnatkSb ( cha_role )						--ґ¬Ц»»щ±ѕЧоРЎ№Ґ»чЅЗЙ«јјДЬіЈКэУ°Пм
 	local ship_mnatksb=GetChaAttr( cha_role , ATTR_BOAT_SKILLV_MNATK ) 
 	return ship_mnatksb 
 end 
 
-function Ship_MxatkSa ( cha_role )						
+function Ship_MxatkSa ( cha_role )						--ґ¬Ц»»щ±ѕЧоґу№Ґ»чЅЗЙ«јјДЬПµКэУ°Пм
 	local ship_mxatksa=GetChaAttr( cha_role , ATTR_BOAT_SKILLC_MXATK ) / ATTR_RADIX
 	return ship_mxatksa 
 end 
 
-function Ship_MxatkSb ( cha_role )						
+function Ship_MxatkSb ( cha_role )						--ґ¬Ц»»щ±ѕЧоґу№Ґ»чЅЗЙ«јјДЬіЈКэУ°Пм
 	local ship_mxatksb=GetChaAttr( cha_role , ATTR_BOAT_SKILLV_MXATK ) 
 	return ship_mxatksb 
 end 
-
-function Ship_AdisSa ( cha_role )							
+	
+function Ship_AdisSa ( cha_role )							--ґ¬Ц»»щ±ѕ№Ґ»чѕаАлЅЗЙ«јјДЬПµКэУ°Пм
 	local ship_adissa=GetChaAttr( cha_role , ATTR_BOAT_SKILLC_ADIS ) / ATTR_RADIX
 	return ship_adissa  
 end 
 
-function Ship_AdisSb ( cha_role )							
+function Ship_AdisSb ( cha_role )							--ґ¬Ц»»щ±ѕ№Ґ»чѕаАлЅЗЙ«јјДЬіЈКэУ°Пм
 	local ship_adissb=GetChaAttr( cha_role , ATTR_BOAT_SKILLV_ADIS ) 
 	return ship_adissb  
 end 
 
-function Ship_CspdSa ( cha_role )							
+
+
+function Ship_CspdSa ( cha_role )							--ЕЪµЇ»щ±ѕ·ЙРРЛЩ¶ИЅЗЙ«јјДЬПµКэУ°Пм
 	local ship_cspdsa=GetChaAttr( cha_role , ATTR_BOAT_SKILLC_CSPD ) / ATTR_RADIX
 	return ship_cspdsa  
 end 
 
-function Ship_CspdSb ( cha_role )							
+function Ship_CspdSb ( cha_role )							--ЕЪµЇ»щ±ѕ·ЙРРЛЩ¶ИЅЗЙ«јјДЬіЈКэУ°Пм
 	local ship_cspdsb=GetChaAttr( cha_role , ATTR_BOAT_SKILLV_CSPD ) 
 	return ship_cspdsb  
 end 
 
-function Ship_AspdSa ( cha_role ) 						
+
+
+function Ship_AspdSa ( cha_role ) 						--ЕЪµЇ»щ±ѕ№Ґ»чјдёфЅЗЙ«јјДЬПµКэУ°Пм
 	local ship_aspdsa=GetChaAttr( cha_role , ATTR_BOAT_SKILLC_ASPD ) / ATTR_RADIX
 	return ship_aspdsa  
 end 
 
-function Ship_AspdSb ( cha_role ) 						
+
+function Ship_AspdSb ( cha_role ) 						--ЕЪµЇ»щ±ѕ№Ґ»чјдёфЅЗЙ«јјДЬіЈКэУ°Пм
 	local ship_aspdsb=GetChaAttr( cha_role , ATTR_BOAT_SKILLV_ASPD ) 
 	return ship_aspdsb  
 end 
 
-function Ship_CrangeSa ( cha_role ) 						
+
+
+
+function Ship_CrangeSa ( cha_role ) 						--ЕЪµЇ»щ±ѕ±¬ХЁ·¶О§ЅЗЙ«јјДЬПµКэУ°Пм
 	local ship_crangesa=GetChaAttr( cha_role , ATTR_BOAT_SKILLC_CRANGE ) / ATTR_RADIX
 	return ship_crangesa  
 end 
 
-function Ship_CrangeSb ( cha_role ) 						
+function Ship_CrangeSb ( cha_role ) 						--ЕЪµЇ»щ±ѕ±¬ХЁ·¶О§ЅЗЙ«јјДЬіЈКэУ°Пм
 	local ship_crangesb=GetChaAttr( cha_role , ATTR_BOAT_SKILLV_CRANGE ) 
 	return ship_crangesb  
 end 
 
-function Ship_DefSa ( cha_role ) 							
+
+
+
+function Ship_DefSa ( cha_role ) 							--ґ¬Ц»»щ±ѕ·АУщЅЗЙ«јјДЬПµКэУ°Пм
 	local ship_defsa=GetChaAttr( cha_role , ATTR_BOAT_SKILLC_DEF ) / ATTR_RADIX
 	return ship_defsa   
 end 
 
-function Ship_DefSb ( cha_role ) 							
+function Ship_DefSb ( cha_role ) 							--ґ¬Ц»»щ±ѕ·АУщЅЗЙ«јјДЬіЈКэУ°Пм
 	local ship_defsb=GetChaAttr( cha_role , ATTR_BOAT_SKILLV_DEF ) 
 	return ship_defsb   
 end 
 
-function Ship_ResistSa ( cha_role ) 						
+
+
+function Ship_ResistSa ( cha_role ) 						--ґ¬Ц»»щ±ѕµЦї№ЅЗЙ«јјДЬПµКэУ°Пм
 	local ship_resistsa=GetChaAttr( cha_role , ATTR_BOAT_SKILLC_RESIST ) / ATTR_RADIX
 	return ship_resistsa   
 end 
 
-function Ship_ResistSb ( cha_role ) 						
+function Ship_ResistSb ( cha_role ) 						--ґ¬Ц»»щ±ѕµЦї№ЅЗЙ«јјДЬіЈКэУ°Пм
 	local ship_resistsb=GetChaAttr( cha_role , ATTR_BOAT_SKILLV_RESIST ) 
 	return ship_resistsb   
 end 
 
-function Ship_MxhpSa ( cha_role ) 						
+
+
+function Ship_MxhpSa ( cha_role ) 						--ґ¬Ц»»щ±ѕЧоґуДНѕГЅЗЙ«јјДЬПµКэУ°Пм
 	local ship_mxhpsa=GetChaAttr( cha_role , ATTR_BOAT_SKILLC_MXUSE ) / ATTR_RADIX
 	return ship_mxhpsa    
 end 
 
-function Ship_MxhpSb ( cha_role ) 						
+function Ship_MxhpSb ( cha_role ) 						--ґ¬Ц»»щ±ѕЧоґуДНѕГЅЗЙ«јјДЬіЈКэУ°Пм
 	local ship_mxhpsb=GetChaAttr( cha_role , ATTR_BOAT_SKILLV_MXUSE ) 
 	return ship_mxhpsb    
 end 
 
-function Ship_HrecSa ( cha_role ) 							
+
+
+function Ship_HrecSa ( cha_role ) 							--ґ¬Ц»»щ±ѕДНѕГ»ШёґЛЩ¶ИЅЗЙ«јјДЬПµКэУ°Пм
 	local ship_hrecsa=GetChaAttr( cha_role , ATTR_BOAT_SKILLC_USEREC ) / ATTR_RADIX
 	return ship_hrecsa 
 end 
 
-function Ship_HrecSb ( cha_role ) 						
+function Ship_HrecSb ( cha_role ) 						--ґ¬Ц»»щ±ѕДНѕГ»ШёґЛЩ¶ИЅЗЙ«јјДЬіЈКэУ°Пм
 	local ship_hrecsb=GetChaAttr( cha_role , ATTR_BOAT_SKILLV_USEREC ) 
 	return ship_hrecsb 
 end 
 
-function Ship_SrecSa ( cha_role ) 							
+
+
+function Ship_SrecSa ( cha_role ) 							--ґ¬Ц»»щ±ѕІ№ёшПыєДЛЩ¶ИЅЗЙ«јјДЬПµКэУ°Пм
 	local ship_srecsa=GetChaAttr( cha_role , ATTR_BOAT_SKILLC_EXP ) / ATTR_RADIX
 	return ship_srecsa 
 end 
 
-function Ship_SrecSb ( cha_role ) 									
+function Ship_SrecSb ( cha_role ) 									--ґ¬Ц»»щ±ѕІ№ёшПыєДЛЩ¶ИЅЗЙ«јјДЬіЈКэУ°Пм
 	local ship_srecsb=GetChaAttr( cha_role , ATTR_BOAT_SKILLV_EXP ) 
 	return ship_srecsb 
 end 
 
-function Ship_MspdSa ( cha_role ) 								
+
+
+function Ship_MspdSa ( cha_role ) 								--ґ¬Ц»»щ±ѕТЖ¶ЇЛЩ¶ИЅЗЙ«јјДЬПµКэУ°Пм
 	local ship_mspdsa=GetChaAttr( cha_role , ATTR_BOAT_SKILLC_MSPD ) / ATTR_RADIX
 	return ship_mspdsa 
 end 
 
-function Ship_MspdSb ( cha_role ) 								
+function Ship_MspdSb ( cha_role ) 								--ґ¬Ц»»щ±ѕТЖ¶ЇЛЩ¶ИЅЗЙ«јјДЬіЈКэУ°Пм
 	local ship_mspdsb=GetChaAttr( cha_role , ATTR_BOAT_SKILLV_MSPD ) 
 	return ship_mspdsb 
 end 
 
-function Ship_MxspSa ( cha_role ) 									
+
+
+function Ship_MxspSa ( cha_role ) 									--ґ¬Ц»»щ±ѕЧоґуІ№ёшЦµЅЗЙ«јјДЬПµКэУ°Пм
 	local ship_mxspsa=GetChaAttr( cha_role , ATTR_BOAT_SKILLC_MXSPLY ) / ATTR_RADIX
 	return ship_mxspsa 
 end 
 
-function Ship_MxspSb ( cha_role ) 								
+function Ship_MxspSb ( cha_role ) 								--ґ¬Ц»»щ±ѕЧоґуІ№ёшЦµЅЗЙ«јјДЬіЈКэУ°Пм
 	local ship_mxspsb=GetChaAttr( cha_role , ATTR_BOAT_SKILLV_MXSPLY ) 
 	return ship_mxspsb 
 end 
 
-function Ship_Mnatk_final ( cha_role , ship_role )							
+--ґ¬Ц»ЧоЦХКфРФјЖЛг--------------------------------------------------------------------------------------------------------------------------------------------------
+
+function Ship_Mnatk_final ( cha_role , ship_role )							--јЖЛгґ¬Ц»ЧоРЎ№Ґ»ч
 	local ship_mnatk=  math.floor ( ( Ship_BSMnatk ( ship_role ) * Ship_MnatkSa ( cha_role ) + Ship_MnatkSb ( cha_role ) ) * MnatkSa ( ship_role ) + MnatkSb ( ship_role ) )
 	return ship_mnatk 
 end 
 
-function Ship_Mnatk ( ship_role )										
+function Ship_Mnatk ( ship_role )										--ґ¬Ц»ЧоРЎ№Ґ»ч
 	local ship_mnatk=GetChaAttr( ship_role , ATTR_MNATK ) 
 	return ship_mnatk 
 end 
 
-function Ship_Mxatk_final ( cha_role , ship_role )							
+function Ship_Mxatk_final ( cha_role , ship_role )							--јЖЛгґ¬Ц»Чоґу№Ґ»ч
 	local ship_mxatk= math.floor ( ( Ship_BSMxatk ( ship_role ) * Ship_MxatkSa ( cha_role ) + Ship_MxatkSb ( cha_role ) ) * MxatkSa ( ship_role ) + MxatkSb ( ship_role ) )
 	return ship_mxatk 
 end 
 
-function Ship_Mxatk ( ship_role )										
+function Ship_Mxatk ( ship_role )										--ґ¬Ц»Чоґу№Ґ»ч
 	local ship_mxatk=GetChaAttr( ship_role , ATTR_MXATK ) 
 	return ship_mxatk 
 end 
 
-function Ship_Adis_final ( cha_role , ship_role )							
+
+	
+function Ship_Adis_final ( cha_role , ship_role )							--јЖЛгґ¬Ц»№Ґ»чѕаАл
 	local ship_adis= math.floor ( ( Ship_BSAdis ( ship_role ) * Ship_AdisSa ( cha_role ) + Ship_AdisSb ( cha_role ) )  ) 
 	return ship_adis 
 end 
 
-function Ship_Adis ( ship_role )										
+function Ship_Adis ( ship_role )										--ґ¬Ц»№Ґ»чѕаАл
 	local ship_adis=GetChaAttr( ship_role , ATTR_ADIS ) 
 	return ship_adis 
 end 
 
-function Ship_Cspd_final ( cha_role , ship_role )							
+
+
+
+function Ship_Cspd_final ( cha_role , ship_role )							--јЖЛгґ¬Ц»ЕЪµЇ·ЙРРЛЩ¶И
 	local ship_cspd= math.floor ( ( Ship_BSCspd ( ship_role ) * Ship_CspdSa ( cha_role ) + Ship_CspdSb ( cha_role ) )  )
 	return ship_cspd 
 end 
 
-function Ship_Cspd ( ship_role )										
+function Ship_Cspd ( ship_role )										--ґ¬Ц»ЕЪµЇ·ЙРРЛЩ¶И
 	local ship_cspd=GetChaAttr( ship_role , ATTR_BOAT_CSPD ) 
 	return ship_cspd 
 end 
 
-function Ship_Aspd_final ( cha_role , ship_role ) 							
+
+
+function Ship_Aspd_final ( cha_role , ship_role ) 							--јЖЛгЕЪµЇ№Ґ»чјдёф
 	local ship_aspd= math.floor ((  Ship_BSAspd ( ship_role ) * Ship_AspdSa ( cha_role ) + Ship_AspdSb ( cha_role ) ) * AspdSa ( ship_role ) + AspdSb ( ship_role ) )
 	return ship_aspd  
 end 
 
-function Ship_Aspd ( ship_role ) 										
+function Ship_Aspd ( ship_role ) 										--ЕЪµЇ№Ґ»чјдёф
 	local ship_aspd=GetChaAttr( ship_role , ATTR_ASPD ) 
 	return ship_aspd  
 end 
 
-function Ship_Crange_final (  cha_role , ship_role ) 							
+
+
+function Ship_Crange_final (  cha_role , ship_role ) 							--јЖЛгЕЪµЇ±¬ХЁ·¶О§
 	local ship_crange= math.floor ( ( Ship_BSCrange ( ship_role ) * Ship_CrangeSa ( cha_role ) + Ship_CrangeSb ( cha_role ) )  ) 
 	return ship_crange  
 end 
 
-function Ship_Crange ( ship_role ) 										
+function Ship_Crange ( ship_role ) 										--ЕЪµЇ±¬ХЁ·¶О§
 	local ship_crange=GetChaAttr( ship_role , ATTR_CRANGE ) 
 	return ship_crange  
 end 
 
-function Ship_Def_final ( cha_role , ship_role ) 							
+
+
+
+function Ship_Def_final ( cha_role , ship_role ) 							--јЖЛгґ¬Ц»·АУщ
 	local ship_def= math.floor ( ( Ship_BSDef ( ship_role ) * Ship_DefSa ( cha_role ) + Ship_DefSb ( cha_role ) ) * DefSa ( ship_role ) + DefSb ( ship_role ) ) 
 	return ship_def  
 end 
 
-function Ship_Def ( ship_role ) 										
+function Ship_Def ( ship_role ) 										--ґ¬Ц»·АУщ
 	local ship_def=GetChaAttr( ship_role , ATTR_DEF ) 
 	return ship_def  
 end 
 
-function Ship_Resist_final (  cha_role ,ship_role ) 							
+
+
+function Ship_Resist_final (  cha_role ,ship_role ) 							--јЖЛгґ¬Ц»µЦї№
 	local ship_resist= math.floor ( ( Ship_BSResist ( ship_role ) * Ship_ResistSa ( cha_role ) + Ship_ResistSb ( cha_role ) ) * ResistSa ( ship_role ) + ResistSb ( ship_role ) ) 
 	return ship_resist  
 end 
 
-function Ship_Resistl ( ship_role ) 										
+function Ship_Resistl ( ship_role ) 										--ґ¬Ц»µЦї№
 	local ship_resist=GetChaAttr( ship_role , ATTR_PDEF ) 
 	return ship_resist  
 end 
 
-function Ship_Mxhp_final (  cha_role ,ship_role ) 							
+
+
+function Ship_Mxhp_final (  cha_role ,ship_role ) 							--јЖЛгґ¬Ц»ЧоґуДНѕГ
 	local ship_mxhp= math.floor ( ( Ship_BSMxhp ( ship_role ) * Ship_MxhpSa ( cha_role ) + Ship_MxhpSb ( cha_role ) ) * MxhpSa ( ship_role ) + MxhpSb ( ship_role ) ) 
 	return ship_mxhp  
 end 
 
-function Ship_Mxhp ( ship_role ) 										
+function Ship_Mxhp ( ship_role ) 										--ґ¬Ц»ЧоґуДНѕГ
 	local ship_mxhp=GetChaAttr( ship_role , ATTR_MXHP ) 
 	return ship_mxhp  
 end 
 
-function Ship_Hp ( ship_role )										
+function Ship_Hp ( ship_role )										--ґ¬Ц»µ±З°ДНѕГ
 	local ship_hp=GetChaAttr( ship_role , ATTR_HP ) 
 	return ship_hp  
 end 
 
-function Ship_Hrec_final (  cha_role ,ship_role ) 							
+function Ship_Hrec_final (  cha_role ,ship_role ) 							--јЖЛгґ¬Ц»ДНѕГ»ШёґЛЩ¶И
 	local ship_hrec= math.floor ( ( Ship_BSHrec ( ship_role ) * Ship_HrecSa ( cha_role ) + Ship_HrecSb ( cha_role ) ) * HrecSa ( ship_role ) + HrecSb ( ship_role )  ) 
 	return ship_hrec  
 end 
 
-function Ship_Hrec (  ship_role ) 										
+function Ship_Hrec (  ship_role ) 										--ґ¬Ц»ДНѕГ»ШёґЛЩ¶И
 	local ship_hrec=GetChaAttr( ship_role , ATTR_HREC ) 
 	return ship_hrec  
 end 
 
-function Ship_Srec_final (  cha_role ,ship_role ) 							
+
+function Ship_Srec_final (  cha_role ,ship_role ) 							--јЖЛгґ¬Ц»І№ёшПыєДЛЩ¶И
 	local ship_srec= math.floor ( ( Ship_BSSrec ( ship_role ) * Ship_SrecSa ( cha_role ) + Ship_SrecSb ( cha_role ) ) * SrecSa ( ship_role ) + SrecSb ( ship_role ) ) 
 	return ship_srec  
 end 
 
-function Ship_Srec ( ship_role ) 										
+function Ship_Srec ( ship_role ) 										--ґ¬Ц»І№ёшПыєДЛЩ¶И
 	local ship_srec=GetChaAttr( ship_role , ATTR_SREC ) 
 	return ship_srec  
 end 
 
-function Ship_Mspd_final (  cha_role ,ship_role ) 							
+
+
+
+function Ship_Mspd_final (  cha_role ,ship_role ) 							--јЖЛгґ¬Ц»ТЖ¶ЇЛЩ¶И
 	local ship_mspd= math.floor ( ( Ship_BSMspd ( ship_role ) * Ship_MspdSa ( cha_role ) + Ship_MspdSb ( cha_role ) ) * MspdSa ( ship_role ) + MspdSb ( ship_role ) ) 
 	return ship_mspd  
 end 
 
-function Ship_Mspd ( ship_role ) 										
+function Ship_Mspd ( ship_role ) 										--ґ¬Ц»ТЖ¶ЇЛЩ¶И
 	local ship_mspd=GetChaAttr( ship_role , ATTR_MSPD ) 
 	return ship_mspd  
 end 
 
-function Ship_Mxsp_final (  cha_role ,ship_role ) 									
+
+
+function Ship_Mxsp_final (  cha_role ,ship_role ) 									--ґ¬Ц»ЧоґуІ№ёшЦµ
 	local ship_mxsp= math.floor ( ( Ship_BSMxsp ( ship_role ) * Ship_MxspSa ( cha_role ) + Ship_MxspSb ( cha_role ) ) * MxspSa ( ship_role ) + MxspSb ( ship_role ) ) 
 	return ship_mxsp  
 end 
 
-function Ship_Mxsp ( ship_role ) 										
+function Ship_Mxsp ( ship_role ) 										--ґ¬Ц»ЧоґуІ№ёшЦµ
 	local ship_mxsp=GetChaAttr( ship_role , ATTR_MXSP ) 
 	return ship_mxsp  
 end 
 
-function Ship_Sp ( ship_role )										
+function Ship_Sp ( ship_role )										--ґ¬Ц»µ±З°І№ёшЦµ
 	local ship_sp=GetChaAttr( ship_role , ATTR_SP ) 
 	return ship_sp  
 end 
+
+
+
+
+
+
 
 function Percentage_Random(a) 
 	local x,y=a*1000000000,math.random(0,1000000000) 
@@ -1309,13 +1551,16 @@ function Percentage_Random(a)
 	return z 
 end 
 
-function Dis(a,b,c,d) 
+
+
+function Dis(a,b,c,d) --[[Зу(a,b)ЦБ(c,d)ѕаАл]]--
 	local x1,y1,x2,y2=a,b,c,d 
 	local dis=math.pow( math.pow(x1-x2, 2) + math.pow(y1-y2, 2), 0.5) 
 	return dis 
 end 
 
-function Check_Direction(a) 
+function Check_Direction(a) --ЕР¶ЁЅЗЙ«ГжПт·ЅПт,xЦбµДХэ·ЅПтОЄ1ЗшЦРРДПЯЈ¬ДжК±ХлТАґООЄ2Ј¬3Ј¬4Ј¬5Ј¬6Ј¬7Ј¬8
+	--LuaPrint("Enter function Check_Direction(a) --[[determine  character direction, x axis of center as 1, anticlockwise as 2, 3, 4, 5, 6, 7, 8Ј]]--") 
 	local direction=GetChaAttr(a, ATTR_DIREC) 
 	local division 
 	if ((direction>=337.5) and (direction<360)) or ((direction>=0) and (direction<22.5)) then 
@@ -1334,33 +1579,28 @@ function Check_Direction(a)
 		division=5 
 	elseif (direction>=292.5) and (direction<337.5) then 
 		division=4 
-	else 
+	else --LuaPrint("incorrect character angle direction".."\n" ) 
       return 
    end 
+
+	--LuaPrint("Out function Check_Direction(a) --[[determine character direction, x axis with center as 1, anticlockwise as 2, 3, 4, 5, 6, 7, 8Ј]]--") 
 	return division 
 end 
 
---------------------------------------------------------------------
--------------------------- Нанесение Урона --------------------------
---------------------------------------------------------------------
 
-function Hp_Dmg(role,dmg)
+function Hp_Dmg(role,dmg) --[[ИЛОпhpПыєДґ¦Ан№«КЅ]]--
+
 	local map_name_DEFER = GetChaMapName ( role )
 	local Can_Pk_Garner2 = Is_NormalMonster (role)
-	local T=0.25
-	-- Хаос
+	local T=0.25	
 	if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
 		if Can_Pk_Garner2 == 0 then
 			dmg = dmg * T
 		end
-	end
-	-- Снежная Война
-	if map_name_ATKER == "07xmas2" or map_name_DEFER == "07xmas2" then
-		if Can_Pk_07xmas2 == 0 then
-			dmg = dmg * T
-		end
-	end
-
+	end	
+	
+	--LuaPrint("Enter function Hp_Dmg(role,dmg) --[[hp consumption management formula]]--") 
+	--Notice("dmg3="..dmg)
 	local statelv_mfd = GetChaStateLv ( role , STATE_MFD ) 
 	local hp = Hp(role) 
 	local sp = Sp(role) 
@@ -1369,6 +1609,7 @@ function Hp_Dmg(role,dmg)
 		SetCharaAttr(hp, role, ATTR_HP )  
 		return 
 	end 
+	
 	local Elf_Item = CheckHaveElf ( role )
 	if Elf_Item ~= 0 then
 		local Elf_Num = GetItemForgeParam ( Elf_Item , 1 )
@@ -1377,27 +1618,30 @@ function Hp_Dmg(role,dmg)
 		if CheckElfSkill == 2 then
 			PowerSheild = ElfSKill_PowerSheild ( role , Elf_Item , Elf_Num , dmg )
 			if PowerSheild ~= 0 then
-				SystemNotice ( role , "Фея применила навык защиты. Часть урона поглощено " )
+				SystemNotice ( role , "Fairy activated Protection. Absorbed damage from opponent" )
 			end
 			dmg = dmg - PowerSheild
 		end
 	end
+
 	if statelv_mfd >= 1 then 
 		sp_change = statelv_mfd * 0.25 + 0.5
+	--local map_name_ATKER = GetChaMapName ( a )
 	local map_name_DEFER = GetChaMapName ( role )
 	local Can_Pk_Garner2 = Is_NormalMonster (role)
+		
 		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
+	--	Notice("22")
 			if Can_Pk_Garner2 == 0 then
 				sp_change = statelv_mfd * 0.25 + 0.5
 			end
 		end
-		-- БД Сет в Аппареле
 		local Check_Heilong  = CheckItem_Heilong ( role )
 		if Check_Heilong == 1 then
 			local Percentage = Percentage_Random ( 0.5 )
 			if Percentage == 1 then
 				  sp_change =  sp_change*1.5
-				SystemNotice ( role , "Использована сила набора Черного Дракона Эффект от навыка усилен ")
+				SystemNotice ( role , "Obtain power from Black Dragon set. Skill effect enhanced")
 			end
 		end
 		local CheckItem_fighting = CheckItem_fighting ( role )
@@ -1407,31 +1651,34 @@ function Hp_Dmg(role,dmg)
 				local Percentage_1 = Percentage_Random ( 0.5 )
 				if Percentage_1 == 1 then
 					dmg = dmg*0.5
-					SystemNotice ( role , "Использована сила Снаряжения Хаоса. Часть урона поглощено " )
+					SystemNotice ( role , "Obtained ability of Chaos equipment. Damage reduced" )
 				end
 			elseif IsGarnerWiner == 2  then
 				local Percentage_2 = Percentage_Random ( 0.5 )
 				if Percentage_2 == 1 then
 					dmg = dmg*0.6
-					SystemNotice ( role , "Использована сила Снаряжения Хаоса. Часть урона поглощено " )
+					SystemNotice ( role , "Obtained ability of Chaos equipment. Damage reduced" )
+			
 				end
 			elseif IsGarnerWiner == 3  then
 				local Percentage_3 = Percentage_Random ( 0.5 )
 				if Percentage_3 == 1 then
 					dmg = dmg*0.7
-					SystemNotice ( role , "Использована сила Снаряжения Хаоса. Часть урона поглощено " )
+					SystemNotice ( role , "Obtained ability of Chaos equipment. Damage reduced" )
+			
 				end
 			elseif IsGarnerWiner == 4  then
 				local Percentage_4 = Percentage_Random ( 0.5 )
 				if Percentage_4 == 1 then
 					dmg = dmg*0.8
-					SystemNotice ( role , "Использована сила Снаряжения Хаоса. Часть урона поглощено " )
+					SystemNotice ( role , "Obtained ability of Chaos equipment. Damage reduced" )
+			
 				end
 			elseif IsGarnerWiner == 5 then
 				local Percentage_5 = Percentage_Random ( 0.3 )
 				if Percentage_5 == 1 then
 					dmg = dmg*0.8
-					SystemNotice ( role , "Использована сила Снаряжения Хаоса. Часть урона поглощено " )
+					SystemNotice ( role , "Obtained ability of Chaos equipment. Damage reduced" )
 		
 				end
 			end	
@@ -1451,6 +1698,7 @@ function Hp_Dmg(role,dmg)
 			local Percentage = Percentage_Random ( 0.1 )
 			if Percentage == 1 then
 				dmg = dmg * -1
+				SystemNotice ( role , "Recieved blessing from Goddess. Drains enemy HP.")
 			end
 		end
 		if CheckItem_fighting == 1 then
@@ -1458,34 +1706,40 @@ function Hp_Dmg(role,dmg)
 				local Percentage_1 = Percentage_Random ( 0.5 )
 				if Percentage_1 == 1 then
 					dmg = dmg*0.5
-					SystemNotice ( role , "Использована сила Снаряжения Хаоса. Часть урона поглощено " )
+					SystemNotice ( role , "Obtained ability of Chaos equipment. Damage reduced" )
 				end
 			elseif IsGarnerWiner == 2  then
 				local Percentage_2 = Percentage_Random ( 0.5 )
 				if Percentage_2 == 1 then
 					dmg = dmg*0.6
-					SystemNotice ( role , "Использована сила Снаряжения Хаоса. Часть урона поглощено " )
+					SystemNotice ( role , "Obtained ability of Chaos equipment. Damage reduced" )
+			
 				end
 			elseif IsGarnerWiner == 3  then
 				local Percentage_3 = Percentage_Random ( 0.5 )
 				if Percentage_3 == 1 then
 					dmg = dmg*0.7
-					SystemNotice ( role , "Использована сила Снаряжения Хаоса. Часть урона поглощено " )
+					SystemNotice ( role , "Obtained ability of Chaos equipment. Damage reduced" )
+			
 				end
 			elseif IsGarnerWiner == 4  then
 				local Percentage_4 = Percentage_Random ( 0.5 )
 				if Percentage_4 == 1 then
 					dmg = dmg*0.8
-					SystemNotice ( role , "Использована сила Снаряжения Хаоса. Часть урона поглощено " )
+					SystemNotice ( role , "Obtained ability of Chaos equipment. Damage reduced" )
+			
 				end
 			elseif IsGarnerWiner == 5 then
 				local Percentage_5 = Percentage_Random ( 0.3 )
 				if Percentage_5 == 1 then
 					dmg = dmg*0.8
-					SystemNotice ( role , "Использована сила Снаряжения Хаоса. Часть урона поглощено " )
+					SystemNotice ( role , "Obtained ability of Chaos equipment. Damage reduced" )
+		
 				end
 			end	
 		end
+	
+	--local map_name_ATKER = GetChaMapName ( role )
 		local ZSExp = GetChaAttr( role , ATTR_CSAILEXP )
 		if ZSExp > 0 and ZSExp < 100 then
 			dmg = dmg * 0.945
@@ -1497,32 +1751,41 @@ function Hp_Dmg(role,dmg)
 	end 
 	SetCharaAttr(sp, role, ATTR_SP ) 
 	SetCharaAttr(hp, role, ATTR_HP )  
+	--LuaPrint("Out function Hp_Dmg(role,dmg) --[[HP consumption management formula]]--") 
 end 
+
 
 function Endure_Dmg ( role , dmg ) 
 	local hp = Hp ( role ) - dmg 
 	SetCharaAttr(hp, role, ATTR_HP ) 
 end 
+	
 
-function Sp_Red(role,sp_reduce) 
+function Sp_Red(role,sp_reduce) --[[spПыєДґ¦Ан№«КЅ]]--
+	--LuaPrint("Enter function Sp_Red(role,spreduce) --[[SP consumption management formula]]--") 
 	local sp = Sp(role) - sp_reduce 
+	--LG("sp_red", "before_sp = " , Sp(role) , " sp_reduce = " , sp_reduce , "final_sp = " , sp ,"\n" ) 
 	SetCharaAttr(sp, role, ATTR_SP ) 
+	--LuaPrint("Out function Sp_Red(role,spreduce) --[[SP consumption management formula]]--") 
 end 
 
-function Coefficientadjust_Steady_atk()	
+function Coefficientadjust_Steady_atk()	--[[µчХыОИ¶Ё№Ґ»чПµКэ]]--
+	--LuaPrint("Enter function Coefficientadjust_Steady_atk()") 
 	local steady_atk_maxreduce = 0.9 
 	local steady_atk_maxreducepoint = 0.99 
 	local steady_atk_maxluk=1500 
 	local a = steady_atk_maxreduce / steady_atk_maxluk 
 	local b = steady_atk_maxreducepoint / steady_atk_maxluk 
+	--LuaPrint("Out function Coefficientadjust_Steady_atk()") 
 	return a,b,steady_atk_maxreduce,steady_atk_maxreducepoint 
 end 
 
-function SetSteady_atk(a) 
-	local x,y,m,n = Coefficientadjust_Steady_atk() 
+function SetSteady_atk(a) --[[Йи¶Ё№Ґ»чБ¦ОИ¶ЁРФ]]--
+	--LuaPrint("Enter function SetSteady_atk(a) --[[set attack stability]]--") 
+	local x,y,m,n = Coefficientadjust_Steady_atk() --[[µчХыОИ¶Ё№Ґ»чПµКэ]]--
 	local sum=1 
-	local atkstep={} 
-	local atk={} 
+	local atkstep={} --[[Гїµµ№Ґ»чБ¦ХјУРВК]]--
+	local atk={} --[[Гїµµ№Ґ»чХјУРЛж»ъКэЦµ·¶О§]]--
 	atk[Mnatk_final(a) - 1 ] = 0 
 	for i = Mnatk_final(a),  Mxatk_final(a), 1 do 
 		atkstep[i] = 1 
@@ -1530,19 +1793,28 @@ function SetSteady_atk(a)
 	local maxreduce = math.min(m, Luk_final(a) * x ) 
 	local reducepoint = math.min(n, Luk_final(a) * y ) * (Mxatk_final(a) - Mnatk_final(a) ) 
 	if reducepoint==0 then 
+		--LuaPrint("Non attacking wave".."\n") 
 		atk[Mnatk_final(a)] = 1 
 	return atk,sum 
-	end 
+	end --[[ґ¦АнОЮ№Ґ»чБ¦ІЁ¶ЇЈ¬·µ»ШЧоРЎ№Ґ»чБ¦ИЎµГёЕВКОЄ1]]--
 	local steady_step = maxreduce / reducepoint 
 	for i = 0, Mxatk_final(a) - Mnatk_final(a), 1 do 
 		atkstep[ i + Mnatk_final(a) ] = atkstep [ i + Mnatk_final(a) ] - math.max(0, (maxreduce-i * steady_step) ) 
 		sum = sum + atkstep[ i + Mnatk_final(a) ]  
 		atk[ i + Mnatk_final(a) ] = sum 
 	end 
+	--local gatk = 0 
+	--for i = Mnatk_final(a), Mxatk_final(a), 1 do 
+	--ccc = (atk[i]-atk[i-1]) / sum 
+	--gatk = gatk + i * ccc --[[ЖЅѕщ№Ґ»чБ¦]]--
+	--end 
+	--LuaPrint("Out function SetSteady_atk(a) --[[Set attack stability]]--") 
 	return atk,sum 
 end 
-
-function CheckSteady_atk(a) 
+	
+	
+function CheckSteady_atk(a) --[[ОИ¶Ё№Ґ»чЕР¶Ё]]--
+	--LuaPrint("Enter function CheckSteady_atk(a) --[[stablilze attack determination]]--") 
 	local atk,sum = SetSteady_atk(a) 
 	local x = math.random( 0, 10000 ) 
 	local y = x * sum/10000 
@@ -1551,16 +1823,45 @@ function CheckSteady_atk(a)
          return i 
       end 
    end 
+	--LuaPrint ("error! No Hit Rate to Attack, return Min Attack".."\n") 
+	--LuaPrint("Out function CheckSteady_atk(a) --[[stablilize attack determination]]--") 
 	return Mnatk_fianl(a) 
 end 
+	
 
-function Lefthand_Atk ( role , atk )												
+--	function  Skadd_Check( job , lv , tp , form_sklv)									--С§П°јјДЬЕР¶П
+--		LG( "Skadd", "enter function  Skadd_Check :" ) 
+--		local itemuse = 0 
+--		local cha_job = GetChaAttr( ATKER , ATTR_JOB ) 
+--		if  cha_job ~= job then 
+--			LG( "Skadd", "function Skadd:", "Unable to use. Class does not match" ) 
+--			itemuse = 1 
+--		end 
+--		local cha_lv = GetChaAttr( ATKER , ATTR_LV ) 
+--		if cha_lv < lv then 
+--			LG( "Skadd", "function Skadd:", "Unable to use. Character level insufficient" ) 
+--			itemuse = 2 
+--		end 
+--		local cha_tp = GetChaAttr( ATKER , ATTR_TP ) 
+--		if cha_tp < tp then 
+--			LG( "Skadd", "function Skadd:", "Unable to use. Insufficient skill point" ) 
+--			itemuse = 3 
+--		end 
+--		if form_sklv > 0 then 
+--			LG( "Skadd", "function Skadd:", "Unable to use. Already possessed this skill" ) 
+--			itemuse = 4 
+--		end 
+--		LG( "Skadd", "out function  Skadd_Check :" ) 
+--		return itemuse 
+--	end 
+	
+function Lefthand_Atk ( role , atk )												--Л«КЦОдЖчЧґМ¬                        
 	local sklv = GetSkillLv ( role , STATE_FSZ ) 
 	add_atk = math.floor ( atk * ( 1.2 + sklv * 0.08 ) ) 
 	return add_atk 
 end 
 
-function Check_Zmyj ( role , dmg_mul )												
+function Check_Zmyj ( role , dmg_mul )												--јмІйЦВГьТ»»чЧґМ¬
 	local statelv = GetChaStateLv ( role , STATE_ZMYJ ) 
 	local crt_rad = 0.2 + statelv * 0.02 
 	if dmg_mul == 2 or dmg_mul == 1 then 
@@ -1571,8 +1872,8 @@ function Check_Zmyj ( role , dmg_mul )
 	end 
 	return dmg_mul 
 end 
-
-function Check_Smyb ( role )													
+	
+function Check_Smyb ( role )													--јмІйЙбГьТ»І«ЧґМ¬
 	local statelv = GetChaStateLv (role , STATE_SMYB ) 
 	local hp = Hp ( role ) 
 	local mxhp = Mxhp ( role ) 
@@ -1584,6 +1885,9 @@ function Check_Smyb ( role )
 	local mxatk = Mxatk ( role ) * atk_sa 
 	return mnatk , mxatk 
 end 
+
+
+--јмІвЅЗЙ«ТюЙнЧґМ¬Ј¬ТЖіэ№Ґ»чХЯµДТюЙнЧґМ¬ЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄ
 
 function Check_Ys_Rem ( role_atk , role_def )	
 	Check_State ( role_atk , role_def ) 
@@ -1597,7 +1901,7 @@ function Check_Bshd (statelv)
 	return statetime 
 end 
 
-function Atk_Raise ( rad , atker , defer )			
+function Atk_Raise ( rad , atker , defer )			--јјДЬ№Ґ»чМбЙэ
 	local atk = rad * math.random ( Mnatk( atker ) , Mxatk ( atker ) ) 
 	local defer_def = Def ( defer ) 
 	local defer_resist = Resist ( defer ) 
@@ -1624,14 +1928,14 @@ function TurnToShip ( role )
 	return x_role 
 end 
 
-function ALLExAttrSet ( role )				
-	if IsPlayer ( role ) == 0 then				
+function ALLExAttrSet ( role )				--ёщѕЭЅЗЙ«РОМ¬·Ц±рЛўРВµ±З°КфРФ
+	if IsPlayer ( role ) == 0 then				--ЅЗЙ«ОЄ№ЦОп
 		ExAttrSet ( role ) 
 		return 
 	end 
-	if ChaIsBoat ( role ) == 0 then			
+	if ChaIsBoat ( role ) == 0 then			--ЅЗЙ«РОМ¬ОЄИЛОп
 		AttrRecheck ( role ) 
-	else								
+	else								--ЅЗЙ«РОМ¬ОЄґ¬Ц»
 		cha_role = GetMainCha ( role ) 
 		ShipAttrRecheck ( cha_role , role ) 
 	end 
@@ -1649,88 +1953,115 @@ function Hp_Endure_Dmg ( role , dmg )
 	end 
 end 
 
+----јЖЛгґ¬Ц»іЙі¤КфРФ------------------------------------------------------------------------------
 function Boat_plus_MNATk( Lv , mnatk)
 	local mnatk_new = 0
+	
 	if Lv < 1 then
 		LG("Boat_plus_MNatk","Ship level is lower than 1")
 		LG("Boat_plus_MNatk","1")
 		return mnatk
 	end
+	
 	if Lv > 100 then
 		LG("Boat_plus_MNatk","Ship level higher than 100")
 		LG("Boat_plus_MNatk","Ship level lower than 2")
+
 		return mnatk
 	end
+	
 	if Lv < 60 then
 		LG ( "Boat_plus_MNatk" , mnatk ) 
 		mnatk_new = ( 1 + ( Lv - 20 ) / 120 ) * mnatk
 		LG("Boat_plus_MNatk","Ship level smaller than 3")
+
 		return mnatk_new
 	end
+	
 	if Lv >=60 then
 		mnatk_new = ( 1 + ( 60 - 20 ) / 120 ) * mnatk + ( Lv - 60 ) * 5
 		LG("Boat_plus_MNatk","Ship level lower than 4")
+
 		return mnatk_new
 	end
+	
+
 end
 
 function Boat_plus_MXATk( Lv , mxatk)
 	local mxatk_new = 0
+	
 	if Lv < 1 then
 		LG("Boat_plus_MXatk","Ship level is lower than 1")
 		return mxatk_new
 	end
+	
 	if Lv > 100 then
 		LG("Boat_plus_MXatk","Ship level higher than 100")
 		return mxatk_new
 	end
+	
 	if Lv < 60 then
 		mxatk_new = ( 1 + ( Lv - 20 ) / 120 ) * mxatk
 		return mxatk_new
 	end
+	
 	if Lv >=60 then
 		mxatk_new = ( 1 + ( 60 - 20 ) / 120 ) * mxatk + ( Lv - 60 ) * 5
 		return mxatk_new
 	end
+	
+
 end
 
 function Boat_plus_def ( Lv , def )
 	local def_new = 0
+	
 	if  Lv < 1 then
 		LG("Boat_plus_def","Ship level is lower than 1")
 		return def
 	end
+	
 	if Lv > 100 then
 		LG("Boat_plus_def","Ship level higher than 100")
 		return def
 	end
+	
 	if Lv < 60 then
 		def_new = ( 1 + ( Lv - 20 ) / 120 ) * def
 		LG ( "Boat_plus_def","def_new1 = " ,  def_new ) 
 		return def_new
+
 	end
+	
 	if Lv >= 60 then
 		def_new = ( 1 + ( 60 - 20 ) / 120 ) * def + ( Lv - 60 ) * 3
 		LG ( "Boat_plus_def","def_new2 = " ,  def_new ) 
 		return def_new
 	end
+	
+
 end
 
 function Boat_plus_Mxhp ( Lv , Mxhp )
 	local Mxhp_new = 0
+	
 	if Lv < 1 then
 		LG("Boat_plus_Mxhp","Ship level is lower than 1")
 		return Mxhp
 	end
+	
 	if Lv > 100 then
 		LG("Boat_plus_Mxhp","Ship level higher than 100")
 		return Mxhp
 	end
+	
 	if Lv < 60 then
 		Mxhp_new = ( 1 + ( Lv - 20 ) / 120 ) * Mxhp
 		LG ( "Boat_plus_def","def_new2 = " ,  Mxhp_new ) 
 		return Mxhp_new
 	end
+	
 	if Lv >= 60 then
 		Mxhp_new = ( 1 + ( 60 - 20 ) / 120 ) * Mxhp + (Lv - 60 )  * 20
 		LG ( "Boat_plus_def","def_new2 = " ,  Mxhp_new ) 
@@ -1740,27 +2071,33 @@ end
 
 function Boat_plus_Mspd ( Lv , Mspd )
 	local Mspd_new = 0
+
 	if Lv < 1 then
 		LG("Boat_plus_Mspd","Ship level is lower than 1")
 		return Mspd
 	end
+	
 	if Lv >100 then
 		LG("Boat_plus_Mspd","Ship level higher than 100")
 		return Mspd
 	end
+	
 	if Lv < 60 then
 		Mspd_new = ( 1 + ( Lv -30) / 300 ) * Mspd
 		return Mspd_new
 	end
+
 	if Lv >=60 then
 		Mspd_new = ( 1 + ( 60 -30) / 300 ) * Mspd
 		return Mspd_new
 	end
+
 end
 
+--ИЎЅЗЙ«№«»б±аєЕ
 function get_cha_guild_id(cha) 
     local ply_cha = CheckChaRole(cha) 
-    if ply_cha == 1 then 
+    if ply_cha == 1 then --НжјТЅЗЙ«
         return GetChaGuildID(cha) 
     else 
         local map_copy = GetChaMapCopy(cha)
@@ -1771,8 +2108,11 @@ function get_cha_guild_id(cha)
 			return GetMapCopyParam2(map_copy, 3 ) 
 		end
     end 
+
 end
 
+--ЕР¶ПЅЗЙ«cha1Ј¬cha2КЗ·сКфУЪ¶УУСЎЈ
+--КЗ¶УУСФт·µ»Ш1Ј¬·сФт·µ»Ш0
 function is_teammate(cha1, cha2) 
     if cha1 == 0 or cha2 == 0 then 
         return 0 
@@ -1793,22 +2133,35 @@ function is_teammate(cha1, cha2)
             return 1 
         end 
     end 
+
     return 0 
 end 
 
-------------------------------------------------
--- Функция определения друг или враг на карте --
-------------------------------------------------
+--ЕР¶ПЅЗЙ«cha2КЗ·сКЗcha1µДУС·ЅЎЈ
+--КЗУС·ЅФт·µ»Ш1Ј¬·сФт·µ»Ш0
 function is_friend(cha1, cha2) 
+--	SystemNotice ( cha1, "transferis_friend" ) 
     local friend_target = 1 
     local Map_type = GetChaMapType( cha1 )
-    if CheckChaRole( cha1 ) == 0 and Map_type ~= 2 then			
+    if CheckChaRole( cha1 ) == 0 and Map_type ~= 2 then			--Из№ыcha1ОЄ№ЦОпЗТІ»ФЪ№¤»бµШНјЦРЈ¬Фтcha2ОЄ№ЦОпОЄУС·ЅЈ¬cha2ОЄИЛОЄµР·Ѕ
 	if CheckChaRole( cha2 ) == 0 then							
 		return 1 
 	else 
 		return 0 
 	end 
+
     end
+	   
+--		SystemNotice ( cha1 , "1" ) 
+--		SystemNotice ( cha1 , "Map_type ="..Map_type ) 
+--	    if Map_type == 4 then									--ГФ№¬PKµШНјУС·ЅЕР¶П
+--		local team = is_teammate(cha1, cha2) 
+--		if team == 1 then 
+--			return 1 
+--		end 
+--	    else
+--		return 0
+--	    end
 		if Map_type == 1 then 
 			if CheckChaRole ( cha1 ) == 1 then 
 					if CheckChaRole( cha2 ) == 0 then							
@@ -1816,10 +2169,12 @@ function is_friend(cha1, cha2)
 					else 
 						return 1 
 					end 
+
 			end 
 		end 
-		if Map_type == 4 then									
-			if Is_NormalMonster (cha1) == 1 then						
+
+		if Map_type == 4 then									--ГФ№¬PKµШНјУС·ЅЕР¶П
+			if Is_NormalMonster (cha1) == 1 then						--Из№ыКЗЖХНЁ№ЦОпФтУл№ЦОпКЗУС·Ѕ
 				if Is_NormalMonster (cha2) == 1 then 
 					return 1 
 				end 
@@ -1837,20 +2192,36 @@ function is_friend(cha1, cha2)
 					return 0 
 				end
 			end
+			--local team = is_teammate(cha1,cha2) 
+			--		if team == 1 then 
+			--			return 1 
+			--		else 
+			--			return 0 
+			--		end 
 		end 
-	    if  Map_type ==3 then									
+
+--	        SystemNotice ( cha1 , "2" ) 
+
+	    if  Map_type ==3 then									--КЗ¶УОйХЅµШНјФт¶УУСОЄУС·Ѕ
+--		SystemNotice ( cha1 , "1" ) 
 		    local team = is_teammate(cha1, cha2) 
+--		    		SystemNotice ( cha1 , "2" ) 
+
 		    if team == 1 then 
+--		    		SystemNotice ( cha1 , "3" ) 
 		        return 1 
 		    else 
 			return 0 
 		    end
+		   
 	    end
-	    if cha1 == 0 or cha2 == 0 then							
+
+	    if cha1 == 0 or cha2 == 0 then							--ЦёХлОЄїХ
 	        return 0 
 	    end 
-	    if Map_type == 2 then									
-		if Is_NormalMonster (cha1) == 1 then						
+--		SystemNotice ( cha1 , "3" ) 
+	    if Map_type == 2 then									--№¤»бPKµШНјЕР¶П
+		if Is_NormalMonster (cha1) == 1 then						--Из№ыКЗЖХНЁ№ЦОпФтУл№ЦОпКЗУС·Ѕ
 			if Is_NormalMonster (cha2) == 1then 
 				return 1 
 			end 
@@ -1863,31 +2234,64 @@ function is_friend(cha1, cha2)
 		else 
 			return 0 
 		end
+
 	    end 
-	    if Map_type == 5 then									
-			local guild_side_1, guild_side_2 
-			guild_side_1 = GetChaSideID(cha1) 
-			guild_side_2 = GetChaSideID(cha2) 
-			if guild_side_1 == guild_side_2 then
-				return 1 
+	    if Map_type == 5 then									--№¤»бPKµШНјЕР¶П
+--		if Is_NormalMonster (cha1) == 1 then						--Из№ыКЗЖХНЁ№ЦОпФтУл№ЦОпКЗУС·Ѕ
+--			if Is_NormalMonster (cha2) == 1then 
+--				return 1 
+--			end 
+--		end 
+		local guild_side_1, guild_side_2 
+		guild_side_1 = GetChaSideID(cha1) 
+		guild_side_2 = GetChaSideID(cha2) 
+		--if guild_side_1 <= 100 and guild_side_1 > 0 and guild_side_2 <= 100 and guild_side_2 > 0 then
+		if guild_side_1 == guild_side_2 then
+			return 1 
+		--elseif
+		   --guild_side_1 > 100 and guild_side_1 <= 200 and guild_side_2 > 100 and guild_side_2 <= 200 then
+			--return 1
 	        else
 		        return 0
-			end
+		end
+
 	    end 
-	 return friend_target 
+--		SystemNotice ( cha1 , "4" ) 
+
+	    return friend_target 
  end 
-  
+--	    local is_plycha1 = CheckChaRole(cha1) 
+--	    local is_plycha2 = CheckChaRole(cha2) 
+--	    local can_PK1 = CheckChaPKState(cha1) 
+--	    if can_PK1 == 0 then 
+--	        if is_plycha1 ~= 0 and is_plycha2 ~= 0 then 
+--	            return 1 
+--	        end 
+--	        if is_plycha1 == 0 and is_plycha2 == 0 then 
+--	            return 1 
+--	        end 
+--	    end 
+  --  end
+--    return 0
+-- end 
+
+--ЖХНЁ№ЦЕР¶П
 function Is_NormalMonster ( role )
   local cha = TurnToCha ( role )
   local Cha_Num = GetChaTypeID( cha )
+  
   for i = 0 , UnNormalMonster_Num , 1 do
 	if Cha_Num == UnNormalMonster_ID [i] then
 		return 0
 	end
   end
+  
+
   return 1
+  
 end
 
+--јмІй№ЦОпКЗ·сТСЛА»тТСІ»ґжФЪ
 function CheckMonsterDead ( role )
 	if role == nil then
 		return 1
@@ -1898,32 +2302,37 @@ function CheckMonsterDead ( role )
 	return 0
 end
 
+--јмІвјјДЬГьЦРіМ¶И
 function ReCheck_Skill_Dmg ( MaxDmg , MinDmg , Ran )
+
 	local a = 0
 	a = Percentage_Random ( Ran / 100)
 	if a == 1 then
+	
 		return MaxDmg
 	else
+	
 		return MinDmg
 	end
 end
 
+--јмІйPKЛ«·ЅµИј¶Іоѕа
 function ReCheck_PK_Lv ( ATKER , DEFER )
 	local Lv_atker = Lv ( ATKER )
 	local Lv_defer = Lv ( DEFER )
 	return Lv_atker - Lv_defer
 end
 
---------------------------------------------------------------------
-------------------------- Убийство Игрока --------------------------
---------------------------------------------------------------------
 
+
+--PKИЛОпЛАНцјмІв
 function after_player_kill_player( ATKER, DEFER )
 	SetCharaAttr(0, DEFER, ATTR_SP)
 	local map_name_ATKER = GetChaMapName ( ATKER )
 	local map_name_DEFER = GetChaMapName ( DEFER )
 	local MGPK_MapNameNum = 10
 	local MGPK_MapName = {}
+	
 	MGPK_MapName[0] = "puzzleworld"
 	MGPK_MapName[1] = "puzzleworld2"
 	MGPK_MapName[2] = "abandonedcity"
@@ -1935,32 +2344,44 @@ function after_player_kill_player( ATKER, DEFER )
 	MGPK_MapName[8] = "hell3"
 	MGPK_MapName[9] = "hell4"
 	MGPK_MapName[10] = "hell5"
+
+	
 	local ATKER_Get_Ry = 0
 	local DEFER_Get_Ry = 0
+	
 	local ATKER_Get1_LD = 0
 	local DEFER_Get1_Ry = 0
-	if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "07xmas2" or map_name_DEFER == "07xmas2" then
+	if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
+		
 		local Lv_ATKER = Lv( ATKER )
 		local Lv_DEFER = Lv( DEFER )
 		local Lv_dif = Lv_ATKER - Lv_DEFER
 		if Lv_dif < 15 and Lv_dif > -15 then
 			ATKER_Get1_LD = 1
 			DEFER_Get1_Ry = -1
-			SystemNotice ( ATKER ,"Вы побеждаете противника и получаете 1 очко чести " )
-			SystemNotice ( DEFER ,"Вас победил противник. Потеряно 1 очко чести " )
+			SystemNotice ( ATKER ," defeats opponent and obtain 1 Chaos point" )
+			SystemNotice ( DEFER ," was defeated by opponent and loses 1 Honor point")
 		end
+		
 		if Lv_dif >= 15 then
 			ATKER_Get1_LD = 0
 			DEFER_Get1_Ry = 0
-			SystemNotice ( ATKER , "Уровень убитого игрока слишком маленький для получения очков чести " )
-			SystemNotice ( DEFER , "Вас убил слишком сильный противник. Вы не теряете очки чести " )
+			SystemNotice ( ATKER , "Defeated low level opponent. No Chaos point obtained" )
+			SystemNotice ( DEFER , "No honor points will be deducted when defeated by a higher level opponent." )
 		end
+		
 		if Lv_dif <= -14 then
 			ATKER_Get1_LD = 2
 			DEFER_Get1_Ry = -2
-			SystemNotice ( ATKER ,"Вы убили сильного противника и получаете 2 очка чести " )
-			SystemNotice ( DEFER ,"Вас убил слабый противник и вы теряете 2 очка чести " )
+			SystemNotice ( ATKER ,"Defeated high level opponent. Obtained 2 additional Honor points" )
+			SystemNotice ( DEFER ,"Defeated by low level opponent. Lost 2 additional Honor points")
 		end
+
+		
+--		local RongyuTpye = ITEMATTR_VAL_STR
+--		local Kill_Num = 1
+--		local Kill_attr = ITEMATTR_VAL_AGI
+--		local Killed_attr = ITEMATTR_VAL_DEX
 		local ATKER_LD = GetChaItem2 ( ATKER , 2 , 3849 )
 		local DEFER_RYZ1 = GetChaItem2 ( DEFER , 2 , 3849 )
 		local FightingPoint=GetItemAttr ( ATKER_LD , ITEMATTR_MAXENERGY)
@@ -1975,14 +2396,18 @@ function after_player_kill_player( ATKER, DEFER )
 		local atk_name = GetChaDefaultName ( ATKER )
 		local def_name = GetChaDefaultName ( DEFER )
 		local map_copy = GetChaMapCopy ( ATKER )
+
 		MapCopyNotice ( map_copy , Notice_map )
+	
 	end
 	if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
 		local atk_name = GetChaDefaultName ( ATKER )
 		local def_name = GetChaDefaultName ( DEFER )
-		local Notice_all = "["..def_name.."] терпит поражение от ["..atk_name.."]"
+		local Notice_all = "["..def_name.."] was defeated by ["..atk_name.."]"
 		Notice ( Notice_all )
 	end
+	
+	
 	if map_name_ATKER == "teampk" or map_name_DEFER == "teampk" then
 		local ATKER_RYZ = GetChaItem2 ( ATKER , 2 , 3849 )
 		local DEFER_RYZ = GetChaItem2 ( DEFER , 2 , 3849 )
@@ -1992,20 +2417,24 @@ function after_player_kill_player( ATKER, DEFER )
 		if Lv_dif < 10 and Lv_dif > -5 then
 			ATKER_Get_Ry = 1
 			DEFER_Get_Ry = -1
-			SystemNotice ( ATKER ,"Вы победили противника. Получено очков чести: "..ATKER_Get_Ry )
-			SystemNotice ( DEFER ,"Вы потерпели поражение. Потеряно очков чести: "..ATKER_Get_Ry )
+			SystemNotice ( ATKER ,"Defeat opponent and obtained Honor"..ATKER_Get_Ry )
+			SystemNotice ( DEFER ,"Defeat!. Honor points lost:"..ATKER_Get_Ry )
 		end
+		
 		if Lv_dif >= 10 then
 			ATKER_Get_Ry = 0
 			DEFER_Get_Ry = 0
-			SystemNotice ( ATKER , "Уровень побежденного противника слишком низок. Вы не получаете очков чести " )
+			SystemNotice ( ATKER , "Defeated low level opponent. No Honor points obtained" )
+
 		end
+		
 		if Lv_dif < -5 then
 			ATKER_Get_Ry = 2
 			DEFER_Get_Ry = -2
-			SystemNotice ( ATKER ,"Вы победили сильного противника и получаете "..ATKER_Get_Ry.." очков чести " )
-			SystemNotice ( DEFER ,"Вы убиты слабым игроком и теряете "..ATKER_Get_Ry.." очков чести " )
+			SystemNotice ( ATKER ,"Defeated high level opponent, obtained extra Honor reward. Received Honor points:"..ATKER_Get_Ry )
+			SystemNotice ( DEFER ,"Defeated by low level opponent. Extra penalty Honor lost:"..ATKER_Get_Ry )
 		end
+
 		local RongyuTpye = ITEMATTR_VAL_STR
 		local Kill_Num = 1
 		local Kill_attr = ITEMATTR_VAL_AGI
@@ -2014,25 +2443,39 @@ function after_player_kill_player( ATKER, DEFER )
 		local def_name = GetChaDefaultName ( DEFER )
 		local map_copy = GetChaMapCopy ( ATKER )
 		local Notice_map = def_name.." was defeated by "..atk_name.." Defeat"
+--		SystemNotice( ATKER ,"Honor point gained")
 		Add_ItemAttr_RYZ ( ATKER , ATKER_RYZ , RongyuTpye , ATKER_Get_Ry )
+--		SystemNotice( ATKER , "Increases Kill count by")
 		Add_ItemAttr_RYZ ( ATKER , ATKER_RYZ , Kill_attr , Kill_Num )
+--		SystemNotice( DEFER ,"was killed. Honor points deducted by")
 		Add_ItemAttr_RYZ ( DEFER ,DEFER_RYZ , RongyuTpye , DEFER_Get_Ry )
+--		SystemNotice( DEFER , "Defeat Count increases by")	
 		Add_ItemAttr_RYZ ( DEFER ,DEFER_RYZ , Killed_attr , Kill_Num )
 		MapCopyNotice ( map_copy , Notice_map )
+
+
 	end
 	if map_name_ATKER == "secretgarden" or map_name_DEFER == "secretgarden" then
 		local atk_name = GetChaDefaultName ( ATKER )
 		local def_name = GetChaDefaultName ( DEFER )
-		local Notice_all = "["..def_name.."] терпит поражение от ["..atk_name.."]"
+		local Notice_all = "["..def_name.."] was defeated by ["..atk_name.."]"
 		Notice ( Notice_all )
 	end
+
+
+
+
 if map_name_ATKER == "guildwar" or map_name_DEFER == "guildwar" then
+
 		local ATKER = TurnToCha ( ATKER )
 		local DEFER = TurnToCha ( DEFER )
+		--local Cha = TurnToCha(role) 
 		local Num_shengsi_1= CheckBagItem(DEFER,2382)
+                --Notice("Num_shengsi"..Num_shengsi)
 	if Num_shengsi_1 >=1 then
 		TakeItem( DEFER, 0,2382, 1 )    
                 GiveItem ( ATKER , 0 , 2383  , 1 , 4 )
+	
         else
 	   if GetChaGuildID(DEFER) <= 100 and GetChaGuildID(DEFER) > 0 then
               GiveItem ( ATKER , 0 , 2858  , 1 , 4 )
@@ -2041,17 +2484,22 @@ if map_name_ATKER == "guildwar" or map_name_DEFER == "guildwar" then
 	      GiveItem ( ATKER , 0 , 2859  , 1 , 4 )
 	   end
 	   if GetChaGuildID(DEFER) == 0 then
-		SystemNotice ( ATKER , "Цель не относится ни ко Флоту, ни к Пиратам " )
+	      SystemNotice ( ATKER , "Target does not belong to Navy nor Pirates, you did not manage to find anything!" )
 	   end
 	end
      end
+
      if map_name_ATKER == "guildwar2" or map_name_DEFER == "guildwar2" then
+
 		local ATKER = TurnToCha ( ATKER )
 		local DEFER = TurnToCha ( DEFER )
+		--local Cha = TurnToCha(role) 
 		local Num_shengsi_2= CheckBagItem(DEFER,2382)
+                --Notice("Num_shengsi"..Num_shengsi)
 	if Num_shengsi_2 >=1 then
 		TakeItem( DEFER, 0,2382, 1 )   
                 GiveItem ( ATKER , 0 , 2383  , 1 , 4 )
+	
         else
 	   if GetChaGuildID(DEFER) <= 100 and GetChaGuildID(DEFER) > 0 then
               GiveItem ( ATKER , 0 , 2858  , 1 , 4 )
@@ -2060,17 +2508,23 @@ if map_name_ATKER == "guildwar" or map_name_DEFER == "guildwar" then
 	      GiveItem ( ATKER , 0 , 2859  , 1 , 4 )
 	   end
 	   if GetChaGuildID(DEFER) == 0 then
-		SystemNotice ( ATKER , "Цель не относится ни ко Флоту, ни к Пиратам " )
+	      SystemNotice ( ATKER , "Target does not belong to Navy nor Pirates, you did not manage to find anything!" )
 	   end
 	end
      end
+
+     
+
+
+
+
         local C_Map = 0
 	for C_Map = 0 , MGPK_MapNameNum , 1 do
 	    if  map_name_ATKER == MGPK_MapName[C_Map] then
 		local atk_name = GetChaDefaultName ( ATKER )
 		local def_name = GetChaDefaultName ( DEFER )
 		local map_copy = GetChaMapCopy ( ATKER )
-		local Notice_map = "Игрок ["..def_name.."] терпит поражение от игрока ["..atk_name.."]"
+		local Notice_map = def_name.." was defeated by "..atk_name.." Defeat"
 		MapCopyNotice ( map_copy , Notice_map )
 		ATKER = TurnToCha ( ATKER )
 		DEFER = TurnToCha ( DEFER )
@@ -2081,15 +2535,20 @@ if map_name_ATKER == "guildwar" or map_name_DEFER == "guildwar" then
 		else
 			local j = DelBagItem( DEFER , 3846 , 1 )
 			if j == 0 then
-				LG ( "NewItem" , "Ошибка при удалении Куклы Вуду " )
+				LG ( "NewItem" , "Voodoo Doll deletion failed" )
 			else
-				SystemNotice ( DEFER , "Кукла Вуду спасла тебя от потери опыта " )
+				SystemNotice ( DEFER , "Voodoo Doll replace death penalty" )
 			end
 		end
+
 	    end
 	end
+	
+--	PK_Dead_Punish_ItemURE ( DEFER )
+
 end
 
+--ГФ№¬PKЛАНцѕ­СйіН·Ј
 function MGPK_Dead_Punish_Exp ( dead )
 	local map_name = GetChaMapName ( dead )
 	dead = TurnToCha ( dead ) 
@@ -2098,74 +2557,107 @@ function MGPK_Dead_Punish_Exp ( dead )
 	local exp = Exp(dead) 
 	local nlexp = GetChaAttrI ( dead , ATTR_NLEXP ) 
 	local clexp = GetChaAttrI ( dead , ATTR_CLEXP ) 
-	local exp_per = math.min ( math.floor ( ( nlexp - clexp ) * 0.02 ) , math.max ( exp - clexp , 0 ) )	
+	local exp_per = math.min ( math.floor ( ( nlexp - clexp ) * 0.02 ) , math.max ( exp - clexp , 0 ) )	---°ґХХ°Щ·Ц±ИјЖЛгЛрК§
 	if  exp <= clexp then 
 		exp_red = 0 
 	else 
-		exp_red = math.pow( lv , 2 ) * 20								
+		exp_red = math.pow( lv , 2 ) * 20								---°ґХХµИј¶јЖЛгЛрК§
 	end 
-	if exp_red > exp_per then										
+	
+	if exp_red > exp_per then										---ИЎБЅЦЦЛг·ЁЦРЅПРЎµДїЫіэ
 		exp_red = exp_per
 	end
+
 	if Lv ( dead ) >= 80 then 
 		exp_red = math.floor ( exp_red / 50 )
 		exp_red_80 = exp_red * 50 
-		SystemNotice (dead , "При смерти потеряно "..exp_red_80.." опыта " )
+		SystemNotice (dead , "Death penalty. EXP lost:"..exp_red_80 ) 
 	else 
-		SystemNotice (dead , "При смерти потеряно "..exp_red.." опыта " )
-		end
+		SystemNotice (dead , "Death penalty. EXP lost:"..exp_red ) 
+	end
+	
 	exp = Exp(dead) - exp_red
+
 	SetChaAttrI( dead , ATTR_CEXP , exp ) 
+	
 	local name = GetChaDefaultName ( dead )
-	LG ( "PKdie_exp" , "Игрок " , name , "Уровень= ", lv , "Потеряно опыта= " , exp_red )
+	
+	LG ( "PKdie_exp" , "Character Name" , name , "Current Lv= ", lv , "Death EXP penalty= " , exp_red )
 end 
 
---------------------------------------------------------------------
--------------- Добавляем Очки Чести в Медаль Отваги ----------------
---------------------------------------------------------------------
 
+
+--ФцјУИЩУюЦ¤КфРФ
 function Add_ItemAttr_RYZ ( Cha_role ,role , attrtype , Num )
 	local i = 0
 	local attr_num = GetItemAttr ( role , attrtype )
+--	SystemNotice ( Cha_role , "Operation antenumber value"..attr_num )
+--	SystemNotice ( Cha_role , "Operation Value"..Num )
+--	SystemNotice ( Cha_role , "Operation attribute"..attrtype )
 	attr_num = attr_num + Num
 	i = SetItemAttr ( role ,attrtype , attr_num )
 	local attr_num_1 = GetItemAttr ( role , attrtype )
+--	SystemNotice ( Cha_role , "value after operation"..attr_num_1 )
 	if i == 0 then
-		LG("RYZ_PK","Добавить очки чести не удалось ")
+		LG("RYZ_PK","add Honor attribute failed")
 	end
+	
 end
 
+
+--¶БИЎИЩУюЦ¤КфРФ
+
+--ІОјУіЎКэ
+--ІОКэЈєЅЗЙ«ЦёХл
+--·µ»ШЦµЈєІОИьіЎКэ
 function Get_ItemAttr_Join ( Cha_role )
+
 	local RYZ_Num = 0
 	RYZ_Num = CheckBagItem( Cha_role,3849 )
+
 	if RYZ_Num <= 0 then
 		return 0
 	end
+
 	local role_RYZ = GetChaItem2 ( Cha_role , 2 , 3849 )
 	local attrtype = ITEMATTR_VAL_CON
 	local attr_num = GetItemAttr ( role_RYZ , attrtype )
 	return attr_num
+	
 end
 
+--К¤АыіЎКэ
+--ІОКэЈєЅЗЙ«ЦёХл
+--·µ»ШЦµЈєК¤АыіЎКэ
 function Get_ItemAttr_Win ( Cha_role )
+
 	local RYZ_Num = 0
 	RYZ_Num = CheckBagItem( Cha_role,3849 )
+
 	if RYZ_Num <= 0 then
 		return 0
 	end	
+
 	local role_RYZ = GetChaItem2 ( Cha_role , 2 , 3849 )
 	local attrtype = ITEMATTR_VAL_STA
 	local attr_num = GetItemAttr ( role_RYZ , attrtype )
 	return attr_num
+	
 end
 
+--МнјУИЩУюЦµ
+
 function AddYongYuZhi( role ,  value )
+	
 	local RYZ_Num = 0
 	RYZ_Num = CheckBagItem( role,3849 )
+
 	if RYZ_Num <= 0 then
-		SystemNotice ( role , "Необходимо иметь Медали Отваги " )
+		SystemNotice ( role , "Does not possess Medal of Valor" )
 		return 0
+	
 	end
+	
 	local role_RYZ = GetChaItem2 ( role , 2 , 3849 )
 	local attrtype = ITEMATTR_VAL_STR
 	local attr_num = GetItemAttr ( role_RYZ , attrtype )
@@ -2173,27 +2665,36 @@ function AddYongYuZhi( role ,  value )
 	local i = 0
 	SetChaKitbagChange ( role , 0 )
 	i = SetItemAttr ( role_RYZ ,attrtype , attr_num )
+	
 	if i == 0 then 
 		return 0
 	end
 	if value > 0 then
-		SystemNotice ( role , "Прибавлено очков чести: "..value )
+		SystemNotice ( role , "Increases Honor points by "..value )
 	end
 	if value < 0 then
 		local a = -1 * value
-		SystemNotice ( role , "Отнято очков чести: "..a )
+		SystemNotice ( role , "Deduct Honor Point"..a )
 	end
+
 	SynChaKitbag ( role , 7 )
 	return 1
 end
 
+
+
+--ёД±дЧй¶У№±ПЧµгКэ
 function TakeZuDuiGongXianDu( role , value )
+	
 	local RYZ_Num = 0
 	RYZ_Num = CheckBagItem( role,3849 )
+
 	if RYZ_Num <= 0 then
-		SystemNotice ( role , "Необходимо иметь Медали Отваги " )
+		SystemNotice ( role , "Does not possess Medal of Valor" )
 		return 0
+	
 	end
+	
 	local role_RYZ = GetChaItem2 ( role , 2 , 3849 )
 	local attrtype = ITEMATTR_MAXURE
 	local attr_num = GetItemAttr ( role_RYZ , attrtype )
@@ -2201,27 +2702,33 @@ function TakeZuDuiGongXianDu( role , value )
 	local i = 0
 	SetChaKitbagChange ( role , 0 )
 	i = SetItemAttr ( role_RYZ ,attrtype , attr_num )
+	
 	if i == 0 then 
 		return 0
 	end
 	if value < 0 then
 		local a = value * -1
-		SystemNotice ( role ,"Получено "..a.." Очков Отряда " )
+		SystemNotice ( role ,"Obtained Party Contribution points"..a )
 	end
 	if value > 0 then
-		SystemNotice ( role ,"Забрано Очков Чести: "..value )
-		LG("RYZ_Take_Zdgx" , " Очки Чести использованы, осталось "..value.." очков ")
+		SystemNotice ( role ,"Party Contribution points deducted:"..value )
+		LG("RYZ_Take_Zdgx" , " uses Team Contribution points, deducts "..value.."point")
 	end
 	SynChaKitbag ( role , 7 )
 	return 1
 end
 
+
+
+--ЕР¶ПКЗ·сУРЧг№»µДЧй¶У№±ПЧµгКэ
 function HasZuDuiGongXianDu ( role ,value )
 	local RYZ_Num = 0
 	RYZ_Num = CheckBagItem( role,3849 )
+
 	if RYZ_Num <= 0 then
 		return 0
 	end
+
 	local role_RYZ = GetChaItem2 ( role , 2 , 3849 )
 	local attrtype = ITEMATTR_MAXURE
 	local attr_num = GetItemAttr ( role_RYZ , attrtype )
@@ -2232,12 +2739,15 @@ function HasZuDuiGongXianDu ( role ,value )
 	end
 end
 
+--ЕР¶ПИЩУюЦµКЗ·с·ыєПМхјю
 function LessYongYuZhi( role , str , value )
 		local RYZ_Num = 0
 	RYZ_Num = CheckBagItem( role,3849 )
+
 	if RYZ_Num <= 0 then
 		return 0
 	end
+
 	local role_RYZ = GetChaItem2 ( role , 2 , 3849 )
 	local attrtype = ITEMATTR_VAL_STR
 	local attr_num = GetItemAttr ( role_RYZ , attrtype )
@@ -2256,11 +2766,15 @@ function LessYongYuZhi( role , str , value )
 	else
 		LG("RYZ_PK","determine Honor character error")
 	end
+
+
 end
 
+--Чй¶УК±МнјУЧй¶У№±ПЧµгКэ
 function Add_RYZ_TeamPoint ( role ,count_num , add_num )
 	local RYZ_Num = 0
 	RYZ_Num = CheckBagItem( role,3849 )
+
 	if RYZ_Num <= 0 then
 		return
 	end
@@ -2276,39 +2790,59 @@ function Add_RYZ_TeamPoint ( role ,count_num , add_num )
 	b = Percentage_Random ( a )
 	local i = 0
 	if b == 1 then
+
 		SetChaKitbagChange ( role , 0 )
 		i = SetItemAttr ( role_RYZ ,attrtype , attr_num )
+
 		if i == 0 then
 			LG("RYZ_PK","Increase Party Contribution value failed")
 			return
 		end
 		SynChaKitbag ( role , 7 )
-		SystemNotice ( role ,"Получено "..add_num.." очко(в) отряда ")
+	
+		SystemNotice ( role ,"Obtain "..add_num.." point(s) of Team Contribution point")
 	end
 end
 
+	
+
+--ДНѕГПµНі--------------------------------------------
+
+--їЫіэ№Ґ»чХЯОдЖчДНѕГ
+
 function Take_Atk_ItemURE ( role )
+--	SystemNotice( role ,"deducts attacker weapon durability")
 	local Atk = IsPlayer ( role )
 	local boat = ChaIsBoat ( role )
-	if Atk == 1 and boat == 0 then					
+	if Atk == 1 and boat == 0 then					---№ЦєНґ¬І»їЫ
+--		SystemNotice ( role ,"starts to deduct")
 		local Item_1 = 0
 		local Item_2 = 0
 		Item_1 = GetChaItem ( role , 1 , 6 )
 		Item_2 = GetChaItem ( role , 1 , 9 )
+		
 		local Item_URE = 0
 		local Take_Num = 1
 		local i = 0
 		local Item1_Type = Check_Repair_ItemType ( Item_1 )
 		local Item2_Type = Check_Repair_ItemType ( Item_2 )
+		
 		if Item_1 ~= 0 and Item_1 ~= nil then
+--			SystemNotice (role , "Left hand")
 			local a = 0.03
 			local b = Percentage_Random (a)
+			
 			if b == 1 and Item1_Type == 1 then
+--				SystemNotice (role , "start to deduct left hand")
 				Item_URE = GetItemAttr ( Item_1 , ITEMATTR_URE )
 				if Item_URE < 50 then
 					Take_Num = 0
 				end
+
 				Item_URE = Item_URE - Take_Num
+				
+				
+
 				i = SetItemAttr ( Item_1 , ITEMATTR_URE , Item_URE )
 				if i == 0 then
 					LG("Item_URE","Weapon imbue failed")
@@ -2318,18 +2852,27 @@ function Take_Atk_ItemURE ( role )
 				end
 			end
 		end
+		
 		Item_URE = 0
 		Take_Num = 1
 		i = 0
+		
 		if Item_2 ~= 0 and Item_2 ~= nil then
+--			SystemNotice ( role ,"Right hand")
 			local a = 0.03
 			local b = Percentage_Random (a)
 			if b == 1 and Item2_Type == 1 then
+--				SystemNotice(role ,"start to deduct right hand")
 				Item_URE = GetItemAttr ( Item_2 , ITEMATTR_URE )
+
 				if Item_URE < 50 then
 					Take_Num = 0
 				end
+
 				Item_URE = Item_URE - Take_Num
+				
+				
+
 				i = SetItemAttr ( Item_2 , ITEMATTR_URE , Item_URE )
 				if i == 0 then
 					LG("Item_URE","Weapon imbue failed")
@@ -2340,99 +2883,134 @@ function Take_Atk_ItemURE ( role )
 			end
 		end
 	end
+
+
+	
 end
+
+--їЫіэКЬ»чХЯ·АѕЯДНѕГ
 
 function Take_Def_ItemURE ( role )
 	local def = IsPlayer ( role )
 	local boat = ChaIsBoat ( role )
-	if def == 1 and boat == 0 then						
+	if def == 1 and boat == 0 then						--№ЦєНґ¬І»їЫ
 		local Item_1 = 0
 		local Item_2 = 0
 		local Item_3 = 0
 		local Item_4 = 0
+
 		Item_1 = GetChaItem ( role , 1 , 0 )
 		Item_2 = GetChaItem ( role , 1 , 2 )
 		Item_3 = GetChaItem ( role , 1 , 3 )
 		Item_4 = GetChaItem ( role , 1 , 4 )
+		
 		local Item_URE = 0
 		local Take_Num = 1
 		local i = 0
+
 		if Item_1 ~= 0 and Item_1 ~= nil then
 			local a = 0.015
 			local b = Percentage_Random ( a )
 			if b == 1 then
 				Item_URE = GetItemAttr ( Item_1 , ITEMATTR_URE )
+
 				if Item_URE < 50 then
 					Take_Num = 0
 				end
+				
 				Item_URE = Item_URE - Take_Num
+				
+				
+
 				i = SetItemAttr ( Item_1 , ITEMATTR_URE , Item_URE )
 				if i == 0 then
 					LG("Item_URE","add armor attribute failed")
 				end
+				
 				if Item_URE < 50 and Take_Num ~= 0 then
 					SetChaEquipValid ( role , 0 , 0 )
 				end
 			end
 		end
+		
 		Item_URE = 0
 		Take_Num = 1
 		i = 0
+		
 		if Item_2 ~= 0 and Item_2 ~= nil then
 			local a = 0.015
 			local b = Percentage_Random ( a )
 			if b == 1 then
 				Item_URE = GetItemAttr ( Item_2 , ITEMATTR_URE )
+
 				if Item_URE < 50 then
 					Take_Num = 0
 				end
+				
 				Item_URE = Item_URE - Take_Num
+				
+				
 				i = SetItemAttr ( Item_2 , ITEMATTR_URE , Item_URE )
 				if i == 0 then
 					LG("Item_URE","add armor attribute failed")
 				end
+				
 				if Item_URE < 50 and Take_Num ~= 0 then
 					SetChaEquipValid ( role , 2 , 0 )
 				end
 			end
 		end
+
 		Item_URE = 0
 		Take_Num = 1
 		i = 0
+		
 		if Item_3 ~= 0 and Item_3 ~= nil then
 			local a = 0.015
 			local b = Percentage_Random ( a )
 			if b == 1 then
 				Item_URE = GetItemAttr ( Item_3 , ITEMATTR_URE )
+
 				if Item_URE < 50 then
 					Take_Num = 0
 				end
+				
 				Item_URE = Item_URE - Take_Num
+				
+				
 				i = SetItemAttr ( Item_3 , ITEMATTR_URE , Item_URE )
 				if i == 0 then
 					LG("Item_URE","add armor attribute failed")
 				end
+
 				if Item_URE < 50 and Take_Num ~= 0 then
 					SetChaEquipValid ( role , 3 , 0 )
 				end
 			end
 		end
+
 		Item_URE = 0
 		Take_Num = 1
 		i = 0
+		
 		if Item_4 ~= 0 and Item_4 ~= nil then
 			local a = 0.015
 			local b = Percentage_Random ( a )
 			if b == 1 then
 				Item_URE = GetItemAttr ( Item_4 , ITEMATTR_URE )
+				
 				if Item_URE < 50 then
 					Take_Num = 0
 				end
+
 				Item_URE = Item_URE - Take_Num
+				
+
 				i = SetItemAttr ( Item_4 , ITEMATTR_URE , Item_URE )
 				if i == 0 then
 					LG("Item_URE","add armor attribute failed")
 				end
+				
 				if Item_URE < 50 and Take_Num ~= 0 then
 					SetChaEquipValid ( role , 4 , 0 )
 				end
@@ -2441,11 +3019,14 @@ function Take_Def_ItemURE ( role )
 	end
 end
 
+--ХэіЈЛАНцК±їЫіэДНѕГ
 function Dead_Punish_ItemURE ( role )
 	local Player = IsPlayer ( role )
 	local boat = ChaIsBoat ( role )
 	local Punish = 0.05
-	Dead_Punish_Item_Num = 5		
+	
+	Dead_Punish_Item_Num = 5							--ТЄїЫіэµДЧ°±ёО»ЦГ
+	
 	local Dead_Punish_Item_WZ = { }
 	Dead_Punish_Item_WZ [0] = 0
 	Dead_Punish_Item_WZ [1] = 2
@@ -2453,6 +3034,7 @@ function Dead_Punish_ItemURE ( role )
 	Dead_Punish_Item_WZ [3] = 4
 	Dead_Punish_Item_WZ [4] = 6
 	Dead_Punish_Item_WZ [5] = 9
+
 	local Dead_Punish_Item = { }
 	Dead_Punish_Item [0] = GetChaItem ( role , 1 , Dead_Punish_Item_WZ [0] )
 	Dead_Punish_Item [1] = GetChaItem ( role , 1 , Dead_Punish_Item_WZ [1] )
@@ -2460,47 +3042,64 @@ function Dead_Punish_ItemURE ( role )
 	Dead_Punish_Item [3] = GetChaItem ( role , 1 , Dead_Punish_Item_WZ [3] )
 	Dead_Punish_Item [4] = GetChaItem ( role , 1 , Dead_Punish_Item_WZ [4] )
 	Dead_Punish_Item [5] = GetChaItem ( role , 1 , Dead_Punish_Item_WZ [5] )
-	if Player == 1 and boat == 0 then						
+
+	if Player == 1 and boat == 0 then						--№ЦєНґ¬І»їЫ
 		local Item_URE = 0
 		local Item_MAXURE = 0
 		local Take_Num = 0
 		local i = 0
 		local j = 0
-		local k = 0								
+		local k = 0								--Ч°±ёУРР§±кјЗ
 		for j = 0 , Dead_Punish_Item_Num , 1 do
+				
 			if Dead_Punish_Item[j] ~= 0 and Dead_Punish_Item[j] ~= nil then
+				
 				local ItemType_Check = Check_Repair_ItemType ( Dead_Punish_Item[j] )
 				if ItemType_Check == 1 then
 					Item_URE = GetItemAttr ( Dead_Punish_Item[j] , ITEMATTR_URE )
 					Item_MAXURE = GetItemAttr ( Dead_Punish_Item[j] , ITEMATTR_MAXURE )
 					Take_Num = math.floor ( Item_MAXURE * Punish )
+					
 					if Item_URE >= 50 then
 						k = 1
 					end
+
 					Item_URE = Item_URE - Take_Num
+					
 					if Item_URE < 50 then
 						Item_URE = 49
+						
 					end
+					
 					i = SetItemAttr ( Dead_Punish_Item[j] , ITEMATTR_URE , Item_URE )
 					if i == 0 then
 						LG("Item_URE","Normal death deducts attribute failed"..j)
 					end
+					
+					
+					
 					if k == 1 and Item_URE == 49 then
 							SetChaEquipValid ( role , Dead_Punish_Item_WZ [j] , 0 )
 					end
+
+
 				end
 				
 			end
 		end
-		SystemNotice ( role , "Вы погибли и теряете 5 процентов прочности экипировки " )
+		SystemNotice ( role , "Death: 5% penalty off durability of equipment" )
 	end
+
 end
+
+--PKК±ЛАНцїЫіэДНѕГ
 
 function PK_Dead_Punish_ItemURE ( role )
 	local Player = IsPlayer ( role )
 	local boat = ChaIsBoat ( role )
 	local Punish = 0.05
-	PK_Dead_Punish_Item_Num = 5							
+	PK_Dead_Punish_Item_Num = 5							--ТЄїЫіэµДЧ°±ёО»ЦГ
+	
 	local PK_Dead_Punish_Item_WZ = { }
 	PK_Dead_Punish_Item_WZ [0] = 0
 	PK_Dead_Punish_Item_WZ [1] = 2
@@ -2508,6 +3107,7 @@ function PK_Dead_Punish_ItemURE ( role )
 	PK_Dead_Punish_Item_WZ [3] = 4
 	PK_Dead_Punish_Item_WZ [4] = 6
 	PK_Dead_Punish_Item_WZ [5] = 9
+
 	local PK_Dead_Punish_Item = { }
 	PK_Dead_Punish_Item [0] = GetChaItem ( role , 1 , PK_Dead_Punish_Item_WZ [0] )
 	PK_Dead_Punish_Item [1] = GetChaItem ( role , 1 , PK_Dead_Punish_Item_WZ [1] )
@@ -2515,31 +3115,41 @@ function PK_Dead_Punish_ItemURE ( role )
 	PK_Dead_Punish_Item [3] = GetChaItem ( role , 1 , PK_Dead_Punish_Item_WZ [3] )
 	PK_Dead_Punish_Item [4] = GetChaItem ( role , 1 , PK_Dead_Punish_Item_WZ [4] )
 	PK_Dead_Punish_Item [5] = GetChaItem ( role , 1 , PK_Dead_Punish_Item_WZ [5] )
-	if Player == 1 and boat == 0 then		
+	if Player == 1 and boat == 0 then						--№ЦєНґ¬І»їЫ
 		local Item_URE = 0
 		local Item_MAXURE = 0
 		local Take_Num = 0
 		local i = 0
 		local j = 0
-		local k = 0								
+		local k = 0								--Ч°±ёУРР§±кјЗ
 		for j = 0 , PK_Dead_Punish_Item_Num , 1 do
+				
 			if PK_Dead_Punish_Item[j] ~= 0 and PK_Dead_Punish_Item[j] ~= nil then
 				local ItemType_Check = Check_Repair_ItemType ( PK_Dead_Punish_Item[j] )
+				
 				if ItemType_Check == 1 then
+
 					Item_URE = GetItemAttr ( PK_Dead_Punish_Item[j] , ITEMATTR_URE )
 					Item_MAXURE = GetItemAttr ( PK_Dead_Punish_Item[j] , ITEMATTR_MAXURE )
 					Take_Num = math.floor ( Item_MAXURE * Punish )
+					
 					if Item_URE >= 50 then
 						k = 1
 					end
+
 					Item_URE = Item_URE - Take_Num
 					if Item_URE < 50 then
 						Item_URE = 49
+						
 					end
+
 					i = SetItemAttr ( PK_Dead_Punish_Item[j] , ITEMATTR_URE , Item_URE )
 					if i == 0 then
 						LG("Item_URE","Normal death deducts attribute failed"..j)
 					end
+					
+					
+					
 					if k == 1 and Item_URE == 49 then
 							SetChaEquipValid ( role , Dead_Punish_Item_WZ [j] , 0 )
 					end
@@ -2547,90 +3157,153 @@ function PK_Dead_Punish_ItemURE ( role )
 				
 			end
 		end
-		SystemNotice ( role , "Вы погибли. Снаряжение испорчено на 5 процентов " )
+		SystemNotice ( role , "PK death penalty: Item durability dropped by 5%" )
 	end
 end
 
+
+
+--јмІвµАѕЯКЗ·сїЙРЮАн
 function can_repair_item ( role_repair , role_want_repair , Item )
 	local Check = 0
 	local Sklv = 1
 	Check = can_repair_itemLua ( role_repair , role_want_repair , Item , Sklv )
 	return Check
+
 end
 
+--јмІвКЗ·сїЙРЮАнЦчєЇКэ
+
 function can_repair_itemLua ( role_repair , role_want_repair , Item , Sklv )
+	--	SystemNotice( role_want_repair , "Starts can_repair_item")
 	local re_type = IsPlayer ( role_repair )
 	local Item_MAXURE = GetItemAttr ( Item , ITEMATTR_MAXURE )
 	local Item_URE = GetItemAttr ( Item , ITEMATTR_URE )
 	local Money_Need = get_item_repair_money ( Item )
 	local Money_Have = GetChaAttr ( role_want_repair , ATTR_GD )
+	
+	
+--	SystemNotice ( role_want_repair , "Item_MAXURE= "..Item_MAXURE)
+--	SystemNotice ( role_want_repair , "Item_URE= "..Item_URE)
+
+--	SystemNotice ( role_want_repair , "requires gold"..Money_Need )
+	
 	if Item_MAXURE <= 2500 then
-		SystemNotice( role_want_repair , "Предмет сильно повреждён. Необходимо починить. " )
+		SystemNotice( role_want_repair , "Items durability too low. Unable to repair" )
 		return 0
 	end
-	if Item_MAXURE == Item_URE then								
-		SystemNotice( role_want_repair , "Предмет сломан. Необходимо починить. ")
+	if Item_MAXURE == Item_URE then								--ДНѕГМ«µНЈ¬ДНѕГОґПыєДІ»ДЬРЮ
+		SystemNotice( role_want_repair , "Full durability. No need to repair")
 		return 0
 	end
-	if Money_Have < Money_Need then								
-		SystemNotice( role_want_repair , "Нехватает денег для починки. ")
+
+	if Money_Have < Money_Need then								--Г»З®І»ДЬРЮ
+		SystemNotice( role_want_repair , "Insufficient gold. Unable to repair")
 		return 0
 	end
+
+--	if re_type == 1 then
+--		LG("Item_URE","Repair is human?")
+--		return 0
+--	end
+	
 	local i = 0
 	i = Check_Repair_ItemType ( Item )
 	if i == 1 then
 		return 1
 	end
-	SystemNotice( role_want_repair , "Предмет не чинится. ")
+	SystemNotice( role_want_repair , "Non-repairable item")
+
 	return 0
 end
 
+
+--ИЎµАѕЯРЮАн·СУГ
 function get_item_repair_money ( Item )
 	local Money = 0
 	local Sklv = 1
 	Money = get_item_repair_moneyLua ( Item , Sklv )
+	
 	if Money < 1 then
 		Money = 1
 	end
+
 	return Money
+	
 end
 
+--ИЎµАѕЯРЮАн·СУГЦчєЇКэ
 function get_item_repair_moneyLua ( Item , Sklv )
 	local Item_Lv = GetItemLv ( Item )
 	local RepairPoint = math.floor ( math.pow(( Item_Lv / 10 ) , 1.7 )) - 1
 	local Item_URE = GetItemAttr ( Item , ITEMATTR_URE )
 	local Item_MAXURE = GetItemAttr ( Item , ITEMATTR_MAXURE )
+
 	local URE_repair = math.floor ( Item_MAXURE / 50 ) - math.floor ( Item_URE / 50 )
 	local Money_Need = math.max ( ( URE_repair * RepairPoint ) , 1 )
 	return Money_Need
 end
 
+--їЄКјРЮАнµАѕЯ
 function begin_repair_item ( role_repair , role_want_repair , Item )
 	local Sklv = 1
 	begin_repair_itemLua ( role_repair , role_want_repair , Item , Sklv )
 end
 
+--їЄКјРЮАнЦчєЇКэ
 function begin_repair_itemLua ( role_repair , role_want_repair , Item , Sklv )
+--	SystemNotice( role_want_repair , "Start repairing items")
 	local Item_MAXURE = GetItemAttr ( Item , ITEMATTR_MAXURE )
 	local Item_URE = GetItemAttr ( Item , ITEMATTR_URE )
 	local Money_Need = get_item_repair_money ( Item )
 	local Money_Have = GetChaAttr ( role_want_repair , ATTR_GD )
+--	SystemNotice ( role_want_repair , "Money_Have = "..Money_Have)
+--	SystemNotice ( role_want_repair , "deducts gold "..Money_Need)
 	Money_Have = Money_Have - Money_Need
 	SetCharaAttr ( Money_Have , role_want_repair , ATTR_GD )
 	ALLExAttrSet( role_want_repair )
+--	SystemNotice ( role_want_repair , "Gold Deducted: " )
+--	local a = 1
+--	local b = 1
 	local i = 0
 	local j = 0
+	
+	
+--	local URE_NeedRepair = ( Item_MAXURE - Item_URE ) - ( Item_MAXURE * 0.05 )
+	
+--	if URE_NeedRepair <= 0 then
+--		b = 1
+--	end
+
+--	if b == 1 then
 	Item_URE = Item_MAXURE
 	i = SetItemAttr ( Item , ITEMATTR_URE , Item_URE )
+
 	if i == 0 then 
 		LG("Item_URE","Repair durability failed")
 	end
-	SystemNotice( role_want_repair ,"Починка завершена. " )
+	SystemNotice( role_want_repair ,"Repair completed" )
+--	else
+--		local New_Item_MAXURE = math.floor ( Item_MAXURE * 0.95 )
+--		i = SetItemAttr ( Item , ITEMATTR_URE , New_Item_MAXURE )
+--		j = SetItemAttr ( Item , ITEMATTR_MAXURE , New_Item_MAXURE )
+--		SystemNotice ( role_want_repair , "Repair completed" )
+--		SystemNotice ( role_want_repair , "Very sorry, some part of durability cannot be restored. Maximum durability reduced to" )
+--		if i == 0 then
+--			LG("Item_URE","repair failed repair durability failed")
+--		end
+--		if j == 0 then
+--			LG("Item_URE","repair failed repair max durability failed")
+--		end
+--	end
 	return 1
 end
 
+
+--ЕР¶ПКЗ·сОЄїЙРЮАнµДЧ°±ёАаРН
 function Check_Repair_ItemType ( Item )
 	local Item_Type = GetItemType ( Item )
+--	SystemNotice ( role_want_repair , "Item Type="..Item_Type )
 	local i = 0
 	for i = 0 , Item_CanRepair_Num , 1 do
 		if Item_CanRepair_ID [i] == Item_Type then
@@ -2640,6 +3313,10 @@ function Check_Repair_ItemType ( Item )
 	return 0
 end
 
+
+-----ѕ«Б¶ПµНі32О»КэЧЦІрЅв----------------
+
+--¶БИЎІї·Ц
 function GetNum_Part1 ( Num )
 	local a = 0
 	a = math.floor ( Num / 1000000000 )
@@ -2693,6 +3370,29 @@ function GetNum_Part7 ( Num )
 	b = math.floor ( a / 1 )
 	return b
 end
+
+-- function GetNum_Test ( Num )
+--	local a = 0
+--	Notice ( "This is a testing message from Mars. Please be calm" )
+--	Notice ( "Test value as"..Num )
+--	a = GetNum_Part1( Num )
+--	Notice ( " test numeric part 1"..a)
+--	a = GetNum_Part2( Num )
+--	Notice ( " test numeric part 2 = "..a)
+--	a = GetNum_Part3( Num )
+--	Notice ( " test numeric part 3"..a)
+--	a = GetNum_Part4( Num )
+--	Notice ( " test numeric part 4 = "..a)
+--	a = GetNum_Part5( Num )
+--	Notice ( " test numeric part 5"..a)
+--	a = GetNum_Part6( Num )
+--	Notice ( " test numeric part 6 = "..a)
+--	a = GetNum_Part7( Num )
+--	Notice ( " test value part 7"..a)
+-- end
+
+
+--РґИлІї·Ц
 
 function SetNum_Part1 ( Num , Part_Num )
 	local a = 0
@@ -2757,6 +3457,31 @@ function SetNum_Part7 ( Num , Part_Num )
 	return Num
 end
 
+
+--function SetNum_Test ( Num )
+--	local a = 0
+--	Notice ( "This is testing from Mars. Please be calm" )
+--	Notice ( "Test value as"..Num)
+--	Num = SetNum_Part1 ( Num , 0 )
+--	Notice ( "changed part one to"..Num )
+--	Num = SetNum_Part2 ( Num , 12 )
+--	Notice ( "edit part 2 as"..Num )
+--	Num = SetNum_Part3 ( Num , 3 )
+--	Notice ( "edit part 3 to"..Num )
+--	Num = SetNum_Part4 ( Num , 45 )
+--	Notice ( "edit part 4 as"..Num )
+--	Num = SetNum_Part5 ( Num , 6 )
+--	Notice ( "edit part 5 as"..Num )
+--	Num = SetNum_Part6 ( Num , 78 )
+--	Notice ( "edit part 6 as"..Num )
+--	Num = SetNum_Part7 ( Num , 9 )
+--	Notice ( "changed part 7 as"..Num )
+--end
+
+
+
+--ѕ«Б¶ДЪИЭіхКј»Ї--
+
 function SetItemForgeParam_MonsterBaoliao ( item , Num )
 	local i = 0 
 	local j = 0
@@ -2765,19 +3490,29 @@ function SetItemForgeParam_MonsterBaoliao ( item , Num )
 	local ItemID = GetItemID ( item )
 	local MaxHole = GetItemHoleNum ( ItemID )
 	local Item_Type = GetItemType ( item )
+
 	for j = 0 , 3 , 1 do 
 		if a <= Item_HoleNum_Monster [j] then 
 			k = j
 			a = 200
 		end
 	end
+
 	if k > MaxHole then
 		k = MaxHole
 	end
+	
+--	if k <= 1 then
+--		k = 1
+--	end
+
 	if Item_Type == 49 or Item_Type == 50 then
 		k = 0
 	end
+
 	Num = SetNum_Part1 ( Num , k )
+	  
+--	Notice(Num)
 	i = SetItemForgeParam ( item , 1 , Num )
 	if i == 0 then
 		LG( "Creat_Item" , "set forging content failed" )
@@ -2792,18 +3527,24 @@ function SetItemForgeParam_PlayerHecheng ( item , Num )
 	local ItemID = GetItemID ( item )
 	local MaxHole = GetItemHoleNum ( ItemID )
 	local Item_Type = GetItemType ( item )
+
+	
 	for j = 0 , 3 , 1 do 
 		if a <= Item_HoleNum_Hecheng [j] then 
 			k = j
 			a = 200
 		end 
 	end 
+	
  	if k > MaxHole then
 		k = MaxHole
 	end
+
 	if Item_Type == 49 or Item_Type == 50 then
 		k = 0
 	end
+
+
 	Num = SetNum_Part1 ( Num , k ) 
 	 
 	i = SetItemForgeParam ( item , 1 , Num )
@@ -2820,27 +3561,35 @@ function SetItemForgeParam_QuestAward ( item , Num , item_event )
 	local ItemID = GetItemID ( item )
 	local MaxHole = GetItemHoleNum ( ItemID )
 	local Item_Type = GetItemType ( item )
+
+	
 	for j = 0 , 3 , 1 do 
 		if a <= Item_HoleNum_Mission_1 [j] then 
 			k = j
 			a = 200
 		end 
 	end 
+	
   	if k > MaxHole then
 		k = MaxHole
 	end
+
 	if item_event == QUEST_AWARD_SDJ then
 		if k == 0 then
 			k = 1
 		end
 	end
+
 	if item_event == QUEST_AWARD_SCBOX then
 		k = 2
 	end
+
 	if Item_Type == 49 or Item_Type == 50 then
 		k = 0
 	end
+
 	Num = SetNum_Part1 ( Num , k ) 
+
 	i = SetItemForgeParam ( item , 1 , Num )
 	if i == 0 then
 		LG( "Creat_Item" , "set forging content failed" )
@@ -2852,15 +3601,38 @@ function SetItemForgeParam_Npc_Sale ( item , Num )
 	local j = 0
 	local a = math.random ( 1, 100 ) 
 	local k = 0
+--	local ItemID = GetItemID ( Item )
+--	local MaxHole = GetItemHoleNum ( ItemID )
+
+--	for j = 0 , 3 , 1 do 
+--		if a <= Item_HoleNum_Monster [i] then 
+--			k = i
+--			a = 200
+--		end
+--	end
+
+--	if k > MaxHole then
+--		k = MaxHole
+--	end
+
 	Num = SetNum_Part1 ( Num , k )
 	  
+--	Num = 2011000000
 	i = SetItemForgeParam ( item , 1 , Num )
 	if i == 0 then
 		LG( "Creat_Item" , "set forging content failed" )
 	end
+
 end
 
+
+--№«»бѕє±кПа№ШДЪИЭ
+
+--ИЎДїЗ°±ёХЅ№«»бГыґО
+
 function GetFightGuildLevel()
+--	±ИЅПК±јдЈ¬·µ»Шlevel
+--	ФЪґЛІеИлК±јд±ИЅПЈ¬И·¶ЁGuildLevel
 	local Lv = 0
 	local Now_Week = GetNowWeek()
 	local Now_Time = GetNowTime()
@@ -2874,9 +3646,14 @@ function GetFightGuildLevel()
 	elseif CheckNum >= 0 and CheckNum < 22 then
 		Lv = 3
 	end
+
 	return Lv
 end
 
+
+--ИЎМфХЅЛ«·ЅµД№¤»б±аєЕ
+--ІОКэЈєМфХЅµИј¶
+--·µ»ШЦµЈєАЮЦч№¤»б±аєЕЈ¬МфХЅ№¤»б·Ѕ№¤»б±аєЕ
 function GetFightGuildID( GuildLevel )
 	local RedSide = 0
 	local BlueSide = 0
@@ -2884,17 +3661,22 @@ function GetFightGuildID( GuildLevel )
 	return RedSide,BlueSide
 end
 
+--ИЎПЦФЪРЗЖЪјё
 function GetNowWeek ( )
 	local Now_Week = os.date("%w")
 	local Now_WeekNum = tonumber(Now_Week)
 	return Now_WeekNum
 end
 
+--ИЎПЦФЪКЗјёµг
 function GetNowTime ( )
 	local Now_Time = os.date("%H")
 	local NowTimeNum = tonumber(Now_Time)
 	return NowTimeNum
 end
+
+
+--ДкКЮМЧЧ°ЕР¶П
 
 function CheckItem_Nianshou ( role )
 	local Atk = IsPlayer ( role )
@@ -2902,32 +3684,42 @@ function CheckItem_Nianshou ( role )
 	if Atk == 0 or boat == 1 then		
 		return 0
 	end
+
 	local cha = TurnToCha ( role )
 	local Cha_Num = GetChaTypeID( cha )
+	
 	local head = GetChaItem ( role , 1 , 0 )
 	local body = GetChaItem ( role , 1 , 2 )
 	local hand = GetChaItem ( role , 1 , 3 )
 	local foot = GetChaItem ( role , 1 , 4 )
+
 	local Head_ID = GetItemID ( head )
 	local Body_ID = GetItemID ( body )
 	local Hand_ID = GetItemID ( hand )
 	local Foot_ID = GetItemID ( foot )
+
 	if Body_ID ~= 0825  and Body_ID ~= 2549 then
 		return 0
 	end
+
 	if Hand_ID ~= 0826  and Hand_ID ~= 2550 then
 		return 0
 	end
+
 	if Foot_ID ~= 0827  and Foot_ID ~= 2551 then
 		return 0
 	end
+
 	if Cha_Num == 4 then
 		if Head_ID ~= 0828  and Head_ID ~= 2552 then
 			return 0
 		end
 	end
+
 	return 1
 end
+
+--єЪБъМЧЧ°ЕР¶П
 
 function CheckItem_Heilong ( role )
 	local Atk = IsPlayer ( role )
@@ -2935,32 +3727,47 @@ function CheckItem_Heilong ( role )
 	if Atk == 0 or boat == 1 then		
 		return 0
 	end
+
 	local cha = TurnToCha ( role )
 	local Cha_Num = GetChaTypeID( cha )
+	
+	 
 	local body = GetChaItem ( role , 1 , 2 )
 	local hand = GetChaItem ( role , 1 , 3 )
 	local foot = GetChaItem ( role , 1 , 4 )
+
+	 
 	local Body_ID = GetItemID ( body )
 	local Hand_ID = GetItemID ( hand )
 	local Foot_ID = GetItemID ( foot )
+
 	if Body_ID ~= 0845 and Body_ID ~= 2367 then
 		return 0
 	end
+
 	if Hand_ID ~= 0846 and Hand_ID ~= 2368 then
 		return 0
 	end
+
 	if Foot_ID ~= 0847 and Foot_ID ~= 2369 then
 		return 0
 	end
+
 	return 1
 end
 
+---јмІвєЈµБМЧЧ°
 function CheckItem_pirate ( role )
+
 	local cha = TurnToCha ( role )
 	local Cha_Num = GetChaTypeID( cha )
+	
+	 
 	local body = GetChaItem ( role , 1 , 2 )
 	local hand = GetChaItem ( role , 1 , 3 )
 	local foot = GetChaItem ( role , 1 , 4 )
+
+	 
 	local Body_ID = GetItemID ( body )
 	local Hand_ID = GetItemID ( hand )
 	local Foot_ID = GetItemID ( foot )
@@ -2981,13 +3788,18 @@ function CheckItem_pirate ( role )
 	end	
 	return 1
 end
-
+---јмІв75BOSS
 function CheckItem_Death ( role )
+
 	local cha = TurnToCha ( role )
 	local Cha_Num = GetChaTypeID( cha )
+	
+	 
 	local body = GetChaItem ( role , 1 , 2 )
 	local hand = GetChaItem ( role , 1 , 3 )
 	local foot = GetChaItem ( role , 1 , 4 )
+
+	 
 	local Body_ID = GetItemID ( body )
 	local Hand_ID = GetItemID ( hand )
 	local Foot_ID = GetItemID ( foot )
@@ -3020,13 +3832,18 @@ function CheckItem_Death ( role )
 	end
 	return 1
 end
+--ВТ¶·Ц®Ч°
 
 function CheckItem_fighting ( role )
 	local cha = TurnToCha ( role )
 	local Cha_Num = GetChaTypeID( cha )
+	
+	 
 	local body = GetChaItem ( role , 1 , 2 )
 	local hand = GetChaItem ( role , 1 , 3 )
 	local foot = GetChaItem ( role , 1 , 4 )
+
+	 
 	local Body_ID = GetItemID ( body )
 	local Hand_ID = GetItemID ( hand )
 	local Foot_ID = GetItemID ( foot )
@@ -3045,46 +3862,57 @@ function CheckItem_fighting ( role )
 	if foot_gem_id ~= 1126  then 
            return 0
 	end
+	 
 	return 1
 end
+---ЛгГьПµНі-------------------------------------------------
+
+---ЗуІЖ---------------------
 
 function Suanming_Money ( role )
-	local a = CheckSuanmingType ( role )			
+	local a = CheckSuanmingType ( role )			--јмІвійµГµДКІГґЗ©
 	if a == 1 then
-		SystemNotice ( role , "Леди удача улыбнулась тебе. Ты получил самый лучший лот. " )
+		SystemNotice ( role , "Lady Luck shines on you! You have obtained the best Lot!" )
 		ShangShangQian_Money ( role )
 	elseif a == 2 then
-		SystemNotice ( role , "Сегодня счастливый день. Ты получил хороший лот. " )
+		SystemNotice ( role , "Seems to be lucky today. You have obtained a good Lot" )
 		ShangQian_Money ( role )
 	elseif a == 3 then
 		ZhongQian_Money ( role )
+--		SystemNotice ( role , "Today looks good. Nothing special has happened" )
 	elseif a == 4 then
-		SystemNotice ( role , "У тебя сегодня не очень удачный день. Ты получил плохой лот. " )
+		SystemNotice ( role , "Very unlucky. You have obtained a bad Lot" )
 		XiaQian_Money ( role )
 	elseif a == 5 then
-		SystemNotice ( role , "Госпожа Удача отвернулась от тебя. Ты получил самый плохой лот. " )
+		SystemNotice ( role , "Oh dear! Bad luck has befallen you! You have obtained the worst Lot!" )
 		XiaXiaQian_Money ( role )
 	end
 end
 
+---ЗуКВТµ-------------------
+
 function Suanming_Work ( role )
 	local a = CheckSuanmingType ( role )
 	if a == 1 then
-		SystemNotice ( role , "Леди удача улыбнулась тебе. Ты получил самый лучший лот. " )
+		SystemNotice ( role , "Lady Luck shines on you! You have obtained the best Lot!" )
 		ShangShangQian_Work ( role )
 	elseif a == 2 then
-		SystemNotice ( role , "У тебя сегодня удачный день. Ты получил счастливый лот. " )
+		SystemNotice ( role , "Seems to be lucky today. You have obtained a good Lot" )
 		ShangQian_Work ( role )
 	elseif a == 3 then
 		ZhongQian_Work ( role )
+--		SystemNotice ( role , "Today looks good. Nothing special has happened" )
 	elseif a == 4 then
-		SystemNotice ( role , "У тебя сегодня не очень удачный день. Ты получил плохой лот. " )
+		SystemNotice ( role , "Very unlucky. You have obtained a bad Lot" )
 		XiaQian_Work ( role )
 	elseif a == 5 then
-		SystemNotice ( role , "Госпожа Удача отвернулась от тебя. Ты получил самый плохой лот. " )
+		SystemNotice ( role , "Oh dear! Bad luck has befallen you! You have obtained the worst Lot!" )
 		XiaXiaQian_Work ( role )
 	end
 end
+
+
+--јмІвійµГµДКІГґЗ©
 
 function CheckSuanmingType ( role )
 	local a = math.random ( 1 , 100 )
@@ -3096,14 +3924,19 @@ function CheckSuanmingType ( role )
 	qian [2] = 55
 	qian [3] = 85
 	qian [4] = 100
+
 	for i = 0 , 4 , 1 do
 		if qian [i] >= a then
 			b = i + 1
 			break
 		end
 	end
+
 	return b
+
 end
+
+--ІЖФЛЙПЙПЗ©
 
 function ShangShangQian_Money ( role )
 	local a = math.random ( 1 , 100 )
@@ -3113,27 +3946,33 @@ function ShangShangQian_Money ( role )
 	qian [0] = 10
 	qian [1] = 50
 	qian [2] = 100
+--	qian [3] = 80
+--	qian [4] = 100
+
 	for i = 0 , 2 , 1 do
 		if qian [i] >= a then
 			b = i + 1
 			break
 		end
 	end
+
 	if b == 1 then
 		local GiveMoneyNum = 0.01 * math.random ( 1 , 5 )
 		local GiveMoneyNum_Notice = GiveMoneyNum * 100
-		SystemNotice ( role , "Получено "..GiveMoneyNum_Notice.."% от золота Удачи " )
-		QianAddMoney ( role , 1 , GiveMoneyNum )							
+		SystemNotice ( role , "Obtain some Gold by luck"..GiveMoneyNum_Notice.."% of extra gold" )
+		QianAddMoney ( role , 1 , GiveMoneyNum )							----ёшЗ®Ј¬1ОЄ°ґ±ИАэЈ¬2ОЄ°ґ№М¶ЁКэЦµ
 	elseif b == 2 then
 		local statelv = 1
 		local time_Bei = math.random ( 1 , 60 )
 		local statetime = time_Bei * 60
 		AddState( role , role , STATE_SBBLGZ , statelv , statetime )
-		SystemNotice ( role , "Вы получили благославление богини Кары. Получено "..time_Bei.." минут удачи при выпадении предметов " )
+		SystemNotice ( role , "Recieved blessing from Goddess Kara. Current region obtained "..time_Bei.."minutes of bonus increased drop rate" )
 	elseif b == 3 then
-		GiveItem ( role , 0 , 1092 , 1 , 0 )							
+		GiveItem ( role , 0 , 1092 , 1 , 0 )							---ёш±¦Нј
 	end
 end
+
+--ІЖФЛЙПЗ©
 
 function ShangQian_Money ( role )
 	local a = math.random ( 1 , 100 )
@@ -3143,16 +3982,20 @@ function ShangQian_Money ( role )
 	qian [0] = 20
 	qian [1] = 60
 	qian [2] = 100
+--	qian [3] = 80
+--	qian [4] = 100
+
 	for i = 0 , 2 , 1 do
 		if qian [i] >= a then
 			b = i + 1
 			break
 		end
 	end
+	
 	if b == 1 then
 		local GiveMoneyNum = 0.001 * math.random ( 1 , 9 )
 		local GiveMoneyNum_Notice = GiveMoneyNum * 100
-		SystemNotice ( role , "Получено "..GiveMoneyNum_Notice.."% от золота Удачи " )
+		SystemNotice ( role , "Obtain some Gold by luck"..GiveMoneyNum_Notice.."% of extra gold" )
 		QianAddMoney ( role , 1 , GiveMoneyNum )
 	elseif b == 2 then
 		local Give_Money = 1000 * math.random ( 1 , 15 )
@@ -3163,13 +4006,18 @@ function ShangQian_Money ( role )
 		local Give_Money = math.random ( 10000 , 20000 )
 		Hp_Endure_Dmg ( role , hp_dmg )
 		QianAddMoney ( role , 2 , Give_Money )
-		SystemNotice ( role , "Звон монет! Кто же это мог быть? Удача!" )
+		SystemNotice ( role , "Smash by some gold coins. Almost dieЎ­Who throw these coins!" )
 	end
 end
 
+--ІЖФЛЦРЗ©
+
 function ZhongQian_Money ( role )
-	SystemNotice ( role , "Сегодня удача не улыбнулась Вам..." )
+	SystemNotice ( role , "Today is so boringЎ­nothing ever happens..." )
 end
+
+
+--ІЖФЛПВЗ©
 
 function XiaQian_Money ( role )
 	local a = math.random ( 1 , 100 )
@@ -3178,12 +4026,17 @@ function XiaQian_Money ( role )
 	local qian = { }
 	qian [0] = 20
 	qian [1] = 100
+--	qian [2] = 60
+--	qian [3] = 80
+--	qian [4] = 100
+
 	for i = 0 , 1 , 1 do
 		if qian [i] >= a then
 			b = i + 1
 			break
 		end
 	end
+
 	if b == 1 then
 		local Give_Money = math.random ( 100 , 5000 )
 		Give_Money = Give_Money * -1
@@ -3191,11 +4044,14 @@ function XiaQian_Money ( role )
 	elseif b == 2 then
 		local GiveMoneyNum = 0.001 * math.random ( 1 , 9 )
 		local GiveMoneyNum_Notice = GiveMoneyNum * 100
-		SystemNotice ( role , "Проиграно "..GiveMoneyNum_Notice.."% золота " )
+		SystemNotice ( role , "Accidentally loses"..GiveMoneyNum_Notice.."% of gold" )
 		GiveMoneyNum = GiveMoneyNum * -1
 		QianAddMoney ( role , 1 , GiveMoneyNum )
 	end
+	
 end
+
+--ІЖФЛПВПВЗ©
 
 function XiaXiaQian_Money ( role )
 	local a = math.random ( 1 , 100 )
@@ -3204,12 +4060,17 @@ function XiaXiaQian_Money ( role )
 	local qian = { }
 	qian [0] = 20
 	qian [1] = 100
+--	qian [2] = 60
+--	qian [3] = 80
+--	qian [4] = 100
+
 	for i = 0 , 1 , 1 do
 		if qian [i] >= a then
 			b = i + 1
 			break
 		end
 	end
+
 	if b == 1 then
 		local Give_Money = math.random ( 10000 , 30000 )
 		Give_Money = Give_Money * -1
@@ -3217,11 +4078,13 @@ function XiaXiaQian_Money ( role )
 	elseif b == 2 then
 		local GiveMoneyNum = 0.01 * math.random ( 1 , 2 )
 		local GiveMoneyNum_Notice = GiveMoneyNum * 100
-		SystemNotice ( role , "Проиграно "..GiveMoneyNum_Notice.."% золота " )
+		SystemNotice ( role , "Accidentally loses"..GiveMoneyNum_Notice.."% of gold" )
 		GiveMoneyNum = GiveMoneyNum * -1
 		QianAddMoney ( role , 1 , GiveMoneyNum )
 	end
 end
+
+--КВТµЙПЙПЗ©
 
 function ShangShangQian_Work ( role )
 	local a = math.random ( 1 , 100 )
@@ -3231,27 +4094,33 @@ function ShangShangQian_Work ( role )
 	qian [0] = 20
 	qian [1] = 50
 	qian [2] = 100
+--	qian [3] = 80
+--	qian [4] = 100
+
 	for i = 0 , 2 , 1 do
 		if qian [i] >= a then
 			b = i + 1
 			break
 		end
 	end
+
 	if b == 1 then
 		local GiveExpNum = 0.01 * math.random ( 1 , 5 )
 		local GiveExpNum_Notice = GiveExpNum * 100
-		SystemNotice ( role , "Проиграно "..GiveMoneyNum_Notice.."% опыта " )
-		QianAddExp ( role , GiveExpNum , 1 )							
+		SystemNotice ( role , "Accidentally obtained "..GiveExpNum_Notice.."% EXP" )
+		QianAddExp ( role , GiveExpNum , 1 )							----ёшѕ­СйЈ¬ІОКэ2ОЄµ±З°µИј¶ѕ­СйµД°Щ·Ц±И»тѕЯМеКэЧЦЈ¬ІОКэ3ОЄАаРН(1ОЄ°ґ±ИАэ,2ОЄ°ґКэБї)
 	elseif b == 2 then
 		local statelv = 1
 		local time_Bei = math.random ( 1 , 60 )
 		local statetime = time_Bei * 60
 		AddState( role , role , STATE_SBJYGZ , statelv , statetime )
-		SystemNotice ( role , "Вы получили благославление богини Кары. Получено "..time_Bei.." минут удвоеного опыта." )
+		SystemNotice ( role , "Recieved blessing from Goddess Kara. Current region obtained "..time_Bei.."minutes of bonus experience increase" )
 	elseif b == 3 then
-		QianAddState ( role , 1 )								
+		QianAddState ( role , 1 )								-----јУЧґМ¬Ј¬1 ОЄЙПЙПЗ©ЧґМ¬Ј¬2ОЄЙПЗ©ЧґМ¬
 	end
 end
+
+--КВТµЙПЗ©
 
 function ShangQian_Work ( role )
 	local a = math.random ( 1 , 100 )
@@ -3259,12 +4128,18 @@ function ShangQian_Work ( role )
 	local b = 0
 	local qian = { }
 	qian [0] = 100
+--	qian [1] = 40
+--	qian [2] = 60
+--	qian [3] = 80
+--	qian [4] = 100
+
 	for i = 0 , 0 , 1 do
 		if qian [i] >= a then
 			b = i + 1
 			break
 		end
 	end
+
 	if b == 1 then
 		local Lv_role = Lv ( role )
 		local GiveExpNum = Lv_role * math.random ( 50 , 500 )
@@ -3272,9 +4147,13 @@ function ShangQian_Work ( role )
 	end
 end
 
+--КВТµЦРЗ©
+
 function ZhongQian_Work ( role )
-	SystemNotice ( role , "Сегодня удача не улыбнулась вам..." )
+	SystemNotice ( role , "Today is so boringЎ­nothing ever happens..." )
 end
+
+--КВТµПВЗ©
 
 function XiaQian_Work ( role )
 	local a = math.random ( 1 , 100 )
@@ -3282,12 +4161,18 @@ function XiaQian_Work ( role )
 	local b = 0
 	local qian = { }
 	qian [0] = 100
+--	qian [1] = 40
+--	qian [2] = 60
+--	qian [3] = 80
+--	qian [4] = 100
+
 	for i = 0 , 0 , 1 do
 		if qian [i] >= a then
 			b = i + 1
 			break
 		end
 	end
+
 	if b == 1 then
 		local Lv_role = Lv ( role )
 		local GiveExpNum = Lv_role * math.random ( 50 , 500 )
@@ -3295,6 +4180,8 @@ function XiaQian_Work ( role )
 		QianAddExp ( role , GiveExpNum , 2 )
 	end
 end
+
+--КВТµПВПВЗ©
 
 function XiaXiaQian_Work ( role )
 	local a = math.random ( 1 , 100 )
@@ -3304,18 +4191,22 @@ function XiaXiaQian_Work ( role )
 	qian [0] = 30
 	qian [1] = 70
 	qian [2] = 100
+--	qian [3] = 80
+--	qian [4] = 100
+
 	for i = 0 , 2 , 1 do
 		if qian [i] >= a then
 			b = i + 1
 			break
 		end
 	end
+
 	if b == 1 then
 		local GiveExpNum = 0.01 * math.random ( 1 , 2 )
 		local GiveExpNum_Notice = GiveExpNum * 100
-		SystemNotice ( role , "Проиграно "..GiveMoneyNum_Notice.."% опыта " )
+		SystemNotice ( role , "Accidentally lost "..GiveExpNum_Notice.."% EXP" )
 		GiveExpNum = GiveExpNum * -1
-		QianAddExp ( role , GiveExpNum , 1 )							
+		QianAddExp ( role , GiveExpNum , 1 )							----ёшѕ­СйЈ¬ІОКэ2ОЄµ±З°µИј¶ѕ­СйµД°Щ·Ц±И»тѕЯМеКэЧЦЈ¬ІОКэ3ОЄАаРН(1ОЄ°ґ±ИАэ,2ОЄ°ґКэБї)
 	elseif b == 2 then
 		local Lv_role = Lv ( role )
 		local GiveExpNum = Lv_role * math.random ( 100 , 1000 )
@@ -3325,51 +4216,63 @@ function XiaXiaQian_Work ( role )
 		local hp = Hp ( role )
 		local hp_dmg = math.floor ( hp * 1.1 )
 		Hp_Endure_Dmg ( role , hp_dmg )
-		SystemNotice ( role , "Свет озаряет вас...с небес спускается пламя..." )
+		SystemNotice ( role , "Character burst and strucked by lightning...." )
 	end
 end
+
+--ійµЅЗ®
 
 function QianAddMoney ( role , Type , Num )
 	if Type == 1 then
 		local Money_Have = GetChaAttr ( role , ATTR_GD )
 		local Money_Add = Money_Have * Num
+
 		Money_Have = Money_Have + Money_Add
 		Money_Add = math.floor( Money_Add )
+
 		Money_Have = math.floor ( Money_Have )
+
 		SetCharaAttr ( Money_Have , role , ATTR_GD )
 		ALLExAttrSet( role )
+		
 		if Money_Add > 0 then
 			Num = Num * 100
-			SystemNotice ( role , "Бог Богатства забрал "..Num.."% золота " )
+			SystemNotice ( role , "God of Wealth drops a a bag of gold coins into your coin pouch"..Num.."% of your gold" )
 			if Money_Add >= 200000 then
 				local cha_name = GetChaDefaultName ( role )
-				Notice ( cha_name.." использует лот и получает "..Money_Add.." золота " )
+				Notice ( cha_name.." draws a lot and obtained"..Money_Add.."G" )
 			end
 		elseif Money_Add < 0 then
 			Num = Num * -100
-			SystemNotice ( role , "Богиня Неудач выбрала тебя! Проиграно "..Num.."% золота " )
+			SystemNotice ( role , "God of Misfortune struck you! Loses"..Num.."% gold" )
 		end
+	
 	elseif Type == 2 then
 		local Money_Have = GetChaAttr ( role , ATTR_GD )
 		local Money_Add = Num
+
 		Money_Have = Money_Have + Money_Add
+
 		if Money_Have < 0 then
 			Money_Have = 0
 		end
+
 		SetCharaAttr ( Money_Have , role , ATTR_GD )
 		ALLExAttrSet( role )
 		if Num > 0 then
-			SystemNotice ( role , "Прибавлено "..Num.." золота " )
+			SystemNotice ( role , "Found"..Num.."G" )
 			if Num >= 200000 then
 				local cha_name = GetChaDefaultName ( role )
-				Notice ( cha_name.." использует лот и получает "..Num.." золота " )
+				Notice ( cha_name.." draws a lot and obtained"..Num.."G" )
 			end
 		elseif Num < 0 then
 			Num = Num * -1
-			SystemNotice ( role , "Вы потеряли "..Num.." золота " )
+			SystemNotice ( role , "You found out that you have lost"..Num.."G" )
 		end
 	end
 end
+
+--ійµЅѕ­Сй
 
 function QianAddExp ( role , Num , type )
 	local lv = GetChaAttr( role, ATTR_LV )
@@ -3378,49 +4281,66 @@ function QianAddExp ( role , Num , type )
 	local clexp = GetChaAttrI ( role , ATTR_CLEXP )
 	local ThisLvexp = nlexp - clexp
 	local ExpGet = ThisLvexp * Num
+	
 	if type == 2 then
 		ExpGet = Num
 		if lv >= 80 then
 			ExpGet = math.floor ( ExpGet / 50 )
 		end
 	end
+
 	ExpGet = math.floor ( ExpGet )
+
 	exp = exp + ExpGet
+	
 	if exp > nlexp then
 		exp = nlexp + math.floor ( ( exp - nlexp ) / 50 )
 	end
+	
 	if exp < 0 then
 		exp = 0
 	end
+
+	
 	SetChaAttrI( role , ATTR_CEXP , exp )
+
 	if lv >= 80 then
 			ExpGet = ExpGet * 50
 	end
+
 	if ExpGet > 0 then
-		SystemNotice ( role , "Потеряно "..ExpGet.." опыта " )
+		
+		SystemNotice ( role , "Accidentally obtained "..ExpGet.."EXP" )
 		if ExpGet >= 200000 then
 				local cha_name = GetChaDefaultName ( role )
-				Notice ( cha_name.." использует лот и получает "..ExpGet.." опыта " )
+				Notice ( cha_name.." draws a lot and obtained"..ExpGet.."EXP" )
 		end
 	elseif ExpGet < 0 then
 		ExpGet = ExpGet * -1
-		SystemNotice ( role , "Потеряно "..ExpGet.." опыта " )
+		SystemNotice ( role , "Experience lost: "..ExpGet.."EXP" )
 	end
+
 end
 
+--ійµЅЧґМ¬
+
 function QianAddState ( role , Type )
+
 	local State = { }
 	local StateName = { }
+
 	State [0] = STATE_PKZDYS
 	State [1] = STATE_PKSFYS
 	State [2] = STATE_PKMNYS
 	State [3] = STATE_PKJZYS
 	State [4] = STATE_PKKBYS
+	
 	StateName [0] = "Attack"
 	StateName [1] = "Defense"
 	StateName [2] = "Max HP"
 	StateName [3] = "Hit Rate"
 	StateName [4] = "Attack Speed"
+
 	local i = math.random ( 0 , 4 )
 	local statelv = 0
 	local TimeRange = 0
@@ -3431,48 +4351,57 @@ function QianAddState ( role , Type )
 	end
 	local statetime = math.random ( 1 , TimeRange )
 	statetime = statetime * 60
+	
 	statelv = 10
 	AddState ( role , role , State[i] , statelv , statetime ) 
-	SystemNotice ( role , "Ваш(а) "..StateName[i].." увеличивается " )
+	SystemNotice ( 	role , "You sense that your "..StateName[i].."increased" )
+	
 end
+
+
+--±¦НјёшµАѕЯ
 
 function GiveGoldenMapItem ( role )
 	local CheckRandom = math.random ( 1,100 )
 	if CheckRandom >= 1 and CheckRandom <= 23 then
 		local GiveMoney = 1000 * math.random ( 1, 20 )
-		SystemNotice ( role , "Найдено сокровище. Получено "..GiveMoney.." золота " )
+		SystemNotice ( role , "Dug out pirates treasure. Obtained"..GiveMoney.."G" )
 		AddMoney ( role , 0 , GiveMoney )
 	elseif CheckRandom > 23 and CheckRandom <= 28 then
 		XianJing ( role , 1 )
 	elseif CheckRandom > 28 and CheckRandom <= 33 then
 		XianJing ( role , 2 )
 	elseif CheckRandom > 33 and CheckRandom <= 40 then
-		SystemNotice ( role , "Сегодня тебе не повезло. Приходи в следующий раз..." )
+		SystemNotice ( role , "Today seems to be spining about. Don't know where it will spin to" )
 		MapRandomtele ( role )
 	else
-		SystemNotice ( role , "Найдено спрятанное Пиратское Сокровище " )
+		SystemNotice ( role , " dug out a hidden pirate treasure" )
 		local item_type = BaoXiang_CBTBOX
 		local item_type_rad = BaoXiang_CBTBOX_Rad 
 		local item_type_count = BaoXiang_CBTBOX_Count 
-		local maxitem = BaoXiang_CBTBOX_Mxcount						
+		local maxitem = BaoXiang_CBTBOX_Mxcount						-- ЦХЅб±аєЕ
 		local item_quality = BaoXiang_CBTBOX_Qua
 		local General = 0  
 		local ItemId = 0 
 		local Item_CanGet = GetChaFreeBagGridNum ( role )
+	
 		for i = 1 , maxitem , 1 do 
 			General = item_type_rad [ i ] + General		
 		end 
 		local a = math.random ( 1, General )
 		local b = 0
 		local d = 0 
-		local c = -1							
-		for k = 1 , maxitem , 1 do				
+		local c = -1							--ГьЦРОпЖ·±аєЕ
+		for k = 1 , maxitem , 1 do				-- Лж»ъіцМнјУµДЗ°Чє±аєЕ
+
 			d = item_type_rad [ k ] + b
+
 			 if a <= d and a > b then
 				c = k
 				break 
 			end 
 			b = d 
+
 		end 
 		if c == -1 then 
 			ItemId = 3124 
@@ -3518,59 +4447,65 @@ function GiveGoldenMapItem ( role )
 		GoodItem[33]	=	0861
 		GoodItem[34]	=	0862
 		GoodItem[35]	=	0863
+
 		local Good_C = 0
 		for Good_C = 0 , 35 , 1 do
 			if ItemId == GoodItem[Good_C] then
 				local itemname = GetItemName ( ItemId ) 
 				local cha_name = GetChaDefaultName ( role ) 
-				local message = cha_name.." находит пиратское сокровище и получает "..itemname
+				local message = cha_name.."Dug out a treasure and obtained"..itemname  
 				Notice ( message )
 			end
 		end
-	end	
-end
+	end
+				
 
+end
+------јУАХ±ИєЈµБІШ±¦НјёшµАѕЯ
 function GiveGoldenMapItem_JLB ( role )
 	local CheckRandom = math.random ( 1,100 )
 	local x, y = GetChaPos(role)
 	local lv= GetChaAttr(role, ATTR_LV) 
 	local a=math.floor ( lv / 5 ) + 826
 	local b=math.floor ( lv / 5 ) + 828
-	local monserID=math.random(a,b)				
+	local monserID=math.random(a,b)				--------Лж»ъІШ±¦Нј№Ц829µЅ836
 	if CheckRandom >= 1 and CheckRandom <= 20 then
 		local GiveMoney = 10000 * math.random ( 1, 20 )
-		SystemNotice ( role , "Найдены карибские сокровища и получено "..GiveMoney.." золота " )
+		SystemNotice ( role , "Dug out Caribbean Treasure and obtain "..GiveMoney.."G" )
 		AddMoney ( role , 0 , GiveMoney )
 	elseif CheckRandom > 20 and CheckRandom <= 24 then
 		XianJing ( role , 1 )
 	elseif CheckRandom > 24 and CheckRandom <= 28 then
 		XianJing ( role , 2 )
 	elseif CheckRandom > 28 and CheckRandom <= 33 then
-		SystemNotice ( role , "Сегодня тебе не повезло. Приходи в следующий раз..." )
+		SystemNotice ( role , "Today seems to be spining about. Don't know where it will spin to" )
 		MapRandomtele ( role )
 	elseif CheckRandom > 33 and CheckRandom <= 40 then
-		SystemNotice ( role , "О, нет! Кто выпустил собак? Помогите..." )
+		SystemNotice ( role , "Oh no! Who let the dogs out! Help..." )
 		local new1 = CreateCha(monserID, x, y, 145, 30)
 		SetChaLifeTime(new1, 90000)
 	else
-		SystemNotice ( role , "Найдено спрятанное Пиратское Сокровище " )
+		SystemNotice ( role , " dug out a hidden pirate treasure" )
 		local item_type = BaoXiang_JLBCBTBOX
 		local item_type_rad = BaoXiang_JLBCBTBOX_Rad 
 		local item_type_count = BaoXiang_JLBCBTBOX_Count 
-		local maxitem = BaoXiang_JLBCBTBOX_Mxcount						
+		local maxitem = BaoXiang_JLBCBTBOX_Mxcount						-- ЦХЅб±аєЕ
 		local item_quality = BaoXiang_JLBCBTBOX_Qua
 		local General = 0  
 		local ItemId = 0 
 		local Item_CanGet = GetChaFreeBagGridNum ( role )
+	
 		for i = 1 , maxitem , 1 do 
 			General = item_type_rad [ i ] + General		
 		end 
 		local a = math.random ( 1, General )
 		local b = 0
 		local d = 0 
-		local c = -1							
-		for k = 1 , maxitem , 1 do				
+		local c = -1							--ГьЦРОпЖ·±аєЕ
+		for k = 1 , maxitem , 1 do				-- Лж»ъіцМнјУµДЗ°Чє±аєЕ
+
 			d = item_type_rad [ k ] + b
+
 			 if a <= d and a > b then
 				c = k
 				break 
@@ -3621,68 +4556,94 @@ function GiveGoldenMapItem_JLB ( role )
 		GoodItem[33]	=	0861
 		GoodItem[34]	=	0862
 		GoodItem[35]	=	0863
+
 		local Good_C = 0
 		for Good_C = 0 , 35 , 1 do
 			if ItemId == GoodItem[Good_C] then
 				local itemname = GetItemName ( ItemId ) 
 				local cha_name = GetChaDefaultName ( role ) 
-				local message = cha_name.." находит сокровища и получает "..itemname
+				local message = cha_name.."Dug out a treasure and obtained"..itemname  
 				Notice ( message )
 			end
 		end
 	end
+				
+
 end
 
+--јмІвЧш±к
+
 function CheckGetMapPos ( role , pos_x , pos_y , MapName )
+--	SystemNotice ( role , "CheckPos" )
 	local Cha_Boat = GetCtrlBoat ( role )
 	local ChaIsBoat = 0
 	if Cha_Boat ~= nil then
 		role = Cha_Boat
 	end
+
 	local Cha_pos_x , Cha_pos_y = GetChaPos ( role )
 	local map_name = GetChaMapName ( role )
+
 	local Cha_x_min = pos_x * 100 - 400
 	local Cha_x_max = pos_x * 100 + 400
 	local Cha_y_min = pos_y * 100 - 400
 	local Cha_y_max = pos_y * 100 + 400
+
 	if map_name ~= MapName then
+--		SystemNotice ( role , "map_name"..map_name)
+--		SystemNotice ( role , "MapName"..MapName )
+--		SystemNotice ( role , "mapname Error" )
 		return 0 
 	end 
+
 	if Cha_pos_x < Cha_x_min or Cha_pos_x > Cha_x_max then
+	
 		return 0
 	end
+
 	if Cha_pos_y < Cha_y_min or Cha_pos_y > Cha_y_max then
 		return 0
 	end
+
 	return 1
 end
+	
+--МШКвЛгГь
+
+---ЗуІЖ---------------------
 
 function SuanmingTeshu_Money ( role )
-	local a = CheckSuanmingTypeTeshu ( role )			
+	local a = CheckSuanmingTypeTeshu ( role )			--јмІвійµГµДКІГґЗ©
 	if a == 1 then
-		SystemNotice ( role , "Удача улыбнулась вам! Вы получаете лучший Лот!" )
+		SystemNotice ( role , "Lady Luck shines on you! You have obtained the best Lot!" )
 		ShangShangQianTeshu_Money ( role )
 	elseif a == 2 then
-		SystemNotice ( role , "Сегодня удачный день. Вы получаете хороший Лот!" )
+		SystemNotice ( role , "Seems to be lucky today. You have obtained a good Lot" )
 		ShangQianTeshu_Money ( role )
 	elseif a == 3 then
 		ZhongQian_Money ( role )
+--		SystemNotice ( role , "Today looks good. Nothing special has happened" )
+
 	end
 end
+
+---ЗуКВТµ-------------------
 
 function SuanmingTeshu_Work ( role )
 	local a = CheckSuanmingTypeTeshu ( role )
 	if a == 1 then
-		SystemNotice ( role , "Удача улыбнулась вам! Вы получаете лучший Лот!" )
+		SystemNotice ( role , "Lady Luck shines on you! You have obtained the best Lot!" )
 		ShangShangQianTeshu_Work ( role )
 	elseif a == 2 then
-		SystemNotice ( role , "Сегодня удачный день. Вы получаете хороший Лот!" )
+		SystemNotice ( role , "Seems to be lucky today. You have obtained a good Lot" )
 		ShangQianTeshu_Work ( role )
 	elseif a == 3 then
 		ZhongQian_Work ( role )
+--		SystemNotice ( role , "Today looks good. Nothing special has happened" )
 	end
 end
 
+--МШКвјмІв
 function CheckSuanmingTypeTeshu ( role )
 	local a = math.random ( 1 , 100 )
 	local i = 0
@@ -3691,14 +4652,19 @@ function CheckSuanmingTypeTeshu ( role )
 	qian [0] = 30
 	qian [1] = 80
 	qian [2] = 100
+	
 	for i = 0 , 2 , 1 do
 		if qian [i] >= a then
 			b = i + 1
 			break
 		end
 	end
+
 	return b
+
 end
+
+--МШКвІЖФЛЙПЙПЗ©
 
 function ShangShangQianTeshu_Money ( role )
 	local a = math.random ( 1 , 100 )
@@ -3708,25 +4674,31 @@ function ShangShangQianTeshu_Money ( role )
 	qian [0] = 5
 	qian [1] = 60
 	qian [2] = 100
+--	qian [3] = 80
+--	qian [4] = 100
+
 	for i = 0 , 2 , 1 do
 		if qian [i] >= a then
 			b = i + 1
 			break
 		end
 	end
+
 	if b == 1 then
 		local GiveMoneyNum = 10000 * math.random ( 10 , 100 )
-		QianAddMoney ( role , 2 , GiveMoneyNum )							
+		QianAddMoney ( role , 2 , GiveMoneyNum )							----ёшЗ®Ј¬1ОЄ°ґ±ИАэЈ¬2ОЄ°ґ№М¶ЁКэЦµ
 	elseif b == 2 then
 		local statelv = 1
 		local time_Bei = math.random ( 1 , 60 )
 		local statetime = time_Bei * 60
 		AddState( role , role , STATE_SBBLGZ , statelv , statetime )
-		SystemNotice ( role , "Получено благословение богини Кары. Текущий регион получает "..time_Bei.." минут бонуса, значительно увеличен шанс выпадения вещей." )
+		SystemNotice ( role , "Recieved blessing from Goddess Kara. Current region obtained "..time_Bei.."minutes of bonus increased drop rate" )
 	elseif b == 3 then
-		GiveItem ( role , 0 , 1092 , 1 , 0 )							
+		GiveItem ( role , 0 , 1092 , 1 , 0 )							---ёш±¦Нј
 	end
 end
+
+--МШКвІЖФЛЙПЗ©
 
 function ShangQianTeshu_Money ( role )
 	local a = math.random ( 1 , 100 )
@@ -3735,12 +4707,17 @@ function ShangQianTeshu_Money ( role )
 	local qian = { }
 	qian [0] = 60
 	qian [1] = 100
+--	qian [2] = 60
+--	qian [3] = 80
+--	qian [4] = 100
+
 	for i = 0 , 1 , 1 do
 		if qian [i] >= a then
 			b = i + 1
 			break
 		end
 	end
+	
 	if b == 1 then
 		local Give_Money = 1000 * math.random ( 1 , 20 )
 		QianAddMoney ( role , 2 , Give_Money )
@@ -3750,9 +4727,12 @@ function ShangQianTeshu_Money ( role )
 		local Give_Money = math.random ( 10000 , 30000 )
 		Hp_Endure_Dmg ( role , hp_dmg )
 		QianAddMoney ( role , 2 , Give_Money )
-		SystemNotice ( role , "Добавлено несколько золотых монет. Кто бросил эти монеты?" )
+		SystemNotice ( role , "Smash by some gold coins. Almost dieЎ­Who throw these coins!" )
 	end
 end
+
+
+--МШКвКВТµЙПЙПЗ©
 
 function ShangShangQianTeshu_Work ( role )
 	local a = math.random ( 1 , 100 )
@@ -3763,12 +4743,15 @@ function ShangShangQianTeshu_Work ( role )
 	qian [1] = 60
 	qian [2] = 90
 	qian [3] = 100
+--	qian [4] = 100
+
 	for i = 0 , 3 , 1 do
 		if qian [i] >= a then
 			b = i + 1
 			break
 		end
 	end
+
 	if b == 1 then
 		local Lv_role = Lv ( role )
 		local GiveExpNum = ( Lv_role * Lv_role * math.random ( 10 , 100 ) ) * ( 1 / math.max ( 1 , ( 50 - Lv_role ) ) )
@@ -3778,14 +4761,16 @@ function ShangShangQianTeshu_Work ( role )
 		local time_Bei = math.random ( 1 , 60 )
 		local statetime = time_Bei * 60
 		AddState( role , role , STATE_SBJYGZ , statelv , statetime )
-		SystemNotice ( role , "Получено благословение богини Кары. Текущий регион получает "..time_Bei.." минут бонуса, значительно увеличен получаемый опыт " )
+		SystemNotice ( role , "Recieved blessing from Goddess Kara. Current region obtained "..time_Bei.."minutes of bonus experience increase" )
 	elseif b == 3 then
-		QianAddState ( role , 1 )								
+		QianAddState ( role , 1 )								-----јУЧґМ¬Ј¬1 ЙПЙПЗ©ЧґМ¬Ј¬2ЙПЗ©ЧґМ¬
 	elseif b == 4 then
-		QianAddState ( role , 1 )								
-		
+		QianAddState ( role , 1 )								-----јУЧґМ¬Ј¬1 ЙПЙПЗ©ЧґМ¬Ј¬2ЙПЗ©ЧґМ¬
+		--QianAddStatePoint ( role , 1 )
 	end
 end
+
+--МШКвКВТµЙПЗ©
 
 function ShangQianTeshu_Work ( role )
 	local a = math.random ( 1 , 100 )
@@ -3794,12 +4779,17 @@ function ShangQianTeshu_Work ( role )
 	local qian = { }
 	qian [0] = 50
 	qian [1] = 100
+--	qian [2] = 60
+--	qian [3] = 80
+--	qian [4] = 100
+
 	for i = 0 , 1 , 1 do
 		if qian [i] >= a then
 			b = i + 1
 			break
 		end
 	end
+
 	if b == 1 then
 		local Lv_role = Lv ( role )
 		local GiveExpNum = Lv_role * Lv_role * math.random ( 5 , 50 ) * ( 1 / math.max ( 1 , ( 50 - Lv_role ) ) )
@@ -3809,6 +4799,7 @@ function ShangQianTeshu_Work ( role )
 	end
 end
 
+--ФцјУКфРФµг
 function QianAddStatePoint ( role , Num )
 	local CheckNum = CheckStatePointHasGet ( role )
 	local a = 1 / math.pow ( 2 , ( CheckNum - 1 ) )
@@ -3819,7 +4810,7 @@ function QianAddStatePoint ( role , Num )
 		attr_ap = attr_ap + ap_extre 
 		SetCharaAttr( attr_ap, role, ATTR_AP )
 		local cha_name = GetChaDefaultName ( role )
-		Notice ( cha_name.." использует лот и получает 1 очко характеристик " )
+		Notice ( cha_name.."draws a lot and obtained 1 bonus stat point" )
 		LG ( "Add_StatePoint" , cha_name.."Obtained Attributes point:"..Num.."point" )
 	else
 		local Lv_role = Lv ( role )
@@ -3828,6 +4819,7 @@ function QianAddStatePoint ( role , Num )
 	end
 end
 
+--јмІв¶оНвЅЗЙ«КфРФµг
 function CheckStatePointHasGet ( role )
 	local str = GetChaAttr( role , ATTR_BSTR )
 	local con = GetChaAttr( role , ATTR_BCON )
@@ -3842,18 +4834,24 @@ function CheckStatePointHasGet ( role )
 	return Check
 end
 
+--ИЎ±¦НјЧш±к
+
 function GetTheMapPos ( role , type )
+--	SystemNotice( role ,"GetTheMapPos" )
 	local MapList = { }
+	
 	MapList [0] = "NoMap"
 	MapList [1] = "garner"
 	MapList [2] = "magicsea"
 	MapList [3] = "darkblue"
+
 	local PosDateNum = 8
 	local PosDateMap = {}
 	local PosDateMax_X = {}
 	local PosDateMin_X = {}
 	local PosDateMax_Y = {}
 	local PosDateMin_Y = {}
+	
 	PosDateMap [0]	=	1
 	PosDateMap [1]	=	1
 	PosDateMap [2]	=	1
@@ -3863,6 +4861,7 @@ function GetTheMapPos ( role , type )
 	PosDateMap [6]	=	1
 	PosDateMap [7]	=	2
 	PosDateMap [8]	=	1
+
 	PosDateMax_X [0]	=	800
 	PosDateMax_X [1]	=	940
 	PosDateMax_X [2]	=	1023
@@ -3872,6 +4871,7 @@ function GetTheMapPos ( role , type )
 	PosDateMax_X [6]	=	380
 	PosDateMax_X [7]	=	1420
 	PosDateMax_X [8]	=	1614
+
 	PosDateMin_X [0]	=	700
 	PosDateMin_X [1]	=	840
 	PosDateMin_X [2]	=	919
@@ -3881,6 +4881,7 @@ function GetTheMapPos ( role , type )
 	PosDateMin_X [6]	=	280
 	PosDateMin_X [7]	=	1320
 	PosDateMin_X [8]	=	1514
+
 	PosDateMax_Y [0]	=	1766
 	PosDateMax_Y [1]	=	1350
 	PosDateMax_Y [2]	=	1054
@@ -3890,6 +4891,7 @@ function GetTheMapPos ( role , type )
 	PosDateMax_Y [6]	=	1725
 	PosDateMax_Y [7]	=	3000
 	PosDateMax_Y [8]	=	2695
+
 	PosDateMin_Y [0]	=	1666
 	PosDateMin_Y [1]	=	1250
 	PosDateMin_Y [2]	=	1017
@@ -3899,43 +4901,61 @@ function GetTheMapPos ( role , type )
 	PosDateMin_Y [6]	=	1675
 	PosDateMin_Y [7]	=	2900
 	PosDateMin_Y [8]	=	2615
+
+
 	local PosDateGet = math.random ( 0 , PosDateNum )
+--	SystemNotice ( role , "PosDateGet"..PosDateGet )
+
 	local Pos_Map = PosDateMap[ PosDateGet ]
+--	SystemNotice ( role , "Pos_Map"..Pos_Map )
+
 	local Pos_X = math.random ( PosDateMin_X [PosDateGet] , PosDateMax_X [PosDateGet] )
+--	SystemNotice ( role , "Pos_X"..Pos_X )
 	local Pos_Y = math.random ( PosDateMin_Y [PosDateGet] , PosDateMax_Y [PosDateGet] )
+--	SystemNotice ( role , "Pos_Y"..Pos_Y )
+	
 	return Pos_X , Pos_Y , Pos_Map
 end
-
+--ИЎјУАХ±ИµШНј±¦НјЧш±к
 function GetTheMapPos_JLB ( role , type )
 	local MapList = { }
 	MapList [0] = "NoMap"
 	MapList [1] = "jialebi"
+
 	local PosDateNum = 3
 	local PosDateMap = {}
 	local PosDateMax_X = {}
 	local PosDateMin_X = {}
 	local PosDateMax_Y = {}
 	local PosDateMin_Y = {}
+	
 	PosDateMap [0]	=	1
 	PosDateMap [1]	=	1
 	PosDateMap [2]	=	1
 	PosDateMap [3]	=	1
+
 	PosDateMax_X [0]	=	476 
 	PosDateMax_X [1]	=	460 
 	PosDateMax_X [2]	=	469 
 	PosDateMax_X [3]	=	477 
+
 	PosDateMin_X [0]	=	466
 	PosDateMin_X [1]	=	452
 	PosDateMin_X [2]	=	462
 	PosDateMin_X [3]	=	470
+
 	PosDateMax_Y [0]	=	1052
 	PosDateMax_Y [1]	=	980
 	PosDateMax_Y [2]	=	1000
 	PosDateMax_Y [3]	=	1048
+
 	PosDateMin_Y [0]	=	1000 
 	PosDateMin_Y [1]	=	954  
 	PosDateMin_Y [2]	=	980  
 	PosDateMin_Y [3]	=	1036 
+
+----596,609
+----629,953
 	local PosDateGet = math.random ( 0 , PosDateNum )
 	local Pos_Map = PosDateMap[ PosDateGet ]
 	local Pos_X = math.random ( PosDateMin_X [PosDateGet] , PosDateMax_X [PosDateGet] )
@@ -3943,21 +4963,26 @@ function GetTheMapPos_JLB ( role , type )
 	return Pos_X , Pos_Y , Pos_Map
 end
 
+
+
+--ПЭЪе
+
 function XianJing ( role ,type )
 	if type == 1 then
 		local hp = Hp ( role )
 		local hp_dmg = math.floor ( hp * 0.9 )
 		Hp_Endure_Dmg ( role , hp_dmg )
-		SystemNotice ( role , "Вы серьёзно пострадали от ловушек, оставленых пиратами!" )
+		SystemNotice ( role , "Seriously injured by traps laid by pirates" ) 
 	elseif type == 2 then
 		local hp = Hp ( role )
 		local hp_dmg = math.floor ( hp * 0.3 )
 		Hp_Endure_Dmg ( role , hp_dmg )
-		SystemNotice ( role , "Вы немного пострадали от пиратских ловушек. К счастью вовремя убежали." )
+		SystemNotice ( role , "Almost poisoned by pirate trap. Escaped in timeЎ­Luckily" )
 	end
 end
 
 function MapRandomtele ( role )
+
 	local Birth ={}
 	Birth[0]	=	"Argent City"
 	Birth[1]	=	"Thundoria Castle"
@@ -4000,14 +5025,20 @@ function MapRandomtele ( role )
 	Birth[37]	=	"Lone Tower 5"
 	Birth[38]	=	"Lone Tower 6"
 	Birth[39]	=	"Argent Bar"
+
 	local PosRandom = math.random ( 0 , 39 )
 	DelBagItem ( role , 1093 , 1 )
 	MoveCity(role, Birth[PosRandom] )
+
 end
+
+
+--јмІвµАѕЯµДУРР§РФ
 
 function check_item_valid ( role , Item )
 	local Item_type = GetItemType ( Item )
 	local Item_URE = GetItemAttr ( Item , ITEMATTR_URE )
+
 	if Item_type <= 29 or Item_type == 59 then
 		if Item_URE ~= 0 and Item_URE <= 49 then
 			return 0
@@ -4018,211 +5049,202 @@ function check_item_valid ( role , Item )
 	return 1
 end
 
-function cha_timer( role, freq, time )
-	local resume_freq = 5
-	local now_tick = GetChaParam( role, 1 )
-	local is_role_living = -1
-	SetChaParam( role, 1, now_tick + freq * time )
 
-	-----------------------
-	-- Восстановление ЖЗ --
-	-----------------------
-	if math.mod( now_tick, resume_freq ) == 0 and now_tick > 0 then 
+--ЅЗЙ«¶ЁК±Жч
+--ІОКэЈєЅЗЙ«¶ФПуЈ¬µчУГЖµВКЈЁГлЈ©Ј¬µчУГґОКэ
+--·µ»ШЦµЈєОЮ
+function cha_timer(role, freq, time) 
+	local resume_freq = 5 
+	local now_tick = GetChaParam(role, 1) 
+	local is_role_living = -1
+
+	SetChaParam(role, 1, now_tick + freq * time) 
+	--hp»Шёґ
+	if math.mod(now_tick, resume_freq) == 0 and now_tick > 0 then 
 		if is_role_living == -1 then
-			is_role_living = IsChaLiving( role )
+			is_role_living = IsChaLiving(role)
 		end
 		if is_role_living == 1 then 
-			Resume( role )
+			Resume(role)
 		end 
 	end
+	--local Limit_HeiLong_freq = 3600*24*7 ---------АП»ў»ъєЪБъКэѕЭ
+	--if math.mod(now_tick, Limit_HeiLong_freq) == 0 and now_tick > 0 then 
+	--	Heilong_Star_Count=0
+	--end	
+	--local Limit_TeDengJiang_freq = 3600*24 ---------АП»ў»ъМШµИЅ±КэѕЭ
+	--if math.mod(now_tick, Limit_TeDengJiang_freq) == 0 and now_tick > 0 then 
+	--	TeDengJiang_Star_Count=0
+	--end
+	--local Limit_YiDengJiang_freq = 3600 ---------АП»ў»ъМШµИЅ±КэѕЭ
+	--if math.mod(now_tick, Limit_YiDengJiang_freq) == 0 and now_tick > 0 then 
+	--	YiDengJiang_Star_Count=0
+	--end
+	local pet_freq = 60 
+	--іиОпПыєД
+	local Item_Elf = GetChaItem ( role , 2 , 1  )
+	local Get_Elf_Type = GetItemType ( Item_Elf )
 
---------------------------------------------------
---		Функция свадебного бонуса (Начало)		--
---------------------------------------------------
-	local cha = TurnToCha( role )
-	local ring_bg = CheckBagItem( cha, 2520 )
-
-	if ring_bg ~= 0 then
-		local ring = GetChaItem2( cha, 2, 2520 )
-		local mate_id = GetItemForgeParam( ring, 1 )
-		if IsInTeam( cha ) == 1 then
-			local Role_ID = GetRoleID( cha )
-			local t = {}
-			t[0] = cha
-			t[1] = GetTeamCha( cha, 0 )
-			t[2] = GetTeamCha( cha, 1 )
-			t[3] = GetTeamCha( cha, 2 )
-			t[4] = GetTeamCha( cha, 3 )
-			for i = 1, 4 do
-				if t[i] ~= nil then
-					local Have_Ring = CheckBagItem( t[i], 2520 )
-					if Have_Ring == 1 then	-- Проверка на наличие кольца
-						local Item = GetChaItem2( t[i], 2, 2520 )
-						local party_mate_id = GetItemForgeParam( Item, 1 )
-						if Role_ID == party_mate_id then	-- Проверка на совпадение ID в кольце и персонажа
-							local party_ID = GetRoleID( t[i] )
-							if mate_id == party_ID then
-								local pos_cha_x, pos_cha_y = GetChaPos( cha )
-								local mate = TurnToCha( t[i] )
-								local pos_mate_x, pos_mate_y = GetChaPos( mate )
-								local distance = Distance( pos_cha_x, pos_cha_y, pos_mate_x, pos_mate_y )
-								if distance <= 500 then
-									AddState( role, role, STATE_WEDDING, 1, 3600 )
-									RefreshCha( role )
-								elseif distance >= 500 then
-									RemoveState( cha, STATE_WEDDING )
-								end
-							end
-						end
-					end
-				end
-			end
-		else if ( GetChaStateLv( cha, STATE_WEDDING ) ~= 0 ) then
-				RemoveState( cha, STATE_WEDDING )
-			end
-		end
-	end
---------------------------------------------------
---		Функция свадебного бонуса (Конец)		--
---------------------------------------------------
-
---------------------------------------------------
---						Феи						--
---------------------------------------------------
-	local pet_freq = 60
-	local Item_Elf = GetChaItem( role, 2, 1 )
-	local Get_Elf_Type = GetItemType( Item_Elf )
 	if Get_Elf_Type == 59 then
-		local ure_type = GetItemAttr( Item_Elf, ITEMATTR_URE )
+		local ure_type = GetItemAttr( Item_Elf ,ITEMATTR_URE )       --МеБ¦
 		if ure_type<=49 then
-			SetChaKbItemValid2( role, Item_Elf, 0, 1 )
+			SetChaKbItemValid2(role , Item_Elf , 0 , 1)			
 		else
-			SetChaKbItemValid2( role, Item_Elf, 1, 1 )
+			SetChaKbItemValid2(role , Item_Elf , 1 , 1)			
 		end
-		local str = GetItemAttr( Item_Elf ,ITEMATTR_VAL_STR )	-- Сила
-		local con = GetItemAttr( Item_Elf ,ITEMATTR_VAL_CON )	-- Телосложение
-		local agi = GetItemAttr( Item_Elf ,ITEMATTR_VAL_AGI )	-- Ловкость
-		local dex = GetItemAttr( Item_Elf ,ITEMATTR_VAL_DEX )	-- Точность
-		local sta = GetItemAttr( Item_Elf ,ITEMATTR_VAL_STA )	-- Дух
-		local Lv = str + agi + dex + con + sta	-- Уровень Феи
-		if Lv > 27 then										-- Если уровень феи выше 27, то время роста увеличивается
+		local str = GetItemAttr( Item_Elf ,ITEMATTR_VAL_STR )       --Б¦Бї
+        	local con = GetItemAttr( Item_Elf ,ITEMATTR_VAL_CON )       --МеЦК
+        	local agi = GetItemAttr( Item_Elf ,ITEMATTR_VAL_AGI )       --ЧЁЧў
+        	local dex = GetItemAttr( Item_Elf ,ITEMATTR_VAL_DEX )       --ГфЅЭ
+        	local sta = GetItemAttr( Item_Elf ,ITEMATTR_VAL_STA )       --ѕ«Йс
+		local Lv = str + agi + dex + con + sta
+		if Lv > 27 then
 			pet_freq = pet_freq + ( Lv - 27 ) * 5
 		end
 	end
-	local sklv = GetChaStateLv( role, STATE_JLJSGZ )	-- Если применен Фрукт роста феи, время сокращается в 2 раза
-	if sklv ~= 0 then
-		pet_freq = math.floor( pet_freq * 0.5 )
-	end
-	if math.mod( now_tick, pet_freq ) == 0 and now_tick > 0 then
+	local sklv = GetChaStateLv ( role , STATE_JLJSGZ ) -----------------ѕ«БйјУЛЩ№ыЧУЛ«±¶іЙі¤Л«±¶ПыєД
+	if  sklv~=0 then
+		pet_freq =math.floor( pet_freq*0.5 )
+	end	
+	if math.mod(now_tick, pet_freq) == 0 and now_tick > 0 then 
 		if is_role_living == -1 then
-			is_role_living = IsChaLiving( role )
+			is_role_living = IsChaLiving(role)
 		end
-		if is_role_living == 1 then
-			local Item_bg = GetChaItem( role, 2, 1 )
-			local Get_Item_Type = GetItemType( Item_bg )
-			local Item_siliao = GetChaItem( role, 2, 2 )
-			local Item_siliao_ID = GetItemID( Item_siliao )
+		if is_role_living == 1 then   
+			local Item_bg = GetChaItem ( role , 2 , 1  ) --ИЎЅЗЙ«±і°ьµЪ¶юАёµДЦёХл
+			--local Item = Item_bg      --ИЎµАѕЯID
+			local Get_Item_Type = GetItemType ( Item_bg ) --µчУГіМРтЅУїЪ»сµГItemµАѕЯАаРН
+			local Item_siliao = GetChaItem ( role , 2 , 2  ) --ИЎЅЗЙ«±і°ьµЪИэАёµДЦёХл
+			local Item_siliao_ID = GetItemID ( Item_siliao ) --µчУГіМРтЅУїЪ»сµГItemµАѕЯАаРН
+			--SystemNotice ( role , "5 secs" )
 			if Get_Item_Type == 59 then
-				local Elf_URE = GetItemAttr( Item_bg, ITEMATTR_URE )
-				local Num_JLone = GetItemForgeParam( Item_bg, 1 )
-				local Part1_JLone = GetNum_Part1( Num_JLone )
-				if Elf_URE <= 2550 and Item_siliao_ID == 2312 then
-					local j = TakeItem( role, 0, 2312, 1 )
-					if j == 0 then
-						SystemNotice( role , "\209\242\224\237\228\224\240\242\237\251\233 \239\224\229\234 \237\229 \232\241\239\238\235\252\231\238\226\224\237!" )
+				local Elf_URE = GetItemAttr( Item_bg ,ITEMATTR_URE )       --МеБ¦
+				local Num_JLone = GetItemForgeParam ( Item_bg , 1 )
+				local Part1_JLone = GetNum_Part1 ( Num_JLone )	--Get Num Part 1 µЅ Part 7
+				if Elf_URE<=2550 and Item_siliao_ID==2312 then 
+					local j = TakeItem(  role,0,2312,1)
+					if j==0 then
+						SystemNotice ( role , "Deleting of fairy ration failed!" )
 					else
 						Elf_URE = Elf_URE + 2500
-						SystemNotice( role, "\212\229\255 \224\226\242\238\236\224\242\232\247\229\241\234\232 \237\224\234\238\240\236\235\229\237\224." )
-						SetItemAttr( Item_bg, ITEMATTR_URE, Elf_URE )
+						SystemNotice ( role , "Automatic feeding successful." )
+						SetItemAttr ( Item_bg , ITEMATTR_URE , Elf_URE )
 					end
 				end
-
-				----------------------------------------------------------
-				-- Получение Монет фей, Эльф. печаток, Кор.эльф.печаток --
-				----------------------------------------------------------
-				local star_num = GetItemAttr( Item_bg, ITEMATTR_VAL_FUSIONID )
-				star_num = star_num + 1
-				if math.mod( star_num, 1 ) == 0 and Elf_URE >= 50 and Part1_JLone == 1 then
-					GiveItemX( role, 0, 855, 1, 4 )
+				local star_num = GetItemAttr( Item_bg ,ITEMATTR_VAL_FUSIONID )       --µАѕЯѕ«Б¶РЕПўУРТФјЗВјѕ«БйТ»±КµДКэБї
+				star_num=star_num+1
+				if math.mod( star_num , 1) == 0 and Elf_URE>=50 and Part1_JLone==1 then
+					GiveItemX ( role , 0 , 855 , 1 , 4 )										-------іЙі¤1µгёшТ»ѕ«БйУІ±Т
 				end
-				if math.mod( star_num, 2 ) == 0 and Elf_URE >= 50 and Part1_JLone ~= 1 then
-					GiveItemX( role, 0, 855, 1, 4 )
+				if math.mod( star_num , 2) == 0 and Elf_URE>=50 and Part1_JLone~=1 then
+					GiveItemX ( role , 0 , 855 , 1 , 4 )										-------іЙі¤2µгёшТ»ѕ«БйУІ±Т
 				end
-				if math.mod( star_num, 30 ) == 0 and Elf_URE >= 50 and Part1_JLone == 1 then
-					GiveItemX( role, 0, 2588, 1, 4 )
+				if math.mod( star_num , 30) == 0  and Elf_URE>=50 and Part1_JLone==1 then			-------іЙі¤30µгёшТ»ѕ«Бй»ФУЎТ»ёц
+					GiveItemX ( role , 0 , 2588 , 1 , 4 )						
 				end
-				if math.mod( star_num, 60 ) == 0 and Elf_URE >= 50 and Part1_JLone ~= 1 then
-					GiveItemX( role, 0, 2588, 1, 4 )
+				if math.mod( star_num , 60) == 0  and Elf_URE>=50 and Part1_JLone~=1 then			-------іЙі¤60µгёшТ»ѕ«Бй»ФУЎТ»ёц
+					GiveItemX ( role , 0 , 2588 , 1 , 4 )						
 				end
-				if math.mod( star_num, 120 ) == 0 and Elf_URE >= 50 then
-					GiveItemX( role, 0, 2588, 1, 4 )
+				if math.mod( star_num , 120) == 0  and Elf_URE>=50  then						-------іЙі¤120µгёшТ»ѕ«Бй»ФУЎТ»ёц
+					GiveItemX ( role , 0 , 2588 , 1 , 4 )						
 				end
-				if math.mod( star_num , 1200 ) == 0  and Elf_URE >= 50 then
-					GiveItemX( role, 0, 2589, 1, 4 )
+				if math.mod( star_num , 1200) == 0  and Elf_URE>=50 then						-------іЙі¤1200µгёшѕ«БйНх»ФУЎТ»ёц
+					GiveItemX ( role , 0 , 2589 , 1 , 4 )						
 				end
-				if star_num == 1200 then
-					star_num = 0
+				if star_num==1200 then
+					star_num=0
 				end
-				SetItemAttr( Item_bg, ITEMATTR_VAL_FUSIONID, star_num )
-				Take_ElfURE( role, Item_bg, 1, 0 )
-				Give_ElfEXP( role, Item_bg, 1, 0 )
-			end
-		end
+				SetItemAttr ( Item_bg , ITEMATTR_VAL_FUSIONID , star_num )
+				--SystemNotice ( role , " starts to deduct fairy stamina" )
+				Take_ElfURE ( role , Item_bg , 1 , 0 )
+				--SystemNotice ( role , "starts to calculate fairy growth" )
+				Give_ElfEXP ( role , Item_bg , 1 , 0 )  --ХвАпУРОКМв
+			end 
+		end 
 	end
 end
 
-function Take_ElfURE( role, Item, Type, Num )
-	local Elf_URE = GetItemAttr( Item, ITEMATTR_URE ) 
+-------їЫіэІОКэ¶ФПуѕ«БйµДМеБ¦Цµ-------------------------------------
+function Take_ElfURE ( role , Item , Type , Num )
+	local Elf_URE = GetItemAttr( Item ,ITEMATTR_URE ) 
+	--local Elf_MaxURE = GetItemAttr( Item ,ITEMATTR_MAXENERGY ) 
 	if Type == 1 then
-		if Elf_URE > 49 then
-			Elf_URE = math.max(( Elf_URE - 50 ), 49 )
-			SetItemAttr( Item, ITEMATTR_URE, Elf_URE )
-		else
-			SetChaKbItemValid2( role, Item, 0, 1 )
-		end
+			--SystemNotice ( role , Elf_URE )
+			if Elf_URE >49 then
+			--SystemNotice ( role , "starts to deduct " )
+                                    Elf_URE = math.max ( ( Elf_URE - 50 ) , 49 )
+		                    SetItemAttr ( Item , ITEMATTR_URE , Elf_URE )
+			else 
+				SetChaKbItemValid2(role , Item , 0 , 1)
+			end
+
 	end
 	if Type == 2 then
 		if Elf_URE > 49 then
-			Elf_URE = math.max( ( Elf_URE - Num ), 49 )
-			SetItemAttr( Item, ITEMATTR_URE, Elf_URE )
+			 Elf_URE = math.max ( ( Elf_URE - Num ) , 49 )
+			 SetItemAttr ( Item , ITEMATTR_URE , Elf_URE )
 		else
-			SetChaKbItemValid2( role, Item, 0, 1 )
+			SetChaKbItemValid2(role , Item , 0 , 1)
 		end
+
 	end
+
+
 end
 
+
+-------ёшУлѕ«БйіЙі¤--------------------------------------------------
 function Give_ElfEXP ( role , Item ,Type , Num )
 	local Elf_EXP =  GetItemAttr( Item ,ITEMATTR_ENERGY ) 
 	local Elf_MaxEXP = GetItemAttr( Item ,ITEMATTR_MAXENERGY ) 
 	local Elf_URE = GetItemAttr( Item ,ITEMATTR_URE ) 
+	--local rad = math.random( 1 , Lv )  
+
 	if Type == 1 then
+			--SystemNotice ( role , Elf_EXP )
+			--if rad == 1 then
 			 if Elf_URE > 49 then
 			   Elf_EXP = Elf_EXP + ELEEXP_GETRAD 
 			    if Elf_EXP >= Elf_MaxEXP then
                                Elf_EXP = Elf_MaxEXP
 			    end
 			   SetItemAttr ( Item , ITEMATTR_ENERGY , Elf_EXP )
-			  end  
+			  end
+                        --end
         end 
+
 end
 
+
+
+--------------------------І№ідФцјУѕ«БйМеБ¦Цµ--------------------------------------------
 function Give_ElfURE ( role , Item  , Num )
 	local Elf_URE =  GetItemAttr( Item ,ITEMATTR_URE )
 	local Elf_MaxURE = GetItemAttr( Item ,ITEMATTR_MAXURE )
+	--local Num = 10
         if Elf_URE<=49 then
 	SetChaKbItemValid2(role , Item , 1 , 0)
 	end
+	--SystemNotice ( role , Elf_URE )
+
 	Elf_URE = Elf_URE + Num
+
 	if Elf_URE >= Elf_MaxURE  then
 		
 		Elf_URE = Elf_MaxURE
 	end
 	SetItemAttr ( Item , ITEMATTR_URE , Elf_URE )
+
+
 end
 
+
+--јмІвѕ«БйКЗ·сУµУРЧг№»µДіЙі¤¶ИЙэј¶
 function CheckElf_EXP ( role , Item )
 	local Elf_EXP =  GetItemAttr( Item ,ITEMATTR_ENERGY )
 	local Elf_MaxEXP =  GetItemAttr( Item ,ITEMATTR_MAXENERGY )
+
+
 	if Elf_EXP >= Elf_MaxEXP then
 	        return 1
 	else
@@ -4230,177 +5252,192 @@ function CheckElf_EXP ( role , Item )
 	end
 end
 
--------------------------------
--- Функция фрукта на силу +1 --
--------------------------------
+--Б¦БїіЙі¤
 function Lvup_Str ( role , Item_Num ,Item_Traget ) 
 	local attr_type =  ITEMATTR_VAL_STR
+	--SystemNotice(role ,attr_type )
 	Elf_LvUp ( role , Item_Num , Item_Traget , attr_type ) 
 end 
-
----------------------------------------
--- Функция фрукта на телосложение +1 --
----------------------------------------
+--МеЦКіЙі¤
 function Lvup_Con ( role , Item_Num ,Item_Traget ) 
 	local attr_type =  ITEMATTR_VAL_CON 
 	Elf_LvUp ( role , Item_Num , Item_Traget , attr_type ) 
 end 
-
------------------------------------
--- Функция фрукта на ловкость +1 --
------------------------------------
+--ГфЅЭіЙі¤
 function Lvup_Agi ( role , Item_Num ,Item_Traget ) 
 	local attr_type = ITEMATTR_VAL_AGI 
 	Elf_LvUp ( role , Item_Num , Item_Traget , attr_type ) 
 end 
-
------------------------------------
--- Функция фрукта на точность +1 --
------------------------------------
+--ЧЁЧўіЙі¤
 function Lvup_Dex ( role , Item_Num ,Item_Traget ) 
 	local attr_type = ITEMATTR_VAL_DEX
 	Elf_LvUp ( role , Item_Num , Item_Traget , attr_type ) 
 end 
-
-------------------------------
--- Функция фрукта на дух +1 --
-------------------------------
+--ѕ«ЙсіЙі¤
 function Lvup_Sta ( role , Item_Num ,Item_Traget ) 
 	local attr_type = ITEMATTR_VAL_STA 
 	Elf_LvUp ( role , Item_Num , Item_Traget , attr_type ) 
 end 
-
--------------------------------
--- Функция фрукта на силу +2 --
--------------------------------
+--Б¦БїЛ«±¶іЙі¤
 function Lvup_Str_1 ( role , Item_Num ,Item_Traget ) 
 	local attr_type =  ITEMATTR_VAL_STR
+	--SystemNotice(role ,attr_type )
 	Elf_LvUp_1 ( role , Item_Num , Item_Traget , attr_type ) 
 end 
-
----------------------------------------
--- Функция фрукта на телосложение +2 --
----------------------------------------
+--МеЦКЛ«±¶іЙі¤
 function Lvup_Con_1 ( role , Item_Num ,Item_Traget ) 
 	local attr_type =  ITEMATTR_VAL_CON 
 	Elf_LvUp_1 ( role , Item_Num , Item_Traget , attr_type ) 
 end 
-
------------------------------------
--- Функция фрукта на ловкость +2 --
------------------------------------
+--ГфЅЭЛ«±¶іЙі¤
 function Lvup_Agi_1 ( role , Item_Num ,Item_Traget ) 
 	local attr_type = ITEMATTR_VAL_AGI 
 	Elf_LvUp_1 ( role , Item_Num , Item_Traget , attr_type ) 
 end 
-
------------------------------------
--- Функция фрукта на точность +2 --
------------------------------------
+--ЧЁЧўЛ«±¶іЙі¤
 function Lvup_Dex_1 ( role , Item_Num ,Item_Traget ) 
 	local attr_type = ITEMATTR_VAL_DEX
 	Elf_LvUp_1 ( role , Item_Num , Item_Traget , attr_type ) 
 end 
-
-------------------------------
--- Функция фрукта на дух +2 --
-------------------------------
+--ѕ«ЙсЛ«±¶іЙі¤
 function Lvup_Sta_1 ( role , Item_Num ,Item_Traget ) 
 	local attr_type = ITEMATTR_VAL_STA 
 	Elf_LvUp_1 ( role , Item_Num , Item_Traget , attr_type ) 
 end 
 
-function Elf_LvUp ( role , Item_Num , Item_Traget , attr_type )       
-        local str = GetItemAttr( Item_Traget ,ITEMATTR_VAL_STR )       
-        local con = GetItemAttr( Item_Traget ,ITEMATTR_VAL_CON )       
-        local agi = GetItemAttr( Item_Traget ,ITEMATTR_VAL_AGI )       
-        local dex = GetItemAttr( Item_Traget ,ITEMATTR_VAL_DEX )       
-        local sta = GetItemAttr( Item_Traget ,ITEMATTR_VAL_STA )       
+
+
+--ѕ«БйКфРФФцјУ(Йэј¶)
+
+
+function Elf_LvUp ( role , Item_Num , Item_Traget , attr_type )       --
+        
+        local str = GetItemAttr( Item_Traget ,ITEMATTR_VAL_STR )       --Б¦Бї
+        local con = GetItemAttr( Item_Traget ,ITEMATTR_VAL_CON )       --МеЦК
+        local agi = GetItemAttr( Item_Traget ,ITEMATTR_VAL_AGI )       --ЧЁЧў
+        local dex = GetItemAttr( Item_Traget ,ITEMATTR_VAL_DEX )       --ГфЅЭ
+        local sta = GetItemAttr( Item_Traget ,ITEMATTR_VAL_STA )       --ѕ«Йс
 	local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY) 
 	local Elf_MaxURE = GetItemAttr(Item_Traget,ITEMATTR_MAXURE) 
+
 	local Lv = str + agi + dex + con + sta
 	local attr_type_num = GetItemAttr( Item_Traget ,attr_type )
+
 	local a = 1 / ( math.floor ( ( 1 + ( math.pow ( ( Lv / 10 ) , 3 ) ) ) * 10 ) / 10 * math.max ( 0.01 ,( 1 - attr_type_num * 0.05 ) ) )
+	
 	if Lv >= 40 then
 		a = 1 / ( math.floor ( ( 1 + ( math.pow ( ( Lv / 10 ) , 3 ) ) ) * 10 ) / 10 ) * math.max ( 0.01 ,( 1 - attr_type_num * 0.05 ) )
 	end
+	
 	local b = Percentage_Random ( a )
-        local item_energe = GetItemAttr( Item_Traget ,ITEMATTR_ENERGY ) 
-	if b == 1 then						
+	
+        local item_energe = GetItemAttr( Item_Traget ,ITEMATTR_ENERGY ) --ИЎѕ«БйіЙі¤¶И
+        --local item_maxenerge = GetItemAttr( Item_Traget ,ITEMATTR_MAXENERGY ) --ИЎѕ«БйіЙі¤¶ИЧоґуЦµ
+   
+	if b == 1 then						--іЙі¤ФтФцјУКфРФЈ¬їЫіэЛщУРіЙі¤Цµ -- ITEMATTR_ENERGY
 	        AddItemEffect(role , Item_Traget , 0  )
 		item_energe = 0
-		SystemNotice (role , "Уровень феи увеличен. ")	
+		SystemNotice (role , "Pet level up successfully! Growth rate is depleted")	
+		
                 attr_type_num = attr_type_num + 1
 		SetItemAttr ( Item_Traget , attr_type , attr_type_num )
+
 		local Item_MAXENERGY = 240 * ( Lv + 1 )
+		
 		if Item_MAXENERGY > 6480 then
 			Item_MAXENERGY = 6480
 		end
+
+
 		local Item_MAXURE_NUM = Elf_MaxURE + 1000
+
 		if Item_MAXURE_NUM > 32000 then
 			Item_MAXURE_NUM = 32000
 		end
+		
 		SetItemAttr ( Item_Traget , ITEMATTR_MAXENERGY , Item_MAXENERGY )
 		SetItemAttr ( Item_Traget , ITEMATTR_MAXURE , Item_MAXURE_NUM )
 		ResetItemFinalAttr(Item_Traget)
 	        AddItemEffect(role , Item_Traget , 1  )
-	else							
+	else							--Оґ»сіЙі¤ФтЅцїЫіэТ»°лµДіЙі¤Цµ
 		item_energe = 0.5 * item_energe 
+		SystemNotice (role , "Pet level up failed! Growth rate reduced by half")	
 	end
 		SetItemAttr ( Item_Traget , ITEMATTR_ENERGY , item_energe )
+
+
 end
 
-function Elf_LvUp_1 ( role , Item_Num , Item_Traget , attr_type )       
-        local str = GetItemAttr( Item_Traget ,ITEMATTR_VAL_STR )       
-        local con = GetItemAttr( Item_Traget ,ITEMATTR_VAL_CON )       
-        local agi = GetItemAttr( Item_Traget ,ITEMATTR_VAL_AGI )       
-        local dex = GetItemAttr( Item_Traget ,ITEMATTR_VAL_DEX )       
-        local sta = GetItemAttr( Item_Traget ,ITEMATTR_VAL_STA )       
+--ѕ«БйКфРФЛ«±¶ФцјУ(Йэј¶)
+function Elf_LvUp_1 ( role , Item_Num , Item_Traget , attr_type )       --
+        
+        local str = GetItemAttr( Item_Traget ,ITEMATTR_VAL_STR )       --Б¦Бї
+        local con = GetItemAttr( Item_Traget ,ITEMATTR_VAL_CON )       --МеЦК
+        local agi = GetItemAttr( Item_Traget ,ITEMATTR_VAL_AGI )       --ЧЁЧў
+        local dex = GetItemAttr( Item_Traget ,ITEMATTR_VAL_DEX )       --ГфЅЭ
+        local sta = GetItemAttr( Item_Traget ,ITEMATTR_VAL_STA )       --ѕ«Йс
 	local Elf_MaxEXP = GetItemAttr(Item_Traget,ITEMATTR_MAXENERGY) 
 	local Elf_MaxURE = GetItemAttr(Item_Traget,ITEMATTR_MAXURE) 
+
 	local Lv = str + agi + dex + con + sta
 	local attr_type_num = GetItemAttr( Item_Traget ,attr_type )
+
 	local a = 1 / ( math.floor ( ( 1 + ( math.pow ( ( Lv / 10 ) , 3 ) ) ) * 10 ) / 10 * math.max ( 0.01 ,( 1 - attr_type_num * 0.05 ) ) )
+	
 	if Lv >= 40 then
 		a = 1 / ( math.floor ( ( 1 + ( math.pow ( ( Lv / 10 ) , 3 ) ) ) * 10 ) / 10 ) * math.max ( 0.01 ,( 1 - attr_type_num * 0.05 ) )
 	end
+	
 	local b = Percentage_Random ( a )
-        local item_energe = GetItemAttr( Item_Traget ,ITEMATTR_ENERGY ) 
-	if b == 1 then						
+	
+        local item_energe = GetItemAttr( Item_Traget ,ITEMATTR_ENERGY ) --ИЎѕ«БйіЙі¤¶И
+        --local item_maxenerge = GetItemAttr( Item_Traget ,ITEMATTR_MAXENERGY ) --ИЎѕ«БйіЙі¤¶ИЧоґуЦµ
+   
+	if b == 1 then						--іЙі¤ФтФцјУКфРФЈ¬їЫіэЛщУРіЙі¤Цµ -- ITEMATTR_ENERGY
 	        AddItemEffect(role , Item_Traget , 0  )
 		item_energe = 0
-		SystemNotice (role , "Уровень феи увеличен. ")	
+		SystemNotice (role , "Pet level up successfully! Growth rate is depleted")	
+		
                 attr_type_num = attr_type_num + 2
 		SetItemAttr ( Item_Traget , attr_type , attr_type_num )
+
 		local Item_MAXENERGY = 240 * ( Lv + 2 )
 		
 		if Item_MAXENERGY > 6480 then
 			Item_MAXENERGY = 6480
 		end
+
+
 		local Item_MAXURE_NUM = Elf_MaxURE + 2000
+
 		if Item_MAXURE_NUM > 32000 then
 			Item_MAXURE_NUM = 32000
 		end
+		
 		SetItemAttr ( Item_Traget , ITEMATTR_MAXENERGY , Item_MAXENERGY )
 		SetItemAttr ( Item_Traget , ITEMATTR_MAXURE , Item_MAXURE_NUM )
 		ResetItemFinalAttr(Item_Traget)
 	        AddItemEffect(role , Item_Traget , 1  )
-	else							
+	else							--Оґ»сіЙі¤ФтЅцїЫіэТ»°лµДіЙі¤Цµ
 		item_energe = 0.5 * item_energe 
+		SystemNotice (role , "Pet level up failed! Growth rate reduced by half")	
 	end
 		SetItemAttr ( Item_Traget , ITEMATTR_ENERGY , item_energe )
-end
 
-function Give_ElfEXP_MISSION ( role , num )						
+
+end
+----------------------------------------
+function Give_ElfEXP_MISSION ( role , num )						--ИООсФцјУіиОпѕ­СйЅЕ±ѕ
+
 	local Item = GetChaItem ( role , 2 ,  2  ) 
-	local Elf_EXP =  GetItemAttr( Item ,ITEMATTR_ENERGY )		
-	local Elf_MaxEXP = GetItemAttr( Item ,ITEMATTR_MAXENERGY )	
-	local Elf_URE = GetItemAttr( Item ,ITEMATTR_URE )			
+	local Elf_EXP =  GetItemAttr( Item ,ITEMATTR_ENERGY )		--ИЎіиОпµ±З°іЙі¤¶И
+	local Elf_MaxEXP = GetItemAttr( Item ,ITEMATTR_MAXENERGY )	--ИЎіиОпЧоґуіЙі¤¶И
+	local Elf_URE = GetItemAttr( Item ,ITEMATTR_URE )			--ИЎіиОпµ±З°МеБ¦Цµ
 	if Elf_URE <= 50 then									
-		SystemNotice (role , "Фея истощена. Рост невозможен из-за недостатка выносливости ")
+		SystemNotice (role , "Fairy cannot gain any Growth as it is low on stamina")			--МеБ¦І»Чг50К±ОЮ·Ё»сµГіиОпexp
 		return 0 
 	else 
-		Elf_URE = Elf_URE - 40								
+		Elf_URE = Elf_URE - 40								--МеБ¦ідЧгК±Ј¬їЫіэіиОп40µгМеБ¦Ј¬ФцјУіиОпEXP
 		SetItemAttr ( Item , ITEMATTR_URE , Elf_URE ) 
 		num = math.min ( num , Elf_MaxEXP - Elf_EXP ) 
 		SetItemAttr ( Item , ITEMATTR_ENERGY , num ) 
@@ -4408,40 +5445,58 @@ function Give_ElfEXP_MISSION ( role , num )
 	return 1 
 end 
 
+
+-----------------------------------------------
 function CheckElfHaveSkill ( Num , SkillType , SkillNum )
-	local Part2 = GetNum_Part2 ( Num )	
+	--Notice( "BEGINCheckElfHaveSkill" )
+
+	local Part2 = GetNum_Part2 ( Num )	--Get Num Part 1 µЅ Part 7
 	local Part3 = GetNum_Part3 ( Num )
 	local Part4 = GetNum_Part4 ( Num )
 	local Part5 = GetNum_Part5 ( Num )
 	local Part6 = GetNum_Part6 ( Num )
 	local Part7 = GetNum_Part7 ( Num )
+
+
 	if Part3 == SkillType and Part2 == SkillNum then
 		return 1
+
 	elseif Part2 == SkillNum then
 		return 2
 	end
+	
 	if Part5 == SkillType and Part4 == SkillNum then
 		return 1
 	elseif Part4 == SkillNum then
 		return 2
 	end
+	
 	if Part7 == SkillType and Part6 == SkillNum then
 		return 1
 	elseif Part6 == SkillNum then
 		return 2
 	end
+	
 	return 0
+
 end
 
+----------------------------------------------------------
+
 function AddElfSkill ( Item , SkillType , SkillNum )
-	local Num = GetItemForgeParam ( Item , 1 ) 
-	local Part1 = GetNum_Part1 ( Num )	
+	--Notice( "BEGINAddElfSkill" )
+	
+
+	local Num = GetItemForgeParam ( Item , 1 ) --ѕ«Бй32О»јјДЬРЕПўКэѕЭ	
+	--Notice ( "Num= "..Num)
+	local Part1 = GetNum_Part1 ( Num )	--Get Num Part 1 µЅ Part 7
 	local Part2 = GetNum_Part2 ( Num )
 	local Part3 = GetNum_Part3 ( Num )
 	local Part4 = GetNum_Part4 ( Num )
 	local Part5 = GetNum_Part5 ( Num )
 	local Part6 = GetNum_Part6 ( Num )
 	local Part7 = GetNum_Part7 ( Num )
+
 	if Part2 == SkillNum then
 		Part3 = SkillType
 		Num = SetNum_Part3 ( Num , Part3 )
@@ -4449,6 +5504,7 @@ function AddElfSkill ( Item , SkillType , SkillNum )
 		SetItemForgeParam ( Item , 1 , Num )
 		return 
 	end
+	
 	if Part4 == SkillNum then
 		Part5 = SkillType
 		Num = SetNum_Part5 ( Num , Part5 )
@@ -4456,6 +5512,7 @@ function AddElfSkill ( Item , SkillType , SkillNum )
 		SetItemForgeParam ( Item , 1 , Num )
 		return 
 	end
+
 	if Part6 == SkillNum then
 		 Part7 = SkillType
 		Num = SetNum_Part7 ( Num , Part7 )
@@ -4463,7 +5520,8 @@ function AddElfSkill ( Item , SkillType , SkillNum )
 		SetItemForgeParam ( Item , 1 , Num )
 		return 
 	end
-	local rad = math.random( 1 , 100 )   
+
+	local rad = math.random( 1 , 100 )   --Лж»ъ 1Ј¬100                            
 	if Part2 == 0 and Part3 == 0 then
 		Part2 = SkillNum
 		Part3 = SkillType
@@ -4479,6 +5537,8 @@ function AddElfSkill ( Item , SkillType , SkillNum )
 			Num = SetNum_Part2 ( Num , Part2 )
 			SetItemForgeParam ( Item , 1 , Num )
 			return
+		--·с
+		--ОЮІЩЧч
 		end
 	end
 	if Part4 == 0 and Part5 == 0 then
@@ -4496,6 +5556,8 @@ function AddElfSkill ( Item , SkillType , SkillNum )
 			Num = SetNum_Part4 ( Num , Part4 )
 			SetItemForgeParam ( Item , 1 , Num )
 			return
+			--·с
+			--ОЮІЩЧч
 		end
 	end
 	if Part6 == 0 and Part7 == 0 then
@@ -4515,23 +5577,33 @@ function AddElfSkill ( Item , SkillType , SkillNum )
 	end
 end
 
+------------------------------------------------------------------
+
 function CheckHaveElf ( role )
-	local Item = GetChaItem ( role , 2 , 1  ) 
-	if Item == nil then              
+	local Item = GetChaItem ( role , 2 , 1  ) --ИЎЅЗЙ«±і°ьµЪ¶юАёµДЦёХл
+	if Item == nil then              --?Item == 0 КІГґТвЛј
 		return 0
 	end
-	local Item_Type =  GetItemType ( Item ) 
+	
+	local Item_Type =  GetItemType ( Item ) --Item µДµАѕЯАаРН
+	
 	if Item_Type ~= 59 then
 		return 0
 	else
-		local ELf_URE = GetItemAttr( Item ,ITEMATTR_URE )  
+		local ELf_URE = GetItemAttr( Item ,ITEMATTR_URE )  --ѕ«БйМеБ¦
+
 		if ELf_URE <= 49 then
 			return 0
 		end
 	end
+	--Notice("CheckHaveElf has been executed" )
 	return Item
+
 end
 
+--ѕ«БйјјДЬ
+
+--»¤¶ЬКх
 function ElfSKill_PowerSheild ( role , Elf_Item , Num , dmg )
 	if dmg <= 0 then
 		return 0
@@ -4544,21 +5616,24 @@ function ElfSKill_PowerSheild ( role , Elf_Item , Num , dmg )
 	end
 	local Elf_SheildLv = GetElfSkill_Lv ( Num , 1 )
 	dmg = math.floor ( dmg * ( 0.3 + Elf_SheildLv * 0.15 )  ) 
+
 	local Item_URE = GetItemAttr( Elf_Item , ITEMATTR_URE )
 	local Dmg_Take_rad = 10 
 	local Elf_Dmg_CanTake = ( Item_URE - 50 ) / Dmg_Take_rad
+	
 	if Elf_Dmg_CanTake >= dmg then
 		local Elf_URE_Take = math.floor ( dmg * Dmg_Take_rad )
 		local Elf_URE_Notice = math.floor ( Elf_URE_Take / 50 )
 		Take_ElfURE ( role , Elf_Item , 2 , Elf_URE_Take )
-		SystemNotice ( role , "Фея поглотила часть урона: "..dmg)
+		SystemNotice ( role , "Fairy absorbed damage: "..dmg)
 		return dmg
 	else
-		SystemNotice ( role , "Фея истощена. В таком состоянии фея не может поглощать урон " )
+		SystemNotice ( role , "Fairy does not have enough stamina to activate Protection" )
 		return 0
 	end
 end
 
+--»сµГѕ«БйЦё¶ЁјјДЬµИј¶
 function GetElfSkill_Lv ( Num , SkillNum )
 	local Part2 = GetNum_Part2 ( Num )
 	local Part3 = GetNum_Part3 ( Num )
@@ -4566,6 +5641,7 @@ function GetElfSkill_Lv ( Num , SkillNum )
 	local Part5 = GetNum_Part5 ( Num )
 	local Part6 = GetNum_Part6 ( Num )
 	local Part7 = GetNum_Part7 ( Num )
+	
 	if SkillNum == Part2 then
 		return Part3
 	elseif SkillNum == Part4 then
@@ -4576,11 +5652,13 @@ function GetElfSkill_Lv ( Num , SkillNum )
 	return 0
 end
 
+--±¬»ч
+
 function ElfSKill_ElfCrt ( role , Elf_Item , Num )
 	local Elf_SkillLv = GetElfSkill_Lv ( Num , 2 )
 	local Item_URE = GetItemAttr( Elf_Item , ITEMATTR_URE )
 	if Item_URE < 50 then
-		SystemNotice ( role , "Фея истощена. В таком состоянии фея не может применить Берсерк " )
+		SystemNotice ( role , "Fairy does not have enough stamina to activate Berserk" )
 		return 0
 	end
 	local b = ( Elf_SkillLv * 2 + 1 )  * 0.01
@@ -4595,6 +5673,8 @@ function ElfSKill_ElfCrt ( role , Elf_Item , Num )
 	end
 end
 
+--Д§Б¦
+
 function ElfSkill_MagicAtk ( dmg , role )
 	local Elf_Item = CheckHaveElf ( role )
 	if Elf_Item ~= 0 then
@@ -4604,7 +5684,7 @@ function ElfSkill_MagicAtk ( dmg , role )
 			local Elf_SkillLv = GetElfSkill_Lv ( Num , 3 )
 			local Item_URE = GetItemAttr( Elf_Item , ITEMATTR_URE )
 			if Item_URE <= 50 then
-				SystemNotice ( role , "Фея истощена. В таком состоянии фея не может использовать магию " )
+				SystemNotice ( role , "Fairy does not have enough stamina to activate any skill" )
 				return 0
 			else
 				if Elf_SkillLv == 1 then	
@@ -4623,6 +5703,8 @@ function ElfSkill_MagicAtk ( dmg , role )
 	return 0
 end
 
+
+--»Шёґ
 function ElfSkill_HpResume ( role )
 	local Elf_Item = CheckHaveElf ( role )
 	if Elf_Item ~= 0 then
@@ -4632,7 +5714,7 @@ function ElfSkill_HpResume ( role )
 			local Elf_SkillLv = GetElfSkill_Lv ( Num , 4 )
 			local Item_URE = GetItemAttr( Elf_Item , ITEMATTR_URE )
 			if Item_URE <= 50 then
-				SystemNotice ( role , "Фея истощена. В таком состоянии фея не может использовать восстановление " )
+				SystemNotice ( role , "Fairy does not have enough stamina to activate any skill" )
 				return 0
 			else
 				if Elf_SkillLv == 1 then	
@@ -4650,6 +5732,9 @@ function ElfSkill_HpResume ( role )
 	end
 	return 0
 end
+
+
+--іБЛј
 
 function ElfSkill_SpResume ( role )
 	local Elf_Item = CheckHaveElf ( role )
@@ -4660,7 +5745,7 @@ function ElfSkill_SpResume ( role )
 			local Elf_SkillLv = GetElfSkill_Lv ( Num , 5 )
 			local Item_URE = GetItemAttr( Elf_Item , ITEMATTR_URE )
 			if Item_URE <= 50 then
-				SystemNotice ( role , "Фея истощена. В таком состоянии фея не может медитировать " )
+				SystemNotice ( role , "Fairy does not have enough stamina to activate any skill" )
 				return 0
 			else
 				if Elf_SkillLv == 1 then	
@@ -4678,14 +5763,14 @@ function ElfSkill_SpResume ( role )
 	end
 	return 0
 end
-
+--------------------------------ИЩУюЦµСЎФсЅ»»»
 function CreditExchangeImpl( role, tp )
 	local i = CheckBagItem( role,3849 )
 	if i==1 then
 		local Item = GetChaItem2 ( role , 2 , 3849 )
 		local rongyu_num=GetItemAttr ( Item , ITEMATTR_VAL_STR )
 		if rongyu_num<=0 then
-			SystemNotice ( role , "Без положительной чести благословление невозможно.")
+			SystemNotice ( role , "You will not receive any blessing without a postive Honor value!")
 			return
 		end
 		local middle=0
@@ -4693,7 +5778,7 @@ function CreditExchangeImpl( role, tp )
 			middle=30000 - rongyu_num
 		end
 		middle= math.floor ( middle / 2 )
-		local exp_star=GetChaAttr (  role , ATTR_CEXP )
+		local exp_star=GetChaAttr (  role , ATTR_CEXP )----------µ±З°ѕ­Сй
 		local job = GetChaAttr(role, ATTR_JOB)
 		local lv=GetChaAttr(role, ATTR_LV) 
 		local money_num=rongyu_num*100
@@ -4702,7 +5787,7 @@ function CreditExchangeImpl( role, tp )
 		local cha_type = GetChaTypeID ( role )
 		local cha_namea = GetChaDefaultName ( role )
 		LG( "star_rongyuzhichange_lg" ,cha_namea, tp , lv , exp_star , job , cha_type)
-		if tp==0 or tp==1 or tp==2 then 
+		if tp==0 or tp==1 or tp==2 then ----ИЩУюЦµ»»З®
 			if lv>=15 and lv<=40 then
 				money_num=rongyu_num*200
 			elseif lv>=41 and lv<=60 then
@@ -4712,49 +5797,49 @@ function CreditExchangeImpl( role, tp )
 			end
 			AddMoney ( role , 0 , money_num ) 
 		LG( "star_rongyuzhichange_lg" ,cha_namea.."tp==0 or tp==1 or tp==2 obtain gold"..money_num)
-		elseif tp==3 or tp==4 or tp==5 then 
+		elseif tp==3 or tp==4 or tp==5 then -----ИЩУюЦµ»»ѕ­Сй
 			local dif_exp = rongyu_num*20+exp_star - DEXP[lv+1]
 			if lv>=15 and lv<=30 then
 				exp_num=rongyu_num*10+exp_star
 				local a1= math.floor (rongyu_num*10 )
-					SystemNotice ( role , "Получено опыта "..a1 )
+				SystemNotice ( role , "Obtained EXP "..a1 )
 			elseif lv>=31 and lv<=40 then
 				exp_num=rongyu_num*13+exp_star
 				local a1= math.floor (rongyu_num*13 )
-					SystemNotice ( role , "Получено опыта "..a1 )
+				SystemNotice ( role , "Obtained EXP "..a1 )
 			elseif lv>=41 and lv<=50 then
 				exp_num=rongyu_num*22+exp_star
 				local a1= math.floor (rongyu_num*22 )
-					SystemNotice ( role , "Получено опыта "..a1 )
+				SystemNotice ( role , "Obtained EXP "..a1 )
 			elseif lv>=51 and lv<=60 then
 				exp_num=rongyu_num*44+exp_star
 				local a1= math.floor (rongyu_num*44 )
-					SystemNotice ( role , "Получено опыта "..a1 )
+				SystemNotice ( role , "Obtained EXP "..a1 )
 			elseif lv>=61 and lv<=70 then
 				exp_num=rongyu_num*102+exp_star
 				local a1= math.floor (rongyu_num*102 )
-					SystemNotice ( role , "Получено опыта "..a1 )
+				SystemNotice ( role , "Obtained EXP "..a1 )
 			elseif lv>=71 and  lv<=78 then
 				exp_num=rongyu_num*270+exp_star
 				local a1= math.floor (rongyu_num*270 )
-					SystemNotice ( role , "Получено опыта "..a1 )
+				SystemNotice ( role , "Obtained EXP "..a1 )
 			elseif lv==79 and dif_exp<=0 then 
 				exp_num=rongyu_num*270+exp_star
 				local a1= math.floor (rongyu_num*270 )
-					SystemNotice ( role , "Получено опыта "..a1 )
+				SystemNotice ( role , "Obtained EXP "..a1 )
 			elseif lv==79 and dif_exp>0 then 
 				exp_num = dif_exp*0.02 + DEXP[lv+1]
 				local a1= math.floor (rongyu_num*270)
-					SystemNotice ( role , "Получено опыта "..a1 )
+				SystemNotice ( role , "Obtained EXP "..a1 )
 			elseif lv>=80  then
 				exp_num=rongyu_num*270*0.02+exp_star
 				local a1= math.floor (rongyu_num*270 )
-					SystemNotice ( role , "Получено опыта "..a1 )
+				SystemNotice ( role , "Obtained EXP "..a1 )
 			end
 			SetChaAttrI( role , ATTR_CEXP , exp_num )
 			local lg_exp=exp_num-exp_star
 			LG( "star_rongyuzhichange_lg" ,cha_namea.."tp==3 or tp==4 or tp==5 obtain experience"..lg_exp)
-		elseif tp==6 or tp==7 or tp==8 then 
+		elseif tp==6 or tp==7 or tp==8 then -----ИЩУюЦµ»»Ч°±ё
 			if lv>=15 and lv<=40 then
 				if rad<=rongyu_num or rongyu_num>=30000 then
 					GiveItem ( role , 0 , 3458  , 1 , 4 ) 
@@ -4764,7 +5849,7 @@ function CreditExchangeImpl( role, tp )
 				elseif rad>middle and rad<=30000 then
 					SetChaAttrI( role , ATTR_CEXP , exp_num )
 					local a1= math.floor (rongyu_num*5 )
-					SystemNotice ( role , "Получено опыта "..a1 )
+					SystemNotice ( role , "Obtained EXP "..a1 )
 				end
 			elseif lv>=41 and lv<=60 then
 				if rad<=rongyu_num or rongyu_num>=30000 then
@@ -4802,14 +5887,14 @@ function CreditExchangeImpl( role, tp )
 				elseif rad>middle and rad<=30000 then
 					SetChaAttrI( role , ATTR_CEXP , exp_num )
 					local a1= math.floor (rongyu_num*5 )
-					SystemNotice ( role , "Получено опыта "..a1 )
+					SystemNotice ( role , "Obtained EXP "..a1 )
 				end
 			elseif lv>=61 then
 				if rad<=rongyu_num or rongyu_num>=30000 then
 				local rad2=math.random(1,3)
 				local rad3=math.random(1,4)
 					local Lg_ID=2530
-					if job == 8 then 
+					if job == 8 then --ѕЮЅЈ
 						if rad2==1 then
 							Lg_ID=2530
 						elseif rad2==2 then
@@ -4817,7 +5902,7 @@ function CreditExchangeImpl( role, tp )
 						elseif rad2==3 then
 							Lg_ID=2532
 						end
-					elseif job == 9 then   
+					elseif job == 9 then   --Л«ЅЈ
 						if rad2==1 then
 							Lg_ID=2533
 						elseif rad2==2 then
@@ -4825,7 +5910,7 @@ function CreditExchangeImpl( role, tp )
 						elseif rad2==3 then
 							Lg_ID=2535
 						end
-					elseif job == 12 then 
+					elseif job == 12 then --ѕС»чКЦ
 						if rad2==1 then
 							Lg_ID=2536
 						elseif rad2==2 then
@@ -4833,7 +5918,7 @@ function CreditExchangeImpl( role, tp )
 						elseif rad2==3 then
 							Lg_ID=2538
 						end
-					elseif job == 16 then 
+					elseif job == 16 then ---- "Voyager"
 						if cha_type~=4 then
 							if rad2==1 then
 								Lg_ID=2539
@@ -4853,7 +5938,7 @@ function CreditExchangeImpl( role, tp )
 								Lg_ID=2548
 							end
 						end
-					elseif job == 13 then    
+					elseif job == 13 then    ---- "Cleric"
 						if cha_type~=4 then
 							if rad2==1 then
 								Lg_ID=2542
@@ -4873,7 +5958,7 @@ function CreditExchangeImpl( role, tp )
 								Lg_ID=2548
 							end
 						end
-					elseif job == 14 then    
+					elseif job == 14 then    ---- "Seal Master"
 						if cha_type~=4 then
 							if rad2==1 then
 								Lg_ID=2545
@@ -4901,33 +5986,37 @@ function CreditExchangeImpl( role, tp )
 				elseif rad>middle and rad<=30000 then
 					SetChaAttrI( role , ATTR_CEXP , exp_num )
 					local a1= math.floor (rongyu_num*5 )
-					SystemNotice ( role , "Получено опыта "..a1 )
+					SystemNotice ( role , "Obtained EXP "..a1 )
 				end
 			end			
 		end
 	SetItemAttr ( Item ,ITEMATTR_VAL_STR , 0 )
 	end
 end
-
+-----------------------------
+-----------------------------ЦШЙиѕ«БйµИј¶
 function Elf_Attr_cs ( role , Item_JLone , Item_JLother )
 	local Item_JLone_num={}
 	local Item_JLother_num={}
-	Item_JLone_num[1] = GetItemAttr( Item_JLone ,ITEMATTR_VAL_STR )	
-	Item_JLone_num[2] = GetItemAttr( Item_JLone ,ITEMATTR_VAL_AGI )	
-	Item_JLone_num[3] = GetItemAttr( Item_JLone ,ITEMATTR_VAL_DEX )	
-	Item_JLone_num[4] = GetItemAttr( Item_JLone ,ITEMATTR_VAL_CON )	
-	Item_JLone_num[5] = GetItemAttr( Item_JLone ,ITEMATTR_VAL_STA )	
-	Item_JLone_num[6] = GetItemAttr( Item_JLone ,ITEMATTR_URE )			
-	Item_JLone_num[7] = GetItemAttr( Item_JLone ,ITEMATTR_MAXURE )		 
-	Item_JLone_num[8] = Item_JLone_num[1] + Item_JLone_num[2] + Item_JLone_num[3] + Item_JLone_num[4] + Item_JLone_num[5]	
-	Item_JLother_num[1] = GetItemAttr( Item_JLother ,ITEMATTR_VAL_STR )	
-	Item_JLother_num[2] = GetItemAttr( Item_JLother ,ITEMATTR_VAL_AGI )	
-	Item_JLother_num[3] = GetItemAttr( Item_JLother ,ITEMATTR_VAL_DEX )	
-	Item_JLother_num[4] = GetItemAttr( Item_JLother ,ITEMATTR_VAL_CON )	
-	Item_JLother_num[5] = GetItemAttr( Item_JLother ,ITEMATTR_VAL_STA )	
-	Item_JLother_num[6] = GetItemAttr( Item_JLother ,ITEMATTR_URE )			
-	Item_JLother_num[7] = GetItemAttr( Item_JLother ,ITEMATTR_MAXURE )		 
-	Item_JLother_num[8] = Item_JLother_num[1] + Item_JLother_num[2] + Item_JLother_num[3] + Item_JLother_num[4] + Item_JLother_num[5]	
+	---ИЎТ»ёцѕ«БйµДОеёцКфРФ
+	Item_JLone_num[1] = GetItemAttr( Item_JLone ,ITEMATTR_VAL_STR )	-- Б¦БїіЈКэјУіЙ 26
+	Item_JLone_num[2] = GetItemAttr( Item_JLone ,ITEMATTR_VAL_AGI )	-- ГфЅЭіЈКэјУіЙ 27
+	Item_JLone_num[3] = GetItemAttr( Item_JLone ,ITEMATTR_VAL_DEX )	-- ЧЁЧўіЈКэјУіЙ 28
+	Item_JLone_num[4] = GetItemAttr( Item_JLone ,ITEMATTR_VAL_CON )	-- МеЦКіЈКэјУіЙ 29
+	Item_JLone_num[5] = GetItemAttr( Item_JLone ,ITEMATTR_VAL_STA )	-- ѕ«Б¦іЈКэјУіЙ 30
+	Item_JLone_num[6] = GetItemAttr( Item_JLone ,ITEMATTR_URE )			--МеБ¦ 
+	Item_JLone_num[7] = GetItemAttr( Item_JLone ,ITEMATTR_MAXURE )		 --ЧоґуМеБ¦
+	Item_JLone_num[8] = Item_JLone_num[1] + Item_JLone_num[2] + Item_JLone_num[3] + Item_JLone_num[4] + Item_JLone_num[5]	----Т»ёцѕ«БйµДµИј¶
+	---ИЎБнТ»ёцѕ«БйµДОеёцКфРФ
+	Item_JLother_num[1] = GetItemAttr( Item_JLother ,ITEMATTR_VAL_STR )	-- Б¦БїіЈКэјУіЙ  
+	Item_JLother_num[2] = GetItemAttr( Item_JLother ,ITEMATTR_VAL_AGI )	-- ГфЅЭіЈКэјУіЙ  
+	Item_JLother_num[3] = GetItemAttr( Item_JLother ,ITEMATTR_VAL_DEX )	-- ЧЁЧўіЈКэјУіЙ  
+	Item_JLother_num[4] = GetItemAttr( Item_JLother ,ITEMATTR_VAL_CON )	-- МеЦКіЈКэјУіЙ  
+	Item_JLother_num[5] = GetItemAttr( Item_JLother ,ITEMATTR_VAL_STA )	-- ѕ«Б¦іЈКэјУіЙ  
+	Item_JLother_num[6] = GetItemAttr( Item_JLother ,ITEMATTR_URE )			--МеБ¦ 
+	Item_JLother_num[7] = GetItemAttr( Item_JLother ,ITEMATTR_MAXURE )		 --ЧоґуМеБ¦
+	Item_JLother_num[8] = Item_JLother_num[1] + Item_JLother_num[2] + Item_JLother_num[3] + Item_JLother_num[4] + Item_JLother_num[5]	----Т»ёцѕ«БйµДµИј¶
+
 	local m=0
 	local n = 0
 	local num_jlone=26
@@ -4946,6 +6035,7 @@ function Elf_Attr_cs ( role , Item_JLone , Item_JLother )
 			num_jlother=n+26
 		end
 	end
+
 	max_JLone_temp = max_JLone_temp - 4
 	max_JLother_temp = max_JLother_temp - 4
 	local new_JLone_MAXENERGY = 240 * (Item_JLone_num[8] + 1 - 4 )
@@ -4964,24 +6054,23 @@ function Elf_Attr_cs ( role , Item_JLone , Item_JLother )
 	if new_JLother_MAXURE > 32000 then
 		new_JLother_MAXURE = 32000
 	end
-	SetItemAttr( Item_JLone, num_jlone , max_JLone_temp )
-	SetItemAttr( Item_JLone, ITEMATTR_ENERGY , 240)
-	SetItemAttr( Item_JLone, ITEMATTR_MAXENERGY , new_JLone_MAXENERGY )
-	SetItemAttr( Item_JLone, ITEMATTR_URE , 5000 )
-	SetItemAttr( Item_JLone, ITEMATTR_MAXURE , new_JLone_MAXURE )
-	SetItemAttr( Item_JLother, num_jlother , max_JLother_temp )
-	SetItemAttr( Item_JLother, ITEMATTR_ENERGY , 240 )
-	SetItemAttr( Item_JLother, ITEMATTR_MAXENERGY , new_JLother_MAXENERGY )
-	SetItemAttr( Item_JLother, ITEMATTR_URE , 5000 )
-	SetItemAttr( Item_JLother, ITEMATTR_MAXURE, new_JLother_MAXURE )
+	----ЦШЙиТ»Ц»ѕ«БйµДКфРФ
+	SetItemAttr ( Item_JLone , num_jlone , max_JLone_temp )
+	SetItemAttr ( Item_JLone , ITEMATTR_ENERGY , 240) 	
+	SetItemAttr ( Item_JLone , ITEMATTR_MAXENERGY , new_JLone_MAXENERGY )
+	SetItemAttr ( Item_JLone , ITEMATTR_URE , 5000 ) 	
+	SetItemAttr ( Item_JLone , ITEMATTR_MAXURE , new_JLone_MAXURE ) 	
+	----ЦШЙиБнТ»Ц»ѕ«БйµДКфРФ
+	SetItemAttr ( Item_JLother , num_jlother , max_JLother_temp )
+	SetItemAttr ( Item_JLother , ITEMATTR_ENERGY , 240 ) 	
+	SetItemAttr ( Item_JLother , ITEMATTR_MAXENERGY , new_JLother_MAXENERGY )
+	SetItemAttr ( Item_JLother , ITEMATTR_URE , 5000 ) 	
+	SetItemAttr ( Item_JLother , ITEMATTR_MAXURE , new_JLother_MAXURE )  	
 end
-
-----------------------
--- Джекпот (Начало) --
-----------------------
 function  TigerStart( ... )
+	--Notice("TigerStart...................")
 	if arg.n ~= 4 then
-		SystemNotice ( arg[1] , "Неверное значение параметра: "..arg.n )
+		SystemNotice ( arg[1] , "parameter value illegal"..arg.n )
 		return 
 	end	
 	local num = {}
@@ -4991,7 +6080,7 @@ function  TigerStart( ... )
 	local m = 0
 	local i = 0
 	local q=0
-	for n=1,9,1 do 
+	for n=1,9,1 do --------------іхКј»Ї9ёцОпЖ·ID
 		local star = math.random ( 1 , 4700 )
 		local ret1 = IsItemValid(star)
 		if ret1 ~= LUA_TRUE then
@@ -5011,51 +6100,51 @@ function  TigerStart( ... )
 	end
 	local NocLock =	KitbagLock(arg[1], 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( arg[1] , "Ваш инвентарь заблокирован ")
+		SystemNotice( arg[1] , "Your inventory is being binded")
 		return 0
 	end
 	local Item_CanGet = GetChaFreeBagGridNum ( arg[1] )	
 	if Item_CanGet < 5 then
-		SystemNotice( arg[1] ,"У вас должно быть не меньше 5 свободных слотов в инвентаре ")
+		SystemNotice( arg[1] ,"You need at least 5 free slot")
 		return 0
 	end
 	local Money_Have = GetChaAttr ( arg[1]  , ATTR_GD )
-	if Money_Have>1000000000 then
-		SystemNotice (arg[1], "У вас больше 1 миллиарда золота!? Это опасно.")
+	if Money_Have>1900000000 then
+		SystemNotice (arg[1], "Do not bring more than 19 billion gold on you. Its not safe")
 		return	
 	end
 	if arg[2]==1 then
-		local j1 = TakeItem(  arg[1], 0,855, 5 )
+		local j1 = TakeItem(  arg[1], 0,855, 5 )			        
 		if j1==0 then
-			SystemNotice ( arg[1] ,"Ошибка при удалении Монеты феи ")
+			SystemNotice ( arg[1] ,"Failed to delete Fairy's coin")
 			return
 		end
 	end
 	if arg[3]==1 then
-		local j2 = TakeItem(  arg[1], 0,855, 5 )
+		local j2 = TakeItem(  arg[1], 0,855, 5 )			            
 		if j2==0 then
-			SystemNotice ( arg[1] ,"Ошибка при удалении Монеты феи ")
+			SystemNotice ( arg[1] ,"Failed to delete Fairy's coin")
 			return
 		end		
 	end
 	if arg[4]==1 then
-		local j3 = TakeItem(  arg[1], 0,855, 5 )
+		local j3 = TakeItem(  arg[1], 0,855, 5 )			            
 		if j3==0 then
-			SystemNotice ( arg[1] ,"Ошибка при удалении Монеты феи ")
+			SystemNotice ( arg[1] ,"Failed to delete Fairy's coin")
 			return
-		end
+		end		
 	end
 	local lhj_te_flg=0
 	local lhj_yi_flg=0
 	local lhj_hei_flg=0
-	local now_day= os.date("%d")		
-	local now_hour= os.date("%H")		
-	local now_miniute= os.date("%M")	
-	local now_scend=  os.date("%S")		
-	now_day= tonumber(now_day)			
-	now_hour= tonumber(now_hour)		
-	now_miniute= tonumber(now_miniute)	 	
-	now_scend= tonumber(now_scend)		
+	local now_day= os.date("%d")		-------------ИХ          
+	local now_hour= os.date("%H")		-------------К±          
+	local now_miniute= os.date("%M")	-------------·Ц          
+	local now_scend=  os.date("%S")		-------------Гл   
+	now_day= tonumber(now_day)			-------------ИХ  
+	now_hour= tonumber(now_hour)		-------------К±  
+	now_miniute= tonumber(now_miniute)	 	-------------·Ц  
+	now_scend= tonumber(now_scend)		-------------Гл 
 	local CheckTimeNum = now_day*86400 + now_hour*3600+now_miniute*60+now_scend
 	if CheckTimeNum>NOWTIME_TE+86400 then
 		NOWTIME_TE=CheckTimeNum
@@ -5098,26 +6187,26 @@ function  TigerStart( ... )
 	end
 	local j=0
 	for j=1,9,1 do
-		Item_type[j] = GetItemType2( num [j] )
-		if num[j]==822 or num[j]==823 or num[j]==825 or num[j]==826 or num[j]==827 or num[j]==1116 or num[j]==1117 or num[j]==1118 or num[j]==46  or num[j]==1124  or num[j]==1125  or num[j]==1126  or num[j]==1127 or  num[j]==1057  or  num[j]==1060   or  num[j]==1063    or  num[j]==1066   or  num[j]==1034  or  num[j]==586  or  num[j]==762  or  num[j]==3061  or  num[j]==410   or  num[j]==2885  then
-			num[j]=3360 
+		Item_type[j] = GetItemType2( num [j] )----------ЦШДГАаРН
+		if num[j]==822 or num[j]==823 or num[j]==825 or num[j]==826 or num[j]==827 or num[j]==1116 or num[j]==1117 or num[j]==1118 or num[j]==46  or num[j]==1124  or num[j]==1125  or num[j]==1126  or num[j]==1127 or  num[j]==1057  or  num[j]==1060   or  num[j]==1063    or  num[j]==1066   or  num[j]==1034  or  num[j]==586  or  num[j]==762  or  num[j]==3061  or  num[j]==410   or  num[j]==2885  then--------CABAL¶ФЅ±ИЇЈ¬ДкКЮєН»Ф»Н,ВТ¶·І»ёш
+			num[j]=3360 ---------ЧкКЇ		
 		end
-		if num[j]>=845 and num[j]<=847 then
+		if num[j]>=845 and num[j]<=847 then--------єЪБъїШЦЖ
 			local rad_s= math.random ( 1 , 40 )
 			if rad_s>=3 or lhj_hei_flg==0 then
-				num[j]=3360 
+				num[j]=3360 ---------ЧкКЇ		
 			end
 		end
-		
+		--------------feiПВГжХвјёЦЦАаРНµДОпЖ·І»ёш
 		if Item_type[j]~=1 and Item_type[j]~=2 and Item_type[j] ~=3 and Item_type[j] ~=4 and Item_type[j] ~=7 and Item_type[j] ~=9 and Item_type[j] ~=11 and Item_type[j] ~=22 and Item_type[j] ~=23 and Item_type[j] ~=24 and Item_type[j] ~=25 and Item_type[j] ~=26 and Item_type[j] ~=27 and Item_type[j] ~=29 and Item_type[j] ~=36 and Item_type[j] ~=47 and Item_type[j] ~=50 and Item_type[j] ~=57 and Item_type[j] ~=58 and Item_type[j] ~=60 and Item_type[j] ~=65 and Item_type[j] ~=66 then
 			local eleven = math.random ( 1 , 1000 )	
 			local new_id = math.random ( 3850 , 3875 )
 			if eleven <= 328 then
-				num[j]= new_id 
+				num[j]= new_id ----------їЁЖ¬
 			elseif eleven >=329 and  eleven<=999 then
-				num[j]=3360 
+				num[j]=3360 ---------ЧкКЇ
 			else
-				num[j]=194 
+				num[j]=194 ---------ЅрЗ®
 			end
 		end
 	end
@@ -5173,23 +6262,24 @@ function  TigerStart( ... )
 		end
 		if rad1==1 or  rad2==1 or rad3==1 or  rad4==1 or rad5==1 or rad6==1 or  rad7==1  or  rad8==1  or  rad9==1 or  rad10==1  or rad11==1 or  num[p]==457 or num[p]==458 or num[p]==459 or num[p]==464 or num[p]==640 or num[p]==816  or num[p]==822 or num[p]==823 or num[p]==3115 or num[p]==18 or num[p]==19 or num[p]==43 or num[p]==109 or num[p]==111 or num[p]==113 or num[p]==115 or num[p]==117 or num[p]==119  or num[p]==127 or num[p]==150 or num[p]==308 or num[p]==309 or num[p]==348 or num[p]==349 then
 			local new_id1 = math.random ( 3850 , 3875 )
-			num[p]= new_id1 
+			num[p]= new_id1 ----------їЁЖ¬		
 		end
 	end
+	----------------------їШЦЖґуЅ±іцПЦ»ъВК
 	local reset_rad=math.random ( 1 , 100 )
 	local kapian_rad=math.random ( 3850 , 3875 )
-	if reset_rad>=47 and num[1]==num[3] and num[1]==num[5] and num[1]==num[7]  and num[1]==num[9]  then
+	if reset_rad>=47 and num[1]==num[3] and num[1]==num[5] and num[1]==num[7]  and num[1]==num[9]  then-------ОеёЈН¬КЩЅµµН39%
 		num[9]=kapian_rad
 	end
-	if reset_rad>=24 and num[2]==num[4] and num[2]==num[5] and num[2]==num[6]  and num[2]==num[8]  then
+	if reset_rad>=24 and num[2]==num[4] and num[2]==num[5] and num[2]==num[6]  and num[2]==num[8]  then-------К®И«К®ГАЅµµН66%
 		num[8]=kapian_rad
 	end
-	if  num[1]==num[2] and num[1]==num[3] and num[1]==num[4]  and num[1]==num[6] and num[1]==num[7] and num[1]==num[8]  and num[1]==num[9] then
+	if  num[1]==num[2] and num[1]==num[3] and num[1]==num[4]  and num[1]==num[6] and num[1]==num[7] and num[1]==num[8]  and num[1]==num[9] then-------ЖХМмН¬ЗмЅµµН66%
 		if lhj_yi_flg==0 or reset_rad>=10 then
 			num[9]=kapian_rad
 		end
 	end
-	if  num[1]==num[2] and num[1]==num[3] and num[1]==num[4] and num[1]==num[5] and num[1]==num[6] and num[1]==num[7] and num[1]==num[8]  and num[1]==num[9] then
+	if  num[1]==num[2] and num[1]==num[3] and num[1]==num[4] and num[1]==num[5] and num[1]==num[6] and num[1]==num[7] and num[1]==num[8]  and num[1]==num[9] then-------НтКЩОЮЅ®ЅµµН89%
 		if lhj_te_flg==0 or reset_rad>=2 then
 			num[9]=kapian_rad
 		end
@@ -5198,8 +6288,9 @@ function  TigerStart( ... )
 end
 
 function TigerStop(...)
+	--Notice("TigerStop...................")
 	if arg.n ~= 13 then
-		SystemNotice ( arg[1] , "Неверное значение параметра: "..arg.n )
+		SystemNotice ( arg[1] , "parameter value illegal"..arg.n )
 		return 
 	end	
 	local flag=0
@@ -5209,10 +6300,11 @@ function TigerStop(...)
 	local flag_myp=1
 	if arg[2]==0 or arg[3]==0 or arg[4]==0 or arg[5]==0 or arg[6]==0 or arg[7]==0 or arg[8]==0 or  arg[9]==0 or arg[10]==0 or arg[2]==nil or arg[3]==nil or arg[4]==nil or arg[5]==nil or arg[6]==nil or arg[7]==nil or arg[8]==nil or  arg[9]==0 or arg[10]==nil then
 		 flag_myp=0
+		SystemNotice ( arg[1] , "Lucky Chance parameter illegal" )
 		return 	
 	end
 	local new_id = math.random ( 3850 , 3875 )
-	if arg[2] == arg[3] and arg[3] == arg[4] and arg[4] == arg[5]  and arg[5] == arg[6] and arg[6] == arg[7] and arg[7] == arg[8] and arg[8] == arg[9] and arg[9] == arg[10]  and arg[2]~=new_id and flag==1 and flag_myp==1 then 
+	if arg[2] == arg[3] and arg[3] == arg[4] and arg[4] == arg[5]  and arg[5] == arg[6] and arg[6] == arg[7] and arg[7] == arg[8] and arg[8] == arg[9] and arg[9] == arg[10]  and arg[2]~=new_id and flag==1 and flag_myp==1 then ---------------------Ў°ЦжЛ№µД»ЕїЦЎ±
 		local cha_name4 = GetChaDefaultName ( arg[1] ) 
 		local item_rad = math.random ( 1 , 9 )
 		if item_rad==1 then
@@ -5225,26 +6317,26 @@ function TigerStop(...)
 			item_rad_id=1012
 		end
 		local itemname12 = GetItemName ( item_rad_id ) 
-		local message4 = cha_name4.." выбивает 'Огромные богатства' и выигрывает 10000000 золота, 1 Расписку на Гран-при и 1 "..itemname12
+		local message4 = cha_name4.." strikes \"Immense Wealth\" and won 10000000G, 1 Grand Prize Voucher and 1 "..itemname12
 		Notice ( message4 )
-		SynTigerString ( arg[1] ," поздравляем, вы выбили 'Огромные богатства' и получили 10000000 золота и "..itemname12)
-		AddMoney ( arg[1] , 0 , 10000000 )
-		GiveItem ( arg[1] , 0 ,2665  , 1 , 4  )
+		SynTigerString ( arg[1] ,"Congratulations, you strike \"Immense Wealth\" and won yourself 10000000G and a"..itemname12)
+		AddMoney ( arg[1] , 0 , 10000000 )--------1000WєЈµБ±Т
+		GiveItem ( arg[1] , 0 ,2665  , 1 , 4  )----------------МШµИЅ±ИЇ
 		GiveItem ( arg[1] , 0 , item_rad_id  , 1 , 4  )
-		if arg[2] ~= 3360 then 
+		if arg[2] ~= 3360 then --------ЧкКЇ
 			if arg[2] == 845 or arg[2] == 846 or arg[2] == 847 then
 				local s12=math.random ( 12 , 18 )
 				GiveItem ( arg[1] , 0 , arg[2]  , 1 , s12  )
-			
+			--	Heilong_Star_Count=1
 			else 
 				GiveItem ( arg[1] , 0 , arg[2]  , 1 , 23  )
 			end
 		end
 		LG( "LHJ_wanshou_lg" ,cha_name4,arg[2],arg[3],arg[4],arg[5],arg[6],arg[7],arg[8],arg[9],arg[10])
-		
+		--TeDengJiang_Star_Count=1
 	end
-	if arg[2] == arg[3] and arg[3] == arg[4] and arg[4] == arg[5] and arg[5] == arg[7] and arg[7] == arg[8] and arg[8] == arg[9] and arg[9] == arg[10]  and arg[2]~=new_id and flag==1  and flag_myp==1  then 
-		
+	if arg[2] == arg[3] and arg[3] == arg[4] and arg[4] == arg[5] and arg[5] == arg[7] and arg[7] == arg[8] and arg[8] == arg[9] and arg[9] == arg[10]  and arg[2]~=new_id and flag==1  and flag_myp==1  then ---------------------Ў°ЖХМмН¬ЗмЎ±
+		--local itemname3 = GetItemName ( arg[3] ) 
 		local item_rad = math.random ( 1 , 8 )
 		if item_rad==1 then
 			item_rad_id=878
@@ -5265,75 +6357,75 @@ function TigerStop(...)
 		end
 		local itemname11 = GetItemName ( item_rad_id ) 
 		local cha_name3 = GetChaDefaultName ( arg[1] ) 
-		local message3 = cha_name3.." выбивает 'Всеобщий праздник', выигрывает 3000000 золота и "..itemname11
+		local message3 = cha_name3.." strikes \"All Round Celebration\" and won 3000000G and a "..itemname11
 		Notice ( message3 )
-		SynTigerString ( arg[1] ," поздравляем, Вы выбили 'Всеобщий праздник', выигрываете 3000000 золота и "..itemname11)
-		AddMoney ( arg[1] , 0 , 3000000 )
-		GiveItem ( arg[1] , 0 ,2666  , 1 , 4  )
-		
+		SynTigerString ( arg[1] ,"Congratulations, you strike \"All Round Celebration\" and won yourself 3000000G and "..itemname11)
+		AddMoney ( arg[1] , 0 , 3000000 )--------300WєЈµБ±Т
+		GiveItem ( arg[1] , 0 ,2666  , 1 , 4  )----------------Т»µИЅ±
+		--GiveItem ( arg[1] , 0 , 271  , 1 , 4  )
 		GiveItem ( arg[1] , 0 , item_rad_id  , 1 , 4  )
-		if arg[2] ~= 3360 then 
+		if arg[2] ~= 3360 then --------ЧкКЇ
 			if arg[2] == 845 or arg[2] == 846 or arg[2] == 847 then
 				local s11=math.random ( 12 , 18 )
 				GiveItem ( arg[1] , 0 , arg[2]  , 1 , s11  )
-			
+			--	Heilong_Star_Count=1
 			else 
 				GiveItem ( arg[1] , 0 , arg[2]  , 1 , 23  )
 			end
 		end
 		LG( "LHJ_putian_lg" ,cha_name3,arg[2],arg[3],arg[4],arg[5],arg[6],arg[7],arg[8],arg[9],arg[10])
-		
+		--YiDengJiang_Star_Count=1
 	end
-	if arg[3] == arg[5] and arg[5] == arg[6] and arg[6] == arg[7] and arg[7] == arg[9] and arg[3]~=new_id and flag==1  and flag_myp==1 then 
+	if arg[3] == arg[5] and arg[5] == arg[6] and arg[6] == arg[7] and arg[7] == arg[9] and arg[3]~=new_id and flag==1  and flag_myp==1 then ---------------------Ў°К®И«К®ГАЎ±
 		local itemname2 = GetItemName ( arg[3] ) 
 		local cha_name2 = GetChaDefaultName ( arg[1] ) 
-		local message2 = cha_name2.." выбивает 'Великолепную десятку', выигрывает 500000 золота и 99 Подарков "
+		local message2 = cha_name2.." strikes \"Perfect 10\" and won 500000G and a 99 Parcel"  
 		Notice ( message2 )
-		SynTigerString( arg[1] ," поздравляем, Вы выбили 'Великолепную десятку', выиграли 500000 золот и 99 Подарков ")
-		AddMoney ( arg[1] , 0 , 500000 )
-		GiveItem ( arg[1] , 0 ,2666  , 1 , 4  )
+		SynTigerString( arg[1] ,"Congratulations you strike \" Perfect Ten\" and won yourself 500000G and 99 Parcel")
+		AddMoney ( arg[1] , 0 , 500000 )--------50WєЈµБ±Т
+		GiveItem ( arg[1] , 0 ,2666  , 1 , 4  )----------------Т»µИЅ±
 		GiveItem ( arg[1] , 0 , 1095  , 1 , 4  )
-		if arg[3] ~= 3360 then 
+		if arg[3] ~= 3360 then --------ЧкКЇ
 			if arg[3] == 845 or arg[3] == 846 or arg[3] == 847 then
 				local s10=math.random ( 12 , 18 )
 				GiveItem ( arg[1] , 0 , arg[3]  , 1 , s10  )
-			
+			--	Heilong_Star_Count=1
 			else 
 				GiveItem ( arg[1] , 0 , arg[3]  , 1 , 23  )
 			end
 		end
 		LG( "LHJ_shiquan_lg" ,cha_name2,arg[2],arg[3],arg[4],arg[5],arg[6],arg[7],arg[8],arg[9],arg[10])
 	end
-	if arg[2] == arg[4] and arg[4] == arg[6] and arg[6] == arg[8] and arg[8] == arg[10] and arg[2]~=new_id and flag==1 and flag_myp==1  then 
-		
+	if arg[2] == arg[4] and arg[4] == arg[6] and arg[6] == arg[8] and arg[8] == arg[10] and arg[2]~=new_id and flag==1 and flag_myp==1  then ---------------------Ў°ОеёЈН¬КЩЎ±
+		--local itemname1 = GetItemName ( arg[2] ) 
 		local cha_name1 = GetChaDefaultName ( arg[1] ) 
-		local message1 = cha_name1.." выбивает 'Удачную пятерку' и выигрывает 300000 золота, 1 Расписку на Второй приз "
+		local message1 = cha_name1.."Congratulations, you strike \"Five Fortune\" and won yourself 300000G and 1 Second Prize Voucher" 
 		Notice ( message1 )
-		SynTigerString  ( arg[1] ,"Поздравляем, Вы выбили 'Удачную пятерку' и выигрывает 300000 золота, 1 Расписку на Второй приз ")
-		AddMoney ( arg[1] , 0 , 300000 )
-		GiveItem ( arg[1] , 0 ,2667  , 1 , 4  )
-		if arg[2] ~= 3360 then 
+		SynTigerString  ( arg[1] ,"Congratulations, you strike \"5 Fortunes\" and won yourself 300000G and a Second Prize Voucher")
+		AddMoney ( arg[1] , 0 , 300000 )--------30WєЈµБ±Т
+		GiveItem ( arg[1] , 0 ,2667  , 1 , 4  )----------------¶юµИЅ±
+		if arg[2] ~= 3360 then --------ЧкКЇ
 			if arg[2] == 845 or arg[2] == 846 or arg[2] == 847 then
 				local s9=math.random ( 12 , 18 )
 				GiveItem ( arg[1] , 0 , arg[2]  , 1 , s9  )
-			
+			--	Heilong_Star_Count=1
 			else 
 				GiveItem ( arg[1] , 0 , arg[2]  , 1 , 23  )
 			end
 		end
 		LG( "LHJ_wufu_lg" ,cha_name1,arg[2],arg[3],arg[4],arg[5],arg[6],arg[7],arg[8],arg[9],arg[10])
 	end
-	if arg[2] == arg[4] and arg[4] == arg[8] and arg[8] == arg[10] and arg[2]~=new_id and flag==1 and flag_myp==1 then 
-		SystemNotice ( arg[1] ,"Поздравляем, Вы выбиваете '4 сезона', выигрывает 50000 золота и комплект снаряжения с Черного рынка ")
-		SynTigerString  ( arg[1] ,"Поздравляем, Вы выбили '4 сезона' и выигрываете 50000 золота, комплект снаряжения с Черного рынка ")
-		AddMoney ( arg[1] , 0 , 50000 )
-		GiveItem ( arg[1] , 0 ,2668  , 1 , 4  )
+	if arg[2] == arg[4] and arg[4] == arg[8] and arg[8] == arg[10] and arg[2]~=new_id and flag==1 and flag_myp==1 then ---------------------Ў°ЛДјѕЖЅ°ІЎ±
+		SystemNotice ( arg[1] ,"Congratulations, you strike \"4 Seasons\" and won yourself 50000G and a piece of Black Market Equipment.")
+		SynTigerString  ( arg[1] ,"Congratulations, you striked \"4 Seasons\" and won yourself 50000G and a piece of Black Market Equipment.")
+		AddMoney ( arg[1] , 0 , 50000 )--------5WєЈµБ±Т
+		GiveItem ( arg[1] , 0 ,2668  , 1 , 4  )----------------ИэµИЅ±
 		GiveItem ( arg[1] , 0 , 3323  , 1 , 4  )
-		if arg[2] ~= 3360 then 
+		if arg[2] ~= 3360 then --------ЧкКЇ
 			if arg[2] == 845 or arg[2] == 846 or arg[2] == 847 then
 				local s8=math.random ( 12 , 18 )
 				GiveItem ( arg[1] , 0 , arg[2]  , 1 , s8  )
-			
+			--	Heilong_Star_Count=1
 			else 
 				GiveItem ( arg[1] , 0 , arg[2]  , 1 , 23  )
 			end
@@ -5341,22 +6433,22 @@ function TigerStop(...)
 		local cha_name1 = GetChaDefaultName ( arg[1] ) 
 		LG( "LHJ_siji_lg" ,cha_name1,arg[2],arg[3],arg[4],arg[5],arg[6],arg[7],arg[8],arg[9],arg[10])
 	end
-	if arg[3] == arg[5] and arg[5] == arg[7] and arg[7] == arg[9] and arg[3]~=new_id and flag==1 and flag_myp==1 then 
-		SystemNotice ( arg[1] ,"Поздравляем, Вы выбиваете 'Зести', выигрываете 30000 золота и комплект снаряжения с Черного рынка ")
-		SynTigerString  ( arg[1] ,"Поздравляем, Вы выбиваете 'Зести', выигрываете 30000 золота и комплект снаряжения с Черного рынка ")
-		AddMoney ( arg[1] , 0 , 30000 )
-		GiveItem ( arg[1] , 0 ,2668  , 1 , 4  )
+	if arg[3] == arg[5] and arg[5] == arg[7] and arg[7] == arg[9] and arg[3]~=new_id and flag==1 and flag_myp==1 then ---------------------Ў°РЎїХРДІЛЎ±
+		SystemNotice ( arg[1] ,"Congratulations, you striked \"Zesty\" and won yourself 30000G and a piece of Black Market equipment.")
+		SynTigerString  ( arg[1] ,"Congratulations, you strike \"Zesty\" and won yourself 30000G and a Black Market Equipment")
+		AddMoney ( arg[1] , 0 , 30000 )--------3WєЈµБ±Т
+		GiveItem ( arg[1] , 0 ,2668  , 1 , 4  )----------------ИэµИЅ±
 		local rad_heishi=math.random ( 1 , 2 )
 		if rad_heishi==1 then
 			GiveItem ( arg[1] , 0 , 3326  , 1 , 4  )
 		else
 			GiveItem ( arg[1] , 0 , 3328  , 1 , 4  )			
 		end
-		if arg[3] ~= 3360 then 
+		if arg[3] ~= 3360 then --------ЧкКЇ
 			if arg[3] == 845 or arg[3] == 846 or arg[3] == 847 then
 				local s7=math.random ( 12 , 18 )
 				GiveItem ( arg[1] , 0 , arg[3]  , 1 , s7  )
-			
+			--	Heilong_Star_Count=1
 			else 
 				GiveItem ( arg[1] , 0 , arg[3]  , 1 , 23  )
 			end
@@ -5364,15 +6456,16 @@ function TigerStop(...)
 		local cha_name1 = GetChaDefaultName ( arg[1] ) 
 		LG( "LHJ_xiaokong_lg" ,cha_name1,arg[2],arg[3],arg[4],arg[5],arg[6],arg[7],arg[8],arg[9],arg[10])
 	end
-	if arg[4] == arg[6] and arg[6] == arg[8] and arg[4]~=new_id and flag==1 and flag_myp==1 then 
-		SystemNotice ( arg[1] ,"Поздравляем, Вы выбиваете 'Золотую диагональ' и выигрываете 10000 золота ")
-		SynTigerString ( arg[1] ,"Поздравляем, Вы выбиваете 'Золотую диагональ' и выигрываете 10000 золота ")
-		AddMoney ( arg[1] , 0 , 10000 )
+	if arg[4] == arg[6] and arg[6] == arg[8] and arg[4]~=new_id and flag==1 and flag_myp==1 then ---------------------Ў°»ЖЅр¶ФЅЗПЯЎ±
+		SystemNotice ( arg[1] ,"Congratulations, you striked \"Golden Diagonal\" and won yourself 10000G.")
+		SynTigerString ( arg[1] ,"Congratulations, you striked \"Golden Diagonal\" and won yourself 10000G.")
+		AddMoney ( arg[1] , 0 , 10000 )--------1WєЈµБ±Т
 		GiveItem ( arg[1] , 0 , 3096  , 1 , 4  )
-		if arg[4] ~= 3360 then 
+		if arg[4] ~= 3360 then --------ЧкКЇ
 			if arg[4] == 845 or arg[4] == 846 or arg[4] == 847 then
 				local s5=math.random ( 12 , 18 )
 				GiveItem ( arg[1] , 0 , arg[4]  , 1 , s5  )
+			--	Heilong_Star_Count=1
 			else 
 				GiveItem ( arg[1] , 0 , arg[4]  , 1 , 23  )
 			end
@@ -5380,15 +6473,16 @@ function TigerStop(...)
 		local cha_name1 = GetChaDefaultName ( arg[1] ) 
 		LG( "LHJ_qita_lg" ,cha_name1,arg[2],arg[3],arg[4],arg[5],arg[6],arg[7],arg[8],arg[9],arg[10])
 	end
-	if arg[2] == arg[6] and arg[6] == arg[10] and arg[2]~=new_id and flag==1 and flag_myp==1 then 
-		SystemNotice ( arg[1] ,"Поздравляем, Вы выбиваете 'Белую диагональ' и выигрываете 10000 золота ")
-		SynTigerString  ( arg[1] ,"Поздравляем, Вы выбиваете 'Белую диагональ' и выигрываете 10000 золота ")
-		AddMoney ( arg[1] , 0 , 10000 )
+	if arg[2] == arg[6] and arg[6] == arg[10] and arg[2]~=new_id and flag==1 and flag_myp==1 then ---------------------Ў°°ЧЅр¶ФЅЗПЯЎ±
+		SystemNotice ( arg[1] ,"Congratulations, you strike \"White Diagonal\" and won youself 10000G")
+		SynTigerString  ( arg[1] ,"Congratulations, you strike \"White Diagonal\" and won youself 10000G")
+		AddMoney ( arg[1] , 0 , 10000 )--------1WєЈµБ±Т
 		GiveItem ( arg[1] , 0 , 3094  , 1 , 4  )
-		if arg[2] ~= 3360 then 
+		if arg[2] ~= 3360 then --------ЧкКЇ
 			if arg[2] == 845 or arg[2] == 846 or arg[2] == 847 then
 				local s6=math.random ( 12 , 18 )
 				GiveItem ( arg[1] , 0 , arg[2]  , 1 , s6  )
+			--	Heilong_Star_Count=1
 			else 
 				GiveItem ( arg[1] , 0 , arg[2]  , 1 , 23  )
 			end
@@ -5396,14 +6490,15 @@ function TigerStop(...)
 		local cha_name1 = GetChaDefaultName ( arg[1] ) 
 		LG( "LHJ_qita_lg" ,cha_name1,arg[2],arg[3],arg[4],arg[5],arg[6],arg[7],arg[8],arg[9],arg[10])
 	end
-	if arg[5] == arg[6] and arg[6] == arg[7] and arg[5]~=new_id and flag==1 and flag_myp==1 then 
-		SystemNotice ( arg[1] ,"Поздравляем, Вы выбиваете 'Очко' и выигрываете 8000 золота ")
-		SynTigerString ( arg[1] ,"Поздравляем, Вы выбиваете 'Очко' и выигрываете 8000 золота ")
-		AddMoney ( arg[1] , 0 , 8000 )
-		if arg[5] ~= 3360 then 
+	if arg[5] == arg[6] and arg[6] == arg[7] and arg[5]~=new_id and flag==1 and flag_myp==1 then ---------------------Ў°Т»ЦщЗжМмЎ±
+		SystemNotice ( arg[1] ,"Congratulations, you strike \"The One\" and won yourself 8000G")
+		SynTigerString ( arg[1] ,"Congratulations, you strike \"The One\" and won yourself 8000G")
+		AddMoney ( arg[1] , 0 , 8000 )--------8kєЈµБ±Т
+		if arg[5] ~= 3360 then --------ЧкКЇ
 			if arg[5] == 845 or arg[5] == 846 or arg[5] == 847 then
 				local s4=math.random ( 12 , 18 )
 				GiveItem ( arg[1] , 0 , arg[5]  , 1 , s4  )
+			--	Heilong_Star_Count=1
 			else 
 				GiveItem ( arg[1] , 0 , arg[5]  , 1 , 23  )
 			end
@@ -5411,14 +6506,15 @@ function TigerStop(...)
 		local cha_name1 = GetChaDefaultName ( arg[1] ) 
 		LG( "LHJ_qita_lg" ,cha_name1,arg[2],arg[3],arg[4],arg[5],arg[6],arg[7],arg[8],arg[9],arg[10])
 	end
-	if arg[2] == arg[5] and arg[5] == arg[8] and arg[11]==1 and arg[2]~=new_id and flag_myp==1 then 
-		SystemNotice ( arg[1] ,"Поздравляем, вы выбиваете 'Безопасное путешествие' и выигрываете 2000 золота ")
-		SynTigerString( arg[1] ,"Поздравляем, вы выбиваете 'Безопасное путешествие' и выигрываете 2000 золота ")
-		AddMoney ( arg[1] , 0 , 2000 )
-		if arg[2] ~= 3360 then 
+	if arg[2] == arg[5] and arg[5] == arg[8] and arg[11]==1 and arg[2]~=new_id and flag_myp==1 then ---------------------Ў°Т»·«·зЛіЎ±
+		SystemNotice ( arg[1] ,"Congratulations, you strike \"Safe Voyage\" and won yourself 2000G")
+		SynTigerString( arg[1] ,"Congratulations, you strike \"Safe Voyage\" and won yourself 2000G")
+		AddMoney ( arg[1] , 0 , 2000 )--------2kєЈµБ±Т
+		if arg[2] ~= 3360 then --------ЧкКЇ
 			if arg[2] == 845 or arg[2] == 846 or arg[2] == 847 then
 				local s1=math.random ( 12 , 18 )
 				GiveItem ( arg[1] , 0 ,arg[2]  , 1 , s1  )
+			--	Heilong_Star_Count=1
 			else 
 				GiveItem ( arg[1] , 0 , arg[2]  , 1 , 23  )
 			end
@@ -5427,14 +6523,14 @@ function TigerStop(...)
 		LG( "LHJ_qita_lg" ,cha_name1,arg[2],arg[3],arg[4],arg[5],arg[6],arg[7],arg[8],arg[9],arg[10])
 	end
 	if arg[3] == arg[6] and arg[6] == arg[9] and arg[12]==1 and arg[3]~=new_id and flag_myp==1 then
-		SystemNotice ( arg[1] ,"Поздравляем, вы выбиваете 'Безопасное путешествие' и выигрываете 2000 золота ")
-		SynTigerString( arg[1] ,"Поздравляем, вы выбиваете 'Безопасное путешествие' и выигрываете 2000 золота ")
-		AddMoney ( arg[1] , 0 , 2000 )
-		if arg[3] ~= 3360 then 
+		SystemNotice ( arg[1] ,"Congratulations, you strike \"Safe Voyage\" and won yourself 2000G")
+		SynTigerString( arg[1] ,"Congratulations, you strike \"Safe Voyage\" and won yourself 2000G")
+		AddMoney ( arg[1] , 0 , 2000 )--------2kєЈµБ±Т
+		if arg[3] ~= 3360 then --------ЧкКЇ
 			if arg[3] == 845 or arg[3] == 846 or arg[3] == 847 then
 				local s2=math.random ( 12 , 18 )
 				GiveItem ( arg[1] , 0 , arg[3]  , 1 , s2  )
-			
+			--	Heilong_Star_Count=1
 			else 
 				GiveItem ( arg[1] , 0 , arg[3]  , 1 , 23  )
 			end
@@ -5443,14 +6539,14 @@ function TigerStop(...)
 		LG( "LHJ_qita_lg" ,cha_name1,arg[2],arg[3],arg[4],arg[5],arg[6],arg[7],arg[8],arg[9],arg[10])
 	end
 	if arg[4] == arg[7] and arg[7] == arg[10] and arg[13]==1 and arg[4]~=new_id and flag_myp==1 then
-		SystemNotice ( arg[1] ,"Поздравляем, вы выбиваете 'Безопасное путешествие' и выигрываете 2000 золота ")
-		SynTigerString( arg[1] ,"Поздравляем, вы выбиваете 'Безопасное путешествие' и выигрываете 2000 золота ")
-		AddMoney ( arg[1] , 0 , 2000 )
-		if arg[4] ~= 3360 then 
+		SystemNotice ( arg[1] ,"Congratulations, you strike \"Safe Voyage\" and won yourself 2000G")
+		SynTigerString( arg[1] ,"Congratulations, you strike \"Safe Voyage\" and won yourself 2000G")
+		AddMoney ( arg[1] , 0 , 2000 )--------2kєЈµБ±Т
+		if arg[4] ~= 3360 then --------ЧкКЇ
 			if arg[4] == 845 or arg[4] == 846 or arg[4] == 847 then
 				local s3=math.random ( 12 , 18 )
 				GiveItem ( arg[1] , 0 , arg[4]  , 1 , s3  )
-			
+			--	Heilong_Star_Count=1
 			else 
 				GiveItem ( arg[1] , 0 , arg[4]  , 1 , 23  )
 			end
@@ -5465,9 +6561,9 @@ function TigerStop(...)
 			eleven =eleven +1
 		end
 	end
-	for star = 3, 9, 3 do
-		if arg[star] == 194 and arg[12] == 1 and flag_myp == 1 then
-			eleven = eleven + 1
+	for star=3,9,3 do
+		if arg[star] ==194 and arg[12] == 1 and flag_myp==1 then
+			eleven =eleven +1
 		end
 	end
 	for star=4,10,3 do
@@ -5476,99 +6572,131 @@ function TigerStop(...)
 		end
 	end
 	if eleven==0 then
-		SynTigerString( arg[1] ,"Вы должны упорно работать.")
+		SynTigerString( arg[1] ,"You need to work harder.")
 	else 
-		SystemNotice ( arg[1] ,"В текущей игре вы выиграли "..eleven.." золота и получили "..eleven.." купюр на миллион долларов ")
-		SynTigerString( arg[1] ,"Поздравляем, вы выиграли "..eleven.." купюр на миллион долларов ")
+		SystemNotice ( arg[1] ,"In current event, you strike a total of "..eleven.." gold obtain "..eleven.."Million Dollar Note")
+		SynTigerString( arg[1] ,"Congratulations you strike"..eleven.."Million Dollar Note")
 		GiveItem ( arg[1] , 0 , 854  , eleven , 4  )
 	end
 end
----------------------
--- Джекпот (Конец) --
----------------------
+--function Change_FightingBook (character, npc)
+--	local HonorBook_Num = 0
+--	local HonorBook_Num = CheckBagItem( character,3849 )
+--	local FightingBook_Num = 0
+--	local FightingBook_Num = CheckBagItem( character,3849 )
+--	local retbag = HasLeaveBagGrid( character, 1)
+--	if retbag ~= LUA_TRUE then
+--		SystemNotice(character,"You required 1 empty inventory slot to obtain Chaos Manual")
+--		return 
+--	end	
+--	if FightingBook_Num> 0 then
+--		SystemNotice( character , "You already possess a Chaos Manual")
+--		return 0
+--	end
+--	
+--	
+--	
+--	if	 HonorBook_Num <= 0 then
+--		GiveItem ( character , 0 , 3849  , 1 , 97 )
+--	else
+--		GiveItem ( character , 0 , 3849  , 1 , 97 )
+--		local Book2 =  GetChaItem2 ( character , 2 , 3849 )
+--		local HonorPoint=GetItemAttr ( Book2 , ITEMATTR_VAL_STR)
+--		local KillNum=GetItemAttr ( Book2 , ITEMATTR_VAL_AGI)
+--		local KilledNum=GetItemAttr ( Book2 , ITEMATTR_VAL_DEX)
+--		local JionNum=GetItemAttr ( Book2 , ITEMATTR_VAL_CON)
+--		local VictoryNum=GetItemAttr ( Book2 , ITEMATTR_VAL_STA)
+--		local PartyContributeNum=GetItemAttr ( Book2 , ITEMATTR_MAXURE)
+--		local Book = GetChaItem2 ( character , 2 , 3849 )
+--		SetItemAttr ( Book , ITEMATTR_VAL_STR,HonorPoint)
+--		SetItemAttr ( Book , ITEMATTR_VAL_AGI,KillNum)
+--		SetItemAttr ( Book , ITEMATTR_VAL_DEX,KilledNum)
+--		SetItemAttr ( Book , ITEMATTR_VAL_CON,JionNum)
+--		SetItemAttr ( Book , ITEMATTR_VAL_STA,VictoryNum)
+--		SetItemAttr ( Book , ITEMATTR_MAXURE,PartyContributeNum)
+----		SetItemAttr ( Book2 , ITEMATTR_MAXENERGY,FightingPoint)
+--		RemoveChaItem ( character , 3849 , 1 , 2 , -1, 2 , 1  )	
+--		
+--	end
+--end
 
 function Change_shanyao (character, npc)
 	local NocLock =	KitbagLock( character, 0 )
 		if NocLock == LUA_FALSE then
-		SystemNotice( character , "Ваш инвентарь заблокирован ")
+		SystemNotice( character , "Your inventory is being binded")
 		return 0
 	end
+		 
 	local HonorBook_Num = 0
 	local HonorBook_Num = CheckBagItem( character,3849 )
 		if HonorBook_Num < 1 then
-		SystemNotice( character , "У вас нет Медали отваги ")
+		SystemNotice( character , "You do not have Mark of Honor")
 		return 0
 		end
 	local Book2 =  GetChaItem2 ( character , 2 , 3849 )
 	local HonorPoint=GetItemAttr ( Book2 , ITEMATTR_VAL_STR)
 		if HonorPoint < 200 then
-			SystemNotice( character , "У вас недостаточно очков чести ")
+			SystemNotice( character , "You do not have sufficient Honor points")
 			return 0
 		end
 	local HonorPoint_X=HonorPoint-200
 	SetItemAttr ( Book2 , ITEMATTR_VAL_STR,HonorPoint_X)
 	local Item_CanGet = GetChaFreeBagGridNum ( character )
+		
 		if Item_CanGet <= 0 then
-			SystemNotice(character ,"У вас недостаточно свободных слотов в инвентаре ")
+			SystemNotice(character ,"You do not have enough slots")
 			UseItemFailed ( character )
 			return
 		end
 	GiveItem ( character , 0 , 2614  , 1 , 4 ) 
 end
 
-function Change_rongyao( character, npc )
-	local NocLock =	KitbagLock( character, 0 )
-
-	if NocLock == LUA_FALSE then
-		SystemNotice( character, "Ваш инвентарь заблокирован " )
-		return 0
-	end
-
-	local HonorBook_Num = 0
-	local HonorBook_Num = CheckBagItem( character, 3849 )
-
-	if HonorBook_Num < 1 then
-		SystemNotice( character, "У вас нет Медали отваги " )
-		return 0
-	end
-
-	local Book2 = GetChaItem2( character, 2, 3849 )
-	local HonorPoint = GetItemAttr( Book2, ITEMATTR_VAL_STR )
-
-	if HonorPoint < 2000 then
-		SystemNotice( character, "У вас недостаточно очков чести " )
-		return 0
-	end
-
-	local HonorPoint_X = HonorPoint - 2000
-	SetItemAttr( Book2, ITEMATTR_VAL_STR,HonorPoint_X )
-	local Item_CanGet = GetChaFreeBagGridNum( character )
-
-	if Item_CanGet <= 0 then
-		SystemNotice( character, "У вас недостаточно свободных слотов в инвентаре " )
-		UseItemFailed( character )
-		return
-	end
-
-	GiveItem( character, 0, 2615, 1, 4 )
-end
-
-function Change_huihuang (character, npc)
-	local NocLock =	KitbagLock( character, 0 )
+function Change_rongyao (character, npc)
+local NocLock =	KitbagLock( character, 0 )
 		if NocLock == LUA_FALSE then
-		SystemNotice( character , "Ваш инвентарь заблокирован ")
+		SystemNotice( character , "Your inventory is being binded")
 		return 0
 	end
 	local HonorBook_Num = 0
 	local HonorBook_Num = CheckBagItem( character,3849 )
 		if HonorBook_Num < 1 then
-		SystemNotice( character , "У вас нет Медали отваги ")
+		SystemNotice( character , "You do not have Mark of Honor")
+		return 0
+		end
+	local Book2 =  GetChaItem2 ( character , 2 , 3849 )
+	local HonorPoint=GetItemAttr ( Book2 , ITEMATTR_VAL_STR)
+		if HonorPoint < 2000 then
+			SystemNotice( character , "You do not have sufficient Honor points")
+			return 0
+		end
+	local HonorPoint_X=HonorPoint-2000
+	SetItemAttr ( Book2 , ITEMATTR_VAL_STR,HonorPoint_X)
+	local Item_CanGet = GetChaFreeBagGridNum ( character )
+		
+		if Item_CanGet <= 0 then
+			SystemNotice(character ,"You do not have enough slots")
+			UseItemFailed ( character )
+			return
+		end
+	GiveItem ( character , 0 , 2615  , 1 , 4 )
+end
+
+function Change_huihuang (character, npc)
+	local NocLock =	KitbagLock( character, 0 )
+		if NocLock == LUA_FALSE then
+		SystemNotice( character , "Your inventory is being binded")
+		return 0
+	end
+	local HonorBook_Num = 0
+	local HonorBook_Num = CheckBagItem( character,3849 )
+		if HonorBook_Num < 1 then
+		SystemNotice( character , "You do not have Mark of Honor")
 		return 0
 		end
 	local Book2 =  GetChaItem2 ( character , 2 , 3849 )
 	local HonorPoint=GetItemAttr ( Book2 , ITEMATTR_VAL_STR)
 		if HonorPoint < 20000 then
-			SystemNotice( character , "У вас недостаточно очков чести ")
+			SystemNotice( character , "You do not have sufficient Honor points")
 			return 0
 		end
 	local HonorPoint_X=HonorPoint-20000
@@ -5576,216 +6704,228 @@ function Change_huihuang (character, npc)
 	local Item_CanGet = GetChaFreeBagGridNum ( character )
 		
 		if Item_CanGet <= 0 then
-			SystemNotice(character ,"У вас недостаточно свободных слотов в инвентаре ")
+			SystemNotice(character ,"You do not have enough slots")
 			UseItemFailed ( character )
 			return
 		end
 	GiveItem ( character , 0 , 2616  , 1 , 4 )
 end
-
 function Eleven_Log_0( role ) 
 	local cha_name = GetChaDefaultName ( role ) 
 	local job = GetChaAttr(role, ATTR_JOB)
 	local lv = GetChaAttr(role, ATTR_LV) 
 	LG( "Eleven_Log_0" ,cha_name,lv,job)
 end
-
 function Eleven_Log( role,typ ) 
 	local cha_name = GetChaDefaultName ( role ) 
 	local job = GetChaAttr(role, ATTR_JOB)
 	local lv = GetChaAttr(role, ATTR_LV) 
 	LG( "Eleven_Log" ,cha_name,lv,job,typ)
 end
-
---------------------------------------------------------------------
------------------------- АнтиБот (Не нужен) ------------------------
---------------------------------------------------------------------
-
+-------------------------------------------------------------------------------------
+--				LeoµД·АНв№ТґрМвЅ±Аш
+-------------------------------------------------------------------------------------
 function WGPrizeBegin( role , rightCount)
 	local rightCountTemp = rightCount
 	if rightCountTemp > 6 then
 		rightCountTemp = 6
 	end
+	
 	local isPrizeRandom = math.random(rightCountTemp,10)
 	local retRandom = math.random ( 1 , 100 )
 	local ret  = 1
+	
 	if isPrizeRandom > 5  then
 		if math.mod ( retRandom , 6 ) == 0 then
 			 ret = WGprize_1(role)
 		end
+		
 		if math.mod ( retRandom , 6 ) == 1  then
 			 ret = WGprize_2(role)
 		end
+		
 		if math.mod ( retRandom , 6 ) == 2  then
 			 ret = WGprize_3(role)
 		end
+		
 		if math.mod ( retRandom , 6 ) == 3  then
 			 ret = WGprize_4(role)
 		end
+		
 		if math.mod ( retRandom , 6 ) == 4  then
 			 ret = WGprize_5(role)
 		end
+		
 		if math.mod ( retRandom , 6 ) == 5  then
 			 ret = WGprize_6(role)
-		end		
+		end
+		
 		if ret ==1 then
 			SystemNotice( role , "Return value error")
 		end
 	else
-		SystemNotice( role , "Правильно! Вы не выиграли некакого приза " )
+		SystemNotice( role , "Correct! You have failed to win any prize" )
 	end
 end
-
-function WGprize_1( role ) 
+function WGprize_1( role ) --јУѕ­Сй LV * 10
 	local expNow = GetChaAttr( role , ATTR_CEXP )
 	local lvNow = GetChaAttr( role , ATTR_LV)
-	SystemNotice( role , "Правильно! Вы получили " .. lvNow*10 .. " очков опыта ")
+	
+	SystemNotice( role , "Correct! You have obtained " .. lvNow*10 .. " experience points")
 	SetChaAttrI(  role , ATTR_CEXP ,expNow+lvNow*10  )
 	RefreshCha(role)
 	return 0
 end
 
-function WGprize_2( role ) 
+function WGprize_2( role ) --Ѕ«µ±З°СЄІ№Въ
 	local bloodMaxNow = GetChaAttr( role , ATTR_MXHP)
-	SystemNotice( role , "Правильно! Ваше здоровье восстановлено ")
+	SystemNotice( role , "Correct! Your HP is restored")
 	SetChaAttrI( role , ATTR_HP ,bloodMaxNow  )
 	RefreshCha(role)
 	return 0
 end
 
-function WGprize_3(role) 
+function WGprize_3(role) --Ѕ«µ±З°А¶І№Въ
 	local SPMaxNow = GetChaAttr( role , ATTR_MXSP)
-	SystemNotice( role , " Правильный ответ! Вам восстановили Вам максимальное кол-во МН ")
+	SystemNotice( role , " Correct answer will restore your SP to the max")
 	SetChaAttrI( role , ATTR_SP, SPMaxNow  )
 	RefreshCha(role)
 	return 0
 end
 
-function WGprize_4(role) 
+function WGprize_4(role) --Ѕ±АшLV*1ёцµ°ёв
 	local lvNow = GetChaAttr( role , ATTR_LV)
-	SystemNotice( role , "Ответ правильный и Вы получили  " .. lvNow .. " кексов ")
-	GiveItem( role , 0 , 1849  , lvNow , 4 )
+	SystemNotice( role , "Answered correctly and obtained  " .. lvNow .. " cake(s)")
+	
+	GiveItem( role , 0 , 1849  , lvNow , 4 )	
 	return 0
 end
 
-function WGprize_5(role) 
-	SystemNotice( role , "Правильный ответ даст 1 Обратный Билет ")
-	GiveItem( role , 0 , 3141  , 1 , 4 )
+function WGprize_5(role) --ЙсПЙЅґ№ы1ёц
+	SystemNotice( role , "Correct answer will give you 1 Old Ticket")
+	
+	GiveItem( role , 0 , 3141  , 1 , 4 )	
 	return 0
 end
 
-function WGprize_6(role) 
+function WGprize_6(role) --СЄА¶И«Въ
 	local bloodMaxNow = GetChaAttr( role , ATTR_MXHP)
 	local SPMaxNow = GetChaAttr( role , ATTR_MXSP)
-	SystemNotice( role , "Правильный ответ будет восстанавливит Вам здоровье и ману ")
+	
+	SystemNotice( role , "Correct answer will restore HP & SP to the max")
+	
 	SetChaAttrI( role , ATTR_HP ,bloodMaxNow  )
 	SetChaAttrI( role , ATTR_SP ,SPMaxNow  )
 	RefreshCha(role)
 	return 0
 end
+-------------------------------------------------------------------------------------
+--				Leo  end
+-------------------------------------------------------------------------------------
 
-	GetExp		= {}
-	GetExp[1]	= 0
-	GetExp[2]	= 5
-	GetExp[3]	= 15
-	GetExp[4]	= 35
-	GetExp[5]	= 101
-	GetExp[6]	= 250
-	GetExp[7]	= 500
-	GetExp[8]	= 1000
-	GetExp[9]	= 1974
-	GetExp[10]	= 3208
-	GetExp[11]	= 4986
-	GetExp[12]	= 7468
-	GetExp[13]	= 10844
-	GetExp[14]	= 15338
-	GetExp[15]	= 21210
-	GetExp[16]	= 28766
-	GetExp[17]	= 38356
-	GetExp[18]	= 50382
-	GetExp[19]	= 65306
-	GetExp[20]	= 83656
-	GetExp[21]	= 106032
-	GetExp[22]	= 133112
-	GetExp[23]	= 165668
-	GetExp[24]	= 204564
-	GetExp[25]	= 250780
-	GetExp[26]	= 305412
-	GetExp[27]	= 369692
-	GetExp[28]	= 444998
-	GetExp[29]	= 532870
-	GetExp[30]	= 635026
-	GetExp[31]	= 753378
-	GetExp[32]	= 890062
-	GetExp[33]	= 1047438
-	GetExp[34]	= 1228138
-	GetExp[35]	= 1435074
-	GetExp[36]	= 1671470
-	GetExp[37]	= 1940892
-	GetExp[38]	= 2247288
-	GetExp[39]	= 2595010
-	GetExp[40]	= 2988860
-	GetExp[41]	= 3434132
-	GetExp[42]	= 3936658
-	GetExp[43]	= 4502856
-	GetExp[44]	= 5139778
-	GetExp[45]	= 5855180
-	GetExp[46]	= 6657576
-	GetExp[47]	= 7556310
-	GetExp[48]	= 8561630
-	GetExp[49]	= 9684764
-	GetExp[50]	= 10938016
-	GetExp[51]	= 12334856
-	GetExp[52]	= 13890020
-	GetExp[53]	= 15619622
-	GetExp[54]	= 17541282
-	GetExp[55]	= 19674240
-	GetExp[56]	= 22039516
-	GetExp[57]	= 24660044
-	GetExp[58]	= 27560852
-	GetExp[59]	= 30769230
-	GetExp[60]	= 37746418
-	GetExp[61]	= 45876427
-	GetExp[62]	= 59571153
-	GetExp[63]	= 75703638
-	GetExp[64]	= 94615279
-	GetExp[65]	= 116688304
-	GetExp[66]	= 155291059
-	GetExp[67]	= 186418013
-	GetExp[68]	= 238159614
-	GetExp[69]	= 298622278
-	GetExp[70]	= 368975850
-	GetExp[71]	= 450525549
-	GetExp[72]	= 568409779
-	GetExp[73]	= 679324744
-	GetExp[74]	= 806544569
-	GetExp[75]	= 952091724
-	GetExp[76]	= 1188099236
-	GetExp[77]	= 1480429211
-	GetExp[78]	= 1776125584
-	GetExp[79]	= 2091634902
-	GetExp[80]	= 2425349810
-	GetExp[81]	= 2440895086
-	GetExp[82]	= 2458896515
-	GetExp[83]	= 2479742169
-	GetExp[84]	= 2503881436
-	GetExp[85]	= 2531834707
-	GetExp[86]	= 2564204594
-	GetExp[87]	= 2601688923
-	GetExp[88]	= 2645095775
-	GetExp[89]	= 2695360909
-	GetExp[90]	= 2753567934
-	GetExp[91]	= 2820971668
-	GetExp[92]	= 2899025191
-	GetExp[93]	= 2989411170
-	GetExp[94]	= 3094078133
-	GetExp[95]	= 3215282476
-	GetExp[96]	= 3355637105
-	GetExp[97]	= 3518167765
-	GetExp[98]	= 3706378269
-	GetExp[99]	= 3924326032
-	GetExp[100]	= 4176709541
-
+--------±±ГАМъИЛБщПо»о¶Ї---------bragi-----
+	GetExp	=	{}		------------ИЎµИј¶¶ФУ¦ЧЬѕ­Сй
+	GetExp[1]	=	0
+	GetExp[2]	=	5
+	GetExp[3]	=	15
+	GetExp[4]	=	35
+	GetExp[5]	=	101
+	GetExp[6]	=	250
+	GetExp[7]	=	500
+	GetExp[8]	=	1000
+	GetExp[9]	=	1974
+	GetExp[10]	=	3208
+	GetExp[11]	=	4986
+	GetExp[12]	=	7468
+	GetExp[13]	=	10844
+	GetExp[14]	=	15338
+	GetExp[15]	=	21210
+	GetExp[16]	=	28766
+	GetExp[17]	=	38356
+	GetExp[18]	=	50382
+	GetExp[19]	=	65306
+	GetExp[20]	=	83656
+	GetExp[21]	=	106032
+	GetExp[22]	=	133112
+	GetExp[23]	=	165668
+	GetExp[24]	=	204564
+	GetExp[25]	=	250780
+	GetExp[26]	=	305412
+	GetExp[27]	=	369692
+	GetExp[28]	=	444998
+	GetExp[29]	=	532870
+	GetExp[30]	=	635026
+	GetExp[31]	=	753378
+	GetExp[32]	=	890062
+	GetExp[33]	=	1047438
+	GetExp[34]	=	1228138
+	GetExp[35]	=	1435074
+	GetExp[36]	=	1671470
+	GetExp[37]	=	1940892
+	GetExp[38]	=	2247288
+	GetExp[39]	=	2595010
+	GetExp[40]	=	2988860
+	GetExp[41]	=	3434132
+	GetExp[42]	=	3936658
+	GetExp[43]	=	4502856
+	GetExp[44]	=	5139778
+	GetExp[45]	=	5855180
+	GetExp[46]	=	6657576
+	GetExp[47]	=	7556310
+	GetExp[48]	=	8561630
+	GetExp[49]	=	9684764
+	GetExp[50]	=	10938016
+	GetExp[51]	=	12334856
+	GetExp[52]	=	13890020
+	GetExp[53]	=	15619622
+	GetExp[54]	=	17541282
+	GetExp[55]	=	19674240
+	GetExp[56]	=	22039516
+	GetExp[57]	=	24660044
+	GetExp[58]	=	27560852
+	GetExp[59]	=	30769230
+	GetExp[60]	=	37746418
+	GetExp[61]	=	45876427
+	GetExp[62]	=	59571153
+	GetExp[63]	=	75703638
+	GetExp[64]	=	94615279
+	GetExp[65]	=	116688304
+	GetExp[66]	=	155291059
+	GetExp[67]	=	186418013
+	GetExp[68]	=	238159614
+	GetExp[69]	=	298622278
+	GetExp[70]	=	368975850
+	GetExp[71]	=	450525549
+	GetExp[72]	=	568409779
+	GetExp[73]	=	679324744
+	GetExp[74]	=	806544569
+	GetExp[75]	=	952091724
+	GetExp[76]	=	1188099236
+	GetExp[77]	=	1480429211
+	GetExp[78]	=	1776125584
+	GetExp[79]	=	2091634902
+	GetExp[80]	=	2425349810
+	GetExp[81]	=	2440895086
+	GetExp[82]	=	2458896515
+	GetExp[83]	=	2479742169
+	GetExp[84]	=	2503881436
+	GetExp[85]	=	2531834707
+	GetExp[86]	=	2564204594
+	GetExp[87]	=	2601688923
+	GetExp[88]	=	2645095775
+	GetExp[89]	=	2695360909
+	GetExp[90]	=	2753567934
+	GetExp[91]	=	2820971668
+	GetExp[92]	=	2899025191
+	GetExp[93]	=	2989411170
+	GetExp[94]	=	3094078133
+	GetExp[95]	=	3215282476
+	GetExp[96]	=	3355637105
+	GetExp[97]	=	3518167765
+	GetExp[98]	=	3706378269
+	GetExp[99]	=	3924326032
+	GetExp[100]	=	4176709541
+	
 function AddExp_1 ( role )
 	local lv_role = GetChaAttr ( role , ATTR_LV )
 	local lv_next = lv_role + 1
@@ -5929,19 +7069,23 @@ function AddExp_6 ( role )
 	return LUA_TRUE
 end
 
-function CheckTeam( role )
+function CheckTeam ( role )
+--	SystemNotice( role, "ЅшИл1")
 	local player = {}
 	player[1] = role
-	player[2] = GetTeamCha( role, 0 )
-	player[3] = GetTeamCha( role, 1 )
-	player[4] = GetTeamCha( role, 2 )
-	player[5] = GetTeamCha( role, 3 )
+	player[2] = GetTeamCha( role , 0 )
+	player[3] = GetTeamCha( role , 1 )
+	player[4] = GetTeamCha( role , 2 )
+	player[5] = GetTeamCha( role , 3 )
 	local n1 = 0
 	local n2 = 0
 	local n3 = 0
-	for j = 0, 5, 1 do
-		if ValidCha( player[j] )== 1 then
-			local lv_p = GetChaAttr ( player[j], ATTR_LV )
+
+	for j = 0 , 5 , 1 do	
+		if ValidCha( player[j] )== 1  then					--±»јУИлЧй¶Уѕ­Сй·ЦЕдµДЅЗЙ«±ШРлґжФЪ
+			local lv_p = GetChaAttr ( player[j] , ATTR_LV )
+--			SystemNotice( role, "ЅшИл2")
+--			SystemNotice( role, "НжјТµИј¶"..lv_p)
 			if lv_p >= 20 and lv_p <= 30 then
 				n1 = n1 + 1
 			elseif lv_p > 30 and lv_p <= 40 then
@@ -5951,16 +7095,18 @@ function CheckTeam( role )
 			end
 		end
 	end
+--	SystemNotice( role , "¶УОйДЪ№ІУР20µЅ30ј¶ИЛКэ:"..n1..",31µЅ40ј¶ИЛКэ:"..n2..",40ј¶ТФЙПИЛКэ:"..n3)
 	if n1 >= 1 and n2 >= 1 and n3>= 1 then
 		return LUA_TRUE
 	end
 end
 
-function CheckTime( role )
-	local now_week = os.date( "%w" )
-	local now_hour = os.date( "%H" )
-	now_week = tonumber( now_week )
-	now_hour = tonumber( now_hour )
+function CheckTime ( role )
+	local now_week= os.date("%w")		-------------РЗЖЪјёЈЁК®ЅшЦЖЈ© 
+	local now_hour= os.date("%H")		-------------К± 
+	now_week= tonumber(now_week)
+	now_hour= tonumber(now_hour)
+--	SystemNotice( role, "РЗЖЪ"..now_week.."К±јд"..now_hour)
 	if now_week == 6 then
 		if now_hour >= 9 and now_hour < 12 then
 			return LUA_TRUE
@@ -5970,860 +7116,115 @@ function CheckTime( role )
 	end
 end
 
---------------------------------------------------------------------
------------------------- АнтиБот (Не нужен) ------------------------
---------------------------------------------------------------------
-
-function WGPrizeBegin( role, rightCount )
+--------±±ГАМъИЛБщПо»о¶ЇЅбКш---------bragi-----
+-------------------------------------------------------------------------------------
+--				LeoµД·АНв№ТґрМвЅ±Аш
+-------------------------------------------------------------------------------------
+function WGPrizeBegin( role , rightCount)
 	local rightCountTemp = rightCount
-
 	if rightCountTemp > 6 then
 		rightCountTemp = 6
 	end
-
-	local isPrizeRandom = math.random( rightCountTemp, 10 )
-	local retRandom = math.random( 1, 100 )
-	local ret = 1
-
-	if isPrizeRandom > 5 then
-		if math.mod( retRandom, 6 ) == 0 then
-			ret = WGprize_1( role )
+	
+	local isPrizeRandom = math.random(rightCountTemp,10)
+	local retRandom = math.random ( 1 , 100 )
+	local ret  = 1
+	
+	if isPrizeRandom > 5  then
+		if math.mod ( retRandom , 6 ) == 0 then
+			 ret = WGprize_1(role)
 		end
-		if math.mod( retRandom, 6 ) == 1 then
-			ret = WGprize_2( role )
+		
+		if math.mod ( retRandom , 6 ) == 1  then
+			 ret = WGprize_2(role)
 		end
-		if math.mod( retRandom, 6 ) == 2 then
-			ret = WGprize_3( role )
+		
+		if math.mod ( retRandom , 6 ) == 2  then
+			 ret = WGprize_3(role)
 		end
-		if math.mod( retRandom, 6 ) == 3 then
-			ret = WGprize_4( role )
+		
+		if math.mod ( retRandom , 6 ) == 3  then
+			 ret = WGprize_4(role)
 		end
-		if math.mod( retRandom, 6 ) == 4 then
-			ret = WGprize_5( role )
+		
+		if math.mod ( retRandom , 6 ) == 4  then
+			 ret = WGprize_5(role)
 		end
-		if math.mod( retRandom, 6 ) == 5 then
-			ret = WGprize_6( role )
+		
+		if math.mod ( retRandom , 6 ) == 5  then
+			 ret = WGprize_6(role)
 		end
-		if ret == 1 then
-			SystemNotice( role, "ошибка " )
+		
+		if ret ==1 then
+			SystemNotice( role , "error")
 		end
 	else
-		SystemNotice( role, "Правильно! Вы не выиграли никакого приза " )
+		SystemNotice( role , "Correct! You have failed to win any prize" )
 	end
 end
-
-function WGprize_1( role )
-	local expNow = GetChaAttr( role, ATTR_CEXP )
-	local lvNow = GetChaAttr( role, ATTR_LV )
-	SystemNotice( role, "Вы получили ".. ( lvNow*10 ) .." очков опыта " )
-	SetChaAttrI( role, ATTR_CEXP, expNow + lvNow * 10 )
-	RefreshCha( role )
+function WGprize_1( role ) --јУѕ­Сй LV * 10
+	local expNow = GetChaAttr( role , ATTR_CEXP )
+	local lvNow = GetChaAttr( role , ATTR_LV)
+	
+	SystemNotice( role , "Correct! You have obtained " .. lvNow*10 .. " experience points")
+	SetChaAttrI(  role , ATTR_CEXP ,expNow+lvNow*10  )
+	RefreshCha(role)
 	return 0
 end
 
-function WGprize_2( role )
-	local bloodMaxNow = GetChaAttr( role, ATTR_MXHP )
-	SystemNotice( role, "Правильно! Ваше здоровье восстановлено " )
-	SetChaAttrI( role, ATTR_HP, bloodMaxNow )
-	RefreshCha( role )
+function WGprize_2( role ) --Ѕ«µ±З°СЄІ№Въ
+	local bloodMaxNow = GetChaAttr( role , ATTR_MXHP)
+	SystemNotice( role , "Correct! Your HP is restored")
+	SetChaAttrI( role , ATTR_HP ,bloodMaxNow  )
+	RefreshCha(role)
 	return 0
 end
 
-function WGprize_3( role )
-	local SPMaxNow = GetChaAttr( role, ATTR_MXSP )
-	SystemNotice( role, "Правильно! Ваша мана восстановлена " )
-	SetChaAttrI( role, ATTR_SP, SPMaxNow )
-	RefreshCha( role )
+function WGprize_3(role) --Ѕ«µ±З°А¶І№Въ
+	local SPMaxNow = GetChaAttr( role , ATTR_MXSP)
+	SystemNotice( role , "Correct! Your SP is restored")
+	SetChaAttrI( role , ATTR_SP, SPMaxNow  )
+	RefreshCha(role)
 	return 0
 end
 
-function WGprize_4( role )
-	local lvNow = GetChaAttr( role, ATTR_LV )
-	SystemNotice( role, "Правильно! Вы получили "..lvNow.." кексов " )
-	GiveItem( role, 0, 1849, lvNow, 4 )
+function WGprize_4(role) --Ѕ±АшLV*1ёцµ°ёв
+	local lvNow = GetChaAttr( role , ATTR_LV)
+	SystemNotice( role , "Correct! You have obtained " .. lvNow .. " cakes")
+	
+	GiveItem( role , 0 , 1849  , lvNow , 4 )	
 	return 0
 end
 
-function WGprize_5( role )
-	SystemNotice( role, "Правильно! Вам дали 1 Обратный Билет " )
-	GiveItem( role, 0, 3141, 1, 4 )
+function WGprize_5(role) --ЙсПЙЅґ№ы1ёц
+	SystemNotice( role , "Correct! You have obtained 1 Old Ticket")
+	
+	GiveItem( role , 0 , 3141  , 1 , 4 )	
 	return 0
 end
 
-function WGprize_6( role )
-	local bloodMaxNow = GetChaAttr( role, ATTR_MXHP )
-	local SPMaxNow = GetChaAttr( role, ATTR_MXSP )
-	SystemNotice( role, "Правильно! Ваши здоровье и мана восстановелны " )
-	SetChaAttrI( role, ATTR_HP, bloodMaxNow )
-	SetChaAttrI( role, ATTR_SP, SPMaxNow )
-	RefreshCha( role )
+function WGprize_6(role) --СЄА¶И«Въ
+	local bloodMaxNow = GetChaAttr( role , ATTR_MXHP)
+	local SPMaxNow = GetChaAttr( role , ATTR_MXSP)
+	
+	SystemNotice( role , "Correct! Your HP and SP is restored")
+	
+	SetChaAttrI( role , ATTR_HP ,bloodMaxNow  )
+	SetChaAttrI( role , ATTR_SP ,SPMaxNow  )
+	RefreshCha(role)
 	return 0
 end
+---------------------------------------------------------------------------------------
+----				Leo  end
+---------------------------------------------------------------------------------------
 
-function Can_Exchange( sSrcItem, sSrcNum, sTagItem, sTagNum )
+--LeoµД¶Т»»јмІв
+function Can_Exchange(sSrcItem,sSrcNum,sTagItem,sTagNum)
 	local Data
 	for Data in ChangeItemList do
-		if ChangeItemList[Data][1] == sSrcItem and ChangeItemList[Data][2] == sSrcNum and ChangeItemList[Data][3] == sTagItem and ChangeItemList[Data][4] == sTagNum then
+		 if ChangeItemList[Data][1] == sSrcItem and  ChangeItemList[Data][2] == sSrcNum and ChangeItemList[Data][3] == sTagItem and ChangeItemList[Data][4] == sTagNum then
 			return LUA_TRUE
-		end
+		 end
 	end
 	return LUA_FALSE
-end
-
---------------------------------------------------------------------
------------------------------ Свадьба ------------------------------
---------------------------------------------------------------------
-
----------------------------------------
--- Выдача билета на посещение Церкви --
----------------------------------------
-function ChangeItem( character, npc )
-	local Item_CanGet = GetChaFreeBagGridNum( character )
-
-	if Item_CanGet < 1 then
-		SystemNotice( character, "Убедитесь, что у вас есть свободное место в инвентаре " )
-		return 0
-	end
-
-	local am1 = CheckBagItem( character, 3066 )
-
-	if am1 < 1 then
-		SystemNotice( role, "У вас не хватает свободного места в инвентаре " )
-		return 0
-	end
-
-	local Money_Need = 50000
-	local Money_Have = GetChaAttr( character, ATTR_GD )
-
-	if Money_Need > Money_Have then
-		SystemNotice( character, "У вас не хватает золота " )
-		return 0
-	else
-		TakeMoney( character, nil, Money_Need )
-	end
-
-	local r1 = 0
-	local r2 = 0
-
-	r1,r2 = MakeItem( character, 3666, 10, 4 )
-
-	local Item_el = GetChaItem( character, 2, r2 )
-	local item_old = GetChaItem2( character, 2, 3066 )
-	local old_month = GetItemAttr(item_old, ITEMATTR_VAL_STA )
-	local old_day = GetItemAttr(item_old, ITEMATTR_VAL_STR )
-	local old_hour = GetItemAttr(item_old, ITEMATTR_VAL_CON )
-	local old_miniute = GetItemAttr(item_old, ITEMATTR_VAL_DEX )
-
-	SetItemAttr( Item_el, ITEMATTR_VAL_STA, old_month )
-	SetItemAttr( Item_el, ITEMATTR_VAL_STR, old_day )
-	SetItemAttr( Item_el, ITEMATTR_VAL_CON, old_hour )
-	SetItemAttr( Item_el, ITEMATTR_VAL_DEX, old_miniute )
-
-	local old_month2 = GetItemAttr( Item_el, ITEMATTR_VAL_STA )
-	local old_day2 = GetItemAttr( Item_el, ITEMATTR_VAL_STR )
-	local old_hour2 = GetItemAttr( Item_el, ITEMATTR_VAL_CON )
-	local old_miniute2 = GetItemAttr( Item_el, ITEMATTR_VAL_DEX )
-
-	SynChaKitbag( character, 13 )
-end
-
-------------------------------------------------------------------
--- Возвращает количество персонажей, которые в отряде с игроком --
-------------------------------------------------------------------
-function PartyNum( role )
-	local player = {}
-	player[1] = role
-	player[2] = GetTeamCha( role, 0 )
-	player[3] = GetTeamCha( role, 1 )
-	player[4] = GetTeamCha( role, 2 )
-	player[5] = GetTeamCha( role, 3 )
-	local i = 0
-	for j = 0, 5, 1 do
-		if ValidCha( player[j] )== 1 then
-			i = i + 1
-		end
-	end
-	return i
-end
-
---------------------------------
--- Проверяет свадебные наряды --
---------------------------------
-function WeddingDress( role, fata )
-	local race = GetChaTypeID( role )
-	local head = GetEquipItemP( role, 0 )
-	local body = GetEquipItemP( role, 2 )
-	local glove = GetEquipItemP( role, 3 )
-	local shoes = GetEquipItemP( role, 4 )
-	local body_id  = GetItemID( body )
-	local glove_id = GetItemID( glove )
-	local shoes_id = GetItemID( shoes )
-	local head_id = GetItemID( head )
-	if race == 1 then
-		if body_id ~= 5221 then
-			return 0
-		end
-		if glove_id ~= 5222 then
-			return 0
-		end
-		if shoes_id ~= 5223 then
-			return 0
-		end
-	elseif race == 2 then
-		if body_id ~= 5238 then
-			return 0
-		end
-		if glove_id ~= 5239 then
-			return 0 
-		end
-		if shoes_id ~= 5240 then
-			return 0
-		end
-	elseif race == 3 then
-	if fata == 1 then
-		if head_id ~= 5244 then
-			return 0
-		end
-	end
-		if body_id ~= 5245 then
-			return 0
-		end
-		if glove_id ~= 5246 then
-			return 0
-		end
-		if shoes_id ~= 5247 then
-			return 0
-		end
-	elseif race == 4 then
-	if fata == 1 then
-		if head_id ~= 5252 then
-			return 0
-		end
-	end
-		if body_id ~= 5253 then
-			return 0
-		end
-		if glove_id ~= 5254 then
-			return 0
-		end
-		if shoes_id ~= 5255 then
-			return 0
-		end
-	else
-		return 0
-	end
-end
-
--------------------------------
--- Проверяет расы персонажей --
--------------------------------
-function WeddingRace( character1, character2 )
-	local character1_type = GetChaTypeID( character1 )
-	local character2_type = GetChaTypeID( character2 )
-	if character1_type == 1 and character2_type == 1 then
-		SystemNotice( character1, "\203\224\237\241 \237\229 \236\238\230\229\242 \230\229\237\232\242\252\241\255 \237\224 \203\224\237\241\229!" )
-		SystemNotice( character2, "\203\224\237\241 \237\229 \236\238\230\229\242 \230\229\237\232\242\252\241\255 \237\224 \203\224\237\241\229!" )
-		return 0
-	elseif character1_type == 1 and character2_type == 2 then
-		SystemNotice( character1, "\203\224\237\241 \237\229 \236\238\230\229\242 \230\229\237\232\242\252\241\255 \237\224 \202\224\240\246\232\231\229!" )
-		SystemNotice( character2, "\203\224\237\241 \237\229 \236\238\230\229\242 \230\229\237\232\242\252\241\255 \237\224 \202\224\240\246\232\231\229!" )
-		return 0
-	elseif character1_type == 2 and character2_type == 1 then
-		SystemNotice( character1, "\202\224\240\246\232\231 \237\229 \236\238\230\229\242 \230\229\237\232\242\252\241\255 \237\224 \203\224\237\241\229!" )
-		SystemNotice( character2, "\202\224\240\246\232\231 \237\229 \236\238\230\229\242 \230\229\237\232\242\252\241\255 \237\224 \203\224\237\241\229!" )
-		return 0
-	elseif character1_type == 2 and character2_type == 2 then
-		SystemNotice( character1, "\202\224\240\246\232\231 \237\229 \236\238\230\229\242 \230\229\237\232\242\252\241\255 \237\224 \202\224\240\246\232\231\229!" )
-		SystemNotice( character2, "\202\224\240\246\232\231 \237\229 \236\238\230\229\242 \230\229\237\232\242\252\241\255 \237\224 \202\224\240\246\232\231\229!" )
-		return 0
-	elseif character1_type == 3 and character2_type == 4 then
-		SystemNotice( character1, "\212\232\235\235\232\241 \237\229 \236\238\230\229\242 \226\251\233\242\232 \231\224\236\243\230 \231\224 \192\236\232!" )
-		SystemNotice( character2, "\212\232\235\235\232\241 \237\229 \236\238\230\229\242 \226\251\233\242\232 \231\224\236\243\230 \231\224 \192\236\232!" )
-		return 0
-	elseif character1_type == 3 and character2_type == 3 then
-		SystemNotice( character1, "\212\232\235\235\232\241 \237\229 \236\238\230\229\242 \226\251\233\242\232 \231\224\236\243\230 \231\224 \212\232\235\235\232\241!" )
-		SystemNotice( character2, "\212\232\235\235\232\241 \237\229 \236\238\230\229\242 \226\251\233\242\232 \231\224\236\243\230 \231\224 \212\232\235\235\232\241!" )
-		return 0
-	elseif character1_type == 4 and character2_type == 3 then
-		SystemNotice( character1, "\192\236\232 \237\229 \236\238\230\229\242 \226\251\233\242\232 \231\224\236\243\230 \231\224 \212\232\235\235\232\241!" )
-		SystemNotice( character2, "\192\236\232 \237\229 \236\238\230\229\242 \226\251\233\242\232 \231\224\236\243\230 \231\224 \212\232\235\235\232\241!" )
-		return 0
-	elseif character1_type == 4 and character2_type == 4 then
-		SystemNotice( character1, "\192\236\232 \237\229 \236\238\230\229\242 \226\251\233\242\232 \231\224\236\243\230 \231\224 \192\236\232!" )
-		SystemNotice( character1, "\192\236\232 \237\229 \236\238\230\229\242 \226\251\233\242\232 \231\224\236\243\230 \231\224 \192\236\232!" )
-		return 0
-	end
-end
-
-----------------------------------
--- Проверка Колец Св. Валентина --
-----------------------------------
-function ValentinesRing( role )
-	local ring = CheckBagItem( role, 2521 )
-	if ring == 0 then
-		return 0
-	else
-		return 1
-	end
-end
-
---------------------
--- Проверка Денег --
---------------------
-function CheckMoney( role, money )
-	local money_cha = GetChaAttr( role, ATTR_GD )
-	if money_cha < money then
-		return 0
-	end
-end
-
---------------
--- Фейверки --
---------------
-function FireworksChurch(role, npc)
-	local t = {}
-	t[0] = 839
-	t[1] = 838
-	t[2] = 366
-	t[3] = 369
-	t[4] = 363
-
-	local i = math.random( 0, 4 )
-	return PlayEffect( role, t[i] )
-end
-
----------------------
--- Функция Свадьбы --
----------------------
-function Marry( role, npc )
-	local fata_need = 1		-- Надо ли одевать фату (1 - да, 0 - нет)
-	local sk_add = SK_QLZX	-- Добавляем скилл "Узы Любви "
-
-	-- Персонаж должен быть в отряде только со своей половинкой
-	if IsInTeam( role ) == 1 then
-		if PartyNum( role ) > 2 then
-			SystemNotice( role, "Пожалуйста, останьтесь наедине в группе со своей половинкой." )
-			return
-		end
-
-		local player = {}
-		player[1] = role
-		player[2] = GetTeamCha( role, 0 )
-
-		local GetCertificate1 = CheckBagItem( role, 2913 )
-		local GetCertificate2 = CheckBagItem( player[2], 2913 )
-
-		-- Проверка свадебного сертефиката
-		if GetCertificate1 < 1 then
-			SystemNotice( role, "У Вас нет Свадебного сертификата." )
-			SystemNotice( player[2], "У Вашей половинки нет Свадебного сертификата." )
-			return
-		end
-
-		if GetCertificate2 < 1 then
-			SystemNotice( player[2], "У Вас нет Свадебного сертификата." )
-			SystemNotice( role, "У Вашей половинки нет Свадебного сертификата." )
-			return
-		end
-
-		local NocLock1 = KitbagLock( role, 0 )
-		local NocLock2 = KitbagLock( player[2], 0 )
-
-		-- Проверка заблокирован ли инвентарь
-		if NocLock1 == 0 then
-			SystemNotice( role, "У Вас заблокирован инвентарь." )
-			SystemNotice( player[2], "У Вашей половинки заблокирован инвентарь." )
-			return
-		end
-
-		if NocLock2 == 0 then
-			SystemNotice( player[2], "У Вас заблокирован инвентарь." )
-			SystemNotice( role, "У Вашей половинки заблокирован инвентарь." )
-			return
-		end
-
-		local GetMarryRing1 = CheckBagItem( role, 2520 )
-		local GetMarryRing2 = CheckBagItem( player[2], 2520 )
-
-		-- Проверка была ли свадьба у персонажа
-		if GetMarryRing1 > 0 then
-			SystemNotice( role, "У Вас уже была Свадьба." )
-			SystemNotice( player[2], "У Вашей половинки уже была Свадьба." )
-			return
-		end
-
-		if GetMarryRing2 > 0 then
-			SystemNotice( player[2], "У Вас уже была Свадьба." )
-			SystemNotice( role, "У Вашей половинки уже была Свадьба." )
-			return
-		end
-
-		if WeddingRace( role, player[2] ) == 0 then
-			return
-		end
-
-		-- Проверка есть ли у персонажей Кольца дня Св.Валентина
-		if ValentinesRing( role ) == 0 then
-			SystemNotice( role, "У тебя нет Кольца дня Св.Валентина!" )
-			SystemNotice( player[2], "У твоей половинки нет Кольца дня Св.Валентина!" )
-			return
-		end
-	
-		if ValentinesRing( player[2] ) == 0 then
-			SystemNotice( player[2], "У тебя нет Кольца дня Св.Валентина!" )
-			SystemNotice( role, "У твоей половинки нет Кольца дня Св.Валентина!" )
-			return
-		end
-
-		-- Проверка на наряды
-		if WeddingDress( role, fata_need ) == 0 then
-			SystemNotice( role, "Оденьте свадебный наряд." )
-			SystemNotice( player[2], "Ваша половинка должна надеть свадебный наряд." )
-			return
-		end
-
-		if WeddingDress( player[2], fata_need ) == 0 then
-			SystemNotice( player[2], "Оденьте свадебный наряд." )
-			SystemNotice( role, "Ваша половинка должна надеть свадебный наряд." )
-			return
-		end
-
-		local Ring = GetChaItem2( role, 2 , 2521 )
-		local CheckRing = GetChaItem2( player[2], 2, 2521 )
-		local Num = GetItemForgeParam( CheckRing, 1 )
-		CheckNum = TansferNum( Num )
-
-		if CheckNum ~= 2 then
-			SetItemForgeParam( Ring, 1, 2 )
-			SystemNotice( role, "Дождитесь пока ваша вторая половинка поговорит с Первосященником." )
-			SystemNotice( player[2], "Ваша вторая половинка уже поговорила с Первосященником. Теперь ваша очередь." )
-		else
-			local ID_Num1 = GetPlayerID( GetChaPlayer( role ))
-			local ID_Num2 = GetPlayerID( GetChaPlayer( player[2] ))
-			local cha_name1 = GetChaDefaultName( role )
-			local cha_name2 = GetChaDefaultName( player[2] )
-
-			TakeItem( role, 0, 2913, 1 )
-			TakeItem( player[2], 0, 2913, 1 )
-			TakeItem( role, 0, 2521, 1 )
-			TakeItem( player[2], 0, 2521, 1 )
-
-			MakeItem( role , 7314, 1, 1 )
-			MakeItem( player[2], 7314, 1, 1 )
-			MakeItem( role, 2520, 1, 1 )
-
-			local ring1 = GetChaItem2( role, 2, 2520 )
-			SetItemForgeParam( ring1, 1, ID_Num2 )
-			MakeItem( player[2], 2520, 1, 1 )
-
-			local ring2 = GetChaItem2( player[2], 2, 2520 )
-			SetItemForgeParam( ring2, 1, ID_Num1 )
-			AddChaSkill( role, sk_add, 1, 1, 0 )
-			AddChaSkill( player[2], sk_add, 1, 1, 0 )
-			PlayEffect( npc, 366 )
-
-			PlayEffect( role, 838 )
-			PlayEffect( player[2], 838 )
-			local message = "Поздравляем " ..cha_name1.. " и " ..cha_name2.. " с состоявшейся свадьбой. От всей души желаем вам счастья в совместной жизни."
-
-			Notice( message )
-		end
-	else
-		SystemNotice( role, "Чтобы соединить Ваши сердца молодожены должны быть в отряде" )
-	return
-	end
-end
-
---------------------------------------------------------------------
----------------------- Перерождение Феникса 1 ----------------------
---------------------------------------------------------------------
-
--------------
--- Воитель --
--------------
-function GetChaName1_born( role, npc )
-	local cha_type = GetChaTypeID( role )
-	if cha_type ~= 1 then
-	SystemNotice( role, "Только Ланс может стать Воителем " )
-		return
-	end
-
-	local check = GetChaName_born( role )
-	if check == 0 then
-		SystemNotice( role, "Требования перерождения не выполнены " )
-		return
-	end
-
-	local cha_job = GetChaAttr( role, ATTR_JOB )
-	SetChaAttr( role, ATTR_JOB, 9 )
-	GiveItem_chibang( role )
-	GiveItem_zsbook( role )
-	RefreshCha( role )
-end
-
--------------
--- Чемпион --
--------------
-function GetChaName2_born( role, npc )
-	local cha_type = GetChaTypeID( role )
-	if cha_type ~= 2 then
-		SystemNotice( role, "Только Карциз может стать Чемпионом " )
-		return
-	end
-
-	local check = GetChaName_born( role )
-	if check == 0 then
-		SystemNotice( role, "Требования перерождения не выполнены " )
-		return
-	end
-
-	local cha_job = GetChaAttr( role, ATTR_JOB )
-	SetChaAttr( role, ATTR_JOB, 8 )
-	GiveItem_chibang( role )
-	GiveItem_zsbook( role )
-	RefreshCha( role )
-end
-
-----------------------
--- Покоритель Морей --
-----------------------
-function GetChaName3_born( role, npc )
-	local cha_type = GetChaTypeID( role )
-	if cha_type ~= 1 and cha_type ~= 3 and cha_type ~= 4 then
-		SystemNotice( role, "Только Ланс, Филлис или Ами могут стать Покорителем Морей " )
-		return
-	end
-
-	local check = GetChaName_born( role )
-	if check == 0 then
-		SystemNotice( role, "Требования перерождения не выполнены " )
-		return
-	end
-
-	local cha_job = GetChaAttr( role, ATTR_JOB )
-	SetChaAttr( role, ATTR_JOB, 16 )
-	GiveItem_chibang( role )
-	GiveItem_zsbook( role )
-	RefreshCha( role )
-end
-
--------------
--- Стрелок --
--------------
-function GetChaName4_born( role, npc )
-	local cha_type = GetChaTypeID( role )
-	if cha_type ~= 1 and cha_type ~= 3 then
-		SystemNotice( role, "Только Ланс и Филлис могут стать Стрелком " )
-		return
-	end
-
-	local check = GetChaName_born( role )
-	if check == 0 then
-		SystemNotice( role, "Требования перерождения не выполнены " )
-		return
-	end
-
-	local cha_job = GetChaAttr( role, ATTR_JOB )
-	SetChaAttr( role, ATTR_JOB, 12 )
-	GiveItem_chibang( role )
-	GiveItem_zsbook( role )
-	RefreshCha( role )
-end
-
-------------------
--- Целительница --
-------------------
-function GetChaName5_born( role, npc )
-	local cha_type = GetChaTypeID( role )
-	if cha_type ~= 3 and cha_type ~= 4 then
-		SystemNotice( role, "Только Филлис и Ами могут стать Целительницей " )
-		return
-	end
-
-	local check = GetChaName_born( role )
-	if check == 0 then
-		SystemNotice( role, "Требования перерождения не выполнены " )
-		return
-	end
-
-	local cha_job = GetChaAttr( role, ATTR_JOB )
-	SetChaAttr( role, ATTR_JOB, 13 )
-	GiveItem_chibang( role )
-	GiveItem_zsbook( role )
-	RefreshCha( role )
-end
-
---------------
--- Колдунья --
---------------
-function GetChaName6_born( role, npc )
-	local cha_type = GetChaTypeID( role )
-	if cha_type ~= 3 and cha_type ~= 4 then
-		SystemNotice( role, "Только Филлис и Ами могу стать Колдуньей " )
-		return
-	end
-
-	local check = GetChaName_born( role )
-	if check == 0 then
-		SystemNotice( role, "Требования перерождения не выполнены " )
-		return
-	end
-
-	local cha_job = GetChaAttr( role, ATTR_JOB )
-	SetChaAttr( role, ATTR_JOB, 14 )
-	GiveItem_chibang( role )
-	GiveItem_zsbook( role )
-	RefreshCha( role )
-end
-
----------------------------------
--- Выдача Крыльев Перерождения --
----------------------------------
-function GiveItem_chibang( role )
-	local cha_type = GetChaTypeID( role )
-	if cha_type == 1 then
-		GiveItem( role, 0, 134, 1, 4 )
-	elseif cha_type == 2 then
-		GiveItem( role, 0, 138, 1, 4 )
-	elseif cha_type == 3 then
-		GiveItem( role, 0, 128, 1, 4 )
-	elseif cha_type == 4 then
-		GiveItem( role, 0, 131, 1, 4 )
-	end
-end
-
-------------------------------
--- Выдача Книг Перерождения --
-------------------------------
-function GiveItem_zsbook( role )
-	local cha_job = GetChaAttr( role, ATTR_JOB )
-
-	if cha_job == 8 then
-		GiveItem( role, 0, 2957, 1, 4 )
-	elseif cha_job == 9 then
-		GiveItem( role, 0, 2956, 1, 4 )
-	elseif cha_job == 12 then
-		GiveItem( role, 0, 2961, 1, 4 )
-	elseif cha_job == 13 then
-		GiveItem( role, 0, 2959, 1, 4 )
-	elseif cha_job == 14 then
-		GiveItem( role, 0, 2958, 1, 4 )
-	elseif cha_job == 16 then
-		GiveItem( role, 0, 2960, 1, 4 )
-	end
-end
-
------------------------------
--- Проверки и Перерождение --
------------------------------
-function GetChaName_born( role )
-	local cha_name = GetChaDefaultName( role )
-	local cha_lv = GetChaAttr( role, ATTR_LV )
-	local cha_job = GetChaAttr( role, ATTR_JOB )
-	local i = CheckBagItem( role, 2235 )
-
-	if i < 1 then
-		SystemNotice( role, "Пожалуйста, проверьте наличие Камня Перерождения " )
-		return 0
-	end
-
-	local item_empty = IsEquip( role )
-
-	if item_empty == LUA_TRUE then
-		SystemNotice( role, "Проверьте наличие свободного места в инвентаре " )
-		return 0
-	end
-
-	local Item_CanGet = GetChaFreeBagGridNum( role )
-
-	if Item_CanGet < 5 then
-		SystemNotice( role, "Необходимо 5 свободных слотов в инвентаре " )
-		UseItemFailed( role )
-		return 0
-	end
-
-	local zs1 = TakeItem( role, 0, 2235, 1 )
-
-	if zs1 == 0 then
-		return 0
-	end
-
-	local Zs_Exp = GetChaAttr( role, ATTR_CSAILEXP )
-
-	if Zs_Exp > 0 then
-		SystemNotice( role, "Вы уже перерождались " )
-		return 0
-	end
-
-	local QLZX = GetSkillLv( role, SK_QLZX )
-	local cha_skill_num = GetChaAttr( role, ATTR_TP )
-	local clear_skill_num = ClearFightSkill( role )
-	cha_skill_num = cha_skill_num + clear_skill_num
-
-	if QLZX == 1 then
-		cha_skill_num = cha_skill_num - 1
-		AddChaSkill( role, SK_QLZX, 2, 2, 0 )
-	end
-
-	SetChaAttr( role, ATTR_TP, cha_skill_num )
-
-	local ap = GetChaAttr( role, ATTR_AP )
-	local cha_str = GetChaAttr( role, ATTR_BSTR )
-	local cha_dex = GetChaAttr( role, ATTR_BDEX )
-	local cha_agi = GetChaAttr( role, ATTR_BAGI )
-	local cha_con = GetChaAttr( role, ATTR_BCON )
-	local cha_sta = GetChaAttr( role, ATTR_BSTA )
-
-	ap = ap + cha_str + cha_dex + cha_agi + cha_con + cha_sta - 25
-
-	SetChaAttr( role, ATTR_BSTR, 5 )
-	SyncChar( role, 4 )
-	SetChaAttr( role, ATTR_BDEX, 5 )
-	SyncChar( role, 4 )
-	SetChaAttr( role, ATTR_BAGI, 5 )
-	SyncChar( role, 4 )
-	SetChaAttr( role, ATTR_BCON, 5 )
-	SyncChar( role, 4 )
-	SetChaAttr( role, ATTR_BSTA, 5 )
-	SyncChar( role, 4 )
-	SetChaAttr( role, ATTR_AP, ap )
-	SyncChar( role, 4 )
-	AddSailExp( role, npc, 1, 1 )
-
-	local sk_add = SK_ZSSL
-	AddChaSkill( role, sk_add, 1, 1, 0 )
-
-	Notice( "Особенный праздник! " ..cha_name.. " успешно завершил Перерождение Феникса! Тебя благославляет сама Богиня! Прими поздравления от всего сервера, " ..cha_name.. ", пусть твой дальнейший путь будет счастлив и светл." )
-	return 1
-end
-
-----------------------------
--- Обработчик команд чата --
-----------------------------
-function HandleChat( role, message )
-	local r = 1
-
-	-- Проверка GM уровня персонажа
-	if ( message == "/гмуровень" ) then
-		SystemNotice( role, "Ваш GM-уровень равен " ..GetGmLv( role ))
-		r = 0
-	end
-
-	-- Защита GM-команд
-	if( GetGmLv( role ) > 0 ) then
-		if ( string.find( message, "&" ) == 1 ) then
-			local cha_name = GetChaDefaultName( role )
-
-			GMCommandLog( role, message )
-
-			if ( GMPlayers[cha_name] == nil and AddonSystem["ProtectGMCommand"] == 0 ) then
-				KickCha( role )
-				r = 0
-			else
-				for data in ProhGMCommand do
-					if string.find( message, ProhGMCommand[data] ) == 1 then
-						r = 0
-						SystemNotice( role, "Эта команда запрещена на сервере!" )
-					else
-						r = 1
-					end
-				end
-			end
-		end
-	end
-
-	return
-end
-
---------------------------------------------------------------------------
---		Определяет расстояние между игроками (Нужно для свадьбы)		--
---------------------------------------------------------------------------
-function Distance( a, b, c, d )
-	local x1, y1, x2, y2 = a, b, c, d
-	local dis = math.pow( math.pow( x1 - x2, 2 ) + math.pow( y1 - y2, 2 ), 0.5 )
-	return dis
-end
-
-------------------------------------------
---		Защита от рисования скиллов		--
-------------------------------------------
-function CheckCanUpgradeSkill( role, skill_id )
-	-- Проверка на наличие навыка у игрока
-	local skill = GetSkillLv( role, skill_id )
-
-	if ( skill > 0 ) then
-		-- Ищем навык в "специальном" списке навыков, который нельзя обновить, используя кнопку «плюс» в форме умения (например, владение феей (посешн))
-		local Data
-
-		for Data in SkillList do
-			if SkillList[Data] == skill_id then
-				SystemNotice( role, "Увеличить уровень навыка невозможно!" )
-				return 0
-			end
-		end
-
-		-- У игрока есть навык и он не "специальный". Повышаем уровень навыка!
-		return 1
-	end
-
-	-- У игрока отсутствует навык
-	SystemNotice( role, "Вы не изучали этот навык. Невозможно увеличить уровень!" )
-	return 0
-end
-
---------------------------------------------------
---		Функция "кика" персонажа из игры		--
---------------------------------------------------
-function KickCha( character )
-	local pkt = GetPacket()
-
-	WriteCmd( pkt, 1505 )
-	SendPacket( character, pkt )
-end
-
---------------------------------------
---		Лог вводимых GM-команд		--
---------------------------------------
-function GMCommandLog( role, command )
-	-- Получение даты и времени
-	local now_day, now_month, now_year, now_time = os.date("%d"), os.date("%m"), os.date("%y"), os.date()
-
-	local cha_name = GetChaDefaultName( role )	-- Получаем имя персонажа
-	local cha_id = GetRoleID( role )	-- Получаем ID персонажа
-	local gm_str = "[" ..now_time.. "]"	-- Записываем в строку текущее время
-
-	-- Если игрок не GM и система защиты включена
-	if ( GMPlayers[cha_name] == nil and AddonSystem["ProtectGMCommand"] == 1 ) then
-		gm_str = gm_str .." Игрок с ником " ..cha_name.. "(" ..cha_id.. ") получил несанкционированный доступ к GM аккаунту и был кикнут с сервера! Команда: " ..command.. "\n"
-		print( "Игрок с ником " ..cha_name.." получил несанкционированный доступ к GM аккаунту и был кикнут с сервера!" )
-	else	-- иначе
-		gm_str = gm_str .." Игрок: " ..cha_name.. "\tID: " ..cha_id.. "\tКоманда: "..command.. "\n"
-	end
-
-	GMCommandLogPath = GetResPath( "script/AddonSystem/GMCommandLog/" )	-- Путь до папки с логами
-
-	local file = io.open( GMCommandLogPath..now_day.. "." ..now_month.. "." ..now_year.. ".txt", "r" )	-- Открываем файл в режиме чтения
-
-	if file == nil then	-- Если файла не существует
-		file = io.open( GMCommandLogPath..now_day.. "." ..now_month.. "." ..now_year.. ".txt", "w" )	-- Создаем новый файл
-		file:close()	-- Закрываем файл
-	end
-
-	file = io.open( GMCommandLogPath..now_day.. "." ..now_month.. "." ..now_year.. ".txt", "a" )	-- Открываем файл в режиме записи в конец файла
-	file:write( gm_str )	-- Записываем строку в файл
-	file:flush()			-- Сохраняем файл
-	file:close()			-- Закрываем файл
-end
-
-----------------------------------
---		Безопасный телепорт		--
-----------------------------------
-function teleport( role, n )
-	local map_name = TeleportList[n][1]
-	local x = TeleportList[n][2]
-	local y = TeleportList[n][3]
-
-	MoveTo( role, x, y, map_name )
-
-	return 1
 end

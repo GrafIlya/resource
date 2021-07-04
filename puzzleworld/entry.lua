@@ -1,41 +1,55 @@
+--´ËÎÄ¼şÖĞ£¬·²ÊÇ¿ÉÄÜ±»¶à´ÎÖ´ĞĞµÄº¯Êı£¬º¯ÊıÃû¶¼Òª¼ÓÉÏµØÍ¼ÃûÇ°×º£¬Èçafter_destroy_entry_testpk
+--´ËÎÄ¼şÃ¿ĞĞ×î´ó×Ö·û¸öÊıÎª255£¬ÈôÓĞÒìÒé£¬ÇëÓë³ÌĞòÌ½ÌÖ
+
 function config_entry(entry) 
-    SetMapEntryEntiID(entry, 193,1)
+    SetMapEntryEntiID(entry, 193,1) --ÉèÖÃµØÍ¼Èë¿ÚÊµÌåµÄ±àºÅ£¨¸Ã±àºÅ¶ÔÓ¦ÓÚcharacterinfo.txtµÄË÷Òı£©
+
 end 
 
 function after_create_entry(entry) 
-    local copy_mgr = GetMapEntryCopyObj(entry, 0)
-	local EntryName = "Ìèğ Äåìîíîâ "
-	SetMapEntryEventName( entry, EntryName )
-    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry)
-	Notice("Îáúÿâëåíèå: Àñêàğîí ["..posx..","..posy.."] ïîÿâèëñÿ ïîğòàë âåäóùèé â [Ìèğ Äåìîíîâ]. Ñëåäèòå çà íîâîñòÿìè.") 
+    local copy_mgr = GetMapEntryCopyObj(entry, 0) --´´½¨¸±±¾¹ÜÀí¶ÔÏó£¬´Ëº¯ÊıÔÚÓĞÏÔÊ½Èë¿ÚµÄµØÍ¼ÖĞ±ØĞëµ÷ÓÃ£¬¶ÔÓÚÒşÊ½Èë¿ÚµÄµØÍ¼£¨Èç¶ÓÎéÌôÕ½£©ÎŞÒªµ÷ÓÃ¸Ã½Ó¿Ú
+
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --È¡µØÍ¼Èë¿ÚµÄÎ»ÖÃĞÅÏ¢£¨µØÍ¼Ãû£¬×ø±ê£¬Ä¿±êµØÍ¼Ãû£©
+    Notice("Announcement: Ascaron region at ["..posx..","..posy.."] emerges a portal that leads to [Demonic World].") --Í¨Öª±¾×é·şÎñÆ÷µÄËùÓĞÍæ¼Ò
+
 end
 
 function after_destroy_entry_puzzleworld(entry)
     map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) 
-	Notice("Îáúÿâëåíèå: Ïîğòàë â [Ìèğ Äåìîíîâ] çàêğûëñÿ. Ñëåäèòå çà íîâîñòÿìè. Óäà÷è!") 
+    Notice("Announcement: Portal to [Demonic World] has vanished. Enjoy!") 
+
 end
 
 function after_player_login_puzzleworld(entry, player_name)
-    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry)
-	ChaNotice(player_name, "Îáúÿâëåíèå: Àñêàğîí ["..posx..","..posy.."] ïîÿâèëñÿ ïîğòàë âåäóùèé â [Ìèğ Äåìîíîâ]. Ñëåäèòå çà íîâîñòÿìè.")
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --È¡µØÍ¼Èë¿ÚµÄÎ»ÖÃĞÅÏ¢£¨µØÍ¼Ãû£¬×ø±ê£¬Ä¿±êµØÍ¼Ãû£©
+    ChaNotice(player_name, "Announcement: Ascaron region at ["..posx..","..posy.."] emerges a portal that leads to [Demonic World].") --Í¨Öª±¾×é·şÎñÆ÷µÄËùÓĞÍæ¼Ò
+
 end
 
+
+
+
+
+
+
+
+
+--ÓÃÓÚ¼ì²â½øÈëÌõ¼ş
+--·µ»ØÖµ£º0£¬²»Âú×ã½øÈëÌõ¼ş¡£1£¬³É¹¦½øÈë¡£
 function check_can_enter_puzzleworld( role, copy_mgr )
 	if Lv(role) >=50 then
+			
 		return 1
+				
 	else
-		SystemNotice(role, "×òîáû âîéòè â ïîğòàë, âàø óğîâåíü äîëæåí áûòü áîëüøå 50!")
-		return 0
+		SystemNotice(role, "Only players Lv 50 and above may enter Demonic World")
+		return 0    
 	end
 end
 
-function begin_enter_puzzleworld( role, copy_mgr )
-	SystemNotice( role, "Âû âîøëè â [Ìèğ Äåìîíîâ]" )
+function begin_enter_puzzleworld(role, copy_mgr) 
+    
+		SystemNotice(role,"Entering [Demonic World]") 
+		MoveCity(role, "Demonic World")
 
-	if ( AddonSystem["Teleport"] == 1 ) then
-		local n = math.random( 46, 49 )
-		teleport( role, n )
-	else
-		MoveCity( role, "Demonic World" )
-	end
 end

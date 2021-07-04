@@ -1,38 +1,58 @@
+--іЋќƒЉю÷–£ђЈ≤ «њ…ƒ№±їґаіќ÷і––µƒЇѓ э£ђЇѓ э√ыґЉ“™Љ”…ѕµЎЌЉ√ы«∞„Ї£ђ»зafter_destroy_entry_testpk
+--іЋќƒЉю√њ––„оіу„÷ЈыЄц эќ™255£ђ»ф”–“м“й£ђ«л”л≥ћ–тћљћ÷
+
 function config_entry(entry) 
-    SetMapEntryEntiID(entry, 2492,1) 
+    SetMapEntryEntiID(entry, 2492,1) --…и÷√µЎЌЉ»лњЏ µћеµƒ±аЇ≈£®Є√±аЇ≈ґ‘”¶”Џcharacterinfo.txtµƒЋч“э£©
+
 end 
 
 function after_create_entry(entry) 
-    local copy_mgr = GetMapEntryCopyObj(entry, 0) 
+
+    local copy_mgr = GetMapEntryCopyObj(entry, 0) --ііљ®Є±±Њє№јнґ‘ѕу£ђіЋЇѓ э‘Џ”–ѕ‘ љ»лњЏµƒµЎЌЉ÷–±Ў–лµч”√£ђґ‘”Џ“ю љ»лњЏµƒµЎЌЉ£®»зґ”ќйћф’љ£©ќё“™µч”√Є√љ”њЏ
     local EntryName = "Announcement"
     SetMapEntryEventName( entry, EntryName )
     
-    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) 
-	Notice("ќбъ€вление: ¬ глубинах јбаддона 8 ["..posx..","..posy.."] открылс€ портал в јбаддон 9. ”дачи!") 
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --»°µЎЌЉ»лњЏµƒќї÷√–≈ѕҐ£®µЎЌЉ√ы£ђ„ш±к£ђƒњ±кµЎЌЉ√ы£©
+    Notice("Announcement: In the depths of Abaddon 8 \"["..posx..","..posy.."]\" opens the portal that leads to Abaddon 9!") --Ќ®÷™±Њ„йЈюќс∆чµƒЋщ”–ЌжЉ“
+
 end
 
 function after_destroy_entry_hell2(entry)
     map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) 
+    --Notice("Announcement: Challenge for today has ended.") 
+
 end
 
+function after_player_login_hell2(entry, player_name)
+
+end
+
+--”√”ЏЉм≤вљш»лћхЉю
+--ЈµїЎ÷µ£Ї0£ђ≤ї¬ъ„гљш»лћхЉю°£1£ђ≥…є¶љш»л°£
 function check_can_enter_hell2( role, copy_mgr )
+
 	local i=0
+
 	for i=5,8,1 do
+
 		if CRY[i] == 0 then
-		SystemNotice(role,"—илы тьмы опечатали проход. ѕройти через него невозможно.")
+
+			SystemNotice(role,"The power of Darkness has sealed the gateway. It will be impossible for you to pass.")
+
 			return 0
 		end
 	end
+
 	return 1
+
+
 end
 
 function begin_enter_hell2(role, copy_mgr) 
-	SystemNotice(role,"Cердце начинает битьс€ чаще, перед глазами быстро мелькают своды стен. » вот вы по€вл€етесь в темном јбаддоне.")
+    
+		SystemNotice(role,"An unknown gravity pulls you towards the endless darkness. A darker Abaddon awaits you.")
 
-	if ( AddonSystem["Teleport"] == 1 ) then
-		local n = 95
-		teleport( role, n )
-	else
 		MoveCity(role, "Abaddon 2")
-	end
-end
+	
+
+end 

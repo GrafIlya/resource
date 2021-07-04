@@ -1,3 +1,5 @@
+//Gardent portal list								
+//ID	binded entity ID	incident type	entity placement location	entity placement direction	Target map name	Target map location	Activate Determinant Requirement	Name
 1	193	1	15100,18300	-1	hell3	10500,18300	1	Left
 2	193	1	15400,15000	-1	hell3	10200,10000	1	Top Left
 3	193	1	18900,14900	-1	hell3	19000,10000	1	Up

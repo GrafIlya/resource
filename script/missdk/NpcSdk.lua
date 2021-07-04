@@ -1,91 +1,109 @@
-print(" ")
-print("-------------------------------------------------------------------------------")
-print("                             PKO 1.38 v1.07 [RUS]                              ")
-print("-------------------------------------------------------------------------------")
-print("                                   ChangeLog:                                  ")
-print(" - „®¡ ¢¨« § é¨âã ®â à¨á®¢ ­¨ï áª¨««®¢ by V3ctor                               ")
-print(" - „®¡ ¢¨« § é¨âã ®â ¤ìî¯                                                      ")
-print(" - „®¡ ¢¨« § é¨âã GM-ª®¬ ­¤                                                    ")
-print(" - ˆ§¬¥­¨« skillinfo.txt ­  ®à¨£¨­ «ì­ë© ¨ ¯¥à¥¢¥« ¥£® (’¥¯¥àì ®â­¨¬ ¥âáï      ")
-print("   áâ ¬¨­  ã ä¥¨ ¯à¨ ¨á¯®«ì§®¢ ­¨¨ ­ ¢ëª  '’¥«® ä¥¨')                             ")
-print(" ")
-print("-------------------------------------------------------------------------------")
-print("‡ £àã§ª  NpcSdk.lua" )
+------------------------------------------------------------
+--NpcSdk.lua Created by knight 2004.11.18.
+--
+--npc¶Ô»°ÏµÍ³º¯Êý½Ó¿Ú¶¨Òå
+print( "loading npcsdk.lua" )
+------------------------------------------------------------
 
-CMD_MC_BASE								= 500
-CMD_MC_ROLEBASE 						= CMD_MC_BASE + 300
-CMD_MC_TALKPAGE 						= CMD_MC_ROLEBASE + 1
-CMD_MC_FUNCPAGE 						= CMD_MC_ROLEBASE + 2
-CMD_MC_CLOSETALK 						= CMD_MC_ROLEBASE + 3
-CMD_MC_HELPINFO							= CMD_MC_ROLEBASE + 4  
-CMD_MC_TRADEPAGE						= CMD_MC_ROLEBASE + 5
-CMD_MC_TRADERESULT						= CMD_MC_ROLEBASE + 6
-CMD_MC_TRADE_DATA						= CMD_MC_ROLEBASE + 7 
-CMD_MC_TRADE_ALLDATA					= CMD_MC_ROLEBASE + 8 
-CMD_MC_MISSION							= CMD_MC_ROLEBASE + 22
-CMD_MC_MISSIONLIST						= CMD_MC_ROLEBASE + 23
-CMD_MC_MISSIONTALK						= CMD_MC_ROLEBASE + 24
-CMD_MC_MISPAGE							= CMD_MC_ROLEBASE + 27 
-CMD_MC_MISLOG							= CMD_MC_ROLEBASE + 28 
-CMD_MC_MISLOGINFO						= CMD_MC_ROLEBASE + 29 
-CMD_MC_BEGIN_ITEM_FORGE   				= CMD_MC_ROLEBASE + 35 
-CMD_MC_BEGIN_ITEM_UNITE   				= CMD_MC_ROLEBASE + 36 
-CMD_MC_CREATEBOAT						= CMD_MC_ROLEBASE + 38 
-CMD_MC_UPDATEBOAT						= CMD_MC_ROLEBASE + 39 
-CMD_MC_UPDATEBOAT_PART					= CMD_MC_ROLEBASE + 40 
-CMD_MC_BERTH_LIST						= CMD_MC_ROLEBASE + 41 
-CMD_MC_BOAT_LIST						= CMD_MC_ROLEBASE + 42 
-CMD_MC_BOAT_ADD							= CMD_MC_ROLEBASE + 43 
-CMD_MC_BOAT_CLEAR						= CMD_MC_ROLEBASE + 44 
-CMD_MC_BOATINFO							= CMD_MC_ROLEBASE + 45 
-CMD_MC_BOAT_BAGLIST						= CMD_MC_ROLEBASE + 46 
-CMD_CM_BASE								= 0
-CMD_CM_ROLEBASE 						= CMD_CM_BASE + 300
-CMD_CM_REQUESTTALK 						= CMD_CM_ROLEBASE + 1
-CMD_CM_TALKPAGE							= CMD_CM_ROLEBASE + 2
-CMD_CM_FUNCITEM 						= CMD_CM_ROLEBASE + 3
-CMD_CM_REQESTTRADE    					= CMD_CM_ROLEBASE + 8
-CMD_CM_TRADEITEM						= CMD_CM_ROLEBASE + 9
-CMD_CM_REQUESTAGENCY					= CMD_CM_ROLEBASE + 10
-CMD_CM_MISSION							= CMD_CM_ROLEBASE + 22
-CMD_CM_MISSIONLIST						= CMD_CM_ROLEBASE + 23
-CMD_CM_MISSIONTALK						= CMD_CM_ROLEBASE + 24
-CMD_CM_MISLOG							= CMD_CM_ROLEBASE + 25 
-CMD_MC_BLACKMARKET_EXCHANGEDATA			= CMD_MC_BASE + 71	
-CMD_MC_BLACKMARKET_EXCHANGEUPDATE 		= CMD_MC_BASE + 73	
-CMD_MC_BLACKMARKET_TRADEUPDATE 			= CMD_MC_BASE + 74	
-CMD_MC_EXCHANGEDATA 					= CMD_MC_BASE + 75
-CMD_CM_BLACKMARKET_EXCHANGE_REQ 		= CMD_CM_BASE + 51
-ROLE_FIRSTPAGE							= 0		
-ROLE_CLOSEPAGE							= -1		
-ROLE_MAXNUM_TRADEITEM 					= 60	
-ROLE_INVALID_ID							= -1		
-WEAPON 									= 0		
-DEFENCE 								= 1 		
-OTHER    								= 2		
-SYNTHESIS 								= 3		
-TRADE_SALE								= 0       
-TRADE_BUY								= 1       
-TRADE_GOODS								= 2 		
-ROLE_TRADE_SALE							= 0	
-ROLE_TRADE_BUY							= 1	
-ROLE_TRADE_SALE_GOODS 					= 2	
-ROLE_TRADE_BUY_GOODS					= 3	
-ROLE_TRADE_SELECT_BOAT   				= 4   
-BERTH_TRADE_LIST						= 0	
-BERTH_LUANCH_LIST						= 1	
-BERTH_REPAIR_LIST						= 3	
-BERTH_SALVAGE_LIST						= 4	
-BERTH_SUPPLY_LIST						= 5	
-BERTH_BOATLEVEL_LIST					= 6	
-RES_WOOD								= 0	
-RES_MINE								= 1	
-ROLE_MAXNUM_PAGEITEM					= 9
-MIS_HELP_DESP							= 0		
-MIS_HELP_IMAGE							= 1		
-MIS_HELP_SOUND							= 2		
-MIS_HELP_BICKER							= 3
-		
+--·þÎñÆ÷¶Ë·¢ËÍÃüÁîÏûÏ¢Ð­Òé¶¨Òå
+CMD_MC_BASE				= 500
+CMD_MC_ROLEBASE 			= CMD_MC_BASE + 300
+CMD_MC_TALKPAGE 			= CMD_MC_ROLEBASE + 1
+CMD_MC_FUNCPAGE 		= CMD_MC_ROLEBASE + 2
+CMD_MC_CLOSETALK 		= CMD_MC_ROLEBASE + 3
+CMD_MC_HELPINFO			= CMD_MC_ROLEBASE + 4  -- °ïÖúÐÅÏ¢
+CMD_MC_TRADEPAGE		= CMD_MC_ROLEBASE + 5
+CMD_MC_TRADERESULT	= CMD_MC_ROLEBASE + 6
+CMD_MC_TRADE_DATA		= CMD_MC_ROLEBASE + 7 -- NPC½»Ò×Êý¾ÝÐÅÏ¢¸üÐÂ
+CMD_MC_TRADE_ALLDATA	= CMD_MC_ROLEBASE + 8 -- NPC½»Ò×ËùÓÐÊý¾ÝÐÅÏ¢¸üÐÂ
+
+CMD_MC_MISSION			= CMD_MC_ROLEBASE + 22
+CMD_MC_MISSIONLIST		= CMD_MC_ROLEBASE + 23
+CMD_MC_MISSIONTALK		= CMD_MC_ROLEBASE + 24
+CMD_MC_MISPAGE			= CMD_MC_ROLEBASE + 27 -- ÈÎÎñÒ³ÐÅÏ¢
+CMD_MC_MISLOG				= CMD_MC_ROLEBASE + 28 -- ÈÎÎñÈÕÖ¾
+CMD_MC_MISLOGINFO		= CMD_MC_ROLEBASE + 29 -- µ¥¸öÈÎÎñÏêÏ¸ÐÅÏ¢
+CMD_MC_BEGIN_ITEM_FORGE   = CMD_MC_ROLEBASE + 35 -- ¾«Á·µÀ¾ß
+CMD_MC_BEGIN_ITEM_UNITE   = CMD_MC_ROLEBASE + 36 -- µÀ¾ßºÏ³É
+
+CMD_MC_CREATEBOAT		= CMD_MC_ROLEBASE + 38 -- ´´½¨´¬Ö»
+CMD_MC_UPDATEBOAT		= CMD_MC_ROLEBASE + 39 -- ¸ÄÔì´¬Ö»
+CMD_MC_UPDATEBOAT_PART	= CMD_MC_ROLEBASE + 40 -- ¸ÄÔì´¬Ö»µÄ²¿¼þ
+CMD_MC_BERTH_LIST		= CMD_MC_ROLEBASE + 41 -- ´¬Ö»Í£²´ÁÐ±í
+CMD_MC_BOAT_LIST		= CMD_MC_ROLEBASE + 42 -- Í¬²½½ÇÉ«ÓµÓÐµÄËùÓÐ´¬Ö»ÊôÐÔ
+CMD_MC_BOAT_ADD			= CMD_MC_ROLEBASE + 43 -- Ìí¼ÓÒ»ËÒ´¬
+CMD_MC_BOAT_CLEAR		= CMD_MC_ROLEBASE + 44 -- Çå³ýÒ»ËÒ´¬
+CMD_MC_BOATINFO			= CMD_MC_ROLEBASE + 45 -- Í¬²½´¬Ö»ÊôÐÔÐÅÏ¢
+CMD_MC_BOAT_BAGLIST	= CMD_MC_ROLEBASE + 46 -- ÏÔÊ¾¿ÉÒÔ´ò°üµÄ´¬Ö»ÁÐ±í
+
+--¿Í»§¶Ë·¢ËÍÃüÁîÏûÏ¢Ð­Òé¶¨Òå
+CMD_CM_BASE				= 0
+CMD_CM_ROLEBASE 			= CMD_CM_BASE + 300
+CMD_CM_REQUESTTALK 	= CMD_CM_ROLEBASE + 1
+CMD_CM_TALKPAGE			= CMD_CM_ROLEBASE + 2
+CMD_CM_FUNCITEM 		= CMD_CM_ROLEBASE + 3
+CMD_CM_REQESTTRADE    = CMD_CM_ROLEBASE + 8
+CMD_CM_TRADEITEM		= CMD_CM_ROLEBASE + 9
+CMD_CM_REQUESTAGENCY= CMD_CM_ROLEBASE + 10
+CMD_CM_MISSION			= CMD_CM_ROLEBASE + 22
+CMD_CM_MISSIONLIST		= CMD_CM_ROLEBASE + 23
+CMD_CM_MISSIONTALK		= CMD_CM_ROLEBASE + 24
+CMD_CM_MISLOG				= CMD_CM_ROLEBASE + 25 -- ÈÎÎñÈÕÖ¾
+
+--ºÚÊÐ½»Ò×
+CMD_MC_BLACKMARKET_EXCHANGEDATA	= CMD_MC_BASE + 71	-- ºÚÊÐ¶Ò»»Êý¾Ý
+CMD_MC_BLACKMARKET_EXCHANGEUPDATE = CMD_MC_BASE + 73	-- ºÚÊÐ¶Ò»»¸üÐÂ
+CMD_MC_BLACKMARKET_TRADEUPDATE = CMD_MC_BASE + 74	-- ºÚÊÐ½»Ò×¸üÐÂ
+CMD_MC_EXCHANGEDATA = CMD_MC_BASE + 75
+CMD_CM_BLACKMARKET_EXCHANGE_REQ = CMD_CM_BASE + 51
+
+
+--¶Ô»°Ò³ÃüÁîÐÅÏ¢
+ROLE_FIRSTPAGE				= 0		-- ÇëÇó³õ´Î¶Ô»°ÐÅÏ¢
+ROLE_CLOSEPAGE			= -1		-- ÇëÇó¹Ø±Õ¶Ô»°Ò³ÃüÁî
+
+--½»Ò×ºêÐÅÏ¢¶¨Òå
+ROLE_MAXNUM_TRADEITEM = 60	--Ã¿¸ö½»Ò×Ò³×î´ó°Ú·ÅÎïÆ·ÊýÁ¿
+ROLE_INVALID_ID				= -1		--ÎÞÐ§µÄË÷Òý
+
+--½»Ò×ÎïÆ·ÀàÐÍ¶¨Òå
+WEAPON 						= 0		--ÎäÆ÷ÀàÐÍ
+DEFENCE 						= 1 		--·À¾ßÀàÐÍ
+OTHER    						= 2		--ÔÓÏîÀàÐÍ
+SYNTHESIS 					= 3		--ºÏ³ÉÎïÆ·ÀàÐÍ
+
+TRADE_SALE					= 0       --³öÊÛÎïÆ·²Ù×÷
+TRADE_BUY						= 1       --¹ºÂòÎïÆ·²Ù×÷
+TRADE_GOODS				= 2 		--½»Ò×´¬²Õ»õÎï
+
+ROLE_TRADE_SALE				= 0	--ÇëÇó³öÊÛÎïÆ·
+ROLE_TRADE_BUY				= 1	--ÇëÇó¹ºÂòÎïÆ·
+ROLE_TRADE_SALE_GOODS 	= 2	--ÇëÇó³öÊÛ»õ²ÕÎïÆ·
+ROLE_TRADE_BUY_GOODS		= 3	--ÇëÇó¹ºÂò»õ²ÕÎïÆ·
+ROLE_TRADE_SELECT_BOAT   = 4   --Ñ¡Ôñ½»Ò×µÄ´¬Ö»
+
+--´¬Ö»ÏÔÊ¾ÁÐ±íÀàÐÍ
+BERTH_TRADE_LIST				= 0	-- ½»Ò×´¬Ö»ÁÐ±í
+BERTH_LUANCH_LIST			= 1	-- ³öº£´¬Ö»ÁÐ±í
+BERTH_REPAIR_LIST				= 3	-- ´¬Ö»ÐÞÀíÁÐ±í
+BERTH_SALVAGE_LIST			= 4	-- ´¬Ö»´òÀÌÁÐ±í
+BERTH_SUPPLY_LIST			= 5	-- ´¬Ö»²¹¸øÁÐ±í
+BERTH_BOATLEVEL_LIST		= 6	-- ´¬Ö»Éý¼¶ÁÐ±í
+
+--×ÊÔ´ÀàÐÍ
+RES_WOOD							= 0	--Ä¾²Ä×ÊÔ´
+RES_MINE							= 1	--¿óÊ¯×ÊÔ´
+
+--¶Ô»°ºê¶¨Òå
+ROLE_MAXNUM_PAGEITEM	= 9
+
+--°ïÖúÐÅÏ¢ÀàÐÍ
+MIS_HELP_DESP				= 0		--ÎÄ×Ö°ïÖúÐÅÏ¢
+MIS_HELP_IMAGE				= 1		--Í¼ÐÎ°ïÖúÐÅÏ¢
+MIS_HELP_SOUND			= 2		--ÉùÒô°ïÖúÐÅÏ¢
+MIS_HELP_BICKER			= 3		--ÉÁ¶¯×ÖÌåÐÅÏ¢
+
+--·¢ËÍ¶Ô»°Ò³º¯Êý
 function SendTalkPage( character, npc, pageid, desp )
 	local packet = GetPacket();
 	WriteCmd( packet, CMD_MC_TALKPAGE );
@@ -96,13 +114,16 @@ function SendTalkPage( character, npc, pageid, desp )
 	SendPacket( character, packet );
 end
 
+--Ïò¿Í»§¶Ë·¢ËÍ¶Ò»»Êý¾Ý
 function SendExchangeData( character, npc )
 	local packet = GetPacket()
 	WriteCmd( packet, CMD_MC_BLACKMARKET_EXCHANGEDATA )
 	local npcid = GetCharID( npc )
 	WriteDword( packet, npcid )
+	
 	if Exchange.count ~= nil then
 		WriteWord( packet, Exchange.count )
+		
 		for n = 1, Exchange.count, 1 do
 			WriteWord( packet, Exchange.srcid[n] )
 			WriteWord( packet, Exchange.srcnum[n] )
@@ -113,6 +134,7 @@ function SendExchangeData( character, npc )
 	else
 		WriteWord( packet, 0 )
 	end
+	
 	SendPacket( character, packet );
 end
 
@@ -121,8 +143,10 @@ function SendExchangeXData( character, npc, exchangeData )
 	WriteCmd( packet, CMD_MC_EXCHANGEDATA )
 	local npcid = GetCharID( npc )
 	WriteDword( packet, npcid )
+	
 	if exchangeData.count ~= nil then
 		WriteWord( packet, exchangeData.count )
+		
 		for n = 1, exchangeData.count, 1 do
 			WriteWord( packet, exchangeData.srcid[n] )
 			WriteWord( packet, exchangeData.srcnum[n] )
@@ -132,16 +156,20 @@ function SendExchangeXData( character, npc, exchangeData )
 	else
 		WriteWord( packet, 0 )
 	end
+	
 	SendPacket( character, packet );
 end
 
+--Ïò¿Í»§¶Ë·¢ËÍ¶Ò»»¸üÐÂÊý¾Ý
 function SendExchangeUpdateData( character, npc )
 	local packet = GetPacket()
 	WriteCmd( packet, CMD_MC_BLACKMARKET_EXCHANGEUPDATE )
 	local npcid = GetCharID( npc )
 	WriteDword( packet, npcid )
+	
 	if Exchange.count ~= nil then
 		WriteWord( packet, Exchange.count )
+		
 		for n = 1, Exchange.count, 1 do
 			WriteWord( packet, Exchange.srcid[n] )
 			WriteWord( packet, Exchange.srcnum[n] )
@@ -152,6 +180,7 @@ function SendExchangeUpdateData( character, npc )
 	else
 		WriteWord( packet, 0 )
 	end
+	
 	SynPacket( npc, packet )
 end
 
@@ -165,19 +194,23 @@ function SendDebugPage( character, npc, info )
 	SendPacket( character, packet );
 end
 
+--·¢ËÍ·þÎñÆ÷ÌáÊ¾°ïÖúÒ³ÐÅÏ¢
 function HelpInfo( character, tp, info )
 	PRINT( "HelpInfo" )
 	local packet = GetPacket()
 	WriteCmd( packet, CMD_MC_HELPINFO )
 	WriteByte( packet, tp )
+
 	if tp == MIS_HELP_SOUND then
 		WriteWord( packet, info )
 	else
 		WriteString( packet, info )
 	end
+
 	SendPacket( character, packet );
 end
 
+--·¢ËÍ¹¦ÄÜÒ³º¯Êý
 function SendFuncPage( character, npc, pageid, item, count )
 	local packet = GetPacket();
 	WriteCmd( packet, CMD_MC_FUNCPAGE );
@@ -185,16 +218,19 @@ function SendFuncPage( character, npc, pageid, item, count )
 	WriteDword( packet, npcid );
 	WriteByte( packet, pageid );
 	WriteByte( packet, count );
+	--PRINT( "send function page function, count = ", count )
 	for i = 1, count, 1 do
+		--PRINT( "send function page function, i = ", i, item[i] )
 		if item[i] ~= nil then
 			WriteString( packet, item[i] )
 		else
-			WriteString( packet, "Îøèáêà îïöèè èíôîðìàöèè!" )
+			WriteString( packet, "Incorrect notice option!" )
 		end
 	end
 	SendPacket( character, packet );
 end
 
+--·¢ËÍÒ³ÐÅÏ¢
 function SendPage( character, npc, pageid, talk, item, count )
 	local packet = GetPacket();
 	WriteCmd( packet, CMD_MC_FUNCPAGE );
@@ -203,16 +239,19 @@ function SendPage( character, npc, pageid, talk, item, count )
 	WriteByte( packet, pageid );
 	WriteString( packet, talk );
 	WriteByte( packet, count );
+	--PRINT( "send function page function, count = ", count )
 	for i = 1, count, 1 do
+		--PRINT( "send function page function, i = ", i, item[i] )
 		if item[i] ~= nil then
 			WriteString( packet, item[i] )
 		else
-			WriteString( packet, "Îøèáêà îïöèè èíôîðìàöèè!" )
+			WriteString( packet, "Incorrect notice option!" )
 		end
 	end
 	SendPacket( character, packet );
 end
 
+--·¢ËÍº¬ÈÎÎñÁÐ±íÐÅÏ¢¶Ô»°Ò³
 function SendMissionPage( character, npc, pageid, talk, item, count, misitem, misnum )
 	PRINT( "SendMissionPage" )
 	local packet = GetPacket();
@@ -222,23 +261,26 @@ function SendMissionPage( character, npc, pageid, talk, item, count, misitem, mi
 	WriteByte( packet, pageid );
 	WriteString( packet, talk );
 	WriteByte( packet, count );
+	--PRINT( "send function page function, count = ", count )
 	for i = 1, count, 1 do
+		--PRINT( "send function page function, i = ", i, item[i] )
 		if item[i] ~= nil then
 			WriteString( packet, item[i] )
 		else
-			WriteString( packet, "Îøèáêà îïöèè èíôîðìàöèè!" )
+			WriteString( packet, "Incorrect notice option!" )
 		end
 	end
 	WriteByte( packet, misnum )
-	PRINT( "Çàïèñàí ñïèñîê çàäàíèé, count ="..misnum )
+	PRINT( "Send quest list notice, count ="..misnum )
 	for n = 1, misnum, 1 do
-		PRINT( "Íàçâàíèå çàäàíèÿ:, ID çàäàíèÿ: ", misitem[n].name, misitem[n].state )
+		PRINT( "Name: Status: ", misitem[n].name, misitem[n].state )
 		WriteString( packet, misitem[n].name )
 		WriteByte( packet, misitem[n].state )
 	end
 	SendPacket( character, packet );
 end
 
+--¹Ø±Õ¶Ô»°º¯Êý
 function SendClosePage( character, npc )
 	local packet = GetPacket();
 	WriteCmd( packet, CMD_MC_CLOSETALK );
@@ -247,6 +289,7 @@ function SendClosePage( character, npc )
 	SendPacket( character, packet );
 end
 
+--·¢ËÍÈÎÎñÁÐ±íÐÅÏ¢
 function SendMissionList( character, npc, missionlist, itemid, optype, listtype )
 	PRINT( "SendMissionList, itemid, optype, listtype", itemid, optype, listtype )
 	local npcid = GetCharID( npc )
@@ -260,9 +303,12 @@ function SendMissionList( character, npc, missionlist, itemid, optype, listtype 
 		PRINT( "SendMissionList: parameter item id error!" )
 		return SystemNotice( character, "SendMissionList: parameter item id error!" )
 	end
+
 	PRINT( "SendMissionList: calculation page index notice!" )
 	local count, previd, nextid, itemnum = 1, 0, 0, 0
 	local item = {}
+
+	--¼ÆËãÆðÊ¼µÚÒ»ÐÐË÷Òý
 	if optype == MIS_NEXT then
 		previd = itemid + 1
 		nextid = num - itemid
@@ -279,6 +325,8 @@ function SendMissionList( character, npc, missionlist, itemid, optype, listtype 
 			nextid = itemid
 		end
 	end
+
+	--¼ÆËã×îºóÒ»ÐÐË÷Òý
 	PRINT( "SendMissionList:previd = %d, nextid = %d", previd, nextid )
 	for n = previd, nextid, 1 do
 		itemnum = n
@@ -296,15 +344,19 @@ function SendMissionList( character, npc, missionlist, itemid, optype, listtype 
 		end
 		count = count + 1
 	end
+
+	--·¢ËÍÁÐ±íÐÅÏ¢
 	PRINT( "SendMissionList: send list notice" )
 	if count < 1 then
 		PRINT( "SendMissionList: does not have previous page or next page notice!" )
 		return SystemNotice( character, "SendMissionList: does not have previous page or next page notice!" )
 	end
+
 	previd = previd - 1
 	nextid = nextid - 1
 	PRINT( "SendMissionList:previd = %d, nextid = %d, count = %d", previd, nextid, count )
 	PRINT( "SendMissionList:sendpacket" )
+	--·¢ËÍ±¨ÎÄÐÅÏ¢
 	local packet = GetPacket()
 	WriteCmd( packet, CMD_MC_MISSION )
 	local npcid = GetCharID( npc )
@@ -312,7 +364,9 @@ function SendMissionList( character, npc, missionlist, itemid, optype, listtype 
 	WriteByte( packet, listtype )
 	WriteByte( packet, previd )
 	WriteByte( packet, nextid )
+
 	PRINT( "SendMissionList: fill page notice!, previd, nextid ", previd, nextid )
+	--ÉèÖÃÒ³
 	if previd == 0 then
 		PRINT( "SendMissionList: fill page notice!prev = end" )
 		WriteByte( packet, MIS_PREV_END )
@@ -328,6 +382,7 @@ function SendMissionList( character, npc, missionlist, itemid, optype, listtype 
 		PRINT( "SendMissionList: fill page notice! next = next" )
 		WriteByte( packet, MIS_NEXT )
 	end
+
 	WriteByte( packet, count - 1 )
 	for i = 1, count - 1, 1 do
 		PRINT( item[i] )
@@ -339,17 +394,21 @@ function SendMissionList( character, npc, missionlist, itemid, optype, listtype 
 	return LUA_TRUE
 end
 
+--Ö´ÐÐÒ³Ìø×ªÃüÁî
 function JumpPage( character, npc, page, param )
 	if page == nil or param == nil or page[param] == nil then
-		return SystemNotice( character, "JumpPage:Îøèáêà ïàðàìåòðà ôóíêöèè!" )
+		return SystemNotice( character, "JumpPage:Function parameter error!" )
 	end
 	if page[param][1] == nil then
-		return SystemNotice( character, "JumpPage: Ñòðàíèöà ñ èíôîðìàöèåé íå ìîæåò áûòü ïóñòîé!" )
+		return SystemNotice( character, "JumpPage: page notice cannot be as null!" )
 	end
+	--ÌáÈ¡¶Ô»°ÐÅÏ¢
 	local talk = ""
 	if page[param][1] ~= nil and page[param][1].talk ~= nil then
 		talk = page[param][1].talk
 	end
+
+	--ÌáÈ¡Ñ¡ÔñÏîÐÅÏ¢
 	local FuncItem = {}
 	local count = 0
 	PRINT( "JumpPage:page item count = ", page[param].count )
@@ -357,6 +416,7 @@ function JumpPage( character, npc, page, param )
 	if page[param].count ~= nil then
 		funcnum = page[param].count
 	end
+
 	for i = 1, funcnum, 1 do
 		if page[param][i] == nil then
 			break
@@ -372,6 +432,8 @@ function JumpPage( character, npc, page, param )
 		PRINT( "JumpPage3:SendMissioniPage, pageid, talk, funcitem, count, misitem, misnum", param, talk, FuncItem, count, nil, 0 )
 		return SendMissionPage( character, npc, param, talk, FuncItem, count, nil, 0 )
 	end
+
+	--ÌáÈ¡ÈÎÎñÁÐ±íÐÅÏ¢
 	local misnum = 0
 	local MisItem = {}
 	local ret, NpcInfoID = GetScriptID( npc )
@@ -380,9 +442,12 @@ function JumpPage( character, npc, page, param )
 		PRINT( "JumpPage1:SendMissioniPage, pageid, talk, funcitem, count, misitem, misnum", param, talk, FuncItem, count, MisItem, misnum )
 		return SendMissionPage( character, npc, param, talk, FuncItem, count, MisItem, misnum )
 	end
+
 	local missionlist = NpcInfoList[NpcInfoID].missionlist
 	local npcid = GetCharID( npc )
 	ret, misnum = GetNumMission( character, npcid )
+
+	--»ñÈ¡ÈÎÎñÁÐ±í
 	PRINT( "JumpPage:misnum = ", misnum )
 	for n = 1, misnum, 1 do
 		local ret, id, state = GetMissionInfo( character, npcid, n - 1 )
@@ -399,14 +464,17 @@ function JumpPage( character, npc, page, param )
 			PRINT( "JumpPage:mission name = , state = ", missionlist[id].name, state )
 		end
 	end
+
 	PRINT( "JumpPage2:SendMissioniPage, pageid, talk, funcitem, count, misitem, misnum", param, talk, FuncItem, count, MisItem, misnum )
 	return SendMissionPage( character, npc, param, talk, FuncItem, count, MisItem, misnum )
 end
 
+--·¢ËÍ¹¦ÄÜÒ³ÐÅÏ¢
 function FuncPage( character, npc, page, param )
 	if page == nil or param == nil or page[param] == nil or page[param][1] == nil then
-		return SystemNotice( character, "FuncPage: Îøèáêà ïàðàìåòðà ôóíêöèè!" )
+		return SystemNotice( character, "FuncPage: function parameter error!" )
 	end
+
 	local FuncItem = {}
 	local count = 0
 	for i = 1, ROLE_MAXNUM_PAGEITEM, 1 do
@@ -418,6 +486,7 @@ function FuncPage( character, npc, page, param )
 			FuncItem[count] = page[param][i].text
 		end
 	end
+
 	if count == 0 then
 		return SystemNotice( character, "FuncPage: does not have function item notice!" )
 	else
@@ -425,10 +494,12 @@ function FuncPage( character, npc, page, param )
 	end
 end
 
+--¹Ø±Õ±¾´Î¶Ô»°
 function CloseTalk( character, npc )
 	return SendClosePage( character, npc )
 end
 
+--ÒÆ¶¯µ½ÖÆ¶¨µØÍ¼×ø±ê
 function GoTo( character, xpos, ypos, mapname )
 	if xpos == nil or ypos == nil or mapname == nil then
 		return SystemNotice( character, " GoTo:xpos or ypos or mapname level parameter cannot be as null!" )
@@ -436,19 +507,24 @@ function GoTo( character, xpos, ypos, mapname )
 	return MoveTo( character,  xpos, ypos,  mapname )
 end
 
+--Ëæ»úÌø×ªµØÍ¼
 function RandToMap( character, npc, maplist, count )
 	SendClosePage( character, npc )
+
 	if maplist == nil or count == nil then
 		return SystemNotice( character, "RandToMap:maplist or count level parameter cannot be as null!" )
 	end
+
 	local id = Rand( count )
 	id = id + 1
 	if maplist[id] == nil or maplist[id].xpos == nil or maplist[id].ypos == nil or maplist[id].mapname == nil then
 		return SystemNotice( character, "RandToMap: certain parameter in maplist cannot be as null!" )
 	end
+
 	GoTo( character, maplist[id].xpos, maplist[id].ypos, maplist[id].mapname )
 end
 
+--Ëæ»ú¼ì²âÊÇ·ñÒÑµ½´ïµØÍ¼
 function IsRandInMap( character, npc, rate, mapname, x, y, w, h )
 	if rate == nil or mapname == nil or x == nil or y == nil then
 		PRINT( "IsRandInMap: parameter error!" )
@@ -458,6 +534,7 @@ function IsRandInMap( character, npc, rate, mapname, x, y, w, h )
 	if rate > Rand( 100 ) then
 		return LUA_FALSE
 	end
+
 	return IsInMap( character, mapname, x, y, w, h )
 end
 
@@ -465,14 +542,17 @@ function PopupWindow( character, npc, page, trigger, p2 )
 	if trigger == nil or p2 == nil then
 		return SystemNotice( character, "PopupWindow: Parameter cannot be null!" )
 	end
+	
 	trigger( character, npc, p2 )
 end
 
+--¶à¸ö´¥·¢Æ÷¹¦ÄÜÖ´ÐÐ
 function MultiTrigger( character, npc, page, trigger, count )
 	PRINT( "MultiTrigger" )
 	if trigger == nil or count == nil then
 		return SystemNotice( character, "MultiTrigger:funclist or count parameter cannot be as null!" )
 	end
+
 	for n = 1, count, 1 do
 		if trigger[n] == nil then
 			break
@@ -492,38 +572,41 @@ function MultiTrigger( character, npc, page, trigger, count )
 		end
 	end
 end
-
+--ÐÂ´¥·¢Æ÷0
 function MultiTrigger_0( character, npc, page, trigger, count )
 	MultiTrigger( character, npc, page, trigger, count )
 	Eleven_Log_0( character )
 end
-
+--ÐÂ´¥·¢Æ÷1
 function MultiTrigger_1( character, npc, page, trigger, count )
 	MultiTrigger( character, npc, page, trigger, count )
 	Eleven_Log( character,1 )
 end
-
+--ÐÂ´¥·¢Æ÷2
 function MultiTrigger_2( character, npc, page, trigger, count )
 	MultiTrigger( character, npc, page, trigger, count )
 	Eleven_Log( character,2 )
 end
-
+--ÐÂ´¥·¢Æ÷3
 function MultiTrigger_3( character, npc, page, trigger, count )
 	MultiTrigger( character, npc, page, trigger, count )
 	Eleven_Log( character,3 )
 end
-
+--¶à¸öÌõ¼þÅÐ¶Ï
 function MultiConditions( character, npc, funclist, count )
 	if funclist == nil or count == nil then
 		return SystemNotice( character, "MultiConditions:funclist or count parameter cannot be as null!" )
 	end
+
 	return ConditionsTest( character, funclist )
 end
 
+--¶à¸öº¯Êý¹¦ÄÜ
 function MultiFunc( character, npc, page, funclist, count )
 	if funclist == nil or count == nil then
 		return SystemNotice( character, "MultiFunc:funclist or count parameter cannot be as null!" )
 	end
+
 	for id = 1, count, 1 do
 		PRINT( "MultiFunc n = "..id )
 		if funclist[id].func == AddMoney then
@@ -557,20 +640,24 @@ function MultiFunc( character, npc, page, funclist, count )
 		elseif funclist[id].func == CreditExchange then
 			CreditExchange( character, npc, funclist[id].p1 )
 		else
-			return SystemNotice( character, "MultiFunc: Íåèçåñòíàÿ îøèáêà Ôóíêöèè!" )
+			return SystemNotice( character, "MultiFunc:unknown functionerror!" )
 		end
 	end
+
 end
 
+--Ëæ»ú¹¦ÄÜ
 function RandFunction( character, npc, page, funclist, count )
 	if funclist == nil or count == nil then
 		return SystemNotice( character, "RandFunction:funclist or count parameter cannot be as null!" )
 	end
+
 	local id = Rand( count )
 	id = id + 1
 	if funclist[id] == nil or funclist[id].func == nil then
 		return SystemNotice( character, "RandFunction:funclist certain parameter cannot be as null!" )
 	end
+
 	if funclist[id].func == JumpPage then
 		return JumpPage( character, npc, page, funclist[id].p1 )
 	elseif funclist[id].func == RandToMap then
@@ -587,12 +674,15 @@ function RandFunction( character, npc, page, funclist, count )
 	else
 		return SystemNotice( character, "RandFunction: unknown function error!" )
 	end
+
 end
 
+--½»Ò×
 function SendTradePage( character, npc, cmd, trade, tradetype, p1 )
 	if cmd == nil or trade == nil or tradetype == nil then
 		return SystemNotic( character, "TradePage:Function parameter error!" )
 	end
+
 	PRINT( "SendTradePage: send start. tradetype = ", tradetype )
 	local packet = GetPacket()
 	WriteCmd( packet, cmd )
@@ -600,6 +690,7 @@ function SendTradePage( character, npc, cmd, trade, tradetype, p1 )
 	WriteDword( packet, npcid )
 	WriteByte( packet, tradetype )
 	WriteDword( packet, p1 )
+
 	local typecount = 0
 	for i = 1, 4, 1 do
 		if trade[i] ~= nil then
@@ -610,6 +701,7 @@ function SendTradePage( character, npc, cmd, trade, tradetype, p1 )
 	end
 	WriteByte( packet, typecount )
 	PRINT( "SendTradePage: typecount = ", typecount )
+
 	for i = 1, typecount, 1 do
 		if trade[i].itemtype ~= nil and trade[i].count ~= nil and trade[i].item ~= nil then
 			if trade[i].count > 120 then
@@ -618,7 +710,7 @@ function SendTradePage( character, npc, cmd, trade, tradetype, p1 )
 			PRINT( "SendTradePage: itemtype = ,  count = ", trade[i].itemtype, trade[i].count )
 			WriteByte( packet, trade[i].itemtype )
 			WriteByte( packet, trade[i].count )
-			
+			--Ð´ÈëÎïÆ·IDÊý¾Ý
 			for n = 1, trade[i].count, 1 do
 				if trade[i].item[n] ~= nil then
 					if tradetype == TRADE_GOODS then
@@ -642,14 +734,17 @@ function SendTradePage( character, npc, cmd, trade, tradetype, p1 )
 			return SystemNotice( character, "npc trade item value or type error, please check!" )
 		end
 	end
+
 	PRINT( "SendTradePage: SendPacket" )
 	SendPacket( character, packet )
 end
 
+--¸üÐÂ½»Ò×
 function SendTradeUpdate( character, npc, trade, tradetype, p1 )
 	if trade == nil or tradetype == nil then
 		return SystemNotic( character, "SendTradeUpdate: Function parameter error!" )
 	end
+
 	PRINT( "SendTradeUpdate: send start. tradetype = ", tradetype )
 	local packet = GetPacket()
 	WriteCmd( packet, CMD_MC_BLACKMARKET_TRADEUPDATE )
@@ -657,6 +752,7 @@ function SendTradeUpdate( character, npc, trade, tradetype, p1 )
 	WriteDword( packet, npcid )
 	WriteByte( packet, tradetype )
 	WriteDword( packet, p1 )
+
 	local typecount = 0
 	for i = 1, 4, 1 do
 		if trade[i] ~= nil then
@@ -667,6 +763,7 @@ function SendTradeUpdate( character, npc, trade, tradetype, p1 )
 	end
 	WriteByte( packet, typecount )
 	PRINT( "SendTradeUpdate: typecount = ", typecount )
+
 	for i = 1, typecount, 1 do
 		if trade[i].itemtype ~= nil and trade[i].count ~= nil and trade[i].item ~= nil then
 			if trade[i].count > 120 then
@@ -675,7 +772,7 @@ function SendTradeUpdate( character, npc, trade, tradetype, p1 )
 			PRINT( "SendTradeUpdate: itemtype = ,  count = ", trade[i].itemtype, trade[i].count )
 			WriteByte( packet, trade[i].itemtype )
 			WriteByte( packet, trade[i].count )
-			
+			--Ð´ÈëÎïÆ·IDÊý¾Ý
 			for n = 1, trade[i].count, 1 do
 				if trade[i].item[n] ~= nil then
 					if tradetype == TRADE_GOODS then
@@ -699,14 +796,17 @@ function SendTradeUpdate( character, npc, trade, tradetype, p1 )
 			return SystemNotice( character, "npc trade item value or type error, please check!" )
 		end
 	end
+
 	PRINT( "SendTradeUpdate: SendPacket" )
 	SynPacket( npc, packet )
 end
 
+--½»Ò×
 function SendUpdateTradePage( character, npc, cmd, trade, tradetype, p1 )
 	if cmd == nil or trade == nil or tradetype == nil then
 		return SystemNotic( character, "SendUpdateTradePage:Function parameter error!" )
 	end
+
 	PRINT( "SendUpdateTradePage: send start. tradetype = ", tradetype )
 	local packet = GetPacket()
 	WriteCmd( packet, cmd )
@@ -714,6 +814,7 @@ function SendUpdateTradePage( character, npc, cmd, trade, tradetype, p1 )
 	WriteDword( packet, npcid )
 	WriteByte( packet, tradetype )
 	WriteDword( packet, p1 )
+
 	local typecount = 0
 	for i = 1, 4, 1 do
 		if trade[i] ~= nil then
@@ -724,6 +825,7 @@ function SendUpdateTradePage( character, npc, cmd, trade, tradetype, p1 )
 	end
 	WriteByte( packet, typecount )
 	PRINT( "SendUpdateTradePage: typecount = ", typecount )
+
 	for i = 1, typecount, 1 do
 		if trade[i].itemtype ~= nil and trade[i].count ~= nil and trade[i].item ~= nil then
 			if trade[i].count > 120 then
@@ -732,7 +834,7 @@ function SendUpdateTradePage( character, npc, cmd, trade, tradetype, p1 )
 			PRINT( "SendUpdateTradePage: itemtype = ,  count = ", trade[i].itemtype, trade[i].count )
 			WriteByte( packet, trade[i].itemtype )
 			WriteByte( packet, trade[i].count )
-			
+			--Ð´ÈëÎïÆ·IDÊý¾Ý
 			for n = 1, trade[i].count, 1 do
 				if trade[i].item[n] ~= nil then
 					if tradetype == TRADE_GOODS then
@@ -758,6 +860,7 @@ function SendUpdateTradePage( character, npc, cmd, trade, tradetype, p1 )
 			return SystemNotice( character, "SendUpdateTradePage:npc trade item quantity or type error, please check!" )
 		end
 	end
+
 	PRINT( "SendUpdateTradePage: SendPacket" )
 	SynPacket( character, packet )
 end
@@ -767,21 +870,25 @@ function TradePage( character, npc, trade, tradetype, p1 )
 	SendTradePage( character, npc, CMD_MC_TRADEPAGE, trade, tradetype, p1 )
 end
 
+--³öÊÛÃüÁîº¯Êý
 function SalePage( character, npc, trade )
 	PRINT( "Send sale page info!" )
 	TradePage( character, npc, trade, TRADE_SALE, 0 )
 end
 
+--¹ºÂòÃüÁîº¯Êý
 function BuyPage( character, npc, trade )
 	PRINT( "Send buy page info!" )
 	TradePage( character, npc, trade, TRADE_BUY, 0 )
 end
 
+--²¥·ÅÌØÐ§
 function PlayEffect( npc, id )
 	PRINT( "PlayEffect" )
 	ChaPlayEffect( npc, id )
 end
 
+--½»Ò×´¬²Õ»õÎï
 function TradeGoods( character, npc, trade, index )
 	PRINT( "Send TradeGoods page info, trade, index", trade, index )
 	local ret, boatid = GetBoatID( character, index )
@@ -794,42 +901,55 @@ function TradeGoods( character, npc, trade, index )
 	TradePage( character, npc, trade, TRADE_GOODS, boatid )
 end
 
+--½ÇÉ«½»Ò×Í£²´ÁÐ±í
 function TradeBerthList( character, npc, berth )
 	PRINT( "TadeBerthList: show list of ship docked in harbor for trade!" )
 	local npcid = GetCharID( npc )
 	return BoatBerthList( character, npcid, BERTH_TRADE_LIST, berth, 0, 0, 0 )
 end
 
+--½ÇÉ«´¬Ö»Í£²´ÁÐ±í
 function LuanchBerthList( character, npc, berth, xpos, ypos, dir )
 	PRINT( "LuanchBerthList: show docked ship list!" )
 	local npcid = GetCharID( npc )
+	--local ret1 = RemoveYS( character )
+	--if ret1 ~= 1 then
+	--	PRINT( "LuanchBerthList: RemoveYS failed!" )
+	--	SystemNotice( character, "LuanchBerthList: RemoveYS failed!" )
+	--	return --LUA_FALSE
+	--end
 	return BoatBerthList( character, npcid, BERTH_LUANCH_LIST, berth, xpos, ypos, dir )
 end
 
+--ÐÞÀí´¬Ö»ÁÐ±í
 function RepairBerthList( character, npc, berth )
 	PRINT( "RepairBerthList: show repair list of ships docked in harbor!" )
 	local npcid = GetCharID( npc )
 	return BoatBerthList( character, npcid, BERTH_REPAIR_LIST, berth, 0, 0, 0 )
 end
 
+--´òÀÌ´¬Ö»ÁÐ±í
 function SalvageBerthList( character, npc, berth )
 	PRINT( "SalvageBerthList: show list of ship docked in harbor to salvage!" )
 	local npcid = GetCharID( npc )
 	return BoatBerthList( character, npcid, BERTH_SALVAGE_LIST, berth, 0, 0, 0 )
 end
 
+--²¹¸ø´¬Ö»ÁÐ±í
 function SupplyBerthList( character, npc, berth )
 	PRINT( "SupplyBerthList: Show ship docked at harbor list for refuel!" )
 	local npcid = GetCharID( npc )
 	return BoatBerthList( character, npcid, BERTH_SUPPLY_LIST, berth, 0, 0, 0 )
 end
 
+--´¬Ö»Éý¼¶ÁÐ±í
 function BoatLevelBerthList( character, npc, berth )
 	PRINT( "BoatLevelList: Show upgrade list of ships docked in this harbor!" )
 	local npcid = GetCharID( npc )
 	return BoatBerthList( character, npcid, BERTH_BOATLEVEL_LIST, berth, 0, 0, 0 )
 end
 
+--³öÊÛÎïÆ·
 function Sale( character, npc, index, count )
 	PRINT( "Sale" )
 	if index == nil or count == nil then
@@ -837,16 +957,18 @@ function Sale( character, npc, index, count )
 		SystemNotice( character, "Sale:Function parameter error!" )
 		return LUA_FALSE
 	end
+
 	SafeSale( character, index, count )
 	return LUA_TRUE
 end
 
+--¹ºÂòÎïÆ·
 function Buy( character, npc, trade, itemtype, index1, index2, count )
 	PRINT( "Buy" )
 	itemtype = itemtype + 1
 	index1 = index1 + 1
 	if trade[itemtype] == nil or trade[itemtype].item == nil or trade[itemtype].item[index1] == nil then
-		
+		--ÐÅÏ¢´íÎó
 		PRINT( "Buy:function parameter error!" )
 		SystemNotice( character, "Buy:function parameter error!" )
 		return LUA_FALSE
@@ -856,6 +978,7 @@ function Buy( character, npc, trade, itemtype, index1, index2, count )
 	return LUA_TRUE
 end
 
+--³öÊÛ»õÎï
 function SaleGoods( character, npc, trade, boatid, index, count )
 	PRINT( "SaleGoods" )
 	if boatid == nil or index == nil or count == nil or trade == nil then
@@ -863,10 +986,12 @@ function SaleGoods( character, npc, trade, boatid, index, count )
 		SystemNotice( character, "SaleGoods:Function parameter error!" )
 		return LUA_FALSE
 	end
+	
 	local ret = BoatTrade( character, trade.berth )
 	if ret ~= LUA_TRUE then
 		return LUA_FALSE
 	end
+	
 	local ret, itemid = GetSaleGoodsItem( character, boatid, index )
 	if ret ~= LUA_TRUE then
 		PRINT( "SaleGoods:GetSaleGoodsItem, obtain goods notice failed!index = "..index )
@@ -874,6 +999,7 @@ function SaleGoods( character, npc, trade, boatid, index, count )
 		return LUA_FALSE
 	end
 	PRINT( "SaleGoods: boatid = , index = , itemid = ", boatid, index, itemid )
+	--Ð£ÑéÊÇ·ñnpcÊÕ¹º¸ÃÎïÆ·
 	local price = 0
 	for n = 1, trade[2].count, 1 do
 		if trade[2].item[n].id == itemid then
@@ -882,11 +1008,13 @@ function SaleGoods( character, npc, trade, boatid, index, count )
 		end
 	end
 	PRINT( "SaleGoods: boatid = , index = , itemid = , count =, price = ", boatid, index, itemid, count, price )
+
 	local ret, level, cess = GetTradeItemData( character )
 	if ret ~= LUA_TRUE then
 		cess = 1
 	end
 	PRINT( "SaleGoods:GetTradeItemData: level = , cess = ", level, cess )
+
 	PRINT( "SaleGoods:3-1, cess, price = ", cess, price )
 	if cess == 0 then
 		cess = 1
@@ -896,6 +1024,7 @@ function SaleGoods( character, npc, trade, boatid, index, count )
 	PRINT( "SaleGoods:3-1, cessdata, price = ", cessdata, price )
 	local cessprice = price - cessdata
 	PRINT( "SaleGoods:3, cessprice = ", cessprice )
+
 	local ret = SafeSaleGoods( character, boatid, index, count, cessprice )
 	if ret ~= LUA_TRUE then
 		PRINT( "SaleGoods: sale of commerce goods failed!boatid, index, count, price", boatid, index, count, price )
@@ -905,28 +1034,33 @@ function SaleGoods( character, npc, trade, boatid, index, count )
 	end
 	local allcessdata = cessdata*count
 	SystemNotice( character, "Deduct Tax. Total: ("..allcessdata.."G). Unit: ("..cessdata.."G)" )
+
 	return LUA_TRUE
 end
 
+--¹ºÂò»õÎï
 function BuyGoods( character, npc, trade, boatid, itemtype, index1, index2, count )
 	PRINT( "BuyGoods" )
 	itemtype = itemtype + 1
 	index1 = index1 + 1
 	if boatid == nil or trade[itemtype] == nil or trade[itemtype].item == nil or trade[itemtype].item[index1] == nil or trade[itemtype].price[index1] == nil then
-		
+		--ÐÅÏ¢´íÎó
 		PRINT( "BuyGoods:Function parameter error!" )
 		SystemNotice( character, "BuyGoods:Function parameter error!" )
 		return LUA_FALSE
 	end
+
 	local ret = BoatTrade( character, trade.berth )
 	if ret ~= LUA_TRUE then
 		return LUA_FALSE
 	end
+	
 	if trade[itemtype].item[index1].count <= 0 then
 		BickerNotice( character, "Item is sold out. Please wait!" )
 		return LUA_TRUE
 	end
 	PRINT( "BuyGoods:1" )
+
 	if trade[itemtype].item[index1].level > 0 then
 		local ret, level, cess = GetTradeItemData( character )
 		if ret ~= LUA_TRUE then
@@ -940,10 +1074,13 @@ function BuyGoods( character, npc, trade, boatid, itemtype, index1, index2, coun
 			return LUA_FALSE
 		end
 	end
+
 	PRINT( "BuyGoods:2" )
+	--¼ì²éÊýÁ¿ÊÇ·ñ×ã¹»
 	if trade[itemtype].item[index1].count < count then
 		count = trade[itemtype].item[index1].count
 	end
+
 	local itemid = trade[itemtype].item[index1].id
 	local price = trade[itemtype].price[index1].curprice
 	local ret = SafeBuyGoods( character, boatid,  itemid, index2, count, price )
@@ -956,22 +1093,25 @@ function BuyGoods( character, npc, trade, boatid, itemtype, index1, index2, coun
 	return LUA_TRUE
 end
 
+--»õÎïÐÅÏ¢Í¬²½
 function SendGoodsData( npc, index, id, count, price )
 	if npc == nil or index == nil or id == nil or count == nil or price == nil then
 		PRINT( "SendGoodsData:Function parameter error!npc, index, id, count, price", npc, index, id, count, price )
 		LG( "npctrade_error", "SendGoodsData:Function parameter error!npc, index, id, count, price", npc, index, id, count, price  )
 		return
 	end
+
 	PRINT( "SendGoodsData: npc, index, id, count, price", npc, index, id, count, price )
 	local packet = GetPacket()
 	WriteCmd( packet, CMD_MC_TRADE_DATA )
 	local npcid = GetCharID( npc )
 	WriteDword( packet, npcid )
-	WriteByte( packet, 0 ) 
+	WriteByte( packet, 0 ) --µÚÒ»Ò³ÎªÏúÊÛÎïÆ·Ò³ÐÅÏ¢
 	WriteByte( packet, index )
 	WriteWord( packet, id )
 	WriteWord( packet, count )
 	WriteDword( packet, price )
+
 	SynPacket( npc, packet )
 	return LUA_TRUE
 end
@@ -981,11 +1121,13 @@ function SendAllGoodsData( npc, trade )
 		PRINT( "SendAllGoodsData: Function parameter error!" )
 		return LUA_ERROR
 	end
+
 	PRINT( "SendAllGoodsData:" )
 	SendUpdateTradePage( npc, npc, CMD_MC_TRADE_ALLDATA, trade, TRADE_GOODS, 0 )
 	return LUA_TRUE
 end
 
+--»õÎï´ò°üµ½´¬²Õ
 function PackBagGoods( character, boat, tp, level )
 	PRINT( "PackBagGoods: character, boat, tp, level ", character, boat, tp, level )
 	if character == nil or boat == nil or level == nil or tp == nil then
@@ -993,7 +1135,9 @@ function PackBagGoods( character, boat, tp, level )
 		LG( "goods_error", "PackBagGoods:functionparameter error , character, boat, tp, level ", character, boat, tp, level )
 		return LUA_FALSE
 	end
-	if tp == RES_WOOD	then			
+
+	--´ò°ü¸÷ÖÖµÈ¼¶×ÊÔ´ÀàÐÍ
+	if tp == RES_WOOD	then			-- Ä¾²Ä×ÊÔ´
 		if ResourceList == nil or ResourceList.wood == nil or ResourceList.wood[level] == nil then
 			PRINT( "PackBagGoods: invalid resource loading notice!" )
 			return LUA_FALSE
@@ -1004,6 +1148,7 @@ function PackBagGoods( character, boat, tp, level )
 			LG( "goods_error", "PackBagGoods: Invalid wood resource loading notice!level, Itemid, count, pileid", ResourceList.wood[level].itemid, ResourceList.wood[level].count, ResourceList.wood[level].pileid )
 			return LUA_FALSE
 		end
+
 		PRINT( "PackBagGoods: PackBag:RES_WOOD: itemid = , count = , pileid = ", ResourceList.wood[level].itemid, ResourceList.wood[level].count, ResourceList.wood[level].pileid )
 		local ret, numpack = PackBag( character, boat, ResourceList.wood[level].itemid, ResourceList.wood[level].count, ResourceList.wood[level].pileid )
 		if ret ~= LUA_TRUE then
@@ -1014,12 +1159,13 @@ function PackBagGoods( character, boat, tp, level )
 		if numpack > 0 then
 			BickerNotice( character, "Successfully loaded"..numpack.."pile"..level.."level Wood!" )
 		end
-	elseif tp == RES_MINE	then		
+	elseif tp == RES_MINE	then		-- ¿óÊ¯×ÊÔ´
 		if ResourceList.mine[level].itemid == nil or ResourceList.mine[level].count == nil or ResourceList.mine[level].pileid == nil then
 			PRINT( "PackBagGoods: Invalid ore resource loading notice! level, Itemid, count, pileid", ResourceList.mine[level].itemid, ResourceList.mine[level].count, ResourceList.mine[level].pileid )
 			LG( "goods_error", "PackBagGoods: Invalid ore resource loading notice! level, Itemid, count, pileid", ResourceList.mine[level].itemid, ResourceList.mine[level].count, ResourceList.mine[level].pileid )
 			return LUA_FALSE
 		end
+
 		PRINT( "PackBagGoods: PackBag:RES_MINE: itemid = , count = , pileid = ", ResourceList.mine[level].itemid, ResourceList.mine[level].count, ResourceList.mine[level].pileid )
 		local ret, numpack = PackBag( character, boat, ResourceList.mine[level].itemid, ResourceList.mine[level].count, ResourceList.mine[level].pileid )
 		if ret ~= LUA_TRUE then
@@ -1039,18 +1185,22 @@ function PackBagGoods( character, boat, tp, level )
 	return LUA_TRUE
 end
 
+--µ÷ÕûÃ³Ò×Ë°ÂÊ
 function AdjustTradeCess( character, cess, cessrange )
 	if cess == nil or cessrange == nil then
 		SystemNotice( character, "AdjustTradeCess:Function parameter error!" )
 		LG( "mission_error", "AdjustTradeCess:Function parameter error!" )
 		return LUA_ERROR
 	end
+
 	local ret, level, cessdata = GetTradeItemData( character )
 	if ret ~= LUA_TRUE then
 		SystemNotice( character, "AdjustTradeCess:GetTradeItemData function transfer failed, check if Commerce Permit exists!" )
 		LG( "mission_error", "AdjustTradeCess:GetTradeItemData function transfer failed, check if Commerce Permit exists!" )
 		return LUA_FALSE
 	end
+
+	--¼ì²éÃ³Ò×Ö¤µÈ¼¶
 	if level == 1 then
 		return AdjustTradeItemCess( character, 200, cess + Rand( cessrange ) )
 	elseif level == 2 then
@@ -1062,19 +1212,23 @@ function AdjustTradeCess( character, cess, cessrange )
 		LG( "mission_error", "AdjustTradeCess: character ["..GetCharName( character ).."] commerce permit level exceeded!level = "..level )
 		return LUA_FALSE
 	end
+
 end
 
+--ÈÙÓþÖµ¶Ò»»µÀ¾ß
 function CreditExchange( character, npc, tp )
 	if tp == nil then
 		PRINT( "CreditExchange: function parameter error!" )
 		SystemNotice( character, "CreditExchange: function parameter error!" )
 		return LUA_ERROR	
 	end
+	
 	PRINT( "CreditExchange, p1 = "..tp )
 	CreditExchangeImpl( character, tp )
 	return LUA_TRUE
 end
 
+--´¬Ö»Éý¼¶´¦Àíº¯Êý
 function BoatLevelUp( character, boat, levelup )
 	PRINT( "BoatLevelUp: levelup", levelup )
 	if levelup == nil or BoatLevelList == nil  then
@@ -1082,18 +1236,23 @@ function BoatLevelUp( character, boat, levelup )
 		SystemNotice( character, "BoatLevelUp:Function parameter error!" )
 		return LUA_ERROR
 	end
+
 	if BoatLevelList[levelup] == nil or BoatLevelList[levelup].money == nil or BoatLevelList[levelup].exp == nil	then
-		BickerNotice( character, "Âàø êîðàáëü äîñòèã ìàêñèìàëüíîãî óðîâíÿ!" )
+		BickerNotice( character, "Your ship has reached maximum level!" )
 		return LUA_TRUE
 	end
+
 	PRINT( "BoatLevelUp: levelup, exp, moeny", levelup, BoatLevelList[levelup].exp, BoatLevelList[levelup].money )
+	--ÅÐ¶Ï¾­ÑéºÍÇ®Éý¼¶Ìõ¼þÊÇ·ñ×ã¹»
 	local ret = BoatLevelUpProc( character, boat, levelup, BoatLevelList[levelup].exp, BoatLevelList[levelup].money )
 	if ret == 0 then
 		PRINT( "BoatLevelUpProc:function transfer return failed!" )
 	end
+
 	return LUA_TRUE
 end
 
+--¶Ô»°ÃüÁîÏûÏ¢´¦Àí
 function MsgProc( character, npc, rpk, page, trade, missionlist, exchangeData )
 	if character == nil or npc == nil or rpk == nil then
 		PRINT( "MsgProc:Function parameter error!" )
@@ -1102,9 +1261,10 @@ function MsgProc( character, npc, rpk, page, trade, missionlist, exchangeData )
 	end
 	PRINT( "MsgProc:Net message process." )
 	local usCmd = ReadWord( rpk );
-	if usCmd == CMD_CM_TALKPAGE then	
-		local byTalkID = ReadByte( rpk ) 
-		if byTalkID == ROLE_FIRSTPAGE then	
+	if usCmd == CMD_CM_TALKPAGE then	--¶Ô»°Ò³ÃüÁîÐÅÏ¢´¦Àí
+		local byTalkID = ReadByte( rpk ) --¶ÁÈ¡Ò³Ö¸ÁîË÷ÒýÐÅÏ¢
+
+		if byTalkID == ROLE_FIRSTPAGE then	--ºÍnpcµÚÒ»´Î½»Á÷¶Ô»°
 			RefreshMissionState( character, npc )
 			if page.start == MultiTrigger then
 				PRINT( "MsgProc:MultiTrigger, page, p1, p2", page, page.p1, page.p2 )
@@ -1114,15 +1274,16 @@ function MsgProc( character, npc, rpk, page, trade, missionlist, exchangeData )
 				PRINT( "MsgProc:PopupWindow, page, p1, p2", page, page.p1, page.p2 )
 				return PopupWindow( character, npc, page, page.p1, page.p2 )
 			end
-			return JumpPage( character, npc, page, 1 ) 
+			return JumpPage( character, npc, page, 1 ) --·¢ËÍµÚÒ»Ò³¶Ô»°ÐÅÏ¢
 		elseif byTalkID == ROLE_CLOSEPAGE then
-			return SendClosePage( character, npc ) 
-		elseif page[byTalkID] == nil or page[byTalkID][1] == nil then 
+			return SendClosePage( character, npc ) --¹Ø±Õ¶Ô»°
+		elseif page[byTalkID] == nil or page[byTalkID][1] == nil then --´íÎóµÄÒ³Êý¾Ý£¬±¨¾¯
 			return SystemNotice( character, "MsgProc: request a dialogue with npc but target npc does not have page data notice!" )
 		else
 			local talkpage = page[byTalkID][1]
 			local funcpage = page[byTalkID][2]
-			
+
+			--Ö´ÐÐÒ³Á´½Ó¹¦ÄÜÖ¸Áî
 			if talkpage.func == JumpPage then
 				return JumpPage( character, npc, page, talkpage.p1 )
 			elseif talkpage.func == FuncPage then
@@ -1136,10 +1297,11 @@ function MsgProc( character, npc, rpk, page, trade, missionlist, exchangeData )
 				else
 					return JumpPage( character, npc, page, talkpage.p3 )
 				end
-			elseif funcpage ~= nil then	
+			elseif funcpage ~= nil then	--ÅÐ¶ÏÊÇ·ñÓÐ¹¦ÄÜÐÅÏ¢
 				return FuncPage( character, npc, page, byTalkID )
-			else 
+			else --Ìø×ªµ½ÏÂÒ»Ò³
 				local PageID = byTalkID + 1
+
 				if page[PageID] == nil then
 					EXLG( "NpcSdk_error", "MsgProc: page notice link incorrect, does not have next page or unknown link function! NpcName = %s, PageID = %d", GetCharName( npc ), PageID )
 					return SystemNotice( character, "MsgProc: page notice link error, does not have next page or unknown link function!" )
@@ -1148,34 +1310,35 @@ function MsgProc( character, npc, rpk, page, trade, missionlist, exchangeData )
 			end
 		end
 		return
-	elseif usCmd == CMD_CM_FUNCITEM then 
-		local byPage = ReadByte( rpk );	
-		local byItem = ReadByte( rpk ); 
+	elseif usCmd == CMD_CM_FUNCITEM then --¹¦ÄÜÒ³Ñ¡ÏîÃüÁîÐÅÏ¢´¦Àí
+		local byPage = ReadByte( rpk );	--¶ÁÈ¡¹¦ÄÜÒ³Ë÷ÒýÐÅÏ¢
+		local byItem = ReadByte( rpk ); --¶ÁÈ¡¹¦ÄÜÑ¡ÏîË÷ÒýÐÅÏ¢
 		PRINT( "MsgProc: pageid = , itemid = ", byPage, byItem )
 		if page[byPage] == nil or page[byPage][1] == nil then
 			EXLG( "NpcSdk_error", "MsgProc:unknown function page index notice error or target page notice does not exist! NpcName = %s, PageID = %d, ItemID = %d", GetCharName( npc ), byPage, byItem )
 			return SystemNotice( character, "MsgProc:unknown function page index notice error or target page does not exist!" )
 		end
-		if page[byPage][1].talk ~= nil then 
+
+		if page[byPage][1].talk ~= nil then --ÊÇ·ñ¼ÈÓÐ¶Ô»°Ò³ÐÅÏ¢Ò²ÓÐ¹¦ÄÜÒ³ÐÅÏ¢
 			if page[byPage][1].func ~= nil then
 				PRINT( "MultiTrigger" )
-				byItem = 1                           
+				byItem = 1                           --Èç¹û¶Ô»°ÐÅÏ¢ÓÐÖ´ÐÐº¯ÊýÔòÓÅÏÈÖ´ÐÐ
 			else
-				byItem = byItem + 2			 
+				byItem = byItem + 2			 --Ìøµ½Ñ¡ÔñÏî¹¦ÄÜº¯ÊýÖ´ÐÐ
 			end
 		elseif page[byPage][1].text ~= nil then
 			byItem = byItem + 1
 		end
-		
+
+		--´¦Àí¹¦ÄÜÏîÄ¿Ñ¡ÔñÃüÁî
 		local item = page[byPage][byItem]
 		if item == nil or item.func == nil then
 			EXLG( "NpcSdk_error", "MsgProc: target page does not have function option notice or function notice! NpcName = %s, PageID = %d, ItemID = %d", GetCharName( npc ), byPage, byItem )
 			return SystemNotice( character, "MsgProc: Target page does not have function page notice nor function notice!" )
 		end
+
 		if item.func == JumpPage then
 			return JumpPage( character, npc, page, item.p1 )
-		elseif item.func == Marry then
-			return Marry(character)
 		elseif item.func == FuncPage then
 			return FuncPage( character, npc, page, item.p1 )
 		elseif item.func == CloseTalk then
@@ -1246,6 +1409,8 @@ function MsgProc( character, npc, rpk, page, trade, missionlist, exchangeData )
 			return TransferDiamond( character, item.p1 )
 		elseif item.func == ListChallenge then
 			return ListChallenge( character, npc )
+		--elseif item.func == ListAuction then
+			--return ListAuction( character, npc )
 		elseif item.func == SendExchangeData then
 			return SendExchangeData( character, npc )
 		elseif item.func == SendExchangeXData then
@@ -1439,32 +1604,36 @@ function MsgProc( character, npc, rpk, page, trade, missionlist, exchangeData )
 		else
 			return SystemNotice( character, "MsgProc: function option unknown function!" )
 		end
-	elseif usCmd == CMD_CM_BLACKMARKET_EXCHANGE_REQ then 
+	elseif usCmd == CMD_CM_BLACKMARKET_EXCHANGE_REQ then --ºÚÊÐ¶Ò»»
 		local timeNum = ReadWord( rpk )
 		local srcID = ReadWord( rpk )
 		local srcNum = ReadWord( rpk )
 		local tarID = ReadWord( rpk )
 		local tarNum = ReadWord( rpk )
 		local byIndex = ReadWord( rpk )
+		
 		local ret = KitbagLock( character, 0 )
 		if ret ~= LUA_TRUE then
 			SystemNotice( character, "Inventory is binded. Unable to redeem" )
 			return
 		end
+		
 		local retbag = HasLeaveBagGrid( character, 1)
 		if retbag ~= LUA_TRUE then
 			SystemNotice(character,"Insufficent inventory space to redeem")
 			return 
 		end
+		
 		ExchangeReq( character, npc, srcID, srcNum, tarID, tarNum, timeNum )
-	elseif usCmd == CMD_CM_TRADEITEM then 
+	elseif usCmd == CMD_CM_TRADEITEM then --ÇëÇó½»Ò×´¦Àí
 		local tradetype = ReadByte( rpk )
-		if tradetype == ROLE_TRADE_SALE then	
+		if tradetype == ROLE_TRADE_SALE then	--ÇëÇó³öÊÛÎïÆ·
 			if trade.tp ~= TRADE_NOMAL then
 				SystemNotice( character, "Trade mode error!tp =", trade.tp )
 				PRINT( "trade mode error!tp = , tradetype = ", trade.tp, ROLE_TRADE_SALE )
 				return
 			end
+
 			local index = ReadByte( rpk )
 			local count = ReadByte( rpk )
 			if count == 0 then
@@ -1472,12 +1641,13 @@ function MsgProc( character, npc, rpk, page, trade, missionlist, exchangeData )
 			end
 			PRINT( "MsgProc:Sale index = %d, count = %d", index, count )
 			Sale( character, npc, index, count )
-		elseif tradetype == ROLE_TRADE_BUY then	
+		elseif tradetype == ROLE_TRADE_BUY then	--ÇëÇó¹ºÂòÎïÆ·
 			if trade.tp ~= TRADE_NOMAL then
 				SystemNotice( character, "Trade mode error!tp =", trade.tp )
 				PRINT( "trade mode error!tp = , tradetype = ", trade.tp, ROLE_TRADE_BUY )
 				return
 			end
+
 			local itemtype = ReadByte( rpk )
 			local index1 = ReadByte( rpk )
 			local index2 = ReadByte( rpk )
@@ -1487,12 +1657,13 @@ function MsgProc( character, npc, rpk, page, trade, missionlist, exchangeData )
 			end
 			PRINT( "MsgProc:Buy itemtype = %d, index1 = %d, index2 = %d, count = %d", itemtype, index1, index2, count )
 			Buy( character, npc, trade, itemtype, index1, index2, count )
-		elseif tradetype == ROLE_TRADE_SALE_GOODS then	
+		elseif tradetype == ROLE_TRADE_SALE_GOODS then	--ÇëÇó³öÊÛ»õ²ÕÎïÆ·
 			if trade.tp ~= TRADE_GOODS then
 				SystemNotice( character, "Trade mode error!tp =", trade.tp )
 				PRINT( "trade mode error!tp = , tradetype = ", trade.tp, ROLE_TRADE_SALE_GOODS )
 				return
 			end
+
 			local boatid = ReadDword( rpk )
 			local index = ReadByte( rpk )
 			local count = ReadByte( rpk )
@@ -1501,30 +1672,32 @@ function MsgProc( character, npc, rpk, page, trade, missionlist, exchangeData )
 			end
 			PRINT( "MsgProc:Sale boatid = ,index =, count =", boatid, index, count )
 			SaleGoods( character, npc, trade, boatid, index, count )
-		elseif tradetype == ROLE_TRADE_BUY_GOODS then 	
+		elseif tradetype == ROLE_TRADE_BUY_GOODS then 	--ÇëÇó¹ºÂò»õ²ÕÎïÆ·
 			if trade.tp ~= TRADE_GOODS then
 				SystemNotice( character, "Trade mode error!tp =", trade.tp )
 				PRINT( "trade mode error!tp = , tradetype = ", trade.tp, ROLE_TRADE_BUY_GOODS )
 				return
 			end
+
 			local boatid = ReadDword( rpk )
 			local itemtype = ReadByte( rpk )
 			local index1 = ReadByte( rpk )
 			local index2 = ReadByte( rpk )
 			local count = ReadByte( rpk )
+
 			if count == 0 then
 				return
 			end
 			PRINT( "MsgProc:Buy goods boatid =, itemtype = , index1 = , index2 =, count = ", boatid, itemtype, index1, index2, count )
 			BuyGoods( character, npc, trade, boatid, itemtype, index1, index2, count )
-		elseif tradetype == ROLE_TRADE_SELECT_BOAT then 
+		elseif tradetype == ROLE_TRADE_SELECT_BOAT then --Ñ¡Ôñ½»Ò×´¬Ö»
 			local index = ReadByte( rpk )
 			PRINT( "MsgProc:index = ", index )
 			TradeGoods( character, npc, trade, index )
 		else
 			return SystemNotice( character, "MsgProc: trade request command error!" )
 		end
-	elseif usCmd == CMD_CM_MISSION then 
+	elseif usCmd == CMD_CM_MISSION then --ÈÎÎñ´¦Àí
 		return MissionProc( character, npc, rpk, missionlist )
 	else
 		EXLG( "NpcSdk_error", "MsgProc:unknown internet command! CMD = %d", usCmd )
@@ -1532,20 +1705,23 @@ function MsgProc( character, npc, rpk, page, trade, missionlist, exchangeData )
 	end
 end
 
+
 function GiveHoe(role,npc)
 	local r1 = 0
 	local r2 = 0
 	r1, r2 = MakeItem ( role , 3908  , 1 , 4 )		
 	local Itemnew = GetChaItem ( role , 2 , r2 )
-	SetItemAttr(Itemnew, ITEMATTR_URE, 10 )
-	SetItemAttr(Itemnew, ITEMATTR_MAXURE, 10 )
+	
+	SetItemAttr(Itemnew, ITEMATTR_URE, 10 )--µ±Ç°´æ´¢¾­Ñé
+	SetItemAttr(Itemnew, ITEMATTR_MAXURE, 10 )--×î¸ß´æ´¢¾­Ñé
 	RefreshCha(role)
 end
 
 function CheckMetal(role,npc)
-	local hoe_Count = CheckBagItem ( role , 3908 ) 
-	local hoe_temp = GetChaItem2 ( role , 2 , 3908 ) 
+	local hoe_Count = CheckBagItem ( role , 3908 ) --¼ì²é³úÍ·ÊýÁ¿
+	local hoe_temp = GetChaItem2 ( role , 2 , 3908 ) --È¡³úÍ·¶ÔÏó
 	local hoe_maxUre = GetItemAttr ( hoe_temp , ITEMATTR_MAXURE)
+	
 	if  hoe_Count ==1 then
 		if hoe_maxUre <50 then
 			SetItemAttr(hoe_temp,ITEMATTR_MAXURE,5000)
@@ -1561,71 +1737,72 @@ function CheckMetal(role,npc)
 end
 
 function PKPointToZero(role,npc)
-	local PK_Count =  CheckBagItem ( role , 3849 ) 
-	local PK_Book = GetChaItem2 ( role , 2 , 3849 ) 
+	local PK_Count =  CheckBagItem ( role , 3849 ) --¼ì²éÓÐÃ»ÓÐÈÙÓþÖ®Ö¤
+	local PK_Book = GetChaItem2 ( role , 2 , 3849 ) --È¡µÃÈÙÓþÖ®Ö¤¶ÔÏó
+	
 	if PK_Count >= 1 then
 		SetItemAttr(PK_Book , ITEMATTR_MAXENERGY,0)
-		SystemNotice(role,"Âàøè î÷êè õàîñà áûëè îáíóëåíû ")
+		SystemNotice(role,"Your Chaos points has been resetted")
 	else
-		SystemNotice(role,"Ê ñîæàëåíèþ ó âàñ íåò Ìåäàëè îòâàãè.")
+		SystemNotice(role,"Sorry, you do not have any Medal of Honor.")
 	end
 	RefreshCha(role)
 end
 
 function GoTosdBoss ( role, value )
-	local br_x 		= {}
-	local br_y 		= {}
-	br_x[1] 		= {}
-	br_x[2] 		= {}
-	br_x[3] 		= {}
-	br_x[4] 		= {}
-	br_x[5] 		= {}
-	br_y[1] 		= {}
-	br_y[2] 		= {}
-	br_y[3] 		= {}
-	br_y[4] 		= {}
-	br_y[5] 		= {}
-	br_x[1][1] 		= 21
-	br_x[1][2] 		= 98
-	br_x[1][3] 		= 98
-	br_x[1][4] 		= 21
-	br_x[2][1] 		= 453
-	br_x[2][2] 		= 530
-	br_x[2][3] 		= 530
-	br_x[2][4] 		= 453
-	br_x[3][1] 		= 884
-	br_x[3][2] 		= 961
-	br_x[3][3] 		= 961
-	br_x[3][4] 		= 884
-	br_x[4][1] 		= 21
-	br_x[4][2] 		= 98
-	br_x[4][3] 		= 98
-	br_x[4][4] 		= 21
-	br_x[5][1] 		= 453
-	br_x[5][2] 		= 530
-	br_x[5][3] 		= 530
-	br_x[5][4] 		= 453
-	br_y[1][1] 		= 21
-	br_y[1][2] 		= 21
-	br_y[1][3] 		= 93
-	br_y[1][4] 		= 93
-	br_y[2][1] 		= 21
-	br_y[2][2] 		= 21
-	br_y[2][3] 		= 93
-	br_y[2][4] 		= 93
-	br_y[3][1] 		= 21
-	br_y[3][2] 		= 21
-	br_y[3][3] 		= 93
-	br_y[3][4] 		= 93
-	br_y[4][1] 		= 396
-	br_y[4][2] 		= 396
-	br_y[4][3] 		= 468
-	br_y[4][4] 		= 468
-	br_y[5][1] 		= 396
-	br_y[5][2] 		= 396
-	br_y[5][3] 		= 468
-	br_y[5][4] 		= 468
-	local n 		= math.random( 1 , 4 )
+	local br_x = {}
+	local br_y = {}
+	br_x[1] = {}
+	br_x[2] = {}
+	br_x[3] = {}
+	br_x[4] = {}
+	br_x[5] = {}
+	br_y[1] = {}
+	br_y[2] = {}
+	br_y[3] = {}
+	br_y[4] = {}
+	br_y[5] = {}
+	br_x[1][1] = 21
+	br_x[1][2] = 98
+	br_x[1][3] = 98
+	br_x[1][4] = 21
+	br_x[2][1] = 453
+	br_x[2][2] = 530
+	br_x[2][3] = 530
+	br_x[2][4] = 453
+	br_x[3][1] = 884
+	br_x[3][2] = 961
+	br_x[3][3] = 961
+	br_x[3][4] = 884
+	br_x[4][1] = 21
+	br_x[4][2] = 98
+	br_x[4][3] = 98
+	br_x[4][4] = 21
+	br_x[5][1] = 453
+	br_x[5][2] = 530
+	br_x[5][3] = 530
+	br_x[5][4] = 453
+	br_y[1][1] = 21
+	br_y[1][2] = 21
+	br_y[1][3] = 93
+	br_y[1][4] = 93
+	br_y[2][1] = 21
+	br_y[2][2] = 21
+	br_y[2][3] = 93
+	br_y[2][4] = 93
+	br_y[3][1] = 21
+	br_y[3][2] = 21
+	br_y[3][3] = 93
+	br_y[3][4] = 93
+	br_y[4][1] = 396
+	br_y[4][2] = 396
+	br_y[4][3] = 468
+	br_y[4][4] = 468
+	br_y[5][1] = 396
+	br_y[5][2] = 396
+	br_y[5][3] = 468
+	br_y[5][4] = 468
+	local n = math.random( 1 , 4 )
 	GoTo( role, br_x[value][n] , br_y[value][n] , "sdBoss")
 	return LUA_TRUE
 end

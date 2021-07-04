@@ -1,74 +1,32 @@
--- Имена функций должны заканчиваться названием карты, такие как after_destroy_entry_07xmas2
--- Наибольшее число символов в строке составляет 255
+--ґЛОДјюЦРЈ¬·ІКЗїЙДЬ±»¶аґОЦґРРµДєЇКэЈ¬єЇКэГы¶јТЄјУЙПµШНјГыЗ°ЧєЈ¬Изafter_destroy_entry_testpk
+--ґЛОДјюГїРРЧоґуЧЦ·ыёцКэОЄ255Ј¬ИфУРТмТйЈ¬ЗлУліМРтМЅМЦ
 
-function config_entry( entry )
-	SetMapEntryEntiID( entry, 2492, 1 )
+function config_entry(entry) 
+    SetMapEntryEntiID(entry, 193,1) --ЙиЦГµШНјИлїЪКµМеµД±аєЕЈЁёГ±аєЕ¶ФУ¦УЪcharacterinfo.txtµДЛчТэЈ©
+
+end 
+
+function after_create_entry(entry) 
+    local copy_mgr = GetMapEntryCopyObj(entry, 0) --ґґЅЁё±±ѕ№ЬАн¶ФПуЈ¬ґЛєЇКэФЪУРПФКЅИлїЪµДµШНјЦР±ШРлµчУГЈ¬¶ФУЪТюКЅИлїЪµДµШНјЈЁИз¶УОйМфХЅЈ©ОЮТЄµчУГёГЅУїЪ
+
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --ИЎµШНјИлїЪµДО»ЦГРЕПўЈЁµШНјГыЈ¬Чш±кЈ¬Дї±кµШНјГыЈ©
+    Notice("єЈµБ№гІҐЈєУРНжјТ·ўПЦЈ¬ФЪКҐµ®ґеµД["..posx..","..posy.."]О»ЦГёЅЅь·ўПЦТ»ёцНЁНщЎ¶Дж·ґКҐµ®ґеЎ·µДИлїЪЈ¬ёГПыПўЙРОґєЛКµЈ¬ЗлУР№ШµҐО»ЧўТвЎЈ") --НЁЦЄ±ѕЧй·юОсЖчµДЛщУРНжјТ
+
 end
 
-function after_create_entry( entry )
-	local copy_mgr = GetMapEntryCopyObj( entry, 0 )
-	map_name, posx, posy, tmap_name = GetMapEntryPosInfo( entry )
-	Notice("Объявление: По координатам ["..posx..","..posy.."] в Магическом океане начинаются Снежные войны!")
+function after_destroy_entry_07xmas2(entry)
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) 
+    Notice("єЈµБ№гІҐЈєѕЭНжјТМб№©µДПыПўЈ¬НЁНщЎ¶Дж·ґКҐµ®ґеЎ·µДИлїЪТСѕ­ПыК§БЛЎЈЗлґујТјМРш№ШЧўОТМЁµД№гІҐЈ¬ЧЈДъУдїмЎ«ЈЎ") 
 
-	local Now_Time = tonumber(os.date("%H"))
-
-	if Now_Time == 5 or Now_Time == 12 or Now_Time == 21 then
-		local EntryName = "Снежные войны с 30 по 60 уровни"
-		SetMapEntryEventName( entry, EntryName )
-	else
-		local EntryName = "Снежные войны с 61 уровня"
-		SetMapEntryEventName( entry, EntryName )
-	end
 end
 
-function after_destroy_entry_07xmas2( entry )
-	map_name, posx, posy, tmap_name = GetMapEntryPosInfo( entry )
-	Notice( "Объявление: Портал в Снежные войны закрылся!" )
+function after_player_login_07xmas2(entry, player_name)
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --ИЎµШНјИлїЪµДО»ЦГРЕПўЈЁµШНјГыЈ¬Чш±кЈ¬Дї±кµШНјГыЈ©
+    ChaNotice(player_name, "єЈµБ№гІҐЈєУРНжјТ·ўПЦЈ¬ФЪКҐµ®ґеµД["..posx..","..posy.."]О»ЦГёЅЅь·ўПЦТ»ёцНЁНщЎ¶Дж·ґКҐµ®ґеЎ·µДИлїЪЈ¬ёГПыПўЙРОґєЛКµЈ¬ЗлУР№ШµҐО»ЧўТвЎЈ") --НЁЦЄ±ѕЧй·юОсЖчµДЛщУРНжјТ
+
 end
 
-function after_player_login_07xmas2( entry, player_name )
-	map_name, posx, posy, tmap_name = GetMapEntryPosInfo( entry )
-	ChaNotice( player_name, "Объявление: По координатам ["..posx..","..posy.."] в Магическом океане начинаются Снежные войны!" )
-end
-
-function check_can_enter_07xmas2( role, copy_mgr )
-	local FightingBook_Num = 0
-	FightingBook_Num = CheckBagItem( role, 3849 )
-
-	if FightingBook_Num <= 0 then
-		SystemNotice( role, "У вас должна быть Медаль отваги, чтобы участвовать в Снежных войнах" )
-		return 0
-	elseif FightingBook_Num > 1 then
-		LG( "RYZ_PK", "Possess more than 1 Medal of Valor" )
-		return 0
-	end
-
-	local Now_Time = tonumber( os.date( "%H" ))
-	if Now_Time == 5 or Now_Time == 12 or Now_Time == 21 then
-		if Lv(role) < 30 then
-			SystemNotice(role, "Вы должны быть не ниже 30 уровня, чтобы участвовать в Снежных войнах " )
-			return 0
-		end
-
-		if Lv(role) > 60 then
-			SystemNotice(role, "Вы должны быть не выше 60 уровня, чтобы участвовать в Снежных войнах " )
-			return 0
-		end
-	else
-		if Lv(role) <= 60 then
-			SystemNotice(role, "Вы должны быть не ниже 61 уровня, чтобы участвовать в Снежных войнах " )
-			return 0
-		end
-	end
-end
-
-function begin_enter_07xmas2( role, copy_mgr )
-	SystemNotice( role, "Вы вошли в [Снежные войны]" )
-
-	if ( AddonSystem["Teleport"] == 1 ) then
-		local n = math.random( 116, 126 )
-		teleport( role, n )
-	else
-		MoveCity( role, "Snow War" )
-	end
+function begin_enter_07xmas2(role, copy_mgr) 
+	SystemNotice(role,"їЄКјЅшИлЎ¶Дж·ґКҐµ®ґеЎ·") 
+	MoveCity(role, "Дж·ґКҐµ®ґе")
 end

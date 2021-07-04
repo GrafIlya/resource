@@ -1,33 +1,36 @@
-print( "‡ Јаг§Є  AI_Define.lua" )
-
 CHANGE_TARGET_RATIO = 50
 
---------------------------
---	Интелект монстров	--
---------------------------
-AI_NONE        =  0		-- Монстр ничего не делает
-AI_N_ATK       =  1		-- Монстр ходит, но не атакует
-AI_FLEE        =  2		-- Монстр при атаке убегает
-AI_MOVETOHOST  =  4		-- Монстр следует за тем, кто его атаковал
-AI_R_ATK       =  5		-- Монстр контр-атакует, когда его бьют
-AI_ATK         = 10		-- Монстр атакует
-AI_ATK_FLEE    = 11		-- Монстр атакует, использует умения и навыки
+-----AI АаРН¶ЁТе-------------------------------------------------------------------------
 
-MWHH 	= 21
-MWYH 	= 22
-MWXS 	= 23
-MWBK 	= 24
-MWFH 	= 25
-MWJW 	= 26
-MWLH 	= 27
-MWHS 	= 28
-MWHDS 	= 29
-MHKL 	= 30
+AI_NONE        =  0  --І»ТЖ¶Ї
+AI_N_ATK       =  1  --І»№Ґ»ч
+AI_FLEE        =  2  --±»№Ґ»чєу·ґ·ЅПтМУЕЬ 
+AI_MOVETOHOST  =  4  --ёъЛжЦчИЛ
+AI_R_ATK       =  5  --±»№Ґ»чєу·ґ»ч
+AI_ATK         = 10  --Цч¶Ї№Ґ»ч 
+AI_ATK_FLEE    = 11  --Цч¶Ї№Ґ»ч+µРИЛ±ЖЅьєуМУЕЬ(Ц»УРФ¶іМ№Ґ»чµД№ЦОпїЙТФМоіЙґЛАаРН)
 
-ai_flag_summon = {}
-ai_flag_pick   = {}
-ai_flag_nohide = {}
+MWHH = 21
+MWYH = 22
+MWXS = 23
+MWBK = 24
+MWFH = 25
+MWJW = 26
+MWLH = 27
+MWHS = 28
+MWHDS = 29
+MHKL = 30
 
+
+--AI_PET         = 15  --іиОпAI
+
+--AIµДІўРР±кјЗ
+--јЗВјГїёцЅЗЙ«µДAI±кјЗїЄ№Ш
+ai_flag_summon = {}    --КЗ·с»бХЩ»Ѕ
+ai_flag_pick   = {}    --КЗ·с»бјсµАѕЯ
+ai_flag_nohide = {}    --КЗ·с·ґТюЙн
+
+--ОЄЛщУРїЙТФХЩ»ЅН¬°йµД№ЦОпЙиЦГ±кјЗ
 ai_flag_summon[101] = 1
 ai_flag_summon[102] = 1
 ai_flag_summon[136] = 1
@@ -38,15 +41,14 @@ ai_flag_summon[131] = 1
 ai_flag_summon[49]  = 1
 ai_flag_summon[200] = 1
 
+--ОЄЛщУРїЙТФК°ИЎµАѕЯµД№ЦОпЙиЦГ±кјЗ
 ai_flag_pick[82] = 1 
 ai_flag_pick[32] = 1
 ai_flag_pick[33] = 1
 ai_flag_pick[34] = 1 
 
-------------------------------------------------------
---	Массив с монстрами, которые обнаруживают инвиз	--
-------------------------------------------------------
-ai_flag_nohide[74] = 1
+--ДЬ№»·ґТюЙнµД№ЦБР±н, ЙиЦГ±кјЗ
+ai_flag_nohide[74] = 1   --±щБъ
 ai_flag_nohide[350] = 1
 ai_flag_nohide[727] = 1 
 ai_flag_nohide[673] = 1 
@@ -76,18 +78,20 @@ ai_flag_nohide[743] = 1
 ai_flag_nohide[744] = 1
 ai_flag_nohide[745] = 1
 ai_flag_nohide[747] = 1
+
 ai_flag_nohide[764] = 1
 ai_flag_nohide[765] = 1
 ai_flag_nohide[766] = 1
 ai_flag_nohide[776] = 1
 ai_flag_nohide[786] = 1
 ai_flag_nohide[788] = 1
-ai_flag_nohide[789] = 1
+ai_flag_nohide[789] = 1 --єЪБъ
 ai_flag_nohide[796] = 1
 ai_flag_nohide[805] = 1
 ai_flag_nohide[807] = 1
 ai_flag_nohide[815] = 1
-ai_flag_nohide[859] = 1
+
+ai_flag_nohide[859] = 1 --ВТ¶·°ЧТшіЗ
 ai_flag_nohide[860] = 1
 ai_flag_nohide[861] = 1
 ai_flag_nohide[866] = 1
@@ -129,7 +133,9 @@ ai_flag_nohide[989] = 1
 ai_flag_nohide[990] = 1
 ai_flag_nohide[991] = 1
 ai_flag_nohide[992] = 1
-ai_flag_nohide[933] = 1
+
+
+ai_flag_nohide[933] = 1----------КҐХЅ
 ai_flag_nohide[936] = 1
 ai_flag_nohide[953] = 1
 ai_flag_nohide[954] = 1
@@ -169,3 +175,30 @@ ai_flag_nohide[1032] = 1
 ai_flag_nohide[1033] = 1
 ai_flag_nohide[1034] = 1
 ai_flag_nohide[1035] = 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

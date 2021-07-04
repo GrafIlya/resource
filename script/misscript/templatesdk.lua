@@ -1,18 +1,32 @@
-print( "‡ £àã§ª  TemplateSDK.lua" )
+------------------------------------------------------------
+--TemplateSdk.lua Created by bt 2005.1.27.
+--
+--ÈÎÎñÏµÍ³½Å±¾Ä£°åº¯Êý
+print( "Loading TemplateSDK.lua" )
+------------------------------------------------------------
 
 function MisKillMonster( Talk, Param, Prize )
+
+	--Created By BT 2005.01.28
+
 	DefineMission( Param.CurMissionID, Param.MissionName, Param.CurMissionID )
+
 	MisBeginTalk( Talk.Begin )
 	MisBeginCondition( NoMission, Param.CurMissionID )
 	MisBeginCondition( NoRecord, Param.CurMissionID )
+
 	if Param.NeedRecord ~= nil then
 	   MisBeginCondition( HasRecord, Param.NeedRecord )
 	end
+
 	MisBeginCondition( LvCheck, ">", Param.MissionMinLv )
 	MisBeginCondition( LvCheck, "<", Param.MissionMaxLv )
+
 	MisBeginAction( AddMission, Param.CurMissionID )
+
 	MisBeginAction( AddTrigger, Param.CurTriggerID1, TE_KILL, Param.Kill_Number1, Param.CurMonsterID1 )
 	MisNeed( MIS_NEED_KILL, Param.CurMonsterID1, Param.Kill_Number1 )
+
 	if Param.CurMonsterID2 ~= nil and Param.CurTriggerID2 ~= nil and Param.Kill_Number2 ~= nil then
 	   MisBeginAction( AddTrigger, Param.CurTriggerID2, TE_KILL, Param.Kill_Number2, Param.CurMonsterID2 )
 	   MisNeed( MIS_NEED_KILL, Param.CurMonsterID2, Param.Kill_Number2 )
@@ -25,11 +39,13 @@ function MisKillMonster( Talk, Param, Prize )
 	   MisBeginAction( AddTrigger, Param.CurTriggerID4, TE_KILL, Param.Kill_Number4, Param.CurMonsterID4 )
 	   MisNeed( MIS_NEED_KILL, Param.CurMonsterID4, Param.Kill_Number4 )
 	end
+
 	if Prize.Mode == nil then
 	   MisPrizeSelOne()
 	else
 	   MisPrizeSelAll()
 	end
+
 	if Prize.Select1 ~= nil and Prize.ID1 ~= nil and Prize.Num1 ~= nil then
 	   MisPrize( Prize.Select1, Prize.ID1, Prize.Num1 )
 	end
@@ -54,8 +70,10 @@ function MisKillMonster( Talk, Param, Prize )
 	if Prize.Select8 ~= nil and Prize.ID8 ~= nil and Prize.Num8 ~= nil then
 	   MisPrize( Prize.Select8, Prize.ID8, Prize.Num8 )
 	end
+
 	MisResultTalk( Talk.Result )
 	MisHelpTalk( Talk.Help )
+
 	MisResultCondition( HasMission, Param.CurMissionID )
 	MisResultCondition( NoRecord, Param.CurMissionID )
 	if Param.NeedRecord ~= nil then
@@ -65,82 +83,145 @@ function MisKillMonster( Talk, Param, Prize )
 	if Param.CurMonsterID2 ~= nil and Param.CurTriggerID2 ~= nil and Param.Kill_Number2 ~= nil then
 	   MisResultCondition( HasFlag, Param.CurMissionID, 99 + Param.Kill_Number2 )
 	end
+
 	MisResultAction( AddExp, Param.MaxAddExp, Param.MinAddExp )
 	MisResultAction( ClearMission, Param.CurMissionID )
 	if Param.SetMisRecord ~= nil then
 	   MisResultAction( SetRecord, Param.CurMissionID )
 	end
+
 	InitTrigger()
 	TriggerCondition( 1, IsMonster, Param.CurMonsterID1 )
 	TriggerAction( 1, AddNextFlag, Param.CurMissionID, 80, Param.Kill_Number1 )
 	RegCurTrigger( Param.CurTriggerID1 )
+
 	if Param.CurMonsterID2 ~= nil and Param.CurTriggerID2 ~= nil and Param.Kill_Number2 ~= nil then
 	   InitTrigger()
 	   TriggerCondition( 1, IsMonster, Param.CurMonsterID2 )
 	   TriggerAction( 1, AddNextFlag, Param.CurMissionID, 100, Param.Kill_Number2 )
 	   RegCurTrigger( Param.CurTriggerID2 )
 	end
+
 end
 
+
 function DefSendItemMission( id, name, misid, npcid, areaid, sid )
+	--¶¨ÒåÒ»¸öÈÎÎñ£¨Ïê¼û¸Ãº¯ÊýËµÃ÷£¬COMPLETE_SHOWº¯Êý²ÎÊý±íÃ÷¸ÃÈÎÎñÖ»ÓÐÔÚ½ÇÉ«ÍêÈ«·ûºÏÌõ¼þ¿ÉÒÔ½»¸¶Ê±²Å»áÏÔÊ¾¸øÍæ¼Ò½ÇÉ«£©
 	DefineMission( id, name, misid, COMPLETE_SHOW )
+	
 	MisBeginCondition( AlwaysFailure )
-	MisResultTalk("Ñïàñèáî ÷òî äîñòàâèëè ìíå ïîñûëêó!")
+	
+	MisResultTalk("Thank you for sending my parcel over!")
+	
+	--ÌîÐ´½ÓÊÜËÍÐÅÌõ¼þÅÐ¶¨ÐÕÏ°£¬Ïê¼ûº¯ÊýËµÃ÷
 	MisResultCondition( HasRandMissionNpc, misid, npcid, areaid )
 	MisResultCondition( NoRandNpcItemFlag, misid, npcid )
+	
+	--ÈÎÎñÍê³É¶¯×÷ÐÅÏ¢£¨¼ûËæ»úÈÎÎñµÄÎïÆ·ÌáÈ¡º¯ÊýTakeRandNpcItemÐÅÏ¢ËµÃ÷,¸Ãº¯Êý±ØÐëÓÐ£©
 	MisResultAction( TakeRandNpcItem, misid, npcid, GetNpcName( npcid ) )
 	MisResultAction( RefreshCompleteFlag, sid )
 end
 
+
+
+--ÉèÖÃ×ªÖ°ÏÞÖÆÐÅÏ¢
 function ConvertProfession()
-	AddPfTable( 1, 8 )		
-	AddPfTable( 1, 9 )		
-	AddPfTable( 1, 10 )		
-	AddPfTable( 2, 11 )		
-	AddPfTable( 2, 12 )		
-	AddPfTable( 3, 15 )		
-	AddPfTable( 4, 16 ) 		
-	AddPfTable( 5, 13 )		
-	AddPfTable( 5, 14 )		
-	AddPfTable( 6, 18 )		
-	AddPfTable( 7, 17 )		
-	AddCatTable( 1, 1 )		
-	AddCatTable( 1, 2 )		
-	AddCatTable( 1, 4 )		
-	AddCatTable( 1, 7 )		
-	AddCatTable( 1, 9 )		
-	AddCatTable( 1, 10 )	
-	AddCatTable( 1, 11 )	
-	AddCatTable( 1, 12 )	
-	AddCatTable( 1, 16 )	
-	AddCatTable( 1, 17 )	
-	AddCatTable( 2, 1 )		
-	AddCatTable( 2, 3 )		
-	AddCatTable( 2, 6 )		
-	AddCatTable( 2, 7 )		
-	AddCatTable( 2, 8 )		
-	AddCatTable( 2, 10 )	
-	AddCatTable( 2, 17 )	
-	AddCatTable( 3, 2 )		
-	AddCatTable( 3, 3 )		
-	AddCatTable( 3, 4 )		
-	AddCatTable( 3, 5 )		
-	AddCatTable( 3, 7 )		
-	AddCatTable( 3, 11 )	
-	AddCatTable( 3, 12 )	
-	AddCatTable( 3, 13 )	
-	AddCatTable( 3, 14 )	
-	AddCatTable( 3, 15 )	
-	AddCatTable( 3, 16 )	
-	AddCatTable( 3, 17 )	
-	AddCatTable( 4, 4 )		
-	AddCatTable( 4, 5 )		
-	AddCatTable( 4, 6 )		
-	AddCatTable( 4, 7 )		
-	AddCatTable( 4, 13 )	
-	AddCatTable( 4, 14 )	
-	AddCatTable( 4, 16 )	
-	AddCatTable( 4, 17 )	
-	AddCatTable( 4, 18 )	
+	--ÐÂÊÖÎÞ×ªÖ°ÏÞÖÆ 
+
+	--½£Ê¿×ªÖ°
+	AddPfTable( 1, 8 )		--×ªÖ°Îª¾Þ½£Ê¿
+	AddPfTable( 1, 9 )		--×ªÖ°ÎªË«½£Ê¿
+	AddPfTable( 1, 10 )		--×ªÖ°Îª½£¶ÜÊ¿
+	
+	--ÁÔÈË×ªÖ°
+	AddPfTable( 2, 11 )		--×ªÖ°ÎªÑµÊÞÊ¦
+	AddPfTable( 2, 12 )		--×ªÖ°Îª¾Ñ»÷ÊÖ
+	
+	--Ë®ÊÖ×ªÖ°
+	AddPfTable( 3, 15 )		--×ªÖ°Îª´¬³¤
+	
+	--Ã°ÏÕÕß×ªÖ°
+	AddPfTable( 4, 16 ) 		--×ªÖ°Îªº½º£Ê¿
+	
+	--ÆíÔ¸Ê¹×ªÖ°
+	AddPfTable( 5, 13 )		--×ªÖ°ÎªÊ¥Ö°Õß
+	AddPfTable( 5, 14 )		--×ªÖ°Îª·âÓ¡Ê¦
+	
+	--¼¼Ê¦×ªÖ°
+	AddPfTable( 6, 18 )		--×ªÖ°Îª¹¤³ÌÊ¦
+	
+	--ÉÌÈË×ªÖ°
+	AddPfTable( 7, 17 )		--×ªÖ°ÎªÉÌÈË
+	
+	--½ÇÉ«ÌåÐÎÏÞÖÆ
+	--³¤·¢ÄÐ×ªÖ°
+	AddCatTable( 1, 1 )		--×ªÖ°Îª½£Ê¿
+	AddCatTable( 1, 2 )		--×ªÖ°ÎªÁÔÈË
+	AddCatTable( 1, 4 )		--×ªÖ°ÎªÃ°ÏÕÕß
+	AddCatTable( 1, 7 )		--×ªÖ°ÎªÉÌÈË
+	AddCatTable( 1, 9 )		--×ªÖ°ÎªË«½£Ê¿
+	AddCatTable( 1, 10 )	--×ªÖ°Îª½£¶ÜÊ¿
+	AddCatTable( 1, 11 )	--×ªÖ°ÎªÑ±ÊÞÊ¦
+	AddCatTable( 1, 12 )	--×ªÖ°Îª¾Ñ»÷ÊÖ
+	AddCatTable( 1, 16 )	--×ªÖ°Îªº½º£Ê¿
+	AddCatTable( 1, 17 )	--×ªÖ°Îª±¬·¢»§
+	
+	--¿ýÎàÄÐ×ªÖ°
+	AddCatTable( 2, 1 )		--×ªÖ°Îª½£Ê¿
+	AddCatTable( 2, 3 )		--×ªÖ°ÎªË®ÊÖ
+	AddCatTable( 2, 6 )		--×ªÖ°Îª¼¼Ê¦
+	AddCatTable( 2, 7 )		--×ªÖ°ÎªÉÌÈË
+	AddCatTable( 2, 8 )		--×ªÖ°Îª¾Þ½£Ê¿
+	AddCatTable( 2, 10 )	--×ªÖ°Îª½£¶ÜÊ¿
+	AddCatTable( 2, 17 )	--×ªÖ°Îª±¬·¢»§
+	
+	--Å®Ö÷½ÇÒ»×ªÖ°
+	AddCatTable( 3, 2 )		--×ªÖ°ÎªÁÔÈË
+	AddCatTable( 3, 3 )		--×ªÖ°ÎªË®ÊÖ
+	AddCatTable( 3, 4 )		--×ªÖ°ÎªÃ°ÏÕÕß
+	AddCatTable( 3, 5 )		--×ªÖ°ÎªÆíÔ¸Ê¹
+	AddCatTable( 3, 7 )		--×ªÖ°ÎªÉÌÈË
+	AddCatTable( 3, 11 )	--×ªÖ°ÎªÑµÊÞÊ¦
+	AddCatTable( 3, 12 )	--×ªÖ°Îª¾Ñ»÷ÊÖ
+	AddCatTable( 3, 13 )	--×ªÖ°ÎªÊ¥Ö°Õß
+	AddCatTable( 3, 14 )	--×ªÖ°Îª·âÓ¡Ê¦
+	AddCatTable( 3, 15 )	--×ªÖ°Îª´¬³¤
+	AddCatTable( 3, 16 )	--×ªÖ°Îªº½º£Ê¿
+	AddCatTable( 3, 17 )	--×ªÖ°Îª±©·¢»§
+	
+	
+	--Å®Ö÷½Ç¶þ×ªÖ°
+	AddCatTable( 4, 4 )		--×ªÖ°ÎªÃ°ÏÕÕß
+	AddCatTable( 4, 5 )		--×ªÖ°ÎªÆíÔ¸Ê¹
+	AddCatTable( 4, 6 )		--×ªÖ°Îª¼¼Ê¦
+	AddCatTable( 4, 7 )		--×ªÖ°ÎªÉÌÈË
+	AddCatTable( 4, 13 )	--×ªÖ°ÎªÊ¥Ö°Õß
+	AddCatTable( 4, 14 )	--×ªÖ°Îª·âÓ¡Ê¦
+	AddCatTable( 4, 16 )	--×ªÖ°Îªº½º£Ê¿
+	AddCatTable( 4, 17 )	--×ªÖ°Îª±©·¢»§
+	AddCatTable( 4, 18 )	--×ªÖ°Îª¹¤³ÌÊ¦
 end
 ConvertProfession()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

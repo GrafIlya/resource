@@ -1,3 +1,5 @@
+//Caribbean portal list								
+//ID	binded entity ID	incident type	entity placement location	entity placement direction	Target map name	Target map location	Activate Determinant Requirement	Name
 1	2492	4	76123,89623	-1	jialebi	9216,64032	1	Treasure Gulf to Skeletar Isle
 2	2492	4	42277,87421	-1	jialebi	89726,61473	1	Skeletar Isle to Naval Base
 3	2492	4	41275,63538	-1	jialebi	18735,8420	1	Skeletar Ocean Maze
@@ -14,3 +16,4 @@
 14	2492	4	60611,108311	-1	magicsea	220232,278111	1	Treasure Gulf to Magical Ocean
 15	2492	4	73411,103211	-1	magicsea	87711,375611	1	Treasure Gulf to Magical Ocean
 16	2492	4	69711,92011	-1	magicsea	101011,37400	1	Treasure Gulf to Magical Ocean
+//17	2492	4	50711,103711	-1	garner	230011,289511	1	Treasure Gulf to Argent	

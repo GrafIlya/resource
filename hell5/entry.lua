@@ -1,34 +1,53 @@
+--ґЛОДјюЦРЈ¬·ІКЗїЙДЬ±»¶аґОЦґРРµДєЇКэЈ¬єЇКэГы¶јТЄјУЙПµШНјГыЗ°ЧєЈ¬Изafter_destroy_entry_testpk
+--ґЛОДјюГїРРЧоґуЧЦ·ыёцКэОЄ255Ј¬ИфУРТмТйЈ¬ЗлУліМРтМЅМЦ
+
 function config_entry(entry) 
-    SetMapEntryEntiID(entry, 2492,1)
+    SetMapEntryEntiID(entry, 2492,1) --ЙиЦГµШНјИлїЪКµМеµД±аєЕЈЁёГ±аєЕ¶ФУ¦УЪcharacterinfo.txtµДЛчТэЈ©
+
 end 
 
 function after_create_entry(entry) 
-    local copy_mgr = GetMapEntryCopyObj(entry, 0)
-    local EntryName = "Вечный Абаддон"
+
+    local copy_mgr = GetMapEntryCopyObj(entry, 0) --ґґЅЁё±±ѕ№ЬАн¶ФПуЈ¬ґЛєЇКэФЪУРПФКЅИлїЪµДµШНјЦР±ШРлµчУГЈ¬¶ФУЪТюКЅИлїЪµДµШНјЈЁИз¶УОйМфХЅЈ©ОЮТЄµчУГёГЅУїЪ
+    local EntryName = "Abaddon Eternal"
     SetMapEntryEventName( entry, EntryName )
-    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry)
-	Notice("Объявление: В глубинах Абаддона 18 ["..posx..","..posy.."] открылся портал в Вечный Абаддон. Только отважные войны смогут выйти на схватку с самой смертью. Удачи!") 
+    
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --ИЎµШНјИлїЪµДО»ЦГРЕПўЈЁµШНјГыЈ¬Чш±кЈ¬Дї±кµШНјГыЈ©
+    Notice("Announcement: In the depths of Abaddon 18\"["..posx..","..posy.."]\" is accumulating a form of energy and energy of evil keeps welling out from it!") --НЁЦЄ±ѕЧй·юОсЖчµДЛщУРНжјТ
+
 end
 
 function after_destroy_entry_hell5(entry)
     map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) 
+    --Notice("Announcement: Challenge for today has ended.") 
+
 end
 
+function after_player_login_hell5(entry, player_name)
+
+end
+
+--УГУЪјмІвЅшИлМхјю
+--·µ»ШЦµЈє0Ј¬І»ВъЧгЅшИлМхјюЎЈ1Ј¬іЙ№¦ЅшИлЎЈ
 function check_can_enter_hell5( role, copy_mgr )
+
 	if CRY[18]==0 then
-		SystemNotice(role,"Силы тьмы опечатали проход. Пройти через него невозможно.")
+
+		SystemNotice(role,"Power of Darkness sealed the entrance to Eternity. It will not open no matter how hard you try.")
 		return 0
+
 	end
+
 	return 1
+
 end
 
-function begin_enter_hell5( role, copy_mgr )
-	SystemNotice( role, "Cердце начинает биться чаще, перед глазами быстро мелькают своды стен. И вот вы появляетесь в темном Вечном Абаддоне." )
+function begin_enter_hell5(role, copy_mgr) 
+    
 
-	if ( AddonSystem["Teleport"] == 1 ) then
-		local n = 98
-		teleport( role, n )
-	else
-		MoveCity( role, "Abaddon 5" )
-	end
-end
+		SystemNotice(role,"A strong force pulls you towards the endless darkness. When you open your eyes, you see before you a familiar world.")
+
+		MoveCity(role, "Abaddon 5")
+	
+
+end 

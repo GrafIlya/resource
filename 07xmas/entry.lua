@@ -1,31 +1,32 @@
-function config_entry( entry )
-	SetMapEntryEntiID( entry, 193, 1 )
+--ґЛОДјюЦРЈ¬·ІКЗїЙДЬ±»¶аґОЦґРРµДєЇКэЈ¬єЇКэГы¶јТЄјУЙПµШНјГыЗ°ЧєЈ¬Изafter_destroy_entry_testpk
+--ґЛОДјюГїРРЧоґуЧЦ·ыёцКэОЄ255Ј¬ИфУРТмТйЈ¬ЗлУліМРтМЅМЦ
+
+function config_entry(entry) 
+    SetMapEntryEntiID(entry, 193,1) --ЙиЦГµШНјИлїЪКµМеµД±аєЕЈЁёГ±аєЕ¶ФУ¦УЪcharacterinfo.txtµДЛчТэЈ©
+
+end 
+
+function after_create_entry(entry) 
+    local copy_mgr = GetMapEntryCopyObj(entry, 0) --ґґЅЁё±±ѕ№ЬАн¶ФПуЈ¬ґЛєЇКэФЪУРПФКЅИлїЪµДµШНјЦР±ШРлµчУГЈ¬¶ФУЪТюКЅИлїЪµДµШНјЈЁИз¶УОйМфХЅЈ©ОЮТЄµчУГёГЅУїЪ
+
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --ИЎµШНјИлїЪµДО»ЦГРЕПўЈЁµШНјГыЈ¬Чш±кЈ¬Дї±кµШНјГыЈ©
+    Notice("Announcement: According to reports, near Ascaron at ["..posx..","..posy.."]О»ЦГёЅЅь·ўПЦТ»ёцНЁНщЎ¶КҐµ®ґеЎ·µДИлїЪЈ¬ёГПыПўЙРОґєЛКµЈ¬ЗлУР№ШµҐО»ЧўТвЎЈ") --НЁЦЄ±ѕЧй·юОсЖчµДЛщУРНжјТ
+
 end
 
-function after_create_entry( entry )
-	local copy_mgr = GetMapEntryCopyObj( entry, 0 )
+function after_destroy_entry_07xmas(entry)
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) 
+    Notice("єЈµБ№гІҐЈєѕЭНжјТМб№©µДПыПўЈ¬НЁНщЎ¶КҐµ®ґеЎ·µДИлїЪТСѕ­ПыК§БЛЎЈЗлґујТјМРш№ШЧўОТМЁµД№гІҐЈ¬ЧЈДъУдїмЎ«ЈЎ") 
 
-	map_name, posx, posy, tmap_name = GetMapEntryPosInfo( entry )
-	Notice( "Объявление: Поступают сообщения, что в Аскароне ["..posx..","..posy.."] появился портал в Рождественскую Деревню. Все игроки поспешите туда!" )
 end
 
-function after_destroy_entry_07xmas( entry )
-	map_name, posx, posy, tmap_name = GetMapEntryPosInfo( entry )
-	Notice( "Объявление: Согласно сообщениям, портал в Рождественскую Деревню исчез!" )
+function after_player_login_07xmas(entry, player_name)
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --ИЎµШНјИлїЪµДО»ЦГРЕПўЈЁµШНјГыЈ¬Чш±кЈ¬Дї±кµШНјГыЈ©
+    ChaNotice(player_name, "Announcement: According to reports, near Ascaron at ["..posx..","..posy.."]О»ЦГёЅЅь·ўПЦТ»ёцНЁНщЎ¶КҐµ®ґеЎ·µДИлїЪЈ¬ёГПыПўЙРОґєЛКµЈ¬ЗлУР№ШµҐО»ЧўТвЎЈ") --НЁЦЄ±ѕЧй·юОсЖчµДЛщУРНжјТ
+
 end
 
-function after_player_login_07xmas( entry, player_name )
-	map_name, posx, posy, tmap_name = GetMapEntryPosInfo( entry )
-	ChaNotice( player_name, "Объявление: Поступают сообщения, что в Аскароне ["..posx..","..posy.."] появился портал в Рождественскую Деревню. Все игроки поспешите туда!" )
-end
-
-function begin_enter_07xmas( role, copy_mgr )
-	SystemNotice( role, "Вы вошли в Рождественскую Деревню" )
-
-	if ( AddonSystem["Teleport"] == 1 ) then
-		local n = math.random( 114, 115 )
-		teleport( role, n )
-	else
-		MoveCity( role, "Christmas Village" )
-	end
+function begin_enter_07xmas(role, copy_mgr) 
+	SystemNotice(role,"їЄКјЅшИлЎ¶КҐµ®ґеЎ·") 
+	MoveCity(role, "КҐµ®ґе")
 end

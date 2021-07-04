@@ -1,52 +1,100 @@
-print( "‡ £àã§ª  ª àâë: \"Œ £¨ç¥áª¨© Žª¥ ­\" ­ ç « áì!" )
-print( "‡ £àã§ª  Ctrl.lua" )
+--´ËÎÄ¼þÖÐ£¬·²ÊÇ¿ÉÄÜ±»¶à´ÎÖ´ÐÐµÄº¯Êý£¬º¯ÊýÃû¶¼Òª¼ÓÉÏµØÍ¼ÃûÇ°×º
 
-function map_run_magicsea( map )
-	local now_week= os.date("%w")
-	local now_hour= os.date("%H")
-	local now_miniute= os.date("%M")
-	now_week= tonumber(now_week)
-	now_hour= tonumber(now_hour)
-	now_miniute= tonumber(now_miniute)
-	local CheckDateNum = now_hour*100 +now_miniute
-	if now_week==1 then
-		if CheckDateNum>=1800 and CheckDateNum<1830 and CHURCHSTAR_FLAG == 0 then
-			StartAuction(1, "Àóêöèîí ", 1, 1000000, 100000)
-			CHURCHSTAR_FLAG = 1
-		end
-		if CheckDateNum>=1830 and CheckDateNum<1840 and CHURCHSTAR_FLAG == 1 then
-			EndAuction(1) 
-			CHURCHSTAR_FLAG = 0
-		end
-		if CheckDateNum>=1840 and CheckDateNum<1910 and CHURCHSTAR_FLAG == 0 then
-			StartAuction(1, "Àóêöèîí ", 1, 1000000, 100000)
-			CHURCHSTAR_FLAG = 1
-		end
-		if CheckDateNum>=1910 and CheckDateNum<1920 and CHURCHSTAR_FLAG == 1 then
-			EndAuction(1)
-			CHURCHSTAR_FLAG = 0
-		end
-		if CheckDateNum>=1920 and CheckDateNum<1950 and CHURCHSTAR_FLAG == 0 then
-			StartAuction(1, "Àóêöèîí ", 1, 1000000, 100000)
-			CHURCHSTAR_FLAG = 1
-		end
-		if CheckDateNum>=1950 and CheckDateNum<2000 and CHURCHSTAR_FLAG == 1 then
-			EndAuction(1)
-			CHURCHSTAR_FLAG = 0
-		end
-		if CheckDateNum>=2000 and CheckDateNum<2030 and CHURCHSTAR_FLAG == 0 then
-			StartAuction(1, "Àóêöèîí ", 1, 1000000, 100000)
-			CHURCHSTAR_FLAG = 1
-		end
-		if CheckDateNum>=2030  and CHURCHSTAR_FLAG == 1 then
-			EndAuction(1)
-			CHURCHSTAR_FLAG = 0
-		end
-	end
+function config(map)
+
 end
 
-function after_enter_magicsea( role, map_copy )
+
+function get_map_entry_pos_magicsea()   --ÉèÖÃÈë¿ÚµÄÎ»ÖÃµÄ×ø±ê£¨×ø±ê£¨Ã×£©£©
+
+end
+
+function init_entry(map)
+
+end
+
+function after_enter_magicsea( role , map_copy )
 end
 
 function before_leave_magicsea( role )
 end
+
+function map_copy_first_run_magicsea( map_copy )
+
+end
+
+function map_copy_run_magicsea( map_copy )
+end
+
+--Ã¿5ÃëÖ´ÐÐÒ»´ÎµÄ
+function map_run_magicsea( map )
+	
+	local now_week= os.date("%w")		-------------ÐÇÆÚ¼¸£¨Ê®½øÖÆ£© 
+	local now_hour= os.date("%H")		-------------Ê± 
+	local now_miniute= os.date("%M")	-------------·Ö
+	now_week= tonumber(now_week)	    
+	now_hour= tonumber(now_hour)		
+	now_miniute= tonumber(now_miniute)
+	local CheckDateNum = now_hour*100 +now_miniute
+
+	if now_week==1 then
+		
+		if CheckDateNum>=1800 and CheckDateNum<1830 and CHURCHSTAR_FLAG == 0 then
+			StartAuction(1, "ÒÁË¹À¼½ÌÌÃ", 1, 1000000, 100000) ---¿ªÊ¼½ÌÌÃ¿ªÅÄ
+			
+			CHURCHSTAR_FLAG = 1
+		end
+		if CheckDateNum>=1830 and CheckDateNum<1840 and CHURCHSTAR_FLAG == 1 then
+					--Notice( "½ÌÌÃÍ£ÅÄ")
+
+			EndAuction(1) --------½ÌÌÃÍ£ÅÄ
+						--Notice( "EndAuction(1) ")
+
+			CHURCHSTAR_FLAG = 0
+		end
+
+		if CheckDateNum>=1840 and CheckDateNum<1910 and CHURCHSTAR_FLAG == 0 then
+			StartAuction(1, "ÒÁË¹À¼½ÌÌÃ", 1, 1000000, 100000) ---¿ªÊ¼½ÌÌÃ¿ªÅÄ
+			
+			CHURCHSTAR_FLAG = 1
+		end
+		if CheckDateNum>=1910 and CheckDateNum<1920 and CHURCHSTAR_FLAG == 1 then
+			EndAuction(1) --------½ÌÌÃÍ£ÅÄ
+			
+			CHURCHSTAR_FLAG = 0
+		end
+
+
+		if CheckDateNum>=1920 and CheckDateNum<1950 and CHURCHSTAR_FLAG == 0 then
+			StartAuction(1, "ÒÁË¹À¼½ÌÌÃ", 1, 1000000, 100000) ---¿ªÊ¼½ÌÌÃ¿ªÅÄ
+			
+			CHURCHSTAR_FLAG = 1
+		end
+		if CheckDateNum>=1950 and CheckDateNum<2000 and CHURCHSTAR_FLAG == 1 then
+			EndAuction(1) --------½ÌÌÃÍ£ÅÄ
+			
+			CHURCHSTAR_FLAG = 0
+		end
+
+		if CheckDateNum>=2000 and CheckDateNum<2030 and CHURCHSTAR_FLAG == 0 then
+			StartAuction(1, "ÒÁË¹À¼½ÌÌÃ", 1, 1000000, 100000) ---¿ªÊ¼½ÌÌÃ¿ªÅÄ
+			
+			CHURCHSTAR_FLAG = 1
+		end
+		if CheckDateNum>=2030  and CHURCHSTAR_FLAG == 1 then
+			EndAuction(1) --------½ÌÌÃÍ£ÅÄ
+			
+			CHURCHSTAR_FLAG = 0
+		end
+
+	end
+end
+
+--µØÍ¼¹Ø±ÕÊ±Ö´ÐÐ
+function map_copy_close_magicsea ( map_copy )
+end
+		
+--µØÍ¼¿ª¹ØÅÐ¶Ï¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
+function can_open_entry_magicsea( map ) 
+end 

@@ -1,53 +1,72 @@
-function config_entry( entry )
-	SetMapEntryEntiID( entry, 2492, 4 )
-end
+--ґЛОДјюЦРЈ¬·ІКЗїЙДЬ±»¶аґОЦґРРµДєЇКэЈ¬єЇКэГы¶јТЄјУЙПµШНјГыЗ°ЧєЈ¬Изafter_destroy_entry_testpk
+--ґЛОДјюГїРРЧоґуЧЦ·ыёцКэОЄ255Ј¬ИфУРТмТйЈ¬ЗлУліМРтМЅМЦ
 
-function after_create_entry( entry )
-	local copy_mgr = GetMapEntryCopyObj( entry, 0 )
-	map_name, posx, posy, tmap_name = GetMapEntryPosInfo( entry )
-	Notice( "Объявление: В Магическом океане, в точке ["..posx..","..posy.."] появилась таинственная воронка. Некоторые путники сообщают, что она ведет в [Затерянный Город]." )
+function config_entry(entry) 
+    SetMapEntryEntiID(entry, 2492,4) --ЙиЦГµШНјИлїЪКµМеµД±аєЕЈЁёГ±аєЕ¶ФУ¦УЪcharacterinfo.txtµДЛчТэЈ©
+
+end 
+
+function after_create_entry(entry) 
+    local copy_mgr = GetMapEntryCopyObj(entry, 0) --ґґЅЁё±±ѕ№ЬАн¶ФПуЈ¬ґЛєЇКэФЪУРПФКЅИлїЪµДµШНјЦР±ШРлµчУГЈ¬¶ФУЪТюКЅИлїЪµДµШНјЈЁИз¶УОйМфХЅЈ©ОЮТЄµчУГёГЅУїЪ
+
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --ИЎµШНјИлїЪµДО»ЦГРЕПўЈЁµШНјГыЈ¬Чш±кЈ¬Дї±кµШНјГыЈ©
+    Notice("Announcement: Magical Ocean ["..posx..","..posy.."] emerges a portal to [Forsaken City].") --НЁЦЄ±ѕЧй·юОсЖчµДЛщУРНжјТ
+
 end
 
 function after_destroy_entry_abandonedcity(entry)
-	map_name, posx, posy, tmap_name = GetMapEntryPosInfo( entry )
-	Notice( "Портал, ведущий в [Затерянный Город], закрылся. Следите за новостями. Удачи всем, кто остался в этом жутком месте." )
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) 
+    Notice("Announcement: Magical Ocean ["..posx..","..posy.."] nearby has ceased. Remember to take note of the announcement!") 
+
 end
 
-function after_player_login_abandonedcity( entry, player_name )
-	map_name, posx, posy, tmap_name = GetMapEntryPosInfo( entry )
-	ChaNotice( player_name, "В Магическом океане, в точке ["..posx..","..posy.."] появился портал, ведущий в [Затерянный Город]." )
+function after_player_login_abandonedcity(entry, player_name)
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --ИЎµШНјИлїЪµДО»ЦГРЕПўЈЁµШНјГыЈ¬Чш±кЈ¬Дї±кµШНјГыЈ©
+    ChaNotice(player_name, "Announcement: Magical Ocean ["..posx..","..posy.."] emerges a portal to [Forsaken City].") --НЁЦЄ±ѕЧй·юОсЖчµДЛщУРНжјТ
+
 end
 
-function check_can_enter_abandonedcity( role, copy_mgr )
-	local Cha = TurnToCha( role )
-	if Lv( Cha ) >= 30 and Lv( Cha ) <= 45 then
+--УГУЪјмІвЅшИлМхјю
+--·µ»ШЦµЈє0Ј¬І»ВъЧгЅшИлМхјюЎЈ1Ј¬іЙ№¦ЅшИлЎЈ
+function check_can_enter_abandonedcity(role, copy_mgr)
+
+	local Cha = TurnToCha(role)
+  
+	if Lv(Cha) >=30 and Lv(Cha) <=45 then
+	
 		local Num
-		Num = CheckBagItem( Cha, 1812 )
+		Num = CheckBagItem(Cha, 1812)
+        	
 		if Num >= 1 then
 			return 1
+	
 		else
-			SystemNotice( role, "У вас нет Генератора древних. Невозможно войти в [Затерянный город]." )
+			SystemNotice(role, "Does not possess Ancient Generator.Unable to pass through Portal to Forsaken City")
 			return 0
 		end
+		
 	else
-		SystemNotice( role, "Войти в [Затерянный город] могут только персонажи с 35 по 45 уровень." )
-		return 0
+		SystemNotice(role, "Characters need to be between Lv 30 to 45 to enter Forsaken City")
+		return 0    
 	end
 end
 
-function begin_enter_abandonedcity( role, copy_mgr )
-	local Cha = TurnToCha( role )
+
+
+function begin_enter_abandonedcity(role, copy_mgr) 
+
+	local Cha = TurnToCha(role)	
 	local Dbag = 0
-	Dbag = DelBagItem( Cha, 1812, 1 )
+	Dbag = DelBagItem(Cha, 1812, 1)
+
 	if Dbag == 1 then
-		SystemNotice( role, "Вход в [Затерянный город]" )
-		if ( AddonSystem["Teleport"] == 1 ) then
-			local n = 40
-			teleport( role, n )
-		else
-			MoveCity( role, "Forsaken City" )
-		end
+		SystemNotice(role,"Entering [Forsaken City]") 
+		MoveCity(role, "Forsaken City")
+
 	else
-		SystemNotice( role, "У вас нет Генератора древних. Невозможно войти в [Затерянный город]!" )
+	
+		SystemNotice(role, "Acquire Ancient Generator failed. Unable to pass through Portal to Forsaken City")
 	end
+
+
 end

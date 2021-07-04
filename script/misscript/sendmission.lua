@@ -1,10 +1,25 @@
-print( "‡ £àã§ª  SendMission.lua" )
+------------------------------------------------------------
+--ScriptDefine.lua Created by knight 2005.3.9.
+--
+--½Å±¾ĞÅÏ¢¶¨Òå
+print( "Loading SendMission.lua" )
+------------------------------------------------------------
 
+
+--ÉèÖÃNPCËæ»úÈÎÎñÖĞµÄ£¬ËÍĞÅ½ÓÊÜÍê³ÉÈÎÎñĞÅÏ¢¡£
 function TestDefMission( id, name, misid, npcid, areaid )
 	DefineMission( id, name, misid, COMPLETE_SHOW )
+
 	MisBeginCondition( AlwaysFailure )
-	MisReultTalk("Ñïàñèáî ÷òî äîñòàâèëè ìíå ïîñûëêó!")
+
+	MisReultTalk("Thank you for sending my parcel over!")
+	
 	MisResultCondition( HasRandMissionNpc, misid, npcid, areaid )
 	MisResultCondition( NoRandNpcItemFlag, misid, npcid )
+	
 	MisResultAction( TakeRandNpcItem, misid, npcid )
 end
+
+--ÑùÀı
+--TestDefMission( 1, "Parcel of Peter", 8, 3, 1 )
+--TestDefMission( 2, "Parcel of Shaitan Teleporter", 8, 4, 1 )

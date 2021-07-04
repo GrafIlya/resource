@@ -1,3 +1,16 @@
+// 场景物件类型表												
+// 类型目前共有7种												
+//SCENEOBJ_TYPE_NORMAL      = 0   普通物体												
+//SCENEOBJ_TYPE_POSE              = 1  场景互动动作物体												
+//SCENEOBJ_TYPE_TERRAIN       = 2  地形障碍标记物体												
+//SCENEOBJ_TYPE_POINTLIGHT = 3  点光源												
+//SCENEOBJ_TYPE_ENVLIGHT     =  4  环境光源												
+//SCENEOBJ_TYPE_FOG                =  5  发雾器												
+//SCENEOBJ_TYPE_ENVSOUND   = 6  Surround Sound Effect												
+//平行光照 : 是否受平行光的影响												
+//点光照     : 是否受点光源影响												
+// Style: 编辑器里美术风格分类												
+//ID	模型文件名	中文名称	类型	类型参数1	类型参数2	Special Parameter	平行光影响	点光源影响	风格	Sign	背景色开关	受地表阴影印象
 1	by-bd001.lmo	白银宫殿01	0	0	0	0	1	0	1	0	1	0
 2	by-bd002.lmo	白银海军事务所01	0	0	0	0	1	0	1	0	1	0
 3	by-bd003.lmo	白银银行总部01	0	0	0	0	1	0	1	0	1	0

@@ -1,73 +1,86 @@
-function config_entry( entry )
-	SetMapEntryEntiID( entry, 193, 1 )
+--ґЛОДјюЦРЈ¬·ІКЗїЙДЬ±»¶аґОЦґРРµДєЇКэЈ¬єЇКэГы¶јТЄјУЙПµШНјГыЗ°ЧєЈ¬Изafter_destroy_entry_testpk
+--ґЛОДјюГїРРЧоґуЧЦ·ыёцКэОЄ255Ј¬ИфУРТмТйЈ¬ЗлУліМРтМЅМЦ
+
+function config_entry(entry) 
+    SetMapEntryEntiID(entry, 193,1) --ЙиЦГµШНјИлїЪКµМеµД±аєЕЈЁёГ±аєЕ¶ФУ¦УЪcharacterinfo.txtµДЛчТэЈ©
+
+end 
+
+function after_create_entry(entry) 
+    local copy_mgr = GetMapEntryCopyObj(entry, 0) --ґґЅЁё±±ѕ№ЬАн¶ФПуЈ¬ґЛєЇКэФЪУРПФКЅИлїЪµДµШНјЦР±ШРлµчУГЈ¬¶ФУЪТюКЅИлїЪµДµШНјЈЁИз¶УОйМфХЅЈ©ОЮТЄµчУГёГЅУїЪ
+
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --ИЎµШНјИлїЪµДО»ЦГРЕПўЈЁµШНјГыЈ¬Чш±кЈ¬Дї±кµШНјГыЈ©
+    Notice("Announcement: Some players have discovered that on Deep Blue region at ["..posx..","..posy.."] emerges a portal that leads to [Icicle Mirage]. All players beware!") --НЁЦЄ±ѕЧй·юОсЖчµДЛщУРНжјТ
+
 end
 
-function after_create_entry( entry )
-	local copy_mgr = GetMapEntryCopyObj( entry, 0 )
-	map_name, posx, posy, tmap_name = GetMapEntryPosInfo( entry )
-	Notice( "Объявление: Поступают сообщения, что в Ледыни ["..posx..","..posy.."] игроки нашли портал, ведущий в [Мираж Ледыни]. Следите за новостями." )
+function after_destroy_entry_binglang2(entry)
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) 
+    Notice("Announcement: According to reports, portal to [Icicle Mirage] has vanished. Check announcement for more details. Enjoy!") 
+
 end
 
-function after_destroy_entry_binglang2( entry )
-	map_name, posx, posy, tmap_name = GetMapEntryPosInfo( entry )
-	Notice( "Объявление: Портал в [Мираж Ледыни] закрылся. Следите за новостями. Удачи!" )
+function after_player_login_binglang2(entry, player_name)
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --ИЎµШНјИлїЪµДО»ЦГРЕПўЈЁµШНјГыЈ¬Чш±кЈ¬Дї±кµШНјГыЈ©
+    ChaNotice(player_name, "Announcement: Some players have discovered that on Deep Blue region at ["..posx..","..posy.."] emerges a portal that leads to [Icicle Mirage]. All players beware!") --НЁЦЄ±ѕЧй·юОсЖчµДЛщУРНжјТ
+
 end
 
-function after_player_login_binglang2( entry, player_name )
-	map_name, posx, posy, tmap_name = GetMapEntryPosInfo( entry )
-	ChaNotice( player_name, "Объявление: Поступают сообщения, что в Ледыни ["..posx..","..posy.."] игроки нашли портал, ведущий в [Мираж Ледыни]. Следите за новостями." )
-end
 
+
+
+
+
+
+
+
+--УГУЪјмІвЅшИлМхјю
+--·µ»ШЦµЈє0Ј¬І»ВъЧгЅшИлМхјюЎЈ1Ј¬іЙ№¦ЅшИлЎЈ
 function check_can_enter_binglang2( role, copy_mgr )
-	local i = IsChaStall( role )
-
+	local i = IsChaStall(role)
 	if i == LUA_TRUE then
-		SystemNotice( role, "Невозможно телепортироваться, когда вы торгуете в лотке" )
-		return 0
+		SystemNotice(role, "Cannot teleport while setting stall")
+		return 0    
 	end
-
-	if Lv( role ) < 70 then
-		SystemNotice( role, "Вы должны быть не ниже 70 уровня, чтобы войти в [Мираж Ледыни]" )
-		return 0
+	if Lv(role) < 70 then
+		SystemNotice(role, " Characters need to be above Lv 70 to enter Icicle Mirage")
+		return 0    
 	end
-	if Lv( role ) > 89 then
-		SystemNotice( role, "Вы должны быть не выше 90 уровня, чтобы войти в [Мираж Ледыни]" )
-		return 0
+	if Lv(role) > 89 then
+		SystemNotice(role, "Characters need to be below Lv 90 to enter Icicie Mirage")
+		return 0    
 	end
-
+	
 	local Num
-	Num = CheckBagItem( role, 2326 )
-
+	Num = CheckBagItem(role,2326)
 	if Num < 1 then
-		SystemNotice( role, "У вас нет маски реальности. Невозможно войти в [Мираж Ледыни]" )
+		SystemNotice(role, "You will be unable to pass through the illusion to get to Icicle Mirage without Reality Mask")	
 		return 0
 	end
 
-	local Credit_Binglang2 = GetCredit( role )
-
+	local Credit_Binglang2 = GetCredit(role)
 	if Credit_Binglang2 < 10 then
-		SystemNotice( role, "Недостаточно очков репутации. Невозможно войти в [Мираж Ледыни]" )
+		SystemNotice(role, "You do not have sufficient reputation points to enter Icicle Mirage")
 		return 0
 	else
-		DelCredit( role, 10 )
+		DelCredit(role,10)
 		return 1
 	end
 end
 
-function begin_enter_binglang2( role, copy_mgr )
-	local Cha = TurnToCha( role )
-	local Dbag = 0
-	Dbag = DelBagItem( Cha, 2326, 1 )
 
+function begin_enter_binglang2(role, copy_mgr)
+
+	local Cha = TurnToCha(role)	
+	local Dbag = 0
+	Dbag = DelBagItem(Cha, 2326, 1)
+	
 	if Dbag == 1 then
-		SystemNotice( role, "Вход в [Мираж Ледыни]" )
-		if ( AddonSystem["Teleport"] == 1 ) then
-			local n = 18
-			teleport( role, n )
-		else
-			MoveCity( role, "Icicle Mirage" )
-		end
+		SystemNotice(role,"Entering [Icicle Mirage]") 
+		MoveCity(role, "Icicle Mirage")
+
 	else
-		SystemNotice( role, "У вас нет маски реальности. Невозможно войти в [Мираж Ледыни]" )
+	
+		SystemNotice(role, "Collection of Reality Mask failed. Unable to enter Icicle Mirage")
 	end
 end

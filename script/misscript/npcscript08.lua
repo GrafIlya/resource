@@ -1,17 +1,21 @@
-print( "‡ Јаг§Є  NPCScript08.lua" )
+-------------------------------------------------------------------
+--									--
+--									--
+--NPCScript03.lua Created by Robin 2006.3.31.				--
+--									--
+--									--
+--------------------------------------------------------------------------
+print( "loading NPCScript08.lua" )
 
-------------------------------------------
---		Диалоги НПС "Ивентер Паппа"		--
-------------------------------------------
+bgtalk1_1 = "I am Event NPC - Pappa. You can check out available events here. If you are interested, select the event for more detail or visit our website at: http://www.piratekingonline.com/"
+bganswer1_13 = "Pirate King Online New Year Race"
+bganswer1_14 = "Pirate's Day"
+bganswer1_15 = "Distinguished family of the pirates"
+bganswer1_16 = "Survey of Pirate King Online. To see which group of player you belong to"
+bganswer1_17 = "4 Slots, Black Dragon"
 
-bgtalk1_1 		= "Я НПС Ивентер Пэппа. YВы можете узнать о последних событиях здесь. Если Вам это интересно, то выберите событие длч того, чтобы узнать о нем более подробно или посетите сайт: http://www.ваш_сайт.ru/"
-bganswer1_13 	= "Пиратия Online Новогодние Гонки "
-bganswer1_14 	= "День Пирата "
-bganswer1_15 	= "Выдающаяся семья Пиратов "
-bganswer1_16 	= "Обзор Пиратии Online. Посмотрим, к какой группе игроков Вы относитесь "
-bganswer1_17 	= "4 Слота, Черный Дракон "
-bgtalk13 		= "0"
-bgtalk14 		= "Событие еще не сделано. Пожалуйста, зайдите на сайт, чтобы узнать больше деталей."
-bgtalk15 		= "Начало 1го Января, копите очки репутаций и у Вас есть шанс выиграть Самоцвет Души, клещи кузнеца и многое другое "
-bgtalk16 		= "http://vote.hdwonline.moliyo.com/vote1/ Перейдите, чтобы узнать больше деталей,"
-bgtalk17 		= "0"
+bgtalk13 = "0"
+bgtalk14 = "Event is not released. Please check out the website for more details."
+bgtalk15 = "Starting from 1st January, accumulate reputation points and you stand a chance to win Gem of Soul, Blacksmith Pliers, Refining Gems and other items from Argent's bar."
+bgtalk16 = "http: //vote.hdwonline.moliyo.com/vote1/ Check for more details,"
+bgtalk17 = "0"

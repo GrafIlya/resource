@@ -1,25 +1,26 @@
-function config_entry( entry )
-	SetMapEntryEntiID( entry, 193, 1 )
+--´ËÎÄ¼şÖĞ£¬·²ÊÇ¿ÉÄÜ±»¶à´ÎÖ´ĞĞµÄº¯Êı£¬º¯ÊıÃû¶¼Òª¼ÓÉÏµØÍ¼ÃûÇ°×º£¬Èçafter_destroy_entry_testpk
+--´ËÎÄ¼şÃ¿ĞĞ×î´ó×Ö·û¸öÊıÎª255£¬ÈôÓĞÒìÒé£¬ÇëÓë³ÌĞòÌ½ÌÖ
+
+function config_entry(entry) 
+    SetMapEntryEntiID(entry, 193,1) --ÉèÖÃµØÍ¼Èë¿ÚÊµÌåµÄ±àºÅ£¨¸Ã±àºÅ¶ÔÓ¦ÓÚcharacterinfo.txtµÄË÷Òı£©
+
+end 
+
+function after_create_entry(entry) 
+    local copy_mgr = GetMapEntryCopyObj(entry, 0) --´´½¨¸±±¾¹ÜÀí¶ÔÏó£¬´Ëº¯ÊıÔÚÓĞÏÔÊ½Èë¿ÚµÄµØÍ¼ÖĞ±ØĞëµ÷ÓÃ£¬¶ÔÓÚÒşÊ½Èë¿ÚµÄµØÍ¼£¨Èç¶ÓÎéÌôÕ½£©ÎŞÒªµ÷ÓÃ¸Ã½Ó¿Ú
+
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --È¡µØÍ¼Èë¿ÚµÄÎ»ÖÃĞÅÏ¢£¨µØÍ¼Ãû£¬×ø±ê£¬Ä¿±êµØÍ¼Ãû£©
+
 end
 
-function after_create_entry( entry )
-	local copy_mgr = GetMapEntryCopyObj( entry, 0 )
-	local EntryName = "Ìèğ Äåìîíîâ 2"
-	SetMapEntryEventName( entry, EntryName )
-	map_name, posx, posy, tmap_name = GetMapEntryPosInfo( entry )
+function after_destroy_entry_puzzleworld2(entry)
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) 
+
 end
 
-function after_destroy_entry_puzzleworld2( entry )
-	map_name, posx, posy, tmap_name = GetMapEntryPosInfo( entry )
-end
+function begin_enter_puzzleworld2(role, copy_mgr) 
+  	
+	SystemNotice(role,"Enters [Demonic World 2]") 
+	MoveCity(role, "Demonic World 2")
 
-function begin_enter_puzzleworld2( role, copy_mgr )
-	SystemNotice( role, "Âû âîøëè â [Ìèğ Äåìîíîâ 2]" )
-
-	if ( AddonSystem["Teleport"] == 1 ) then
-		local n = math.random( 50, 53 )
-		teleport( role, n )
-	else
-		MoveCity( role, "Demonic World 2" )
-	end
 end

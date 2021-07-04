@@ -1,211 +1,343 @@
-print( "‡ £àã§ª  AI.lua" )
 
-dofile( GetResPath( "script/ai/ai_sdk.lua" ) )
+dofile(GetResPath("script/ai/ai_sdk.lua"))
+
 
 vvv = 0
-
-function debugout( c, info )
+function debugout(c, info)
+    --if GetChaDefaultName(c)=="Demonic Snowman" then
+       --ChaNotice("New age baby", info..vvv)
+       --vvv = vvv + 1 
+    --end
 end
 
-function ai_idle( c )
-	if ai_host(c) == 1 then
-		return
-	end
-	if is_patrol( c ) == 0 then
-		birth_rand_move( c, 600 )
-	else
-		local px, py = GetChaPatrolPos( c )
-		local ox, oy = GetChaSpawnPos( c )
-		local patrol_state = GetChaPatrolState( c )
-		if patrol_state == 0 then
-			ChaMove( c, px, py )
-			SetChaPatrolState( c, 2 )
-		elseif patrol_state == 1 then
-			ChaMove( c, ox, oy )
-			SetChaPatrolState( c, 3 )
-		elseif patrol_state == 2 then
-			if is_near_pos( c, px, py, 40 ) == 1 then
-				SetChaPatrolState( c, 1 )
-			end
-		elseif patrol_state == 3 then
-			if is_near_pos( c, ox, oy, 40 ) == 1 then
-				SetChaPatrolState( c, 0 )
-			end
-		end
-	end
+
+---------------------------- Éæ¼°Á÷³ÌµÄAI´¦Àíº¯Êı --------------------------------------------
+--AITable = {}
+--
+--AITable[1] = {}
+--AITable[1][1] = {}
+--AITable["monster"] = {}
+--AITable["monster"]["seearea"] = {}
+--AITable["monster"]["seearea"]["type"] = "line"
+--AITable["monster"]["seearea"].func = ai_idle
+--AITable["monster"]["seearea"].func(c)
+
+-----------------------------
+-- Ã»ÓĞÊÂÇé, Ëæ»úÒÆ¶¯»òÕßÑ²Âß
+-----------------------------
+function ai_idle(c)
+
+    if ai_host(c)==1 then return end
+
+    if is_patrol(c)==0 then 
+  
+        birth_rand_move(c, 600)  --ÔÚ³öÉúµã¸½½ü6Ã×·¶Î§ÄÚËæ»úÒÆ¶¯ 
+  
+    else
+  
+        local px, py = GetChaPatrolPos(c) --È¡³öÑ²Âßµã
+        
+        local ox, oy = GetChaSpawnPos(c)  --È¡³ö³öÉúµã
+     
+        local patrol_state = GetChaPatrolState(c)
+     
+        if patrol_state==0 then 
+        
+            ChaMove(c, px, py)
+            SetChaPatrolState(c, 2) --ÉèÖÃÎªÒÆ¶¯ÖĞ
+
+        elseif patrol_state==1 then
+        
+            ChaMove(c, ox, oy)
+            SetChaPatrolState(c, 3)
+     
+        elseif patrol_state==2 then 
+        
+            if is_near_pos(c, px, py, 40)==1 then
+                SetChaPatrolState(c, 1)   
+            end
+     
+        elseif patrol_state==3 then
+     
+            if is_near_pos(c, ox, oy, 40)==1 then
+                SetChaPatrolState(c, 0)   
+            end
+     
+        end
+  
+    end
+
 end
 
-function ai_host( c )
-	if GetChaAIType( c ) == AI_NONE then
-		return 0
-	end
-	local host = GetChaHost( c )
-	if host ~= nil then
-		local dis = get_distance( c, host )
-		if dis > 400 then
-			local hx, hy = GetChaPos( host )
-			local rx = 200 - Rand( 400 )
-			local ry = 200 - Rand( 400 )
-			ChaMove( c, hx + rx, hy + ry )
-		end
-		return 1
-	end
-	return 0
+
+-----------------------
+-- ÓĞÖ÷ÈËÊ±µÄ´¦Àí
+-----------------------
+ function ai_host(c)
+ 
+    if GetChaAIType(c)==AI_NONE then return 0 end  --Ë®À×¹Ö, ²»ÒÆ¶¯
+    
+    local host = GetChaHost(c)
+       
+    if host~=nil then 
+            
+        local dis = get_distance(c, host)
+        
+        if dis > 400 then --±£³ÖÔÚ4Ã×ÒÔÄÚ
+            
+            local hx, hy = GetChaPos(host)
+            local rx = 200 - Rand(400)
+            local ry = 200 - Rand(400)
+            ChaMove(c, hx + rx, hy + ry)
+            
+        end
+         
+        return 1    
+    end
+
+  return 0
 end
 
-function ai_block( c, t )
-	if GetChaBlockCnt( c ) > 0 then
-		local flee_flag = Rand( 10 )
-		if t ~= nil and flee_flag > 5 then
-			flee( c, t )
+-----------------------
+-- Åöµ½ÕÏ°­Ê±µÄ´¦Àí
+-----------------------
+function ai_block(c, t)
+
+    if GetChaBlockCnt(c) > 0 then --±»ÕÏ°­µ²×¡
+  		    
+        local flee_flag = Rand(10)
+        if t~=nil and flee_flag > 5 then
+		   flee(c, t)           --ÓĞÄ¿±êÊ±ÓĞ50%µÄ¼¸ÂÊ·´·½ÏòÒÆ¶¯
  		else
-			local move_flag = 1
-			if move_flag == 1 then
-				rand_move( c, 400 )
-			end
-		end
-		SetChaBlockCnt( c, 0 )
-	end
+		   local move_flag = 1--Rand(2)
+           if move_flag==1 then rand_move(c, 400) end    --4Ã×·¶Î§ÄÚËæ»úÒÆ¶¯ 
+    	end
+		
+        SetChaBlockCnt(c, 0)  --ÕÏ°­¼ÆÊıÇå0
+    
+    end
+
 end
 
-function ai_target( c, t )
-	local ai_type = GetChaAIType( c )
+-------------------------
+-- ´¦Àí¹ÖÎïÓĞÄ¿±êÊ±µÄ±íÏÖ
+-------------------------
+function ai_target(c, t)
+    
+    local ai_type = GetChaAIType(c)
+   
+    if ai_type ~= 4 then
+	    if ai_update_target(c, t, ai_type)==1 then --Èç¹û¾­¹ı¸üĞÂ¼ì²éºó, Ä¿±êÒÑ±ä, Ôò·µ»Ø
+	       return 
+	    end 
+    end
+    
+    --²»Í¬µÄaiÀàĞÍ¶Ô´ıÄ¿±êÓĞ²»Í¬µÄ·½Ê½
 
-	if ai_type ~= 4 then
-		if ai_update_target( c, t, ai_type ) == 1 then
-			return
-		end
-	end
+    if ai_type==AI_FLEE then             --±»¹¥»÷ºó, Ö»»áÌÓÅÜ
+        flee(c, t)
+        return
+    elseif ai_type==4 then             --±»¹¥»÷ºó, Ö»»áÌÓÅÜ
+        star_move_to(c, t)
+        return
+    elseif ai_type==AI_ATK_FLEE then     --±»±Æ½üºó²ÅÌÓÅÜ
+        if is_near(c, t, 400)==1 then    --Ä¿±êÒÑ¾­¿¿½ü
+            flee(c, t)
+            return
+        end
+    end
 
-	if ai_type == AI_FLEE then
-		flee( c, t )
-		return
-	elseif ai_type == 4 then
-		star_move_to( c, t )
-		return
-	elseif ai_type == AI_ATK_FLEE then
-		if is_near( c, t, 400 ) == 1 then
-			flee( c, t )
-			return
-		end
-	end
-
-	if ai_type > 20 then
-		special_ai( c, t,ai_type )
+--ÌØÊâAIÕ½¶·´¦Àí¹ı³Ì£¨Ö÷ÒªÕë¶ÔBoss¹ÖÎï£©
+	if ai_type>20 then          --20ÒÔÉÏÎªBossAI
+		special_ai(c, t,ai_type)
 	else
-		local skill_id = select_skill( c )
-		ChaUseSkill( c, t, skill_id )
+		local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+		ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ
 	end
+  
+    --Ò»°ã¼¼ÄÜ£¨ÌîĞ´ÔÚ½ÇÉ«±íÖĞµÄ¼¼ÄÜ£©´¦Àí¹ı³Ì
+  
+    if is_cha_can_summon(c)==1 then 
+        summon_monster(c, t)         --ÕÙ¼¯ÆäËûÍ¬Àà¹ÖÀ´¹¥»÷Ä¿±ê
+    end
 
-	if is_cha_can_summon( c ) == 1 then
-		summon_monster( c, t )
-	end
 end
 
+
+
+---------------------------
+-- ´¦Àí¹ÖÎïÃ»ÓĞÄ¿±êÊ±µÄ±íÏÖ
+---------------------------
 function ai_no_target(c)
 	local ai_type = GetChaAIType(c)
-	if ai_type==4 then             
+	
+
+	if ai_type==4 then             --±»¹¥»÷ºó, Ö»»áÌÓÅÜ
+		--Notice("ai_no_target&ai_type==4")
 		star_delete_to(c)
 		return
 	end 
     local x, y = GetChaSpawnPos(c)
+
     if is_near_pos(c, x, y, 100)==1 then
        SetChaPatrolState(c, 0)
     end
-    if ai_seek_target(c)==0 then       
-        if is_moving_back(c)==0 then   
+    
+    if ai_seek_target(c)==0 then       --Ã»ÓĞÕÒµ½Ä¿±ê
+  
+        if is_moving_back(c)==0 then   --Ã»ÓĞÍù»Ø×ß
+           
    	   local now_x, now_y = GetChaPos(c)
+   
            local dis = (now_x - x) * (now_x - x) + (now_y - y) * (now_y - y)
+          
            if dis > 5000 then        
                ChaMove(c, x, y)
-               debugout(c, "ai_no_target Ñíåãîâèê àòàêóåò íà ğàññòîÿíèè MoveToSleep")
+               debugout(c, "ai_no_target Snowman distance spawn further MoveToSleep")
            else
                ai_idle(c)
            end
        else
+	    
 	   local move_flag = Rand(2)
 	   if move_flag==1 then
     	        ChaMove(c, x, y)
-                debugout(c, "ai_no_target Ñíåãîâèê MoveToSleep")
+                debugout(c, "ai_no_target Snowman MoveToSleep")
            end
+	
         end
     end
 end
 
+
+-----------------------------------
+-- Ö÷¶¯¹¥»÷µÄ¹Ö£¬ÔòÎª×Ô¼ºÑ°ÕÒÒ»¸öÄ¿±ê
+-----------------------------------
 function ai_seek_target(c) 
+    
     local ai_t = GetChaAIType(c)
+    
     if ai_t<=AI_R_ATK then 
         return 0 
     end
+
     local host = GetChaHost(c)
     if host~=nil then
-        local t = GetChaFirstTarget(host) 
+        
+        local t = GetChaFirstTarget(host) --Í¨¹ıÉËº¦ÅĞ¶ÏÈ¡µÃÓÅÏÈÄ¿±ê
       	if t~=nil and is_near(c, t, GetChaVision(c))==1 then
            SetChaTarget(c, t)
            return 1
         end
+    
     else
-        local t = find_target(c, 0) 
+        
+        local t = find_target(c, 0) --Ã»ÓĞÄ¿±ê, ÔòÑ°ÕÒÒ»¸ö, Ã»ÓĞÕÒµ½ÔòtÎª¿Õ
         if t~=nil then
             SetChaTarget(c, t)
             return 1
         end
+    
     end
+
     return 0
 end
 
+---------------------------------------------------------------
+-- ¼ì²éÄ¿±êµÄ¸üĞÂÇé¿ö, return 1±íÊ¾Ä¿±êÒÑ±ä, return 0±íÊ¾Ä¿±êÎ´±ä
+---------------------------------------------------------------
 function ai_update_target(c, t, ai_type)
-    if ai_type<=AI_N_ATK or t==GetChaHost(c) then 
+
+    if ai_type<=AI_N_ATK or t==GetChaHost(c) then --Èç¹ûÄ¿±êÎªÖ÷ÈËÔòÇå³ı
        clear_target(c) 
        return 1 
     end
+  
     local tNew = nil
+    
     if Rand(100) < CHANGE_TARGET_RATIO then
-    	tNew = GetChaFirstTarget(c) 
+    	tNew = GetChaFirstTarget(c) --Í¨¹ıÉËº¦ÅĞ¶ÏÈ¡µÃÓÅÏÈÄ¿±ê
       	if tNew~=nil and tNew~=t then
-        	clear_target(c)         
-         	SetChaTarget(c, tNew)   
+        	clear_target(c)         --Çå³ıÔ­Ä¿±ê
+         	SetChaTarget(c, tNew)   --ÉèÖÃĞÂÄ¿±ê
             return 1
     	end
 	end
+    
     local vision = GetChaVision(c)
-    if is_near(c, t, vision)==0 then 
-        clear_target(c)  
+    if is_near(c, t, vision)==0 then --Ä¿±ê¾àÀëÒÑ¾­Ì«Ô¶
+        clear_target(c)  --Çå³ıÄ¿±ê
         return 1
     end
-    if is_chase(c)==0 then 
-        clear_target(c)      
+    
+    --Ä¿±êÒÑ¾­Àë¿ª×·»÷·¶Î§, ²»ÔÙ×·»÷
+    if is_chase(c)==0 then --¼ì²é×·»÷·¶Î§, ÅÚËş²»Ö´ĞĞ
+        clear_target(c)      --Çå³ıÄ¿±ê
         local x, y = GetChaSpawnPos(c)
         ChaMoveToSleep(c, x, y)
         set_moving_back(c, 1)
         return 1
     end
-    return 0 
+
+    return 0 --·µ»Ø1±íÊ¾Ä¿±ê²»±ä
+
 end
 
+
+
+------------------------------------------------------------------------------------------------
+---------------------------------------    Âß¼­Ñ­»·  -------------------------------------------
+------------------------------------------------------------------------------------------------
+
+
+---------------------------------
+--AI¸öÌåÑ­»·º¯Êı, ËùÓĞ½ÇÉ«ÒÀ´ÎÖ´ĞĞ
+---------------------------------
 function ai_loop(c)
+    
     local ai_type = GetChaAIType(c)
+
     if ai_type==AI_NONE then return end
-    local t = GetChaTarget(c) 
+
+
+    
+    local t = GetChaTarget(c) --È¡³öµ±Ç°½ÇÉ«µÄÄ¿±ê
+
     if t~=nil then 
-        ai_target(c, t) 
+        ai_target(c, t) --ÓĞÄ¿±ê
     else
-     	ai_no_target(c) 
+     	ai_no_target(c) --ÎŞÄ¿±ê
   	end
-    ai_tick(c, t) 
+  	
+    ai_tick(c, t) --Ã¿´Î¶¼Ö´ĞĞ
+  	
 end
 
+
+---------------------------
+-- Ã¿´Îai_loop¶¼Òªµ÷ÓÃµÄ¹ı³Ì
+---------------------------
 function ai_tick(c, t)
+
+    --Èç¹ûÊÇ·´ÒşÉí¹Ö, Ôò½â³ıÊÓÒ°ÄÚ½ÇÉ«µÄÒşÉí×´Ì¬
     local type_id = GetChaTypeID(c)
     if ai_flag_nohide[type_id]==1 then
         local vision = GetChaVision(c)
         ClearHideChaByRange(c, 0, 0, vision, 0)
     end
+
+    --´¦ÀíÕÏ°­
     ai_block(c, t)
+
 end
 
+---------------------------
+-- Boss(ÌØÊâ)AI´¦Àí¹ı³Ì
+---------------------------
+
 function special_ai(c, t,ai_type)
-	if ai_type == MWHH then    
+
+	if ai_type == MWHH then    --Ú¤Íõ»Ã»ÊÈç¹û²»ÔÚÊ¥ÑÛÇøÓò£¬²»ÔÚÇ±ĞĞ£¬ÇÒÄ¿±ê²»ÔÚÑ£ÔÎ×´Ì¬ÔòÇ±ĞĞ£¬Èç¹ûÄ¿±êÒÑ¾­Ñ£ÔÎ£¬ÆÕÍ¨¹¥»÷£»Èç¹û²»ÔÚÊ¥ÑÛÇøÓòÒÑ¾­Ç±ĞĞ£¬Ä¿±ê²»ÔÚÑ£ÔÎ×´Ì¬Ôò¹íÎè£¬Ä¿±êÑ£ÔÎ£¬ÆÕÍ¨¹¥»÷£»Èç¹ûÔÚÊ¥ÑÛÇøÓò£¬ÆÕÍ¨¹¥»÷¡£
 		local StateLv = GetChaStateLv ( c , STATE_SYZY )
 		if StateLv == 0 then
 			local StateLv = GetChaStateLv ( c , STATE_YS )
@@ -214,89 +346,99 @@ function special_ai(c, t,ai_type)
 				if StateLv == 0 then
 					ChaUseSkill(c, c, 123)
 					ChaUseSkill(c, t, 86)
-					local skill_id = select_skill(c) 
-					ChaUseSkill(c, t, skill_id)      
+					local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+					ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ
+
 					return
 				else
-					local skill_id = select_skill(c) 
-					ChaUseSkill(c, t, skill_id)      
+					local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+					ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ
 					return
 				end
 			else
 				local StateLv = GetChaStateLv ( t , STATE_XY )
 				if StateLv == 0 then
 					ChaUseSkill(c, t, 86)
-					local skill_id = select_skill(c) 
-					ChaUseSkill(c, t, skill_id)      
+					local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+					ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ
 					return
 				else
-					local skill_id = select_skill(c) 
-					ChaUseSkill(c, t, skill_id)      
+					local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+					ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ
 					return
 				end
 			end
 		else
-					local skill_id = select_skill(c) 
-					ChaUseSkill(c, t, skill_id)      
+					local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+					ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ
 					return
 		end
 	end
-	if ai_type == MWYH then  
+---------------------------------------------------------------------------------------------------------
+
+	if ai_type == MWYH then  --Ñı»ğÊ×ÏÈÍÈ¾Ñ,È»ºóÊÖ¾Ñ,ÔÙ¿ªÊ¼ÆÕÍ¨¹¥»÷
 		local StateLv = GetChaStateLv ( t , SK_TJ )
 		if StateLv ~= 0 then
 			local StateLv = GetChaStateLv ( t , SK_SJ )
 			if StateLv == 0 then
 				ChaUseSkill(c, t, 95)
-				local skill_id = select_skill(c) 
-				ChaUseSkill(c, t, skill_id)      
+				local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+				ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ
 				return
 			else
-				local skill_id = select_skill(c) 
-				ChaUseSkill(c, t, skill_id)      
+				local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+				ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ
 				return
 			end
 		else
 			ChaUseSkill(c, t, 94)
-			local skill_id = select_skill(c) 
-			ChaUseSkill(c, t, skill_id)      
+			local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+			ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ
 			return
 		end
 	end
+---------------------------------------------------------------------------------------------------------
+
 	if ai_type == MWXS then
-		if is_near(c, t, 750)~=1 then    
+		if is_near(c, t, 750)~=1 then    --Ä¿±êÒÑ¾­¿¿½ü
 			ChaUseSkill(c, t, 325)
 		end
-		local skill_id = select_skill(c) 
-		ChaUseSkill(c, t, skill_id)      
+		local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+		ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ
 	end
+---------------------------------------------------------------------------------------------------------
 	if ai_type == MWBK then
-		if is_near(c, t, 750)~=1 then    
+		if is_near(c, t, 750)~=1 then    --Ä¿±êÒÑ¾­¿¿½ü
 			ChaUseSkill(c, t, 325)
 		end
-		local skill_id = select_skill(c) 
-		ChaUseSkill(c, t, skill_id)      
+		local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+		ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ		
 	end
+
+---------------------------------------------------------------------------------------------------------
 	if ai_type == MWFH then
 		local StateLv = GetChaStateLv ( c , STATE_FNQ )
 		if StateLv ~= 0 then
 			local StateLv = GetChaStateLv ( t , STATE_BDJ )
 			if StateLv == 0 then
 				ChaUseSkill(c, t, 93)
-				local skill_id = select_skill(c) 
-				ChaUseSkill(c, t, skill_id)      
+				local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+				ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ
 				return
 			else
-				local skill_id = select_skill(c) 
-				ChaUseSkill(c, t, skill_id)      
+				local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+				ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ
 				return
 			end
 		else
 			ChaUseSkill(c, c, 223)
-			local skill_id = select_skill(c) 
-			ChaUseSkill(c, t, skill_id)      
+			local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+			ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ
 			return
 		end
 	end
+---------------------------------------------------------------------------------------------------------
+
 	if ai_type == MWJW then
 		local StateLv = GetChaStateLv ( c , STATE_MFD )
 		if StateLv == 0 then
@@ -306,87 +448,109 @@ function special_ai(c, t,ai_type)
 			if percent>=0.1 then
 				ChaUseSkill( c, c, 106 )
 			else
-				local skill_id = select_skill(c) 
-				ChaUseSkill(c, t, skill_id)      
+				local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+				ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ
 			end
 			return
 		end
+
 		local StateLv = GetChaStateLv ( c , STATE_TSHD )
 		if StateLv == 0 then
 			ChaUseSkill(c, c, 103 ) 
-			local skill_id = select_skill(c) 
-			ChaUseSkill(c, t, skill_id)      
+			local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+			ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ
 			return
 		end
+
 		local StateLv = GetChaStateLv ( c , STATE_FZLZ )
 		if StateLv == 0 then
 			ChaUseSkill(c, c, 101)
-			local skill_id = select_skill(c) 
-			ChaUseSkill(c, t, skill_id)      
+			local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+			ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ
 			return
 		end
-		local skill_id = select_skill(c) 
-		ChaUseSkill(c, t, skill_id)      
+
+		local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+		ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ
+
 	end
+---------------------------------------------------------------------------------------------------------
+
 	if ai_type == MWLH then
 		local StateLv = GetChaStateLv ( t , STATE_JNJZ )
 		if StateLv == 0 then
 			ChaUseSkill( c, t, 104 )
-			local skill_id = select_skill(c) 
-			ChaUseSkill(c, t, skill_id)      
+			local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+			ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ
 			return
 		end
+
 		local StateLv = GetChaStateLv ( t , STATE_GJJZ )
 		if StateLv == 0 then
 			ChaUseSkill(c, t, 105 ) 
-			local skill_id = select_skill(c) 
-			ChaUseSkill(c, t, skill_id)      
+			local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+			ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ
 			return
 		end
+
 		local StateLv = GetChaStateLv ( t , STATE_SYNZ )
 		if StateLv == 0 then
 			ChaUseSkill(c, t, 121)
-			local skill_id = select_skill(c)
-			ChaUseSkill(c, t, skill_id)
+			local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+			ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ
 			return
 		end
-		local skill_id = select_skill(c)
-		ChaUseSkill(c, t, skill_id)
+
+		local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+		ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ
 	end
+---------------------------------------------------------------------------------------------------------
+
 	if ai_type == MWHS then
 		local job = GetChaAttr( t , ATTR_JOB )
 		if job == 8 then
 			ChaUseSkill(c, t, 213)
-			local skill_id = select_skill(c)
-			ChaUseSkill(c, t, skill_id)
+			local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+			ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ
 			return
 		else
-			local skill_id = select_skill(c)
-			ChaUseSkill(c, t, skill_id)
+			local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+			ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ
 		end
 	end
+---------------------------------------------------------------------------------------------------------
+
 	if ai_type == MWHDS then
 		local StateLv = GetChaStateLv ( c , STATE_XY )
 		if StateLv~=0 then
 			State_Xy_Rem ( c , StateLv )
 		end
+
 		local StateLv = GetChaStateLv ( c , STATE_SJ )
 		if StateLv~=0 then
 			State_Sj_Rem ( c , StateLv )
 		end
-		local skill_id = select_skill(c)
-		ChaUseSkill(c, t, skill_id)
+
+		local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+		ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ
 	end
+---------------------------------------------------------------------------------------------------------
+
 	if ai_type == MHKL then
+
 		local StateLv = GetChaStateLv ( c , STATE_XY )
 		if StateLv~=0 then
 			State_Xy_Rem ( c , StateLv )
 		end
+
 		local StateLv = GetChaStateLv ( c , STATE_SJ )
 		if StateLv~=0 then
 			State_Sj_Rem ( c , StateLv )
 		end
-		local skill_id = select_skill(c)
-		ChaUseSkill(c, t, skill_id)
+
+		local skill_id = select_skill(c) --¹ÖÎï°´ÕÕ±ÈÂÊÑ¡Ôñ×Ô¼ºµÄ¼¼ÄÜ  
+		ChaUseSkill(c, t, skill_id)      --ÏòÄ¿±êÒÆ¶¯²¢Ê¹ÓÃ¼¼ÄÜ
+
 	end
+
 end
