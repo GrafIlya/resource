@@ -1,0 +1,1 @@
+print( "Loading MissionScript07.lua" )

@@ -1,0 +1,3 @@
+//Serial	NPC Name	NPC Type	Chrindex ID	Show Mini-map	Coordinates starting point	Coordination Goal	NPC placement	Region	Region ID	NPC Script	info manage	Test Status
+1	Диана	1	774	7	107300,13500	107300,13500	180	Research Shelter	103	0	t_diana	0
+2	Ангел Перерождения	1	990	7	176200,90400	176200,90400	270	Research Shelter	103	0	rb_angel2	0

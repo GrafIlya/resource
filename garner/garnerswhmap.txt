@@ -1,0 +1,2 @@
+//ID	binded entity ID	incident type	entity placement location	entity placement direction	Target map name	Target map location	Activate Determinant Requirement	Name
+1	193	4	242700,288200	-1	winterland	32700,97300	1	Moscow to WinterLand

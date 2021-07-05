@@ -1,0 +1,1 @@
+print( "Loading MissionScript04.lua" )
