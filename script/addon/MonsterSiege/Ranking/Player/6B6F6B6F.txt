@@ -1,1 +1,0 @@
-return {["Kills"]=0,["Name"]="koko"}

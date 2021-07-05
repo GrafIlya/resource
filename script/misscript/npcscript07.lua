@@ -1,1 +1,0 @@
-print( "Загрузка NPCScript07.lua" )

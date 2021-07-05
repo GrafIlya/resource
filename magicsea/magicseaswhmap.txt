@@ -1,3 +1,0 @@
-1	2492	4	220232,278111	-1	jialebi	60611,108311	1	Magical Ocean - Caribbean
-2	2492	4	87711,375611	-1	jialebi	73411,103211	1	Magical Ocean - Caribbean
-3	2492	4	101011,37400	-1	jialebi	69711,92011	1	Magical Ocean - Caribbean
